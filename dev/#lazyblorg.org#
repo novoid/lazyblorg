@@ -1,0 +1,695 @@
+# Time-stamp: <2013-01-08 15:03:54 vk>
+# -*- coding: utf-8 -*-
+* header information                                               :noexport:
+:PROPERTIES:
+:CREATED:  [2013-01-08 Tue 14:24]
+:END:
+
+#+TITLE:     lazyblorg development informations and issue tracker
+#+AUTHOR:    Karl Voit
+#+EMAIL:     tools@Karl-Voit.at
+#+DATE:      
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+
+#+STARTUP: hidestars
+
+#+STARTUP: overview   (or: showall, content, showeverything)
+http://orgmode.org/org.html#Visibility-cycling
+
+#+TODO: TODO(t) NEXT(n) STARTED(s) WAITING(w@/!) SOMEDAY(S!) | DONE(d!/!) CANCELLED(c@/!)
+http://orgmode.org/org.html#Per_002dfile-keywords
+
+#+TAGS: { wish(w) bug(b) userstory(u) inconsistency(i) question(q) architecture(a) tests(t) }
+http://orgmode.org/org.html#Setting-tags
+
+
+* Issue Tracking                                                     :issues:
+:PROPERTIES:
+:VISIBILITY: children
+:CREATED:  [2013-01-08 Tue 14:26]
+:END:
+
+- [ ] move id:2012blogwishlist-copy ideas to unique issues
+
+** NEXT [#A] define (link) structure of blog entries                  :tests:
+:PROPERTIES:
+:CREATED: [2012-07-22 Sun 17:29]
+:END:
+
+- http://karl-voit.at/2012/07/22/example-entry/
+with:
+- "2012", "07", "22" being index pages (archive) containing links to all
+  underlying blog entries
+- "example-entry" is grabbed out of :ID: property
+  - if :ID: is like "2012-07-22-example-entry" the date will be
+    removed
+  - if :ID: does not start with "YYYY-MM(-DD)" it gets used right away
+  - user has to make sure that IDs are unique over all entries!
+
+- http://karl-voit.at/blog/2012/11/31/This_is_the_title/ -> URL of
+  entry; title gets parsed from heading title
+- http://karl-voit.at/blog/2012/11/31/ -> link to monthly overview (currently)
+- http://karl-voit.at/blog/2012/11/ -> overview over the month
+- http://karl-voit.at/blog/2012/ -> overview over the year
+- http://karl-voit.at/blog/ -> blog starting page
+** NEXT setting up test and data                                     :tests:
+:PROPERTIES:
+:CREATED: [2012-04-17 Tue 14:08]
+:END:
+
+- [ ] Org-mode example files
+  - containing non blogging content *and* headings marked with ":blog:" tag
+  - containing the string ":blog:" as non-tag
+  - containing org-mode blog entries in different hierarchy depth
+- [ ] corresponding resulting HTML files
+- [ ] included HTML files
+
+** NEXT spike: parsing Org-mode files in Python                :architecture:
+:PROPERTIES:
+:CREATED: [2012-07-22 Sun 18:08]
+:END:
+
+- https://github.com/bjonnh/PyOrgMode
+- list of several Python parsers: https://github.com/julian-gehring/worg/blob/master/org-tools/index.org
+  - http://members.optusnet.com.au/~charles57/GTD/orgnode.html
+  - https://github.com/bjonnh/PyOrgMode
+
+** TODO [#B] CSS generated using Org/babel                    :architecture:
+:PROPERTIES:
+:CREATED:  [2012-12-13 Thu 10:08]
+:END:
+
+- css.org with Comments and css-blocks
+
+#+BEGIN_SRC css
+example-CSS content
+#+END_SRC
+
+- automatically extracting CSS code from that Org-mode file
+
+** TODO [#C] Date in heading = link to day in Wikipedia          :userstory:
+:PROPERTIES:
+:CREATED:  [2013-01-08 Tue 14:38]
+:END:
+
+- YYYY-MM-DD -> links to Wikipedia-entries of days
+  - https://en.wikipedia.org/wiki/Portal:Current_events/2010_August_26
+
+** TODO mark updates on entries                                :architecture:
+:PROPERTIES:
+:CREATED:  [2012-11-05 Mon 10:50]
+:END:
+
+- heading gets a blog entry with a unique :ID:
+- setting «Update 1/2/3/...» for each one of those:
+: :LOGBOOK:
+: - State "DONE"       from "NEXT"       [2011-10-07 Fri 15:40]
+: :END:
+- heading with known unique ID and no state DONE
+  - should stay the same until state changes back to DONE
+  - this requires something which remembers states
+  - this requires keeping old entries
+
+- body:
+  - manual section:
+    - Updates:
+      1. YYYY-MM-DD: short description
+      2. YYYY-MM-DD: short description
+
+see also id:2012-11-06-ago-generating
+
+** TODO include external image files                             :userstory:
+:PROPERTIES:
+:CREATED:  [2012-11-05 Mon 10:54]
+:END:
+
+- "lbimg:image.png"
+  - works in Orgmode using custom link to valid folder
+  - lazyblorg recognizes it and translates it to img
+
+- show a fixed maximum width/height image
+  - probably with a magnifying glass and a plus symbol in its lower
+    right corner
+- show the big version when clicking on it
+
+*** TODO research different Org-mode ways of defining including images
+:PROPERTIES:
+:CREATED:  [2012-11-05 Mon 10:55]
+:END:
+
+1. just link a file, do not show image
+2. show the linked image directly
+** TODO format tables                                            :userstory:
+:PROPERTIES:
+:CREATED:  [2012-12-21 Fri 09:49]
+:END:
+
+- add JavaScript to be able to sort by column
+- possible cnadidates for methods
+  - http://tablesorter.com/docs/
+  - HTML5 (?)
+  - CSS: http://www.cssjuice.com/16-sortable-table-techniques/
+
+- for lists
+  - http://farhadi.ir/projects/html5sortable/
+
+** TODO provide RSS feed(s)                                      :userstory:
+:PROPERTIES:
+:CREATED:  [2012-11-05 Mon 10:57]
+:END:
+
+- sorted by last date within LOGBOOK or PROPERTIES drawers
+- one general RSS feed
+- one feed for each tag
+
+** TODO tags, tag cloud, tag descriptions                        :userstory:
+:PROPERTIES:
+:CREATED:  [2012-11-05 Mon 10:57]
+:END:
+
+- tag cloud for getting a quick overview on the blog itself
+- a list of all tags on front page with link to tag-descriptions
+- each tag gets a tag-description page
+  - what I mean by this tag with examples
+  - link to RSS feed for this tag
+  - link to a list of blog entries for this tag
+
+- see also id:2012-11-11-autotags
+
+** TODO auto-tag entries                                         :userstory:
+:PROPERTIES:
+:CREATED:  [2012-11-11 Sun 13:43]
+:ID: 2012-11-11-autotags
+:END:
+
+*** Language
+:PROPERTIES:
+:CREATED:  [2012-11-11 Sun 13:44]
+:END:
+
+- lang-de, de, en, us, ... ?
+- language tag is automatically derived
+  - by guessing language based on common stopwords or external library
+
+*** Length
+:PROPERTIES:
+:CREATED:  [2012-11-11 Sun 13:44]
+:END:
+
+- oneliners
+  - below a certain threshold
+- middlesize(sic?)
+  - between oneliners and fullsizeentries
+- fullsize(sic?)
+
+*** Auto-Disclaimer
+:PROPERTIES:
+:CREATED:  [2012-11-15 Thu 11:47]
+:END:
+
+- hooks for :TAGS: (can be optional) or case-sensitive keywords in headings
+- if found:
+  - link to a special pre-defined page
+
+- Example: if "What The World Needs"|"WTWN:" is found, link to a page
+  where WTWN-series is described in general.
+** TODO Decision algorithm for generating entries             :architecture:
+:PROPERTIES:
+:CREATED:  [2012-11-06 Tue]
+:ID: 2012-11-06-ago-generating
+:END:
+
+| *case* | *ID*      | *created*    | *last_update*   | *checksum*   | *result*                     | *description*                    |
+|--------+-----------+--------------+-----------------+--------------+------------------------------+----------------------------------|
+|      1 | not found | DC           | DC              | DC           | WARNING                      | blog-entry without ID            |
+|      2 | not known | DC           | DC              | DC           | generate; RSS                | 1st time generation              |
+|      3 | known     | not found    | DC              | DC           | WARNING                      | blog-entry without CREATED       |
+|      4 | known     | not matching | DC              | DC           | ERROR                        | CREATED should not change        |
+|      5 | known     | matching     | same as CREATED | matching     |                              | not changed since 1st generation |
+|      6 | known     | matching     | unchanged       | matching     |                              | not changed since last update    |
+|      7 | known     | matching     | unchanged       | not matching | generate; noRSS; noIncrement | silent update                    |
+|      8 | known     | matching     | changed         | not matching | generate; RSS; Increment     | normal Update                    |
+
+- for each ORGMODE-file
+  - for each entry tagged with BLOGTAG AND in DONE state
+    - if no :ID: found
+      - case1
+      - warning
+      - continue with next heading
+    - if ID not known
+      - case2
+      - generate RSS
+      - generate HTML
+      - continue with next heading
+    - if CREATED not found
+      - case3
+      - warning
+      - continue with next heading
+    - if CREATED not matching previous run
+      - case4
+      - error-msg
+      - continue with next heading
+    - elseif CREATED and CHECKSUM matches
+      - case5 or case6
+      - debug: entry has not changed
+    - elseif CREATED matches and CHECKSUM not matching
+      - if LASTUPDATE changed
+        - case8
+        - increment update-number
+        - generate RSS
+        - generate HTML
+      - else (if LASTUPDATE unchanged)
+        - case7
+        - generate HTML
+
+*** DONE [#A] finalize lazyblorg-algorithm sketch
+CLOSED: [2012-11-10 Sat 18:10] DEADLINE: <2012-11-10 Sat>
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2012-11-10 Sat 18:10]
+:END:
+:PROPERTIES:
+:CREATED:  [2012-11-07 Wed 21:23]
+:END:
+** TODO CSS: add slightly yellowish background                   :userstory:
+:PROPERTIES:
+:CREATED: [2012-05-11 Fri 09:36]
+:END:
+
+- if possible: very smooth color gradient from top to bottom
+
+** SOMEDAY [#C] guessing language of entry                       :userstory:
+:LOGBOOK:
+- State "SOMEDAY"    from ""           [2013-01-08 Tue 14:36]
+:END:
+:PROPERTIES:
+:CREATED:  [2012-11-11 Sun 10:53]
+:END:
+
+- https://github.com/dsc/guess-language
+
+** SOMEDAY hidden entries by using tag "notlinked"               :userstory:
+:LOGBOOK:
+- State "SOMEDAY"    from ""           [2013-01-08 Tue 14:46]
+:END:
+:PROPERTIES:
+:CREATED:  [2012-12-14 Fri 22:51]
+:END:
+
+- if web server does not allow directory listing, this entry can only
+  be found with knowledge of the URL
+- check: is Google crawler able to find it when it's not linked?
+
+** SOMEDAY fixed entries by using a tag                          :userstory:
+:LOGBOOK:
+- State "SOMEDAY"    from ""           [2013-01-08 Tue 14:46]
+:END:
+:PROPERTIES:
+:CREATED:  [2012-12-21 Fri 09:48]
+:END:
+
+- outside of YYYY/MM/DD-hierarchy
+- e.g.
+  - tools I use
+  - books I read
+  - ...
+** SOMEDAY publish (only) free/busy times (in multiple formats)  :userstory:
+:LOGBOOK:
+- State "SOMEDAY"    from ""           [2013-01-08 Tue 14:48]
+:END:
+:PROPERTIES:
+:CREATED:  [2012-12-29 Sat 17:40]
+:END:
+
+** SOMEDAY CSS: round corners of images                          :userstory:
+:LOGBOOK:
+- State "SOMEDAY"    from "NEXT"       [2013-01-08 Tue 14:53]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-01-07 Mon 18:40]
+:END:
+
+- probably steal from http://www.tbray.org/ongoing/
+
+** CANCELLED Configuration file = Orgmode format     :architecture:CANCELLED:
+CLOSED: [2013-01-08 Tue 14:47]
+:LOGBOOK:
+- State "CANCELLED"  from "STARTED"    [2013-01-08 Tue 14:47] \\
+  INI is probably a better format for configuration files
+:END:
+:PROPERTIES:
+:CREATED:  [2012-12-26 Wed 11:36]
+:END:
+
+- asked the Org ML
+- INI file format probably a better solution
+
+*** DONE determine best way of storing configuration :reward:Kommunikation:
+CLOSED: [2013-01-02 Wed 17:22] SCHEDULED: <2012-12-30 Sun>
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2013-01-02 Wed 17:22]
+:END:
+:PROPERTIES:
+:CREATED:  [2012-12-30 Sun 18:32]
+:END:
+
+- Possible methods to store configuration/settings of a weblog system
+  that scans Org-mode files to generate HTML:
+  - in drawers: see below
+  - in tables: see below
+  - in tags: see below
+  - other possibilities?
+
+- why not using elisp-methods like "setq" or "defvar" or "defcustom"?
+  - this weblog will be implemented in Python
+  - Sorry, I do not have any elisp knowledge and it seems to be the
+    case that this is not going to change within the next months.
+  - In Python I have to parse a basic sub-set of Org-mode format
+    anyhow. An additional parser would be more work to do.
+  - Why not using Org-mode for end-user configuration as well?
+    - It's more user-friendly for non elisp users like me.
+
+- <2013-01-02 Wed 17:21> INI-file format seems to be the better solution
+
+**** Configuring Paths (in Drawers)
+:PROPERTIES:
+:COLUMNS:  %25ITEM %PATH
+:CREATED:  [2013-01-07 Mon 18:40]
+:END:
+
+- advantages
+  - usage of column view
+  - easy to add comments for each setting
+- disadvantages
+  - Properties have to be the same
+    - not that flexible in naming Properties
+
+- possible name for property "VALUE" which makes it more general.
+
+***** Image-Path
+:PROPERTIES:
+:PATH: ~/images
+:CREATED:  [2013-01-07 Mon 18:40]
+:END:
+
+In this folder, the Web log image files are placed after being
+processed (resizing, ...).
+
+***** HTML-Path
+:PROPERTIES:
+:PATH: ~/blog/html
+:CREATED:  [2013-01-07 Mon 18:40]
+:END:
+
+**** Configuring Paths (in Tables)
+:PROPERTIES:
+:CREATED:  [2013-01-07 Mon 18:40]
+:END:
+
+| *Variable*      | *Value*       | *Comments*                                          |
+|-----------------+---------------+-----------------------------------------------------|
+| Image Path      | ~/images      | The path where the images should be placed in.      |
+| HTML Path       | ~/blog/html   | Destination path for the HTML file folder structure |
+| Another Setting | another value | This has to be very short.                          |
+
+- advantages
+  - easy to write and maintain
+  - quick overview
+- disadvantages
+  - hard to add (long) comments for each setting
+
+**** Configuring Paths (with Tags)
+:PROPERTIES:
+:CREATED:  [2013-01-07 Mon 18:40]
+:END:
+
+- advantages
+  - same settings can be shared through multiple tags on same value
+  - easy to add comments for each setting
+- disadvantages
+  - seems strange at first glance; not sure if this really makes any
+    sense at all
+  - multiple word preference name has to be written in CamelCase or
+    separated with dashes
+
+***** ~/images                                                :ImagePath:
+:PROPERTIES:
+:CREATED:  [2013-01-07 Mon 18:40]
+:END:
+
+***** ~/blog/html                                              :HtmlPath:
+:PROPERTIES:
+:CREATED:  [2013-01-07 Mon 18:40]
+:END:
+
+
+
+* Notes                                                               :notes:
+
+** Development Schedule
+:PROPERTIES:
+:CREATED:  [2012-11-05 Mon 10:59]
+:END:
+
+- manually generate demo prototype
+  - very basic Org-mode example file containing everything from below
+  - HTML5 entry page
+  - CSS2 style
+  - HTML5 blog entry page
+  - Tag description page
+  - RSS feed
+  - HTML5 blog entry page with update
+  - Index overview page (archive)
+  - description of basic work-flow for generating the blog
+    - user point of view
+    - system point of view
+- refine and test design and features of prototype
+  - ask for feedback
+  - play around, break things
+- development
+  - define order of Org-mode items (headings, lists, images, ...) implementation priority
+  - define even more basic (Org-mode, HTML) from above
+  - very basic unit-tests from prototype files (Org-mode, HTML)
+  - test and refine work-flow for (re-)generating the blog
+  - implement more and more Org-mode items
+
+** Wishlist without compromises
+:PROPERTIES:
+:ID: 2012blogwishlist-copy
+:CREATED:  [2013-01-07 Mon 18:40]
+:END:
+
+- Workflow to create a blog entry
+  - make sure that there is an (uniq) :ID: property
+  - add tag :blog: to heading
+  - <write content, subheadings, ... -0d>
+  - change state of top-heading to DONE
+  - (manually) invoke generation-script
+
+- prerequisites
+  - usage of only very basic markup
+    - paragraphs (p)
+    - headings (h1..n)
+    - http-references (a href)
+    - lists (ul)
+    - images (img)
+    - quote (verbatim)
+
+- advantages
+  - a blog entry can be located anywhere in all of my Orgmode files
+  - no extra formatting steps
+  - very small overhead to create a blog entry
+  - no duplicate information
+    - update only in Orgmode, not HTML or any in-between format
+  - static (fast) pages
+  - self-hosting without any fancy services behind like RDBS
+
+- open issues
+  - comments
+    - simplest form: generate unique Email link and add at bottom
+      - very easy to be done for catch-all MTAs
+      - automatically derive whitelist for MTA to avoid old spam
+    - simple HTML form
+      - POST to script, adding comment to my inbox.org (containing
+        link to ID)
+    - disqus: I do not want to outsource comment hosting :-(
+  - how to include and format graphics?
+    - sometimes, I e.g. want to have an image aligned right with text
+      flowing around it
+  - probably: usage of in-between format like ikiwiki
+    - Orgmode syntax -> ikiwiki markup (markdown?) -> usual
+      ikiwiki-workflow
+      - should be not much effort since prerequisites limit to few
+        markup things
+    - benefits from not having to re-implement many things
+    - in-between-format HTML (like Manoj uses) is way too complicated
+      causing misc potential error sources
+
+- basic script workflow
+  - find all headings with state DONE and tag :blog:
+    - optionally: add all other tags starting with "blog-" as blog tags
+  - one entry starts at such a heading until EOF OR same or less level
+    heading is found
+  - compare raw text and IDs with last run
+    - known ID, raw text unchanged: ignore, no change
+    - new ID
+      - generate new blog entry
+        - extract YYYY-MM-DD from LOGBOOK-drawer (first *->DONE transformation)
+        - generate YYYY/MM/DD-folder structure in blog accordingly
+        - generate sanitized blog title as file name
+    - known ID, raw text differs
+      - generate update of existing entry
+        - add "(Update n)" (with n is the n-th update) to entry title
+          - optionally: add this also to URL
+            - disadvantage: broken old URLs
+            - advantage: URL reflects update state
+  - on any activity:
+    - re-write RSS feed for last n entries
+    - optionally: generate overview page for last n entries
+    - optionally: generate calendar archive page(s)
+    - optionally: generate tag overview page(s)
+  - on any error:
+    - create an orgmode event from current time that appears on agenda
+    - with daily repeat -> so it gets noticed on the next day(s) too
+    - in the description of that entry:
+      - babel-sh-snippet with prepared command to re-try the run :-)
+
+** Original post
+
+http://article.gmane.org/gmane.emacs.orgmode/49747/
+
+Hi!
+
+I got a nice idea on how a very easy to use Org-mode blog system
+should look like.
+
+Currently, I am using Serendipidy with web-based editor to write
+HTML. Org-mode enabled me to write blog entries and export it to
+HTML. Then I paste the HTML and have to modify minor things (images,
+...) a bit. I guess the time from finishing the Org-mode entry to
+the final blog entry is approximately ten to twenty minutes.
+
+Overall, I do not want to do this process when I just want to
+quickly write a view paragraphs within a couple of minutes. I need
+a workflow with much less annoying overhead.
+
+Therefore I sat down and thought about a workflow that should be
+enough for writing simple weblog entries:
+
+  - create an Org-mode heading (anywhere!)
+  - make sure that there is an (uniq) :ID: property
+  - add the tag :blog: to heading
+  - <write content, subheadings, ...>
+  - change state of top-heading to DONE
+    - this enables blog entries «in the queue»
+  - (manually) invoke generation-script
+
+This enables me quick blogging with a list of advantages:
+
+  - a blog entry can be located anywhere in all of my Orgmode files
+  - no extra formatting steps
+  - very small (almost non-existent) overhead to create a blog entry
+  - no duplicate information
+    - updates only in Orgmode, not HTML or any in-between format
+  - static (fast) pages
+  - self-hosting without any fancy services behind like RDBS
+
+What do you think of my ideas so far?
+
+Of course, I looked into existing solutions and found those:
+
+  - http://orgmode.org/worg/org-blog-wiki.html
+    - cool overview page for various solutions
+  - http://orgmode.org/worg/blorgit.html
+    - pretty complex set up :-(
+    - I do not need a web-interface to edit Org-mode files
+    - seem to have «different» use cases
+  - http://orgmode.org/worg/org-tutorials/org-jekyll.html
+    - uses HTML as in-between format; seems to provide many error
+      possibilities(?)
+    - converting whole files only (not desired)
+    - have to try it someday
+  - http://emacs-fu.blogspot.com/2009/05/writing-and-blogging-with-org-mode.html
+    - uses only HTML export
+  - http://blog.herraiz.org/archives/241
+    - uses only HTML export
+  - https://github.com/chrismgray/ikiwiki-org-plugin
+    - promising but only one part of a possible solution
+
+So nothing offers the features and small footprint as my idea above
+:-(
+
+With some prerequisites, it should not be that hard to even
+implement it by myself:
+
+  - usage of only very basic markup
+    - paragraphs (p)
+    - headings (h1..n)
+    - http-references (a href)
+    - lists (ul)
+    - images (img)
+    - quote (verbatim)
+
+Still there are some open issues:
+
+  - comments
+    - simplest form: generate unique Email link and add at bottom
+      - very easy to be done for catch-all MTAs
+      - automatically derive whitelist for MTA to avoid old spam
+    - simple HTML form
+      - POST to script, adding comment to my inbox.org (containing
+        link to ID)
+    - disqus: I do not want to outsource comment hosting :-(
+  - how to include and format graphics?
+    - sometimes, I e.g. want to have an image aligned right with text
+      flowing around it
+  - probably: usage of in-between format like ikiwiki
+    - Orgmode syntax -> ikiwiki markup (markdown?) -> usual
+      ikiwiki-workflow
+      - should be not much effort since prerequisites limit to few
+        markup things
+    - benefits from not having to re-implement many things
+    - in-between-format HTML (like Manoj uses) is way too complicated
+      causing misc potential error sources
+
+The basic script workflow is not that complicated:
+
+  - find all headings with state DONE and tag :blog:
+    - optionally: add all other tags starting with "blog-" as blog tags
+  - one entry starts at such a heading until EOF OR same or less level
+    heading is found
+  - compare raw text and IDs with last run
+    - known ID, raw text unchanged: ignore, no change
+    - new ID
+      - generate new blog entry
+        - extract YYYY-MM-DD from LOGBOOK-drawer (first *->DONE transformation)
+        - generate YYYY/MM/DD-folder structure in blog accordingly
+        - generate sanitized blog title as file name
+    - known ID, raw text differs
+      - generate update of existing entry
+        - add "(Update n)" (with n is the n-th update) to entry title
+          - optionally: add this also to URL
+            - disadvantage: broken old URLs
+            - advantage: URL reflects update state
+  - on any activity:
+    - re-write RSS feed for last n entries
+    - optionally: generate overview page for last n entries
+    - optionally: generate calendar archive page(s)
+    - optionally: generate tag overview page(s)
+
+
+* Local Variables                                                  :noexport:
+# Local Variables:
+# mode: auto-fill
+# mode: flyspell
+# eval: (ispell-change-dictionary "en_US")
+# End:
