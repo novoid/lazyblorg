@@ -1,4 +1,4 @@
-# Time-stamp: <2013-01-08 15:03:54 vk>
+# Time-stamp: <2013-01-12 14:12:35 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -83,6 +83,19 @@ with:
 - list of several Python parsers: https://github.com/julian-gehring/worg/blob/master/org-tools/index.org
   - http://members.optusnet.com.au/~charles57/GTD/orgnode.html
   - https://github.com/bjonnh/PyOrgMode
+
+** TODO lazyblorg-log.org                                     :architecture:
+:PROPERTIES:
+:CREATED:  [2013-01-12 Sat 13:43]
+:END:
+
+format example:
+: * lazyblorg logs                                         :lazyblorg:BLOGNAME:
+: ** [2013-01-12 Sat 13:44] lazyborg-run started
+: 2013-01-12 Sat 13:44 do this
+: 2013-01-12 Sat 13:45 did that
+: *** <2013-01-12 Sat 13:46> ERROR: error description 
+: *** <2013-01-12 Sat 13:46> WARNING: error description 
 
 ** TODO [#B] CSS generated using Org/babel                    :architecture:
 :PROPERTIES:
@@ -191,6 +204,9 @@ see also id:2012-11-06-ago-generating
 :CREATED:  [2012-11-11 Sun 13:43]
 :ID: 2012-11-11-autotags
 :END:
+
+- auto-tags are visually separated from manual tags to make it clear
+  that they are automatically generated (and might be bogus sometime)
 
 *** Language
 :PROPERTIES:
@@ -563,6 +579,128 @@ processed (resizing, ...).
     - in the description of that entry:
       - babel-sh-snippet with prepared command to re-try the run :-)
 
+** Original post
+
+http://article.gmane.org/gmane.emacs.orgmode/49747/
+
+Hi!
+
+I got a nice idea on how a very easy to use Org-mode blog system
+should look like.
+
+Currently, I am using Serendipidy with web-based editor to write
+HTML. Org-mode enabled me to write blog entries and export it to
+HTML. Then I paste the HTML and have to modify minor things (images,
+...) a bit. I guess the time from finishing the Org-mode entry to
+the final blog entry is approximately ten to twenty minutes.
+
+Overall, I do not want to do this process when I just want to
+quickly write a view paragraphs within a couple of minutes. I need
+a workflow with much less annoying overhead.
+
+Therefore I sat down and thought about a workflow that should be
+enough for writing simple weblog entries:
+
+  - create an Org-mode heading (anywhere!)
+  - make sure that there is an (uniq) :ID: property
+  - add the tag :blog: to heading
+  - <write content, subheadings, ...>
+  - change state of top-heading to DONE
+    - this enables blog entries «in the queue»
+  - (manually) invoke generation-script
+
+This enables me quick blogging with a list of advantages:
+
+  - a blog entry can be located anywhere in all of my Orgmode files
+  - no extra formatting steps
+  - very small (almost non-existent) overhead to create a blog entry
+  - no duplicate information
+    - updates only in Orgmode, not HTML or any in-between format
+  - static (fast) pages
+  - self-hosting without any fancy services behind like RDBS
+
+What do you think of my ideas so far?
+
+Of course, I looked into existing solutions and found those:
+
+  - http://orgmode.org/worg/org-blog-wiki.html
+    - cool overview page for various solutions
+  - http://orgmode.org/worg/blorgit.html
+    - pretty complex set up :-(
+    - I do not need a web-interface to edit Org-mode files
+    - seem to have «different» use cases
+  - http://orgmode.org/worg/org-tutorials/org-jekyll.html
+    - uses HTML as in-between format; seems to provide many error
+      possibilities(?)
+    - converting whole files only (not desired)
+    - have to try it someday
+  - http://emacs-fu.blogspot.com/2009/05/writing-and-blogging-with-org-mode.html
+    - uses only HTML export
+  - http://blog.herraiz.org/archives/241
+    - uses only HTML export
+  - https://github.com/chrismgray/ikiwiki-org-plugin
+    - promising but only one part of a possible solution
+
+So nothing offers the features and small footprint as my idea above
+:-(
+
+With some prerequisites, it should not be that hard to even
+implement it by myself:
+
+  - usage of only very basic markup
+    - paragraphs (p)
+    - headings (h1..n)
+    - http-references (a href)
+    - lists (ul)
+    - images (img)
+    - quote (verbatim)
+
+Still there are some open issues:
+
+  - comments
+    - simplest form: generate unique Email link and add at bottom
+      - very easy to be done for catch-all MTAs
+      - automatically derive whitelist for MTA to avoid old spam
+    - simple HTML form
+      - POST to script, adding comment to my inbox.org (containing
+        link to ID)
+    - disqus: I do not want to outsource comment hosting :-(
+  - how to include and format graphics?
+    - sometimes, I e.g. want to have an image aligned right with text
+      flowing around it
+  - probably: usage of in-between format like ikiwiki
+    - Orgmode syntax -> ikiwiki markup (markdown?) -> usual
+      ikiwiki-workflow
+      - should be not much effort since prerequisites limit to few
+        markup things
+    - benefits from not having to re-implement many things
+    - in-between-format HTML (like Manoj uses) is way too complicated
+      causing misc potential error sources
+
+The basic script workflow is not that complicated:
+
+  - find all headings with state DONE and tag :blog:
+    - optionally: add all other tags starting with "blog-" as blog tags
+  - one entry starts at such a heading until EOF OR same or less level
+    heading is found
+  - compare raw text and IDs with last run
+    - known ID, raw text unchanged: ignore, no change
+    - new ID
+      - generate new blog entry
+        - extract YYYY-MM-DD from LOGBOOK-drawer (first *->DONE transformation)
+        - generate YYYY/MM/DD-folder structure in blog accordingly
+        - generate sanitized blog title as file name
+    - known ID, raw text differs
+      - generate update of existing entry
+        - add "(Update n)" (with n is the n-th update) to entry title
+          - optionally: add this also to URL
+            - disadvantage: broken old URLs
+            - advantage: URL reflects update state
+  - on any activity:
+    - re-write RSS feed for last n entries
+    - optionally: generate overview page for last n entries
+    - optionally: generate calendar archive page(s)
+    - optionally: generate tag overview page(s)
 
 
 * Local Variables                                                  :noexport:
