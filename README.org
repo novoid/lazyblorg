@@ -1,4 +1,4 @@
-## Time-stamp: <2013-01-08 15:40:36 vk>
+## Time-stamp: <2013-02-08 13:24:13 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -13,7 +13,11 @@ See [[http://article.gmane.org/gmane.emacs.orgmode/49747/][my original post to t
 
 ** Why lazyblorg?
 
-Minimum effort for blogging.
+*Minimum effort* for blogging.
+
+«A designer knows he has achieved perfection not when there is nothing
+left to add, but when there is nothing left to take away.» ([[https://en.wikipedia.org/wiki/Antoine_de_Saint-Exup%25C3%25A9ry][Antoine de
+Saint-Exupéry]])
 
 ** Example
 
