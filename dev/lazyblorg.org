@@ -1,4 +1,4 @@
-# Time-stamp: <2013-02-12 10:48:38 vk>
+# Time-stamp: <2013-02-12 14:07:39 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -39,25 +39,54 @@ http://orgmode.org/org.html#Setting-tags
 :CREATED:  [2013-01-08 Tue 14:26]
 :END:
 
+NOTE: Issues that are marked as DONE or CANCELED are moved to the
+corresponding archive-file "lazyblorg.org_archive".
+
 ** NEXT setting up test entry and resulting data                      :tests:
 SCHEDULED: <2013-02-12 Tue>
 :PROPERTIES:
 :CREATED: [2012-04-17 Tue 14:08]
 :END:
 
-- [ ] Org-mode example files
+- my local copy:
+  - file:///home/vk/src/lazyblorg/testdata/full_test/blog/2013/02/12/lazyblorg-example-entry/index.html
+- http://www.w3schools.com/tags/default.asp
+
+- [X] Org-mode example files
   - containing non blogging content *and* headings marked with ":blog:" tag
   - containing the string ":blog:" as non-tag
   - containing org-mode blog entries in different hierarchy depth
-- [ ] containing elements:
+- [X] containing elements:
   - headings 1-3
   - paragraphs
   - external links (URLs)
   - itemize-list
   - verse-block
   - no images yet
-- [ ] corresponding resulting HTML files
+- [X] corresponding resulting HTML(5) files
+  - meaning of HTML5 elements: [[http://stackoverflow.com/questions/4781077/html5-best-practices-section-header-aside-article-tags/6527766#6527766][short overview on stackoverflow]]
+    - small: small print for legalese, or terms and conditions
+    - em: emphasizing
+    - header: on top of document or "section"; defined by its content
+      (not position)
+    - footer: at bottom of document or "section"; contains
+      information about containing elements
+    - aside: side bar; defined by content, not position; for related
+      information; e.g., pullquotes
+    - nav: major navigation information
+    - article: content that would probably go together for RSS feed
+    - section: content that is grouped; consider "header", "footer",
+      "nav", "sidebar", "article" as special kind of sections
+    - hgroup: grouping headings (for overview/index)
+    - date/time:
+      - <time datetime="17:00">5pm</time>
+      - <time datetime="2010-04-07">April 7th</time>
+      - <time datetime="2010-04-07T17:00">5pm on April 7th</time>
+      - <time>5pm on April 7th</time>
+      - "pubdate" attribute has been removed from the standard and is
+        considered invalid on http://html5.validator.nu/
 - [ ] included HTML files
+- no CSS yet
 
 ** NEXT [#A] define (link) structure of blog entries                  :tests:
 :PROPERTIES:
@@ -74,12 +103,21 @@ with:
   - if :ID: does not start with "YYYY-MM(-DD)" it gets used right away
   - user has to make sure that IDs are unique over all entries!
 
-- http://karl-voit.at/blog/2012/11/31/This_is_the_title/ -> URL of
-  entry; title gets parsed from heading title
+- http://karl-voit.at/blog/2012/11/31/This_is_the_title/index.html -> URL of
+  entry; title gets parsed from heading title or ID
 - http://karl-voit.at/blog/2012/11/31/ -> link to monthly overview (currently)
 - http://karl-voit.at/blog/2012/11/ -> overview over the month
 - http://karl-voit.at/blog/2012/ -> overview over the year
 - http://karl-voit.at/blog/ -> blog starting page
+
+- example: http://www.tbray.org/ongoing/misc/Colophon
+
+** NEXT manually create main jumping page                     :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 12:24]
+:END:
+
+- HTML5-example: see Kröner2011 p.123ff
 
 ** NEXT spike: parsing Org-mode files in Python                :architecture:
 :PROPERTIES:
@@ -150,6 +188,15 @@ example-CSS content
 
 - automatically extracting CSS code from that Org-mode file
 
+- example: http://www.tbray.org/ongoing/When/201x/2011/04/21/Reflowing
+
+backward compatibility for old browsers:
+#+BEGIN_SRC css
+section, article, header, footer, nav, aside, hgroup {
+display: block;
+}
+#+END_SRC
+
 ** TODO [#C] Date in heading = link to day in Wikipedia          :userstory:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:38]
@@ -194,6 +241,8 @@ see also id:2012-11-06-ago-generating
     right corner
 - show the big version when clicking on it
 
+- see Kröner2011 p.140ff for HTML5 and figure/caption
+
 *** TODO research different Org-mode ways of defining including images
 :PROPERTIES:
 :CREATED:  [2012-11-05 Mon 10:55]
@@ -214,6 +263,14 @@ see also id:2012-11-06-ago-generating
 
 - for lists
   - http://farhadi.ir/projects/html5sortable/
+
+** TODO add frames to images                                     :userstory:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 11:27]
+:END:
+
+- example: http://www.tbray.org/ongoing/When/200x/2006/04/08/Picture-Frames
+  - caution: that's Java
 
 ** TODO provide RSS feed(s)                                      :userstory:
 :PROPERTIES:
@@ -344,7 +401,7 @@ CLOSED: [2012-11-10 Sat 18:10] DEADLINE: <2012-11-10 Sat>
 - writing HTML tags directly (not within any SRC-blocks)
 - makes it easier to port old blog content
 
-** TODO internal links to other blog entries 
+** TODO internal links to other blog entries                     :userstory:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 10:34]
 :END:
@@ -354,6 +411,18 @@ CLOSED: [2012-11-10 Sat 18:10] DEADLINE: <2012-11-10 Sat>
 :END:
 
 - if possible: very smooth color gradient from top to bottom
+
+** TODO write colophon                                           :userstory:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 11:31]
+:END:
+
+- example: http://www.tbray.org/ongoing/misc/Colophon
+
+- containing
+  - basic tools used
+  - basic workflow
+  - ...
 
 ** SOMEDAY comments                                              :userstory:
 :LOGBOOK:
@@ -424,121 +493,20 @@ CLOSED: [2012-11-10 Sat 18:10] DEADLINE: <2012-11-10 Sat>
 
 - probably steal from http://www.tbray.org/ongoing/
 
-** CANCELLED Configuration file = Orgmode format     :architecture:CANCELLED:
-CLOSED: [2013-01-08 Tue 14:47]
-:LOGBOOK:
-- State "CANCELLED"  from "STARTED"    [2013-01-08 Tue 14:47] \\
-  INI is probably a better format for configuration files
-:END:
-:PROPERTIES:
-:CREATED:  [2012-12-26 Wed 11:36]
-:END:
-
-- asked the Org ML
-- INI file format probably a better solution
-
-*** DONE determine best way of storing configuration :reward:Kommunikation:
-CLOSED: [2013-01-02 Wed 17:22] SCHEDULED: <2012-12-30 Sun>
-:LOGBOOK:
-- State "DONE"       from "STARTED"    [2013-01-02 Wed 17:22]
-:END:
-:PROPERTIES:
-:CREATED:  [2012-12-30 Sun 18:32]
-:END:
-
-- Possible methods to store configuration/settings of a weblog system
-  that scans Org-mode files to generate HTML:
-  - in drawers: see below
-  - in tables: see below
-  - in tags: see below
-  - other possibilities?
-
-- why not using elisp-methods like "setq" or "defvar" or "defcustom"?
-  - this weblog will be implemented in Python
-  - Sorry, I do not have any elisp knowledge and it seems to be the
-    case that this is not going to change within the next months.
-  - In Python I have to parse a basic sub-set of Org-mode format
-    anyhow. An additional parser would be more work to do.
-  - Why not using Org-mode for end-user configuration as well?
-    - It's more user-friendly for non elisp users like me.
-
-- <2013-01-02 Wed 17:21> INI-file format seems to be the better solution
-
-**** Configuring Paths (in Drawers)
-:PROPERTIES:
-:COLUMNS:  %25ITEM %PATH
-:CREATED:  [2013-01-07 Mon 18:40]
-:END:
-
-- advantages
-  - usage of column view
-  - easy to add comments for each setting
-- disadvantages
-  - Properties have to be the same
-    - not that flexible in naming Properties
-
-- possible name for property "VALUE" which makes it more general.
-
-***** Image-Path
-:PROPERTIES:
-:PATH: ~/images
-:CREATED:  [2013-01-07 Mon 18:40]
-:END:
-
-In this folder, the Web log image files are placed after being
-processed (resizing, ...).
-
-***** HTML-Path
-:PROPERTIES:
-:PATH: ~/blog/html
-:CREATED:  [2013-01-07 Mon 18:40]
-:END:
-
-**** Configuring Paths (in Tables)
-:PROPERTIES:
-:CREATED:  [2013-01-07 Mon 18:40]
-:END:
-
-| *Variable*      | *Value*       | *Comments*                                          |
-|-----------------+---------------+-----------------------------------------------------|
-| Image Path      | ~/images      | The path where the images should be placed in.      |
-| HTML Path       | ~/blog/html   | Destination path for the HTML file folder structure |
-| Another Setting | another value | This has to be very short.                          |
-
-- advantages
-  - easy to write and maintain
-  - quick overview
-- disadvantages
-  - hard to add (long) comments for each setting
-
-**** Configuring Paths (with Tags)
-:PROPERTIES:
-:CREATED:  [2013-01-07 Mon 18:40]
-:END:
-
-- advantages
-  - same settings can be shared through multiple tags on same value
-  - easy to add comments for each setting
-- disadvantages
-  - seems strange at first glance; not sure if this really makes any
-    sense at all
-  - multiple word preference name has to be written in CamelCase or
-    separated with dashes
-
-***** ~/images                                                :ImagePath:
-:PROPERTIES:
-:CREATED:  [2013-01-07 Mon 18:40]
-:END:
-
-***** ~/blog/html                                              :HtmlPath:
-:PROPERTIES:
-:CREATED:  [2013-01-07 Mon 18:40]
-:END:
-
-
-
-
 * Notes                                                               :notes:
+
+** Implemented Org-mode Elements
+
+| Org-mode     | HTML5             | implemented since |
+|--------------+-------------------+-------------------|
+| headings     | section+header+h1 |                   |
+| simple lists | ul+li             |                   |
+| BEGIN_VERSE  | pre               |                   |
+| BEGIN_QUOTE  | blockquote        |                   |
+| tables       |                   |                   |
+| images       |                   |                   |
+| *bold*       | em                |                   |
+| ~commands~   | code              |                   |
 
 ** Development Schedule
 :PROPERTIES:

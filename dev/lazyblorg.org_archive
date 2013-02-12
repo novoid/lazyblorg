@@ -18,3 +18,124 @@ CLOSED: [2013-02-12 Tue 10:40]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+
+** CANCELLED Configuration file = Orgmode format     :architecture:CANCELLED:
+CLOSED: [2013-01-08 Tue 14:47]
+:LOGBOOK:
+- State "CANCELLED"  from "STARTED"    [2013-01-08 Tue 14:47] \\
+  INI is probably a better format for configuration files
+:END:
+:PROPERTIES:
+:CREATED:  [2012-12-26 Wed 11:36]
+:ARCHIVE_TIME: 2013-02-12 Tue 11:08
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: CANCELLED
+:ARCHIVE_ITAGS: issues
+:END:
+
+- asked the Org ML
+- INI file format probably a better solution
+
+*** DONE determine best way of storing configuration :reward:Kommunikation:
+CLOSED: [2013-01-02 Wed 17:22] SCHEDULED: <2012-12-30 Sun>
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2013-01-02 Wed 17:22]
+:END:
+:PROPERTIES:
+:CREATED:  [2012-12-30 Sun 18:32]
+:END:
+
+- Possible methods to store configuration/settings of a weblog system
+  that scans Org-mode files to generate HTML:
+  - in drawers: see below
+  - in tables: see below
+  - in tags: see below
+  - other possibilities?
+
+- why not using elisp-methods like "setq" or "defvar" or "defcustom"?
+  - this weblog will be implemented in Python
+  - Sorry, I do not have any elisp knowledge and it seems to be the
+    case that this is not going to change within the next months.
+  - In Python I have to parse a basic sub-set of Org-mode format
+    anyhow. An additional parser would be more work to do.
+  - Why not using Org-mode for end-user configuration as well?
+    - It's more user-friendly for non elisp users like me.
+
+- <2013-01-02 Wed 17:21> INI-file format seems to be the better solution
+
+**** Configuring Paths (in Drawers)
+:PROPERTIES:
+:COLUMNS:  %25ITEM %PATH
+:CREATED:  [2013-01-07 Mon 18:40]
+:END:
+
+- advantages
+  - usage of column view
+  - easy to add comments for each setting
+- disadvantages
+  - Properties have to be the same
+    - not that flexible in naming Properties
+
+- possible name for property "VALUE" which makes it more general.
+
+***** Image-Path
+:PROPERTIES:
+:PATH: ~/images
+:CREATED:  [2013-01-07 Mon 18:40]
+:END:
+
+In this folder, the Web log image files are placed after being
+processed (resizing, ...).
+
+***** HTML-Path
+:PROPERTIES:
+:PATH: ~/blog/html
+:CREATED:  [2013-01-07 Mon 18:40]
+:END:
+
+**** Configuring Paths (in Tables)
+:PROPERTIES:
+:CREATED:  [2013-01-07 Mon 18:40]
+:END:
+
+| *Variable*      | *Value*       | *Comments*                                          |
+|-----------------+---------------+-----------------------------------------------------|
+| Image Path      | ~/images      | The path where the images should be placed in.      |
+| HTML Path       | ~/blog/html   | Destination path for the HTML file folder structure |
+| Another Setting | another value | This has to be very short.                          |
+
+- advantages
+  - easy to write and maintain
+  - quick overview
+- disadvantages
+  - hard to add (long) comments for each setting
+
+**** Configuring Paths (with Tags)
+:PROPERTIES:
+:CREATED:  [2013-01-07 Mon 18:40]
+:END:
+
+- advantages
+  - same settings can be shared through multiple tags on same value
+  - easy to add comments for each setting
+- disadvantages
+  - seems strange at first glance; not sure if this really makes any
+    sense at all
+  - multiple word preference name has to be written in CamelCase or
+    separated with dashes
+
+***** ~/images                                                :ImagePath:
+:PROPERTIES:
+:CREATED:  [2013-01-07 Mon 18:40]
+:END:
+
+***** ~/blog/html                                              :HtmlPath:
+:PROPERTIES:
+:CREATED:  [2013-01-07 Mon 18:40]
+:END:
+
+
+
+
