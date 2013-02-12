@@ -1,0 +1,86 @@
+
+/* breadcrumbs CSS directly stolen from: http://www.hongkiat.com/blog/breadcrumb-menu-css3/ */
+
+.breadcrumbs {
+	display: block;
+	margin-left: 27px;
+	padding: 0;
+	padding-top: 10px; 
+}
+.breadcrumbs li { display: inline; }
+.breadcrumbs li a,
+.breadcrumbs li a:link,
+.breadcrumbs li a:visited {
+	color: #666;
+	display: block;
+	float: left;
+	font-size: 12px;
+	padding: 7px 16px 7px 19px;
+	position: relative;
+	text-decoration: none;
+	border: 1px solid #d9d9d9;
+	border-right-width: 0px;
+}
+.breadcrumbs li a  { 
+	background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0.45, rgb(241,241,241)),color-stop(0.73, rgb(245,245,245)));
+	background-image: -moz-linear-gradient( center bottom, rgb(241,241,241) 45%, rgb(245,245,245) 73%);
+	
+	/* For Internet Explorer 5.5 - 7 */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#f1f1f1, endColorstr=#f5f5f5);
+	
+	/* For Internet Explorer 8 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#f1f1f1, endColorstr=#f5f5f5)";
+}
+
+.breadcrumbs li.first a {
+	border-top-left-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	-webkit-border-top-left-radius: 5px;
+}
+.breadcrumbs li.last a {
+	border-right-width: 1px;
+	border-bottom-right-radius: 5px;
+	-moz-border-radius-bottomright: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+}
+
+.breadcrumbs li a:hover { 
+	border-top-color: #c4c4c4;
+	border-bottom-color: #c4c4c4;
+	
+	background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0.45, rgb(241,241,241)),color-stop(0.73, rgb(248,248,248)));
+	background-image: -moz-linear-gradient( center bottom, rgb(241,241,241) 45%, rgb(248,248,248) 73%);
+	
+	/* For Internet Explorer 5.5 - 7 */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#f8f8f8, endColorstr=#f1f1f1);
+	
+	/* For Internet Explorer 8 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#f8f8f8, endColorstr=#f1f1f1)";
+	
+	color: #333;
+	
+	-moz-box-shadow: 0px 2px 2px #e8e8e8;
+	-webkit-box-shadow: 0px 2px 2px #e8e8e8;
+	box-shadow: 0px 2px 2px #e8e8e8;
+}
+
+.breadcrumbs li a:active {
+	border-top-color: #c4c4c4;
+	border-bottom-color: #c4c4c4;
+	
+	background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0.45, rgb(224,224,224)),color-stop(0.73, rgb(235,235,235)));
+	background-image: -moz-linear-gradient( center bottom, rgb(224,224,224) 45%, rgb(235,235,235) 73%);
+	
+	/* For Internet Explorer 5.5 - 7 */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ebebeb, endColorstr=#e0e0e0);
+	
+	/* For Internet Explorer 8 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ebebeb, endColorstr=#e0e0e0)";
+	
+	box-shadow: -1px 1px 1px 0px #dadada inset;
+	-webkit-box-shadow: -1px 1px 1px 0px #dadada inset;
+	-moz-box-shadow: -1px 1px 1px 0px #dadada inset;
+	
+	color: #333; 
+}
+

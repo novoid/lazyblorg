@@ -1,4 +1,4 @@
-# Time-stamp: <2013-02-12 14:07:39 vk>
+# Time-stamp: <2013-02-12 19:37:01 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -39,11 +39,14 @@ http://orgmode.org/org.html#Setting-tags
 :CREATED:  [2013-01-08 Tue 14:26]
 :END:
 
-NOTE: Issues that are marked as DONE or CANCELED are moved to the
+NOTE: Some issues that are marked as DONE or CANCELED are moved to the
 corresponding archive-file "lazyblorg.org_archive".
 
-** NEXT setting up test entry and resulting data                      :tests:
-SCHEDULED: <2013-02-12 Tue>
+** DONE setting up test entry and resulting data                     :tests:
+CLOSED: [2013-02-12 Tue 14:13] SCHEDULED: <2013-02-12 Tue>
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-02-12 Tue 14:13]
+:END:
 :PROPERTIES:
 :CREATED: [2012-04-17 Tue 14:08]
 :END:
@@ -85,10 +88,13 @@ SCHEDULED: <2013-02-12 Tue>
       - <time>5pm on April 7th</time>
       - "pubdate" attribute has been removed from the standard and is
         considered invalid on http://html5.validator.nu/
-- [ ] included HTML files
 - no CSS yet
 
-** NEXT [#A] define (link) structure of blog entries                  :tests:
+** DONE [#A] define (link) structure of blog entries                 :tests:
+CLOSED: [2013-02-12 Tue 14:11]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-02-12 Tue 14:11]
+:END:
 :PROPERTIES:
 :CREATED: [2012-07-22 Sun 17:29]
 :END:
@@ -112,6 +118,36 @@ with:
 
 - example: http://www.tbray.org/ongoing/misc/Colophon
 
+** DONE CSS: format breadcrumbs                               :architecture:
+CLOSED: [2013-02-12 Tue 19:36]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-02-12 Tue 19:36]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 15:32]
+:END:
+
+- example: http://www.hongkiat.com/blog/breadcrumb-menu-css3/
+
+** NEXT CSS: manually create CSS for an entry                 :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 14:14]
+:END:
+
+** NEXT manually create day overview page                     :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 14:11]
+:END:
+
+** NEXT manually create month overview page                   :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 14:12]
+:END:
+
+** NEXT manually create year overview page                    :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 14:12]
+:END:
 ** NEXT manually create main jumping page                     :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 12:24]
@@ -133,6 +169,9 @@ with:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 10:37]
 :END:
+
+- no working version, only workflow stub, which will be filled with
+  the actual code later on
 
 - [ ] find all headings with state DONE and tag :blog:
   - optionally: add all other tags starting with "blog-" as blog tags
