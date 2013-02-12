@@ -1,0 +1,87 @@
+# Time-stamp: <2013-02-12 11:06:05 vk>
+# -*- coding: utf-8 -*-
+
+* Heading of no interest
+
+
+* Heading of no interest
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 10:58]
+:END:
+
+** Not interesting either
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 10:58]
+:END:
+
+foo bar :blog:
+... should not be interpreted as a blog entry!
+
+* Heading of some interest
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 10:58]
+:END:
+
+** This is an example blog entry                                      :blog:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 10:58]
+:ID: 2013-02-12uniqueID
+:END:
+
+This is an introduction text which describes the blog entry with some
+catchy information. Readers should be convinced to read this
+interesting text. [[https://github.com/novoid/Memacs][Memacs]] is an external link to Memacs.
+
+*** Sub-heading foo
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 11:00]
+:END:
+
+This is a dummy text whose only purpose is to generate some content
+which is then processed by this lovely tool. The resulting web blog
+might win the Pulitzer Prize some day!
+
+- this list
+- gives a great overview
+- about something
+
+**** Sub-sub heading about something
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 11:01]
+:END:
+
+This is a dummy text whose only purpose is to generate some content
+which is then processed by this lovely tool. The resulting web blog
+might win the Pulitzer Prize some day!
+
+#+BEGIN_VERSE
+Well, in here, I want to write verbatim text.
+Line breaks should be exactly the same.
+
+This is a 
+dummy text whose only purpose is to generate 
+some content
+which is then processed by this lovely tool. 
+The resulting web blog
+might win the Pulitzer Prize some day!
+
+#+END_VERSE
+
+*** Sub-heading bar
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 11:00]
+:END:
+
+This is a dummy text whose only purpose is to generate some content
+which is then processed by this lovely tool. The resulting web blog
+might win the Pulitzer Prize some day!
+
+** Not a blog entry
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 11:00]
+:END:
+
+* End heading
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 11:00]
+:END:
