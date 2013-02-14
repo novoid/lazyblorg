@@ -1,4 +1,4 @@
-# Time-stamp: <2013-02-12 19:35:41 vk>
+# Time-stamp: <2013-02-14 16:58:32 vk>
 # -*- coding: utf-8 -*-
 
 * Heading of no interest
@@ -22,7 +22,7 @@ foo bar :blog:
 :CREATED:  [2013-02-12 Tue 10:58]
 :END:
 
-** This is an example blog entry                                      :blog:
+** This is an example blog entry                   :blog:mytest:programming:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 10:58]
 :ID: 2013-02-12-lazyblorg-example-entry
