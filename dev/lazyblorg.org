@@ -1,4 +1,4 @@
-# Time-stamp: <2013-02-12 19:37:01 vk>
+# Time-stamp: <2013-02-15 20:07:23 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -118,42 +118,131 @@ with:
 
 - example: http://www.tbray.org/ongoing/misc/Colophon
 
-** DONE CSS: format breadcrumbs                               :architecture:
-CLOSED: [2013-02-12 Tue 19:36]
+** DONE sketch article layout                                    :userstory:
+CLOSED: [2013-02-14 Thu 16:44]
 :LOGBOOK:
-- State "DONE"       from "NEXT"       [2013-02-12 Tue 19:36]
+- State "DONE"       from "NEXT"       [2013-02-14 Thu 16:44]
 :END:
 :PROPERTIES:
-:CREATED:  [2013-02-12 Tue 15:32]
+:CREATED:  [2013-02-14 Thu 16:39]
 :END:
 
-- example: http://www.hongkiat.com/blog/breadcrumb-menu-css3/
+#+BEGIN_VERSE
 
-** NEXT CSS: manually create CSS for an entry                 :architecture:
+MyBlog > 2013 > 02 > 14                               Published: 2013-02-14 T 16:40
+
+               This is my Title About Something                Tag1 Foo Bar lang:en
+
+    <article body text>
+
+
+
+
+About this Blog                                                      check HTML/CSS
+#+END_VERSE
+
+- Breadcrumbs: gray
+- Published...: gray
+- Title(s): dark turquoise 
+- Tags: gray
+- body: black
+- About this: gray, small
+- check ...: gray, small
+- background: bright yellowish with possible gradient from dark (top)
+  to bright (bottom)
+
+** CANCELLED idea: generate article body using Org-exporter :architecture:ARCHIVE:
+CLOSED: [2013-02-14 Thu 17:21]
+:LOGBOOK:
+- State "CANCELLED"  from "NEXT"       [2013-02-14 Thu 17:21]
+:END:
 :PROPERTIES:
-:CREATED:  [2013-02-12 Tue 14:14]
+:CREATED:  [2013-02-14 Thu 17:17]
 :END:
 
-** NEXT manually create day overview page                     :architecture:
+- header, title, footer: generate using Python
+- main body: generate using Org-mode and temp-buffer using for
+  converting
+
+- advantages
+  - Blog can parse/generate everything the Org-exporter can parse
+
+- disadvantages
+  - no custom links to other blog entries
+    - or not that easy to implement
+  - dependency to a running Emacs instance
+    - configuration issues
+    - path issues
+    - performance issues(!)
+      - each article has to be exported in one single export of its
+        own
+  - might cause some issues when Org-exporter changes
+
+- <2013-02-14 Thu> so far, I do not consider the issue with external
+  dependency to Emacs as negative
+
+** DONE sketch ArticleOrgEntry                                :architecture:
+CLOSED: [2013-02-15 Fri 20:00]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-02-15 Fri 20:00]
+:END:
 :PROPERTIES:
-:CREATED:  [2013-02-12 Tue 14:11]
+:CREATED:  [2013-02-15 Fri 19:58]
 :END:
 
-** NEXT manually create month overview page                   :architecture:
+- holds current articles parsed from Org-mode files
+
+- ArticleOrgEntry
+  - NodeList
+    - first entry contains main heading
+    - other entries are at least one level deeper
+  - TagList
+  - Title
+  - ID
+  - TimeCreated
+  - Checksum
+
+** DONE sketch ArticleDBEntry                                 :architecture:
+CLOSED: [2013-02-15 Fri 20:00]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-02-15 Fri 20:00]
+:END:
 :PROPERTIES:
-:CREATED:  [2013-02-12 Tue 14:12]
+:CREATED:  [2013-02-15 Fri 19:59]
 :END:
 
-** NEXT manually create year overview page                    :architecture:
-:PROPERTIES:
-:CREATED:  [2013-02-12 Tue 14:12]
+- holds list of article metadata from previous run(s)
+
+- ArticleOrgEntry
+  - NodeList
+    - first entry contains main heading
+    - other entries are at least one level deeper
+  - TagList
+  - Title
+  - ID
+  - TimeCreated
+  - Checksum
+
+** DONE find Python checksum algorithm                        :architecture:
+CLOSED: [2013-02-15 Fri 20:06]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-02-15 Fri 20:06]
 :END:
-** NEXT manually create main jumping page                     :architecture:
 :PROPERTIES:
-:CREATED:  [2013-02-12 Tue 12:24]
+:CREATED:  [2013-02-15 Fri 20:03]
 :END:
 
-- HTML5-example: see Kröner2011 p.123ff
+- http://docs.python.org/2/library/hashlib.html#module-hashlib
+- http://code.wikia.com/wiki/SHA_checksum#Python
+- https://en.wikipedia.org/wiki/Cryptographic_hash_function#Cryptographic_hash_algorithms
+
+- sha1 seems a good choice
+
+example:
+#+BEGIN_SRC python
+import hashlib
+converted = hashlib.sha1("My text").hexdigest()
+#+END_SRC
 
 ** NEXT spike: parsing Org-mode files in Python                :architecture:
 :PROPERTIES:
@@ -163,7 +252,21 @@ CLOSED: [2013-02-12 Tue 19:36]
 - https://github.com/bjonnh/PyOrgMode
 - list of several Python parsers: https://github.com/julian-gehring/worg/blob/master/org-tools/index.org
   - http://members.optusnet.com.au/~charles57/GTD/orgnode.html
+    - MIT license
+    - last change: 2009-06
+    - is able to read node by node (=heading)
+    - return (unmodified) body of each node
+    - returns tags and properties
+    - looks usable
+    - code no that big
+    - probably: have to extend parser for LOGBOOK-drawers
   - https://github.com/bjonnh/PyOrgMode
+    - GPL v3
+    - last change: 2012-10
+    - very few documentation available
+    - long [[https://github.com/bjonnh/PyOrgMode/blob/master/TODO][list of open todos]]
+
+- <2013-02-14 Thu> looks like I'm gonna stick to OrgNode for now
 
 ** NEXT implement basic workflow stub                         :architecture:
 :PROPERTIES:
@@ -200,6 +303,51 @@ CLOSED: [2013-02-12 Tue 19:36]
   - [ ] with daily repeat -> so it gets noticed on the next day(s) too
   - [ ] in the description of that entry:
     - babel-sh-snippet with prepared command to re-try the run :-)
+
+** TODO create unit test for comparing output files                  :tests:
+:PROPERTIES:
+:CREATED:  [2013-02-14 Thu 17:28]
+:END:
+
+- example: https://github.com/bjonnh/PyOrgMode/blob/master/test.py
+
+** TODO parse timestamps                                      :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-14 Thu 17:30]
+:END:
+
+- example: parse_datetime() in https://github.com/bjonnh/PyOrgMode/blob/master/PyOrgMode.py
+
+** NEXT CSS: manually create CSS for an entry                 :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 14:14]
+:END:
+
+** NEXT sketch main page                                         :userstory:
+:PROPERTIES:
+:CREATED:  [2013-02-14 Thu 16:39]
+:END:
+** NEXT manually create main jumping page                     :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 12:24]
+:END:
+
+- HTML5-example: see Kröner2011 p.123ff
+
+** NEXT manually create month overview page                   :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 14:12]
+:END:
+
+** NEXT manually create day overview page                     :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 14:11]
+:END:
+
+** NEXT manually create year overview page                    :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 14:12]
+:END:
 
 ** TODO logs: lazyblorg-log.org                                :architecture:
 :PROPERTIES:
