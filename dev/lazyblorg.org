@@ -1,4 +1,4 @@
-# Time-stamp: <2013-02-15 20:07:23 vk>
+# Time-stamp: <2013-02-17 13:14:48 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -310,6 +310,31 @@ converted = hashlib.sha1("My text").hexdigest()
 :END:
 
 - example: https://github.com/bjonnh/PyOrgMode/blob/master/test.py
+
+** TODO create Module for tool methods                         :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-17 Sun 13:07]
+:END:
+
+- http://docs.python.org/2/tutorial/modules.html
+- tools.OrgParserTools (?)
+
+** TODO create Module for constants                           :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-17 Sun 13:10]
+:END:
+
+- for defining/customizing HTML snippets, basic structure and so on
+
+e.g.: whole document template with $FOO placeholder that gets
+replaced when generating an entry:
+#+BEGIN_QUOTE
+ARTICLE_TEMPLATE = '''<html>
+<head>
+<title>$TITLE</title>
+...
+</html>
+#+END_QUOTE
 
 ** TODO parse timestamps                                      :architecture:
 :PROPERTIES:
@@ -694,6 +719,58 @@ CLOSED: [2012-11-10 Sat 18:10] DEADLINE: <2012-11-10 Sat>
 | images       |                   |                   |
 | *bold*       | em                |                   |
 | ~commands~   | code              |                   |
+
+possible Org elements from ox-ascii.el:
+#+BEGIN_QUOTE
+bold
+center-block
+clock
+code
+drawer
+dynamic-block
+entity
+example-block
+export-block
+export-snippet
+fixed-width
+footnote-definition
+footnote-reference
+headline
+horizontal-rule
+inline-src-block
+inlinetask
+inner-template
+italic
+item
+keyword
+latex-environment
+latex-fragment
+line-break
+link
+paragraph
+plain-list
+plain-text
+planning
+quote-block
+quote-section
+radio-target
+section
+special-block
+src-block
+statistics-cookie
+strike-through
+subscript
+superscript
+table
+table-cell
+table-row
+target
+template
+timestamp
+underline
+verbatim
+verse-block
+#+END_QUOTE
 
 ** Development Schedule
 :PROPERTIES:
