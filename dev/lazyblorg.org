@@ -1,4 +1,4 @@
-# Time-stamp: <2013-02-17 13:14:48 vk>
+# Time-stamp: <2013-02-17 13:39:25 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -244,30 +244,6 @@ import hashlib
 converted = hashlib.sha1("My text").hexdigest()
 #+END_SRC
 
-** NEXT spike: parsing Org-mode files in Python                :architecture:
-:PROPERTIES:
-:CREATED: [2012-07-22 Sun 18:08]
-:END:
-
-- https://github.com/bjonnh/PyOrgMode
-- list of several Python parsers: https://github.com/julian-gehring/worg/blob/master/org-tools/index.org
-  - http://members.optusnet.com.au/~charles57/GTD/orgnode.html
-    - MIT license
-    - last change: 2009-06
-    - is able to read node by node (=heading)
-    - return (unmodified) body of each node
-    - returns tags and properties
-    - looks usable
-    - code no that big
-    - probably: have to extend parser for LOGBOOK-drawers
-  - https://github.com/bjonnh/PyOrgMode
-    - GPL v3
-    - last change: 2012-10
-    - very few documentation available
-    - long [[https://github.com/bjonnh/PyOrgMode/blob/master/TODO][list of open todos]]
-
-- <2013-02-14 Thu> looks like I'm gonna stick to OrgNode for now
-
 ** NEXT implement basic workflow stub                         :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 10:37]
@@ -304,13 +280,6 @@ converted = hashlib.sha1("My text").hexdigest()
   - [ ] in the description of that entry:
     - babel-sh-snippet with prepared command to re-try the run :-)
 
-** TODO create unit test for comparing output files                  :tests:
-:PROPERTIES:
-:CREATED:  [2013-02-14 Thu 17:28]
-:END:
-
-- example: https://github.com/bjonnh/PyOrgMode/blob/master/test.py
-
 ** TODO create Module for tool methods                         :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-17 Sun 13:07]
@@ -318,6 +287,30 @@ converted = hashlib.sha1("My text").hexdigest()
 
 - http://docs.python.org/2/tutorial/modules.html
 - tools.OrgParserTools (?)
+
+** NEXT spike: parsing Org-mode files in Python                :architecture:
+:PROPERTIES:
+:CREATED: [2012-07-22 Sun 18:08]
+:END:
+
+- https://github.com/bjonnh/PyOrgMode
+- list of several Python parsers: https://github.com/julian-gehring/worg/blob/master/org-tools/index.org
+  - http://members.optusnet.com.au/~charles57/GTD/orgnode.html
+    - MIT license
+    - last change: 2009-06
+    - is able to read node by node (=heading)
+    - return (unmodified) body of each node
+    - returns tags and properties
+    - looks usable
+    - code no that big
+    - probably: have to extend parser for LOGBOOK-drawers
+  - https://github.com/bjonnh/PyOrgMode
+    - GPL v3
+    - last change: 2012-10
+    - very few documentation available
+    - long [[https://github.com/bjonnh/PyOrgMode/blob/master/TODO][list of open todos]]
+
+- <2013-02-14 Thu> looks like I'm gonna stick to OrgNode for now
 
 ** TODO create Module for constants                           :architecture:
 :PROPERTIES:
@@ -336,7 +329,14 @@ ARTICLE_TEMPLATE = '''<html>
 </html>
 #+END_QUOTE
 
-** TODO parse timestamps                                      :architecture:
+** TODO create unit test for comparing output files                  :tests:
+:PROPERTIES:
+:CREATED:  [2013-02-14 Thu 17:28]
+:END:
+
+- example: https://github.com/bjonnh/PyOrgMode/blob/master/test.py
+
+** TODO tools: parse timestamps                                :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-14 Thu 17:30]
 :END:
@@ -348,28 +348,28 @@ ARTICLE_TEMPLATE = '''<html>
 :CREATED:  [2013-02-12 Tue 14:14]
 :END:
 
-** NEXT sketch main page                                         :userstory:
+** NEXT paper: sketch main page                                   :userstory:
 :PROPERTIES:
 :CREATED:  [2013-02-14 Thu 16:39]
 :END:
-** NEXT manually create main jumping page                     :architecture:
+** NEXT HTML: manually create main jumping page                :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 12:24]
 :END:
 
 - HTML5-example: see Kröner2011 p.123ff
 
-** NEXT manually create month overview page                   :architecture:
+** NEXT HTML: manually create month overview page                   :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 14:12]
 :END:
 
-** NEXT manually create day overview page                     :architecture:
+** NEXT HTML: manually create day overview page                     :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 14:11]
 :END:
 
-** NEXT manually create year overview page                    :architecture:
+** NEXT HTML: manually create year overview page                    :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 14:12]
 :END:
