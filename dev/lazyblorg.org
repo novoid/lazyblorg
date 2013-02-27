@@ -1,4 +1,4 @@
-# Time-stamp: <2013-02-27 15:08:48 vk>
+# Time-stamp: <2013-02-27 16:48:14 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -244,7 +244,7 @@ import hashlib
 converted = hashlib.sha1("My text").hexdigest()
 #+END_SRC
 
-** NEXT spike: calling Org-mode elisp HTML exporter from command line :architecture:
+** STARTED spike: calling Org-mode elisp HTML exporter from command line :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-27 Wed 09:54]
 :END:
@@ -284,9 +284,11 @@ echo "(print (+ 2 2))" >test.el | emacs -Q --script test.el ; rm test.el
 : 
 : 4
 
-*** STARTED Calling Org-HTML-export in ELISP
+*** WAITING Calling Org-HTML-export in ELISP                      :WAITING:
 SCHEDULED: <2013-02-27 Wed>
 :LOGBOOK:
+- State "WAITING"    from "STARTED"    [2013-02-27 Wed 16:35] \\
+  bug report waiting for answer
 - State "STARTED"    from "DONE"       [2013-02-27 Wed 11:09]
 - State "DONE"       from ""           [2013-02-27 Wed 11:04]
 :END:
@@ -328,9 +330,9 @@ PUB-DIR is set, use this as the publishing directory.
 Therefore:
 #+BEGIN_SRC elisp
 (org-export-as-html 3 nil nil "htmlized-output" nil nil)
-(switch-to-buffer "htmlized-output")
-(write-file "~/src/lazyblorg/htmlized-out.html")
-(kill-buffer)
+;(switch-to-buffer "htmlized-output")
+;(write-file "~/src/lazyblorg/htmlized-out.html")
+;(kill-buffer)
 #+END_SRC
 
 #+RESULTS:
@@ -351,7 +353,21 @@ Feb 15 15:28:35 2013 +0100) to
 692f053d8067e2314826cfcd3cf4ded7362a8dce (Wed Feb 27 14:49:46 2013
 +0100)
 
-FIXXME
+Still facing an error:
+
+#+BEGIN_VERSE
+org-export-preprocess-string: Wrong number of arguments: #[(&optional sort-only) "ÆÀ!  S 
+ 	Ç_S 	È* ÉÊ\"+ ËPÌÍ56Í7ebÎ 6Ô 6@86A@98Z Ï87\":A@f T;Ð68;t Ð:8<= Ç68b¨ 6A@Ç68|6A@bÉÑ;\"c<¨ >¨ Ò :Ð Ð68º ÐÓ8!8?8;?<Ô9!¯7B7)-< @ÕÖ!eb×ØÙ@!ÚQÍÛ#ø ÌÜÛ\"|dbÝÍxÍynXÞ XÕÖ!XA;ßÙA!ÚQBeb×BÍÛ#:àá!`Íy`|#)Õâ!UdbUãCÍÛ#Uä Xdbå 5æÍçè7\"\"77éê7\"5b7?âÕÖ!@ÝÕÖ!ªëÍx`5|nÞ AÅìAì±ÅíDA¾îï )!¾ìcð@ì±5Íñò7ì#cm?âócâéô7\"." [org-inlinetask-min-level limit-level org-odd-levels-only nstars org-outline-regexp count boundp 2 "\\*" format ...] 7 ("/home/vk/.emacs.d/contrib/org-mode/lisp/org-footnote.elc" . 16171)], 2
+#+END_VERSE
+
+#+BEGIN_SRC elisp
+(org-version)
+#+END_SRC
+
+#+RESULTS:
+: 7.9.3f
+
+- <2013-02-27 Wed> I wrote a message to the Org ML with a bug description
 
 *** Calling Org-to-HTML ELISP from command line
 
@@ -493,6 +509,36 @@ Fixing method that worked in previous heading:
   - [ ] in the description of that entry:
     - babel-sh-snippet with prepared command to re-try the run :-)
 
+** TODO Idea: do paragraph parsing                            :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-27 Wed 16:48]
+:END:
+
+- paragraphs are separated by at least one empty line OR they end
+  with a line starting with:
+  - »#+«
+- each paragraph is handled separately BUT paragraphs of an
+  environment are being combined
+- for each normal text paragraph:
+  - remove \n
+  - sanitize
+    - insert lazyblorg-specific links
+    - HTMLize with ...
+      - either simple with own code OR
+        - fast
+        - only a few syntax elements can be parsed
+      - using Org-mode exporter methods
+        - slow
+        - complicated set-up
+        - supports everything which is supported by the Org-mode HTML
+          export
+    - if simple HTMLizer chosen:
+      - re-insert \n for first space after 80 characters
+
+Documentation:
+- clearly state that lazyblorg does support *no org-mode syntax*
+  except <list-of-supported-elements-and-their-context>
+
 ** TODO create Module for tool methods                         :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-17 Sun 13:07]
@@ -548,6 +594,17 @@ ARTICLE_TEMPLATE = '''<html>
 :END:
 
 - example: https://github.com/bjonnh/PyOrgMode/blob/master/test.py
+
+*** Idea: parse content test cases from Org file
+
+A file like «tests.org» contains test cases, each one in a
+heading. if it starts with «test: » it is a test case followed by its
+test name.
+
+A sub-heading «Org» contains the Org-mode document/snippet which gets
+parsed. 
+
+A sub-heading «result» contains the results which is expected.
 
 ** TODO tools: parse timestamps                                :architecture:
 :PROPERTIES:
@@ -848,6 +905,15 @@ CLOSED: [2012-11-10 Sat 18:10] DEADLINE: <2012-11-10 Sat>
   - basic tools used
   - basic workflow
   - ...
+
+** TODO content of help pages from Org heading                   :userstory:
+:PROPERTIES:
+:CREATED:  [2013-02-27 Wed 16:37]
+:END:
+
+Somewhere in my Org files, I do have a heading «$BLOGNAME». Within
+its sub-heading «Help» there is the text for the main help
+page. Further headings contain more content for other pages.
 
 ** SOMEDAY comments                                              :userstory:
 :LOGBOOK:
