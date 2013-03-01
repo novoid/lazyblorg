@@ -1,4 +1,4 @@
-## Time-stamp: <2013-02-08 13:24:13 vk>
+## Time-stamp: <2013-03-01 13:57:48 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -10,6 +10,11 @@ For a list of similar/alternative projects, please visit
 http://orgmode.org/worg/org-blog-wiki.html
 
 See [[http://article.gmane.org/gmane.emacs.orgmode/49747/][my original post to the Org-mode ML]] for how this idea started.
+
+- *target group*: users of [[http://orgmode.org/][Org-mode]] who want to do blogging very easily
+- *skills necessary*
+  - modifying configuration settings, e.g., in script files
+  - (optional) creating scheduled tasks (crond, ...)
 
 ** Why lazyblorg?
 
