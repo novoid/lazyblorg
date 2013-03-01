@@ -153,3 +153,402 @@ CLOSED: [2013-02-12 Tue 19:36]
 
 - example: http://www.hongkiat.com/blog/breadcrumb-menu-css3/
 
+** CANCELLED spike: calling Org-mode elisp HTML exporter from command line :architecture:ARCHIVE:
+CLOSED: [2013-03-01 Fri 13:27]
+:LOGBOOK:
+- State "CANCELLED"  from "STARTED"    [2013-03-01 Fri 13:27] \\
+  could not make it run; idea dismissed also because of other arguments
+:END:
+:PROPERTIES:
+:CREATED:  [2013-02-27 Wed 09:54]
+:ARCHIVE_TIME: 2013-03-01 Fri 13:28
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: CANCELLED
+:ARCHIVE_ITAGS: issues
+:END:
+
+Idea: put (partly sanitized/modified) Org-mode paragraph(s) into text
+file and using Org HTML exporter to generate HTML out of it.
+
+Weird, but it would get lazyblorg to support way more HTML entities.
+
+- 2013-03-01: giving up the idea of using Org-mode HTML export for now.
+  - could not made it work (see id:2013-03-01-org-to-html-batch)
+  - it's too complicated with its dependencies
+  - would require massive unit testing
+  - would require modifying the generated XHTML 1.0 to HTML5 anyway
+  - would require modifying the content anyway
+    - match heading numbers (<h1> instead of <h2>, ...)
+
+*** DONE Calling simple ELISP from shell
+CLOSED: [2013-02-27 Wed 11:04]
+:LOGBOOK:
+- State "DONE"       from ""           [2013-02-27 Wed 11:04]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-02-27 Wed 11:04]
+:END:
+
+calling simple elisp as a shell script:
+
+test.el:
+#+BEGIN_SRC elisp
+(print (+ 2 2))
+#+END_SRC
+
+invoking from command line:
+#+BEGIN_SRC sh
+emacs -Q --script ./test.el
+#+END_SRC
+
+Shorter version:
+#+BEGIN_SRC sh :results output
+echo "(print (+ 2 2))" >test.el | emacs -Q --script test.el ; rm test.el
+#+END_SRC
+
+#+RESULTS:
+:
+: 4
+
+*** DONE Calling Org-HTML-export in ELISP
+CLOSED: [2013-03-01 Fri 13:09] SCHEDULED: <2013-03-01 Fri>
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2013-03-01 Fri 13:09]
+- State "STARTED"    from "WAITING"    [2013-03-01 Fri 12:30]
+- State "WAITING"    from "STARTED"    [2013-02-27 Wed 16:35] \\
+  bug report waiting for answer
+- State "STARTED"    from "DONE"       [2013-02-27 Wed 11:09]
+- State "DONE"       from ""           [2013-02-27 Wed 11:04]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-02-27 Wed 11:04]
+:ID: 2013-02-27-org-to-html
+:END:
+
+1. export current Org-mode buffer as HTML in temp buffer
+2. write temp buffer to file
+3. close temp buffer
+
+#+BEGIN_SRC elisp
+(describe-function 'org-export-as-html)
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+org-export-as-html is an interactive compiled Lisp function.
+
+(org-export-as-html ARG &optional HIDDEN EXT-PLIST TO-BUFFER BODY-ONLY
+PUB-DIR)
+
+Export the outline as a pretty HTML file.
+If there is an active region, export only the region.  The prefix
+ARG specifies how many levels of the outline should become
+headlines.  The default is 3.  Lower levels will become bulleted
+lists.  HIDDEN is obsolete and does nothing.
+EXT-PLIST is a property list with external parameters overriding
+org-mode's default settings, but still inferior to file-local
+settings.  When TO-BUFFER is non-nil, create a buffer with that
+name and export to that buffer.  If TO-BUFFER is the symbol
+`string', don't leave any buffer behind but just return the
+resulting HTML as a string.  When BODY-ONLY is set, don't produce
+the file header and footer, simply return the content of
+<body>...</body>, without even the body tags themselves.  When
+PUB-DIR is set, use this as the publishing directory.
+#+end_example
+
+Therefore:
+#+BEGIN_SRC elisp
+(org-export-as-html 3 nil nil "htmlized-output" nil nil)
+;(switch-to-buffer "htmlized-output")
+;(write-file "~/src/lazyblorg/htmlized-out.html")
+;(kill-buffer)
+#+END_SRC
+
+#+RESULTS:
+: t
+
+Results in:
+#+BEGIN_VERSE
+org-export-preprocess-string: Wrong number of arguments: #[(&optional sort-only) "ÆÀ!  S 
+ 	Ç_S 	È* ÉÊ\"+ ËPÌÍ56Í7ebÎ 6Ô 6@86A@98Z Ï87\":A@f T;Ð68;t Ð:8<= Ç68b¨ 6A@Ç68|6A@bÉÑ;\"c<¨ >¨ Ò :Ð Ð68º ÐÓ8!8?8;?<Ô9!¯7B7)-< @ÕÖ!eb×ØÙ@!ÚQÍÛ#ø ÌÜÛ\"|dbÝÍxÍynXÞ XÕÖ!XA;ßÙA!ÚQBeb×BÍÛ#:àá!`Íy`|#)Õâ!UdbUãCÍÛ#Uä Xdbå 5æÍçè7\"\"77éê7\"5b7?âÕÖ!@ÝÕÖ!ªëÍx`5|nÞ AÅìAì±ÅíDA¾îï )!¾ìcð@ì±5Íñò7ì#cm?âócâéô7\"." [org-inlinetask-min-level limit-level org-odd-levels-only nstars org-outline-regexp count boundp 2 "\\*" format ...] 7 ("/home/vk/.emacs.d/contrib/org-mode/lisp/org-footnote.elc" . 16141)], 2
+#+END_VERSE
+
+So, org-mode/lisp/org-footnote.elc does have an issue. I guess this is
+because people are working these days on Org-8.0, especially the
+exporter.
+
+Updating Orgmode from 5d467d6f8affc0afe34922e885ac6e2492ddd091 (Fri
+Feb 15 15:28:35 2013 +0100) to
+692f053d8067e2314826cfcd3cf4ded7362a8dce (Wed Feb 27 14:49:46 2013
++0100)
+
+Still facing an error:
+
+#+BEGIN_VERSE
+org-export-preprocess-string: Wrong number of arguments: #[(&optional sort-only) "ÆÀ!  S 
+ 	Ç_S 	È* ÉÊ\"+ ËPÌÍ56Í7ebÎ 6Ô 6@86A@98Z Ï87\":A@f T;Ð68;t Ð:8<= Ç68b¨ 6A@Ç68|6A@bÉÑ;\"c<¨ >¨ Ò :Ð Ð68º ÐÓ8!8?8;?<Ô9!¯7B7)-< @ÕÖ!eb×ØÙ@!ÚQÍÛ#ø ÌÜÛ\"|dbÝÍxÍynXÞ XÕÖ!XA;ßÙA!ÚQBeb×BÍÛ#:àá!`Íy`|#)Õâ!UdbUãCÍÛ#Uä Xdbå 5æÍçè7\"\"77éê7\"5b7?âÕÖ!@ÝÕÖ!ªëÍx`5|nÞ AÅìAì±ÅíDA¾îï )!¾ìcð@ì±5Íñò7ì#cm?âócâéô7\"." [org-inlinetask-min-level limit-level org-odd-levels-only nstars org-outline-regexp count boundp 2 "\\*" format ...] 7 ("/home/vk/.emacs.d/contrib/org-mode/lisp/org-footnote.elc" . 16171)], 2
+#+END_VERSE
+
+#+BEGIN_SRC elisp
+(org-version)
+#+END_SRC
+
+#+RESULTS:
+: 7.9.3f
+
+- <2013-02-27 Wed> I wrote a message to the Org ML with a bug description
+- <2013-02-28 Thu> Achim Gratz: "You are trying to use the old
+  exporter and pick up code from an earlier version of Org."
+- <2013-02-28 Thu> Erich Neuwirth: "As I learned the correct name for
+  elisp to use with begin_src is emacs-lisp, not elisp"
+- <2013-03-01 Fri> Nicolas Goaziou: "`org-html-export-to-html' (output to file) and `org-html-export-as-html'
+  (output to temporary buffer).
+
+  For batch processing, you can also use `org-export-as', in conjunction
+  with `html' backend, which will output a string.
+
+  There's also `org-export-string-as', which will do the same as
+  `org-export-as' but will work from an input string instead of the
+  current buffer."
+
+#+BEGIN_SRC emacs-lisp
+(describe-function 'org-export-as)
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+org-export-as is a compiled Lisp function in `ox.el'.
+
+(org-export-as BACKEND &optional SUBTREEP VISIBLE-ONLY BODY-ONLY
+EXT-PLIST)
+
+Transcode current Org buffer into BACKEND code.
+
+If narrowing is active in the current buffer, only transcode its
+narrowed part.
+
+If a region is active, transcode that region.
+
+When optional argument SUBTREEP is non-nil, transcode the
+sub-tree at point, extracting information from the headline
+properties first.
+
+When optional argument VISIBLE-ONLY is non-nil, don't export
+contents of hidden elements.
+
+When optional argument BODY-ONLY is non-nil, only return body
+code, without surrounding template.
+
+Optional argument EXT-PLIST, when provided, is a property list
+with external parameters overriding Org default settings, but
+still inferior to file-local settings.
+
+Return code as a string.
+#+end_example
+
+#+BEGIN_SRC emacs-lisp
+  (let* (
+         (mycontent (org-export-as 'html t nil nil))
+         )
+    (with-temp-buffer 
+      (setq coding-system-for-write 'no-conversion)
+      (insert mycontent)
+      ;(set-buffer-file-coding-system 'utf-8)
+      (write-file "~/src/lazyblorg/htmlized-out.html")
+      )
+    )
+#+END_SRC
+
+#+RESULTS:
+
+... works :-) ... but asks for interactive charset encoding :-(
+("select coding system")
+
+- How to set encoding?
+  - Variable buffer-file-coding-system -> defaults to utf-8
+  - set-buffer-file-coding-system -> that's it
+  - https://www.gnu.org/software/emacs/manual/html_node/elisp/Explicit-Encoding.html#Explicit-Encoding
+   - "setq coding-system-for-write 'no-conversion" (added above)
+
+... works :-)
+
+*** Calling Org-to-HTML ELISP from command line
+:PROPERTIES:
+:ID: 2013-03-01-org-to-html-batch
+:END:
+
+1. start Emacs
+2. activate Org
+3. configure Org (?)
+4. open Org-mode file
+5. export as HTML in a file
+6. return
+
+**** Error: Wrong type argument: listp, "temphtmlizing" (old exporter)
+
+First try:
+
+#+BEGIN_SRC elisp
+;; Activate UTF-8 mode:
+(setq locale-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+
+;; load Org
+(add-to-list 'load-path "~/.emacs.d/contrib/org-mode/contrib/lisp")
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/contrib/org-mode/lisp"))
+(require 'org)
+
+(find-file "~/src/lazyblorg/lazyblorg.org")
+(org-export-as-html 3 nil "temphtmlizing" t nil)
+#+END_SRC
+
+... results in: Wrong type argument: listp, "temphtmlizing"
+
+Checking org-export-as-html:
+
+test.el:
+#+BEGIN_SRC elisp
+;; load Org
+(add-to-list 'load-path "~/.emacs.d/contrib/org-mode/contrib/lisp")
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/contrib/org-mode/lisp"))
+(require 'org)
+
+(print (describe-function 'org-export-as-html))
+#+END_SRC
+
+... results in ...
+
+#+BEGIN_VERSE
+vk@gary ~2d % emacs -Q --script ./test.el
+Type C-x 1 to delete the help window, C-M-v to scroll help.
+
+#("org-export-as-html is an interactive autoloaded Lisp function.
+
+(org-export-as-html ARG &optional HIDDEN EXT-PLIST TO-BUFFER BODY-ONLY
+PUB-DIR)
+
+Export the outline as a pretty HTML file.
+If there is an active region, export only the region.  The prefix
+ARG specifies how many levels of the outline should become
+headlines.  The default is 3.  Lower levels will become bulleted
+lists.  HIDDEN is obsolete and does nothing.
+EXT-PLIST is a property list with external parameters overriding
+org-mode's default settings, but still inferior to file-local
+settings.  When TO-BUFFER is non-nil, create a buffer with that
+name and export to that buffer.  If TO-BUFFER is the symbol
+`string', don't leave any buffer behind but just return the
+resulting HTML as a string.  When BODY-ONLY is set, don't produce
+the file header and footer, simply return the content of
+<body>...</body>, without even the body tags themselves.  When
+PUB-DIR is set, use this as the publishing directory." 84 87 (face help-argument-name) 98 104 (face help-argument-name) 105 114 (face help-argument-name) 115 124 (face help-argument-name) 125 134 (face help-argument-name) 135 142 (face help-argument-name) 253 256 (face help-argument-name) 385 391 (face help-argument-name) 422 431 (face help-argument-name) 565 574 (face help-argument-name) 649 658 (face help-argument-name) 767 776 (face help-argument-name) 919 926 (face help-argument-name))
+vk@gary ~2d %
+#+END_VERSE
+
+... with "HIDDEN" as an additional parameter :-O
+
+Maybe the Org-version is different?
+
+#+BEGIN_SRC elisp
+;; load Org
+(add-to-list 'load-path "~/.emacs.d/contrib/org-mode/contrib/lisp")
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/contrib/org-mode/lisp"))
+(require 'org)
+(print (org-version))
+#+END_SRC
+
+-> "7.9.3e"
+
+Interactively calling org-version: Org-mode version 7.9.3c
+(release_7.9.3c-816-g409ee8 @
+/home/vk/.emacs.d/contrib/org-mode/lisp/)
+
+So basically, it matches :-O
+
+I remember: in my Org-config, I already switched to the new
+exporter. So I guess this is not done in the default setting of Org.
+
+No, I could not find anything in my .orgmode.el that activates
+something different for exporting HTML. :-(
+
+Re-starting GNU/Emacs.
+
+OK, now I get the error even when calling the function from within
+running emacs :-O
+
+Fixing method that worked in previous heading. See
+id:2013-02-27-org-to-html for fixing this issue! (I was using the old
+export method)
+
+**** Using new exporter
+
+: vk@gary ~2d % emacs -Q --script ./test.el
+
+with ~2d/test.el 
+#+BEGIN_SRC emacs-lisp
+;; Activate UTF-8 mode:
+(setq locale-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+
+;; load Org
+(add-to-list 'load-path "~/.emacs.d/contrib/org-mode/contrib/lisp")
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/contrib/org-mode/lisp"))
+(require 'org)
+
+(find-file "~/src/lazyblorg/lazyblorg.org")
+
+(let* (
+       (mycontent (org-export-as 'html t nil nil))
+       )
+  (with-temp-buffer 
+    (setq coding-system-for-write 'no-conversion)
+    (insert mycontent)
+    (write-file "~/src/lazyblorg/htmlized-out.html")
+    )
+  )
+#+END_SRC
+
+... results in:
+#+BEGIN_VERSE
+vk@gary ~2d % emacs -Q --script ./test.el
+OVERVIEW
+Loading vc-git...
+Before first headline at position 1 in buffer lazyblorg.org
+255 vk@gary ~2d %
+#+END_VERSE
+... caused by the org-export-as function
+
+Tested:
+#+BEGIN_SRC emacs-lisp
+;; load Org
+(add-to-list 'load-path "~/.emacs.d/contrib/org-mode/contrib/lisp")
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/contrib/org-mode/lisp"))
+(require 'org)
+
+(find-file "~/src/lazyblorg/lazyblorg.org")
+(outline-next-visible-heading)
+(org-export-as 'html t nil nil)
+#+END_SRC
+... with:
+
+#+BEGIN_VERSE
+vk@gary ~2d % emacs -Q --script ./test.el
+OVERVIEW
+Loading vc-git...
+Wrong number of arguments: #[(arg) �W�� �����o��W�@o�:��
+�Q��#��:��
+          �4`�\")T�m��V�pm�j��
+�Q��#��jĔ�
+          �d`�\")�S�@   �v� )�" [arg found-heading-p outline-regexp pos 0 beginning-of-line nil re-search-backward "^\\(?:" "\\)" ...] 4 ("/usr/share/emacs/23.4/lisp/outline.elc" . 24841) "p"], 0
+255 vk@gary ~2d %
+#+END_VERSE
+
+... OK, giving up the idea of using Org-mode HTML export for now.
+
