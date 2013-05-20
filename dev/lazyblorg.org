@@ -1,4 +1,4 @@
-# Time-stamp: <2013-03-01 13:28:06 vk>
+# Time-stamp: <2013-03-13 10:23:41 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -269,6 +269,8 @@ converted = hashlib.sha1("My text").hexdigest()
         - optionally: add this also to URL
           - disadvantage: broken old URLs
           - advantage: URL reflects update state
+        - ALTERNATIVELY: add "(Update YYYY-MM-DD)" instead of number
+          - numbers don't mean anything
 - on any activity:
   - [ ] re-write RSS feed for last n entries
   - [ ] optionally: generate overview page for last n entries
@@ -279,6 +281,14 @@ converted = hashlib.sha1("My text").hexdigest()
   - [ ] with daily repeat -> so it gets noticed on the next day(s) too
   - [ ] in the description of that entry:
     - babel-sh-snippet with prepared command to re-try the run :-)
+
+- in order not to store *all* content while parsing, split up parsing
+  to two parsing processes:
+  1. find new or updated articles
+     - parse for used ID-links
+     - collect and store metadata of these (everything except content)
+  2. parse everything again and store only new or updated article contents
+     - match with ID-links
 
 ** TODO Idea: do paragraph parsing                            :architecture:
 :PROPERTIES:
@@ -349,15 +359,18 @@ Documentation:
 
 - for defining/customizing HTML snippets, basic structure and so on
 
-e.g.: whole document template with $FOO placeholder that gets
-replaced when generating an entry:
-#+BEGIN_QUOTE
-ARTICLE_TEMPLATE = '''<html>
-<head>
-<title>$TITLE</title>
-...
-</html>
-#+END_QUOTE
+** TODO create template files for HTML snippets               :architecture:
+:PROPERTIES:
+:CREATED:  [2013-03-13 Wed 10:21]
+:END:
+
+- lazyblorg/templates/article.org
+
+- Org-mode format "header"
+- HTML src block with actual template
+- $LB-TITLE -> title
+- $LB-AUTHOR -> Authors name
+- and so on
 
 ** TODO create unit test for comparing output files                  :tests:
 :PROPERTIES:
@@ -464,10 +477,11 @@ display: block;
 :END:
 
 - heading gets a blog entry with a unique :ID:
-- setting «Update 1/2/3/...» for each one of those:
+- setting "Update 1/2/3/..." for each one of those:
 : :LOGBOOK:
 : - State "DONE"       from "NEXT"       [2011-10-07 Fri 15:40]
 : :END:
+- ALTERNATIVELY: set "Update YYYY-MM-DD for last one of those (from above)
 - heading with known unique ID and no state DONE
   - should stay the same until state changes back to DONE
   - this requires something which remembers states
@@ -758,6 +772,9 @@ page. Further headings contain more content for other pages.
 * Notes                                                               :notes:
 
 ** Implemented Org-mode Elements
+
+- list of Org Mode elements: http://article.gmane.org/gmane.emacs.orgmode/67871
+  - will get on Worg some day!
 
 | Org-mode     | HTML5             | implemented since |
 |--------------+-------------------+-------------------|
