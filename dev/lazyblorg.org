@@ -1,4 +1,4 @@
-# Time-stamp: <2013-03-13 10:23:41 vk>
+# Time-stamp: <2013-05-21 15:50:43 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -252,6 +252,19 @@ converted = hashlib.sha1("My text").hexdigest()
 - no working version, only workflow stub, which will be filled with
   the actual code later on
 
+invoking source code:
+#+BEGIN_VERSE
+vk@gary ~/src/lazyblorg (git)-[master] % PYTHONPATH="~/src/lazyblorg:" ./lazyblorg.py testdata/manual_prototype/org/test.org --targetdir testdata/2del -v
+DEBUG    2013-05-20 17:58:02,643 extracting list of Org-mode files ...
+DEBUG    2013-05-20 17:58:02,643 len(args) [1]
+DEBUG    2013-05-20 17:58:02,643 1 filenames found: [testdata/manual_prototype/org/test.org]
+DEBUG    2013-05-20 17:58:02,643 iterate over files ...
+DEBUG    2013-05-20 17:58:02,644 OrgParser: doing file "testdata/manual_prototype/org/test.org" ...
+DEBUG    2013-05-20 17:58:02,644 OrgParser: finished on file "testdata/manual_prototype/org/test.org"
+DEBUG    2013-05-20 17:58:02,644 successfully finished.
+vk@gary ~/src/lazyblorg (git)-[master] %
+#+END_VERSE
+
 - [ ] find all headings with state DONE and tag :blog:
   - optionally: add all other tags starting with "blog-" as blog tags
 - [ ] one entry starts at such a heading until EOF OR same or less level
@@ -289,6 +302,19 @@ converted = hashlib.sha1("My text").hexdigest()
      - collect and store metadata of these (everything except content)
   2. parse everything again and store only new or updated article contents
      - match with ID-links
+
+** TODO create template files for HTML snippets               :architecture:
+:PROPERTIES:
+:CREATED:  [2013-03-13 Wed 10:21]
+:END:
+
+- lazyblorg/templates/article.org
+
+- Org-mode format "header"
+- HTML src block with actual template
+- #LB-TITLE# -> title
+- #LB-AUTHOR# -> Authors name
+- and so on
 
 ** TODO Idea: do paragraph parsing                            :architecture:
 :PROPERTIES:
@@ -358,19 +384,6 @@ Documentation:
 :END:
 
 - for defining/customizing HTML snippets, basic structure and so on
-
-** TODO create template files for HTML snippets               :architecture:
-:PROPERTIES:
-:CREATED:  [2013-03-13 Wed 10:21]
-:END:
-
-- lazyblorg/templates/article.org
-
-- Org-mode format "header"
-- HTML src block with actual template
-- $LB-TITLE -> title
-- $LB-AUTHOR -> Authors name
-- and so on
 
 ** TODO create unit test for comparing output files                  :tests:
 :PROPERTIES:
@@ -838,6 +851,55 @@ underline
 verbatim
 verse-block
 #+END_QUOTE
+
+** STARTED Representation of blog data
+:PROPERTIES:
+:CREATED:  [2013-05-21 Tue 15:26]
+:ID: blog_data
+:END:
+
+~blog_data~ is a Python list containing one dictionary entry per blog
+entry:
+
+#+BEGIN_SRC python
+  blog_data = \
+  [ {'level': 2,                                                ## number of asterisks
+     'title': u'This is a blog entry about foo', 
+     'tags': [u'tag1', u'tag2'], 
+     'id': u'lazyblorg-example-entry',                          ## ID from PROPERTIES-drawer
+     'finished-timestamp-history': [1234567, 1234599, 132222],  ## UNIX epoch
+     'timestamp': 132222,                                       ## UNIX epoch
+#     '': , 
+#     '': , 
+#     '': , 
+     'content': [ ['text', u'This is the Org-mode content'],    ## 'text': anything that is not defined like tables, ...
+                  ['heading', {'level': 3, 'title': u'Another aspect'}],  
+                  ['list-itemize', [u'first line', u'second line']],
+                  ['table', u'followed by this table data'],         #FIXXME: table syntax
+                  ['image', u'followed by this image']               #FIXXME: image syntax
+                ]                                                    #FIXXME: further elements
+  } ]
+#+END_SRC
+
+Thus:
+#+BEGIN_SRC python
+blog_data[0].keys()
+## ... results in:
+# ['title',
+#  'timestamp',
+#  'tags',
+#  'content',
+#  'finished-timestamp-history',
+#  'level',
+#  'id']
+
+blog_data[0]['content']  ## -> list of elements of content
+# [['text', u'This is the Org-mode content'],
+#  ['heading', {'level': 3, 'title': u'Another aspect'}],
+#  ['list-itemize', [u'first line', u'second line']],
+#  ['table', u'followed by this table data'],
+#  ['image', u'followed by this image']]
+#+END_SRC
 
 ** Development Schedule
 :PROPERTIES:
