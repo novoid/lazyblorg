@@ -1,4 +1,4 @@
-# Time-stamp: <2013-05-21 19:30:41 vk>
+# Time-stamp: <2013-05-21 20:04:20 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -869,10 +869,7 @@ entry:
      'id': u'lazyblorg-example-entry',                          ## ID from PROPERTIES-drawer
      'finished-timestamp-history': [datetime1, datetime2, datetime3],
      'timestamp': datetime,
-#     '': , 
-#     '': , 
-#     '': , 
-     'content': [ ['par', u'This is the Org-mode content'],    ## 'line: anything that is not defined like tables, ...
+     'content': [ ['par', u'This is the Org-mode content'],    ## 'par: paragraph containing anything that is not defined like tables, ...
                   '\n',    ## change of paragraph
                   ['heading', {'level': 3, 'title': u'Another aspect'}],  
                   ['list-itemize', [u'first line', u'second line']],
