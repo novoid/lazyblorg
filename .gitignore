@@ -5,3 +5,4 @@
 *.swp
 .ropeproject
 lib/*pyc
+start.sh

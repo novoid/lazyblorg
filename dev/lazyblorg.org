@@ -1,4 +1,4 @@
-# Time-stamp: <2013-05-21 15:50:43 vk>
+# Time-stamp: <2013-05-21 19:30:41 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -867,12 +867,13 @@ entry:
      'title': u'This is a blog entry about foo', 
      'tags': [u'tag1', u'tag2'], 
      'id': u'lazyblorg-example-entry',                          ## ID from PROPERTIES-drawer
-     'finished-timestamp-history': [1234567, 1234599, 132222],  ## UNIX epoch
-     'timestamp': 132222,                                       ## UNIX epoch
+     'finished-timestamp-history': [datetime1, datetime2, datetime3],
+     'timestamp': datetime,
 #     '': , 
 #     '': , 
 #     '': , 
-     'content': [ ['text', u'This is the Org-mode content'],    ## 'text': anything that is not defined like tables, ...
+     'content': [ ['par', u'This is the Org-mode content'],    ## 'line: anything that is not defined like tables, ...
+                  '\n',    ## change of paragraph
                   ['heading', {'level': 3, 'title': u'Another aspect'}],  
                   ['list-itemize', [u'first line', u'second line']],
                   ['table', u'followed by this table data'],         #FIXXME: table syntax

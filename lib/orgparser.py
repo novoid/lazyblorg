@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-05-21 16:02:47 vk>
+# Time-stamp: <2013-05-21 20:01:48 vk>
 
 import re
 import os
 import codecs
+from orgformat import *
 
 ## debugging:   for setting a breakpoint:  pdb.set_trace()
+## NOTE: pdb hides private variables as well. Please use:   data = self._OrgParser__entry_data ; data['content']
 import pdb
                 #pdb.set_trace()## FIXXME
 
@@ -28,6 +30,8 @@ class OrgParser(object):
     ## string of the state which defines a blog entry to be published
     BLOG_FINISHED_STATE = u'DONE'
 
+    LINE_SEPARATION_CHAR_WITHIN_PARAGRAPH = u' '
+
     ## Finite State Machine: defining the states
     ## NOTE: value of numbers are irrelevant - just make sure they are distinct
     SEARCHING_BLOG_HEADER = 'searching_blog_header'
@@ -45,8 +49,11 @@ class OrgParser(object):
     ## REGEX.match(string).group(INDEX)
     HEADING_STARS_IDX = 1
     HEADING_STATE_IDX = 3
-    HEADING_NAME_IDX = 4
+    HEADING_TITLE_IDX = 4
     HEADING_TAGS_IDX = 6  ## components(HEADING_TAGS_IDX)[1:-1].split(':') -> array of tags
+
+    LOG_REGEX = re.compile('^- State\s+"' + BLOG_FINISHED_STATE + '"\s+from\s+"\S*"\s+([\[{].*[\]}])$')
+    LOG_TIMESTAMP_IDX = 1
 
     logging = None
 
@@ -81,7 +88,7 @@ class OrgParser(object):
         self.logging.debug("check_entry_data: checking current entry ...")
         errors = 0
 
-        if not self.__entry_data['id']:
+        if not 'id' in self.__entry_data.keys():
             self.logging.error("Heading does not contain any ID within PROPERTY drawer")
             errors += 1
 
@@ -116,6 +123,7 @@ class OrgParser(object):
             return False
         else:
             self.logging.debug("check_entry_data: current entry has been checked positively for being added to the blog data")
+            #pdb.set_trace()## FIXXME:   data = self._OrgParser__entry_data ; data['content']
             return True
 
 
@@ -143,8 +151,33 @@ class OrgParser(object):
                             self.__entry_data['title'], 
                             str(self.__entry_data['tags'])))
 
-        pass
-        #FIXXME
+
+    def __handle_blog_end(self, line):
+        """
+        Handles the end of the current blog entry.
+
+        @param line: string containing current parsed line
+        @param return: ID of next state
+        """
+
+        self.logging.debug("end of blog entry; checking entry ...")
+        if self.__check_entry_data():
+            self.__blog_data.append(self.__entry_data)
+        
+        self.__entry_data = {}  ## empty current entry data
+
+        ## is newly found heading a new blog entry?
+        heading_components = self.HEADING_REGEX.match(line)
+        if heading_components and heading_components.group(self.HEADING_STATE_IDX) == self.BLOG_FINISHED_STATE:
+            self.logging.debug("OrgParser: found heading (directly after previous blog entry)")
+
+            self.__handle_blog_heading(heading_components.group(self.HEADING_STARS_IDX), 
+                                       heading_components.group(self.HEADING_TITLE_IDX), 
+                                       heading_components.group(self.HEADING_TAGS_IDX))
+            return self.BLOG_HEADER
+
+        else:
+           return self.SEARCHING_BLOG_HEADER
 
 
     def parse_orgmode_file(self):
@@ -163,13 +196,13 @@ class OrgParser(object):
 
         ## contains content of previous line
         ## NOTE: only valid as long a state does not use "next" in the previous parsing step.
-        previous_line = u''
+        previous_line = False
 
         for rawline in codecs.open(self.__filename, 'r', encoding='utf-8'):
 
             line = rawline.rstrip()  ## remove trailing whitespace
 
-            #self.logging.debug("OrgParser: ------------------------------- %s" % state)
+            self.logging.debug("OrgParser: ------------------------------- %s" % state)
             self.logging.debug("OrgParser: %s ###### line: \"%s\"" % (state, line))
             
             if state == self.SEARCHING_BLOG_HEADER:
@@ -178,22 +211,20 @@ class OrgParser(object):
 
                 components = self.HEADING_REGEX.match(line)
 
-                #pdb.set_trace()## FIXXME
-
                 if components and components.group(self.HEADING_STATE_IDX) == self.BLOG_FINISHED_STATE:
 
                     self.__handle_blog_heading(components.group(self.HEADING_STARS_IDX), 
-                                               components.group(self.HEADING_NAME_IDX), 
+                                               components.group(self.HEADING_TITLE_IDX), 
                                                components.group(self.HEADING_TAGS_IDX))
                     state = self.BLOG_HEADER
-                    next
+                    previous_line = line
+                    continue
 
                 else:
                     self.logging.debug("OrgParser: line is not of any interest, skipping.")
-                    next
+                    previous_line = line
+                    continue
                     
-                ## FIXXME
-
             elif state == self.BLOG_HEADER:
 
                 ## after header found: search for drawers (DRAWER_*) until content -> ENTRY_CONTENT
@@ -202,96 +233,131 @@ class OrgParser(object):
                 if line == ':PROPERTIES:':
                     self.logging.debug("found PROPERTIES drawer")
                     state = self.DRAWER_PROP
-                    next
+                    previous_line = line
+                    continue
                 elif line == ':LOGBOOK:':
                     self.logging.debug("found LOGBOOK drawer")
                     state = self.DRAWER_LOGBOOK
-                    next
+                    previous_line = line
+                    continue
 
             elif state == self.ENTRY_CONTENT:
 
                 ## default/main state: parse entry content and look out for content that has got its own state
 
-                components = self.HEADING_REGEX.match(line)
+                if not 'content' in self.__entry_data.keys():
+                    ## append empty content list to __entry_data
+                    self.__entry_data['content'] = []
+
+                heading_components = self.HEADING_REGEX.match(line)
 
                 if line == ':PROPERTIES:':
                     self.logging.debug("found PROPERTIES drawer")
                     state = self.DRAWER_PROP
-                    next
+                    previous_line = line
+                    continue
+
                 elif line == ':LOGBOOK:':
                     self.logging.debug("found LOGBOOK drawer")
                     state = self.DRAWER_LOGBOOK
-                    next
-                elif components:
+                    previous_line = line
+                    continue
+
+                elif line == u'':
+                    self.logging.debug("found empty line")
+                    previous_line = line
+                    #if len(self.__entry_data['content']) > 1:
+                    #    if not self.__entry_data['content'][-1] == u'\n':
+                    #        ## append newline to content (only if previous content is not a newline)
+                    #        self.__entry_data['content'].append(u'\n')
+                    continue
+
+                elif heading_components:
                     self.logging.debug("found new heading")
+                    level = len(heading_components.group(self.HEADING_STARS_IDX))
 
-                    level = len(components.group(self.HEADING_STARS_IDX))
-
-                    if True: ## FIXXME: replace with "if entry_level <= level"
+                    if level <= self.__entry_data['level']:
                         ## level is same or higher as main heading of blog entry: end of blog entry
-                        pass
-                        # FIXXME
-
-                        self.logging.debug("end of blog entry; checking entry ...")
-                        if self.__check_entry_data():
-                            self.__blog_data.append(self.__entry_data)
-                        
-                        self.__entry_data = {}  ## empty current entry data
-
-                        ## is newly found heading a new blog entry?
-                        components = self.HEADING_REGEX.match(line)
-                        if components and components.group(self.HEADING_STATE_IDX) == self.BLOG_FINISHED_STATE:
-                            self.logging.debug("OrgParser: found heading (directly after previous blog entry)")
-
-                            self.__handle_blog_heading(components.group(self.HEADING_STARS_IDX), 
-                                                       components.group(self.HEADING_NAME_IDX), 
-                                                       components.group(self.HEADING_TAGS_IDX))
-                            state = self.BLOG_HEADER
-                            next
-
-                        else:
-                           state = self.SEARCHING_BLOG_HEADER
-                           next
-
-                    elif False: ## FIXXME: replace with "if entry_level < level"
+                        state = self.__handle_blog_end(line)
+                        previous_line = line
+                        continue
+                    else:
                         ## sub-heading of entry
+                        title = heading_components.group(self.HEADING_TITLE_IDX)
+                        self.logging.debug("inserting new sub-heading")
+                        self.__entry_data['content'].append(['heading', 
+                                                             {'level': level, 'title': title}])
 
-                        name = components.group(HEADING_NAME_IDX)
-                        tags = components.group(HEADING_TAGS_IDX)
-                        self.logging.debug("found new sub-heading")
-                        
-                        # FIXXME
+                ## FIXXME: add more elif line == ELEMENT
 
-                ## FIXXME
-                pass
+                else:
+                    if len(self.__entry_data['content']) > 0:
+                        if previous_line != u'' and self.__entry_data['content'][-1][0] == 'par':
+                            ## concatenate this line with previous if it is still generic content within a paragraph
+                            self.logging.debug("adding line as generic content to current paragraph")
+                            self.__entry_data['content'][-1][1] += \
+                                self.LINE_SEPARATION_CHAR_WITHIN_PARAGRAPH + line.strip()
+                            previous_line = line
+                            continue
+
+                    self.logging.debug("adding line as new generic content paragraph")
+                    self.__entry_data['content'].append(['par', line])
+                    previous_line = line
+                    continue
+                    
 
             elif state == self.DRAWER_PROP:
 
-                ## parse properties and return to ENTRY_CONTENT
-
-                if line.startswith(':ID:'):
-                    id = line[4:].strip().replace(u' ','')
-
-                    self.__entry_data['id'] = id
-                    
-                elif line == ':END:':
-                    self.logging.debug("end of drawer")
-                    state = self.ENTRY_CONTENT
-                    next
-
-                ## FIXXME
-
-            elif state == self.DRAWER_LOGBOOK:
-
-                ## parse logbook entries and return to ENTRY_CONTENT
+                ## parse properties for ID and return to ENTRY_CONTENT
 
                 if line == ':END:':
                     self.logging.debug("end of drawer")
                     state = self.ENTRY_CONTENT
-                    next
+                    previous_line = line
+                    continue
 
-                ## FIXXME
-                pass
+                if 'id' in self.__entry_data.keys():
+                    ## if ID already found, ignore rest of PROPERTIES and all other PROPERTIES (of sub-headings)
+                    logging.debug("ignoring PROPERTIES since I already got my ID")
+                    previous_line = line
+                    continue
+
+                if line.startswith(':ID:'):
+                    self.__entry_data['id'] = line[4:].strip().replace(u' ','')
+                    
+                else:
+                    previous_line = line
+                    continue
+
+            elif state == self.DRAWER_LOGBOOK:
+
+                ## parse logbook entries for state changes to self.BLOG_FINISHED_STATE and return to ENTRY_CONTENT
+
+                if line == ':END:':
+                    self.logging.debug("end of drawer")
+                    state = self.ENTRY_CONTENT
+                    previous_line = line
+                    continue
+
+                components = self.LOG_REGEX.match(line)
+                if components:
+
+                    ## extract time-stamp as datetime and add to finished-timestamp-history
+                    datetimestamp = OrgFormat.orgmode_timestamp_to_datetime(components.group(self.LOG_TIMESTAMP_IDX))
+                    if 'finished-timestamp-history' in self.__entry_data.keys():
+                        self.__entry_data['finished-timestamp-history'].append(datetimestamp)
+                    else:
+                        self.__entry_data['finished-timestamp-history'] = [datetimestamp]
+                    
+                    ## (over)write timestamp of blogentry if current datetimestamp is newest
+                    if 'timestamp' in self.__entry_data.keys():
+                        if datetimestamp > self.__entry_data['timestamp']:
+                            self.__entry_data['timestamp'] = datetimestamp
+                    else:
+                        self.__entry_data['timestamp'] = datetimestamp
+
+                previous_line = line
+                continue
 
             elif state == self.BLOCK:
 
