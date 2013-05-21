@@ -3,3 +3,5 @@
 *.archive\#
 *.org\#
 *.swp
+.ropeproject
+lib/*pyc
