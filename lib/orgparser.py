@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-05-21 20:01:48 vk>
+# Time-stamp: <2013-05-23 15:22:52 vk>
 
 import re
 import os
@@ -10,6 +10,7 @@ from orgformat import *
 ## NOTE: pdb hides private variables as well. Please use:   data = self._OrgParser__entry_data ; data['content']
 import pdb
                 #pdb.set_trace()## FIXXME
+
 
 class OrgmodeParseException(Exception):
     """
@@ -60,8 +61,8 @@ class OrgParser(object):
     __filename = u''
 
     ## for description please visit: lazyblog.org > Notes > Representation of blog data
-    __blog_data = []  ## list of all parsed entries of __filename
-    __entry_data = {} ## dict of current entry of __blog_data being written to
+    __blog_data = []   ## list of all parsed entries of __filename
+    __entry_data = {}  ## dict of current entry of __blog_data being written to
 
     def __init__(self, filename, logging):
         """
@@ -75,7 +76,6 @@ class OrgParser(object):
 
         self.__filename = filename
         self.logging = logging
-
 
     def __check_entry_data(self):
         """
@@ -104,7 +104,7 @@ class OrgParser(object):
             self.logging.error("Heading does not contain a timestamp")
             errors += 1
 
-        if 'content' in self.__entry_data.keys(): 
+        if 'content' in self.__entry_data.keys():
             if len(self.__entry_data['content']) < 1:
                 self.logging.error("Heading does not contain a filled content")
                 errors += 1
@@ -113,19 +113,18 @@ class OrgParser(object):
             errors += 1
 
         if not 'tags' in self.__entry_data.keys():
-            self.logging.info("Heading does not contain tags but this is probably OK: \"%s\"" % 
+            self.logging.info("Heading does not contain tags but this is probably OK: \"%s\"" %
                               self.__entry_data['title'])
             errors += 1
 
         if errors > 0:
-            self.logging.error("check_entry_data: %s errors were found for heading \"%s\" in file \"%s\"" % 
-                          (str(errors), self.__entry_data['title'], self.__filename))
+            self.logging.error("check_entry_data: %s errors were found for heading \"%s\" in file \"%s\"" %
+                               (str(errors), self.__entry_data['title'], self.__filename))
             return False
         else:
             self.logging.debug("check_entry_data: current entry has been checked positively for being added to the blog data")
             #pdb.set_trace()## FIXXME:   data = self._OrgParser__entry_data ; data['content']
             return True
-
 
     def __handle_blog_heading(self, stars, title, tags):
         """
@@ -146,11 +145,10 @@ class OrgParser(object):
         self.__entry_data['tags'] = tags[1:-1].split(':')
         self.__entry_data['level'] = len(stars)
 
-        self.logging.debug("OrgParser: heading: level[%s] title[%s] tags%s" % 
-                           (str(self.__entry_data['level']), 
-                            self.__entry_data['title'], 
+        self.logging.debug("OrgParser: heading: level[%s] title[%s] tags%s" %
+                           (str(self.__entry_data['level']),
+                            self.__entry_data['title'],
                             str(self.__entry_data['tags'])))
-
 
     def __handle_blog_end(self, line):
         """
@@ -163,7 +161,7 @@ class OrgParser(object):
         self.logging.debug("end of blog entry; checking entry ...")
         if self.__check_entry_data():
             self.__blog_data.append(self.__entry_data)
-        
+
         self.__entry_data = {}  ## empty current entry data
 
         ## is newly found heading a new blog entry?
@@ -171,14 +169,13 @@ class OrgParser(object):
         if heading_components and heading_components.group(self.HEADING_STATE_IDX) == self.BLOG_FINISHED_STATE:
             self.logging.debug("OrgParser: found heading (directly after previous blog entry)")
 
-            self.__handle_blog_heading(heading_components.group(self.HEADING_STARS_IDX), 
-                                       heading_components.group(self.HEADING_TITLE_IDX), 
+            self.__handle_blog_heading(heading_components.group(self.HEADING_STARS_IDX),
+                                       heading_components.group(self.HEADING_TITLE_IDX),
                                        heading_components.group(self.HEADING_TAGS_IDX))
             return self.BLOG_HEADER
 
         else:
-           return self.SEARCHING_BLOG_HEADER
-
+            return self.SEARCHING_BLOG_HEADER
 
     def parse_orgmode_file(self):
         """
@@ -204,7 +201,7 @@ class OrgParser(object):
 
             self.logging.debug("OrgParser: ------------------------------- %s" % state)
             self.logging.debug("OrgParser: %s ###### line: \"%s\"" % (state, line))
-            
+
             if state == self.SEARCHING_BLOG_HEADER:
 
                 ## search for header line of a blog entry -> BLOG_HEADER
@@ -213,8 +210,8 @@ class OrgParser(object):
 
                 if components and components.group(self.HEADING_STATE_IDX) == self.BLOG_FINISHED_STATE:
 
-                    self.__handle_blog_heading(components.group(self.HEADING_STARS_IDX), 
-                                               components.group(self.HEADING_TITLE_IDX), 
+                    self.__handle_blog_heading(components.group(self.HEADING_STARS_IDX),
+                                               components.group(self.HEADING_TITLE_IDX),
                                                components.group(self.HEADING_TAGS_IDX))
                     state = self.BLOG_HEADER
                     previous_line = line
@@ -224,7 +221,7 @@ class OrgParser(object):
                     self.logging.debug("OrgParser: line is not of any interest, skipping.")
                     previous_line = line
                     continue
-                    
+
             elif state == self.BLOG_HEADER:
 
                 ## after header found: search for drawers (DRAWER_*) until content -> ENTRY_CONTENT
@@ -285,7 +282,7 @@ class OrgParser(object):
                         ## sub-heading of entry
                         title = heading_components.group(self.HEADING_TITLE_IDX)
                         self.logging.debug("inserting new sub-heading")
-                        self.__entry_data['content'].append(['heading', 
+                        self.__entry_data['content'].append(['heading',
                                                              {'level': level, 'title': title}])
 
                 ## FIXXME: add more elif line == ELEMENT
@@ -304,7 +301,6 @@ class OrgParser(object):
                     self.__entry_data['content'].append(['par', line])
                     previous_line = line
                     continue
-                    
 
             elif state == self.DRAWER_PROP:
 
@@ -323,8 +319,8 @@ class OrgParser(object):
                     continue
 
                 if line.startswith(':ID:'):
-                    self.__entry_data['id'] = line[4:].strip().replace(u' ','')
-                    
+                    self.__entry_data['id'] = line[4:].strip().replace(u' ', '')
+
                 else:
                     previous_line = line
                     continue
@@ -348,7 +344,7 @@ class OrgParser(object):
                         self.__entry_data['finished-timestamp-history'].append(datetimestamp)
                     else:
                         self.__entry_data['finished-timestamp-history'] = [datetimestamp]
-                    
+
                     ## (over)write timestamp of blogentry if current datetimestamp is newest
                     if 'timestamp' in self.__entry_data.keys():
                         if datetimestamp > self.__entry_data['timestamp']:

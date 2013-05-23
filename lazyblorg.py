@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-05-21 20:04:20 vk>
+# Time-stamp: <2013-05-23 15:11:59 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -12,11 +12,9 @@
 
 import re
 import os
-import json
 import logging
 import datetime
 import sys
-import codecs
 from optparse import OptionParser
 from lib.utils import *
 from lib.orgparser import *
@@ -105,8 +103,7 @@ def main():
 
     if options.verbose and options.quiet:
         Utils.error_exit(logging, 1, "Options \"--verbose\" and \"--quiet\" found. " +
-                   "This does not make any sense, you silly fool :-)")
-
+                         "This does not make any sense, you silly fool :-)")
 
     if not options.targetdir:
         Utils.error_exit(logging, 2, "Please give me a folder to write to with option \"--targetdir\".")
