@@ -1,4 +1,4 @@
-# Time-stamp: <2013-05-21 20:04:20 vk>
+# Time-stamp: <2013-05-21 21:41:37 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -151,36 +151,6 @@ About this Blog                                                      check HTML/
 - background: bright yellowish with possible gradient from dark (top)
   to bright (bottom)
 
-** CANCELLED idea: generate article body using Org-exporter :architecture:ARCHIVE:
-CLOSED: [2013-02-14 Thu 17:21]
-:LOGBOOK:
-- State "CANCELLED"  from "NEXT"       [2013-02-14 Thu 17:21]
-:END:
-:PROPERTIES:
-:CREATED:  [2013-02-14 Thu 17:17]
-:END:
-
-- header, title, footer: generate using Python
-- main body: generate using Org-mode and temp-buffer using for
-  converting
-
-- advantages
-  - Blog can parse/generate everything the Org-exporter can parse
-
-- disadvantages
-  - no custom links to other blog entries
-    - or not that easy to implement
-  - dependency to a running Emacs instance
-    - configuration issues
-    - path issues
-    - performance issues(!)
-      - each article has to be exported in one single export of its
-        own
-  - might cause some issues when Org-exporter changes
-
-- <2013-02-14 Thu> so far, I do not consider the issue with external
-  dependency to Emacs as negative
-
 ** DONE sketch ArticleOrgEntry                                :architecture:
 CLOSED: [2013-02-15 Fri 20:00]
 :LOGBOOK:
@@ -230,6 +200,7 @@ CLOSED: [2013-02-15 Fri 20:06]
 :END:
 :PROPERTIES:
 :CREATED:  [2013-02-15 Fri 20:03]
+:ID: 2013-02-15-checksum
 :END:
 
 - http://docs.python.org/2/library/hashlib.html#module-hashlib
@@ -244,7 +215,13 @@ import hashlib
 converted = hashlib.sha1("My text").hexdigest()
 #+END_SRC
 
-** NEXT implement basic workflow stub                         :architecture:
+- checksum over:
+  - data['title']
+  - data['timestamp']
+  - data['tags']
+  - data['content']
+
+** STARTED implement basic workflow stub                      :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 10:37]
 :END:
@@ -265,10 +242,15 @@ DEBUG    2013-05-20 17:58:02,644 successfully finished.
 vk@gary ~/src/lazyblorg (git)-[master] %
 #+END_VERSE
 
-- [ ] find all headings with state DONE and tag :blog:
+- [X] find all headings with state DONE and tag :blog:
   - optionally: add all other tags starting with "blog-" as blog tags
-- [ ] one entry starts at such a heading until EOF OR same or less level
+- [X] one entry starts at such a heading until EOF OR same or less level
   heading is found
+- [ ] create checksum (see id:2013-02-15-checksum)
+  - data['title']
+  - data['timestamp']
+  - data['tags']
+  - data['content']
 - [ ] compare raw text and IDs with last run
   - known ID, raw text unchanged: ignore, no change
   - new ID
@@ -303,19 +285,6 @@ vk@gary ~/src/lazyblorg (git)-[master] %
   2. parse everything again and store only new or updated article contents
      - match with ID-links
 
-** TODO create template files for HTML snippets               :architecture:
-:PROPERTIES:
-:CREATED:  [2013-03-13 Wed 10:21]
-:END:
-
-- lazyblorg/templates/article.org
-
-- Org-mode format "header"
-- HTML src block with actual template
-- #LB-TITLE# -> title
-- #LB-AUTHOR# -> Authors name
-- and so on
-
 ** TODO Idea: do paragraph parsing                            :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-27 Wed 16:48]
@@ -346,44 +315,18 @@ Documentation:
 - clearly state that lazyblorg does support *no org-mode syntax*
   except <list-of-supported-elements-and-their-context>
 
-** TODO create Module for tool methods                         :architecture:
+** TODO create template files for HTML snippets               :architecture:
 :PROPERTIES:
-:CREATED:  [2013-02-17 Sun 13:07]
+:CREATED:  [2013-03-13 Wed 10:21]
 :END:
 
-- http://docs.python.org/2/tutorial/modules.html
-- tools.OrgParserTools (?)
+- lazyblorg/templates/article.org
 
-** NEXT spike: parsing Org-mode files in Python                :architecture:
-:PROPERTIES:
-:CREATED: [2012-07-22 Sun 18:08]
-:END:
-
-- https://github.com/bjonnh/PyOrgMode
-- list of several Python parsers: https://github.com/julian-gehring/worg/blob/master/org-tools/index.org
-  - http://members.optusnet.com.au/~charles57/GTD/orgnode.html
-    - MIT license
-    - last change: 2009-06
-    - is able to read node by node (=heading)
-    - return (unmodified) body of each node
-    - returns tags and properties
-    - looks usable
-    - code no that big
-    - probably: have to extend parser for LOGBOOK-drawers
-  - https://github.com/bjonnh/PyOrgMode
-    - GPL v3
-    - last change: 2012-10
-    - very few documentation available
-    - long [[https://github.com/bjonnh/PyOrgMode/blob/master/TODO][list of open todos]]
-
-- <2013-02-14 Thu> looks like I'm gonna stick to OrgNode for now
-
-** TODO create Module for constants                           :architecture:
-:PROPERTIES:
-:CREATED:  [2013-02-17 Sun 13:10]
-:END:
-
-- for defining/customizing HTML snippets, basic structure and so on
+- Org-mode format "header"
+- HTML src block with actual template
+- #LB-TITLE# -> title
+- #LB-AUTHOR# -> Authors name
+- and so on
 
 ** TODO create unit test for comparing output files                  :tests:
 :PROPERTIES:
@@ -402,14 +345,6 @@ A sub-heading «Org» contains the Org-mode document/snippet which gets
 parsed.
 
 A sub-heading «result» contains the results which is expected.
-
-** TODO tools: parse timestamps                                :architecture:
-:PROPERTIES:
-:CREATED:  [2013-02-14 Thu 17:30]
-:END:
-
-- example: parse_datetime() in https://github.com/bjonnh/PyOrgMode/blob/master/PyOrgMode.py
-
 ** NEXT CSS: manually create CSS for an entry                 :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 14:14]
