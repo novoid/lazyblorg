@@ -1,0 +1,63 @@
+## Time-stamp: <2013-08-20 22:06:18 vk>
+## -*- coding: utf-8 -*-
+## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+
+* README
+
+This file contains the format templates of your blog.
+
+lazyblorg is looking for this file name (~blog-format.org~) and using
+(only) the first level heading named ~Templates~ which is marked as
+DONE and tagged with ~:blog:~.
+
+This way, you can switch between different files (renaming files) or
+heading (renaming first level headings), respectively.
+
+The format templates are located in a heading hierarchy. Please *do
+not modify heading names* since lazyblorg is looking for their exact
+names. The hierarchy should be self explaining for you.
+
+Within a heading, each format template is defined in a HTML [[http://orgmode.org/manual/Working-With-Source-Code.html#Working-With-Source-Code][babel
+block]].  Its name corresponds to the internal lazyblorg definition. So
+please *do not modify the name strings* otherwise lazyblorg gets very
+sad!
+
+Single line format templates will be stripped (leading and ending
+whitespaces removed).
+
+Within a format template, you will see strings like ~#FOO#~. These
+place holder strings will get replaced by your content. If you modify
+those, lazyblorg is not able to replace them with your content: *do
+not modify/remove/invent place holder strings* by yourself.
+
+In between the format templates, you can write whatever you want
+unless it is no babel block of type ~html~: lazyblorg will ignore
+these in-between notes.
+
+Have fun with modifying lazyblorg to your requirements!
+
+* DONE Templates                                                       :blog:
+
+** Article
+
+Paragraph:
+
+#+NAME: par
+#+BEGIN_HTML
+
+<p>
+
+#CONTENT#
+
+</p>
+
+#+END_HTML
+
+
+* Local Variables                                                  :noexport:
+# Local Variables:
+# mode: auto-fill
+# mode: flyspell
+# eval: (ispell-change-dictionary "en_US")
+# End:

@@ -1,4 +1,4 @@
-# Time-stamp: <2013-08-20 18:09:28 vk>
+# Time-stamp: <2013-08-20 22:06:13 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -402,6 +402,48 @@ CLOSED: [2012-11-10 Sat 18:10] DEADLINE: <2012-11-10 Sat>
 :PROPERTIES:
 :CREATED:  [2012-11-07 Wed 21:23]
 :END:
+** DONE create template file(s) for HTML snippets             :architecture:
+CLOSED: [2013-08-20 Tue 18:58]
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2013-08-20 Tue 18:58]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-03-13 Wed 10:21]
+:ID: 2013-03-13-HTML-template-file
+:END:
+
+- lazyblorg/templates/blog-format.org
+  - article
+    - header
+    - footer
+    - title
+    - tags
+    - tag
+    - heading
+    - par
+    - <all other recognized entities>
+  - <misc meta-pages like jump-pages and so on>
+
+Example:
+
+#+NAME: par
+#+BEGIN_HTML
+
+<p>
+
+#CONTENT#
+
+</p>
+
+#+END_HTML
+
+(if single line, lazyblorg trims the strings)
+
+- Org-mode format "header"
+- HTML src block with actual template
+- #LB-TITLE# -> title
+- #LB-AUTHOR# -> Authors name
+- and so on
 
 ** STARTED implement basic work-flow *stub*                    :architecture:
 :PROPERTIES:
@@ -430,7 +472,7 @@ vk@gary ~/src/lazyblorg (git)-[master] %
 - [X] one entry starts at such a heading until EOF OR same or less level
   heading is found
 
-- [ ] create checksum (see id:2013-02-15-checksum)
+- [X] create checksum (see id:2013-02-15-checksum)
   - data['title']
   - data['timestamp']
   - data['tags']
@@ -479,20 +521,14 @@ vk@gary ~/src/lazyblorg (git)-[master] %
   2. parse everything again and store only new or updated article contents
      - match with ID-links
 
-** TODO create template files for HTML snippets               :architecture:
+** NEXT parse format template file                            :architecture:
 :PROPERTIES:
-:CREATED:  [2013-03-13 Wed 10:21]
+:CREATED:  [2013-08-20 Tue 19:04]
 :END:
 
-- lazyblorg/templates/article.org
+- history/idea: see id:2013-03-13-HTML-template-file
 
-- Org-mode format "header"
-- HTML src block with actual template
-- #LB-TITLE# -> title
-- #LB-AUTHOR# -> Authors name
-- and so on
-
-** STARTED create unit test for comparing output files               :tests:
+** STARTED create unit test for comparing HTML/CSS output files       :tests:
 :PROPERTIES:
 :CREATED:  [2013-02-14 Thu 17:28]
 :END:
@@ -892,68 +928,66 @@ page. Further headings contain more content for other pages.
 - list of Org Mode elements: http://article.gmane.org/gmane.emacs.orgmode/67871
   - will get on Worg some day!
 
-| Org-mode     | HTML5             | implemented since |
-|--------------+-------------------+-------------------|
-| headings     | section+header+h1 |                   |
-| simple lists | ul+li             |                   |
-| BEGIN_VERSE  | pre               |                   |
-| BEGIN_QUOTE  | blockquote        |                   |
-| tables       |                   |                   |
-| images       |                   |                   |
-| *bold*       | em                |                   |
-| ~commands~   | code              |                   |
+Org elements: from ox-ascii.el
 
-possible Org elements from ox-ascii.el:
-#+BEGIN_QUOTE
-bold
-center-block
-clock
-code
-drawer
-dynamic-block
-entity
-example-block
-export-block
-export-snippet
-fixed-width
-footnote-definition
-footnote-reference
-headline
-horizontal-rule
-inline-src-block
-inlinetask
-inner-template
-italic
-item
-keyword
-latex-environment
-latex-fragment
-line-break
-link
-paragraph
-plain-list
-plain-text
-planning
-quote-block
-quote-section
-radio-target
-section
-special-block
-src-block
-statistics-cookie
-strike-through
-subscript
-superscript
-table
-table-cell
-table-row
-target
-template
-timestamp
-underline
-verbatim
-verse-block
-#+END_QUOTE
+| *Org Element*       | *HTML5*           | earmarked | implemented since | low prio |
+|---------------------+-------------------+-----------+-------------------+----------|
+| bold                | em                |           |                   |          |
+| center-block        |                   |           |                   |          |
+| clock               |                   |           |                   |          |
+| code                | code              |           |                   |          |
+| drawer              |                   |           |                   |          |
+| dynamic-block       |                   |           |                   | x        |
+| entity              |                   |           |                   |          |
+| example-block       |                   |           |                   |          |
+| export-block        |                   |           |                   |          |
+| export-snippet      |                   |           |                   |          |
+| fixed-width         |                   |           |                   |          |
+| footnote-definition |                   |           |                   |          |
+| footnote-reference  |                   |           |                   |          |
+| headline            | section+header+h1 | x         |                   |          |
+| horizontal-rule     |                   |           |                   |          |
+| inline-src-block    |                   |           |                   |          |
+| inlinetask          |                   |           |                   |          |
+| inner-template      |                   |           |                   |          |
+| italic              |                   |           |                   |          |
+| item                |                   |           |                   |          |
+| keyword             |                   |           |                   |          |
+| latex-environment   |                   |           |                   |          |
+| latex-fragment      |                   | x         |                   |          |
+| line-break          |                   |           |                   |          |
+| link                |                   | x         |                   |          |
+| paragraph           |                   | x         |                   |          |
+| plain-list          | ul+li             |           |                   |          |
+| plain-text          |                   |           |                   |          |
+| planning            |                   |           |                   |          |
+| quote-block         | blockquote        |           |                   |          |
+| quote-section       |                   |           |                   |          |
+| radio-target        |                   |           |                   |          |
+| section             |                   |           |                   |          |
+| special-block       |                   |           |                   |          |
+| src-block           |                   |           |                   |          |
+| statistics-cookie   |                   |           |                   |          |
+| strike-through      |                   |           |                   |          |
+| subscript           |                   |           |                   |          |
+| superscript         |                   |           |                   |          |
+| table               |                   |           |                   |          |
+| table-cell          |                   |           |                   |          |
+| table-row           |                   |           |                   |          |
+| target              |                   |           |                   |          |
+| template            |                   |           |                   |          |
+| timestamp           |                   |           |                   |          |
+| underline           |                   |           |                   |          |
+| verbatim            | pre               |           |                   |          |
+| verse-block         | pre               |           |                   |          |
+
+- Blocks: (beginning with ~BEGIN_~)
+  - [[http://orgmode.org/org.html#index-g_t_0023_002bBEGIN_005fASCII-1620][ASCII]]
+  - [[http://orgmode.org/org.html#index-g_t_0023_002bBEGIN_005fHTML-1661][HTML]]
+  - [[http://orgmode.org/org.html#index-g_t_0023_002bBEGIN_005fLATEX-1719][LATEX]]
+  - [[http://orgmode.org/org.html#index-g_t_0023_002bBEGIN_005fQUOTE-1493][QUOTE]]
+  - [[http://orgmode.org/org.html#index-g_t_0023_002bBEGIN_005fSRC-1885][SRC]]
+  - [[http://orgmode.org/org.html#index-g_t_0023_002bBEGIN_005fVERSE-1492][VERSE]]
 
 ** Naming this project
 :PROPERTIES:
@@ -974,7 +1008,11 @@ are some for "lazyblog" (without the 'r').
       set up
     - no hits for "[[https://www.google.com/#fp%3De12793cfcde69436&hl%3Den&nfpr%3D1&q%3Dinvisiblorg&safe%3Doff][invisiblorg]]" but some for "invisiblog" or "invisibl.org"
 
-** STARTED [#A] Representation of blog data
+** DONE [#A] Representation of blog data
+CLOSED: [2013-08-20 Tue 18:15]
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2013-08-20 Tue 18:15]
+:END:
 :PROPERTIES:
 :CREATED:  [2013-05-21 Tue 15:26]
 :ID: blog_data
@@ -995,6 +1033,7 @@ entry:
      'content': [ ['par', u'This is the Org-mode content'],    ## 'par: paragraph containing anything that is not defined like tables, ...
                   '\n',    ## change of paragraph
                   ['heading', {'level': 3, 'title': u'Another aspect'}],  
+                  ['html-block', 'its name or None', [u'first line', u'second line', u'', u'last line']]
                   ['list-itemize', [u'first line', u'second line']],
                   ['table', u'followed by this table data'],         #FIXXME: table syntax
                   ['image', u'followed by this image']               #FIXXME: image syntax
