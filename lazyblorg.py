@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-05-23 15:11:59 vk>
+# Time-stamp: <2013-08-20 15:57:32 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -18,6 +18,7 @@ import sys
 from optparse import OptionParser
 from lib.utils import *
 from lib.orgparser import *
+import pickle ## for serializing and storing objects into files
 
 ## debugging:   for setting a breakpoint:  pdb.set_trace()
 #import pdb
@@ -46,10 +47,15 @@ For all command line options, please call: " + sys.argv[0] + u" --help\n\
 
 
 ## file names containing tags matches following regular expression
+## FIXXME or delete
 MENTIONS_REGEX = re.compile(r'', re.M)
 
+## regular expression of FIXXME
+## FIXXME or delete!
+## examples: FIXXME
 TIME_REGEX = re.compile('^(\w+) (\w+) (\d+) (\d\d):(\d\d):(\d\d) \+\d+ (\d\d\d\d)$')
 
+## dictionary of months
 MONTHS = {'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04', 'May': '05',
           'Jun': '06', 'Jul': '07', 'Aug': '08', 'Sep': '09',
           'Oct': '10', 'Nov': '11', 'Dec': '12'}
@@ -58,6 +64,10 @@ parser = OptionParser(usage=USAGE)
 
 parser.add_option("--targetdir", dest="targetdir",
                   help="directory where the HTML files will be written to")
+
+parser.add_option("--blogdata", dest="blogdatafilename",
+                  help="path to a file where the persistent data of the blog " +
+                  "is written to. Next run, it will be read and used for comparison to current situation.")
 
 parser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                   help="enable verbose mode")
@@ -69,6 +79,12 @@ parser.add_option("--version", dest="version", action="store_true",
                   help="display version and exit")
 
 (options, args) = parser.parse_args()
+
+
+## format of the storage file
+## pickle offers, e.g., 0 (ASCII; human-readable) or pickle.HIGHEST_PROTOCOL (binary; more efficient)
+#PICKLE_FORMAT = pickle.HIGHEST_PROTOCOL
+PICKLE_FORMAT = 0
 
 
 def handle_file(filename):
@@ -111,6 +127,12 @@ def main():
     if not os.path.isdir(options.targetdir):
         Utils.error_exit(logging, 3, "Target directory \"%s\" is not a directory. Aborting." % options.targetdir)
 
+    if not options.blogdatafilename:
+        Utils.error_exit(logging, 4, "Please give me a file to write to with option \"--blogdata\".")
+
+    if not os.path.isfile(options.blogdatafilename):
+        logging.warning("Blog data file \"%s\" is not found. Assuming first run!" % options.blogdatafilename)
+
     logging.debug("extracting list of Org-mode files ...")
     logging.debug("len(args) [%s]" % str(len(args)))
     if len(args) < 1:
@@ -131,6 +153,9 @@ def main():
         blog_data.extend(handle_file(filename))
 
     logging.debug("successfully finished.")
+
+    with open(options.blogdatafilename, 'wb') as output:
+        pickle.dump(blog_data, output, PICKLE_FORMAT)
 
 
 if __name__ == "__main__":

@@ -6,3 +6,5 @@
 .ropeproject
 lib/*pyc
 start.sh
+dev/2del/
+*.pk

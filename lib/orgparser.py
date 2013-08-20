@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-05-23 15:22:52 vk>
+# Time-stamp: <2013-08-20 15:28:04 vk>
 
 import re
 import os
@@ -45,7 +45,7 @@ class OrgParser(object):
     TABLE = 'table'
     COLON_BLOCK = 'colon_block'
 
-    ## asterisk(s), whitespace, word(s), optional followed by tags:
+    ## asterisk(s), whitespace, word(s), optional followed by optional tags:
     HEADING_REGEX = re.compile('^(\*+)\s+((' + BLOG_FINISHED_STATE + ')\s+)?(.*?)(\s+(:\S+:)+)?\s*$')
     ## REGEX.match(string).group(INDEX)
     HEADING_STARS_IDX = 1
@@ -61,8 +61,8 @@ class OrgParser(object):
     __filename = u''
 
     ## for description please visit: lazyblog.org > Notes > Representation of blog data
-    __blog_data = []   ## list of all parsed entries of __filename
-    __entry_data = {}  ## dict of current entry of __blog_data being written to
+    __blog_data = []   ## list of all parsed entries of __filename: contains a list with elements of type __entry_data
+    __entry_data = {}  ## dict of current blog entry data: gets "filled" while parsing the entry
 
     def __init__(self, filename, logging):
         """
