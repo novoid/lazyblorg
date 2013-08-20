@@ -1,4 +1,4 @@
-# Time-stamp: <2013-02-14 19:04:02 vk>
+# Time-stamp: <2013-08-20 21:52:54 vk>
 # -*- coding: utf-8 -*-
 
 * Heading of no interest
@@ -71,14 +71,20 @@ might win the Pulitzer Prize some day!
 
 #+END_VERSE
 
-*** Sub-heading bar
+*** Sub-heading HTML block
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 11:00]
 :END:
 
-This is a dummy text whose only purpose is to generate some content
-which is then processed by this lovely tool. The resulting web blog
-might win the Pulitzer Prize some day!
+Here comes some HTML:
+
+#+NAME: my-HTML-example name
+#+BEGIN_HTML
+    foo
+bar
+  <foo />
+<a href="bar">baz</a>
+#+END_HTML
 
 ** Not a blog entry
 :PROPERTIES:
