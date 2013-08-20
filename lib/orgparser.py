@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-20 15:28:04 vk>
+# Time-stamp: <2013-08-20 17:17:40 vk>
 
 import re
 import os
@@ -52,6 +52,9 @@ class OrgParser(object):
     HEADING_STATE_IDX = 3
     HEADING_TITLE_IDX = 4
     HEADING_TAGS_IDX = 6  ## components(HEADING_TAGS_IDX)[1:-1].split(':') -> array of tags
+
+    CREATED_REGEX = re.compile('^:CREATED:\s+' + OrgFormat.SINGLE_ORGMODE_TIMESTAMP)
+    CREATED_TIMESTAMP_IDX = 1
 
     LOG_REGEX = re.compile('^- State\s+"' + BLOG_FINISHED_STATE + '"\s+from\s+"\S*"\s+([\[{].*[\]}])$')
     LOG_TIMESTAMP_IDX = 1
@@ -304,7 +307,7 @@ class OrgParser(object):
 
             elif state == self.DRAWER_PROP:
 
-                ## parse properties for ID and return to ENTRY_CONTENT
+                ## parse properties for ID and CREATED and return to ENTRY_CONTENT
 
                 if line == ':END:':
                     self.logging.debug("end of drawer")
@@ -312,14 +315,20 @@ class OrgParser(object):
                     previous_line = line
                     continue
 
-                if 'id' in self.__entry_data.keys():
-                    ## if ID already found, ignore rest of PROPERTIES and all other PROPERTIES (of sub-headings)
-                    logging.debug("ignoring PROPERTIES since I already got my ID")
+                if 'id' in self.__entry_data.keys() and 'created' in self.__entry_data.keys():
+                    ## if all properties already found, ignore rest of PROPERTIES and all other PROPERTIES (of sub-headings)
+                    logging.debug("ignoring PROPERTIES since I already got my ID and CREATED")
                     previous_line = line
                     continue
 
                 if line.startswith(':ID:'):
                     self.__entry_data['id'] = line[4:].strip().replace(u' ', '')
+
+                if line.startswith(':CREATED:'):
+                    datetimestamp = OrgFormat.orgmode_timestamp_to_datetime(
+                        self.CREATED_REGEX.match(line).group(self.CREATED_TIMESTAMP_IDX)
+                        )
+                    self.__entry_data['created'] = datetimestamp
 
                 else:
                     previous_line = line

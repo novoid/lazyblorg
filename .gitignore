@@ -3,8 +3,9 @@
 *.archive\#
 *.org\#
 *.swp
+*.pyc
 .ropeproject
-lib/*pyc
 start.sh
 dev/2del/
 blogdata.pk
+lib/tests/simple_org_-_lastrun.pk

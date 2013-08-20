@@ -21,77 +21,84 @@ aVmytest
 p11
 aVprogramming
 p12
-asS'content'
+asS'created'
 p13
-(lp14
-(lp15
-S'par'
-p16
-aVThis is an introduction text which describes the blog entry with some catchy information. Readers should be convinced to read this interesting text. [[https://github.com/novoid/Memacs][Memacs]] is an external link to Memacs.
+g4
+(S'\x07\xdd\x02\x0c\n:\x00\x00\x00\x00'
+p14
+tp15
+Rp16
+sS'content'
 p17
-aa(lp18
-S'heading'
-p19
-a(dp20
-S'title'
+(lp18
+(lp19
+S'par'
+p20
+aVThis is an introduction text which describes the blog entry with some catchy information. Readers should be convinced to read this interesting text. [[https://github.com/novoid/Memacs][Memacs]] is an external link to Memacs.
 p21
+aa(lp22
+S'heading'
+p23
+a(dp24
+S'title'
+p25
 VSub-heading foo
-p22
+p26
 sg2
 I3
-saa(lp23
-g16
+saa(lp27
+g20
 aVThis is a dummy text whose only purpose is to generate some content which is then processed by this lovely tool. The resulting web blog might win the Pulitzer Prize some day!
-p24
-aa(lp25
-g16
+p28
+aa(lp29
+g20
 aV- this list - gives a great overview - about something
-p26
-aa(lp27
-g19
-a(dp28
-g21
+p30
+aa(lp31
+g23
+a(dp32
+g25
 VSub-sub heading about something
-p29
+p33
 sg2
 I4
-saa(lp30
-g16
-aVThis is a dummy text whose only purpose is to generate some content which is then processed by this lovely tool. The resulting web blog might win the Pulitzer Prize some day!
-p31
-aa(lp32
-g16
-aV#+BEGIN_VERSE Well, in here, I want to write verbatim text. Line breaks should be exactly the same.
-p33
-aa(lp34
-g16
+saa(lp34
+g20
 aVThis is a dummy text whose only purpose is to generate some content which is then processed by this lovely tool. The resulting web blog might win the Pulitzer Prize some day!
 p35
 aa(lp36
-g16
-aV#+END_VERSE
+g20
+aV#+BEGIN_VERSE Well, in here, I want to write verbatim text. Line breaks should be exactly the same.
 p37
 aa(lp38
-g19
-a(dp39
-g21
+g20
+aVThis is a dummy text whose only purpose is to generate some content which is then processed by this lovely tool. The resulting web blog might win the Pulitzer Prize some day!
+p39
+aa(lp40
+g20
+aV#+END_VERSE
+p41
+aa(lp42
+g23
+a(dp43
+g25
 VSub-heading bar
-p40
+p44
 sg2
 I3
-saa(lp41
-g16
+saa(lp45
+g20
 aVThis is a dummy text whose only purpose is to generate some content which is then processed by this lovely tool. The resulting web blog might win the Pulitzer Prize some day!
-p42
-aasS'finished-timestamp-history'
-p43
-(lp44
-g7
-asg21
-VThis is an example blog entry
-p45
-sS'id'
 p46
-V2013-02-12-lazyblorg-example-entry
+aasS'finished-timestamp-history'
 p47
+(lp48
+g7
+asg25
+VThis is an example blog entry
+p49
+sS'id'
+p50
+V2013-02-12-lazyblorg-example-entry
+p51
 sa.
