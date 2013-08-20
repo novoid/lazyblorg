@@ -1,4 +1,4 @@
-# Time-stamp: <2013-08-20 10:24:51 vk>
+# Time-stamp: <2013-08-20 10:59:29 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -221,12 +221,12 @@ converted = hashlib.sha1("My text").hexdigest()
   - data['tags']
   - data['content']
 
-** STARTED implement basic workflow stub                      :architecture:
+** STARTED implement basic work-flow stub                     :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 10:37]
 :END:
 
-- no working version, only workflow stub, which will be filled with
+- *no working version, only work-flow stub*, which will be filled with
   the actual code later on
 
 invoking source code:
@@ -377,181 +377,6 @@ A sub-heading «result» contains the results which is expected.
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 14:12]
 :END:
-
-** TODO logs: lazyblorg-log.org                                :architecture:
-:PROPERTIES:
-:CREATED:  [2013-01-12 Sat 13:43]
-:END:
-
-format example:
-: * lazyblorg logs                                         :lazyblorg:BLOGNAME:
-: ** [2013-01-12 Sat 13:44] lazyborg-run started
-: 2013-01-12 Sat 13:44 do this
-: 2013-01-12 Sat 13:45 did that
-: *** <2013-01-12 Sat 13:46> ERROR: error description
-: *** <2013-01-12 Sat 13:46> WARNING: error description
-
-** TODO [#B] CSS generated using Org/babel                    :architecture:
-:PROPERTIES:
-:CREATED:  [2012-12-13 Thu 10:08]
-:END:
-
-- css.org with Comments and css-blocks
-
-#+BEGIN_SRC css
-example-CSS content
-#+END_SRC
-
-- automatically extracting CSS code from that Org-mode file
-
-- example: http://www.tbray.org/ongoing/When/201x/2011/04/21/Reflowing
-
-backward compatibility for old browsers:
-#+BEGIN_SRC css
-section, article, header, footer, nav, aside, hgroup {
-display: block;
-}
-#+END_SRC
-
-** TODO [#C] Date in heading = link to day in Wikipedia          :userstory:
-:PROPERTIES:
-:CREATED:  [2013-01-08 Tue 14:38]
-:END:
-
-- YYYY-MM-DD -> links to Wikipedia-entries of days
-  - https://en.wikipedia.org/wiki/Portal:Current_events/2010_August_26
-
-** TODO mark updates on entries                                :architecture:
-:PROPERTIES:
-:CREATED:  [2012-11-05 Mon 10:50]
-:END:
-
-- heading gets a blog entry with a unique :ID:
-- setting "Update 1/2/3/..." for each one of those:
-: :LOGBOOK:
-: - State "DONE"       from "NEXT"       [2011-10-07 Fri 15:40]
-: :END:
-- ALTERNATIVELY: set "Update YYYY-MM-DD for last one of those (from above)
-- heading with known unique ID and no state DONE
-  - should stay the same until state changes back to DONE
-  - this requires something which remembers states
-  - this requires keeping old entries
-
-- body:
-  - manual section:
-    - Updates:
-      1. YYYY-MM-DD: short description
-      2. YYYY-MM-DD: short description
-
-see also id:2012-11-06-ago-generating
-** TODO include image files                                       :userstory:
-:PROPERTIES:
-:CREATED:  [2012-11-05 Mon 10:54]
-:END:
-
-- "lbimg:image.png"
-  - works in Orgmode using custom link to valid folder
-  - lazyblorg recognizes it and translates it to img
-
-- show a fixed maximum width/height image
-  - probably with a magnifying glass and a plus symbol in its lower
-    right corner
-- show the big version when clicking on it
-
-- see Kröner2011 p.140ff for HTML5 and figure/caption
-
-*** TODO research different Org-mode ways of defining including images
-:PROPERTIES:
-:CREATED:  [2012-11-05 Mon 10:55]
-:END:
-
-1. just link a file, do not show image
-2. show the linked image directly
-** TODO format tables                                            :userstory:
-:PROPERTIES:
-:CREATED:  [2012-12-21 Fri 09:49]
-:END:
-
-- add JavaScript to be able to sort by column
-- possible cnadidates for methods
-  - http://tablesorter.com/docs/
-  - HTML5 (?)
-  - CSS: http://www.cssjuice.com/16-sortable-table-techniques/
-
-- for lists
-  - http://farhadi.ir/projects/html5sortable/
-
-** TODO add frames to images                                     :userstory:
-:PROPERTIES:
-:CREATED:  [2013-02-12 Tue 11:27]
-:END:
-
-- example: http://www.tbray.org/ongoing/When/200x/2006/04/08/Picture-Frames
-  - caution: that's Java
-
-** TODO provide RSS feed(s)                                      :userstory:
-:PROPERTIES:
-:CREATED:  [2012-11-05 Mon 10:57]
-:END:
-
-- sorted by last date within LOGBOOK or PROPERTIES drawers
-- one general RSS feed
-- one feed for each tag
-
-** TODO tags, tag cloud, tag descriptions                        :userstory:
-:PROPERTIES:
-:CREATED:  [2012-11-05 Mon 10:57]
-:END:
-
-- tag cloud for getting a quick overview on the blog itself
-- a list of all tags on front page with link to tag-descriptions
-- each tag gets a tag-description page
-  - what I mean by this tag with examples
-  - link to RSS feed for this tag
-  - link to a list of blog entries for this tag
-
-- see also id:2012-11-11-autotags
-
-** TODO auto-tag entries                                         :userstory:
-:PROPERTIES:
-:CREATED:  [2012-11-11 Sun 13:43]
-:ID: 2012-11-11-autotags
-:END:
-
-- auto-tags are visually separated from manual tags to make it clear
-  that they are automatically generated (and might be bogus sometime)
-
-*** Language
-:PROPERTIES:
-:CREATED:  [2012-11-11 Sun 13:44]
-:END:
-
-- lang-de, de, en, us, ... ?
-- language tag is automatically derived
-  - by guessing language based on common stopwords or external library
-
-*** Length
-:PROPERTIES:
-:CREATED:  [2012-11-11 Sun 13:44]
-:END:
-
-- oneliners
-  - below a certain threshold
-- middlesize(sic?)
-  - between oneliners and fullsizeentries
-- fullsize(sic?)
-
-*** Auto-Disclaimer
-:PROPERTIES:
-:CREATED:  [2012-11-15 Thu 11:47]
-:END:
-
-- hooks for :TAGS: (can be optional) or case-sensitive keywords in headings
-- if found:
-  - link to a special pre-defined page
-
-- Example: if "What The World Needs"|"WTWN:" is found, link to a page
-  where WTWN-series is described in general.
 ** TODO Decision algorithm for generating entries             :architecture:
 :PROPERTIES:
 :CREATED:  [2012-11-06 Tue]
@@ -610,18 +435,51 @@ CLOSED: [2012-11-10 Sat 18:10] DEADLINE: <2012-11-10 Sat>
 :CREATED:  [2012-11-07 Wed 21:23]
 :END:
 
-** TODO Inline HTML                                              :userstory:
+** TODO logs: lazyblorg-log.org                                :architecture:
 :PROPERTIES:
-:CREATED:  [2013-02-12 Tue 10:32]
+:CREATED:  [2013-01-12 Sat 13:43]
 :END:
 
-- writing HTML tags directly (not within any SRC-blocks)
-- makes it easier to port old blog content
+format example:
+: * lazyblorg logs                                         :lazyblorg:BLOGNAME:
+: ** [2013-01-12 Sat 13:44] lazyborg-run started
+: 2013-01-12 Sat 13:44 do this
+: 2013-01-12 Sat 13:45 did that
+: *** <2013-01-12 Sat 13:46> ERROR: error description
+: *** <2013-01-12 Sat 13:46> WARNING: error description
 
-** TODO internal links to other blog entries                     :userstory:
+** TODO provide RSS feed(s)                                      :userstory:
 :PROPERTIES:
-:CREATED:  [2013-02-12 Tue 10:34]
+:CREATED:  [2012-11-05 Mon 10:57]
 :END:
+
+- sorted by last date within LOGBOOK or PROPERTIES drawers
+- one general RSS feed
+- one feed for each tag
+
+** TODO mark updates on entries                                :architecture:
+:PROPERTIES:
+:CREATED:  [2012-11-05 Mon 10:50]
+:END:
+
+- heading gets a blog entry with a unique :ID:
+- setting "Update 1/2/3/..." for each one of those:
+: :LOGBOOK:
+: - State "DONE"       from "NEXT"       [2011-10-07 Fri 15:40]
+: :END:
+- ALTERNATIVELY: set "Update YYYY-MM-DD for last one of those (from above)
+- heading with known unique ID and no state DONE
+  - should stay the same until state changes back to DONE
+  - this requires something which remembers states
+  - this requires keeping old entries
+
+- body:
+  - manual section:
+    - Updates:
+      1. YYYY-MM-DD: short description
+      2. YYYY-MM-DD: short description
+
+see also id:2012-11-06-ago-generating
 ** TODO CSS: add slightly yellowish background                   :userstory:
 :PROPERTIES:
 :CREATED: [2012-05-11 Fri 09:36]
@@ -641,7 +499,148 @@ CLOSED: [2012-11-10 Sat 18:10] DEADLINE: <2012-11-10 Sat>
   - basic workflow
   - ...
 
-** TODO content of help pages from Org heading                   :userstory:
+** TODO [#B] CSS generated using Org/babel                    :architecture:
+:PROPERTIES:
+:CREATED:  [2012-12-13 Thu 10:08]
+:END:
+
+- css.org with Comments and css-blocks
+
+#+BEGIN_SRC css
+example-CSS content
+#+END_SRC
+
+- automatically extracting CSS code from that Org-mode file
+
+- example: http://www.tbray.org/ongoing/When/201x/2011/04/21/Reflowing
+
+backward compatibility for old browsers:
+#+BEGIN_SRC css
+section, article, header, footer, nav, aside, hgroup {
+display: block;
+}
+#+END_SRC
+** TODO [#B] include image files                                 :userstory:
+:PROPERTIES:
+:CREATED:  [2012-11-05 Mon 10:54]
+:END:
+
+- "lbimg:image.png"
+  - works in Orgmode using custom link to valid folder
+  - lazyblorg recognizes it and translates it to img
+
+- show a fixed maximum width/height image
+  - probably with a magnifying glass and a plus symbol in its lower
+    right corner
+- show the big version when clicking on it
+
+- see Kröner2011 p.140ff for HTML5 and figure/caption
+
+*** TODO research different Org-mode ways of defining including images
+:PROPERTIES:
+:CREATED:  [2012-11-05 Mon 10:55]
+:END:
+
+1. just link a file, do not show image
+2. show the linked image directly
+** TODO [#B] format tables                                       :userstory:
+:PROPERTIES:
+:CREATED:  [2012-12-21 Fri 09:49]
+:END:
+
+- add JavaScript to be able to sort by column
+- possible cnadidates for methods
+  - http://tablesorter.com/docs/
+  - HTML5 (?)
+  - CSS: http://www.cssjuice.com/16-sortable-table-techniques/
+
+- for lists
+  - http://farhadi.ir/projects/html5sortable/
+
+** TODO [#C] Date in heading = link to day in Wikipedia          :userstory:
+:PROPERTIES:
+:CREATED:  [2013-01-08 Tue 14:38]
+:END:
+
+- YYYY-MM-DD -> links to Wikipedia-entries of days
+  - https://en.wikipedia.org/wiki/Portal:Current_events/2010_August_26
+
+** TODO [#C] add frames to images                                :userstory:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 11:27]
+:END:
+
+- example: http://www.tbray.org/ongoing/When/200x/2006/04/08/Picture-Frames
+  - caution: that's Java
+
+** TODO [#C] tags, tag cloud, tag descriptions                   :userstory:
+:PROPERTIES:
+:CREATED:  [2012-11-05 Mon 10:57]
+:END:
+
+- tag cloud for getting a quick overview on the blog itself
+- a list of all tags on front page with link to tag-descriptions
+- each tag gets a tag-description page
+  - what I mean by this tag with examples
+  - link to RSS feed for this tag
+  - link to a list of blog entries for this tag
+
+- see also id:2012-11-11-autotags
+
+** TODO [#C] auto-tag entries                                    :userstory:
+:PROPERTIES:
+:CREATED:  [2012-11-11 Sun 13:43]
+:ID: 2012-11-11-autotags
+:END:
+
+- auto-tags are visually separated from manual tags to make it clear
+  that they are automatically generated (and might be bogus sometime)
+
+*** Language
+:PROPERTIES:
+:CREATED:  [2012-11-11 Sun 13:44]
+:END:
+
+- lang-de, de, en, us, ... ?
+- language tag is automatically derived
+  - by guessing language based on common stopwords or external library
+
+*** Length
+:PROPERTIES:
+:CREATED:  [2012-11-11 Sun 13:44]
+:END:
+
+- oneliners
+  - below a certain threshold
+- middlesize(sic?)
+  - between oneliners and fullsizeentries
+- fullsize(sic?)
+
+*** Auto-Disclaimer
+:PROPERTIES:
+:CREATED:  [2012-11-15 Thu 11:47]
+:END:
+
+- hooks for :TAGS: (can be optional) or case-sensitive keywords in headings
+- if found:
+  - link to a special pre-defined page
+
+- Example: if "What The World Needs"|"WTWN:" is found, link to a page
+  where WTWN-series is described in general.
+** TODO [#C] Inline HTML                                         :userstory:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 10:32]
+:END:
+
+- writing HTML tags directly (not within any SRC-blocks)
+- makes it easier to port old blog content
+
+** TODO [#C] internal links to other blog entries                :userstory:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 10:34]
+:END:
+
+** TODO [#C] content of help pages from Org heading              :userstory:
 :PROPERTIES:
 :CREATED:  [2013-02-27 Wed 16:37]
 :END:
@@ -649,6 +648,20 @@ CLOSED: [2012-11-10 Sat 18:10] DEADLINE: <2012-11-10 Sat>
 Somewhere in my Org files, I do have a heading «$BLOGNAME». Within
 its sub-heading «Help» there is the text for the main help
 page. Further headings contain more content for other pages.
+
+** SOMEDAY add/create/include/handle short URLs for each entry   :userstory:
+:LOGBOOK:
+- State "SOMEDAY"    from ""           [2013-08-20 Tue 10:56]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-08-20 Tue 10:56]
+:END:
+
+- e.g.:
+  - www.example.com/blog/i/aB3 ->
+  - www.example.com/i/aB3 ->
+- generate short URL as hash from ID?
+  - is it possible without getting a high chance of conflicts?
 
 ** SOMEDAY comments                                              :userstory:
 :LOGBOOK:
