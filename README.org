@@ -1,10 +1,11 @@
-## Time-stamp: <2013-03-01 13:57:48 vk>
+## Time-stamp: <2013-08-20 10:54:37 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * lazyblorg -- blogging with Org-mode for very lazy people
 
-This is a web log (blog) environment for [[http://en.wikipedia.org/wiki/Emacs][GNU Emacs]] with [[http://orgmode.org/][Org-mode]]. 
+This is a web log (blog) environment for [[http://en.wikipedia.org/wiki/Emacs][GNU Emacs]] with [[http://orgmode.org/][Org-mode]]
+which generates static HTML5 web pages.
 
 For a list of similar/alternative projects, please visit
 http://orgmode.org/worg/org-blog-wiki.html
@@ -29,13 +30,13 @@ Saint-Exupéry]])
 1. write a blog entry *anywhere* in your Org-mode files
 2. add an unique ID in the PROPERTIES drawer
    - You might want to use a package that automatically generates
-     unique IDs to your headings.
+     unique IDs to your headings (I don't).
    - You might want to take a look [[article.gmane.org/gmane.emacs.orgmode/16199][at this solution using file or
      directory variables]].
-3. tag your entry with :blog:
-4. set the state of your entry to DONE
+3. tag your entry with ~:blog:~
+4. set the state of your entry to ~DONE~
 
-That's it. lazyblorg does the rest.
+That's it. lazyblorg does the rest. It feels like magic, doesn't it? :-)
 
 ** Advantages
 
@@ -45,7 +46,7 @@ That's it. lazyblorg does the rest.
   - [[http://www.tbray.org/ongoing/When/201x/2011/03/07/BNotes][*Create* blog posts]] *anywhere* in between your notes, todos,
     contacts, ...
 - You don't need to write HTML code by yourself.
-- *(Static) HTML* offers best performance at a minimum of server load.
+- *Static HTML* offers best performance at a minimum of server load.
 - No in-between format or tool.
   - Direct conversion from Org-mode to HTML/CSS.
 - *Modern* HTML5/CSS3 standard.
@@ -55,7 +56,7 @@ That's it. lazyblorg does the rest.
 ** Disadvantages
 
 - lazyblorg is implemented in Python:
-  - Its Org-mode parser supports only a sub-set of Org-mode syntax
+  - Its Org-mode parser supports *only a sub-set of Org-mode syntax*
     and features.
 - No old HTML4.01 transitional stuff or similar:
   - Results might not be compatible with browsers such as Internet
