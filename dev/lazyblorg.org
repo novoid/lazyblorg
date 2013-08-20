@@ -1,4 +1,4 @@
-# Time-stamp: <2013-08-07 20:11:03 vk>
+# Time-stamp: <2013-08-20 10:24:51 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -803,6 +803,25 @@ underline
 verbatim
 verse-block
 #+END_QUOTE
+
+** Naming this project
+:PROPERTIES:
+:CREATED:  [2013-08-20 Tue 10:18]
+:END:
+
+lazyblorg - a mixture of lazy, blogging, blog, org-mode - emphasizes
+the fact that the *user* of it may be very lazy. This relates to the
+minimal effort she/he has to do in order to create a new blog entry.
+
+There are no hits in [[https://www.google.com/#fp%3De12793cfcde69436&hl%3Den&nfpr%3D1&q%3Dlazyblorg&safe%3Doff][Google search for "lazyblorg"]]. However, there
+are some for "lazyblog" (without the 'r').
+
+- Other cool names would be:
+  - invisiblorg
+    - invisible, blog, org-mode
+    - emphasizes the invisibility of the blog mechanism once it is
+      set up
+    - no hits for "[[https://www.google.com/#fp%3De12793cfcde69436&hl%3Den&nfpr%3D1&q%3Dinvisiblorg&safe%3Doff][invisiblorg]]" but some for "invisiblog" or "invisibl.org"
 
 ** STARTED Representation of blog data
 :PROPERTIES:
