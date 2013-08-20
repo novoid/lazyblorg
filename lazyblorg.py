@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-20 18:06:41 vk>
+# Time-stamp: <2013-08-20 22:06:18 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -150,7 +150,13 @@ def main():
 
     logging.debug("iterate over files ...")
     for filename in files:
-        blog_data.extend(handle_file(filename))
+        file_blog_data = handle_file(filename)
+        if not file_blog_data:
+            Utils.error_exit(logging, 6, "There was some parsing error in file \"" + filename + 
+                             "\" which is not good. Therefore, I stop here and hope you " +
+                             "can fix the issue in the Org-mode file. Please re-try after fixing it.")
+        else:
+            blog_data.extend(file_blog_data)
 
     if options.verbose:
         ## dump blogdata for debugging purpose:
