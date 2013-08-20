@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-20 17:17:40 vk>
+# Time-stamp: <2013-08-20 22:06:18 vk>
 
 import re
 import os
@@ -59,6 +59,9 @@ class OrgParser(object):
     LOG_REGEX = re.compile('^- State\s+"' + BLOG_FINISHED_STATE + '"\s+from\s+"\S*"\s+([\[{].*[\]}])$')
     LOG_TIMESTAMP_IDX = 1
 
+    BLOCK_REGEX = re.compile('^#\+BEGIN_(SRC|VERSE|QUOTE|CENTER|HTML|ASCII|LATEX)$')
+    BLOCK_TYPE_IDX = 1
+    
     logging = None
 
     __filename = u''
@@ -166,6 +169,7 @@ class OrgParser(object):
             self.__blog_data.append(self.__entry_data)
 
         self.__entry_data = {}  ## empty current entry data
+        ## Pdb-debugging with, e.g., self._OrgParser__entry_data['content']
 
         ## is newly found heading a new blog entry?
         heading_components = self.HEADING_REGEX.match(line)
@@ -194,8 +198,16 @@ class OrgParser(object):
         ## ... DRAWER_PROP | DRAWER_LOGBOOK | BLOCK | LIST | TABLE | COLON_BLOCK
         state = self.SEARCHING_BLOG_HEADER
 
+        ## type of last/current block found
+        ## one of: SRC|VERSE|QUOTE|CENTER|HTML|ASCII|LATEX
+        block_type = None
+
+        ## name of the previous element with a name defined like: "#+NAME: foo bar"
+        previous_name = None
+
         ## contains content of previous line
-        ## NOTE: only valid as long a state does not use "next" in the previous parsing step.
+        ## NOTE: only valid as long a state does not use "continue" in the previous 
+        ##       parsing step without "previous_line = line"
         previous_line = False
 
         for rawline in codecs.open(self.__filename, 'r', encoding='utf-8'):
@@ -265,11 +277,41 @@ class OrgParser(object):
 
                 elif line == u'':
                     self.logging.debug("found empty line")
+                    previous_name = False    ## #+NAME: here is only valid until empty line after element
                     previous_line = line
                     #if len(self.__entry_data['content']) > 1:
                     #    if not self.__entry_data['content'][-1] == u'\n':
                     #        ## append newline to content (only if previous content is not a newline)
                     #        self.__entry_data['content'].append(u'\n')
+                    continue
+
+                elif line.upper().startswith('#+NAME: '):
+                    previous_name = line[8:].strip()
+                    previous_line = line
+                    continue
+
+                elif line.startswith('#+BEGIN_'):
+                    block_components = self.BLOCK_REGEX.match(line)
+                    if not block_components:
+                        self.logging.error('Parsing error because I found a line beginning with ' +
+                                           '\"#+BEGIN_\" that was not matched by BLOCK_REGEX which ' +
+                                           'is quite a pity. line:' + str(line))
+                        return False
+                    block_type = str(block_components.group(self.BLOCK_TYPE_IDX)).upper()
+
+                    self.logging.debug("found block signature for " + block_type)
+
+                    if block_type == 'SRC' or block_type == 'HTML' or block_type == 'VERSE' or \
+                            block_type == 'QUOTE' or block_type == 'CENTER' or block_type == 'ASCII' or \
+                            block_type == 'LATEX':
+                        self.__entry_data['content'].append([block_type.lower() + '-block', previous_name, []])
+                    else:
+                        self.logging.error('Parsing error because I found a block type \"' +
+                                           str(line) + '\" that is not known. Please do not confuse me and fix it.')
+                        return False
+
+                    state = self.BLOCK
+                    previous_line = line
                     continue
 
                 elif heading_components:
@@ -368,8 +410,25 @@ class OrgParser(object):
 
                 ## parses general blocks and return to ENTRY_CONTENT
 
-                ## FIXXME
-                pass
+                if not block_type:
+                    self.logging.error('Parsing error because I was in state \"BLOCK\" with no block_type. Not good.')
+                    return False
+
+                if line.upper() == '#+END_' + block_type:
+                    state = self.ENTRY_CONTENT
+                    previous_line = line
+                    continue
+                else:
+                    if block_type == 'SRC' or block_type == 'HTML' or block_type == 'VERSE' or \
+                            block_type == 'QUOTE' or block_type == 'CENTER' or block_type == 'ASCII' or \
+                            block_type == 'LATEX':
+                         ## append to the last element of content (which is a list from the current block) to 
+                         ## its last element (which contains the list of the block content):
+                        self.__entry_data['content'][-1][-1].append(line)
+                    else:
+                        self.logging.error('Parsing error because I found a block type \"' +
+                                           str(line) + '\" that is not known. Please do not confuse me and fix it.')
+                        return False
 
             elif state == self.LIST:
 
