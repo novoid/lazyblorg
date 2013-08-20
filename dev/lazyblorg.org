@@ -1,4 +1,4 @@
-# Time-stamp: <2013-08-20 10:59:29 vk>
+# Time-stamp: <2013-08-20 15:28:05 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -221,163 +221,118 @@ converted = hashlib.sha1("My text").hexdigest()
   - data['tags']
   - data['content']
 
-** STARTED implement basic work-flow stub                     :architecture:
+** DONE spike: storing data objects in Python                 :architecture:
+CLOSED: [2013-08-20 Tue 13:40]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-08-20 Tue 13:40]
+:END:
 :PROPERTIES:
-:CREATED:  [2013-02-12 Tue 10:37]
+:CREATED:  [2013-08-20 Tue 11:10]
 :END:
 
-- *no working version, only work-flow stub*, which will be filled with
-  the actual code later on
+- http://docs.python.org/2/library/pickle.html
+  - serialization, storing to disk
+  - storage format defined by: protocol version
+    - Protocol version 0 is the original ASCII protocol and is
+      backwards compatible with earlier versions of Python.
+    - Protocol version 1 is the old binary format which is also
+      compatible with earlier versions of Python.
+    - Protocol version 2 was introduced in Python 2.3. It provides
+      much more efficient pickling of new-style classes.
+    - HIGHEST_PROTOCOL -> uses 2 if 2 is still the highest format
 
-invoking source code:
-#+BEGIN_VERSE
-vk@gary ~/src/lazyblorg (git)-[master] % PYTHONPATH="~/src/lazyblorg:" ./lazyblorg.py testdata/manual_prototype/org/test.org --targetdir testdata/2del -v
-DEBUG    2013-05-20 17:58:02,643 extracting list of Org-mode files ...
-DEBUG    2013-05-20 17:58:02,643 len(args) [1]
-DEBUG    2013-05-20 17:58:02,643 1 filenames found: [testdata/manual_prototype/org/test.org]
-DEBUG    2013-05-20 17:58:02,643 iterate over files ...
-DEBUG    2013-05-20 17:58:02,644 OrgParser: doing file "testdata/manual_prototype/org/test.org" ...
-DEBUG    2013-05-20 17:58:02,644 OrgParser: finished on file "testdata/manual_prototype/org/test.org"
-DEBUG    2013-05-20 17:58:02,644 successfully finished.
-vk@gary ~/src/lazyblorg (git)-[master] %
-#+END_VERSE
+- example:
+  http://stackoverflow.com/questions/4529815/how-to-save-an-object-in-python
+#+BEGIN_SRC python
+import pickle
 
-- [X] find all headings with state DONE and tag :blog:
-  - optionally: add all other tags starting with "blog-" as blog tags
-- [X] one entry starts at such a heading until EOF OR same or less level
-  heading is found
-- [ ] create checksum (see id:2013-02-15-checksum)
-  - data['title']
-  - data['timestamp']
-  - data['tags']
-  - data['content']
-- [ ] compare raw text and IDs with last run
-  - known ID, raw text unchanged: ignore, no change
-  - new ID
-    - generate new blog entry
-      - extract YYYY-MM-DD from LOGBOOK-drawer (first *->DONE transformation)
-      - generate YYYY/MM/DD-folder structure in blog accordingly
-      - generate sanitized blog title as file name
-  - known ID, raw text differs
-    - generate update of existing entry
-      - add "(Update n)" (with n is the n-th update) to entry title
-        - optionally: add this also to URL
-          - disadvantage: broken old URLs
-          - advantage: URL reflects update state
-        - ALTERNATIVELY: add "(Update YYYY-MM-DD)" instead of number
-          - numbers don't mean anything
-- on any activity:
-  - [ ] re-write RSS feed for last n entries
-  - [ ] optionally: generate overview page for last n entries
-  - [ ] optionally: generate calendar archive page(s)
-  - [ ] optionally: generate tag overview page(s)
-- on any error:
-  - [ ] create an orgmode event from current time that appears on agenda
-  - [ ] with daily repeat -> so it gets noticed on the next day(s) too
-  - [ ] in the description of that entry:
-    - babel-sh-snippet with prepared command to re-try the run :-)
+class Company:
+    def __init__(self, name, value):
+        self.name = name
+        self.value = value
 
-- in order not to store *all* content while parsing, split up parsing
-  to two parsing processes:
-  1. find new or updated articles
-     - parse for used ID-links
-     - collect and store metadata of these (everything except content)
-     - print out warnings for all IDs that are broken links
-     - create creative 404-page for all broken links in the meantime
-  2. parse everything again and store only new or updated article contents
-     - match with ID-links
+format = pickle.HIGHEST_PROTOCOL
+format = 0
 
-** TODO Idea: do paragraph parsing                            :architecture:
+with open('company_data.pk', 'wb') as output:
+    company1 = Company('banana', 40)
+    pickle.dump(company1, output, format)
+
+    company2 = Company('spam', 42)
+    pickle.dump(company2, output, format)
+
+company1 = None
+company2 = None
+
+with open('company_data.pk', 'rb') as input:
+    company1 = pickle.load(input)
+    print company1.name
+    # banana
+    print company1.value
+    # 40
+
+    company2 = pickle.load(input)
+    print company2.name
+    # spam
+    print company2.value
+    # 42
+#+END_SRC
+
+- works (not in babel above but in separate file)
+  - not working in babel because babel-code is put into separate
+    sub-class and store-object of pickle must not be a sub-class at
+    all
+
+** DONE spike: time-ordered-index data structure              :architecture:
+CLOSED: [2013-08-20 Tue 15:02]
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2013-08-20 Tue 15:02]
+:END:
 :PROPERTIES:
-:CREATED:  [2013-02-27 Wed 16:48]
+:CREATED:  [2013-08-20 Tue 14:57]
 :END:
 
-- paragraphs are separated by at least one empty line OR they end
-  with a line starting with:
-  - »#+«
-- each paragraph is handled separately BUT paragraphs of an
-  environment are being combined
-- for each normal text paragraph:
-  - remove \n
-  - sanitize
-    - insert lazyblorg-specific links
-    - HTMLize with ...
-      - either simple with own code OR
-        - fast
-        - only a few syntax elements can be parsed
-      - using Org-mode exporter methods
-        - slow
-        - complicated set-up
-        - supports everything which is supported by the Org-mode HTML
-          export
-    - if simple HTMLizer chosen:
-      - re-insert \n for first space after 80 characters
+- problem:
+  - keep a sorted list of elements like [ [<time-stamp>,<id>], [...] ]
 
-Documentation:
-- clearly state that lazyblorg does support *no org-mode syntax*
-  except <list-of-supported-elements-and-their-context>
+- http://wiki.python.org/moin/HowTo/Sorting/
+  - sorting by index or named attribute!
 
-** TODO create template files for HTML snippets               :architecture:
-:PROPERTIES:
-:CREATED:  [2013-03-13 Wed 10:21]
+Sorting by age using tuples:
+#+BEGIN_SRC python
+>>> student_tuples = [
+        ('john', 'A', 15),
+        ('jane', 'B', 12),
+        ('dave', 'B', 10),
+]
+>>> sorted(student_tuples, key=lambda student: student[2])   # sort by age
+[('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
+#+END_SRC
+
+Sorting by attribute of a class:
+#+BEGIN_SRC python
+>>> class Student:
+        def __init__(self, name, grade, age):
+                self.name = name
+                self.grade = grade
+                self.age = age
+        def __repr__(self):
+                return repr((self.name, self.grade, self.age))
+
+>>> student_objects = [
+        Student('john', 'A', 15),
+        Student('jane', 'B', 12),
+        Student('dave', 'B', 10),
+]
+>>> sorted(student_objects, key=lambda student: student.age)   # sort by age
+[('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
+#+END_SRC
+
+** DONE Decision algorithm for generating entries; storage data :architecture:
+CLOSED: [2013-08-20 Tue 14:44]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2013-08-20 Tue 14:44]
 :END:
-
-- lazyblorg/templates/article.org
-
-- Org-mode format "header"
-- HTML src block with actual template
-- #LB-TITLE# -> title
-- #LB-AUTHOR# -> Authors name
-- and so on
-
-** TODO create unit test for comparing output files                  :tests:
-:PROPERTIES:
-:CREATED:  [2013-02-14 Thu 17:28]
-:END:
-
-- example: https://github.com/bjonnh/PyOrgMode/blob/master/test.py
-
-*** Idea: parse content test cases from Org file
-
-A file like «tests.org» contains test cases, each one in a
-heading. if it starts with «test: » it is a test case followed by its
-test name.
-
-A sub-heading «Org» contains the Org-mode document/snippet which gets
-parsed.
-
-A sub-heading «result» contains the results which is expected.
-** NEXT CSS: manually create CSS for an entry                 :architecture:
-:PROPERTIES:
-:CREATED:  [2013-02-12 Tue 14:14]
-:END:
-
-** NEXT paper: sketch main page                                   :userstory:
-:PROPERTIES:
-:CREATED:  [2013-02-14 Thu 16:39]
-:END:
-** NEXT HTML: manually create main jumping page                :architecture:
-:PROPERTIES:
-:CREATED:  [2013-02-12 Tue 12:24]
-:END:
-
-- HTML5-example: see Kröner2011 p.123ff
-
-** NEXT HTML: manually create month overview page                   :architecture:
-:PROPERTIES:
-:CREATED:  [2013-02-12 Tue 14:12]
-:END:
-
-** NEXT HTML: manually create day overview page                     :architecture:
-:PROPERTIES:
-:CREATED:  [2013-02-12 Tue 14:11]
-:END:
-
-** NEXT HTML: manually create year overview page                    :architecture:
-:PROPERTIES:
-:CREATED:  [2013-02-12 Tue 14:12]
-:END:
-** TODO Decision algorithm for generating entries             :architecture:
 :PROPERTIES:
 :CREATED:  [2012-11-06 Tue]
 :ID: 2012-11-06-ago-generating
@@ -426,6 +381,19 @@ A sub-heading «result» contains the results which is expected.
         - case7
         - generate HTML
 
+- "RSS" means:
+  - update time-ordered-index
+
+- persistence storage has to hold (at least):
+  - per blog entry:
+    - ID
+    - CREATED time-stamp
+    - LAST_UPDATE time-stamp
+    - checksum
+  - time-ordered-index (OR: re-generate out of blog data)
+    - LAST_UPDATE
+    - ID
+
 *** DONE [#A] finalize lazyblorg-algorithm sketch
 CLOSED: [2012-11-10 Sat 18:10] DEADLINE: <2012-11-10 Sat>
 :LOGBOOK:
@@ -433,6 +401,176 @@ CLOSED: [2012-11-10 Sat 18:10] DEADLINE: <2012-11-10 Sat>
 :END:
 :PROPERTIES:
 :CREATED:  [2012-11-07 Wed 21:23]
+:END:
+
+** STARTED implement basic work-flow *stub*                    :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 10:37]
+:END:
+
+- *no working version, only work-flow stub*, which will be filled with
+  the actual code later on
+
+invoking source code:
+#+BEGIN_VERSE
+vk@gary ~/src/lazyblorg (git)-[master] % PYTHONPATH="~/src/lazyblorg:" ./lazyblorg.py testdata/manual_prototype/org/test.org --targetdir testdata/2del -v
+DEBUG    2013-05-20 17:58:02,643 extracting list of Org-mode files ...
+DEBUG    2013-05-20 17:58:02,643 len(args) [1]
+DEBUG    2013-05-20 17:58:02,643 1 filenames found: [testdata/manual_prototype/org/test.org]
+DEBUG    2013-05-20 17:58:02,643 iterate over files ...
+DEBUG    2013-05-20 17:58:02,644 OrgParser: doing file "testdata/manual_prototype/org/test.org" ...
+DEBUG    2013-05-20 17:58:02,644 OrgParser: finished on file "testdata/manual_prototype/org/test.org"
+DEBUG    2013-05-20 17:58:02,644 successfully finished.
+vk@gary ~/src/lazyblorg (git)-[master] %
+#+END_VERSE
+
+- [X] find all headings with state DONE and tag :blog:
+  - optionally: add all other tags starting with "blog-" as blog tags
+
+- [X] one entry starts at such a heading until EOF OR same or less level
+  heading is found
+
+- [ ] create checksum (see id:2013-02-15-checksum)
+  - data['title']
+  - data['timestamp']
+  - data['tags']
+  - data['content']
+
+- [ ] compare raw text and IDs with last run
+
+  - known ID, raw text unchanged: ignore, no change
+
+  - new ID
+    - generate new blog entry
+      - extract YYYY-MM-DD from LOGBOOK-drawer (first *->DONE transformation)
+      - generate YYYY/MM/DD-folder structure in blog accordingly
+      - generate sanitized blog title as file name
+
+  - known ID, raw text differs
+    - generate update of existing entry
+      - add "(Update n)" (with n is the n-th update) to entry title
+        - optionally: add this also to URL
+          - disadvantage: broken old URLs
+          - advantage: URL reflects update state
+        - ALTERNATIVELY: add "(Update YYYY-MM-DD)" instead of number
+          - numbers don't mean anything
+
+- on any activity:
+  - [ ] re-write RSS feed for last n entries
+  - [ ] optionally: generate overview page for last n entries
+  - [ ] optionally: generate calendar archive page(s)
+  - [ ] optionally: generate tag overview page(s)
+
+- on any error:
+  - [ ] create an orgmode event from current time that appears on agenda
+  - [ ] with daily repeat -> so it gets noticed on the following day(s) too
+  - [ ] in the description of that entry:
+    - BONUS: babel-sh-snippet with prepared command to re-try the run :-)
+
+- in order not to store *whole* content while parsing, split up parsing
+  to *two parsing processes*:
+
+  1. find new or updated articles
+     - parse for used ID-links
+     - collect and store metadata of these (everything except content)
+     - print out warnings for all IDs that are broken links
+     - create creative 404-page for all broken links in the meantime
+
+  2. parse everything again and store only new or updated article contents
+     - match with ID-links
+
+** TODO create template files for HTML snippets               :architecture:
+:PROPERTIES:
+:CREATED:  [2013-03-13 Wed 10:21]
+:END:
+
+- lazyblorg/templates/article.org
+
+- Org-mode format "header"
+- HTML src block with actual template
+- #LB-TITLE# -> title
+- #LB-AUTHOR# -> Authors name
+- and so on
+
+** TODO create unit test for comparing output files                  :tests:
+:PROPERTIES:
+:CREATED:  [2013-02-14 Thu 17:28]
+:END:
+
+- Python: comparing files/directories: http://docs.python.org/2/library/filecmp.html
+
+- example: https://github.com/bjonnh/PyOrgMode/blob/master/test.py
+  - comparing Org-mode files line-by-line
+
+*** Idea: parse content test cases from Org file
+
+A file like «tests.org» contains test cases, each one in a
+heading. if it starts with «test: » it is a test case followed by its
+test name.
+
+A sub-heading «Org» contains the Org-mode document/snippet which gets
+parsed.
+
+A sub-heading «result» contains the results which is expected.
+
+** TODO Idea: do paragraph parsing                            :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-27 Wed 16:48]
+:END:
+
+- paragraphs are separated by at least one empty line OR they end
+  with a line starting with:
+  - »#+«
+- each paragraph is handled separately BUT paragraphs of an
+  environment are being combined
+- for each normal text paragraph:
+  - remove \n
+  - sanitize
+    - insert lazyblorg-specific links
+    - HTMLize with ...
+      - either simple with own code OR
+        - fast
+        - only a few syntax elements can be parsed
+      - using Org-mode exporter methods
+        - slow
+        - complicated set-up
+        - supports everything which is supported by the Org-mode HTML
+          export
+    - if simple HTMLizer chosen:
+      - re-insert \n for first space after 80 characters
+
+Documentation:
+- clearly state that lazyblorg does support *no org-mode syntax*
+  except <list-of-supported-elements-and-their-context>
+** NEXT CSS: manually create CSS for an entry                 :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 14:14]
+:END:
+
+** NEXT paper: sketch main page                                   :userstory:
+:PROPERTIES:
+:CREATED:  [2013-02-14 Thu 16:39]
+:END:
+** NEXT HTML: manually create main jumping page                :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 12:24]
+:END:
+
+- HTML5-example: see Kröner2011 p.123ff
+
+** NEXT [#C] HTML: manually create month overview page        :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 14:12]
+:END:
+
+** NEXT [#C] HTML: manually create day overview page          :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 14:11]
+:END:
+
+** NEXT [#C] HTML: manually create year overview page         :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 14:12]
 :END:
 
 ** TODO logs: lazyblorg-log.org                                :architecture:
@@ -836,7 +974,7 @@ are some for "lazyblog" (without the 'r').
       set up
     - no hits for "[[https://www.google.com/#fp%3De12793cfcde69436&hl%3Den&nfpr%3D1&q%3Dinvisiblorg&safe%3Doff][invisiblorg]]" but some for "invisiblog" or "invisibl.org"
 
-** STARTED Representation of blog data
+** STARTED [#A] Representation of blog data
 :PROPERTIES:
 :CREATED:  [2013-05-21 Tue 15:26]
 :ID: blog_data
