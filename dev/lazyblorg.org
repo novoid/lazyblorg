@@ -1,4 +1,4 @@
-# Time-stamp: <2013-05-21 21:41:37 vk>
+# Time-stamp: <2013-08-07 20:11:03 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -282,6 +282,8 @@ vk@gary ~/src/lazyblorg (git)-[master] %
   1. find new or updated articles
      - parse for used ID-links
      - collect and store metadata of these (everything except content)
+     - print out warnings for all IDs that are broken links
+     - create creative 404-page for all broken links in the meantime
   2. parse everything again and store only new or updated article contents
      - match with ID-links
 
@@ -716,6 +718,21 @@ page. Further headings contain more content for other pages.
 :END:
 
 - probably steal from http://www.tbray.org/ongoing/
+
+** SOMEDAY [[http://tasker.dinglisch.net/][Tasker]]-script: share URL and send to my lazyblorg 
+:LOGBOOK:
+- State "SOMEDAY"    from ""           [2013-07-20 Sat 10:58]
+:END:
+
+- open questions
+  - encryption
+    - necessary? in the end, it gets public anyway :-)
+  - prevent "content injection"
+    - PKI: signing with private GnuPG-key of phone device?
+      - DoS-attack still possible
+        - sending a lot of fake messages
+    - synchronous password?
+    - ?
 
 * Notes                                                               :notes:
 
