@@ -1,4 +1,4 @@
-# Time-stamp: <2013-08-20 15:28:05 vk>
+# Time-stamp: <2013-08-20 18:09:28 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -207,7 +207,7 @@ CLOSED: [2013-02-15 Fri 20:06]
 - http://code.wikia.com/wiki/SHA_checksum#Python
 - https://en.wikipedia.org/wiki/Cryptographic_hash_function#Cryptographic_hash_algorithms
 
-- sha1 seems a good choice
+- sha1 or md5 seems a good choice
 
 example:
 #+BEGIN_SRC python
@@ -492,7 +492,7 @@ vk@gary ~/src/lazyblorg (git)-[master] %
 - #LB-AUTHOR# -> Authors name
 - and so on
 
-** TODO create unit test for comparing output files                  :tests:
+** STARTED create unit test for comparing output files               :tests:
 :PROPERTIES:
 :CREATED:  [2013-02-14 Thu 17:28]
 :END:
@@ -990,7 +990,8 @@ entry:
      'tags': [u'tag1', u'tag2'], 
      'id': u'lazyblorg-example-entry',                          ## ID from PROPERTIES-drawer
      'finished-timestamp-history': [datetime1, datetime2, datetime3],
-     'timestamp': datetime,
+     'timestamp': datetime,                                    ## most current time-stamp
+     'created: datetime,
      'content': [ ['par', u'This is the Org-mode content'],    ## 'par: paragraph containing anything that is not defined like tables, ...
                   '\n',    ## change of paragraph
                   ['heading', {'level': 3, 'title': u'Another aspect'}],  
@@ -1007,6 +1008,7 @@ blog_data[0].keys()
 ## ... results in:
 # ['title',
 #  'timestamp',
+#  'created',
 #  'tags',
 #  'content',
 #  'finished-timestamp-history',

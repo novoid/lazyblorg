@@ -7,5 +7,6 @@
 .ropeproject
 start.sh
 dev/2del/
-blogdata.pk
+metadata.pk
 lib/tests/simple_org_-_lastrun.pk
+lazyblorg_dump_of_blogdata_from_last_verbose_run.pk

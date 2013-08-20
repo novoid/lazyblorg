@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-20 15:57:32 vk>
+# Time-stamp: <2013-08-20 18:06:41 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -65,8 +65,8 @@ parser = OptionParser(usage=USAGE)
 parser.add_option("--targetdir", dest="targetdir",
                   help="directory where the HTML files will be written to")
 
-parser.add_option("--blogdata", dest="blogdatafilename",
-                  help="path to a file where the persistent data of the blog " +
+parser.add_option("--metadata", dest="metadatafilename",
+                  help="path to a file where persistent meta-data of the blog entries " +
                   "is written to. Next run, it will be read and used for comparison to current situation.")
 
 parser.add_option("-v", "--verbose", dest="verbose", action="store_true",
@@ -127,16 +127,16 @@ def main():
     if not os.path.isdir(options.targetdir):
         Utils.error_exit(logging, 3, "Target directory \"%s\" is not a directory. Aborting." % options.targetdir)
 
-    if not options.blogdatafilename:
-        Utils.error_exit(logging, 4, "Please give me a file to write to with option \"--blogdata\".")
+    if not options.metadatafilename:
+        Utils.error_exit(logging, 4, "Please give me a file to write to with option \"--metadata\".")
 
-    if not os.path.isfile(options.blogdatafilename):
-        logging.warning("Blog data file \"%s\" is not found. Assuming first run!" % options.blogdatafilename)
+    if not os.path.isfile(options.metadatafilename):
+        logging.warning("Blog data file \"%s\" is not found. Assuming first run!" % options.metadatafilename)
 
     logging.debug("extracting list of Org-mode files ...")
     logging.debug("len(args) [%s]" % str(len(args)))
     if len(args) < 1:
-        Utils.error_exit(logging, 4, "Please add at least one Org-mode file name as argument")
+        Utils.error_exit(logging, 5, "Please add at least one Org-mode file name as argument")
 
     files = args
 
@@ -152,10 +152,17 @@ def main():
     for filename in files:
         blog_data.extend(handle_file(filename))
 
-    logging.debug("successfully finished.")
+    if options.verbose:
+        ## dump blogdata for debugging purpose:
+        with open('lazyblorg_dump_of_blogdata_from_last_verbose_run.pk', 'wb') as output:
+            pickle.dump(blog_data, output, 0)  ## always use ASCII format
 
-    with open(options.blogdatafilename, 'wb') as output:
-        pickle.dump(blog_data, output, PICKLE_FORMAT)
+    metadata = Utils.generate_metadata_from_blogdata(blog_data)
+
+    with open(options.metadatafilename, 'wb') as output:
+        pickle.dump(metadata, output, PICKLE_FORMAT)
+
+    logging.debug("successfully finished.")
 
 
 if __name__ == "__main__":
