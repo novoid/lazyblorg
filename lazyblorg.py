@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-21 17:23:18 vk>
+# Time-stamp: <2013-08-21 17:41:30 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -20,7 +20,7 @@ from lib.utils import *
 from lib.orgparser import *
 import pickle ## for serializing and storing objects into files
 
-## debugging:   for setting a breakpoint:  pdb.set_trace()
+## debugging:   for setting a breakpoint:  pdb.set_trace()## FIXXME
 import pdb
 
 PROG_VERSION_NUMBER = u"0.1"
@@ -68,6 +68,9 @@ parser.add_option("--targetdir", dest="targetdir",
 parser.add_option("--metadata", dest="metadatafilename",
                   help="path to a file where persistent meta-data of the blog entries " +
                   "is written to. Next run, it will be read and used for comparison to current situation.")
+
+parser.add_option("--template", dest="templatefilename",
+                  help="path to a file which holds the output template definitions.")
 
 parser.add_option("--logfile", dest="logfilename",
                   help="path to a file where warnings (inactive time-stamps) and errors " +
@@ -123,6 +126,13 @@ with open(options.logfilename, 'a') as outputhandle:
         logging.critical("Please give me a file to write to with option \"--metadata\".")
         Utils.error_exit(4)
         
+    if not os.path.isfile(options.templatefilename):
+        logging.warn("Blog data file \"" + options.templatefilename + "\" is not found. Assuming first run!")
+
+    if not options.templatefilename:
+        logging.critical("Please give me a file which holds the template definitions with option \"--template\".")
+        Utils.error_exit(7)
+        
     if not os.path.isfile(options.metadatafilename):
         logging.warn("Blog data file \"" + options.metadatafilename + "\" is not found. Assuming first run!")
 
@@ -150,6 +160,18 @@ def handle_file(filename):
     parser = OrgParser(filename)
 
     return parser.parse_orgmode_file()
+
+def parse_HTML_output_template(filename):
+    """
+    This function parses an Org-mode file which holds the definitions of the output format.
+
+    @param filename: string containing one file name of the definition file
+    @param return: dict containing parsed template definitions
+    """
+
+    template_parser = OrgParser(filename)
+
+    return template_parser.parse_orgmode_file()
 
 def main():
     """Main function"""
@@ -207,6 +229,10 @@ def main():
         pickle.dump(metadata, output, PICKLE_FORMAT)
 
     ## FIXXME: parse the HTML template org-mode file
+    pdb.set_trace()## FIXXME
+    template_data = parse_HTML_output_template(options.templatefilename)
+
+    pdb.set_trace()## FIXXME
 
     ## FIXXME: check template definitions (only most important definitions)
 

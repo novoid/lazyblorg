@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-21 17:19:19 vk>
+# Time-stamp: <2013-08-21 17:30:39 vk>
 
 import re
 import sys
@@ -142,7 +142,7 @@ class Utils(object):
             if entry['id'] in metadata.keys():
                 logging.error("We got a duplicate ID in blogdata: \"" + \
                                      str(entry['id']) + "\". Please correct it and re-run this tool.")
-                Utils.error_exit(6)
+                Utils.error_exit(30)
             else:
                 metadata[entry['id']] = {'created': entry['created'], 
                                          'timestamp': entry['timestamp'], 

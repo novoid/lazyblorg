@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-21 17:07:19 vk>
+# Time-stamp: <2013-08-21 17:58:47 vk>
 
 import re
 import os
@@ -80,6 +80,8 @@ class OrgParser(object):
         assert filename.__class__ == str or filename.__class__ == unicode
         assert os.path.isfile(filename)
         self.__filename = filename
+        self.__blog_data = []
+        self.__entry_data = {}
 
  ## create logger (see http://docs.python.org/2/howto/logging-cookbook.html)
         self.logging = logging.getLogger('lazyblorg.OrgParser')
@@ -465,6 +467,10 @@ class OrgParser(object):
             previous_line = line
 
         self.logging.debug("OrgParser: finished file \"%s\"" % self.__filename)
+        #pdb.set_trace()## FIXXME:   data = self._OrgParser__entry_data ; data['content']
+        ## self._OrgParser__blog_data
+            ## self._OrgParser__entry_data
+            ## self._OrgParser__filename
         return self.__blog_data
 
 

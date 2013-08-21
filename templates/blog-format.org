@@ -1,4 +1,4 @@
-## Time-stamp: <2013-08-21 11:40:27 vk>
+## Time-stamp: <2013-08-21 17:57:04 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -7,18 +7,24 @@
 
 This file contains the format templates of your blog.
 
-lazyblorg is looking for this file name (~blog-format.org~) and using
-(only) the first level heading which meets *all* of the following
-requirements:
+lazyblorg needs a template file (command line parameter ~--template~)
+which holds the output format definitions. It is using (only) the
+heading which meets *all* of the following requirements:
 
 - named ~Templates~
 - is marked as ~DONE~
 - tagged with ~:blog:~
 - contains the unique ID property ~lazyblorg-templates~
+- contains a ~:LOGBOOK:~ drawer with a time-stamp for being set to a
+  ~DONE~ state
+
+(Besides the name ~Templates~ those are the very same criteria for a
+blog entry in general, by the way.)
 
 This way, you can switch between different formats by using different
-files (replacing files) or different headings within this file
-(renaming first level headings and IDs), respectively.
+files (using different template files) or different headings within
+this file (renaming first level headings and IDs; not recommended),
+respectively.
 
 The format templates are located in a heading hierarchy within the
 ~Templates~ heading. The hierarchy should be self explaining for
@@ -42,8 +48,12 @@ these in-between notes.
 Have fun with modifying lazyblorg to your requirements!
 
 * DONE Templates                                                       :blog:
+:LOGBOOK:
+- State "DONE"       from "DONE"       [2013-08-21 Wed 17:50]
+:END:
 :PROPERTIES:
 :ID: lazyblorg-templates
+:CREATED:  [2013-08-21 Wed 17:50]
 :END:
 
 ** Article
@@ -53,7 +63,7 @@ Have fun with modifying lazyblorg to your requirements!
 - #TITLE#: heading/title of the blog article
 
 #+NAME: header
-#+BEGIN_SRC html
+#+BEGIN_HTML
   <!DOCTYPE html>
   <html xmlns="http://www.w3.org/1999/xhtml">
     <!-- WARNING: This page is written in (X)HTML5 and might not be displayed correctly in old browsers. -->
@@ -66,14 +76,14 @@ Have fun with modifying lazyblorg to your requirements!
       </style>
   
     </head>
-#+END_SRC
+#+END_HTML
 
 *** Footer
 
 - #ABOUT-BLOG#: a line of text which describes the blog in general
 
 #+NAME: footer
-#+BEGIN_SRC html
+#+BEGIN_HTML
     <footer>
       <p>#ABOUT-BLOG#
 
@@ -85,7 +95,7 @@ Have fun with modifying lazyblorg to your requirements!
     
   </body>
 </html>
-#+END_SRC
+#+END_HTML
 
 *** Top of Article
 
@@ -99,7 +109,7 @@ Have fun with modifying lazyblorg to your requirements!
   human readable format
 
 #+NAME: article-header-begin
-#+BEGIN_SRC html
+#+BEGIN_HTML
   <body>
     <article>
       
@@ -119,62 +129,62 @@ Have fun with modifying lazyblorg to your requirements!
 	  <aside>
 	    <p>Published on <time datetime="#ARTICLE-PUBLISHED-HTML-DATETIME#">#ARTICLE-PUBLISHED-HUMAN-READABLE#</time></p>
 	  </aside>
-#+END_SRC
+#+END_HTML
 
 #+NAME: tags-begin
-#+BEGIN_SRC html
+#+BEGIN_HTML
 	  <aside>
 	    <p>
-#+END_SRC
+#+END_HTML
 
 - #TAGNAME#: string of a tag
 
 #+NAME: tag
-#+BEGIN_SRC html
+#+BEGIN_HTML
 	      <span class="tag">#TAGNAME#</span>
-#+END_SRC
+#+END_HTML
 
 #+NAME: tags-end
-#+BEGIN_SRC html
+#+BEGIN_HTML
 	    </p>
 	  </aside>
-#+END_SRC
+#+END_HTML
 
 #+NAME: article-header-end
-#+BEGIN_SRC html
+#+BEGIN_HTML
 	</header>
 
-#+END_SRC
+#+END_HTML
 
 #+NAME: article-end
-#+BEGIN_SRC html
+#+BEGIN_HTML
       
     </article>
 
-#+END_SRC
+#+END_HTML
 
 *** Sections
 
 - #SECTION-TITLE#: title of the next heading/section
 
 #+NAME: section-begin
-#+BEGIN_SRC html
+#+BEGIN_HTML
 	<section>    
 	  <header><h1>#SECTION-TITLE#</h1></header>
 	  
-#+END_SRC
+#+END_HTML
 
 #+NAME: section-end
-#+BEGIN_SRC html
+#+BEGIN_HTML
 	</section>
-#+END_SRC
+#+END_HTML
 
 *** Paragraph
 
 - #PAR-CONTENT#
 
 #+NAME: paragraph
-#+BEGIN_SRC html
+#+BEGIN_HTML
 
 <p>
 
@@ -182,7 +192,7 @@ Have fun with modifying lazyblorg to your requirements!
 
 </p>
 
-#+END_SRC
+#+END_HTML
 
 *** URLs
 
@@ -190,51 +200,51 @@ Have fun with modifying lazyblorg to your requirements!
 - #CONTENT#: description of the hyperlink
 
 #+NAME: a-href
-#+BEGIN_SRC html
+#+BEGIN_HTML
 <a href="#A-URL#">#CONTENT#</a>
-#+END_SRC
+#+END_HTML
 	  
 *** Lists
 		
 #+NAME: ul-begin
-#+BEGIN_SRC html
+#+BEGIN_HTML
 	  <ul>
-#+END_SRC
+#+END_HTML
 
 - #CONTENT#: text of the list item
 
 #+NAME: ul-item
-#+BEGIN_SRC html
+#+BEGIN_HTML
 	    <li>#CONTENT#</li>
-#+END_SRC
+#+END_HTML
 
 #+NAME: ul-end
-#+BEGIN_SRC html
+#+BEGIN_HTML
 	  </ul>
-#+END_SRC
+#+END_HTML
 	  
 *** Pre-formatted text
 
 #+NAME: pre-begin
-#+BEGIN_SRC html
+#+BEGIN_HTML
 	  <pre>
-#+END_SRC
+#+END_HTML
 
 #+NAME: pre-end
-#+BEGIN_SRC html
+#+BEGIN_HTML
 	  </pre>
-#+END_SRC
+#+END_HTML
 
 
 *** ignore me
 
 #+NAME: 
-#+BEGIN_SRC html
-#+END_SRC
+#+BEGIN_HTML
+#+END_HTML
 
 #+NAME: 
-#+BEGIN_SRC html
-#+END_SRC
+#+BEGIN_HTML
+#+END_HTML
 	  
 
 
