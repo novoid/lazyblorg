@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-21 17:30:39 vk>
+# Time-stamp: <2013-08-21 18:14:05 vk>
 
 import re
 import sys
@@ -31,6 +31,24 @@ class Utils(object):
 
         sys.stdout.flush()
         sys.exit(errorcode)
+
+
+    @staticmethod
+    def error_exit_with_userlog(logfilename, errorcode, message):
+        """
+        Exits with return value of errorcode, prints to stderr,
+        creates an entry in the user log file.
+    
+        @param logfilename: file name of the user log file
+        @param errorcode: integer that will be reported as return value.
+        @param message: error message
+        """
+
+        logger = logging.getLogger('lazyblorg.Utils.error_exit_with_userlog')
+        logger.critical(message)
+        Utils.append_logfile_entry(logfilename, 'critical', message)
+        Utils.error_exit(errorcode)
+
     
     @staticmethod
     def initialize_logging(identifier, verbose, quiet):

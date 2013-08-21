@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-21 17:41:30 vk>
+# Time-stamp: <2013-08-21 18:51:13 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -173,6 +173,47 @@ def parse_HTML_output_template(filename):
 
     return template_parser.parse_orgmode_file()
 
+def check_and_filter_template_definitions(all_template_data):
+    """
+    This function checks for (only) basic format definitions and exits
+    if something important is missing.
+
+    @param all_template_data: list which contains the format data of the template
+    @param return: list of HTML definitions as Org-mode HTML block list-elements
+    """
+
+    logging.debug('checking for basic template definitions in parsed data ...')
+
+    if not all_template_data:
+        message = "Sorry, no suitable data could be parsed from the template definition file. " + \
+            "Please check if it meets all criteria as described in the original template " + \
+            "file \"blog-format.org\"."
+        Utils.error_exit_with_userlog(options.logfilename, 40, message)
+
+    matching_title_template_data = [entry for entry in all_template_data if entry['title'] == u'Templates']
+
+    if not matching_title_template_data:
+        message = "Sorry, no suitable data within heading \"Templates\" could be found in " + \
+            "the template definition file. " + \
+            "Please check if you mistyped its name."
+        Utils.error_exit_with_userlog(options.logfilename, 41, message)
+
+    html_definitions = [x for x in matching_title_template_data[0]['content'] if x[0] == 'html-block']
+
+    found_elements = [ x[1] for x in html_definitions ]
+
+    for element in [u'header', u'footer', u'article-header-begin', u'tags-begin', 
+                    u'tag', u'tags-end', u'article-header-end', u'article-end', 
+                    u'section-begin', u'section-end', u'paragraph', u'a-href', 
+                    u'ul-begin', u'ul-item', u'ul-end', u'pre-begin', u'pre-end']:
+        if not element in found_elements:
+            message = "Sorry, no definition for element \"" + element + "\" could be found within " + \
+                "the template definition file. " + \
+                "Please check if you mistyped its name or similar."
+            Utils.error_exit_with_userlog(options.logfilename, 42, message)
+        
+    return html_definitions
+
 def main():
     """Main function"""
 
@@ -209,9 +250,7 @@ def main():
             verbose_message = "Parsing error in file \"" + filename + \
                 "\" which is not good. Therefore, I stop here and hope you " + \
                 "can fix the issue in the Org-mode file. Reason: " + message.value 
-            logging.critical(verbose_message)
-            Utils.append_logfile_entry(options.logfilename, verbose_message)
-            Utils.error_exit(20)
+            Utils.error_exit_with_userlog(options.logfilename, 20, verbose_message)
         else:
             blog_data.extend(file_blog_data)
 
@@ -228,17 +267,18 @@ def main():
     with open(options.metadatafilename + '_temp', 'wb') as output:
         pickle.dump(metadata, output, PICKLE_FORMAT)
 
-    ## FIXXME: parse the HTML template org-mode file
-    pdb.set_trace()## FIXXME
     template_data = parse_HTML_output_template(options.templatefilename)
 
-    pdb.set_trace()## FIXXME
+    template_definitions = check_and_filter_template_definitions(template_data)
+    
+    ## load old metadata from file
+    previous_metadata = None
+    if os.path.isfile(options.metadatafilename):
+        logging.debug("reading old \"" + options.metadatafilename + "\" ...")
+        with open(options.metadatafilename, 'rb') as input:
+            previous_metadata = pickle.load(input)
 
-    ## FIXXME: check template definitions (only most important definitions)
-
-    ## FIXXME: load old metadata from file
-
-    ## FIXXME: run comparing algorithm (last metadata, current metadata) and do actions
+    ## FIXXME: run comparing algorithm (last metadata, current metadata) and generate pages
 
     ## FIXXME: generate new RSS feed
 
