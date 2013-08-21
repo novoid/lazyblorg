@@ -1,4 +1,4 @@
-## Time-stamp: <2013-08-20 22:06:18 vk>
+## Time-stamp: <2013-08-21 11:40:27 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -8,23 +8,27 @@
 This file contains the format templates of your blog.
 
 lazyblorg is looking for this file name (~blog-format.org~) and using
-(only) the first level heading named ~Templates~ which is marked as
-DONE and tagged with ~:blog:~.
+(only) the first level heading which meets *all* of the following
+requirements:
 
-This way, you can switch between different files (renaming files) or
-heading (renaming first level headings), respectively.
+- named ~Templates~
+- is marked as ~DONE~
+- tagged with ~:blog:~
+- contains the unique ID property ~lazyblorg-templates~
 
-The format templates are located in a heading hierarchy. Please *do
-not modify heading names* since lazyblorg is looking for their exact
-names. The hierarchy should be self explaining for you.
+This way, you can switch between different formats by using different
+files (replacing files) or different headings within this file
+(renaming first level headings and IDs), respectively.
+
+The format templates are located in a heading hierarchy within the
+~Templates~ heading. The hierarchy should be self explaining for
+you. Please *do not modify headings* since lazyblorg is looking for
+their exact form - at least for the first two levels.
 
 Within a heading, each format template is defined in a HTML [[http://orgmode.org/manual/Working-With-Source-Code.html#Working-With-Source-Code][babel
 block]].  Its name corresponds to the internal lazyblorg definition. So
 please *do not modify the name strings* otherwise lazyblorg gets very
 sad!
-
-Single line format templates will be stripped (leading and ending
-whitespaces removed).
 
 Within a format template, you will see strings like ~#FOO#~. These
 place holder strings will get replaced by your content. If you modify
@@ -38,21 +42,201 @@ these in-between notes.
 Have fun with modifying lazyblorg to your requirements!
 
 * DONE Templates                                                       :blog:
+:PROPERTIES:
+:ID: lazyblorg-templates
+:END:
 
 ** Article
 
-Paragraph:
+*** Header
 
-#+NAME: par
-#+BEGIN_HTML
+- #TITLE#: heading/title of the blog article
+
+#+NAME: header
+#+BEGIN_SRC html
+  <!DOCTYPE html>
+  <html xmlns="http://www.w3.org/1999/xhtml">
+    <!-- WARNING: This page is written in (X)HTML5 and might not be displayed correctly in old browsers. -->
+    
+    <head>
+      <meta charset="UTF-8">
+      <link rel="stylesheet" type="text/css" href="../../../../style.css" />
+      <title>#TITLE#</title>
+      <style type="text/css">
+      </style>
+  
+    </head>
+#+END_SRC
+
+*** Footer
+
+- #ABOUT-BLOG#: a line of text which describes the blog in general
+
+#+NAME: footer
+#+BEGIN_SRC html
+    <footer>
+      <p>#ABOUT-BLOG#
+
+	<a href="http://validator.w3.org/check/referer">check HTML5 validity</a>
+
+	<a href="http://jigsaw.w3.org/css-validator/">check CSS validity</a>
+      </p>
+    </footer>
+    
+  </body>
+</html>
+#+END_SRC
+
+*** Top of Article
+
+- #BLOGNAME#: short name of the blog
+- #ARTICLE-YEAR#: four digit year of the article (folder path)
+- #ARTICLE-MONTH#: two digit month of the article (folder path) 
+- #ARTICLE-DAY#: two digit day of the article (folder path)
+- #ARTICLE-PUBLISHED-HTML-DATETIME#: time-stamp of publishing in HTML
+  date-time format
+- #ARTICLE-PUBLISHED-HUMAN-READABLE#: time-stamp of publishing in
+  human readable format
+
+#+NAME: article-header-begin
+#+BEGIN_SRC html
+  <body>
+    <article>
+      
+      <section>
+	<header>
+
+	  <nav>
+	    <ol class="breadcrumbs">
+	      <li><a href="../../../../">#BLOGNAME#&nbsp;&nbsp;&gt;</a></li>
+	      <li><a href="../../../">#ARTICLE-YEAR#&nbsp;&nbsp;&gt;</a></li>
+	      <li><a href="../../">#ARTICLE-MONTH#&nbsp;&nbsp;&gt;</a></li>
+	      <li><a href="../">#ARTICLE-DAY#&nbsp;&nbsp;&gt;</a></li>
+	    </ol>
+	  </nav>
+
+	  <h1>#ARTICLE-TITLE#</h1>
+	  <aside>
+	    <p>Published on <time datetime="#ARTICLE-PUBLISHED-HTML-DATETIME#">#ARTICLE-PUBLISHED-HUMAN-READABLE#</time></p>
+	  </aside>
+#+END_SRC
+
+#+NAME: tags-begin
+#+BEGIN_SRC html
+	  <aside>
+	    <p>
+#+END_SRC
+
+- #TAGNAME#: string of a tag
+
+#+NAME: tag
+#+BEGIN_SRC html
+	      <span class="tag">#TAGNAME#</span>
+#+END_SRC
+
+#+NAME: tags-end
+#+BEGIN_SRC html
+	    </p>
+	  </aside>
+#+END_SRC
+
+#+NAME: article-header-end
+#+BEGIN_SRC html
+	</header>
+
+#+END_SRC
+
+#+NAME: article-end
+#+BEGIN_SRC html
+      
+    </article>
+
+#+END_SRC
+
+*** Sections
+
+- #SECTION-TITLE#: title of the next heading/section
+
+#+NAME: section-begin
+#+BEGIN_SRC html
+	<section>    
+	  <header><h1>#SECTION-TITLE#</h1></header>
+	  
+#+END_SRC
+
+#+NAME: section-end
+#+BEGIN_SRC html
+	</section>
+#+END_SRC
+
+*** Paragraph
+
+- #PAR-CONTENT#
+
+#+NAME: paragraph
+#+BEGIN_SRC html
 
 <p>
 
-#CONTENT#
+#PAR-CONTENT#
 
 </p>
 
-#+END_HTML
+#+END_SRC
+
+*** URLs
+
+- #A-URL#: URL of a hyperlink
+- #CONTENT#: description of the hyperlink
+
+#+NAME: a-href
+#+BEGIN_SRC html
+<a href="#A-URL#">#CONTENT#</a>
+#+END_SRC
+	  
+*** Lists
+		
+#+NAME: ul-begin
+#+BEGIN_SRC html
+	  <ul>
+#+END_SRC
+
+- #CONTENT#: text of the list item
+
+#+NAME: ul-item
+#+BEGIN_SRC html
+	    <li>#CONTENT#</li>
+#+END_SRC
+
+#+NAME: ul-end
+#+BEGIN_SRC html
+	  </ul>
+#+END_SRC
+	  
+*** Pre-formatted text
+
+#+NAME: pre-begin
+#+BEGIN_SRC html
+	  <pre>
+#+END_SRC
+
+#+NAME: pre-end
+#+BEGIN_SRC html
+	  </pre>
+#+END_SRC
+
+
+*** ignore me
+
+#+NAME: 
+#+BEGIN_SRC html
+#+END_SRC
+
+#+NAME: 
+#+BEGIN_SRC html
+#+END_SRC
+	  
+
 
 
 * Local Variables                                                  :noexport:
