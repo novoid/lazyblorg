@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-21 09:46:20 vk>
+# Time-stamp: <2013-08-21 10:26:41 vk>
 
 import re
 import os
@@ -301,7 +301,7 @@ class OrgParser(object):
                     if not block_components:
                         raise OrgParserException('I found a line beginning with ' +
                                            '\"#+BEGIN_\" that was not matched by BLOCK_REGEX which ' +
-                                           'is quite a pity. line:' + str(line))
+                                           'is quite a pity. line: ' + str(line))
                     block_type = str(block_components.group(self.BLOCK_TYPE_IDX)).upper()
 
                     self.logging.debug("found block signature for " + block_type)
@@ -311,6 +311,7 @@ class OrgParser(object):
                             block_type == 'LATEX':
                         self.__entry_data['content'].append([block_type.lower() + '-block', previous_name, []])
                     else:
+                        ## if BLOCK_REGEX is in sync with the if-statement above, this should never be reached!
                         raise OrgParserException('I found a block type \"' + str(line) + 
                                                  '\" that is not known. Please do not confuse me and fix it.')
                     state = self.BLOCK
@@ -414,7 +415,7 @@ class OrgParser(object):
                 ## parses general blocks and return to ENTRY_CONTENT
 
                 if not block_type:
-                    raise OrgParserException('I was in state \"BLOCK\" with no block_type. Not good.')
+                    raise OrgParserException('I was in state \"BLOCK\" with no block_type. Not good, I\'m confused!')
                     
                 if line.upper() == '#+END_' + block_type:
                     state = self.ENTRY_CONTENT
@@ -428,6 +429,7 @@ class OrgParser(object):
                          ## its last element (which contains the list of the block content):
                         self.__entry_data['content'][-1][-1].append(line)
                     else:
+                        ## if BLOCK_REGEX is in sync with the if-statement above, this should never be reached!
                         raise OrgParserException('I found a block type \"' + str(line) + 
                                                  '\" that is not known. Please do not confuse me and fix it.')
 
