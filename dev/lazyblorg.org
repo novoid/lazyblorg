@@ -1,4 +1,4 @@
-# Time-stamp: <2013-08-20 22:06:13 vk>
+# Time-stamp: <2013-08-21 11:59:29 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -503,23 +503,11 @@ vk@gary ~/src/lazyblorg (git)-[master] %
   - [ ] optionally: generate calendar archive page(s)
   - [ ] optionally: generate tag overview page(s)
 
-- on any error:
+- [ ] on any error:
   - [ ] create an orgmode event from current time that appears on agenda
   - [ ] with daily repeat -> so it gets noticed on the following day(s) too
   - [ ] in the description of that entry:
     - BONUS: babel-sh-snippet with prepared command to re-try the run :-)
-
-- in order not to store *whole* content while parsing, split up parsing
-  to *two parsing processes*:
-
-  1. find new or updated articles
-     - parse for used ID-links
-     - collect and store metadata of these (everything except content)
-     - print out warnings for all IDs that are broken links
-     - create creative 404-page for all broken links in the meantime
-
-  2. parse everything again and store only new or updated article contents
-     - match with ID-links
 
 ** NEXT parse format template file                            :architecture:
 :PROPERTIES:
@@ -548,7 +536,6 @@ A sub-heading «Org» contains the Org-mode document/snippet which gets
 parsed.
 
 A sub-heading «result» contains the results which is expected.
-
 ** TODO Idea: do paragraph parsing                            :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-27 Wed 16:48]
@@ -853,7 +840,7 @@ page. Further headings contain more content for other pages.
     link to ID)
 - disqus: I do not want to outsource comment hosting :-(
 
-** SOMEDAY [#C] guessing language of entry                       :userstory:
+** SOMEDAY guessing language of entry                            :userstory:
 :LOGBOOK:
 - State "SOMEDAY"    from ""           [2013-01-08 Tue 14:36]
 :END:
@@ -920,6 +907,25 @@ page. Further headings contain more content for other pages.
         - sending a lot of fake messages
     - synchronous password?
     - ?
+
+** SOMEDAY [#C] in order not to parse *whole* content, split up parsing
+:LOGBOOK:
+- State "SOMEDAY"    from ""           [2013-08-21 Wed 11:58]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-08-21 Wed 11:58]
+:END:
+
+For optimizing performance and RAM usage: use *two parsing processes*:
+
+  1. find new or updated articles
+     - parse for used ID-links
+     - collect and store metadata of these (everything except content)
+     - print out warnings for all IDs that are broken links
+     - create creative 404-page for all broken links in the meantime
+
+  2. parse everything again and store only new or updated article contents
+     - match with ID-links
 
 * Notes                                                               :notes:
 
