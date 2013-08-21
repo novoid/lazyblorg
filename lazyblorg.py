@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-21 09:45:06 vk>
+# Time-stamp: <2013-08-21 11:48:11 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -63,14 +63,14 @@ MONTHS = {'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04', 'May': '05',
 parser = OptionParser(usage=USAGE)
 
 parser.add_option("--targetdir", dest="targetdir",
-                  help="directory where the HTML files will be written to")
+                  help="path where the HTML files will be written to")
 
 parser.add_option("--metadata", dest="metadatafilename",
                   help="path to a file where persistent meta-data of the blog entries " +
                   "is written to. Next run, it will be read and used for comparison to current situation.")
 
 parser.add_option("-v", "--verbose", dest="verbose", action="store_true",
-                  help="enable verbose mode")
+                  help="enable verbose mode which is quite chatty")
 
 parser.add_option("-q", "--quiet", dest="quiet", action="store_true",
                   help="enable quiet mode")

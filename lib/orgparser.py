@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-21 10:26:41 vk>
+# Time-stamp: <2013-08-21 11:46:24 vk>
 
 import re
 import os
@@ -59,8 +59,9 @@ class OrgParser(object):
     LOG_REGEX = re.compile('^- State\s+"' + BLOG_FINISHED_STATE + '"\s+from\s+"\S*"\s+([\[{].*[\]}])$')
     LOG_TIMESTAMP_IDX = 1
 
-    BLOCK_REGEX = re.compile('^#\+BEGIN_(SRC|VERSE|QUOTE|CENTER|HTML|ASCII|LATEX)$')
+    BLOCK_REGEX = re.compile('^#\+BEGIN_(SRC|VERSE|QUOTE|CENTER|HTML|ASCII|LATEX)\s+(.*)$')
     BLOCK_TYPE_IDX = 1
+    BLOCK_LANGUAGE_IDX = 2
     
     logging = None
 
@@ -124,7 +125,7 @@ class OrgParser(object):
             errors += 1
 
         if errors > 0:
-            self.logging.error("check_entry_data: %s errors were found for heading \"%s\" in file \"%s\"" %
+            self.logging.error("check_entry_data: %s not matching criteria found for heading \"%s\" in file \"%s\"" %
                                (str(errors), self.__entry_data['title'], self.__filename))
             return False
         else:
@@ -293,6 +294,7 @@ class OrgParser(object):
 
                 elif line.upper().startswith('#+NAME: '):
                     previous_name = line[8:].strip()
+                    self.logging.debug("found #+NAME: [%s]" % previous_name)
                     previous_line = line
                     continue
 
