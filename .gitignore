@@ -6,7 +6,9 @@
 *.pyc
 .ropeproject
 start.sh
+2del-*
 dev/2del/
-metadata.pk
+testdata/2del/*
 lib/tests/simple_org_-_lastrun.pk
 lazyblorg_dump_of_blogdata_from_last_verbose_run.pk
+parse_template.sh

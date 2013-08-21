@@ -1,4 +1,4 @@
-# Time-stamp: <2013-08-21 09:51:52 vk>
+# Time-stamp: <2013-08-21 17:19:48 vk>
 # -*- coding: utf-8 -*-
 
 * Heading of no interest

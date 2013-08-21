@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-20 18:09:00 vk>
+# Time-stamp: <2013-08-21 17:19:19 vk>
 
 import re
 import sys
 import logging
 from hashlib import md5  ## generating checksums
+import time  ## for generating Org-mode timestamps
+from orgformat import *
 #import pdb
 
 class Utils(object):
@@ -17,36 +19,83 @@ class Utils(object):
         pass
 
     @staticmethod
-    def error_exit(logging, errorcode, text):
+    def error_exit(errorcode):
         """
         Exits with return value of errorcode and prints to stderr.
     
-        @param logging: handler for logging output
         @param errorcode: integer that will be reported as return value.
-        @param text: string with descriptive error message.
         """
     
+        logger = logging.getLogger('lazyblorg.Utils.error_exit')
+        logger.debug("exiting with error code %s" % str(errorcode))
+
         sys.stdout.flush()
-        logging.error(text)
-    
         sys.exit(errorcode)
+    
+    @staticmethod
+    def initialize_logging(identifier, verbose, quiet):
+        """Log handling and configuration"""
+    
+        logger = logging.getLogger(identifier)
+
+        # create console handler and set level to debug
+        ch = logging.StreamHandler()
+
+        FORMAT = None
+        if verbose:
+            FORMAT = "%(levelname)-8s %(asctime)-15s %(message)s"
+            ch.setLevel(logging.DEBUG)
+            logger.setLevel(logging.DEBUG)
+        elif quiet:
+            FORMAT = "%(levelname)-8s %(message)s"
+            ch.setLevel(logging.ERROR)
+            logger.setLevel(logging.ERROR)
+        else:
+            FORMAT = "%(levelname)-8s %(message)s"
+            ch.setLevel(logging.INFO)
+            logger.setLevel(logging.INFO)
+
+        # create formatter
+        formatter = logging.Formatter(FORMAT)
+        
+        # add formatter to ch
+        ch.setFormatter(formatter)
+        
+        # add ch to logger
+        logger.addHandler(ch)
+
+        ## omit double output (default handler and my own handler):
+        logger.propagate = False
+
+        ## # "application" code
+        ## logger.debug("debug message")
+        ## logger.info("info message")
+        ## logger.warn("warn message")
+        ## logger.error("error message")
+        ## logger.critical("critical message")
+
+        logger.debug("logging initialized")
+
+        return logger
 
 
     @staticmethod
-    def initialize_logging(verbose, quiet):
-        """Log handling and configuration"""
-    
-        if verbose:
-            FORMAT = "%(levelname)-8s %(asctime)-15s %(message)s"
-            logging.basicConfig(level=logging.DEBUG, format=FORMAT)
-        elif quiet:
-            FORMAT = "%(levelname)-8s %(message)s"
-            logging.basicConfig(level=logging.ERROR, format=FORMAT)
-        else:
-            FORMAT = "%(levelname)-8s %(message)s"
-            logging.basicConfig(level=logging.INFO, format=FORMAT)
+    def append_logfile_entry(filename, level, message):
+        """Appends messages to the given log file."""
 
-        return logging
+        logger = logging.getLogger('lazyblorg.Utils.append_logfile_entry')
+        logger.debug("appending to Org-mode log-file %s" % (filename))
+
+        with open(filename, 'a') as outputhandle:
+            datetimestamp = OrgFormat.datetime(time.localtime())
+    ## add daily repeating that user gets it on agenda also on following days:
+            datetimestamp = datetimestamp[:-1] + ' +1d>'
+            
+            outputhandle.write(u"\n** " + 
+                               datetimestamp + 
+                               " lazyblorg " + level.upper() + ": " +
+                               message +
+                               "\n")
 
 
     @staticmethod
@@ -91,9 +140,9 @@ class Utils(object):
                                                                 entry['content'])
 
             if entry['id'] in metadata.keys():
-                logging.error()
-                Utils.error_exit(logging, 6, "We got a duplicate ID in blogdata: \"" + \
+                logging.error("We got a duplicate ID in blogdata: \"" + \
                                      str(entry['id']) + "\". Please correct it and re-run this tool.")
+                Utils.error_exit(6)
             else:
                 metadata[entry['id']] = {'created': entry['created'], 
                                          'timestamp': entry['timestamp'], 

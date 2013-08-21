@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-21 11:48:11 vk>
+# Time-stamp: <2013-08-21 17:23:18 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -21,7 +21,7 @@ from lib.orgparser import *
 import pickle ## for serializing and storing objects into files
 
 ## debugging:   for setting a breakpoint:  pdb.set_trace()
-#import pdb
+import pdb
 
 PROG_VERSION_NUMBER = u"0.1"
 PROG_VERSION_DATE = u"2013-05-20"
@@ -69,6 +69,10 @@ parser.add_option("--metadata", dest="metadatafilename",
                   help="path to a file where persistent meta-data of the blog entries " +
                   "is written to. Next run, it will be read and used for comparison to current situation.")
 
+parser.add_option("--logfile", dest="logfilename",
+                  help="path to a file where warnings (inactive time-stamps) and errors " +
+                  "(active time-stamps) are being appended in Org-mode format.")
+
 parser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                   help="enable verbose mode which is quite chatty")
 
@@ -86,6 +90,47 @@ parser.add_option("--version", dest="version", action="store_true",
 #PICKLE_FORMAT = pickle.HIGHEST_PROTOCOL
 PICKLE_FORMAT = 0
 
+def check_parameters(options):
+
+    if not options.logfilename:
+        logging.critical("Please give me a file to write to with option \"--logfile\".")
+        Utils.error_exit(5)
+        
+    if not os.path.isfile(options.logfilename):
+        logging.debug("log file \"" + options.logfilename + "\" is not found. Initializing with heading ...")
+
+with open(options.logfilename, 'a') as outputhandle:
+    outputhandle.write(u"## -*- coding: utf-8 -*-\n" +
+                       "## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/\n" +
+                       "* Warnings and Error messages from lazyblorg     :lazyblorg:log:\n\n" + 
+                       "Messages gets appended to this file. Please remove fixed issues manually.\n")
+    outputhandle.flush()
+                               
+    if options.verbose and options.quiet:
+        logging.error("Options \"--verbose\" and \"--quiet\" found. " +
+                         "This does not make any sense, you silly fool :-)")
+        Utils.error_exit(1)
+
+    if not options.targetdir:
+        logging.critical("Please give me a folder to write to with option \"--targetdir\".")
+        Utils.error_exit(2)
+
+    if not os.path.isdir(options.targetdir):
+        logging.critical("Target directory \"" + options.targetdir + "\" is not a directory. Aborting.")
+        Utils.error_exit(3)
+
+    if not options.metadatafilename:
+        logging.critical("Please give me a file to write to with option \"--metadata\".")
+        Utils.error_exit(4)
+        
+    if not os.path.isfile(options.metadatafilename):
+        logging.warn("Blog data file \"" + options.metadatafilename + "\" is not found. Assuming first run!")
+
+    logging.debug("extracting list of Org-mode files ...")
+    logging.debug("len(args) [%s]" % str(len(args)))
+    if len(args) < 1:
+        logging.critical("Please add at least one Org-mode file name as argument")
+        Utils.error_exit(6)
 
 def handle_file(filename):
     """
@@ -102,10 +147,9 @@ def handle_file(filename):
         logging.warning("Skipping non-file \"%s\" because this tool only parses files." % filename)
         return
 
-    parser = OrgParser(filename, logging)
+    parser = OrgParser(filename)
 
     return parser.parse_orgmode_file()
-
 
 def main():
     """Main function"""
@@ -115,29 +159,14 @@ def main():
             " from " + PROG_VERSION_DATE
         sys.exit(0)
 
-    logging = Utils.initialize_logging(options.verbose, options.quiet)
+    logging = Utils.initialize_logging("lazyblorg", options.verbose, options.quiet)
 
-    if options.verbose and options.quiet:
-        Utils.error_exit(logging, 1, "Options \"--verbose\" and \"--quiet\" found. " +
-                         "This does not make any sense, you silly fool :-)")
 
-    if not options.targetdir:
-        Utils.error_exit(logging, 2, "Please give me a folder to write to with option \"--targetdir\".")
+    ## checking parameters ...
 
-    if not os.path.isdir(options.targetdir):
-        Utils.error_exit(logging, 3, "Target directory \"%s\" is not a directory. Aborting." % options.targetdir)
+    check_parameters(options)
 
-    if not options.metadatafilename:
-        Utils.error_exit(logging, 4, "Please give me a file to write to with option \"--metadata\".")
-
-    if not os.path.isfile(options.metadatafilename):
-        logging.warning("Blog data file \"%s\" is not found. Assuming first run!" % options.metadatafilename)
-
-    logging.debug("extracting list of Org-mode files ...")
-    logging.debug("len(args) [%s]" % str(len(args)))
-    if len(args) < 1:
-        Utils.error_exit(logging, 5, "Please add at least one Org-mode file name as argument")
-
+        
     files = args
 
     ## print file names if less than 10:
@@ -146,28 +175,56 @@ def main():
     else:
         logging.debug("%s filenames found")
 
+    ## start processing Org-mode files ...
+
     blog_data = []
 
     logging.debug("iterate over files ...")
     for filename in files:
         try:
-            file_blog_data = handle_file(filename)
+            file_blog_data = handle_file(filename)  ## parsing one Org-mode file
         except OrgParserException as message:
-            Utils.error_exit(logging, 6, "Parsing error in file \"" + filename + 
-                             "\" which is not good. Therefore, I stop here and hope you " +
-                             "can fix the issue in the Org-mode file. Reason: " + message.value)
+            verbose_message = "Parsing error in file \"" + filename + \
+                "\" which is not good. Therefore, I stop here and hope you " + \
+                "can fix the issue in the Org-mode file. Reason: " + message.value 
+            logging.critical(verbose_message)
+            Utils.append_logfile_entry(options.logfilename, verbose_message)
+            Utils.error_exit(20)
         else:
             blog_data.extend(file_blog_data)
 
+    ## dump blogdata for debugging purpose ...
     if options.verbose:
-        ## dump blogdata for debugging purpose:
         with open('lazyblorg_dump_of_blogdata_from_last_verbose_run.pk', 'wb') as output:
-            pickle.dump(blog_data, output, 0)  ## always use ASCII format
+            pickle.dump(blog_data, output, 0)  ## always use ASCII format: easier to debug from outside
 
+    ## generate persistent data which is used to compare this status
+    ## with the status of the next invocation:
     metadata = Utils.generate_metadata_from_blogdata(blog_data)
 
-    with open(options.metadatafilename, 'wb') as output:
+    ## write this status to the persistent data file:
+    with open(options.metadatafilename + '_temp', 'wb') as output:
         pickle.dump(metadata, output, PICKLE_FORMAT)
+
+    ## FIXXME: parse the HTML template org-mode file
+
+    ## FIXXME: check template definitions (only most important definitions)
+
+    ## FIXXME: load old metadata from file
+
+    ## FIXXME: run comparing algorithm (last metadata, current metadata) and do actions
+
+    ## FIXXME: generate new RSS feed
+
+    ## FIXXME: remove old options.metadatafilename
+    if os.path.isfile(options.metadatafilename):
+        logging.debug("deleting old \"" + options.metadatafilename + "\" ...")
+        os.remove(options.metadatafilename)
+
+          ## rename options.metadatafilename + '_temp' -> options.metadatafilename
+        logging.debug("removing temporary \"" + options.metadatafilename + "_temp\" to \"" + 
+            options.metadatafilename + "\" ...")
+        os.rename(options.metadatafilename + '_temp', options.metadatafilename)
 
     logging.debug("successfully finished.")
 

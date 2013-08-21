@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-21 11:46:24 vk>
+# Time-stamp: <2013-08-21 17:07:19 vk>
 
 import re
 import os
 import codecs
+import logging
 from orgformat import *
 
 ## debugging:   for setting a breakpoint:  pdb.set_trace()
@@ -59,19 +60,17 @@ class OrgParser(object):
     LOG_REGEX = re.compile('^- State\s+"' + BLOG_FINISHED_STATE + '"\s+from\s+"\S*"\s+([\[{].*[\]}])$')
     LOG_TIMESTAMP_IDX = 1
 
-    BLOCK_REGEX = re.compile('^#\+BEGIN_(SRC|VERSE|QUOTE|CENTER|HTML|ASCII|LATEX)\s+(.*)$')
+    BLOCK_REGEX = re.compile('^#\+BEGIN_(SRC|VERSE|QUOTE|CENTER|HTML|ASCII|LATEX)(\s+(.*))?$')
     BLOCK_TYPE_IDX = 1
-    BLOCK_LANGUAGE_IDX = 2
+    BLOCK_LANGUAGE_IDX = 3
     
-    logging = None
-
     __filename = u''
 
     ## for description please visit: lazyblog.org > Notes > Representation of blog data
     __blog_data = []   ## list of all parsed entries of __filename: contains a list with elements of type __entry_data
     __entry_data = {}  ## dict of current blog entry data: gets "filled" while parsing the entry
 
-    def __init__(self, filename, logging):
+    def __init__(self, filename):
         """
         This function handles the communication with the parser object and returns the blog data.
 
@@ -80,10 +79,12 @@ class OrgParser(object):
 
         assert filename.__class__ == str or filename.__class__ == unicode
         assert os.path.isfile(filename)
-
         self.__filename = filename
-        self.logging = logging
 
+ ## create logger (see http://docs.python.org/2/howto/logging-cookbook.html)
+        self.logging = logging.getLogger('lazyblorg.OrgParser')
+        
+    
     def __filter_org_entry_for_blog_entries(self):
         """
         Return True if current entry from "self.__entry_data" is a valid and
@@ -125,8 +126,10 @@ class OrgParser(object):
             errors += 1
 
         if errors > 0:
-            self.logging.error("check_entry_data: %s not matching criteria found for heading \"%s\" in file \"%s\"" %
-                               (str(errors), self.__entry_data['title'], self.__filename))
+            self.logging.error("check_entry_data: " + str(errors) + 
+                          " not matching criteria found for heading \"" + 
+                          self.__entry_data['title'] + "\" in file \"" + 
+                          self.__filename + "\". I ignore this entry.")
             return False
         else:
             self.logging.debug("check_entry_data: current entry has been checked positively for being added to the blog data")
@@ -365,7 +368,7 @@ class OrgParser(object):
 
                 if 'id' in self.__entry_data.keys() and 'created' in self.__entry_data.keys():
                     ## if all properties already found, ignore rest of PROPERTIES and all other PROPERTIES (of sub-headings)
-                    logging.debug("ignoring PROPERTIES since I already got my ID and CREATED")
+                    self.logging.debug("ignoring PROPERTIES since I already got my ID and CREATED")
                     previous_line = line
                     continue
 
