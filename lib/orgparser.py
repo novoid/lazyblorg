@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-20 22:06:18 vk>
+# Time-stamp: <2013-08-21 09:46:20 vk>
 
 import re
 import os
@@ -12,9 +12,9 @@ import pdb
                 #pdb.set_trace()## FIXXME
 
 
-class OrgmodeParseException(Exception):
+class OrgParserException(Exception):
     """
-    Own exception for parsing errors
+    Exception for all kind of self-raised parsing errors
     """
     def __init__(self, value):
         self.value = value
@@ -83,10 +83,10 @@ class OrgParser(object):
         self.__filename = filename
         self.logging = logging
 
-    def __check_entry_data(self):
+    def __filter_org_entry_for_blog_entries(self):
         """
-        Checks if current entry (self.__entry_data) is valid and
-        complete and thus can be added to the blog output.
+        Return True if current entry from "self.__entry_data" is a valid and
+        complete blog article and thus can be added to the blog data.
 
         @param return: True if OK or False if not OK (and entry has to be skipped)
         """
@@ -165,7 +165,7 @@ class OrgParser(object):
         """
 
         self.logging.debug("end of blog entry; checking entry ...")
-        if self.__check_entry_data():
+        if self.__filter_org_entry_for_blog_entries():
             self.__blog_data.append(self.__entry_data)
 
         self.__entry_data = {}  ## empty current entry data
@@ -222,6 +222,12 @@ class OrgParser(object):
                 ## search for header line of a blog entry -> BLOG_HEADER
 
                 components = self.HEADING_REGEX.match(line)
+
+                ## NOTE: this following section is a pre-filter that
+                ## is looking for blog-like headings. All other
+                ## headings are ignored by this parser. If you want to
+                ## use my parser as a general Org-mode parser, you
+                ## have to modify at least this part. 
 
                 if components and components.group(self.HEADING_STATE_IDX) == self.BLOG_FINISHED_STATE:
 
@@ -293,10 +299,9 @@ class OrgParser(object):
                 elif line.startswith('#+BEGIN_'):
                     block_components = self.BLOCK_REGEX.match(line)
                     if not block_components:
-                        self.logging.error('Parsing error because I found a line beginning with ' +
+                        raise OrgParserException('I found a line beginning with ' +
                                            '\"#+BEGIN_\" that was not matched by BLOCK_REGEX which ' +
                                            'is quite a pity. line:' + str(line))
-                        return False
                     block_type = str(block_components.group(self.BLOCK_TYPE_IDX)).upper()
 
                     self.logging.debug("found block signature for " + block_type)
@@ -306,10 +311,8 @@ class OrgParser(object):
                             block_type == 'LATEX':
                         self.__entry_data['content'].append([block_type.lower() + '-block', previous_name, []])
                     else:
-                        self.logging.error('Parsing error because I found a block type \"' +
-                                           str(line) + '\" that is not known. Please do not confuse me and fix it.')
-                        return False
-
+                        raise OrgParserException('I found a block type \"' + str(line) + 
+                                                 '\" that is not known. Please do not confuse me and fix it.')
                     state = self.BLOCK
                     previous_line = line
                     continue
@@ -411,9 +414,8 @@ class OrgParser(object):
                 ## parses general blocks and return to ENTRY_CONTENT
 
                 if not block_type:
-                    self.logging.error('Parsing error because I was in state \"BLOCK\" with no block_type. Not good.')
-                    return False
-
+                    raise OrgParserException('I was in state \"BLOCK\" with no block_type. Not good.')
+                    
                 if line.upper() == '#+END_' + block_type:
                     state = self.ENTRY_CONTENT
                     previous_line = line
@@ -426,9 +428,8 @@ class OrgParser(object):
                          ## its last element (which contains the list of the block content):
                         self.__entry_data['content'][-1][-1].append(line)
                     else:
-                        self.logging.error('Parsing error because I found a block type \"' +
-                                           str(line) + '\" that is not known. Please do not confuse me and fix it.')
-                        return False
+                        raise OrgParserException('I found a block type \"' + str(line) + 
+                                                 '\" that is not known. Please do not confuse me and fix it.')
 
             elif state == self.LIST:
 
@@ -452,7 +453,7 @@ class OrgParser(object):
                 pass
 
             else:
-                self.logging.error("OrgParser: unknows FSM state \"%s\"" % str(state))
+                raise OrgParserException("unknown FSM state \"%s\"" % str(state))
 
             previous_line = line
 
