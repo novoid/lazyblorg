@@ -1,4 +1,4 @@
-## Time-stamp: <2013-08-22 11:42:25 vk>
+## Time-stamp: <2013-08-22 11:52:45 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -129,13 +129,21 @@ and you want to use it on your own, I am totally OK with
 that. However, I can not offer much time in supporting other
 requirements than my own.
 
-*** FIXXME: Is lazyblorg in active development?
+*** Is lazyblorg in active development? What are the future plans?
 
-Yes :-)
+Currently (2013-08): yes (heavy) :-)
 
-*** FIXXME: What are the future plans for lazyblorg?
+My plan as of 2013-08: 
+- develop lazyblorg to be able to replace my current web page and its blog.
+- Add features to lazyblorg as long as I feel the urge to.
+- Be open to enhancements done by others on github.
+- If lazyblorg reaches a state, where I do not need anything
+  additional, let's keep it that way: development stopped because it
+  reached sufficient perfection :-)
 
-Yes :-)
+See also [[file:dev/lazyblorg.org]] for the issue tracking with all kind
+of information about the development (open issues, plans,
+documentation, ...).
 
 *** Is there any documentation about the internals of lazyblorg?
 
