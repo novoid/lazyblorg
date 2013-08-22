@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-21 18:14:05 vk>
+# Time-stamp: <2013-08-22 14:36:11 vk>
 
-import re
 import sys
 import logging
 from hashlib import md5  ## generating checksums
 import time  ## for generating Org-mode timestamps
 from orgformat import *
 #import pdb
+
 
 class Utils(object):
     """
@@ -22,23 +22,22 @@ class Utils(object):
     def error_exit(errorcode):
         """
         Exits with return value of errorcode and prints to stderr.
-    
+
         @param errorcode: integer that will be reported as return value.
         """
-    
+
         logger = logging.getLogger('lazyblorg.Utils.error_exit')
         logger.debug("exiting with error code %s" % str(errorcode))
 
         sys.stdout.flush()
         sys.exit(errorcode)
 
-
     @staticmethod
     def error_exit_with_userlog(logfilename, errorcode, message):
         """
         Exits with return value of errorcode, prints to stderr,
         creates an entry in the user log file.
-    
+
         @param logfilename: file name of the user log file
         @param errorcode: integer that will be reported as return value.
         @param message: error message
@@ -49,11 +48,10 @@ class Utils(object):
         Utils.append_logfile_entry(logfilename, 'critical', message)
         Utils.error_exit(errorcode)
 
-    
     @staticmethod
     def initialize_logging(identifier, verbose, quiet):
         """Log handling and configuration"""
-    
+
         logger = logging.getLogger(identifier)
 
         # create console handler and set level to debug
@@ -75,10 +73,10 @@ class Utils(object):
 
         # create formatter
         formatter = logging.Formatter(FORMAT)
-        
+
         # add formatter to ch
         ch.setFormatter(formatter)
-        
+
         # add ch to logger
         logger.addHandler(ch)
 
@@ -96,7 +94,6 @@ class Utils(object):
 
         return logger
 
-
     @staticmethod
     def append_logfile_entry(filename, level, message):
         """Appends messages to the given log file."""
@@ -108,13 +105,12 @@ class Utils(object):
             datetimestamp = OrgFormat.datetime(time.localtime())
     ## add daily repeating that user gets it on agenda also on following days:
             datetimestamp = datetimestamp[:-1] + ' +1d>'
-            
-            outputhandle.write(u"\n** " + 
-                               datetimestamp + 
+
+            outputhandle.write(u"\n** " +
+                               datetimestamp +
                                " lazyblorg " + level.upper() + ": " +
                                message +
                                "\n")
-
 
     @staticmethod
     def __generate_checksum_for_blog_entry(title, tags, finished_timestamp_history, content):
@@ -131,7 +127,6 @@ class Utils(object):
         """
 
         return md5(str([title, tags, finished_timestamp_history, content])).hexdigest()
-    
 
     @staticmethod
     def generate_metadata_from_blogdata(blogdata):
@@ -152,20 +147,20 @@ class Utils(object):
 
         for entry in blogdata:
 
-            checksum = Utils.__generate_checksum_for_blog_entry(entry['title'], 
-                                                                entry['tags'], 
-                                                                entry['finished-timestamp-history'], 
+            checksum = Utils.__generate_checksum_for_blog_entry(entry['title'],
+                                                                entry['tags'],
+                                                                entry['finished-timestamp-history'],
                                                                 entry['content'])
 
             if entry['id'] in metadata.keys():
-                logging.error("We got a duplicate ID in blogdata: \"" + \
-                                     str(entry['id']) + "\". Please correct it and re-run this tool.")
+                logging.error("We got a duplicate ID in blogdata: \"" +
+                              str(entry['id']) + "\". Please correct it and re-run this tool.")
                 Utils.error_exit(30)
             else:
-                metadata[entry['id']] = {'created': entry['created'], 
-                                         'timestamp': entry['timestamp'], 
+                metadata[entry['id']] = {'created': entry['created'],
+                                         'timestamp': entry['timestamp'],
                                          'checksum': checksum}
-            
+
         return metadata
 
 # Local Variables:

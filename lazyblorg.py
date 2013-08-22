@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-21 18:51:13 vk>
+# Time-stamp: <2013-08-22 14:30:10 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -18,7 +18,7 @@ import sys
 from optparse import OptionParser
 from lib.utils import *
 from lib.orgparser import *
-import pickle ## for serializing and storing objects into files
+import pickle  ## for serializing and storing objects into files
 
 ## debugging:   for setting a breakpoint:  pdb.set_trace()## FIXXME
 import pdb
@@ -93,25 +93,26 @@ parser.add_option("--version", dest="version", action="store_true",
 #PICKLE_FORMAT = pickle.HIGHEST_PROTOCOL
 PICKLE_FORMAT = 0
 
+
 def check_parameters(options):
 
     if not options.logfilename:
         logging.critical("Please give me a file to write to with option \"--logfile\".")
         Utils.error_exit(5)
-        
+
     if not os.path.isfile(options.logfilename):
         logging.debug("log file \"" + options.logfilename + "\" is not found. Initializing with heading ...")
 
 with open(options.logfilename, 'a') as outputhandle:
     outputhandle.write(u"## -*- coding: utf-8 -*-\n" +
                        "## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/\n" +
-                       "* Warnings and Error messages from lazyblorg     :lazyblorg:log:\n\n" + 
+                       "* Warnings and Error messages from lazyblorg     :lazyblorg:log:\n\n" +
                        "Messages gets appended to this file. Please remove fixed issues manually.\n")
     outputhandle.flush()
-                               
+
     if options.verbose and options.quiet:
         logging.error("Options \"--verbose\" and \"--quiet\" found. " +
-                         "This does not make any sense, you silly fool :-)")
+                      "This does not make any sense, you silly fool :-)")
         Utils.error_exit(1)
 
     if not options.targetdir:
@@ -125,14 +126,14 @@ with open(options.logfilename, 'a') as outputhandle:
     if not options.metadatafilename:
         logging.critical("Please give me a file to write to with option \"--metadata\".")
         Utils.error_exit(4)
-        
+
     if not os.path.isfile(options.templatefilename):
         logging.warn("Blog data file \"" + options.templatefilename + "\" is not found. Assuming first run!")
 
     if not options.templatefilename:
         logging.critical("Please give me a file which holds the template definitions with option \"--template\".")
         Utils.error_exit(7)
-        
+
     if not os.path.isfile(options.metadatafilename):
         logging.warn("Blog data file \"" + options.metadatafilename + "\" is not found. Assuming first run!")
 
@@ -141,6 +142,7 @@ with open(options.logfilename, 'a') as outputhandle:
     if len(args) < 1:
         logging.critical("Please add at least one Org-mode file name as argument")
         Utils.error_exit(6)
+
 
 def handle_file(filename):
     """
@@ -161,6 +163,7 @@ def handle_file(filename):
 
     return parser.parse_orgmode_file()
 
+
 def parse_HTML_output_template(filename):
     """
     This function parses an Org-mode file which holds the definitions of the output format.
@@ -172,6 +175,7 @@ def parse_HTML_output_template(filename):
     template_parser = OrgParser(filename)
 
     return template_parser.parse_orgmode_file()
+
 
 def check_and_filter_template_definitions(all_template_data):
     """
@@ -200,19 +204,20 @@ def check_and_filter_template_definitions(all_template_data):
 
     html_definitions = [x for x in matching_title_template_data[0]['content'] if x[0] == 'html-block']
 
-    found_elements = [ x[1] for x in html_definitions ]
+    found_elements = [x[1] for x in html_definitions]
 
-    for element in [u'header', u'footer', u'article-header-begin', u'tags-begin', 
-                    u'tag', u'tags-end', u'article-header-end', u'article-end', 
-                    u'section-begin', u'section-end', u'paragraph', u'a-href', 
+    for element in [u'header', u'footer', u'article-header-begin', u'tags-begin',
+                    u'tag', u'tags-end', u'article-header-end', u'article-end',
+                    u'section-begin', u'section-end', u'paragraph', u'a-href',
                     u'ul-begin', u'ul-item', u'ul-end', u'pre-begin', u'pre-end']:
         if not element in found_elements:
             message = "Sorry, no definition for element \"" + element + "\" could be found within " + \
                 "the template definition file. " + \
                 "Please check if you mistyped its name or similar."
             Utils.error_exit_with_userlog(options.logfilename, 42, message)
-        
+
     return html_definitions
+
 
 def main():
     """Main function"""
@@ -224,12 +229,10 @@ def main():
 
     logging = Utils.initialize_logging("lazyblorg", options.verbose, options.quiet)
 
-
     ## checking parameters ...
 
     check_parameters(options)
 
-        
     files = args
 
     ## print file names if less than 10:
@@ -249,7 +252,7 @@ def main():
         except OrgParserException as message:
             verbose_message = "Parsing error in file \"" + filename + \
                 "\" which is not good. Therefore, I stop here and hope you " + \
-                "can fix the issue in the Org-mode file. Reason: " + message.value 
+                "can fix the issue in the Org-mode file. Reason: " + message.value
             Utils.error_exit_with_userlog(options.logfilename, 20, verbose_message)
         else:
             blog_data.extend(file_blog_data)
@@ -270,7 +273,7 @@ def main():
     template_data = parse_HTML_output_template(options.templatefilename)
 
     template_definitions = check_and_filter_template_definitions(template_data)
-    
+
     ## load old metadata from file
     previous_metadata = None
     if os.path.isfile(options.metadatafilename):
@@ -279,17 +282,18 @@ def main():
             previous_metadata = pickle.load(input)
 
     ## FIXXME: run comparing algorithm (last metadata, current metadata) and generate pages
+    ## (previous_metadata, metadata, blog_data, options.tagetdir)
 
     ## FIXXME: generate new RSS feed
 
-    ## FIXXME: remove old options.metadatafilename
+    ## remove old options.metadatafilename
     if os.path.isfile(options.metadatafilename):
         logging.debug("deleting old \"" + options.metadatafilename + "\" ...")
         os.remove(options.metadatafilename)
 
           ## rename options.metadatafilename + '_temp' -> options.metadatafilename
-        logging.debug("removing temporary \"" + options.metadatafilename + "_temp\" to \"" + 
-            options.metadatafilename + "\" ...")
+        logging.debug("removing temporary \"" + options.metadatafilename + "_temp\" to \"" +
+                      options.metadatafilename + "\" ...")
         os.rename(options.metadatafilename + '_temp', options.metadatafilename)
 
     logging.debug("successfully finished.")
