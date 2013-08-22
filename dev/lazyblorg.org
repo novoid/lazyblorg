@@ -750,9 +750,12 @@ page. Further headings contain more content for other pages.
 
 - probably steal from http://www.tbray.org/ongoing/
 
-** SOMEDAY [[http://tasker.dinglisch.net/][Tasker]]-script: share URL and send to my lazyblorg 
+** SOMEDAY [[http://tasker.dinglisch.net/][Tasker]]-script: share URL and send to my lazyblorg     :userstory:
 :LOGBOOK:
 - State "SOMEDAY"    from ""           [2013-07-20 Sat 10:58]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-08-22 Thu 21:19]
 :END:
 
 - open questions
