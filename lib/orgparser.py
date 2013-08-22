@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-22 14:37:46 vk>
+# Time-stamp: <2013-08-22 22:34:09 vk>
 
 import re
 import os
@@ -94,7 +94,7 @@ class OrgParser(object):
         @param return: True if OK or False if not OK (and entry has to be skipped)
         """
 
-        self.logging.debug("check_entry_data: checking current entry ...")
+        self.logging.debug("OrgParser: check_entry_data: checking current entry ...")
         errors = 0
 
         if not 'id' in self.__entry_data.keys():
@@ -133,7 +133,7 @@ class OrgParser(object):
                                self.__filename + "\". I ignore this entry.")
             return False
         else:
-            self.logging.debug("check_entry_data: current entry has been checked positively for being added to the blog data")
+            self.logging.debug("OrgParser: check_entry_data: current entry has been checked positively for being added to the blog data")
             #pdb.set_trace()## FIXXME:   data = self._OrgParser__entry_data ; data['content']
             return True
 
@@ -169,7 +169,7 @@ class OrgParser(object):
         @param return: ID of next state
         """
 
-        self.logging.debug("end of blog entry; checking entry ...")
+        self.logging.debug("OrgParser: end of blog entry; checking entry ...")
         if self.__filter_org_entry_for_blog_entries():
             self.__blog_data.append(self.__entry_data)
 
@@ -254,12 +254,12 @@ class OrgParser(object):
                 ## NOTE: yes, content between header and drawers is ignored/lost.
 
                 if line == ':PROPERTIES:':
-                    self.logging.debug("found PROPERTIES drawer")
+                    self.logging.debug("OrgParser: found PROPERTIES drawer")
                     state = self.DRAWER_PROP
                     previous_line = line
                     continue
                 elif line == ':LOGBOOK:':
-                    self.logging.debug("found LOGBOOK drawer")
+                    self.logging.debug("OrgParser: found LOGBOOK drawer")
                     state = self.DRAWER_LOGBOOK
                     previous_line = line
                     continue
@@ -275,19 +275,19 @@ class OrgParser(object):
                 heading_components = self.HEADING_REGEX.match(line)
 
                 if line == ':PROPERTIES:':
-                    self.logging.debug("found PROPERTIES drawer")
+                    self.logging.debug("OrgParser: found PROPERTIES drawer")
                     state = self.DRAWER_PROP
                     previous_line = line
                     continue
 
                 elif line == ':LOGBOOK:':
-                    self.logging.debug("found LOGBOOK drawer")
+                    self.logging.debug("OrgParser: found LOGBOOK drawer")
                     state = self.DRAWER_LOGBOOK
                     previous_line = line
                     continue
 
                 elif line == u'':
-                    self.logging.debug("found empty line")
+                    self.logging.debug("OrgParser: found empty line")
                     previous_name = False    ## #+NAME: here is only valid until empty line after element
                     previous_line = line
                     #if len(self.__entry_data['content']) > 1:
@@ -298,7 +298,7 @@ class OrgParser(object):
 
                 elif line.upper().startswith('#+NAME: '):
                     previous_name = line[8:].strip()
-                    self.logging.debug("found #+NAME: [%s]" % previous_name)
+                    self.logging.debug("OrgParser: found #+NAME: [%s]" % previous_name)
                     previous_line = line
                     continue
 
@@ -310,7 +310,7 @@ class OrgParser(object):
                                                  'is quite a pity. line: ' + str(line))
                     block_type = str(block_components.group(self.BLOCK_TYPE_IDX)).upper()
 
-                    self.logging.debug("found block signature for " + block_type)
+                    self.logging.debug("OrgParser: found block signature for " + block_type)
 
                     if block_type == 'SRC' or block_type == 'HTML' or block_type == 'VERSE' or \
                             block_type == 'QUOTE' or block_type == 'CENTER' or block_type == 'ASCII' or \
@@ -325,7 +325,7 @@ class OrgParser(object):
                     continue
 
                 elif heading_components:
-                    self.logging.debug("found new heading")
+                    self.logging.debug("OrgParser: found new heading")
                     level = len(heading_components.group(self.HEADING_STARS_IDX))
 
                     if level <= self.__entry_data['level']:
@@ -336,7 +336,7 @@ class OrgParser(object):
                     else:
                         ## sub-heading of entry
                         title = heading_components.group(self.HEADING_TITLE_IDX)
-                        self.logging.debug("inserting new sub-heading")
+                        self.logging.debug("OrgParser: inserting new sub-heading")
                         self.__entry_data['content'].append(['heading',
                                                              {'level': level, 'title': title}])
 
@@ -346,13 +346,13 @@ class OrgParser(object):
                     if len(self.__entry_data['content']) > 0:
                         if previous_line != u'' and self.__entry_data['content'][-1][0] == 'par':
                             ## concatenate this line with previous if it is still generic content within a paragraph
-                            self.logging.debug("adding line as generic content to current paragraph")
+                            self.logging.debug("OrgParser: adding line as generic content to current paragraph")
                             self.__entry_data['content'][-1][1] += \
                                 self.LINE_SEPARATION_CHAR_WITHIN_PARAGRAPH + line.strip()
                             previous_line = line
                             continue
 
-                    self.logging.debug("adding line as new generic content paragraph")
+                    self.logging.debug("OrgParser: adding line as new generic content paragraph")
                     self.__entry_data['content'].append(['par', line])
                     previous_line = line
                     continue
@@ -362,14 +362,14 @@ class OrgParser(object):
                 ## parse properties for ID and CREATED and return to ENTRY_CONTENT
 
                 if line == ':END:':
-                    self.logging.debug("end of drawer")
+                    self.logging.debug("OrgParser: end of drawer")
                     state = self.ENTRY_CONTENT
                     previous_line = line
                     continue
 
                 if 'id' in self.__entry_data.keys() and 'created' in self.__entry_data.keys():
                     ## if all properties already found, ignore rest of PROPERTIES and all other PROPERTIES (of sub-headings)
-                    self.logging.debug("ignoring PROPERTIES since I already got my ID and CREATED")
+                    self.logging.debug("OrgParser: ignoring PROPERTIES since I already got my ID and CREATED")
                     previous_line = line
                     continue
 
@@ -391,7 +391,7 @@ class OrgParser(object):
                 ## parse logbook entries for state changes to self.BLOG_FINISHED_STATE and return to ENTRY_CONTENT
 
                 if line == ':END:':
-                    self.logging.debug("end of drawer")
+                    self.logging.debug("OrgParser: end of drawer")
                     state = self.ENTRY_CONTENT
                     previous_line = line
                     continue
