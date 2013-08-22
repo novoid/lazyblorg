@@ -676,3 +676,194 @@ CLOSED: [2013-05-21 Tue 20:54]
 - http://docs.python.org/2/tutorial/modules.html
 - tools.OrgParserTools (?)
 
+** DONE find Python checksum algorithm                        :architecture:
+CLOSED: [2013-02-15 Fri 20:06]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-02-15 Fri 20:06]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-02-15 Fri 20:03]
+:ID: 2013-02-15-checksum
+:ARCHIVE_TIME: 2013-08-22 Thu 11:43
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: issues
+:END:
+
+- http://docs.python.org/2/library/hashlib.html#module-hashlib
+- http://code.wikia.com/wiki/SHA_checksum#Python
+- https://en.wikipedia.org/wiki/Cryptographic_hash_function#Cryptographic_hash_algorithms
+
+- sha1 or md5 seems a good choice
+
+example:
+#+BEGIN_SRC python
+import hashlib
+converted = hashlib.sha1("My text").hexdigest()
+#+END_SRC
+
+- checksum over:
+  - data['title']
+  - data['timestamp']
+  - data['tags']
+  - data['content']
+
+** DONE spike: storing data objects in Python                 :architecture:
+CLOSED: [2013-08-20 Tue 13:40]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-08-20 Tue 13:40]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-08-20 Tue 11:10]
+:ARCHIVE_TIME: 2013-08-22 Thu 11:43
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: issues
+:END:
+
+- http://docs.python.org/2/library/pickle.html
+  - serialization, storing to disk
+  - storage format defined by: protocol version
+    - Protocol version 0 is the original ASCII protocol and is
+      backwards compatible with earlier versions of Python.
+    - Protocol version 1 is the old binary format which is also
+      compatible with earlier versions of Python.
+    - Protocol version 2 was introduced in Python 2.3. It provides
+      much more efficient pickling of new-style classes.
+    - HIGHEST_PROTOCOL -> uses 2 if 2 is still the highest format
+
+- example:
+  http://stackoverflow.com/questions/4529815/how-to-save-an-object-in-python
+#+BEGIN_SRC python
+import pickle
+
+class Company:
+    def __init__(self, name, value):
+        self.name = name
+        self.value = value
+
+format = pickle.HIGHEST_PROTOCOL
+format = 0
+
+with open('company_data.pk', 'wb') as output:
+    company1 = Company('banana', 40)
+    pickle.dump(company1, output, format)
+
+    company2 = Company('spam', 42)
+    pickle.dump(company2, output, format)
+
+company1 = None
+company2 = None
+
+with open('company_data.pk', 'rb') as input:
+    company1 = pickle.load(input)
+    print company1.name
+    # banana
+    print company1.value
+    # 40
+
+    company2 = pickle.load(input)
+    print company2.name
+    # spam
+    print company2.value
+    # 42
+#+END_SRC
+
+- works (not in babel above but in separate file)
+  - not working in babel because babel-code is put into separate
+    sub-class and store-object of pickle must not be a sub-class at
+    all
+
+** DONE create template file(s) for HTML snippets             :architecture:
+CLOSED: [2013-08-20 Tue 18:58]
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2013-08-20 Tue 18:58]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-03-13 Wed 10:21]
+:ID: 2013-03-13-HTML-template-file
+:ARCHIVE_TIME: 2013-08-22 Thu 11:44
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: issues
+:END:
+
+- lazyblorg/templates/blog-format.org
+  - article
+    - header
+    - footer
+    - title
+    - tags
+    - tag
+    - heading
+    - par
+    - <all other recognized entities>
+  - <misc meta-pages like jump-pages and so on>
+
+Example:
+
+#+NAME: par
+#+BEGIN_HTML
+
+<p>
+
+#CONTENT#
+
+</p>
+
+#+END_HTML
+
+(if single line, lazyblorg trims the strings)
+
+- Org-mode format "header"
+- HTML src block with actual template
+- #LB-TITLE# -> title
+- #LB-AUTHOR# -> Authors name
+- and so on
+
+** DONE parse format template file                            :architecture:
+CLOSED: [2013-08-22 Thu 11:39]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-08-22 Thu 11:39]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-08-20 Tue 19:04]
+:ARCHIVE_TIME: 2013-08-22 Thu 11:44
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: issues
+:END:
+
+- history/idea: see id:2013-03-13-HTML-template-file
+
+** DONE logs: lazyblorg-log.org                               :architecture:
+CLOSED: [2013-08-22 Thu 11:43]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2013-08-22 Thu 11:43]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-01-12 Sat 13:43]
+:ARCHIVE_TIME: 2013-08-22 Thu 11:44
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: issues
+:END:
+
+format example:
+: * lazyblorg logs                                         :lazyblorg:BLOGNAME:
+: ** [2013-01-12 Sat 13:44] lazyborg-run started
+: 2013-01-12 Sat 13:44 do this
+: 2013-01-12 Sat 13:45 did that
+: *** <2013-01-12 Sat 13:46> ERROR: error description
+: *** <2013-01-12 Sat 13:46> WARNING: error description
+

@@ -1,4 +1,4 @@
-# Time-stamp: <2013-08-21 19:05:47 vk>
+# Time-stamp: <2013-08-22 11:52:54 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -193,96 +193,6 @@ CLOSED: [2013-02-15 Fri 20:00]
   - TimeCreated
   - Checksum
 
-** DONE find Python checksum algorithm                        :architecture:
-CLOSED: [2013-02-15 Fri 20:06]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2013-02-15 Fri 20:06]
-:END:
-:PROPERTIES:
-:CREATED:  [2013-02-15 Fri 20:03]
-:ID: 2013-02-15-checksum
-:END:
-
-- http://docs.python.org/2/library/hashlib.html#module-hashlib
-- http://code.wikia.com/wiki/SHA_checksum#Python
-- https://en.wikipedia.org/wiki/Cryptographic_hash_function#Cryptographic_hash_algorithms
-
-- sha1 or md5 seems a good choice
-
-example:
-#+BEGIN_SRC python
-import hashlib
-converted = hashlib.sha1("My text").hexdigest()
-#+END_SRC
-
-- checksum over:
-  - data['title']
-  - data['timestamp']
-  - data['tags']
-  - data['content']
-
-** DONE spike: storing data objects in Python                 :architecture:
-CLOSED: [2013-08-20 Tue 13:40]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2013-08-20 Tue 13:40]
-:END:
-:PROPERTIES:
-:CREATED:  [2013-08-20 Tue 11:10]
-:END:
-
-- http://docs.python.org/2/library/pickle.html
-  - serialization, storing to disk
-  - storage format defined by: protocol version
-    - Protocol version 0 is the original ASCII protocol and is
-      backwards compatible with earlier versions of Python.
-    - Protocol version 1 is the old binary format which is also
-      compatible with earlier versions of Python.
-    - Protocol version 2 was introduced in Python 2.3. It provides
-      much more efficient pickling of new-style classes.
-    - HIGHEST_PROTOCOL -> uses 2 if 2 is still the highest format
-
-- example:
-  http://stackoverflow.com/questions/4529815/how-to-save-an-object-in-python
-#+BEGIN_SRC python
-import pickle
-
-class Company:
-    def __init__(self, name, value):
-        self.name = name
-        self.value = value
-
-format = pickle.HIGHEST_PROTOCOL
-format = 0
-
-with open('company_data.pk', 'wb') as output:
-    company1 = Company('banana', 40)
-    pickle.dump(company1, output, format)
-
-    company2 = Company('spam', 42)
-    pickle.dump(company2, output, format)
-
-company1 = None
-company2 = None
-
-with open('company_data.pk', 'rb') as input:
-    company1 = pickle.load(input)
-    print company1.name
-    # banana
-    print company1.value
-    # 40
-
-    company2 = pickle.load(input)
-    print company2.name
-    # spam
-    print company2.value
-    # 42
-#+END_SRC
-
-- works (not in babel above but in separate file)
-  - not working in babel because babel-code is put into separate
-    sub-class and store-object of pickle must not be a sub-class at
-    all
-
 ** DONE spike: time-ordered-index data structure              :architecture:
 CLOSED: [2013-08-20 Tue 15:02]
 :LOGBOOK:
@@ -402,49 +312,6 @@ CLOSED: [2012-11-10 Sat 18:10] DEADLINE: <2012-11-10 Sat>
 :PROPERTIES:
 :CREATED:  [2012-11-07 Wed 21:23]
 :END:
-** DONE create template file(s) for HTML snippets             :architecture:
-CLOSED: [2013-08-20 Tue 18:58]
-:LOGBOOK:
-- State "DONE"       from "STARTED"    [2013-08-20 Tue 18:58]
-:END:
-:PROPERTIES:
-:CREATED:  [2013-03-13 Wed 10:21]
-:ID: 2013-03-13-HTML-template-file
-:END:
-
-- lazyblorg/templates/blog-format.org
-  - article
-    - header
-    - footer
-    - title
-    - tags
-    - tag
-    - heading
-    - par
-    - <all other recognized entities>
-  - <misc meta-pages like jump-pages and so on>
-
-Example:
-
-#+NAME: par
-#+BEGIN_HTML
-
-<p>
-
-#CONTENT#
-
-</p>
-
-#+END_HTML
-
-(if single line, lazyblorg trims the strings)
-
-- Org-mode format "header"
-- HTML src block with actual template
-- #LB-TITLE# -> title
-- #LB-AUTHOR# -> Authors name
-- and so on
-
 ** STARTED implement basic work-flow *stub*                    :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 10:37]
@@ -508,13 +375,6 @@ vk@gary ~/src/lazyblorg (git)-[master] %
   - [ ] with daily repeat -> so it gets noticed on the following day(s) too
   - [ ] in the description of that entry:
     - BONUS: babel-sh-snippet with prepared command to re-try the run :-)
-
-** NEXT parse format template file                            :architecture:
-:PROPERTIES:
-:CREATED:  [2013-08-20 Tue 19:04]
-:END:
-
-- history/idea: see id:2013-03-13-HTML-template-file
 
 ** STARTED create unit test for comparing HTML/CSS output files       :tests:
 :PROPERTIES:
@@ -595,19 +455,6 @@ Documentation:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 14:12]
 :END:
-
-** TODO logs: lazyblorg-log.org                                :architecture:
-:PROPERTIES:
-:CREATED:  [2013-01-12 Sat 13:43]
-:END:
-
-format example:
-: * lazyblorg logs                                         :lazyblorg:BLOGNAME:
-: ** [2013-01-12 Sat 13:44] lazyborg-run started
-: 2013-01-12 Sat 13:44 do this
-: 2013-01-12 Sat 13:45 did that
-: *** <2013-01-12 Sat 13:46> ERROR: error description
-: *** <2013-01-12 Sat 13:46> WARNING: error description
 
 ** TODO provide RSS feed(s)                                      :userstory:
 :PROPERTIES:
@@ -824,7 +671,7 @@ page. Further headings contain more content for other pages.
 - generate short URL as hash from ID?
   - is it possible without getting a high chance of conflicts?
 
-** SOMEDAY comments                                              :userstory:
+** SOMEDAY blog comments                                          :userstory:
 :LOGBOOK:
 - State "SOMEDAY"    from ""           [2013-02-12 Tue 10:35]
 :END:
@@ -839,6 +686,16 @@ page. Further headings contain more content for other pages.
   - POST to script, adding comment to my inbox.org (containing
     link to ID)
 - disqus: I do not want to outsource comment hosting :-(
+
+** SOMEDAY handle :noexport: tag
+:LOGBOOK:
+- State "SOMEDAY"    from ""           [2013-08-22 Thu 11:45]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-08-22 Thu 11:45]
+:END:
+
+- see http://orgmode.org/manual/Selective-export.html
 
 ** SOMEDAY guessing language of entry                            :userstory:
 :LOGBOOK:
