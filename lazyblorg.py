@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-22 14:30:10 vk>
+# Time-stamp: <2013-08-22 23:36:07 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -87,6 +87,7 @@ parser.add_option("--version", dest="version", action="store_true",
 
 (options, args) = parser.parse_args()
 
+logging = Utils.initialize_logging("lazyblorg", options.verbose, options.quiet)
 
 ## format of the storage file
 ## pickle offers, e.g., 0 (ASCII; human-readable) or pickle.HIGHEST_PROTOCOL (binary; more efficient)
@@ -219,6 +220,136 @@ def check_and_filter_template_definitions(all_template_data):
     return html_definitions
 
 
+def compare_blog_metadata(previous_metadata, metadata):
+    """
+    In this function, the previous status (previous_metadata) is
+    compared to the status from the current parsing result
+    (metadata). It implements "Decision algorithm for generating
+    entries" as described in dev/lazyblorg.org.
+
+    The algorithm distinguishes between eight cases:
+
+    1) no ID found -> is not possible here any more since metadata
+    (dict) contains only entries with IDs -> should be done in parser:
+    WARN, ignore
+
+    2) new ID found -> generate, mark_for_RSS
+
+    3) CREATED not found -> WARN, ignore
+
+    4) CREATED found but differs from previous run (should not change)
+    -> WARN, ignore
+
+    5) and 6) known and matching previous run: ID, CREATED, checksum
+    -> not changed (case 5/6 only differs in status of last timestamp)
+    -> generate
+
+    (FIXXME: in future, case 5 and 6 should result in "ignore". But
+    for this, I have to switch from "delete everything and re-generate
+    everything on every run" to "delete and re-generate only necessary
+    entries/pages")
+
+    7) known and matching: ID, CREATED, last timestamp; differs:
+    checksum -> silent update -> generate
+
+    8) known and matching: ID, CREATED; differs: checksum, last
+    timestamp -> normal update -> generate, mark_for_RSS,
+    increment_version
+
+    The format of the metadata is described in dev/lazyblorg.org >
+    Notes > Internal format of meta-data.
+
+    @param previous_metadata: meta-data of the previous run of lazyblorg
+    @param metadata: meta-data of the current run of lazyblorg
+    @param return: generate: a list of metadata-entries that should be generated
+    @param return: marked_for_RSS: a list of metadata-entries that are candidates to be propagated using RSS feeds
+    @param return: increment_version: a list of metadata-entries that can be marked with an increased update number
+    """
+
+    logging.debug("compare_blog_metadata() called ...")
+
+    generate = []
+    marked_for_RSS = []
+    increment_version = []
+
+    if previous_metadata == None:
+        logging.info("no previous metadata found: must be the first run of lazyblorg with this configuration")
+
+    for entry in metadata:  ## ignore blog entries that have been gone since last run
+
+        ## debug output current entry and its meta-data:
+        logging.debug(" processing entry [" + str(repr(entry)) + \
+                          "]   <--------------\nwith [checksum, created, timestamp]:\n  md " + \
+                          str([x[1] for x in sorted(metadata[entry].items(), key=lambda t: t[0])]))
+        if previous_metadata != None:
+            if entry in previous_metadata.keys():
+                logging.debug("\nprev " + \
+                                  str([x[1] for x in sorted(previous_metadata[entry].items(), key=lambda t: t[0])]))
+            else:
+                logging.debug("no previous metadata found for this entry")
+
+        #pdb.set_trace()## FIXXME
+
+        if previous_metadata == None:
+            logging.debug("case 2: brand-new entry (first run of lazyblorg)")
+            generate.append(entry)
+            marked_for_RSS.append(entry)
+            continue
+
+        if entry not in previous_metadata.keys():
+            logging.debug("case 2: brand-new entry (lazyblorg was run previously)")
+            generate.append(entry)
+            marked_for_RSS.append(entry)
+            continue
+
+        elif 'created' not in metadata[entry].keys():
+            logging.debug("case 3: \"created\" missing -> WARN, ignore")
+            message = "entry [" + entry + "] is missing its CREATED property. Will be ignored, until you fix it."
+            Utils.append_logfile_entry(options.logfilename, 'warn', message)
+            logging.warn(message)
+            continue
+
+        elif metadata[entry]['created'] != previous_metadata[entry]['created']:
+            logging.debug("case 4: \"created\" differs -> WARN, ignore")
+            message = "CREATED property of entry [" + entry + "] has changed which should never happen. " + \
+                "Entry will be ignored this run. Will be created next run if CREATED will not change any more."
+            Utils.append_logfile_entry(options.logfilename, 'warn', message)
+            logging.warn(message)
+            continue
+
+        elif metadata[entry]['created'] == previous_metadata[entry]['created'] and \
+                metadata[entry]['checksum'] == previous_metadata[entry]['checksum']:
+            logging.debug("case 5 or 6: old entry -> generate")
+            generate.append(entry)
+            continue
+
+        elif metadata[entry]['created'] == previous_metadata[entry]['created'] and \
+                metadata[entry]['timestamp'] == previous_metadata[entry]['timestamp'] and \
+                metadata[entry]['checksum'] != previous_metadata[entry]['checksum']:
+            logging.debug("case 7: silent update -> generate")
+            generate.append(entry)
+            continue
+
+        elif metadata[entry]['created'] == previous_metadata[entry]['created'] and \
+                metadata[entry]['timestamp'] != previous_metadata[entry]['timestamp'] and \
+                metadata[entry]['checksum'] != previous_metadata[entry]['checksum']:
+            logging.debug("case 8: normal update -> generate, mark_for_RSS, increment_version")
+            generate.append(entry)
+            marked_for_RSS.append(entry)
+            increment_version.append(entry)
+            continue
+
+        else:
+            ## warn (should never be reached)
+            message = "compare_blog_metadata() is confused with entry [" + entry + "] which " + \
+                "reached an undefined situation when comparing meta-data. You can re-run. " + \
+                "If this warning re-appears, please use \"--verbose\" and check entry."
+            Utils.append_logfile_entry(options.logfilename, 'warn', message)
+            logging.warn(message)
+
+    return generate, marked_for_RSS, increment_version
+
+
 def main():
     """Main function"""
 
@@ -226,8 +357,6 @@ def main():
         print os.path.basename(sys.argv[0]) + " version " + PROG_VERSION_NUMBER + \
             " from " + PROG_VERSION_DATE
         sys.exit(0)
-
-    logging = Utils.initialize_logging("lazyblorg", options.verbose, options.quiet)
 
     ## checking parameters ...
 
@@ -281,20 +410,25 @@ def main():
         with open(options.metadatafilename, 'rb') as input:
             previous_metadata = pickle.load(input)
 
-    ## FIXXME: run comparing algorithm (last metadata, current metadata) and generate pages
-    ## (previous_metadata, metadata, blog_data, options.tagetdir)
+    ## FIXXME: run comparing algorithm (last metadata, current metadata)
+    generate, marked_for_RSS, increment_version = compare_blog_metadata(previous_metadata, metadata)
+
+    ## FIXXME: generate pages
+    ## (metadata, blog_data, template_definitions, options.tagetdir)
 
     ## FIXXME: generate new RSS feed
+
+    logging.debug("-------------> cleaning up the stage ...")
 
     ## remove old options.metadatafilename
     if os.path.isfile(options.metadatafilename):
         logging.debug("deleting old \"" + options.metadatafilename + "\" ...")
         os.remove(options.metadatafilename)
 
-          ## rename options.metadatafilename + '_temp' -> options.metadatafilename
-        logging.debug("removing temporary \"" + options.metadatafilename + "_temp\" to \"" +
-                      options.metadatafilename + "\" ...")
-        os.rename(options.metadatafilename + '_temp', options.metadatafilename)
+    ## rename options.metadatafilename + '_temp' -> options.metadatafilename
+    logging.debug("removing temporary \"" + options.metadatafilename + "_temp\" to \"" +
+                  options.metadatafilename + "\" ...")
+    os.rename(options.metadatafilename + '_temp', options.metadatafilename)
 
     logging.debug("successfully finished.")
 
@@ -307,5 +441,8 @@ if __name__ == "__main__":
         logging.info("Received KeyboardInterrupt")
 
 ## END OF FILE #################################################################
+# Local Variables:
+# mode: flyspell
+# eval: (ispell-change-dictionary "en_US")
+# End:
 
-#end
