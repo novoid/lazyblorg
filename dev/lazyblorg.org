@@ -1,4 +1,4 @@
-# Time-stamp: <2013-08-22 21:30:33 vk>
+# Time-stamp: <2013-08-22 23:38:43 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -345,9 +345,11 @@ vk@gary ~/src/lazyblorg (git)-[master] %
   - data['tags']
   - data['content']
 
-- [ ] compare raw text and IDs with last run
+- [X] compare raw text and IDs with last run
 
   - known ID, raw text unchanged: ignore, no change
+
+- [ ] generate output files
 
   - new ID
     - generate new blog entry
@@ -375,6 +377,10 @@ vk@gary ~/src/lazyblorg (git)-[master] %
   - [ ] with daily repeat -> so it gets noticed on the following day(s) too
   - [ ] in the description of that entry:
     - BONUS: babel-sh-snippet with prepared command to re-try the run :-)
+** NEXT [#A] test compare_blog_metadata()                            :tests:
+:PROPERTIES:
+:CREATED:  [2013-08-22 Thu 23:38]
+:END:
 ** NEXT create a new module lib/htmlizer.py                   :architecture:
 :PROPERTIES:
 :CREATED:  [2013-08-22 Thu 21:15]
@@ -783,6 +789,8 @@ page. Further headings contain more content for other pages.
 
 switch from "delete everything and re-generate everything on every
 run" to "delete and re-generate only necessary entries/pages"
+
+- [ ] adopt docstring of compare_blog_metadata()
 
 ** SOMEDAY [#C] in order not to parse *whole* content, split up parsing
 :LOGBOOK:
