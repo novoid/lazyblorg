@@ -1,4 +1,4 @@
-## Time-stamp: <2013-08-20 10:54:37 vk>
+## Time-stamp: <2013-08-22 11:32:49 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -25,33 +25,52 @@ See [[http://article.gmane.org/gmane.emacs.orgmode/49747/][my original post to t
 left to add, but when there is nothing left to take away.» ([[https://en.wikipedia.org/wiki/Antoine_de_Saint-Exup%25C3%25A9ry][Antoine de
 Saint-Exupéry]])
 
+And: your blog entries can be written *anywhere in your Org-mode
+files*. They will be found by lazyblorg. :-)
+
+Further advantages are listed in the FAQ section below.
+
 ** Example
 
 1. write a blog entry *anywhere* in your Org-mode files
-2. add an unique ID in the PROPERTIES drawer
+2. tag your entry with ~:blog:~
+3. add an unique ID in the PROPERTIES drawer
    - You might want to use a package that automatically generates
      unique IDs to your headings (I don't).
    - You might want to take a look [[article.gmane.org/gmane.emacs.orgmode/16199][at this solution using file or
      directory variables]].
-3. tag your entry with ~:blog:~
 4. set the state of your entry to ~DONE~
+   - make sure that a ~:LOGBOOK:~ drawer entry will be created that
+     contains the time-stamp
 
 That's it. lazyblorg does the rest. It feels like magic, doesn't it? :-)
 
 ** Advantages
 
-- *Minimum effort* to write a blog post.
+*No other Org-mode blogging system* I know of is able to process blog
+entries which are *scattered across all your Org-mode documents*.
+
+*No other Org-mode blogging system* I know of is able to generate a
+blog entry with that *minimum effort* to the author.
+
 - You do not need to maintain a specific Org-mode file that contains
   you blog posts only.
   - [[http://www.tbray.org/ongoing/When/201x/2011/03/07/BNotes][*Create* blog posts]] *anywhere* in between your notes, todos,
     contacts, ...
 - You don't need to write HTML code by yourself.
-- *Static HTML* offers best performance at a minimum of server load.
+- produces static, state-of-the-art HTML5
+  - it's super-fast on delivery to browsers
+  - very low computing requirements on your web server: minimum of server load
 - No in-between format or tool.
   - Direct conversion from Org-mode to HTML/CSS.
-- *Modern* HTML5/CSS3 standard.
+  - dependencies have the tendency to cause problems when the
+    dependent tools change over time
+  - lazyblorg should be running fine for a long time after it is set
+    up properly
 - Decide by yourself how and where you are hosting your blog files
   and log files.
+- you will find more advantages when running and using lazyblorg - I
+  am very confident about that ;-)
 
 ** Disadvantages
 
@@ -61,14 +80,84 @@ That's it. lazyblorg does the rest. It feels like magic, doesn't it? :-)
 - No old HTML4.01 transitional stuff or similar:
   - Results might not be compatible with browsers such as Internet
     Explorer or mobile devices.
+- You have to accept the one-time setup which requires knowledge of:
+  - using command-line tools
+  - modifying configuration files
 
 ** Features
 
-lazyblorg will support a basic set of syntax of Org-mode. It will
-also support RSS feed(s), tags, (external) image files, tables,
-updates, and more.
+lazyblorg will support a basic set of syntax of Org-mode. It will also
+support RSS feed(s), tags, (external) image files, tables, static
+pages (outside of day-oriented blog entry hierarchy), updates, and
+more.
 
-* Install
+** FAQs
+
+*** Why lazyblorg and not <another project>?
+
+Please do read the sections "Why lazyblorg" and "Advantages" above.
+
+
+*** Does lazyblorg cost anything?
+
+No.
+
+Although, please do respect [[file:license.txt][the license which is attached]] to this project.
+
+As with every open source project, you will find that there are some
+costs: your time. However, you will gain additional knowledge from
+coping with it. :-)
+
+*** Am I able to use lazyblorg for myself?
+
+Yes.
+
+Get it from [[https://github.com/novoid/lazyblorg][github]] and read the installation notes in this file.
+
+*** Where can I find support for lazyblorg?
+
+Short: please do help yourself. :-)
+
+Long: I developed lazyblorg for my own purposes and therefore it is
+optimized for my own requirements only. If you find lazyblorg cool
+and you want to use it on your own, I am totally OK with
+that. However, I can not offer much time in supporting other
+requirements than my own.
+
+*** FIXXME: Is lazyblorg in active development?
+
+Yes :-)
+
+*** FIXXME: What are the future plans for lazyblorg?
+
+Yes :-)
+
+*** Lazyblorg uses what technology?
+
+- Python 2.x
+  - misc dependencies, nothing fancy
+- input: Org-mode files of version 8.x
+- output: static HTML5, CSS3
+
+*** Is there any documentation about the internals of lazyblorg?
+
+Yes, please do read [[file:dev/lazyblorg.org]] (especially section "notes").
+
+*** Can I use the Org-mode parser (in Python) for other purposes as well? 
+
+Yes, please do read [[file:dev/lazyblorg.org]] and [[file:lib/orgparser.py]].
+
+Although, you have to modify it a bit since I filter out headings
+that meet the criteria of being a blog article.
+
+Please also note that this parser only implements a sub-set of
+Org-mode syntax (see section "notes" in [[file:dev/lazyblorg.org]]).
+
+*** I do have a question but it is not listed here. Where to ask?
+
+Just drop me a line: lazyblorg <at-sign> Karl <minus-sign> Voit <dot> at
+
+* FIXXME: Install
 
 Currently, lazyblorg is in alpha status. It's not ready yet - Sorry!
 
