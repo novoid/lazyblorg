@@ -1,4 +1,4 @@
-## Time-stamp: <2013-08-22 11:32:49 vk>
+## Time-stamp: <2013-08-22 11:42:25 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -97,7 +97,6 @@ more.
 
 Please do read the sections "Why lazyblorg" and "Advantages" above.
 
-
 *** Does lazyblorg cost anything?
 
 No.
@@ -113,6 +112,12 @@ coping with it. :-)
 Yes.
 
 Get it from [[https://github.com/novoid/lazyblorg][github]] and read the installation notes in this file.
+
+*** What Org-mode elements are supported by lazyblorg?
+
+The parser only implements a sub-set of Org-mode syntax. See section
+"notes" in [[file:dev/lazyblorg.org]] for a detailed list of supported
+elements.
 
 *** Where can I find support for lazyblorg?
 
@@ -132,16 +137,16 @@ Yes :-)
 
 Yes :-)
 
+*** Is there any documentation about the internals of lazyblorg?
+
+Yes, please do read [[file:dev/lazyblorg.org]] (especially section "notes").
+
 *** Lazyblorg uses what technology?
 
 - Python 2.x
   - misc dependencies, nothing fancy
 - input: Org-mode files of version 8.x
 - output: static HTML5, CSS3
-
-*** Is there any documentation about the internals of lazyblorg?
-
-Yes, please do read [[file:dev/lazyblorg.org]] (especially section "notes").
 
 *** Can I use the Org-mode parser (in Python) for other purposes as well? 
 
