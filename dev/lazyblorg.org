@@ -1,4 +1,4 @@
-# Time-stamp: <2013-08-22 21:20:55 vk>
+# Time-stamp: <2013-08-22 21:30:33 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -894,6 +894,31 @@ Org elements: from ox-ascii.el
   - [[http://orgmode.org/org.html#index-g_t_0023_002bBEGIN_005fQUOTE-1493][QUOTE]]
   - [[http://orgmode.org/org.html#index-g_t_0023_002bBEGIN_005fSRC-1885][SRC]]
   - [[http://orgmode.org/org.html#index-g_t_0023_002bBEGIN_005fVERSE-1492][VERSE]]
+** Short descriptions of the Python modules/files
+:PROPERTIES:
+:CREATED:  [2013-08-22 Thu 21:24]
+:END:
+
+- lazyblorg.py
+  - central module which uses all other modules
+  - handles command line parameters
+  - calls parser
+  - gets template data
+  - pushes data to htmlizer
+- lib/utils.py
+  - misc (static) tool-methods that are or might get handy for other
+    modules as well
+- lib/orgformat.py
+  - borrowed from the [[https://github.com/novoid/Memacs][Memacs]] project
+  - holds all kind of cool tool-methods to generate Org-mode stuff
+    (time-stamps, ...)
+- lib/orgparser.py
+  - parses an Org-mode file and returns an internal representation of
+    matching sections
+- lib/htmlizer.py
+  - responsible for everything between internal representation of blog
+    stuff to create to their resulting files on the hard disk (HTML,
+    CSS, ...)
 
 ** Representation of blog data
 CLOSED: [2013-08-20 Tue 18:15]
