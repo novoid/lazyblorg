@@ -67,38 +67,50 @@ g20
 aVThis is a dummy text whose only purpose is to generate some content which is then processed by this lovely tool. The resulting web blog might win the Pulitzer Prize some day!
 p35
 aa(lp36
-g20
-aV#+BEGIN_VERSE Well, in here, I want to write verbatim text. Line breaks should be exactly the same.
+S'verse-block'
 p37
-aa(lp38
-g20
-aVThis is a dummy text whose only purpose is to generate some content which is then processed by this lovely tool. The resulting web blog might win the Pulitzer Prize some day!
+aI00
+a(lp38
+VWell, in here, I want to write verbatim text.
 p39
-aa(lp40
-g20
-aV#+END_VERSE
+aVLine breaks should be exactly the same.
+p40
+aV
 p41
-aa(lp42
+aVThis is a
+p42
+aVdummy text whose only purpose is to generate
+p43
+aVsome content
+p44
+aVwhich is then processed by this lovely tool.
+p45
+aVThe resulting web blog
+p46
+aVmight win the Pulitzer Prize some day!
+p47
+ag41
+aaa(lp48
 g23
-a(dp43
+a(dp49
 g25
 VSub-heading bar
-p44
+p50
 sg2
 I3
-saa(lp45
+saa(lp51
 g20
 aVThis is a dummy text whose only purpose is to generate some content which is then processed by this lovely tool. The resulting web blog might win the Pulitzer Prize some day!
-p46
+p52
 aasS'finished-timestamp-history'
-p47
-(lp48
+p53
+(lp54
 g7
 asg25
 VThis is an example blog entry
-p49
+p55
 sS'id'
-p50
+p56
 V2013-02-12-lazyblorg-example-entry
-p51
+p57
 sa.

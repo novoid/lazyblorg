@@ -1,12 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-20 17:24:43 vk>
+# Time-stamp: <2013-08-23 13:43:47 vk>
 
 import unittest
 from lib.utils import *
 from lib.orgparser import *
 import pickle ## for serializing and storing objects into files
 from os import remove
+
+## debugging:   for setting a breakpoint:  pdb.set_trace()## FIXXME
+import pdb
 
 class TestOrgParser(unittest.TestCase):
 
@@ -20,7 +23,7 @@ class TestOrgParser(unittest.TestCase):
     def setUp(self):
         verbose = False
         quiet = False
-        self.logging = Utils.initialize_logging(verbose, quiet)
+        self.logging = Utils.initialize_logging("lazyblorg.tests", verbose, quiet)
 
 
     def tearDown(self):
@@ -45,7 +48,7 @@ class TestOrgParser(unittest.TestCase):
             remove(testfile_temp_output)
             
         blog_data = []  ## initialize the empty list
-        parser = OrgParser(testfile_org, self.logging)
+        parser = OrgParser(testfile_org)
 
         ## parse the example Org-mode file:
         blog_data.extend(parser.parse_orgmode_file())
@@ -63,8 +66,22 @@ class TestOrgParser(unittest.TestCase):
         with open(testfile_temp_reference, 'r') as fileinput:
             reference_blog_data = pickle.load(fileinput)
 
-        self.assertEqual(reference_blog_data, blog_data)
+        ## a more fine-grained diff (only) on the first element in blog_data:
+        for x in range(len(blog_data[0]['content'])): 
+            if blog_data[0]['content'][x] != reference_blog_data[0]['content'][x]: 
+                print "   =============== difference ==================="
+                print reference_blog_data[0]['content'][x]
+                print "   -------------------------------"
+                print blog_data[0]['content'][x]
+                print "   ===============            ==================="
+
+        self.assertTrue(Utils.list_of_dicts_are_equal(reference_blog_data, blog_data, ignoreorder=True))
 
         ## optionally clean up:
         #remove(testfile_temp_output)
 
+## END OF FILE #################################################################
+# Local Variables:
+# mode: flyspell
+# eval: (ispell-change-dictionary "en_US")
+# End:
