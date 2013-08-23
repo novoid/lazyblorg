@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-22 14:36:11 vk>
+# Time-stamp: <2013-08-23 13:30:26 vk>
 
 import sys
 import logging
 from hashlib import md5  ## generating checksums
 import time  ## for generating Org-mode timestamps
 from orgformat import *
-#import pdb
+import pdb
 
 
 class Utils(object):
@@ -162,6 +162,132 @@ class Utils(object):
                                          'checksum': checksum}
 
         return metadata
+
+    @staticmethod
+    def list_of_dicts_are_equal(list1, list2, ignoreorder=False):
+        """
+
+        Dicts in Python are not sorted. So there is no simple
+        comparison of dicts. This method compares two list containing
+        dicts entry by entry.
+
+        @param list1: a list containing dicts with key/value-pairs
+        @param list2: a list containing dicts with key/value-pairs
+        @param ignoreorder: consider two lists with different order but same content as equal
+        @param return: True (if list1 equals list2) or False (otherwise)
+        """
+
+        logger = logging.getLogger('lazyblorg.Utils.list_of_dicts_are_equal')
+        logger.debug("list_of_dicts_are_equal called")
+
+        assert type(list1) == list
+        assert type(list2) == list
+
+        if len(list1) > 0:
+            assert type(list1[0]) == dict
+        if len(list2) > 0:
+            assert type(list2[0]) == dict
+
+        if len(list1) != len(list2):
+            ## quick check: if length differs, they are definitely different
+            return False
+
+        comparisonlist1 = list1
+        comparisonlist2 = list2
+        if ignoreorder:
+            comparisonlist1 = sorted(list1)
+            comparisonlist2 = sorted(list2)
+        
+        for entry in range(len(comparisonlist1)):
+            ## do the hard way: comparing content
+            if not comparisonlist1[entry] == comparisonlist2[entry]:
+                return False
+
+        return True
+
+    @staticmethod
+    def __UNFINISHED_datastructs_are_equal(data1, data2, ignoreorder=False):
+        """
+
+        Comparing data structures is easy. However, if the order of
+        lists is not important, there is no simple comparison. This
+        method compares two data structures containing numbers, lists,
+        or dicts entry by entry. Any parameter of type 'None' returns
+        False.
+
+        data1 or data2 could be of type: number, string, unicode,
+        list, or dict
+
+        NOTE: this method does NOT work properly yet. However, I do
+        not need it this time. Please refer to tests/utils_test.py for
+        test cases that show what is working or not.
+
+        @param data1: first data structure to compare
+        @param data2: second data structure to compare
+        @param ignoreorder: consider two items with different order but same content as equal
+        @param return: True (if data1 equals data2) or False (otherwise)
+        """
+
+        if not ignoreorder:
+            return data1 == data2
+
+        #pdb.set_trace()## FIXXME
+
+        if data1 == None or data2 == None:
+            ## both arguments should exist
+            return False
+
+        elif type(data1) != type(data2):
+            return False
+
+        elif type(data1) in [int, float, long, complex, str, unicode]:
+            return data1 == data2
+
+        elif type(data1) == dict:
+
+            ##return Utils.dicts_are_equal(data1, data2, ignoreorder)
+            ## -> if dicts contain lists, this does not compare the list content!
+
+            ## check for trivial cases:
+            if len(data1.keys()) != len(data2.keys()):
+                return False
+            if len(data1.keys()) == 0:
+                return True
+
+            ## FIXXME: sorting the dict might be unnecessary since: {3:4, 'b':2} == {'b':2, 3:4}
+            ## dicts don't keep the order (unless using Ordered....)
+            sorted1 = sorted(data1.items(), key=lambda t: t[0])
+            sorted2 = sorted(data2.items(), key=lambda t: t[0])
+            if sorted1 == sorted2:
+                ## if this is true, we do not have to walk through the content
+                return True
+            else:
+                ## sorted1/2 are lists of tuples now. Compare them:
+                Utils.datastructs_are_equal(sorted1, sorted2, ignoreorder)
+
+        
+        elif type(data1) == list:
+
+            ## check for trivial cases:
+            if len(data1) != len(data2):
+                return False
+            if len(data1) == 0:
+                return True
+
+            sorted1 = sorted(data1)
+            sorted2 = sorted(data2)
+            if sorted1 == sorted2:
+                ## if this is true, we do not have to walk through the content
+                return True
+            else:
+                for element in range(len(sorted1)):
+                    Utils.datastructs_are_equal(sorted1[element], sorted2[element], ignoreorder)
+
+        else:
+            logger = logging.getLogger('lazyblorg.Utils.datastructs_are_equal')
+            logger.error("datastructs_are_equal() does not support parameters of type \"%s\" yet." % type(data1))
+            return False
+        
 
 # Local Variables:
 # mode: flyspell
