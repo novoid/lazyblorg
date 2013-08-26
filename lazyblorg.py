@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-26 12:32:39 vk>
+# Time-stamp: <2013-08-26 17:38:23 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -15,30 +15,20 @@ import os
 import logging
 import datetime
 import sys
-from optparse import OptionParser
+import argparse  ## command line arguments
 from lib.utils import *
 from lib.orgparser import *
 import pickle  ## for serializing and storing objects into files
 
-## debugging:   for setting a breakpoint:  pdb.set_trace()## FIXXME
+## debugging:   for setting a breakpoint:
+#pdb.set_trace()## FIXXME
 import pdb
 
 PROG_VERSION_NUMBER = u"0.1"
 PROG_VERSION_DATE = u"2013-05-20"
 INVOCATION_TIME = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
-USAGE = u"\n\
-    " + sys.argv[0] + u" [<options>] FIXXME\n\
-\n\
-FIXXME\n\
-\n\
-Example usage:\n\
-  " + sys.argv[0] + u" FIXXME\n\
-      ... FIXXME\n\
-\n\
-For all command line options, please call: " + sys.argv[0] + u" --help\n\
-\n\
-\n\
+EPILOG = u"\n\
 :copyright: (c) 2013 by Karl Voit <tools@Karl-Voit.at>\n\
 :license: GPL v3 or any later version\n\
 :URL: https://github.com/novoid/lazyblorg\n\
@@ -60,42 +50,49 @@ MONTHS = {'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04', 'May': '05',
           'Jun': '06', 'Jul': '07', 'Aug': '08', 'Sep': '09',
           'Oct': '10', 'Nov': '11', 'Dec': '12'}
 
-parser = OptionParser(usage=USAGE)
+parser = argparse.ArgumentParser(prog=sys.argv[0],
+                                 formatter_class=argparse.RawDescriptionHelpFormatter,  ## keep line breaks in EPILOG and such
+                                 epilog=EPILOG,
+                                 description=u"An Org-mode to HTML-blog system for very lazy people.")
 
-parser.add_option("--targetdir", dest="targetdir",
+parser.add_argument("--orgfiles", dest="orgfiles", nargs='+', metavar='ORGFILE', required=True,
+                  help="one or more Org-mode files which contains all blog articles (and possible other stuff)")
+
+parser.add_argument("--targetdir", dest="targetdir", metavar='DIRECTORY', required=True,
                   help="path where the HTML files will be written to")
 
-parser.add_option("--metadata", dest="metadatafilename",
+parser.add_argument("--metadata", dest="metadatafilename", metavar='FILE', required=True,
                   help="path to a file where persistent meta-data of the blog entries " +
-                  "is written to. Next run, it will be read and used for comparison to current situation.")
+                    "is written to. Next run, it will be read and used for comparison to current situation.")
 
-parser.add_option("--template", dest="templatefilename",
-                  help="path to a file which holds the output template definitions.")
+parser.add_argument("--template", dest="templatefilename", metavar='ORGMODEFILE', required=True,
+                  help="path to an Org-mode file containing the output template definitions. " +
+                    "Please see example file which is part of the original repository.")
 
-parser.add_option("--logfile", dest="logfilename",
+parser.add_argument("--logfile", dest="logfilename", metavar='FILE', required=True,
                   help="path to a file where warnings (inactive time-stamps) and errors " +
-                  "(active time-stamps) are being appended in Org-mode format.")
+                    "(active time-stamps) are being appended in Org-mode format. " +
+                    "It is recommended, that you add this file to your agenda list.")
 
-parser.add_option("-v", "--verbose", dest="verbose", action="store_true",
+parser.add_argument("-v", "--verbose", dest="verbose", action="store_true",
                   help="enable verbose mode which is quite chatty")
 
-parser.add_option("-q", "--quiet", dest="quiet", action="store_true",
+parser.add_argument("-q", "--quiet", dest="quiet", action="store_true",
                   help="enable quiet mode")
 
-parser.add_option("--version", dest="version", action="store_true",
+parser.add_argument("--version", dest="version", action="store_true",
                   help="display version and exit")
 
-(options, args) = parser.parse_args()
-
+options = parser.parse_args()
 
 logging = Utils.initialize_logging("lazyblorg", options.verbose, options.quiet)
 
 
 def check_parameters(options):
 
-    if not options.logfilename:
-        logging.critical("Please give me a file to write to with option \"--logfile\".")
-        Utils.error_exit(5)
+    ##if not options.logfilename:
+    ##    logging.critical("Please give me a file to write to with option \"--logfile\".")
+    ##    Utils.error_exit(5)
 
     if not os.path.isfile(options.logfilename):
         logging.debug("log file \"" + options.logfilename + "\" is not found. Initializing with heading ...")
@@ -112,31 +109,31 @@ def check_parameters(options):
                       "This does not make any sense, you silly fool :-)")
         Utils.error_exit(1)
 
-    if not options.targetdir:
-        logging.critical("Please give me a folder to write to with option \"--targetdir\".")
-        Utils.error_exit(2)
+    ##if not options.targetdir:
+    ##    logging.critical("Please give me a folder to write to with option \"--targetdir\".")
+    ##    Utils.error_exit(2)
 
     if not os.path.isdir(options.targetdir):
         logging.critical("Target directory \"" + options.targetdir + "\" is not a directory. Aborting.")
         Utils.error_exit(3)
 
-    if not options.metadatafilename:
-        logging.critical("Please give me a file to write to with option \"--metadata\".")
-        Utils.error_exit(4)
+    ##if not options.metadatafilename:
+    ##    logging.critical("Please give me a file to write to with option \"--metadata\".")
+    ##    Utils.error_exit(4)
 
     if not os.path.isfile(options.templatefilename):
         logging.warn("Blog data file \"" + options.templatefilename + "\" is not found. Assuming first run!")
 
-    if not options.templatefilename:
-        logging.critical("Please give me a file which holds the template definitions with option \"--template\".")
-        Utils.error_exit(7)
+    ##if not options.templatefilename:
+    ##    logging.critical("Please give me a file which holds the template definitions with option \"--template\".")
+    ##    Utils.error_exit(7)
 
     if not os.path.isfile(options.metadatafilename):
         logging.warn("Blog data file \"" + options.metadatafilename + "\" is not found. Assuming first run!")
 
     logging.debug("extracting list of Org-mode files ...")
-    logging.debug("len(args) [%s]" % str(len(args)))
-    if len(args) < 1:
+    logging.debug("len(orgfiles) [%s]" % str(len(options.orgfiles)))
+    if len(options.orgfiles) < 1:
         logging.critical("Please add at least one Org-mode file name as argument")
         Utils.error_exit(6)
 
@@ -161,10 +158,9 @@ class Lazyblorg(object):
     template_data = None
     template_definitions = None
 
-    def __init__(self, options, files, logging):
+    def __init__(self, options, logging):
 
         self.options = options
-        self.list_of_orgfiles = files
         self.logging = logging
 
     def run(self):
@@ -175,7 +171,7 @@ class Lazyblorg(object):
         """
 
         logging.debug("iterate over files ...")
-        for filename in self.list_of_orgfiles:
+        for filename in self.options.orgfiles:
             try:
                 file_blog_data = self.parse_file(filename)  ## parsing one Org-mode file
             except OrgParserException as message:
@@ -430,16 +426,14 @@ if __name__ == "__main__":
 
         check_parameters(options)
 
-        files = args
-
         ## print file names if less than 10:
-        if len(files) < 10:
-            logging.debug("%s filenames found: [%s]" % (str(len(files)), '], ['.join(files)))
+        if len(options.orgfiles) < 10:
+            logging.debug("%s filenames found: [%s]" % (str(len(options.orgfiles)), '], ['.join(options.orgfiles)))
         else:
             logging.debug("%s filenames found")
 
         ## main algorithm:
-        lazyblorg = Lazyblorg(options, files, logging)
+        lazyblorg = Lazyblorg(options, logging)
         lazyblorg.run()
 
         logging.debug("-------------> cleaning up the stage ...")
