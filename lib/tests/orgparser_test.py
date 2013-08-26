@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-23 13:43:47 vk>
+# Time-stamp: <2013-08-26 19:38:15 vk>
 
 import unittest
 from lib.utils import *
@@ -23,7 +23,7 @@ class TestOrgParser(unittest.TestCase):
     def setUp(self):
         verbose = False
         quiet = False
-        self.logging = Utils.initialize_logging("lazyblorg.tests", verbose, quiet)
+        self.logging = Utils.initialize_logging("lazyblorg", verbose, quiet)
 
 
     def tearDown(self):
