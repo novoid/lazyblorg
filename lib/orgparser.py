@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-22 22:34:09 vk>
+# Time-stamp: <2013-08-26 19:15:31 vk>
 
 import re
 import os
@@ -121,7 +121,7 @@ class OrgParser(object):
             self.logging.error("Heading does not contain a content")
             errors += 1
 
-        if not 'tags' in self.__entry_data.keys():
+        if not 'tags' in self.__entry_data.keys() or self.__entry_data['tags'] is None:
             self.logging.info("Heading does not contain tags but this is probably OK: \"%s\"" %
                               self.__entry_data['title'])
             errors += 1
@@ -134,7 +134,6 @@ class OrgParser(object):
             return False
         else:
             self.logging.debug("OrgParser: check_entry_data: current entry has been checked positively for being added to the blog data")
-            #pdb.set_trace()## FIXXME:   data = self._OrgParser__entry_data ; data['content']
             return True
 
     def __handle_blog_heading(self, stars, title, tags):
@@ -145,21 +144,27 @@ class OrgParser(object):
         @param title: string containing description of heading line
         @param tags: string containing raw tags like ":tag1:tag2:"
         @param blog_data: data representation of the blog data parsed so far
-        @param return: FIXXME
+        @param return: True if nothing failed
         """
 
         assert stars.__class__ == str or stars.__class__ == unicode
         assert title.__class__ == str or title.__class__ == unicode
-        assert tags.__class__ == str or tags.__class__ == unicode
+        if tags:
+            assert tags.__class__ == str or tags.__class__ == unicode
 
         self.__entry_data['title'] = title
-        self.__entry_data['tags'] = tags[1:-1].split(':')
         self.__entry_data['level'] = len(stars)
+        if tags:
+            self.__entry_data['tags'] = tags[1:-1].split(':')
+        else:
+            self.__entry_data['tags'] = None
 
         self.logging.debug("OrgParser: heading: level[%s] title[%s] tags%s" %
                            (str(self.__entry_data['level']),
                             self.__entry_data['title'],
                             str(self.__entry_data['tags'])))
+
+        return True
 
     def __handle_blog_end(self, line):
         """
