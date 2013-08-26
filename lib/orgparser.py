@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-26 19:15:31 vk>
+# Time-stamp: <2013-08-26 19:37:11 vk>
 
 import re
 import os
@@ -100,6 +100,8 @@ class OrgParser(object):
         if not 'id' in self.__entry_data.keys():
             self.logging.error("Heading does not contain any ID within PROPERTY drawer")
             errors += 1
+        else:
+            self.logging.debug("OrgParser: checking id [%s]" % self.__entry_data['id'])
 
         if not 'level' in self.__entry_data.keys():
             self.logging.error("Heading does not contain a heading level")
@@ -122,9 +124,15 @@ class OrgParser(object):
             errors += 1
 
         if not 'tags' in self.__entry_data.keys() or self.__entry_data['tags'] is None:
-            self.logging.info("Heading does not contain tags but this is probably OK: \"%s\"" %
-                              self.__entry_data['title'])
-            errors += 1
+            self.logging.debug("OrgParser: this has got no tags -> no blog entry")
+            return False
+            ## self.logging.info("Heading does not contain tags but this is probably OK: \"%s\"" %
+            ##                   self.__entry_data['title'])
+            ## errors += 1
+        else:
+            if 'blog' not in self.__entry_data['tags']:
+                self.logging.debug("OrgParser: this has no tag called :blog: -> no blog entry")
+                return False
 
         if errors > 0:
             self.logging.error("check_entry_data: " + str(errors) +
