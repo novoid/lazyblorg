@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-22 23:36:07 vk>
+# Time-stamp: <2013-08-26 12:23:06 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -87,12 +87,9 @@ parser.add_option("--version", dest="version", action="store_true",
 
 (options, args) = parser.parse_args()
 
+
 logging = Utils.initialize_logging("lazyblorg", options.verbose, options.quiet)
 
-## format of the storage file
-## pickle offers, e.g., 0 (ASCII; human-readable) or pickle.HIGHEST_PROTOCOL (binary; more efficient)
-#PICKLE_FORMAT = pickle.HIGHEST_PROTOCOL
-PICKLE_FORMAT = 0
 
 
 def check_parameters(options):
@@ -145,209 +142,289 @@ with open(options.logfilename, 'a') as outputhandle:
         Utils.error_exit(6)
 
 
-def handle_file(filename):
+class Lazyblorg(object):
     """
-    This function handles the communication with the parser object and returns the blog data.
-
-    @param filename: string containing one file name
-    @param return: array containing parsed Org-mode data
+    Central lazyblorg Class with main algorithm and methods
     """
 
-    if os.path.isdir(filename):
-        logging.warning("Skipping directory \"%s\" because this tool only parses files." % filename)
-        return
-    elif not os.path.isfile(filename):
-        logging.warning("Skipping non-file \"%s\" because this tool only parses files." % filename)
-        return
+    ## format of the storage file
+    ## pickle offers, e.g., 0 (ASCII; human-readable) or pickle.HIGHEST_PROTOCOL (binary; more efficient)
+    #PICKLE_FORMAT = pickle.HIGHEST_PROTOCOL
+    PICKLE_FORMAT = 0
 
-    parser = OrgParser(filename)
-
-    return parser.parse_orgmode_file()
-
-
-def parse_HTML_output_template(filename):
-    """
-    This function parses an Org-mode file which holds the definitions of the output format.
-
-    @param filename: string containing one file name of the definition file
-    @param return: dict containing parsed template definitions
-    """
-
-    template_parser = OrgParser(filename)
-
-    return template_parser.parse_orgmode_file()
+    options = None
+    list_of_orgfiles = []
+    logging = None
+    
+    blog_data = []
+    metadata = []  ## meta-data of the current run of lazyblorg
+    previous_metadata = None  ## meta-data of the previous run of lazyblorg
+    template_data = None
+    template_definitions = None
 
 
-def check_and_filter_template_definitions(all_template_data):
-    """
-    This function checks for (only) basic format definitions and exits
-    if something important is missing.
+    def __init__(self, options, files, logging):
 
-    @param all_template_data: list which contains the format data of the template
-    @param return: list of HTML definitions as Org-mode HTML block list-elements
-    """
-
-    logging.debug('checking for basic template definitions in parsed data ...')
-
-    if not all_template_data:
-        message = "Sorry, no suitable data could be parsed from the template definition file. " + \
-            "Please check if it meets all criteria as described in the original template " + \
-            "file \"blog-format.org\"."
-        Utils.error_exit_with_userlog(options.logfilename, 40, message)
-
-    matching_title_template_data = [entry for entry in all_template_data if entry['title'] == u'Templates']
-
-    if not matching_title_template_data:
-        message = "Sorry, no suitable data within heading \"Templates\" could be found in " + \
-            "the template definition file. " + \
-            "Please check if you mistyped its name."
-        Utils.error_exit_with_userlog(options.logfilename, 41, message)
-
-    html_definitions = [x for x in matching_title_template_data[0]['content'] if x[0] == 'html-block']
-
-    found_elements = [x[1] for x in html_definitions]
-
-    for element in [u'header', u'footer', u'article-header-begin', u'tags-begin',
-                    u'tag', u'tags-end', u'article-header-end', u'article-end',
-                    u'section-begin', u'section-end', u'paragraph', u'a-href',
-                    u'ul-begin', u'ul-item', u'ul-end', u'pre-begin', u'pre-end']:
-        if not element in found_elements:
-            message = "Sorry, no definition for element \"" + element + "\" could be found within " + \
-                "the template definition file. " + \
-                "Please check if you mistyped its name or similar."
-            Utils.error_exit_with_userlog(options.logfilename, 42, message)
-
-    return html_definitions
+        self.options = options
+        self.list_of_orgfiles = files
+        self.logging = logging
 
 
-def compare_blog_metadata(previous_metadata, metadata):
-    """
-    In this function, the previous status (previous_metadata) is
-    compared to the status from the current parsing result
-    (metadata). It implements "Decision algorithm for generating
-    entries" as described in dev/lazyblorg.org.
+    def run(self):
+        """
 
-    The algorithm distinguishes between eight cases:
+        Central control instance of lazyblorg. This is where it all runs together :-)
 
-    1) no ID found -> is not possible here any more since metadata
-    (dict) contains only entries with IDs -> should be done in parser:
-    WARN, ignore
+        """
 
-    2) new ID found -> generate, mark_for_RSS
-
-    3) CREATED not found -> WARN, ignore
-
-    4) CREATED found but differs from previous run (should not change)
-    -> WARN, ignore
-
-    5) and 6) known and matching previous run: ID, CREATED, checksum
-    -> not changed (case 5/6 only differs in status of last timestamp)
-    -> generate
-
-    (FIXXME: in future, case 5 and 6 should result in "ignore". But
-    for this, I have to switch from "delete everything and re-generate
-    everything on every run" to "delete and re-generate only necessary
-    entries/pages")
-
-    7) known and matching: ID, CREATED, last timestamp; differs:
-    checksum -> silent update -> generate
-
-    8) known and matching: ID, CREATED; differs: checksum, last
-    timestamp -> normal update -> generate, mark_for_RSS,
-    increment_version
-
-    The format of the metadata is described in dev/lazyblorg.org >
-    Notes > Internal format of meta-data.
-
-    @param previous_metadata: meta-data of the previous run of lazyblorg
-    @param metadata: meta-data of the current run of lazyblorg
-    @param return: generate: a list of metadata-entries that should be generated
-    @param return: marked_for_RSS: a list of metadata-entries that are candidates to be propagated using RSS feeds
-    @param return: increment_version: a list of metadata-entries that can be marked with an increased update number
-    """
-
-    logging.debug("compare_blog_metadata() called ...")
-
-    generate = []
-    marked_for_RSS = []
-    increment_version = []
-
-    if previous_metadata == None:
-        logging.info("no previous metadata found: must be the first run of lazyblorg with this configuration")
-
-    for entry in metadata:  ## ignore blog entries that have been gone since last run
-
-        ## debug output current entry and its meta-data:
-        logging.debug(" processing entry [" + str(repr(entry)) + \
-                          "]   <--------------\nwith [checksum, created, timestamp]:\n  md " + \
-                          str([x[1] for x in sorted(metadata[entry].items(), key=lambda t: t[0])]))
-        if previous_metadata != None:
-            if entry in previous_metadata.keys():
-                logging.debug("\nprev " + \
-                                  str([x[1] for x in sorted(previous_metadata[entry].items(), key=lambda t: t[0])]))
+        logging.debug("iterate over files ...")
+        for filename in self.list_of_orgfiles:
+            try:
+                file_blog_data = self.parse_file(filename)  ## parsing one Org-mode file
+            except OrgParserException as message:
+                verbose_message = "Parsing error in file \"" + filename + \
+                    "\" which is not good. Therefore, I stop here and hope you " + \
+                    "can fix the issue in the Org-mode file. Reason: " + message.value
+                Utils.error_exit_with_userlog(options.logfilename, 20, verbose_message)
             else:
-                logging.debug("no previous metadata found for this entry")
+                self.blog_data.extend(file_blog_data)
+    
+        ## dump blogdata for debugging purpose ...
+        if options.verbose:
+            with open('lazyblorg_dump_of_blogdata_from_last_verbose_run.pk', 'wb') as output:
+                pickle.dump(self.blog_data, output, 0)  ## always use ASCII format: easier to debug from outside
+    
+        ## generate persistent data which is used to compare this status
+        ## with the status of the next invocation:
+        self.metadata = Utils.generate_metadata_from_blogdata(self.blog_data)
+    
+        ## write this status to the persistent data file:
+        with open(options.metadatafilename + '_temp', 'wb') as output:
+            pickle.dump(self.metadata, output, self.PICKLE_FORMAT)
+    
+        self.template_data = self.parse_HTML_output_template(options.templatefilename)
+    
+        self.template_definitions = self.generate_template_definitions_from_template_data(self.template_data)
+    
+        ## load old metadata from file
+        if os.path.isfile(options.metadatafilename):
+            logging.debug("reading old \"" + options.metadatafilename + "\" ...")
+            with open(options.metadatafilename, 'rb') as input:
+                self.previous_metadata = pickle.load(input)
+    
+        ## FIXXME: run comparing algorithm (last metadata, current metadata)
+        generate, marked_for_RSS, increment_version = self.compare_blog_metadata()
+    
+        ## FIXXME: generate pages
+        ## (metadata, blog_data, template_definitions, options.tagetdir)
+    
+        ## FIXXME: generate new RSS feed
+    
 
-        #pdb.set_trace()## FIXXME
 
+    def parse_file(self, filename):
+        """
+        This function handles the communication with the parser object and returns the blog data.
+    
+        @param filename: string containing one file name
+        @param return: array containing parsed Org-mode data
+        """
+    
+        if os.path.isdir(filename):
+            self.logging.warning("Skipping directory \"%s\" because this tool only parses files." % filename)
+            return
+        elif not os.path.isfile(filename):
+            self.logging.warning("Skipping non-file \"%s\" because this tool only parses files." % filename)
+            return
+    
+        parser = OrgParser(filename)
+    
+        return parser.parse_orgmode_file()
+    
+    
+    def parse_HTML_output_template(self, filename):
+        """
+        This function parses an Org-mode file which holds the definitions of the output format.
+    
+        @param filename: string containing one file name of the definition file
+        @param return: dict containing parsed template definitions
+        """
+    
+        template_parser = OrgParser(filename)
+    
+        return template_parser.parse_orgmode_file()
+    
+    
+    def generate_template_definitions_from_template_data(self, template_data):
+        """
+        This function checks for (only) basic format definitions and exits
+        if something important is missing.
+    
+        @param template_data: list which contains the format data of the template
+        @param return: list of HTML definitions as Org-mode HTML block list-elements
+        """
+    
+        self.logging.debug('checking for basic template definitions in parsed data ...')
+    
+        if not template_data:
+            message = "Sorry, no suitable data could be parsed from the template definition file. " + \
+                "Please check if it meets all criteria as described in the original template " + \
+                "file \"blog-format.org\"."
+            Utils.error_exit_with_userlog(options.logfilename, 40, message)
+    
+        matching_title_template_data = [entry for entry in template_data if entry['title'] == u'Templates']
+    
+        if not matching_title_template_data:
+            message = "Sorry, no suitable data within heading \"Templates\" could be found in " + \
+                "the template definition file. " + \
+                "Please check if you mistyped its name."
+            Utils.error_exit_with_userlog(options.logfilename, 41, message)
+    
+        html_definitions = [x for x in matching_title_template_data[0]['content'] if x[0] == 'html-block']
+    
+        found_elements = [x[1] for x in html_definitions]
+    
+        for element in [u'header', u'footer', u'article-header-begin', u'tags-begin',
+                        u'tag', u'tags-end', u'article-header-end', u'article-end',
+                        u'section-begin', u'section-end', u'paragraph', u'a-href',
+                        u'ul-begin', u'ul-item', u'ul-end', u'pre-begin', u'pre-end']:
+            if not element in found_elements:
+                message = "Sorry, no definition for element \"" + element + "\" could be found within " + \
+                    "the template definition file. " + \
+                    "Please check if you mistyped its name or similar."
+                Utils.error_exit_with_userlog(options.logfilename, 42, message)
+    
+        return html_definitions
+    
+    
+    def compare_blog_metadata(self):
+        """
+        In this function, the previous status (previous_metadata) is
+        compared to the status from the current parsing result
+        (metadata). It implements "Decision algorithm for generating
+        entries" as described in dev/lazyblorg.org.
+    
+        The algorithm distinguishes between eight cases:
+    
+        1) no ID found -> is not possible here any more since metadata
+        (dict) contains only entries with IDs -> should be done in parser:
+        WARN, ignore
+    
+        2) new ID found -> generate, mark_for_RSS
+    
+        3) CREATED not found -> WARN, ignore
+    
+        4) CREATED found but differs from previous run (should not change)
+        -> WARN, ignore
+    
+        5) and 6) known and matching previous run: ID, CREATED, checksum
+        -> not changed (case 5/6 only differs in status of last timestamp)
+        -> generate
+    
+        (FIXXME: in future, case 5 and 6 should result in "ignore". But
+        for this, I have to switch from "delete everything and re-generate
+        everything on every run" to "delete and re-generate only necessary
+        entries/pages")
+    
+        7) known and matching: ID, CREATED, last timestamp; differs:
+        checksum -> silent update -> generate
+    
+        8) known and matching: ID, CREATED; differs: checksum, last
+        timestamp -> normal update -> generate, mark_for_RSS,
+        increment_version
+    
+        The format of the metadata is described in dev/lazyblorg.org >
+        Notes > Internal format of meta-data.
+    
+        @param return: generate: a list of metadata-entries that should be generated
+        @param return: marked_for_RSS: a list of metadata-entries that are candidates to be propagated using RSS feeds
+        @param return: increment_version: a list of metadata-entries that can be marked with an increased update number
+        """
+    
+        self.logging.debug("compare_blog_metadata() called ...")
+    
+        generate = []
+        marked_for_RSS = []
+        increment_version = []
+        metadata = self.metadata
+        previous_metadata = self.previous_metadata
+    
         if previous_metadata == None:
-            logging.debug("case 2: brand-new entry (first run of lazyblorg)")
-            generate.append(entry)
-            marked_for_RSS.append(entry)
-            continue
-
-        if entry not in previous_metadata.keys():
-            logging.debug("case 2: brand-new entry (lazyblorg was run previously)")
-            generate.append(entry)
-            marked_for_RSS.append(entry)
-            continue
-
-        elif 'created' not in metadata[entry].keys():
-            logging.debug("case 3: \"created\" missing -> WARN, ignore")
-            message = "entry [" + entry + "] is missing its CREATED property. Will be ignored, until you fix it."
-            Utils.append_logfile_entry(options.logfilename, 'warn', message)
-            logging.warn(message)
-            continue
-
-        elif metadata[entry]['created'] != previous_metadata[entry]['created']:
-            logging.debug("case 4: \"created\" differs -> WARN, ignore")
-            message = "CREATED property of entry [" + entry + "] has changed which should never happen. " + \
-                "Entry will be ignored this run. Will be created next run if CREATED will not change any more."
-            Utils.append_logfile_entry(options.logfilename, 'warn', message)
-            logging.warn(message)
-            continue
-
-        elif metadata[entry]['created'] == previous_metadata[entry]['created'] and \
-                metadata[entry]['checksum'] == previous_metadata[entry]['checksum']:
-            logging.debug("case 5 or 6: old entry -> generate")
-            generate.append(entry)
-            continue
-
-        elif metadata[entry]['created'] == previous_metadata[entry]['created'] and \
-                metadata[entry]['timestamp'] == previous_metadata[entry]['timestamp'] and \
-                metadata[entry]['checksum'] != previous_metadata[entry]['checksum']:
-            logging.debug("case 7: silent update -> generate")
-            generate.append(entry)
-            continue
-
-        elif metadata[entry]['created'] == previous_metadata[entry]['created'] and \
-                metadata[entry]['timestamp'] != previous_metadata[entry]['timestamp'] and \
-                metadata[entry]['checksum'] != previous_metadata[entry]['checksum']:
-            logging.debug("case 8: normal update -> generate, mark_for_RSS, increment_version")
-            generate.append(entry)
-            marked_for_RSS.append(entry)
-            increment_version.append(entry)
-            continue
-
-        else:
-            ## warn (should never be reached)
-            message = "compare_blog_metadata() is confused with entry [" + entry + "] which " + \
-                "reached an undefined situation when comparing meta-data. You can re-run. " + \
-                "If this warning re-appears, please use \"--verbose\" and check entry."
-            Utils.append_logfile_entry(options.logfilename, 'warn', message)
-            logging.warn(message)
-
-    return generate, marked_for_RSS, increment_version
+            self.logging.info("no previous metadata found: must be the first run of lazyblorg with this configuration")
+    
+        for entry in metadata:  ## ignore blog entries that have been gone since last run
+    
+            ## debug output current entry and its meta-data:
+            self.logging.debug(" processing entry [" + str(repr(entry)) + \
+                              "]   <--------------\nwith [checksum, created, timestamp]:\n  md " + \
+                              str([x[1] for x in sorted(metadata[entry].items(), key=lambda t: t[0])]))
+            if previous_metadata != None:
+                if entry in previous_metadata.keys():
+                    self.logging.debug("\nprev " + \
+                                      str([x[1] for x in sorted(previous_metadata[entry].items(), key=lambda t: t[0])]))
+                else:
+                    self.logging.debug("no previous metadata found for this entry")
+    
+            #pdb.set_trace()## FIXXME
+    
+            if previous_metadata == None:
+                self.logging.debug("case 2: brand-new entry (first run of lazyblorg)")
+                generate.append(entry)
+                marked_for_RSS.append(entry)
+                continue
+    
+            if entry not in previous_metadata.keys():
+                self.logging.debug("case 2: brand-new entry (lazyblorg was run previously)")
+                generate.append(entry)
+                marked_for_RSS.append(entry)
+                continue
+    
+            elif 'created' not in metadata[entry].keys():
+                self.logging.debug("case 3: \"created\" missing -> WARN, ignore")
+                message = "entry [" + entry + "] is missing its CREATED property. Will be ignored, until you fix it."
+                Utils.append_logfile_entry(options.logfilename, 'warn', message)
+                self.logging.warn(message)
+                continue
+    
+            elif metadata[entry]['created'] != previous_metadata[entry]['created']:
+                self.logging.debug("case 4: \"created\" differs -> WARN, ignore")
+                message = "CREATED property of entry [" + entry + "] has changed which should never happen. " + \
+                    "Entry will be ignored this run. Will be created next run if CREATED will not change any more."
+                Utils.append_logfile_entry(options.logfilename, 'warn', message)
+                self.logging.warn(message)
+                continue
+    
+            elif metadata[entry]['created'] == previous_metadata[entry]['created'] and \
+                    metadata[entry]['checksum'] == previous_metadata[entry]['checksum']:
+                self.logging.debug("case 5 or 6: old entry -> generate")
+                generate.append(entry)
+                continue
+    
+            elif metadata[entry]['created'] == previous_metadata[entry]['created'] and \
+                    metadata[entry]['timestamp'] == previous_metadata[entry]['timestamp'] and \
+                    metadata[entry]['checksum'] != previous_metadata[entry]['checksum']:
+                self.logging.debug("case 7: silent update -> generate")
+                generate.append(entry)
+                continue
+    
+            elif metadata[entry]['created'] == previous_metadata[entry]['created'] and \
+                    metadata[entry]['timestamp'] != previous_metadata[entry]['timestamp'] and \
+                    metadata[entry]['checksum'] != previous_metadata[entry]['checksum']:
+                self.logging.debug("case 8: normal update -> generate, mark_for_RSS, increment_version")
+                generate.append(entry)
+                marked_for_RSS.append(entry)
+                increment_version.append(entry)
+                continue
+    
+            else:
+                ## warn (should never be reached)
+                message = "compare_blog_metadata() is confused with entry [" + entry + "] which " + \
+                    "reached an undefined situation when comparing meta-data. You can re-run. " + \
+                    "If this warning re-appears, please use \"--verbose\" and check entry."
+                Utils.append_logfile_entry(options.logfilename, 'warn', message)
+                self.logging.warn(message)
+    
+        return generate, marked_for_RSS, increment_version
 
 
 def main():
@@ -370,53 +447,9 @@ def main():
     else:
         logging.debug("%s filenames found")
 
-    ## start processing Org-mode files ...
-
-    blog_data = []
-
-    logging.debug("iterate over files ...")
-    for filename in files:
-        try:
-            file_blog_data = handle_file(filename)  ## parsing one Org-mode file
-        except OrgParserException as message:
-            verbose_message = "Parsing error in file \"" + filename + \
-                "\" which is not good. Therefore, I stop here and hope you " + \
-                "can fix the issue in the Org-mode file. Reason: " + message.value
-            Utils.error_exit_with_userlog(options.logfilename, 20, verbose_message)
-        else:
-            blog_data.extend(file_blog_data)
-
-    ## dump blogdata for debugging purpose ...
-    if options.verbose:
-        with open('lazyblorg_dump_of_blogdata_from_last_verbose_run.pk', 'wb') as output:
-            pickle.dump(blog_data, output, 0)  ## always use ASCII format: easier to debug from outside
-
-    ## generate persistent data which is used to compare this status
-    ## with the status of the next invocation:
-    metadata = Utils.generate_metadata_from_blogdata(blog_data)
-
-    ## write this status to the persistent data file:
-    with open(options.metadatafilename + '_temp', 'wb') as output:
-        pickle.dump(metadata, output, PICKLE_FORMAT)
-
-    template_data = parse_HTML_output_template(options.templatefilename)
-
-    template_definitions = check_and_filter_template_definitions(template_data)
-
-    ## load old metadata from file
-    previous_metadata = None
-    if os.path.isfile(options.metadatafilename):
-        logging.debug("reading old \"" + options.metadatafilename + "\" ...")
-        with open(options.metadatafilename, 'rb') as input:
-            previous_metadata = pickle.load(input)
-
-    ## FIXXME: run comparing algorithm (last metadata, current metadata)
-    generate, marked_for_RSS, increment_version = compare_blog_metadata(previous_metadata, metadata)
-
-    ## FIXXME: generate pages
-    ## (metadata, blog_data, template_definitions, options.tagetdir)
-
-    ## FIXXME: generate new RSS feed
+    ## main algorithm:
+    lazyblorg = Lazyblorg(options, files, logging)
+    lazyblorg.run()
 
     logging.debug("-------------> cleaning up the stage ...")
 
