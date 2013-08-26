@@ -1,4 +1,4 @@
-# Time-stamp: <2013-02-14 19:04:02 vk>
+# Time-stamp: <2013-08-26 19:26:04 vk>
 # -*- coding: utf-8 -*-
 
 * Heading of no interest
@@ -84,6 +84,19 @@ might win the Pulitzer Prize some day!
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 11:00]
 :END:
+
+** DONE no blog tag
+CLOSED: [2013-08-24 Sat 22:50]
+:LOGBOOK:
+- State "DONE"       from ""           [2013-08-24 Sat 22:50]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-08-24 Sat 22:50]
+:ID: no-blog-tag
+:END:
+
+This lacks only the blog tag
+
 
 * End heading
 :PROPERTIES:
