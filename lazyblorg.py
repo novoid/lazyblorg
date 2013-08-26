@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-26 12:27:56 vk>
+# Time-stamp: <2013-08-26 12:32:39 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -100,12 +100,12 @@ def check_parameters(options):
     if not os.path.isfile(options.logfilename):
         logging.debug("log file \"" + options.logfilename + "\" is not found. Initializing with heading ...")
 
-with open(options.logfilename, 'a') as outputhandle:
-    outputhandle.write(u"## -*- coding: utf-8 -*-\n" +
-                       "## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/\n" +
-                       "* Warnings and Error messages from lazyblorg     :lazyblorg:log:\n\n" +
-                       "Messages gets appended to this file. Please remove fixed issues manually.\n")
-    outputhandle.flush()
+    with open(options.logfilename, 'a') as outputhandle:
+        outputhandle.write(u"## -*- coding: utf-8 -*-\n" +
+                           "## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/\n" +
+                           "* Warnings and Error messages from lazyblorg     :lazyblorg:log:\n\n" +
+                           "Messages gets appended to this file. Please remove fixed issues manually.\n")
+        outputhandle.flush()
 
     if options.verbose and options.quiet:
         logging.error("Options \"--verbose\" and \"--quiet\" found. " +
