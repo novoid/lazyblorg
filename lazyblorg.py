@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-26 17:38:23 vk>
+# Time-stamp: <2013-08-26 18:57:40 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -36,108 +36,6 @@ EPILOG = u"\n\
 :version: " + PROG_VERSION_NUMBER + " from " + PROG_VERSION_DATE + "\n"
 
 
-## file names containing tags matches following regular expression
-## FIXXME or delete
-MENTIONS_REGEX = re.compile(r'', re.M)
-
-## regular expression of FIXXME
-## FIXXME or delete!
-## examples: FIXXME
-TIME_REGEX = re.compile('^(\w+) (\w+) (\d+) (\d\d):(\d\d):(\d\d) \+\d+ (\d\d\d\d)$')
-
-## dictionary of months
-MONTHS = {'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04', 'May': '05',
-          'Jun': '06', 'Jul': '07', 'Aug': '08', 'Sep': '09',
-          'Oct': '10', 'Nov': '11', 'Dec': '12'}
-
-parser = argparse.ArgumentParser(prog=sys.argv[0],
-                                 formatter_class=argparse.RawDescriptionHelpFormatter,  ## keep line breaks in EPILOG and such
-                                 epilog=EPILOG,
-                                 description=u"An Org-mode to HTML-blog system for very lazy people.")
-
-parser.add_argument("--orgfiles", dest="orgfiles", nargs='+', metavar='ORGFILE', required=True,
-                  help="one or more Org-mode files which contains all blog articles (and possible other stuff)")
-
-parser.add_argument("--targetdir", dest="targetdir", metavar='DIRECTORY', required=True,
-                  help="path where the HTML files will be written to")
-
-parser.add_argument("--metadata", dest="metadatafilename", metavar='FILE', required=True,
-                  help="path to a file where persistent meta-data of the blog entries " +
-                    "is written to. Next run, it will be read and used for comparison to current situation.")
-
-parser.add_argument("--template", dest="templatefilename", metavar='ORGMODEFILE', required=True,
-                  help="path to an Org-mode file containing the output template definitions. " +
-                    "Please see example file which is part of the original repository.")
-
-parser.add_argument("--logfile", dest="logfilename", metavar='FILE', required=True,
-                  help="path to a file where warnings (inactive time-stamps) and errors " +
-                    "(active time-stamps) are being appended in Org-mode format. " +
-                    "It is recommended, that you add this file to your agenda list.")
-
-parser.add_argument("-v", "--verbose", dest="verbose", action="store_true",
-                  help="enable verbose mode which is quite chatty")
-
-parser.add_argument("-q", "--quiet", dest="quiet", action="store_true",
-                  help="enable quiet mode")
-
-parser.add_argument("--version", dest="version", action="store_true",
-                  help="display version and exit")
-
-options = parser.parse_args()
-
-logging = Utils.initialize_logging("lazyblorg", options.verbose, options.quiet)
-
-
-def check_parameters(options):
-
-    ##if not options.logfilename:
-    ##    logging.critical("Please give me a file to write to with option \"--logfile\".")
-    ##    Utils.error_exit(5)
-
-    if not os.path.isfile(options.logfilename):
-        logging.debug("log file \"" + options.logfilename + "\" is not found. Initializing with heading ...")
-
-    with open(options.logfilename, 'a') as outputhandle:
-        outputhandle.write(u"## -*- coding: utf-8 -*-\n" +
-                           "## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/\n" +
-                           "* Warnings and Error messages from lazyblorg     :lazyblorg:log:\n\n" +
-                           "Messages gets appended to this file. Please remove fixed issues manually.\n")
-        outputhandle.flush()
-
-    if options.verbose and options.quiet:
-        logging.error("Options \"--verbose\" and \"--quiet\" found. " +
-                      "This does not make any sense, you silly fool :-)")
-        Utils.error_exit(1)
-
-    ##if not options.targetdir:
-    ##    logging.critical("Please give me a folder to write to with option \"--targetdir\".")
-    ##    Utils.error_exit(2)
-
-    if not os.path.isdir(options.targetdir):
-        logging.critical("Target directory \"" + options.targetdir + "\" is not a directory. Aborting.")
-        Utils.error_exit(3)
-
-    ##if not options.metadatafilename:
-    ##    logging.critical("Please give me a file to write to with option \"--metadata\".")
-    ##    Utils.error_exit(4)
-
-    if not os.path.isfile(options.templatefilename):
-        logging.warn("Blog data file \"" + options.templatefilename + "\" is not found. Assuming first run!")
-
-    ##if not options.templatefilename:
-    ##    logging.critical("Please give me a file which holds the template definitions with option \"--template\".")
-    ##    Utils.error_exit(7)
-
-    if not os.path.isfile(options.metadatafilename):
-        logging.warn("Blog data file \"" + options.metadatafilename + "\" is not found. Assuming first run!")
-
-    logging.debug("extracting list of Org-mode files ...")
-    logging.debug("len(orgfiles) [%s]" % str(len(options.orgfiles)))
-    if len(options.orgfiles) < 1:
-        logging.critical("Please add at least one Org-mode file name as argument")
-        Utils.error_exit(6)
-
-
 class Lazyblorg(object):
     """
     Central lazyblorg Class with main algorithm and methods
@@ -170,8 +68,10 @@ class Lazyblorg(object):
 
         """
 
+        options = self.options
+
         logging.debug("iterate over files ...")
-        for filename in self.options.orgfiles:
+        for filename in options.orgfiles:
             try:
                 file_blog_data = self.parse_file(filename)  ## parsing one Org-mode file
             except OrgParserException as message:
@@ -416,7 +316,46 @@ class Lazyblorg(object):
 
 
 if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser(prog=sys.argv[0],
+                                     formatter_class=argparse.RawDescriptionHelpFormatter,  ## keep line breaks in EPILOG and such
+                                     epilog=EPILOG,
+                                     description=u"An Org-mode to HTML-blog system for very lazy people.")
+    
+    parser.add_argument("--orgfiles", dest="orgfiles", nargs='+', metavar='ORGFILE', required=True,
+                      help="one or more Org-mode files which contains all blog articles (and possible other stuff)")
+    
+    parser.add_argument("--targetdir", dest="targetdir", metavar='DIRECTORY', required=True,
+                      help="path where the HTML files will be written to")
+    
+    parser.add_argument("--metadata", dest="metadatafilename", metavar='FILE', required=True,
+                      help="path to a file where persistent meta-data of the blog entries " +
+                        "is written to. Next run, it will be read and used for comparison to current situation.")
+    
+    parser.add_argument("--template", dest="templatefilename", metavar='ORGMODEFILE', required=True,
+                      help="path to an Org-mode file containing the output template definitions. " +
+                        "Please see example file which is part of the original repository.")
+    
+    parser.add_argument("--logfile", dest="logfilename", metavar='FILE', required=True,
+                      help="path to a file where warnings (inactive time-stamps) and errors " +
+                        "(active time-stamps) are being appended in Org-mode format. " +
+                        "It is recommended, that you add this file to your agenda list.")
+    
+    parser.add_argument("-v", "--verbose", dest="verbose", action="store_true",
+                      help="enable verbose mode which is quite chatty")
+    
+    parser.add_argument("-q", "--quiet", dest="quiet", action="store_true",
+                      help="enable quiet mode")
+    
+    parser.add_argument("--version", dest="version", action="store_true",
+                      help="display version and exit")
+    
+    options = parser.parse_args()
+    
+    logging = Utils.initialize_logging("lazyblorg", options.verbose, options.quiet)
+
     try:
+
         if options.version:
             print os.path.basename(sys.argv[0]) + " version " + PROG_VERSION_NUMBER + \
                 " from " + PROG_VERSION_DATE
@@ -424,8 +363,53 @@ if __name__ == "__main__":
 
         ## checking parameters ...
 
-        check_parameters(options)
-
+        ##if not options.logfilename:
+        ##    logging.critical("Please give me a file to write to with option \"--logfile\".")
+        ##    Utils.error_exit(5)
+    
+        if not os.path.isfile(options.logfilename):
+            logging.debug("log file \"" + options.logfilename + "\" is not found. Initializing with heading ...")
+    
+        with open(options.logfilename, 'a') as outputhandle:
+            outputhandle.write(u"## -*- coding: utf-8 -*-\n" +
+                               "## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/\n" +
+                               "* Warnings and Error messages from lazyblorg     :lazyblorg:log:\n\n" +
+                               "Messages gets appended to this file. Please remove fixed issues manually.\n")
+            outputhandle.flush()
+    
+        if options.verbose and options.quiet:
+            logging.error("Options \"--verbose\" and \"--quiet\" found. " +
+                          "This does not make any sense, you silly fool :-)")
+            Utils.error_exit(1)
+    
+        ##if not options.targetdir:
+        ##    logging.critical("Please give me a folder to write to with option \"--targetdir\".")
+        ##    Utils.error_exit(2)
+    
+        if not os.path.isdir(options.targetdir):
+            logging.critical("Target directory \"" + options.targetdir + "\" is not a directory. Aborting.")
+            Utils.error_exit(3)
+    
+        ##if not options.metadatafilename:
+        ##    logging.critical("Please give me a file to write to with option \"--metadata\".")
+        ##    Utils.error_exit(4)
+    
+        if not os.path.isfile(options.templatefilename):
+            logging.warn("Blog data file \"" + options.templatefilename + "\" is not found. Assuming first run!")
+    
+        ##if not options.templatefilename:
+        ##    logging.critical("Please give me a file which holds the template definitions with option \"--template\".")
+        ##    Utils.error_exit(7)
+    
+        if not os.path.isfile(options.metadatafilename):
+            logging.warn("Blog data file \"" + options.metadatafilename + "\" is not found. Assuming first run!")
+    
+        logging.debug("extracting list of Org-mode files ...")
+        logging.debug("len(orgfiles) [%s]" % str(len(options.orgfiles)))
+        if len(options.orgfiles) < 1:
+            logging.critical("Please add at least one Org-mode file name as argument")
+            Utils.error_exit(6)
+    
         ## print file names if less than 10:
         if len(options.orgfiles) < 10:
             logging.debug("%s filenames found: [%s]" % (str(len(options.orgfiles)), '], ['.join(options.orgfiles)))
