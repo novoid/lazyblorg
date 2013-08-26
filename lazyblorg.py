@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-26 18:57:40 vk>
+# Time-stamp: <2013-08-26 19:53:42 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -53,7 +53,6 @@ class Lazyblorg(object):
     blog_data = []
     metadata = []  ## meta-data of the current run of lazyblorg
     previous_metadata = None  ## meta-data of the previous run of lazyblorg
-    template_data = None
     template_definitions = None
 
     def __init__(self, options, logging):
@@ -61,11 +60,14 @@ class Lazyblorg(object):
         self.options = options
         self.logging = logging
 
-    def run(self):
+    def run_parsing(self):
         """
 
         Central control instance of lazyblorg. This is where it all runs together :-)
 
+        @param return: generate: list of IDs of articles in blog_data/metadata that should be build
+        @param return: marked_for_RSS: list of IDs of articles in blog_data/metadata that are modified/new
+        @param return: increment_version: list of IDs of articles in blog_data/metadata that got a new version
         """
 
         options = self.options
@@ -95,9 +97,9 @@ class Lazyblorg(object):
         with open(options.metadatafilename + '_temp', 'wb') as output:
             pickle.dump(self.metadata, output, self.PICKLE_FORMAT)
 
-        self.template_data = self.parse_HTML_output_template(options.templatefilename)
+        template_data = self.parse_HTML_output_template(options.templatefilename)
 
-        self.template_definitions = self.generate_template_definitions_from_template_data(self.template_data)
+        self.template_definitions = self.generate_template_definitions_from_template_data(template_data)
 
         ## load old metadata from file
         if os.path.isfile(options.metadatafilename):
@@ -107,6 +109,19 @@ class Lazyblorg(object):
 
         ## FIXXME: run comparing algorithm (last metadata, current metadata)
         generate, marked_for_RSS, increment_version = self.compare_blog_metadata()
+
+        return generate, marked_for_RSS, increment_version
+
+    def generate_output(self, generate, marked_for_RSS, increment_version):
+        """
+
+        FIXXME
+
+        @param generate: list of IDs of articles in blog_data/metadata that should be build
+        @param marked_for_RSS: list of IDs of articles in blog_data/metadata that are modified/new
+        @param increment_version: list of IDs of articles in blog_data/metadata that got a new version
+        @param return: 
+        """
 
         ## FIXXME: generate pages
         ## (metadata, blog_data, template_definitions, options.tagetdir)
@@ -418,7 +433,8 @@ if __name__ == "__main__":
 
         ## main algorithm:
         lazyblorg = Lazyblorg(options, logging)
-        lazyblorg.run()
+        generate, marked_for_RSS, increment_version = lazyblorg.run_parsing()
+        lazyblorg.generate_output(generate, marked_for_RSS, increment_version)
 
         logging.debug("-------------> cleaning up the stage ...")
 
