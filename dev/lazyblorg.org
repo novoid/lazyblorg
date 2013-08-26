@@ -1,4 +1,4 @@
-# Time-stamp: <2013-08-22 23:38:43 vk>
+# Time-stamp: <2013-08-26 20:02:20 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -377,10 +377,39 @@ vk@gary ~/src/lazyblorg (git)-[master] %
   - [ ] with daily repeat -> so it gets noticed on the following day(s) too
   - [ ] in the description of that entry:
     - BONUS: babel-sh-snippet with prepared command to re-try the run :-)
-** NEXT [#A] test compare_blog_metadata()                            :tests:
+** STARTED [#A] test compare_blog_metadata()                         :tests:
 :PROPERTIES:
 :CREATED:  [2013-08-22 Thu 23:38]
 :END:
+
+- [X] test-Org-mode
+  - all eight cases:
+    1. new ID found -> generate, mark_for_RSS
+    2. no ID found -> is not possible here any more since metadata
+      (dict) contains only entries with IDs -> should be done in parser:
+      WARN, ignore
+    3. CREATED not found -> WARN, ignore
+    4. CREATED found but differs from previous run (should not change)
+       -> WARN, ignore
+    5. known and matching previous run: ID, CREATED, checksum;
+       differs: timestamp
+       -> generate
+    6. known and matching previous run: ID, CREATED, checksum, timestamp
+       -> generate
+    7. known and matching: ID, CREATED, last timestamp; differs:
+       checksum -> silent update -> generate
+    8. known and matching: ID, CREATED; differs: checksum, last
+      timestamp -> normal update -> generate, mark_for_RSS,
+      increment_version
+  - how to create test.org
+    - cases that need first run: 4, 5, 6, 7, 8
+    - cases introduced in second run: 1, 2, 3,
+    - cases that need modification from first to second: 4, 5, 7, 8
+- [X] write test class: lazyblorg.py
+- [ ] test-previous_metadata file
+- [ ] test-metadata file
+- [ ] expected result
+
 ** NEXT create a new module lib/htmlizer.py                   :architecture:
 :PROPERTIES:
 :CREATED:  [2013-08-22 Thu 21:15]
@@ -792,7 +821,7 @@ run" to "delete and re-generate only necessary entries/pages"
 
 - [ ] adopt docstring of compare_blog_metadata()
 
-** SOMEDAY [#C] in order not to parse *whole* content, split up parsing
+** SOMEDAY [#C] in order not to parse *whole* content, split up parsing :architecture:
 :LOGBOOK:
 - State "SOMEDAY"    from ""           [2013-08-21 Wed 11:58]
 :END:
@@ -810,6 +839,16 @@ For optimizing performance and RAM usage: use *two parsing processes*:
 
   2. parse everything again and store only new or updated article contents
      - match with ID-links
+** SOMEDAY [#C] do not parse HTML template file if unchanged  :architecture:
+:LOGBOOK:
+- State "SOMEDAY"    from ""           [2013-08-26 Mon 19:41]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-08-26 Mon 19:41]
+:END:
+
+- not much of a performance difference
+- only a nice-to-have
 
 * Notes                                                               :notes:
 
