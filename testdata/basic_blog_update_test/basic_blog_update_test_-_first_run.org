@@ -1,0 +1,124 @@
+# -*- coding: utf-8 -*-
+
+* Test Cases
+
+** Case2: no ID found                                                 :blog:
+:PROPERTIES:
+:CREATED:  [2013-08-24 Sat 22:41]
+:noID: case2
+:END:
+
+no ID found -> is not possible here any more since metadata
+      (dict) contains only entries with IDs -> should be done in parser:
+      WARN, ignore
+
+** Case3: CREATED not found                                           :blog:
+:PROPERTIES:
+:CREATED:  [2013-08-24 Sat 22:41]
+:ID: case3
+:END:
+
+CREATED not found -> WARN, ignore
+
+** DONE Case4: CREATED found but differs from previous run            :blog:
+CLOSED: [2013-08-24 Sat 22:49]
+:LOGBOOK:
+- State "DONE"       from ""           [2013-08-24 Sat 22:49]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-08-24 Sat 22:42]
+:ID: case4
+:END:
+
+CREATED found but differs from previous run (should not change)
+-> WARN, ignore
+
+** DONE Case5: not changed since 1st generation                       :blog:
+CLOSED: [2013-08-24 Sat 22:49]
+:LOGBOOK:
+- State "DONE"       from ""           [2013-08-24 Sat 22:49]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-08-24 Sat 22:42]
+:ID: case5
+:END:
+
+known and matching previous run: ID, CREATED, checksum;
+       differs: timestamp
+       -> generate
+
+** DONE Case6: not changed since last update                          :blog:
+CLOSED: [2013-08-24 Sat 22:49]
+:LOGBOOK:
+- State "DONE"       from ""           [2013-08-24 Sat 22:49]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-08-24 Sat 22:43]
+:ID: case6
+:END:
+
+known and matching previous run: ID, CREATED, checksum, timestamp
+-> generate
+
+** DONE Case7: Silent update                                          :blog:
+CLOSED: [2013-08-24 Sat 22:49]
+:LOGBOOK:
+- State "DONE"       from ""           [2013-08-24 Sat 22:49]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-08-24 Sat 22:43]
+:ID: case7
+:END:
+
+known and matching: ID, CREATED, last timestamp; differs:
+       checksum -> silent update -> generate
+
+** DONE Case8: normal update                                          :blog:
+CLOSED: [2013-08-24 Sat 22:49]
+:LOGBOOK:
+- State "DONE"       from ""           [2013-08-24 Sat 22:49]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-08-24 Sat 22:44]
+:ID: case8
+:END:
+
+known and matching: ID, CREATED; differs: checksum, last
+      timestamp -> normal update -> generate, mark_for_RSS,
+      increment_version
+
+** DONE no blog tag
+CLOSED: [2013-08-24 Sat 22:50]
+:LOGBOOK:
+- State "DONE"       from ""           [2013-08-24 Sat 22:50]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-08-24 Sat 22:50]
+:ID: no-blog-tag
+:END:
+
+This lacks the blog tag
+
+** No DONE state                                                      :blog:
+:PROPERTIES:
+:CREATED:  [2013-08-24 Sat 22:50]
+:ID: no-done-state
+:END:
+:LOGBOOK:
+- State "DONE"       from ""           [2013-08-24 Sat 22:50]
+:END:
+
+This does not have a DONE state.
+
+** DONE No logbook drawer                                             :blog:
+CLOSED: [2013-08-24 Sat 22:51]
+:PROPERTIES:
+:CREATED:  [2013-08-24 Sat 22:51]
+:END:
+
+this entry has no logbook drawer.
+
+* End of Org-mode file
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 11:00]
+:END:
