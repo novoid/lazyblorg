@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-27 12:05:09 vk>
+# Time-stamp: <2013-08-27 20:08:16 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -59,6 +59,12 @@ class Lazyblorg(object):
 
         self.options = options
         self.logging = logging
+
+        self.list_of_orgfiles = []
+        self.blog_data = []
+        self.metadata = []  ## meta-data of the current run of lazyblorg
+        self.previous_metadata = None  ## meta-data of the previous run of lazyblorg
+        self.template_definitions = None
 
     def determine_changes(self):
         """
@@ -283,8 +289,6 @@ class Lazyblorg(object):
                 else:
                     self.logging.debug("no previous metadata found for this entry")
 
-            #pdb.set_trace()## FIXXME
-
             if previous_metadata is None:
                 self.logging.debug("case 2: brand-new entry (first run of lazyblorg)")
                 generate.append(entry)
@@ -300,7 +304,7 @@ class Lazyblorg(object):
             elif 'created' not in metadata[entry].keys():
                 self.logging.debug("case 3: \"created\" missing -> WARN, ignore")
                 message = "entry [" + entry + "] is missing its CREATED property. Will be ignored, until you fix it."
-                Utils.append_logfile_entry(options.logfilename, 'warn', message)
+                Utils.append_logfile_entry(self.options.logfilename, 'warn', message)
                 self.logging.warn(message)
                 continue
 
@@ -308,7 +312,7 @@ class Lazyblorg(object):
                 self.logging.debug("case 4: \"created\" differs -> WARN, ignore")
                 message = "CREATED property of entry [" + entry + "] has changed which should never happen. " + \
                     "Entry will be ignored this run. Will be created next run if CREATED will not change any more."
-                Utils.append_logfile_entry(options.logfilename, 'warn', message)
+                Utils.append_logfile_entry(self.options.logfilename, 'warn', message)
                 self.logging.warn(message)
                 continue
 
@@ -339,7 +343,7 @@ class Lazyblorg(object):
                 message = "compare_blog_metadata() is confused with entry [" + entry + "] which " + \
                     "reached an undefined situation when comparing meta-data. You can re-run. " + \
                     "If this warning re-appears, please use \"--verbose\" and check entry."
-                Utils.append_logfile_entry(options.logfilename, 'warn', message)
+                Utils.append_logfile_entry(self.options.logfilename, 'warn', message)
                 self.logging.warn(message)
 
         return generate, marked_for_RSS, increment_version
