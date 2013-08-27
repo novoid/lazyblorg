@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-26 19:53:42 vk>
+# Time-stamp: <2013-08-27 12:05:09 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -60,10 +60,11 @@ class Lazyblorg(object):
         self.options = options
         self.logging = logging
 
-    def run_parsing(self):
+    def determine_changes(self):
         """
 
-        Central control instance of lazyblorg. This is where it all runs together :-)
+        Parses input Org-mode files, reads in previous meta-data file,
+        and determines which articles changed in which way.
 
         @param return: generate: list of IDs of articles in blog_data/metadata that should be build
         @param return: marked_for_RSS: list of IDs of articles in blog_data/metadata that are modified/new
@@ -75,7 +76,7 @@ class Lazyblorg(object):
         logging.debug("iterate over files ...")
         for filename in options.orgfiles:
             try:
-                file_blog_data = self.parse_file(filename)  ## parsing one Org-mode file
+                file_blog_data = self._parse_orgmode_file(filename)  ## parsing one Org-mode file
             except OrgParserException as message:
                 verbose_message = "Parsing error in file \"" + filename + \
                     "\" which is not good. Therefore, I stop here and hope you " + \
@@ -97,20 +98,34 @@ class Lazyblorg(object):
         with open(options.metadatafilename + '_temp', 'wb') as output:
             pickle.dump(self.metadata, output, self.PICKLE_FORMAT)
 
-        template_data = self.parse_HTML_output_template(options.templatefilename)
-
-        self.template_definitions = self.generate_template_definitions_from_template_data(template_data)
-
         ## load old metadata from file
         if os.path.isfile(options.metadatafilename):
             logging.debug("reading old \"" + options.metadatafilename + "\" ...")
             with open(options.metadatafilename, 'rb') as input:
                 self.previous_metadata = pickle.load(input)
 
-        ## FIXXME: run comparing algorithm (last metadata, current metadata)
-        generate, marked_for_RSS, increment_version = self.compare_blog_metadata()
+        ## run comparing algorithm (last metadata, current metadata)
+        generate, marked_for_RSS, increment_version = self._compare_blogdata_to_metadata()
 
         return generate, marked_for_RSS, increment_version
+
+
+    def parse_HTML_output_template_and_generate_template_definitions(self):
+        """
+
+        Parse the template Org-mode file which contains the HTML
+        definitions and store it into class variable
+        template_definitions.
+
+        @param return: True if success
+        """
+
+        template_data = self._parse_HTML_output_template(self.options.templatefilename)
+
+        self.template_definitions = self._generate_template_definitions_from_template_data(template_data)
+
+        return True
+
 
     def generate_output(self, generate, marked_for_RSS, increment_version):
         """
@@ -128,7 +143,7 @@ class Lazyblorg(object):
 
         ## FIXXME: generate new RSS feed
 
-    def parse_file(self, filename):
+    def _parse_orgmode_file(self, filename):
         """
         This function handles the communication with the parser object and returns the blog data.
 
@@ -147,7 +162,7 @@ class Lazyblorg(object):
 
         return parser.parse_orgmode_file()
 
-    def parse_HTML_output_template(self, filename):
+    def _parse_HTML_output_template(self, filename):
         """
         This function parses an Org-mode file which holds the definitions of the output format.
 
@@ -159,7 +174,7 @@ class Lazyblorg(object):
 
         return template_parser.parse_orgmode_file()
 
-    def generate_template_definitions_from_template_data(self, template_data):
+    def _generate_template_definitions_from_template_data(self, template_data):
         """
         This function checks for (only) basic format definitions and exits
         if something important is missing.
@@ -200,7 +215,7 @@ class Lazyblorg(object):
 
         return html_definitions
 
-    def compare_blog_metadata(self):
+    def _compare_blogdata_to_metadata(self):
         """
         In this function, the previous status (previous_metadata) is
         compared to the status from the current parsing result
@@ -433,7 +448,8 @@ if __name__ == "__main__":
 
         ## main algorithm:
         lazyblorg = Lazyblorg(options, logging)
-        generate, marked_for_RSS, increment_version = lazyblorg.run_parsing()
+        lazyblorg.parse_HTML_output_template_and_generate_template_definitions()
+        generate, marked_for_RSS, increment_version = lazyblorg.determine_changes()
         lazyblorg.generate_output(generate, marked_for_RSS, increment_version)
 
         logging.debug("-------------> cleaning up the stage ...")

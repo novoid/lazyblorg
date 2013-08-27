@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-26 19:59:42 vk>
+# Time-stamp: <2013-08-27 12:00:33 vk>
 
 import argparse  ## command line arguments
 import unittest
@@ -32,7 +32,13 @@ class TestLazyblorg(unittest.TestCase):
         pass
 
 
-    def test_run_parsing(self):
+    def test_parse_HTML_output_template_and_generate_template_definitions(self):
+
+        ## FIXXME: implement!
+        pass
+
+
+    def test_determine_changes(self):
 
         ## manually written Org-mode file; has to be placed in "../testdata/basic_blog_update_test/"
         org_testfile_firstrun = "../testdata/basic_blog_update_test/basic_blog_update_test_-_first_run.org"
@@ -70,7 +76,7 @@ class TestLazyblorg(unittest.TestCase):
 
         lazyblorg = Lazyblorg(options, self.logging)
 
-        generate, marked_for_RSS, increment_version = lazyblorg.run_parsing()
+        generate, marked_for_RSS, increment_version = lazyblorg.determine_changes()
 
         generate_sorted = sorted(generate)
         marked_for_RSS_sorted = sorted(marked_for_RSS)
