@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-27 20:36:59 vk>
+# Time-stamp: <2013-08-27 21:07:11 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -18,6 +18,7 @@ import sys
 import argparse  ## command line arguments
 from lib.utils import *
 from lib.orgparser import *
+from lib.htmlizer import *
 import pickle  ## for serializing and storing objects into files
 
 ## debugging:   for setting a breakpoint:
@@ -53,7 +54,7 @@ class Lazyblorg(object):
     blog_data = []
     metadata = []  ## meta-data of the current run of lazyblorg
     previous_metadata = None  ## meta-data of the previous run of lazyblorg
-    template_definitions = None
+    template_definitions = None ## 
 
     def __init__(self, options, logging):
 
@@ -143,6 +144,8 @@ class Lazyblorg(object):
         @param increment_version: list of IDs of articles in blog_data/metadata that got a new version
         @param return:
         """
+
+        htmlizer = Htmlizer(self.template_definitions, self.blog_data, generate, increment_version)
 
         ## FIXXME: generate pages
         ## (metadata, blog_data, template_definitions, options.tagetdir)
@@ -458,6 +461,7 @@ if __name__ == "__main__":
 
         ## main algorithm:
         lazyblorg = Lazyblorg(options, logging)
+        ## FIXXME: encapsulate following lines in lazyblorg.run() ?
         lazyblorg.parse_HTML_output_template_and_generate_template_definitions()
         generate, marked_for_RSS, increment_version = lazyblorg.determine_changes()
         lazyblorg.generate_output(generate, marked_for_RSS, increment_version)
