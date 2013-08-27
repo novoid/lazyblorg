@@ -706,7 +706,7 @@ converted = hashlib.sha1("My text").hexdigest()
 
 - checksum over:
   - data['title']
-  - data['timestamp']
+  - data['timestamp'] ?
   - data['tags']
   - data['content']
 
