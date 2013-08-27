@@ -5,7 +5,6 @@
 *.swp
 *.pyc
 .ropeproject
-start.sh
 2del-*
 dev/2del/
 testdata/2del/*
