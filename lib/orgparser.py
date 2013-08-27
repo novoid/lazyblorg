@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-26 19:37:11 vk>
+# Time-stamp: <2013-08-27 12:30:38 vk>
 
 import re
 import os
@@ -112,7 +112,11 @@ class OrgParser(object):
             errors += 1
 
         if not 'timestamp' in self.__entry_data.keys():
-            self.logging.error("Heading does not contain a timestamp")
+            self.logging.error("Heading does not contain a most recent timestamp")
+            errors += 1
+
+        if not 'created' in self.__entry_data.keys():
+            self.logging.error("Heading does not contain a timestamp for created")
             errors += 1
 
         if 'content' in self.__entry_data.keys():

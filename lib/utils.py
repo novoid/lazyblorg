@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-23 13:30:26 vk>
+# Time-stamp: <2013-08-27 12:32:07 vk>
 
 import sys
 import logging
@@ -157,6 +157,8 @@ class Utils(object):
                               str(entry['id']) + "\". Please correct it and re-run this tool.")
                 Utils.error_exit(30)
             else:
+                assert('created' in entry.keys())
+                assert('timestamp' in entry.keys())
                 metadata[entry['id']] = {'created': entry['created'],
                                          'timestamp': entry['timestamp'],
                                          'checksum': checksum}
