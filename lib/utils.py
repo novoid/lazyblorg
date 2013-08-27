@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-27 19:56:10 vk>
+# Time-stamp: <2013-08-27 19:57:33 vk>
 
 import sys
 import logging
@@ -149,7 +149,6 @@ class Utils(object):
 
             checksum = Utils.__generate_checksum_for_blog_entry(entry['title'],
                                                                 entry['tags'],
-                                                                entry['finished-timestamp-history'],
                                                                 entry['content'])
 
             if entry['id'] in metadata.keys():
