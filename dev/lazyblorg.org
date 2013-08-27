@@ -1,4 +1,4 @@
-# Time-stamp: <2013-08-26 20:02:20 vk>
+# Time-stamp: <2013-08-27 20:07:23 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -372,11 +372,13 @@ vk@gary ~/src/lazyblorg (git)-[master] %
   - [ ] optionally: generate calendar archive page(s)
   - [ ] optionally: generate tag overview page(s)
 
-- [ ] on any error:
-  - [ ] create an orgmode event from current time that appears on agenda
-  - [ ] with daily repeat -> so it gets noticed on the following day(s) too
+- [-] on any error:
+  - [X] create an orgmode event from current time that appears on agenda
+  - [X] with daily repeat -> so it gets noticed on the following day(s) too
   - [ ] in the description of that entry:
-    - BONUS: babel-sh-snippet with prepared command to re-try the run :-)
+    - BONUS: babel-sh-snippet with prepared command to re-try the
+      run :-)
+
 ** STARTED [#A] test compare_blog_metadata()                         :tests:
 :PROPERTIES:
 :CREATED:  [2013-08-22 Thu 23:38]
@@ -406,8 +408,8 @@ vk@gary ~/src/lazyblorg (git)-[master] %
     - cases introduced in second run: 1, 2, 3,
     - cases that need modification from first to second: 4, 5, 7, 8
 - [X] write test class: lazyblorg.py
-- [ ] test-previous_metadata file
-- [ ] test-metadata file
+- [X] test-previous_metadata file
+- [X] test-metadata file
 - [ ] expected result
 
 ** NEXT create a new module lib/htmlizer.py                   :architecture:
