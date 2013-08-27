@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-27 12:32:07 vk>
+# Time-stamp: <2013-08-27 19:56:10 vk>
 
 import sys
 import logging
@@ -7,6 +7,7 @@ from hashlib import md5  ## generating checksums
 import time  ## for generating Org-mode timestamps
 from orgformat import *
 import pdb
+        #pdb.set_trace()## FIXXME
 
 
 class Utils(object):
@@ -113,7 +114,7 @@ class Utils(object):
                                "\n")
 
     @staticmethod
-    def __generate_checksum_for_blog_entry(title, tags, finished_timestamp_history, content):
+    def __generate_checksum_for_blog_entry(title, tags, content):
         """
 
         Creates a hash value which should be unique to the most
@@ -121,12 +122,11 @@ class Utils(object):
 
         @param title: string of the blog entry title
         @param tags: list of the blog entry tags as strings
-        @param finished_timestamp_history: list of datestamps containing times of changing status to finished state
         @param content: array of arrays containing the content of the blog entry
         @param return: hexadecimal value of the hash
         """
 
-        return md5(str([title, tags, finished_timestamp_history, content])).hexdigest()
+        return md5(str([title, tags, content])).hexdigest()
 
     @staticmethod
     def generate_metadata_from_blogdata(blogdata):
@@ -155,6 +155,7 @@ class Utils(object):
             if entry['id'] in metadata.keys():
                 logging.error("We got a duplicate ID in blogdata: \"" +
                               str(entry['id']) + "\". Please correct it and re-run this tool.")
+                #pdb.set_trace()## FIXXME
                 Utils.error_exit(30)
             else:
                 assert('created' in entry.keys())
