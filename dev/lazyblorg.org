@@ -1,4 +1,4 @@
-# Time-stamp: <2013-08-29 11:12:57 vk>
+# Time-stamp: <2013-08-29 16:29:02 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -399,6 +399,10 @@ A sub-heading «Org» contains the Org-mode document/snippet which gets
 parsed.
 
 A sub-heading «result» contains the results which is expected.
+** NEXT catch all exceptions and create a log entry           :architecture:
+:PROPERTIES:
+:CREATED:  [2013-08-29 Thu 16:28]
+:END:
 ** TODO Idea: do paragraph parsing                            :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-27 Wed 16:48]
@@ -673,6 +677,17 @@ page. Further headings contain more content for other pages.
   - www.example.com/i/aB3 ->
 - generate short URL as hash from ID?
   - is it possible without getting a high chance of conflicts?
+
+- [2013-08-29 Thu]: idea: www.example.com/s(.html)#ID
+  - one (long) HTML page with links to all pages
+    - large space between entries such that entries can not be mixed
+      up (showing multiple entries the same time)
+    - disadvantage: user has to click on the URL of the article
+  - working: /index.shtml#realcontent
+    - www.example.com/s.html#ID
+  - working: /#realcontent
+    - www.example.com/s/#ID
+    - *shorter!*
 
 ** SOMEDAY blog comments                                          :userstory:
 :LOGBOOK:
