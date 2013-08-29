@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-27 21:07:11 vk>
+# Time-stamp: <2013-08-29 11:12:57 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -28,6 +28,10 @@ import pdb
 PROG_VERSION_NUMBER = u"0.1"
 PROG_VERSION_DATE = u"2013-08-27"
 INVOCATION_TIME = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+
+## the prefix is added to the blog entry path such as: TARGETPATH/BLOG_PREFIX/2013/12/31/blog-id/
+## set either to a string which is a valid folder name or set it to ''
+BLOG_PREFIX = u'blog'
 
 EPILOG = u"\n\
 :copyright: (c) 2013 by Karl Voit <tools@Karl-Voit.at>\n\
@@ -145,7 +149,11 @@ class Lazyblorg(object):
         @param return:
         """
 
-        htmlizer = Htmlizer(self.template_definitions, self.blog_data, generate, increment_version)
+        htmlizer = Htmlizer(self.template_definitions, BLOG_PREFIX, self.options.targetdir, self.blog_data, 
+                            generate, increment_version)
+
+        ## FIXXME: try except HtmlizerException?
+        htmlizer.run()  ## FIXXME: return value?
 
         ## FIXXME: generate pages
         ## (metadata, blog_data, template_definitions, options.tagetdir)
@@ -212,8 +220,9 @@ class Lazyblorg(object):
 
         found_elements = [x[1] for x in html_definitions]
 
-        for element in [u'header', u'footer', u'article-header-begin', u'tags-begin',
-                        u'tag', u'tags-end', u'article-header-end', u'article-end',
+        ## for documentation about the implemented elements: see id:implemented-org-elements in dev/lazyblorg.org
+        for element in [u'article-header', u'article-footer', u'article-header-begin', u'article-tags-begin',
+                        u'article-tag', u'article-tags-end', u'article-header-end', u'article-end',
                         u'section-begin', u'section-end', u'paragraph', u'a-href',
                         u'ul-begin', u'ul-item', u'ul-end', u'pre-begin', u'pre-end']:
             if not element in found_elements:

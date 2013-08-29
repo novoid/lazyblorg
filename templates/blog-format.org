@@ -1,4 +1,4 @@
-## Time-stamp: <2013-08-21 17:57:04 vk>
+## Time-stamp: <2013-08-29 10:21:07 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -45,6 +45,9 @@ In between the format templates, you can write whatever you want
 unless it is no babel block of type ~html~: lazyblorg will ignore
 these in-between notes.
 
+For documentation about the implemented elements: see
+id:implemented-org-elements in [[file:../dev/lazyblorg.org]]
+
 Have fun with modifying lazyblorg to your requirements!
 
 * DONE Templates                                                       :blog:
@@ -62,7 +65,7 @@ Have fun with modifying lazyblorg to your requirements!
 
 - #TITLE#: heading/title of the blog article
 
-#+NAME: header
+#+NAME: article-header
 #+BEGIN_HTML
   <!DOCTYPE html>
   <html xmlns="http://www.w3.org/1999/xhtml">
@@ -82,7 +85,7 @@ Have fun with modifying lazyblorg to your requirements!
 
 - #ABOUT-BLOG#: a line of text which describes the blog in general
 
-#+NAME: footer
+#+NAME: article-footer
 #+BEGIN_HTML
     <footer>
       <p>#ABOUT-BLOG#
@@ -131,7 +134,7 @@ Have fun with modifying lazyblorg to your requirements!
 	  </aside>
 #+END_HTML
 
-#+NAME: tags-begin
+#+NAME: article-tags-begin
 #+BEGIN_HTML
 	  <aside>
 	    <p>
@@ -139,12 +142,12 @@ Have fun with modifying lazyblorg to your requirements!
 
 - #TAGNAME#: string of a tag
 
-#+NAME: tag
+#+NAME: article-tag
 #+BEGIN_HTML
 	      <span class="tag">#TAGNAME#</span>
 #+END_HTML
 
-#+NAME: tags-end
+#+NAME: article-tags-end
 #+BEGIN_HTML
 	    </p>
 	  </aside>
