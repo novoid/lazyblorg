@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-29 18:51:47 vk>
+# Time-stamp: <2013-08-29 20:44:27 vk>
 
 import logging
 import os
@@ -43,7 +43,10 @@ class Htmlizer(object):
     ## this tag (withing tag list of article) determines if an article
     ## is a permanent blog page (tag is found) or a time-oriented
     ## (normal) blog-entry (this tag is missing).
-    PERMANENT_ENTRY_TAG = 'permanent'  
+    PERMANENT_ENTRY_TAG = 'permanent'
+
+    ## this gets added to the time in order to describe time zone of the blog:
+    TIME_ZONE_ADDON = '+02:00'
 
     ## find external links such as [[foo][bar]]:
     EXT_ORG_LINK_REGEX = re.compile('\[\[(.+?)\]\[(.+?)\]\]')
@@ -53,7 +56,9 @@ class Htmlizer(object):
 
     ## find '&amp;' in an active URL and fix it to '&':
     FIX_AMPERSAND_URL_REGEX = re.compile('(href="http(s)?://\S+?)&amp;(\S+?")')
-    
+
+    BLOG_PREFIX = u'blog'  ## FIXXME: this is defined in lazyblorg.py -> so do replace by parameter of this class!
+
     def __init__(self, template_definitions, prefix_dir, targetdir, blog_data, generate, increment_version):
         """
         This function FIXXME
@@ -77,8 +82,8 @@ class Htmlizer(object):
          ## create logger (see http://docs.python.org/2/howto/logging-cookbook.html)
         self.logging = logging.getLogger('lazyblorg.htmlizer')
 
-        self.logging.debug("Htmlizer initiated with %s templ.def., %s blog_data, %s generate, %s increment" % 
-                           (str(len(template_definitions)), str(len(blog_data)), str(len(generate)), 
+        self.logging.debug("Htmlizer initiated with %s templ.def., %s blog_data, %s generate, %s increment" %
+                           (str(len(template_definitions)), str(len(blog_data)), str(len(generate)),
                             str(len(increment_version))))
 
     def run(self):
@@ -89,17 +94,17 @@ class Htmlizer(object):
         @param return: FIXXME
         """
 
-        ## FIXXME: copy CSS file (future enhancement - for now it is manually placed)
+        ## FIXXME: copy CSS file (future enhancement - for now it shall be manually placed)
 
         for entry in self.blog_data:
 
             ## example entry:
-            ## {'level': 2, 
-            ## 'timestamp': datetime.datetime(2013, 2, 14, 19, 2), 
-            ## 'tags': [u'blog', u'mytest', u'programming'], 
-            ## 'created': datetime.datetime(2013, 2, 12, 10, 58), 
-            ## 'finished-timestamp-history': [datetime.datetime(2013, 2, 14, 19, 2)], 
-            ## 'title': u'This is an example blog entry', 
+            ## {'level': 2,
+            ## 'timestamp': datetime.datetime(2013, 2, 14, 19, 2),
+            ## 'tags': [u'blog', u'mytest', u'programming'],
+            ## 'created': datetime.datetime(2013, 2, 12, 10, 58),
+            ## 'finished-timestamp-history': [datetime.datetime(2013, 2, 14, 19, 2)],
+            ## 'title': u'This is an example blog entry',
             ## 'id': u'2013-02-12-lazyblorg-example-entry',
             ## 'content': [['par', u'foo...'], [...]]
             ##  }
@@ -135,7 +140,7 @@ class Htmlizer(object):
 
                 ## join all lines of a paragraph to one single long
                 ## line in order to enable sanitizing URLs and such:
-                content = ' '.join(element[1:])  
+                content = ' '.join(element[1:])
 
                 content = self.sanitize_html_characters(content)
                 content = self.sanitize_external_links(content)
@@ -154,7 +159,7 @@ class Htmlizer(object):
                     content = self.sanitize_external_links(content)
                     content = self.fix_ampersands_in_url(content)
                     element[1][listitem] = content
-            
+
             elif element[0] == 'html-block' or element[0] == 'verse-block':
                 pass
             else:
@@ -198,7 +203,7 @@ class Htmlizer(object):
         """
 
         return content.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
-        
+
     def sanitize_external_links(self, content):
         """
         Replaces all external Org-mode links of type [[foo][bar]] with
@@ -217,7 +222,7 @@ class Htmlizer(object):
 
         urllink_result = re.sub(self.EXT_URL_LINK_REGEX, r'\1<a href="\2">\2</a>', orglink_result)
         #if urllink_result != orglink_result:
-        #    self.logging.debug("sanitize_external_links: changed \"%s\" to \"%s\"" % 
+        #    self.logging.debug("sanitize_external_links: changed \"%s\" to \"%s\"" %
         #                       (orglink_result, urllink_result))
 
         return urllink_result
@@ -231,14 +236,122 @@ class Htmlizer(object):
         @param return: FIXXME
         """
 
-        pdb.set_trace()## FIXXME
         path = self._create_target_path_for_id(entry['id'])
-        ## FIXXME: sanitize strings (URLs, other blog entries (id:) ...)
-        ## FIXXME: replace-loop of all relevant strings and placeholder-strings
-        ## FIXXME: create HTML blog pages
-        ## FIXXME: 
-        ## FIXXME: 
-        ## FIXXME: 
+
+        filename = os.path.join(path, "index.html")
+
+        with open(filename, 'wb') as output:
+
+            ## replace-loop of all relevant strings and placeholder-strings
+            ## article-header       | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
+            ## article-header-begin | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
+            ## article-tags-begin   | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
+            ## article-tag          | TAGNAME                                                    |
+            ## article-tags-end     | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
+            ## article-header-end   | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
+            ## content              | *                                                          |
+            ## article-end          | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
+            ## article-footer       | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
+
+            content = u''
+
+            for articlepart in ['article-header', 'article-header-begin', 'article-tags-begin']:
+                content += self.template_definition_by_name(articlepart)
+            output.write(self._replace_general_article_placeholders(entry, content))
+            
+            #pdb.set_trace()## FIXXME
+            content = self._replace_tag_placeholders(entry['tags'], self.template_definition_by_name('article-tag'))
+            output.write(content)
+
+            content = u''
+            for articlepart in ['article-tags-end', 'article-header-end']:
+                content += self.template_definition_by_name(articlepart)
+            output.write(self._replace_general_article_placeholders(entry, content))
+            
+            #FIXXME: output.write(self._generate_main_content(entry))
+
+            content = u''
+            for articlepart in ['article-end', 'article-footer']:
+                content += self.template_definition_by_name(articlepart)
+            output.write(self._replace_general_article_placeholders(entry, content))
+
+        return
+
+    def _generate_main_content(self, entry):
+        """
+        Uses the blog_data content of entry and returns a string with
+        the htmlized blog article content.
+
+        @param entry: blog data content
+        @param return: string with replaced placeholders of the body of the article
+        """
+        
+        pass ## FIXXME
+
+    def _replace_tag_placeholders(self, tags, template_string):
+        """
+        Takes the list of tags and the template definition for tags
+        and returns their concatenated string.
+
+        The tag "blog" will be suppressed.
+
+        @param tags: list of strings containing all tags of an entry
+        @param template_string: string with placeholders instead of tag
+        @param return: string with replaced placeholders
+        """
+
+        assert(type(tags) == list)
+        assert(template_string)
+
+        result = u''
+
+        for tag in tags:
+            if tag == self.BLOG_PREFIX:
+                continue
+            else:
+                result += template_string.replace('#TAGNAME#', tag)
+
+        return result
+
+    def _replace_general_article_placeholders(self, entry, template):
+        """
+        General article placeholders are:
+        - #TITLE#
+    - #ABOUT-BLOG#
+    - #BLOGNAME#
+        - #ARTICLE-YEAR#: four digit year of the article (folder path)
+        - #ARTICLE-MONTH#: two digit month of the article (folder path) 
+        - #ARTICLE-DAY#: two digit day of the article (folder path)
+        - #ARTICLE-PUBLISHED-HTML-DATETIME#: time-stamp of publishing in HTML
+          date-time format
+        - #ARTICLE-PUBLISHED-HUMAN-READABLE#: time-stamp of publishing in
+
+        This method replaces all placeholders from above with their
+        blog article content.
+
+        @param entry: blog entry data
+        @param template: string with placeholders instead of content data
+        @param return: template with replaced placeholders
+        """
+
+        #pdb.set_trace()## FIXXME
+
+        content = template
+        
+        content = content.replace('#TITLE#', entry['title'])
+        content = content.replace('#ABOUT-BLOG#', 'FIXXME:about-blog')
+        content = content.replace('#BLOGNAME#', 'FIXXME:blogname')
+
+        oldesttimestamp, year, month, day, hours, minutes = self._get_oldest_timestamp_for_entry(entry)
+        iso_timestamp = '-'.join([year, month, day]) + 'T' + hours + ':' + minutes
+        
+        content = content.replace('#ARTICLE-YEAR#', year)
+        content = content.replace('#ARTICLE-MONTH#', month)
+        content = content.replace('#ARTICLE-DAY#', day)
+        content = content.replace('#ARTICLE-PUBLISHED-HTML-DATETIME#', iso_timestamp + self.TIME_ZONE_ADDON)
+        content = content.replace('#ARTICLE-PUBLISHED-HUMAN-READABLE#', iso_timestamp)
+
+        return content
 
     def _target_path_for_id(self, entryid):
         """
@@ -247,19 +360,13 @@ class Htmlizer(object):
         time-stamp.
 
         @param entryid: ID of a blog entry
-        @param return: 
+        @param return: FIXXME
         """
-        
+
         entry = self.blog_data_with_id(entryid)
 
-        oldesttimestamp = datetime.datetime.now()
-        for timestamp in entry['finished-timestamp-history']:
-            if timestamp < oldesttimestamp:
-                oldesttimestamp = timestamp
+        oldesttimestamp, year, month, day, hours, minutes = self._get_oldest_timestamp_for_entry(entry)
 
-        year = str(oldesttimestamp.year)
-        month = str(oldesttimestamp.month).zfill(2)
-        day = str(oldesttimestamp.day).zfill(2)
         folder = werkzeug.utils.secure_filename(entryid)
 
         if folder[0:11] == year + '-' + month + '-' + day + '-':
@@ -267,6 +374,38 @@ class Htmlizer(object):
             folder = folder[11:]
 
         return os.path.join(self.targetdir, self.prefix_dir, year, month, day, folder)
+
+    def _get_oldest_timestamp_for_entry(self, entry):
+        """
+        Reads data of entry and returns datetime object of the oldest
+        time-stamp of the finished-timestamp-history.
+
+        Example result: datetime.datetime(2013, 8, 29, 19, 40)
+
+        Implicit assumptions:
+        - no blog article is from the future (comparison to now)
+
+        @param entry: data of a blog entry
+        @param return: datetime object of its oldest time-stamp within finished-timestamp-history
+        @param return: year: four digit year as string
+        @param return: month: two digit month as string
+        @param return: day: two digit day as string
+        @param return: hours: two digit hours as string
+        @param return: minutes: two digit minutes as string
+        """
+
+        assert(entry)
+        assert('finished-timestamp-history' in entry.keys())
+
+        oldesttimestamp = datetime.datetime.now()
+        for timestamp in entry['finished-timestamp-history']:
+            if timestamp < oldesttimestamp:
+                oldesttimestamp = timestamp
+
+        return oldesttimestamp, str(oldesttimestamp.year).zfill(2), str(oldesttimestamp.month).zfill(2), \
+            str(oldesttimestamp.day).zfill(2), \
+            str(oldesttimestamp.hour).zfill(2), str(oldesttimestamp.minute).zfill(2)
+
 
     def _create_target_path_for_id(self, entryid):
         """
@@ -295,6 +434,23 @@ class Htmlizer(object):
 
         return idpath
 
+    def template_definition_by_name(self, name):
+        """
+        Returns the template definition whose name matches "name".
+
+        Implicit assumptions:
+        - template_definitions is a list of list of exactly three elements
+        - this does not check if "name" is a valid/existing template definition string
+
+        @param entryid: name of a template definition
+        @param return: content of the template definition
+        """
+
+        ## examples:
+        ## self.template_definitions[0][1] -> u'article-header'
+        ## self.template_definitions[0][2] -> [u'  <!DOCTYPE html>', u'  <html xmlns="http...']
+        #pdb.set_trace()## FIXXME
+        return '\n'.join([x[2:][0] for x in self.template_definitions if x[1] == name][0])
 
     def blog_data_with_id(self, entryid):
         """

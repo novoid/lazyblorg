@@ -1,4 +1,4 @@
-## Time-stamp: <2013-08-29 10:21:07 vk>
+## Time-stamp: <2013-08-29 20:54:53 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -107,9 +107,9 @@ Have fun with modifying lazyblorg to your requirements!
 - #ARTICLE-MONTH#: two digit month of the article (folder path) 
 - #ARTICLE-DAY#: two digit day of the article (folder path)
 - #ARTICLE-PUBLISHED-HTML-DATETIME#: time-stamp of publishing in HTML
-  date-time format
+  date-time format (e.g., 2011-10-30T15:00+02:00)
 - #ARTICLE-PUBLISHED-HUMAN-READABLE#: time-stamp of publishing in
-  human readable format
+  human readable format (e.g., 2011-10-30T15:00)
 
 #+NAME: article-header-begin
 #+BEGIN_HTML
