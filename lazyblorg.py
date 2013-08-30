@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-29 11:12:57 vk>
+# Time-stamp: <2013-08-30 12:42:55 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -223,7 +223,7 @@ class Lazyblorg(object):
         ## for documentation about the implemented elements: see id:implemented-org-elements in dev/lazyblorg.org
         for element in [u'article-header', u'article-footer', u'article-header-begin', u'article-tags-begin',
                         u'article-tag', u'article-tags-end', u'article-header-end', u'article-end',
-                        u'section-begin', u'section-end', u'paragraph', u'a-href',
+                        u'section-begin', u'paragraph', u'a-href',
                         u'ul-begin', u'ul-item', u'ul-end', u'pre-begin', u'pre-end']:
             if not element in found_elements:
                 message = "Sorry, no definition for element \"" + element + "\" could be found within " + \

@@ -1,4 +1,4 @@
-## Time-stamp: <2013-08-29 20:54:53 vk>
+## Time-stamp: <2013-08-30 12:56:12 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -116,7 +116,6 @@ Have fun with modifying lazyblorg to your requirements!
   <body>
     <article>
       
-      <section>
 	<header>
 
 	  <nav>
@@ -169,17 +168,14 @@ Have fun with modifying lazyblorg to your requirements!
 *** Sections
 
 - #SECTION-TITLE#: title of the next heading/section
+- #SECTION-LEVEL#: relative level of the next heading/section
 
 #+NAME: section-begin
 #+BEGIN_HTML
-	<section>    
-	  <header><h1>#SECTION-TITLE#</h1></header>
-	  
-#+END_HTML
 
-#+NAME: section-end
-#+BEGIN_HTML
-	</section>
+
+	  <header><h#SECTION-LEVEL#>#SECTION-TITLE#</h#SECTION-LEVEL#></header>
+	  
 #+END_HTML
 
 *** Paragraph
@@ -230,12 +226,31 @@ Have fun with modifying lazyblorg to your requirements!
 
 #+NAME: pre-begin
 #+BEGIN_HTML
+
 	  <pre>
 #+END_HTML
 
 #+NAME: pre-end
 #+BEGIN_HTML
 	  </pre>
+
+#+END_HTML
+
+*** HTML blocks
+
+- #NAME#: Org-mode name of the block
+
+#+NAME: html-begin
+#+BEGIN_HTML
+<p>
+    #NAME#:<br />
+	  <samp>
+#+END_HTML
+
+#+NAME: html-end
+#+BEGIN_HTML
+	  </samp>
+</p>
 #+END_HTML
 
 

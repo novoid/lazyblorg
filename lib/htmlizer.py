@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-29 20:44:27 vk>
+# Time-stamp: <2013-08-30 12:58:27 vk>
 
 import logging
 import os
@@ -109,7 +109,7 @@ class Htmlizer(object):
             ## 'content': [['par', u'foo...'], [...]]
             ##  }
 
-            entry = self.sanitize_blog_content(entry)
+            entry = self.sanitize_and_htmlize_blog_content(entry)
 
             if self.PERMANENT_ENTRY_TAG in entry['tags']:
                 self.logging.debug("entry \"%s\" is a permanent page (not time-oriented)" % entry['id'])
@@ -119,9 +119,10 @@ class Htmlizer(object):
                 self.logging.debug("entry \"%s\" is an ordinary time-oriented blog entry" % entry['id'])
                 self._create_time_oriented_blog_article(entry)
 
-    def sanitize_blog_content(self, entry):
+    def sanitize_and_htmlize_blog_content(self, entry):
         """
-        Inspects a selection of the entry data and sanitizes it for HTML.
+        Inspects a selection of the entry content data and sanitizes
+        it for HTML. Each element gets converted to HTML as well.
 
         Currently things that get sanitized:
         - [[foo][bar]] -> <a href="foo">bar</a>
@@ -129,43 +130,105 @@ class Htmlizer(object):
         - [[id:foo]] -> see id:foo above
 
         @param entry: blog entry data
-        @param return: partially sanitized entry
+        @param return: partially sanitized and completely htmlized entry['content']
         """
 
-        for element in entry['content']:
+        #pdb.set_trace()## FIXXME    [x[0] for x in entry['content']] -> which element types
 
-            #pdb.set_trace()## FIXXME
+        #for element in entry['content']:
+        for index in range(0,len(entry['content'])):
 
-            if element[0] == 'par':
+            ## initialize result with default error message for unknown entry elements:
+            result = u'<strong>lazyblorg: Sorry, content element "' + str(entry['content'][index][0]) + \
+                '" is not supported by htmlizer.py/sanitize_and_htmlize_blog_content() yet. ' + \
+                'Raw content follows:</strong><br />\n<PRE>' + \
+                repr(entry['content'][index][1:]) + '</PRE><br /><strong>lazyblorg: raw output end.</strong>'
+
+            if entry['content'][index][0] == 'par':
+
+                ## example:
+                ## ['par', u'This is a line', u'second line']
 
                 ## join all lines of a paragraph to one single long
                 ## line in order to enable sanitizing URLs and such:
-                content = ' '.join(element[1:])
+                result = ' '.join(entry['content'][index][1:])
 
-                content = self.sanitize_html_characters(content)
-                content = self.sanitize_external_links(content)
-                content = self.fix_ampersands_in_url(content)
+                result = self.sanitize_html_characters(result)
+                result = self.sanitize_external_links(result)
+                result = self.fix_ampersands_in_url(result)
+                template = self.template_definition_by_name('paragraph')
+                result = template.replace('#PAR-CONTENT#', result)
 
-            elif element[0] == 'heading':
-                title = element[1]['title']
-                title = self.sanitize_html_characters(title)
-                title = self.sanitize_external_links(title)
-                title = self.fix_ampersands_in_url(title)
-                element[1]['title'] = title
+            elif entry['content'][index][0] == 'heading':
 
-            elif element[0] == 'list-itemize':
-                for listitem in element[1]:
+                ## example:
+                ## ['heading', {'title': u'Sub-heading foo', 'level': 3}]
+
+                ## relative level: if entry has Org-mode level 3 and heading has level 5:
+                ## 5-3 = 2 ... relative level
+                ## However, article itself is <h1> so the heading is <h3> (instead of <h2) -> +1
+                relative_level = entry['content'][index][1]['level'] - entry['level'] + 1
+                self.logging.debug('heading [%s] has relative level %s' % \
+                                       (entry['content'][index][1]['title'], str(relative_level)))
+
+                result = entry['content'][index][1]['title']
+                result = self.sanitize_html_characters(result)
+                result = self.sanitize_external_links(result)
+                result = self.fix_ampersands_in_url(result)
+                result = self.template_definition_by_name('section-begin').replace('#SECTION-TITLE#', result)
+                result = result.replace('#SECTION-LEVEL#', str(relative_level))
+                
+            elif entry['content'][index][0] == 'list-itemize':
+
+                ## example:
+                ## FIXXME
+
+                result = self.template_definition_by_name('ul-begin')
+                for listitem in entry['content'][index][1]:
                     content = self.sanitize_html_characters(listitem)
                     content = self.sanitize_external_links(content)
                     content = self.fix_ampersands_in_url(content)
-                    element[1][listitem] = content
+                    content += self.template_definition_by_name('ul-item').replace('#CONTENT#', content)
+                    result += content
+                    
+                result += self.template_definition_by_name('ul-end')
 
-            elif element[0] == 'html-block' or element[0] == 'verse-block':
-                pass
+            elif entry['content'][index][0] == 'html-block':
+
+                ## example: 
+                ## ['html-block', u'my-HTML-example name', [u'    foo', u'bar', u'  <foo />', u'<a href="bar">baz</a>']]
+
+                if entry['content'][index][1] == None:
+                    ## if html-block has no name -> insert as raw HTML
+                    result = '\n'.join(entry['content'][index][2])
+                else:
+                    ## if html-block has a name -> insert as html-source-code-example
+                    result = self.template_definition_by_name('html-begin')
+                    result = result.replace('#NAME#', entry['content'][index][1])
+                    result += '\n'.join(entry['content'][index][2])
+                    result += self.template_definition_by_name('html-end')
+
+            elif entry['content'][index][0] == 'verse-block':
+
+                ## example: 
+                ## ['verse-block', False, [u'first line', u'second line']]
+
+                result = self.template_definition_by_name('pre-begin')
+                mycontent = '\n'.join(entry['content'][index][2])
+                self.logging.debug("result [%s]" % repr(result))
+                self.logging.debug("mycontent [%s]" % repr(mycontent))
+                result += mycontent
+                result += self.template_definition_by_name('pre-end')
+
             else:
-                message = "htmlizer.py/sanitize_blog_string(): content element [" + str(element[0]) + "] not recognized."
+                message = "htmlizer.py/sanitize_and_htmlize_blog_content(): content element [" + str(entry['content'][index][0]) + \
+                    "] not recognized."
+                #pdb.set_trace()## FIXXME
                 self.logging.critical(message)
                 raise HtmlizerException(message)
+
+            ## replace element in entry with the result string:
+            entry['content'][index] = result
 
         return entry
 
@@ -180,7 +243,7 @@ class Htmlizer(object):
         right. However, this seemed to be the more efficient way
         regarding to implementation. Fix it, if you like :-)
 
-        FIXXME: Does not replace several ampersands in the very same
+        NOTE: Does not replace several ampersands in the very same
         URL. However, this use-case of several ampersands in one URL
         is very rare.
 
@@ -233,7 +296,7 @@ class Htmlizer(object):
         Creates a (normal) time-oriented blog article (in contrast to a permanent blog article).
 
         @param entry: blog entry data
-        @param return: FIXXME
+        @param return: hopefully :-) (but nothing special)
         """
 
         path = self._create_target_path_for_id(entry['id'])
@@ -267,8 +330,16 @@ class Htmlizer(object):
             for articlepart in ['article-tags-end', 'article-header-end']:
                 content += self.template_definition_by_name(articlepart)
             output.write(self._replace_general_article_placeholders(entry, content))
-            
-            #FIXXME: output.write(self._generate_main_content(entry))
+
+            for element in entry['content']:
+                if type(element) != str and type(element) != unicode:
+                    message = "element in entry['content'] is of type \"" + str(type(element)) + \
+                        "\" which can not be written: [" + repr(element) + "]. Please do fix it in " + \
+                        "htmlizer.py/sanitize_and_htmlize_blog_content()"
+                    self.logging.critical(message)
+                    raise HtmlizerException(message)
+                else:
+                    output.write(element)
 
             content = u''
             for articlepart in ['article-end', 'article-footer']:
@@ -276,17 +347,6 @@ class Htmlizer(object):
             output.write(self._replace_general_article_placeholders(entry, content))
 
         return
-
-    def _generate_main_content(self, entry):
-        """
-        Uses the blog_data content of entry and returns a string with
-        the htmlized blog article content.
-
-        @param entry: blog data content
-        @param return: string with replaced placeholders of the body of the article
-        """
-        
-        pass ## FIXXME
 
     def _replace_tag_placeholders(self, tags, template_string):
         """
@@ -449,7 +509,6 @@ class Htmlizer(object):
         ## examples:
         ## self.template_definitions[0][1] -> u'article-header'
         ## self.template_definitions[0][2] -> [u'  <!DOCTYPE html>', u'  <html xmlns="http...']
-        #pdb.set_trace()## FIXXME
         return '\n'.join([x[2:][0] for x in self.template_definitions if x[1] == name][0])
 
     def blog_data_with_id(self, entryid):

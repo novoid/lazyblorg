@@ -85,6 +85,16 @@ bar
 <a href="bar">baz</a>
 #+END_HTML
 
+*** heading with lists
+:PROPERTIES:
+:CREATED:  [2013-08-30 Fri 12:29]
+:END:
+
+- this is a list
+- second line
+- third line
+- last line
+
 ** Not a blog entry
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 11:00]
