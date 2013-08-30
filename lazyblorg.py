@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-30 13:29:04 vk>
+# Time-stamp: <2013-08-30 13:38:36 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -10,7 +10,6 @@
 ##  know, what you are doing :-)                                         ##
 ## ===================================================================== ##
 
-import re
 import os
 import logging
 import datetime
@@ -61,7 +60,7 @@ class Lazyblorg(object):
     blog_data = []
     metadata = []  ## meta-data of the current run of lazyblorg
     previous_metadata = None  ## meta-data of the previous run of lazyblorg
-    template_definitions = None ## 
+    template_definitions = None  ## list of definitions of templates
 
     def __init__(self, options, logging):
 
@@ -123,7 +122,6 @@ class Lazyblorg(object):
 
         return generate, marked_for_RSS, increment_version
 
-
     def parse_HTML_output_template_and_generate_template_definitions(self):
         """
 
@@ -140,7 +138,6 @@ class Lazyblorg(object):
 
         return True
 
-
     def generate_output(self, generate, marked_for_RSS, increment_version):
         """
 
@@ -152,7 +149,7 @@ class Lazyblorg(object):
         @param return:
         """
 
-        htmlizer = Htmlizer(self.template_definitions, BLOG_PREFIX, BLOG_TAG, self.options.aboutblog, 
+        htmlizer = Htmlizer(self.template_definitions, BLOG_PREFIX, BLOG_TAG, self.options.aboutblog,
                             self.options.targetdir, self.blog_data, generate, increment_version)
 
         ## FIXXME: try except HtmlizerException?
@@ -368,7 +365,7 @@ if __name__ == "__main__":
 
     mydescription = u"An Org-mode to HTML-blog system for very lazy people. Please refer to \n" + \
         "https://github.com/novoid/lazyblorg for more information."
-    
+
     parser = argparse.ArgumentParser(prog=sys.argv[0],
                                      formatter_class=argparse.RawDescriptionHelpFormatter,  ## keep line breaks in EPILOG and such
                                      epilog=EPILOG,

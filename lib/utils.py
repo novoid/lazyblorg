@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-27 19:57:33 vk>
+# Time-stamp: <2013-08-30 13:36:58 vk>
 
 import sys
 import logging
@@ -199,7 +199,7 @@ class Utils(object):
         if ignoreorder:
             comparisonlist1 = sorted(list1)
             comparisonlist2 = sorted(list2)
-        
+
         for entry in range(len(comparisonlist1)):
             ## do the hard way: comparing content
             if not comparisonlist1[entry] == comparisonlist2[entry]:
@@ -235,7 +235,7 @@ class Utils(object):
 
         #pdb.set_trace()## FIXXME
 
-        if data1 == None or data2 == None:
+        if data1 is None or data2 is None:
             ## both arguments should exist
             return False
 
@@ -267,7 +267,6 @@ class Utils(object):
                 ## sorted1/2 are lists of tuples now. Compare them:
                 Utils.datastructs_are_equal(sorted1, sorted2, ignoreorder)
 
-        
         elif type(data1) == list:
 
             ## check for trivial cases:
@@ -289,7 +288,7 @@ class Utils(object):
             logger = logging.getLogger('lazyblorg.Utils.datastructs_are_equal')
             logger.error("datastructs_are_equal() does not support parameters of type \"%s\" yet." % type(data1))
             return False
-        
+
 
 # Local Variables:
 # mode: flyspell

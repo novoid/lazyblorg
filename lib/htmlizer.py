@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-30 13:31:29 vk>
+# Time-stamp: <2013-08-30 13:35:39 vk>
 
 import logging
 import os
@@ -23,7 +23,6 @@ class HtmlizerException(Exception):
 
     def __str__(self):
         return repr(self.value)
-
 
 
 class Htmlizer(object):
@@ -59,7 +58,7 @@ class Htmlizer(object):
     ## find '&amp;' in an active URL and fix it to '&':
     FIX_AMPERSAND_URL_REGEX = re.compile('(href="http(s)?://\S+?)&amp;(\S+?")')
 
-    def __init__(self, template_definitions, prefix_dir, blog_tag, about_blog, targetdir, blog_data, 
+    def __init__(self, template_definitions, prefix_dir, blog_tag, about_blog, targetdir, blog_data,
                  generate, increment_version):
         """
         This function initializes the class instance with the class variables.
@@ -138,7 +137,7 @@ class Htmlizer(object):
         #pdb.set_trace()## FIXXME    [x[0] for x in entry['content']] -> which element types
 
         #for element in entry['content']:
-        for index in range(0,len(entry['content'])):
+        for index in range(0, len(entry['content'])):
 
             ## initialize result with default error message for unknown entry elements:
             result = u'<strong>lazyblorg: Sorry, content element "' + str(entry['content'][index][0]) + \
@@ -170,8 +169,8 @@ class Htmlizer(object):
                 ## 5-3 = 2 ... relative level
                 ## However, article itself is <h1> so the heading is <h3> (instead of <h2) -> +1
                 relative_level = entry['content'][index][1]['level'] - entry['level'] + 1
-                self.logging.debug('heading [%s] has relative level %s' % \
-                                       (entry['content'][index][1]['title'], str(relative_level)))
+                self.logging.debug('heading [%s] has relative level %s' %
+                                   (entry['content'][index][1]['title'], str(relative_level)))
 
                 result = entry['content'][index][1]['title']
                 result = self.sanitize_html_characters(result)
@@ -179,7 +178,7 @@ class Htmlizer(object):
                 result = self.fix_ampersands_in_url(result)
                 result = self.template_definition_by_name('section-begin').replace('#SECTION-TITLE#', result)
                 result = result.replace('#SECTION-LEVEL#', str(relative_level))
-                
+
             elif entry['content'][index][0] == 'list-itemize':
 
                 ## example:
@@ -192,15 +191,15 @@ class Htmlizer(object):
                     content = self.fix_ampersands_in_url(content)
                     content += self.template_definition_by_name('ul-item').replace('#CONTENT#', content)
                     result += content
-                    
+
                 result += self.template_definition_by_name('ul-end')
 
             elif entry['content'][index][0] == 'html-block':
 
-                ## example: 
+                ## example:
                 ## ['html-block', u'my-HTML-example name', [u'    foo', u'bar', u'  <foo />', u'<a href="bar">baz</a>']]
 
-                if entry['content'][index][1] == None:
+                if entry['content'][index][1] is None:
                     ## if html-block has no name -> insert as raw HTML
                     result = '\n'.join(entry['content'][index][2])
                 else:
@@ -212,7 +211,7 @@ class Htmlizer(object):
 
             elif entry['content'][index][0] == 'verse-block':
 
-                ## example: 
+                ## example:
                 ## ['verse-block', False, [u'first line', u'second line']]
 
                 result = self.template_definition_by_name('pre-begin')
@@ -225,7 +224,6 @@ class Htmlizer(object):
             else:
                 message = "htmlizer.py/sanitize_and_htmlize_blog_content(): content element [" + str(entry['content'][index][0]) + \
                     "] not recognized."
-                #pdb.set_trace()## FIXXME
                 self.logging.critical(message)
                 raise HtmlizerException(message)
 
@@ -292,7 +290,6 @@ class Htmlizer(object):
 
         return urllink_result
 
-
     def _create_time_oriented_blog_article(self, entry):
         """
         Creates a (normal) time-oriented blog article (in contrast to a permanent blog article).
@@ -323,8 +320,7 @@ class Htmlizer(object):
             for articlepart in ['article-header', 'article-header-begin', 'article-tags-begin']:
                 content += self.template_definition_by_name(articlepart)
             output.write(self._replace_general_article_placeholders(entry, content))
-            
-            #pdb.set_trace()## FIXXME
+
             content = self._replace_tag_placeholders(entry['tags'], self.template_definition_by_name('article-tag'))
             output.write(content)
 
@@ -382,7 +378,7 @@ class Htmlizer(object):
     - #ABOUT-BLOG#
     - #BLOGNAME#
         - #ARTICLE-YEAR#: four digit year of the article (folder path)
-        - #ARTICLE-MONTH#: two digit month of the article (folder path) 
+        - #ARTICLE-MONTH#: two digit month of the article (folder path)
         - #ARTICLE-DAY#: two digit day of the article (folder path)
         - #ARTICLE-PUBLISHED-HTML-DATETIME#: time-stamp of publishing in HTML
           date-time format
@@ -396,17 +392,15 @@ class Htmlizer(object):
         @param return: template with replaced placeholders
         """
 
-        #pdb.set_trace()## FIXXME
-
         content = template
-        
+
         content = content.replace('#ARTICLE-TITLE#', entry['title'])
         content = content.replace('#ABOUT-BLOG#', self.about_blog)
         content = content.replace('#BLOGNAME#', self.prefix_dir)
 
         oldesttimestamp, year, month, day, hours, minutes = self._get_oldest_timestamp_for_entry(entry)
         iso_timestamp = '-'.join([year, month, day]) + 'T' + hours + ':' + minutes
-        
+
         content = content.replace('#ARTICLE-YEAR#', year)
         content = content.replace('#ARTICLE-MONTH#', month)
         content = content.replace('#ARTICLE-DAY#', day)
@@ -422,7 +416,7 @@ class Htmlizer(object):
         time-stamp.
 
         @param entryid: ID of a blog entry
-        @param return: FIXXME
+        @param return: the resulting path as os.path string
         """
 
         entry = self.blog_data_with_id(entryid)
@@ -467,7 +461,6 @@ class Htmlizer(object):
         return oldesttimestamp, str(oldesttimestamp.year).zfill(2), str(oldesttimestamp.month).zfill(2), \
             str(oldesttimestamp.day).zfill(2), \
             str(oldesttimestamp.hour).zfill(2), str(oldesttimestamp.minute).zfill(2)
-
 
     def _create_target_path_for_id(self, entryid):
         """
