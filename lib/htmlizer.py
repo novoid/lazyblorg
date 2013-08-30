@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-30 13:04:19 vk>
+# Time-stamp: <2013-08-30 13:31:29 vk>
 
 import logging
 import os
@@ -40,6 +40,7 @@ class Htmlizer(object):
     increment_version = None  ## list of IDs which blog entries gets an update
     prefix_dir = None  ## string which is the base directory after targetdirectory
     blog_tag = None  ## string that marks blog entries (as Org-mode tag)
+    about_blog = None  ## string containing a short description of the blog
 
     ## this tag (withing tag list of article) determines if an article
     ## is a permanent blog page (tag is found) or a time-oriented
@@ -58,13 +59,15 @@ class Htmlizer(object):
     ## find '&amp;' in an active URL and fix it to '&':
     FIX_AMPERSAND_URL_REGEX = re.compile('(href="http(s)?://\S+?)&amp;(\S+?")')
 
-    def __init__(self, template_definitions, prefix_dir, blog_tag, targetdir, blog_data, generate, increment_version):
+    def __init__(self, template_definitions, prefix_dir, blog_tag, about_blog, targetdir, blog_data, 
+                 generate, increment_version):
         """
-        This function FIXXME
+        This function initializes the class instance with the class variables.
 
         @param template_definitions: list of lists ['description', 'content'] with content being the HTML templates
-        @param prefix_dor: string which is the base directory after targetdirectory
+        @param prefix_dir: string which is the base directory after targetdirectory
         @param blog_tag: string that marks blog entries (as Org-mode tag)
+        @param about_blog: string containing a short description of the blog
         @param targetdir: string of the base directory of the blog
         @param blog_data: internal representation of the complete blog content
         @param generate: list of IDs which blog entries should be generated
@@ -75,6 +78,7 @@ class Htmlizer(object):
         self.template_definitions = template_definitions
         self.prefix_dir = prefix_dir
         self.blog_tag = blog_tag
+        self.about_blog = about_blog
         self.targetdir = targetdir
         self.blog_data = blog_data
         self.generate = generate
@@ -90,9 +94,6 @@ class Htmlizer(object):
     def run(self):
         """
         Basic method that creates all the output.
-
-        @param FIXXME
-        @param return: FIXXME
         """
 
         ## FIXXME: copy CSS file (future enhancement - for now it shall be manually placed)
@@ -399,9 +400,9 @@ class Htmlizer(object):
 
         content = template
         
-        content = content.replace('#TITLE#', entry['title'])
-        content = content.replace('#ABOUT-BLOG#', 'FIXXME:about-blog')
-        content = content.replace('#BLOGNAME#', 'FIXXME:blogname')
+        content = content.replace('#ARTICLE-TITLE#', entry['title'])
+        content = content.replace('#ABOUT-BLOG#', self.about_blog)
+        content = content.replace('#BLOGNAME#', self.prefix_dir)
 
         oldesttimestamp, year, month, day, hours, minutes = self._get_oldest_timestamp_for_entry(entry)
         iso_timestamp = '-'.join([year, month, day]) + 'T' + hours + ':' + minutes

@@ -1,4 +1,5 @@
 PYTHONPATH="~/src/lazyblorg:" ./lazyblorg.py \
+    --aboutblog "lazyblorg test blog" \
     --targetdir testdata/2del \
     --metadata ./2del-metadata.pk \
     --template ./templates/blog-format.org \

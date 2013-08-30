@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-30 13:02:37 vk>
+# Time-stamp: <2013-08-30 13:29:04 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -152,8 +152,8 @@ class Lazyblorg(object):
         @param return:
         """
 
-        htmlizer = Htmlizer(self.template_definitions, BLOG_PREFIX, BLOG_TAG, self.options.targetdir, self.blog_data, 
-                            generate, increment_version)
+        htmlizer = Htmlizer(self.template_definitions, BLOG_PREFIX, BLOG_TAG, self.options.aboutblog, 
+                            self.options.targetdir, self.blog_data, generate, increment_version)
 
         ## FIXXME: try except HtmlizerException?
         htmlizer.run()  ## FIXXME: return value?
@@ -376,6 +376,10 @@ if __name__ == "__main__":
 
     parser.add_argument("--orgfiles", dest="orgfiles", nargs='+', metavar='ORGFILE', required=True,
                         help="One or more Org-mode files which contains all blog articles (and possible other stuff).")
+
+    parser.add_argument("--aboutblog", dest="aboutblog", metavar='STRING', required=True,
+                        help="A short description about the blog. " +
+                        "E.g., \"... where knowledge is defined!\".")
 
     parser.add_argument("--targetdir", dest="targetdir", metavar='DIR', required=True,
                         help="Path where the HTML files will be written to. " +
