@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-30 12:58:27 vk>
+# Time-stamp: <2013-08-30 13:04:19 vk>
 
 import logging
 import os
@@ -39,6 +39,7 @@ class Htmlizer(object):
     generate = None  ## list of IDs which blog entries should be generated
     increment_version = None  ## list of IDs which blog entries gets an update
     prefix_dir = None  ## string which is the base directory after targetdirectory
+    blog_tag = None  ## string that marks blog entries (as Org-mode tag)
 
     ## this tag (withing tag list of article) determines if an article
     ## is a permanent blog page (tag is found) or a time-oriented
@@ -57,14 +58,13 @@ class Htmlizer(object):
     ## find '&amp;' in an active URL and fix it to '&':
     FIX_AMPERSAND_URL_REGEX = re.compile('(href="http(s)?://\S+?)&amp;(\S+?")')
 
-    BLOG_PREFIX = u'blog'  ## FIXXME: this is defined in lazyblorg.py -> so do replace by parameter of this class!
-
-    def __init__(self, template_definitions, prefix_dir, targetdir, blog_data, generate, increment_version):
+    def __init__(self, template_definitions, prefix_dir, blog_tag, targetdir, blog_data, generate, increment_version):
         """
         This function FIXXME
 
         @param template_definitions: list of lists ['description', 'content'] with content being the HTML templates
-        @param prefix: string which is the base directory after targetdirectory
+        @param prefix_dor: string which is the base directory after targetdirectory
+        @param blog_tag: string that marks blog entries (as Org-mode tag)
         @param targetdir: string of the base directory of the blog
         @param blog_data: internal representation of the complete blog content
         @param generate: list of IDs which blog entries should be generated
@@ -74,6 +74,7 @@ class Htmlizer(object):
         ## initialize class variables
         self.template_definitions = template_definitions
         self.prefix_dir = prefix_dir
+        self.blog_tag = blog_tag
         self.targetdir = targetdir
         self.blog_data = blog_data
         self.generate = generate
@@ -366,7 +367,7 @@ class Htmlizer(object):
         result = u''
 
         for tag in tags:
-            if tag == self.BLOG_PREFIX:
+            if tag == self.blog_tag:
                 continue
             else:
                 result += template_string.replace('#TAGNAME#', tag)

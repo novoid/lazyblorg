@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-30 12:42:55 vk>
+# Time-stamp: <2013-08-30 13:02:37 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -32,6 +32,9 @@ INVOCATION_TIME = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 ## the prefix is added to the blog entry path such as: TARGETPATH/BLOG_PREFIX/2013/12/31/blog-id/
 ## set either to a string which is a valid folder name or set it to ''
 BLOG_PREFIX = u'blog'
+
+## this Org-mode tag marks blog entries:
+BLOG_TAG = u'blog'
 
 EPILOG = u"\n\
 :copyright: (c) 2013 by Karl Voit <tools@Karl-Voit.at>\n\
@@ -149,7 +152,7 @@ class Lazyblorg(object):
         @param return:
         """
 
-        htmlizer = Htmlizer(self.template_definitions, BLOG_PREFIX, self.options.targetdir, self.blog_data, 
+        htmlizer = Htmlizer(self.template_definitions, BLOG_PREFIX, BLOG_TAG, self.options.targetdir, self.blog_data, 
                             generate, increment_version)
 
         ## FIXXME: try except HtmlizerException?

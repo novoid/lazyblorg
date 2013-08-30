@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-29 18:40:08 vk>
+# Time-stamp: <2013-08-30 13:05:18 vk>
 
 import unittest
 from lib.htmlizer import *
@@ -29,7 +29,7 @@ class TestHtmlizer(unittest.TestCase):
         blog_data = 'foo'
         generate = 'foo'
         increment_version = 'foo'
-        htmlizer = Htmlizer(template_definitions, prefix_dir, targetdir, blog_data, generate, increment_version)
+        htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, targetdir, blog_data, generate, increment_version)
 
         ## Org-mode links of style [[foo][bar]]:
 
@@ -76,7 +76,7 @@ class TestHtmlizer(unittest.TestCase):
         blog_data = 'foo'
         generate = 'foo'
         increment_version = 'foo'
-        htmlizer = Htmlizer(template_definitions, prefix_dir, targetdir, blog_data, generate, increment_version)
+        htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, targetdir, blog_data, generate, increment_version)
 
         self.assertTrue(htmlizer.fix_ampersands_in_url('href="http://www.example.com/index.html&amp;s=foo" bar') == \
                             'href="http://www.example.com/index.html&s=foo" bar')
