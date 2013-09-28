@@ -1,4 +1,4 @@
-# Time-stamp: <2013-08-30 12:58:32 vk>
+# Time-stamp: <2013-09-23 18:38:10 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -90,34 +90,6 @@ CLOSED: [2013-02-12 Tue 14:13] SCHEDULED: <2013-02-12 Tue>
         considered invalid on http://html5.validator.nu/
 - no CSS yet
 
-** DONE [#A] define (link) structure of blog entries                 :tests:
-CLOSED: [2013-02-12 Tue 14:11]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2013-02-12 Tue 14:11]
-:END:
-:PROPERTIES:
-:CREATED: [2012-07-22 Sun 17:29]
-:END:
-
-- http://karl-voit.at/2012/07/22/example-entry/
-with:
-- "2012", "07", "22" being index pages (archive) containing links to all
-  underlying blog entries
-- "example-entry" is grabbed out of :ID: property
-  - if :ID: is like "2012-07-22-example-entry" the date will be
-    removed
-  - if :ID: does not start with "YYYY-MM(-DD)" it gets used right away
-  - user has to make sure that IDs are unique over all entries!
-
-- http://karl-voit.at/blog/2012/11/31/This_is_the_title/index.html -> URL of
-  entry; title gets parsed from heading title or ID
-- http://karl-voit.at/blog/2012/11/31/ -> link to monthly overview (currently)
-- http://karl-voit.at/blog/2012/11/ -> overview over the month
-- http://karl-voit.at/blog/2012/ -> overview over the year
-- http://karl-voit.at/blog/ -> blog starting page
-
-- example: http://www.tbray.org/ongoing/misc/Colophon
-
 ** DONE sketch article layout                                    :userstory:
 CLOSED: [2013-02-14 Thu 16:44]
 :LOGBOOK:
@@ -150,48 +122,6 @@ About this Blog                                                      check HTML/
 - check ...: gray, small
 - background: bright yellowish with possible gradient from dark (top)
   to bright (bottom)
-
-** DONE sketch ArticleOrgEntry                                :architecture:
-CLOSED: [2013-02-15 Fri 20:00]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2013-02-15 Fri 20:00]
-:END:
-:PROPERTIES:
-:CREATED:  [2013-02-15 Fri 19:58]
-:END:
-
-- holds current articles parsed from Org-mode files
-
-- ArticleOrgEntry
-  - NodeList
-    - first entry contains main heading
-    - other entries are at least one level deeper
-  - TagList
-  - Title
-  - ID
-  - TimeCreated
-  - Checksum
-
-** DONE sketch ArticleDBEntry                                 :architecture:
-CLOSED: [2013-02-15 Fri 20:00]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2013-02-15 Fri 20:00]
-:END:
-:PROPERTIES:
-:CREATED:  [2013-02-15 Fri 19:59]
-:END:
-
-- holds list of article metadata from previous run(s)
-
-- ArticleOrgEntry
-  - NodeList
-    - first entry contains main heading
-    - other entries are at least one level deeper
-  - TagList
-  - Title
-  - ID
-  - TimeCreated
-  - Checksum
 
 ** DONE spike: time-ordered-index data structure              :architecture:
 CLOSED: [2013-08-20 Tue 15:02]
@@ -349,13 +279,22 @@ vk@gary ~/src/lazyblorg (git)-[master] %
 
   - known ID, raw text unchanged: ignore, no change
 
-- [ ] generate output files
+- [X] generate output files
 
   - new ID
     - generate new blog entry
       - extract YYYY-MM-DD from LOGBOOK-drawer (first *->DONE transformation)
       - generate YYYY/MM/DD-folder structure in blog accordingly
       - generate sanitized blog title as file name
+
+- [-] on any error:
+  - [X] create an orgmode event from current time that appears on agenda
+  - [X] with daily repeat -> so it gets noticed on the following day(s) too
+  - [-] in the description of that entry:
+    - BONUS: babel-sh-snippet with prepared command to re-try the
+      run :-)
+
+- [ ] mark Updates
 
   - known ID, raw text differs
     - generate update of existing entry
@@ -371,13 +310,6 @@ vk@gary ~/src/lazyblorg (git)-[master] %
   - [ ] optionally: generate overview page for last n entries
   - [ ] optionally: generate calendar archive page(s)
   - [ ] optionally: generate tag overview page(s)
-
-- [-] on any error:
-  - [X] create an orgmode event from current time that appears on agenda
-  - [X] with daily repeat -> so it gets noticed on the following day(s) too
-  - [ ] in the description of that entry:
-    - BONUS: babel-sh-snippet with prepared command to re-try the
-      run :-)
 
 ** STARTED test generate_output (comparing HTML/CSS output files)     :tests:
 :PROPERTIES:
@@ -399,39 +331,14 @@ A sub-heading «Org» contains the Org-mode document/snippet which gets
 parsed.
 
 A sub-heading «result» contains the results which is expected.
+** NEXT research: Python Jinja as template system             :architecture:
+:PROPERTIES:
+:CREATED:  [2013-09-05 Thu 17:00]
+:END:
 ** NEXT catch all exceptions and create a log entry           :architecture:
 :PROPERTIES:
 :CREATED:  [2013-08-29 Thu 16:28]
 :END:
-** TODO Idea: do paragraph parsing                            :architecture:
-:PROPERTIES:
-:CREATED:  [2013-02-27 Wed 16:48]
-:END:
-
-- paragraphs are separated by at least one empty line OR they end
-  with a line starting with:
-  - »#+«
-- each paragraph is handled separately BUT paragraphs of an
-  environment are being combined
-- for each normal text paragraph:
-  - remove \n
-  - sanitize
-    - insert lazyblorg-specific links
-    - HTMLize with ...
-      - either simple with own code OR
-        - fast
-        - only a few syntax elements can be parsed
-      - using Org-mode exporter methods
-        - slow
-        - complicated set-up
-        - supports everything which is supported by the Org-mode HTML
-          export
-    - if simple HTMLizer chosen:
-      - re-insert \n for first space after 80 characters
-
-Documentation:
-- clearly state that lazyblorg does support *no org-mode syntax*
-  except <list-of-supported-elements-and-their-context>
 ** NEXT CSS: manually create CSS for an entry                 :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 14:14]
@@ -448,6 +355,17 @@ Documentation:
 
 - HTML5-example: see Kröner2011 p.123ff
 
+** NEXT separate blogdata structures via tags                 :architecture:
+:PROPERTIES:
+:CREATED:  [2013-09-15 Sun 19:38]
+:END:
+
+- all articles got :blog:
+  - :lb_tag: -> create example.com/blog/tags/<tagname=article name>
+    - description of tags
+  - :lb_permanent: -> create example.com/blog/<article name>
+  - else: normal blog articles example.com/blog/2013/12/31/<name>
+
 ** NEXT [#C] HTML: manually create month overview page        :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 14:12]
@@ -461,6 +379,14 @@ Documentation:
 ** NEXT [#C] HTML: manually create year overview page         :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 14:12]
+:END:
+
+** NEXT take a look at SASS -> CSS                            :architecture:
+:LOGBOOK:
+- Not scheduled, was "2013-09-16 Mon" on [2013-09-23 Mon 18:37]
+:END:
+:PROPERTIES:
+:CREATED: [2013-09-13 Fri 14:06]
 :END:
 
 ** TODO provide RSS feed(s)                                      :userstory:

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-30 13:35:39 vk>
+# Time-stamp: <2013-08-30 15:08:38 vk>
 
 import logging
 import os
@@ -425,6 +425,7 @@ class Htmlizer(object):
 
         folder = werkzeug.utils.secure_filename(entryid)
 
+        ## FIXXME: refactor to: remove *any* ISO date-stamp infront of the folder name! (regex)
         if folder[0:11] == year + '-' + month + '-' + day + '-':
             ## folder contains the date-stamp in ISO format -> get rid of it (it's in the path anyway)
             folder = folder[11:]

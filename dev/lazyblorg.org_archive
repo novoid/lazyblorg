@@ -926,3 +926,131 @@ CLOSED: [2013-08-27 Tue 21:12]
 
 - holds everything which is needed for generating HTML/CSS output files
 
+** DONE Idea: do paragraph parsing                            :architecture:
+CLOSED: [2013-08-30 Fri 14:58]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2013-08-30 Fri 14:58]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-02-27 Wed 16:48]
+:ARCHIVE_TIME: 2013-08-30 Fri 14:58
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: issues
+:END:
+
+- paragraphs are separated by at least one empty line OR they end
+  with a line starting with:
+  - »#+«
+- each paragraph is handled separately BUT paragraphs of an
+  environment are being combined
+- for each normal text paragraph:
+  - remove \n
+  - sanitize
+    - insert lazyblorg-specific links
+    - HTMLize with ...
+      - either simple with own code OR
+        - fast
+        - only a few syntax elements can be parsed
+      - using Org-mode exporter methods
+        - slow
+        - complicated set-up
+        - supports everything which is supported by the Org-mode HTML
+          export
+    - if simple HTMLizer chosen:
+      - re-insert \n for first space after 80 characters
+
+Documentation:
+- clearly state that lazyblorg does support *no org-mode syntax*
+  except <list-of-supported-elements-and-their-context>
+
+** DONE [#A] define (link) structure of blog entries                 :tests:
+CLOSED: [2013-02-12 Tue 14:11]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-02-12 Tue 14:11]
+:END:
+:PROPERTIES:
+:CREATED: [2012-07-22 Sun 17:29]
+:ARCHIVE_TIME: 2013-08-30 Fri 15:00
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: issues
+:END:
+
+- http://karl-voit.at/2012/07/22/example-entry/
+with:
+- "2012", "07", "22" being index pages (archive) containing links to all
+  underlying blog entries
+- "example-entry" is grabbed out of :ID: property
+  - if :ID: is like "2012-07-22-example-entry" the date will be
+    removed
+  - if :ID: does not start with "YYYY-MM(-DD)" it gets used right away
+  - user has to make sure that IDs are unique over all entries!
+
+- http://karl-voit.at/blog/2012/11/31/This_is_the_title/index.html -> URL of
+  entry; title gets parsed from heading title or ID
+- http://karl-voit.at/blog/2012/11/31/ -> link to monthly overview (currently)
+- http://karl-voit.at/blog/2012/11/ -> overview over the month
+- http://karl-voit.at/blog/2012/ -> overview over the year
+- http://karl-voit.at/blog/ -> blog starting page
+
+- example: http://www.tbray.org/ongoing/misc/Colophon
+
+** DONE sketch ArticleOrgEntry                                :architecture:
+CLOSED: [2013-02-15 Fri 20:00]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-02-15 Fri 20:00]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-02-15 Fri 19:58]
+:ARCHIVE_TIME: 2013-08-30 Fri 15:00
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: issues
+:END:
+
+- holds current articles parsed from Org-mode files
+
+- ArticleOrgEntry
+  - NodeList
+    - first entry contains main heading
+    - other entries are at least one level deeper
+  - TagList
+  - Title
+  - ID
+  - TimeCreated
+  - Checksum
+
+** DONE sketch ArticleDBEntry                                 :architecture:
+CLOSED: [2013-02-15 Fri 20:00]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-02-15 Fri 20:00]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-02-15 Fri 19:59]
+:ARCHIVE_TIME: 2013-08-30 Fri 15:00
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: issues
+:END:
+
+- holds list of article metadata from previous run(s)
+
+- ArticleOrgEntry
+  - NodeList
+    - first entry contains main heading
+    - other entries are at least one level deeper
+  - TagList
+  - Title
+  - ID
+  - TimeCreated
+  - Checksum
+

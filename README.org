@@ -1,4 +1,4 @@
-## Time-stamp: <2013-08-22 11:52:45 vk>
+## Time-stamp: <2013-09-13 16:13:50 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -74,10 +74,17 @@ blog entry with that *minimum effort* to the author.
 
 ** Disadvantages
 
+- lazyblorg *re-generates the complete set of output pages on every run*
+  - this will probably changed in a future release (no high priority)
+  - most of the time this is not an issue at all
+    - if pages are generated on a different system as the web server
+      runs on, performance is a minor issue
+    - if you don't have thousands of pages, this will not take long
 - lazyblorg is implemented in Python:
   - Its Org-mode parser supports *only a sub-set of Org-mode syntax*
     and features.
-- No old HTML4.01 transitional stuff or similar:
+- lazyblorg is using state-of-the art HTML5 and CSS3
+  - No old HTML4.01 transitional stuff or similar
   - Results might not be compatible with browsers such as Internet
     Explorer or mobile devices.
 - You have to accept the one-time setup which requires knowledge of:
