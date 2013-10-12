@@ -1,4 +1,4 @@
-# Time-stamp: <2013-09-23 18:38:10 vk>
+# Time-stamp: <2013-10-01 21:06:11 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -311,6 +311,36 @@ vk@gary ~/src/lazyblorg (git)-[master] %
   - [ ] optionally: generate calendar archive page(s)
   - [ ] optionally: generate tag overview page(s)
 
+** NEXT separate blogdata structures via tags                 :architecture:
+:PROPERTIES:
+:CREATED:  [2013-09-15 Sun 19:38]
+:END:
+
+- all articles got :blog:
+  - :lb_tag: -> create example.com/blog/tags/<tagname=article name>
+    - description of tags
+    - __blog_data['TAGS']
+    - TAG_FOR_TAG_ENTRY = 'lb_tag'
+  - :lb_persistent: -> create example.com/blog//<article name>
+    - __blog_data['PERSISTENT']
+    - TAG_FOR_PERSISTENT_ENTRY = 'lb_persistent'
+  - else: normal blog articles example.com/blog/2013/12/31/<name>
+    - __blog_data['TEMPORAL']
+
+- adopt method for getting link to any article; get also URL of it
+  (relative to /) (see id:2013-09-29-get-link)
+** NEXT create constants.py as module                         :architecture:
+:PROPERTIES:
+:CREATED:  [2013-10-01 Tue 21:05]
+:END:
+** NEXT adopt method for getting link to any article; get also URL
+:PROPERTIES:
+:CREATED:  [2013-09-29 Sun 15:01]
+:ID: 2013-09-29-get-link
+:END:
+
+- URL relative to /
+
 ** STARTED test generate_output (comparing HTML/CSS output files)     :tests:
 :PROPERTIES:
 :CREATED:  [2013-02-14 Thu 17:28]
@@ -335,6 +365,14 @@ A sub-heading «result» contains the results which is expected.
 :PROPERTIES:
 :CREATED:  [2013-09-05 Thu 17:00]
 :END:
+
+** NEXT take a look at SASS -> CSS                            :architecture:
+:LOGBOOK:
+- Not scheduled, was "2013-09-16 Mon" on [2013-09-23 Mon 18:37]
+:END:
+:PROPERTIES:
+:CREATED: [2013-09-13 Fri 14:06]
+:END:
 ** NEXT catch all exceptions and create a log entry           :architecture:
 :PROPERTIES:
 :CREATED:  [2013-08-29 Thu 16:28]
@@ -355,17 +393,6 @@ A sub-heading «result» contains the results which is expected.
 
 - HTML5-example: see Kröner2011 p.123ff
 
-** NEXT separate blogdata structures via tags                 :architecture:
-:PROPERTIES:
-:CREATED:  [2013-09-15 Sun 19:38]
-:END:
-
-- all articles got :blog:
-  - :lb_tag: -> create example.com/blog/tags/<tagname=article name>
-    - description of tags
-  - :lb_permanent: -> create example.com/blog/<article name>
-  - else: normal blog articles example.com/blog/2013/12/31/<name>
-
 ** NEXT [#C] HTML: manually create month overview page        :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 14:12]
@@ -379,14 +406,6 @@ A sub-heading «result» contains the results which is expected.
 ** NEXT [#C] HTML: manually create year overview page         :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 14:12]
-:END:
-
-** NEXT take a look at SASS -> CSS                            :architecture:
-:LOGBOOK:
-- Not scheduled, was "2013-09-16 Mon" on [2013-09-23 Mon 18:37]
-:END:
-:PROPERTIES:
-:CREATED: [2013-09-13 Fri 14:06]
 :END:
 
 ** TODO provide RSS feed(s)                                      :userstory:
@@ -946,11 +965,11 @@ CLOSED: [2013-08-20 Tue 18:15]
 For a complete list of *content elements*, please take a look at
 id:implemented-org-elements (above)
 
-~blog_data~ is a Python list containing one dictionary entry per blog
-entry:
+~blog_data~ is a Python dict (each per blog entry type/category) of
+Python lists containing one dictionary entry per blog entry:
 
 #+BEGIN_SRC python
-  blog_data = \
+  blog_data['TEMPORAL'] = \
   [ {'level': 2,                                                ## number of asterisks
      'title': u'This is a blog entry about foo', 
      'tags': [u'tag1', u'tag2'], 

@@ -1,4 +1,4 @@
-## Time-stamp: <2013-08-30 12:56:12 vk>
+## Time-stamp: <2013-09-29 16:38:12 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -50,7 +50,7 @@ id:implemented-org-elements in [[file:../dev/lazyblorg.org]]
 
 Have fun with modifying lazyblorg to your requirements!
 
-* DONE Templates                                                       :blog:
+* DONE Templates                                           :lb_templates:blog:
 :LOGBOOK:
 - State "DONE"       from "DONE"       [2013-08-21 Wed 17:50]
 :END:
