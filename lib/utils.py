@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-30 13:36:58 vk>
+# Time-stamp: <2013-10-12 18:21:59 vk>
 
 import sys
 import logging
@@ -129,6 +129,44 @@ class Utils(object):
         return md5(str([title, tags, content])).hexdigest()
 
     @staticmethod
+    def __generate_metadata_from_blogdata_core(metadata, blogdata, category):
+        """used by generate_metadata_from_blogdata():
+        Parses blogdata list and extracts ID, CREATED time-stamp, most
+        current time-stamp, and generates a check-sum for the
+        entry. The result is written in a dict.
+
+        @param blogdata: array of entries as described in
+        "dev/lazyblorg.org > Notes > Representation of blog data"
+        @param return: array containing a dict with entries like: {
+        <ID>: {created: <timestamp>, timestamp: <timestamp>, checksum:
+        <checksum>}, ...}
+
+        @param metadata: metadata content so far
+        @param blogdata: content of the blog data
+        @param @category: string which determines the entry type (TAGS, PERSISTENT, ...)
+        """
+
+        checksum = Utils.__generate_checksum_for_blog_entry(entry['title'],
+                                                            entry['tags'],
+                                                            entry['content'])
+
+        if entry['id'] in metadata.keys():
+            logging.error("We got a duplicate ID in blogdata: \"" +
+                          str(entry['id']) + "\". Please correct it and re-run this tool.")
+            #pdb.set_trace()## FIXXME
+            Utils.error_exit(30)
+        else:
+            assert('created' in entry.keys())
+            assert('timestamp' in entry.keys())
+            metadata[entry['id']] = {'created': entry['created'],
+                                     'timestamp': entry['timestamp'],
+                                     'checksum': checksum,
+                                     'category': category}
+
+        return metadata
+
+
+    @staticmethod
     def generate_metadata_from_blogdata(blogdata):
         """
 
@@ -143,25 +181,24 @@ class Utils(object):
         <checksum>}, ...}
         """
 
+        ## categories of blog entries:
+        ## FIXXME: also defined in OrgParser and utils.py and OrgParser
+        TAGS = 'TAGS'
+        PERSISTENT = 'PERSISTENT'
+        TEMPORAL = 'TEMPORAL'
+        TEMPLATES = 'TEMPLATES'
+
         metadata = {}
 
-        for entry in blogdata:
-
-            checksum = Utils.__generate_checksum_for_blog_entry(entry['title'],
-                                                                entry['tags'],
-                                                                entry['content'])
-
-            if entry['id'] in metadata.keys():
-                logging.error("We got a duplicate ID in blogdata: \"" +
-                              str(entry['id']) + "\". Please correct it and re-run this tool.")
-                #pdb.set_trace()## FIXXME
-                Utils.error_exit(30)
-            else:
-                assert('created' in entry.keys())
-                assert('timestamp' in entry.keys())
-                metadata[entry['id']] = {'created': entry['created'],
-                                         'timestamp': entry['timestamp'],
-                                         'checksum': checksum}
+        pdb.set_trace()## FIXXME
+        for entry in blogdata[TEMPORAL]:
+            metadata = __generate_metadata_from_blogdata_core(metadata, entry, self.TEMPORAL)
+        for entry in blogdata[TEMPLATES]:
+            metadata += __generate_metadata_from_blogdata_core(metadata, entry, self.TEMPORAL)
+        for entry in blogdata[PERSISTENT]:
+            metadata += __generate_metadata_from_blogdata_core(metadata, entry, self.TEMPORAL)
+        for entry in blogdata[TAGS]:
+            metadata += __generate_metadata_from_blogdata_core(metadata, entry, self.TEMPORAL)
 
         return metadata
 
@@ -289,6 +326,37 @@ class Utils(object):
             logger.error("datastructs_are_equal() does not support parameters of type \"%s\" yet." % type(data1))
             return False
 
+    @staticmethod
+    def append_lists_in_dict(source, destination):
+        """
+        source = {'foo':[], 'bar':[42, 13]} and
+        destination = {'foo':[1, 3], 'bar':[5]} will be merged to
+        {'foo':[1, 3], 'bar':[5, 42, 13]} according to the keys defined in source.
+
+        @param source: dict whose entries are lists which will be
+        appended to the ones in destination.
+
+        @param destination: dict whose entries are lists which will be
+        extended by those of source.
+
+        @return: dict destination whose entries are lists are extended
+        by those of source. Returns False if source has a key which
+        can not be found in destination.
+        """
+
+        result = destination
+
+        for key in source:
+            if key in result.keys():
+                for element in source[key]:
+                    result[key].append(element)
+            else:
+                ## there is a key in source which can not be found in destination (yet).
+                ## create new key in destination containing the list of source[key]:
+                result[key] = source[key]
+
+        return result
+                
 
 # Local Variables:
 # mode: flyspell

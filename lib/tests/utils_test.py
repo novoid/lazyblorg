@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-23 13:29:50 vk>
+# Time-stamp: <2013-10-12 18:31:04 vk>
 
 import unittest
 from lib.utils import *
@@ -105,6 +105,35 @@ class TestUtils(unittest.TestCase):
                                                     {'a':[], 2:{'b':['foo', {'bar':[2,3,4]}]}}))
         self.assertFalse(Utils.datastructs_are_equal({'a':[], 2:{'b':['foo', {'bar':[2,3,4]}]}}, 
                                                      {'a':[], 2:{'b':['foo', {'bar':[2,3,4,5]}]}}))
+
+    def test_append_lists_in_dict(self):
+
+        source = {}
+        destination = {}
+        result = {}
+        self.assertEqual(Utils.append_lists_in_dict(source, destination), result)
+
+        source = {'foo':[]}
+        destination = {}
+        result = {'foo':[]}
+        self.assertEqual(Utils.append_lists_in_dict(source, destination), result)
+
+        source = {}
+        destination = {'foo':[]}
+        result = {'foo':[]}
+        self.assertEqual(Utils.append_lists_in_dict(source, destination), result)
+
+        source = {'foo':[23, 42]}
+        destination = {'foo':[74]}
+        result = {'foo':[23, 42, 74]}
+        self.assertEqual(Utils.append_lists_in_dict(source, destination)['foo'].sort(), 
+                         result['foo'].sort())
+
+        source = {'foo':[23, 42, 'other']}
+        destination = {'foo':[74], 'bar':['test', 302]}
+        result = {'foo':[74, 23, 42, 'other'], 'bar':['test', 302]}
+        self.assertEqual(Utils.append_lists_in_dict(source, destination), 
+                         result)
 
 # Local Variables:
 # mode: flyspell
