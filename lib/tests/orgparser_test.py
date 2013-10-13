@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-26 19:38:15 vk>
+# Time-stamp: <2013-10-12 17:01:27 vk>
 
 import unittest
 from lib.utils import *
@@ -52,6 +52,7 @@ class TestOrgParser(unittest.TestCase):
 
         ## parse the example Org-mode file:
         blog_data.extend(parser.parse_orgmode_file())
+        pdb.set_trace()## FIXXME
 
         ## write data to dump file:
         with open(testfile_temp_output, 'wb') as output:
@@ -66,8 +67,9 @@ class TestOrgParser(unittest.TestCase):
         with open(testfile_temp_reference, 'r') as fileinput:
             reference_blog_data = pickle.load(fileinput)
 
+        pdb.set_trace()## FIXXME
         ## a more fine-grained diff (only) on the first element in blog_data:
-        for x in range(len(blog_data[0]['content'])): 
+        for x in range(len(blog_data['TEMPORAL'][0]['content'])): 
             if blog_data[0]['content'][x] != reference_blog_data[0]['content'][x]: 
                 print "   =============== difference ==================="
                 print reference_blog_data[0]['content'][x]

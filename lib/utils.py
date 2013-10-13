@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-10-12 18:21:59 vk>
+# Time-stamp: <2013-10-13 14:14:04 vk>
 
 import sys
 import logging
@@ -129,8 +129,8 @@ class Utils(object):
         return md5(str([title, tags, content])).hexdigest()
 
     @staticmethod
-    def __generate_metadata_from_blogdata_core(metadata, blogdata, category):
-        """used by generate_metadata_from_blogdata():
+    def generate_metadata_from_blogdata(blogdata):
+        """
         Parses blogdata list and extracts ID, CREATED time-stamp, most
         current time-stamp, and generates a check-sum for the
         entry. The result is written in a dict.
@@ -146,28 +146,35 @@ class Utils(object):
         @param @category: string which determines the entry type (TAGS, PERSISTENT, ...)
         """
 
-        checksum = Utils.__generate_checksum_for_blog_entry(entry['title'],
-                                                            entry['tags'],
-                                                            entry['content'])
+        metadata = {}
 
-        if entry['id'] in metadata.keys():
-            logging.error("We got a duplicate ID in blogdata: \"" +
-                          str(entry['id']) + "\". Please correct it and re-run this tool.")
-            #pdb.set_trace()## FIXXME
-            Utils.error_exit(30)
-        else:
-            assert('created' in entry.keys())
-            assert('timestamp' in entry.keys())
-            metadata[entry['id']] = {'created': entry['created'],
-                                     'timestamp': entry['timestamp'],
-                                     'checksum': checksum,
-                                     'category': category}
+        for entry in blogdata:
 
+            pdb.set_trace()## FIXXME: check, if category is stored in entry and modify below
+            checksum = Utils.__generate_checksum_for_blog_entry(blogdata['title'],
+                                                                blogdata['tags'],
+                                                                blogdata['content'])
+            
+            if blogdata['id'] in metadata.keys():
+                logging.error("We got a duplicate ID in blogdata: \"" +
+                              str(blogdata['id']) + "\". Please correct it and re-run this tool.")
+                pdb.set_trace()## FIXXME
+                Utils.error_exit(30)
+            else:
+                assert('created' in blogdata.keys())
+                assert('timestamp' in blogdata.keys())
+                #pdb.set_trace()## FIXXME
+                metadata[blogdata['id']] = {'created': blogdata['created'],
+                                         'timestamp': blogdata['timestamp'],
+                                         'checksum': checksum,
+                                         'category': category}
+
+        pdb.set_trace()## FIXXME
         return metadata
 
 
     @staticmethod
-    def generate_metadata_from_blogdata(blogdata):
+    def OLDgenerate_metadata_from_blogdata(blogdata):
         """
 
         Parses blogdata list and extracts ID, CREATED time-stamp, most
@@ -188,18 +195,18 @@ class Utils(object):
         TEMPORAL = 'TEMPORAL'
         TEMPLATES = 'TEMPLATES'
 
-        metadata = {}
+        metadata = {} ## FIXXME: ??? separate metadata according to TEMPORAL, ...
+
+        for entry in blogdata[TEMPORAL]:
+            metadata.update(Utils.__generate_metadata_from_blogdata_core(metadata, entry, TEMPORAL))
+        for entry in blogdata[TEMPLATES]:
+            metadata += Utils.__generate_metadata_from_blogdata_core(metadata, entry, TEMPLATES)
+        for entry in blogdata[PERSISTENT]:
+            metadata += Utils.__generate_metadata_from_blogdata_core(metadata, entry, PERSISTENT)
+        for entry in blogdata[TAGS]:
+            metadata += Utils.__generate_metadata_from_blogdata_core(metadata, entry, TAGS)
 
         pdb.set_trace()## FIXXME
-        for entry in blogdata[TEMPORAL]:
-            metadata = __generate_metadata_from_blogdata_core(metadata, entry, self.TEMPORAL)
-        for entry in blogdata[TEMPLATES]:
-            metadata += __generate_metadata_from_blogdata_core(metadata, entry, self.TEMPORAL)
-        for entry in blogdata[PERSISTENT]:
-            metadata += __generate_metadata_from_blogdata_core(metadata, entry, self.TEMPORAL)
-        for entry in blogdata[TAGS]:
-            metadata += __generate_metadata_from_blogdata_core(metadata, entry, self.TEMPORAL)
-
         return metadata
 
     @staticmethod

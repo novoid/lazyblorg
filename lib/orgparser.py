@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-27 12:30:38 vk>
+# Time-stamp: <2013-10-12 18:36:09 vk>
 
 import re
 import os
@@ -31,6 +31,10 @@ class OrgParser(object):
 
     ## string of the state which defines a blog entry to be published
     BLOG_FINISHED_STATE = u'DONE'
+
+    ## tag that is expected in any blog entry category:
+    ## FIXXME: also defined as BLOG_TAG in lazyblorg.py!
+    TAG_FOR_BLOG_ENTY='blog'
 
     LINE_SEPARATION_CHAR_WITHIN_PARAGRAPH = u' '
 
@@ -66,9 +70,25 @@ class OrgParser(object):
 
     __filename = u''
 
+    ## tag strings of blog entry categories:
+    TAG_FOR_TAG_ENTRY = u'lb_tag'  ## if an entry is tagged with this, it's an TAGS entry
+    TAG_FOR_PERSISTENT_ENTRY = u'lb_persistent'  ## if an entry is tagged with this, it's an PERSISTENT entry
+    TAG_FOR_TEMPLATES_ENTRY = u'lb_templates'  ## if an entry is tagged with this, it's an TEMPLATES entry
+
+    ## categories of blog entries:
+    ## FIXXME: also defined in lazyblorg.py
+    TAGS = 'TAGS'
+    PERSISTENT = 'PERSISTENT'
+    TEMPORAL = 'TEMPORAL'
+    TEMPLATES = 'TEMPLATES'
+
     ## for description please visit: lazyblog.org > Notes > Representation of blog data
-    __blog_data = []   ## list of all parsed entries of __filename: contains a list with elements of type __entry_data
-    __entry_data = {}  ## dict of current blog entry data: gets "filled" while parsing the entry
+    __blog_data = {}
+    ## __blog_data: dictionary of lists of all parsed entries of __filename: contains 
+    ##              a list with elements of type __entry_data
+
+    __entry_data = {}  ## dict of currently parsed blog entry data: gets "filled" 
+                       ## while parsing the entry
 
     def __init__(self, filename):
         """
@@ -80,13 +100,13 @@ class OrgParser(object):
         assert filename.__class__ == str or filename.__class__ == unicode
         assert os.path.isfile(filename)
         self.__filename = filename
-        self.__blog_data = []
+        self.__blog_data = {self.TAGS:[], self.PERSISTENT:[], self.TEMPORAL:[], self.TEMPLATES:[]}
         self.__entry_data = {}
 
- ## create logger (see http://docs.python.org/2/howto/logging-cookbook.html)
+        ## create logger (see http://docs.python.org/2/howto/logging-cookbook.html)
         self.logging = logging.getLogger('lazyblorg.OrgParser')
 
-    def __filter_org_entry_for_blog_entries(self):
+    def __check_if_entry_is_OK(self):
         """
         Return True if current entry from "self.__entry_data" is a valid and
         complete blog article and thus can be added to the blog data.
@@ -134,8 +154,9 @@ class OrgParser(object):
             ##                   self.__entry_data['title'])
             ## errors += 1
         else:
-            if 'blog' not in self.__entry_data['tags']:
-                self.logging.debug("OrgParser: this has no tag called :blog: -> no blog entry")
+            if self.TAG_FOR_BLOG_ENTY not in self.__entry_data['tags']:
+                self.logging.debug("OrgParser: this has no tag called " + \
+                                       self.TAG_FOR_BLOG_ENTY + " -> no blog entry")
                 return False
 
         if errors > 0:
@@ -187,8 +208,22 @@ class OrgParser(object):
         """
 
         self.logging.debug("OrgParser: end of blog entry; checking entry ...")
-        if self.__filter_org_entry_for_blog_entries():
-            self.__blog_data.append(self.__entry_data)
+        if self.__check_if_entry_is_OK():
+            #pdb.set_trace()## FIXXME
+            ## debug with: self._OrgParser__entry_data['tags']
+            ## debug with: self._OrgParser__blog_data
+            if self.TAG_FOR_TEMPLATES_ENTRY in self.__entry_data['tags']:
+                self.logging.debug("OrgParser: check OK; appending to blog category TEMPLATES ...")
+                self.__blog_data[self.TEMPLATES].append(self.__entry_data)
+            if self.TAG_FOR_TAG_ENTRY in self.__entry_data['tags']:
+                self.logging.debug("OrgParser: check OK; appending to blog category TAGS ...")
+                self.__blog_data[self.TAGS].append(self.__entry_data)
+            elif self.TAG_FOR_PERSISTENT_ENTRY in self.__entry_data['tags']:
+                self.logging.debug("OrgParser: check OK; appending to blog category PERSISTENT ...")
+                self.__blog_data[self.PERSISTENT].append(self.__entry_data)
+            else:
+                self.logging.debug("OrgParser: check OK; appending to blog category TEMPORAL ...")
+                self.__blog_data[self.TEMPORAL].append(self.__entry_data)
 
         self.__entry_data = {}  ## empty current entry data
         ## Pdb-debugging with, e.g., self._OrgParser__entry_data['content']

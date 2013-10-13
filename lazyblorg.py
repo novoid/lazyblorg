@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-30 13:38:36 vk>
+# Time-stamp: <2013-10-13 13:19:33 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -33,6 +33,7 @@ INVOCATION_TIME = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 BLOG_PREFIX = u'blog'
 
 ## this Org-mode tag marks blog entries:
+## FIXXME: also defined as TAG_FOR_BLOG_ENTY in OrgParser!
 BLOG_TAG = u'blog'
 
 EPILOG = u"\n\
@@ -62,13 +63,20 @@ class Lazyblorg(object):
     previous_metadata = None  ## meta-data of the previous run of lazyblorg
     template_definitions = None  ## list of definitions of templates
 
+    ## categories of blog entries:
+    ## FIXXME: also defined in OrgParser and utils.py
+    TAGS = 'TAGS'
+    PERSISTENT = 'PERSISTENT'
+    TEMPORAL = 'TEMPORAL'
+    TEMPLATES = 'TEMPLATES'
+
     def __init__(self, options, logging):
 
         self.options = options
         self.logging = logging
 
         self.list_of_orgfiles = []
-        self.blog_data = []
+        self.blog_data = {}
         self.metadata = []  ## meta-data of the current run of lazyblorg
         self.previous_metadata = None  ## meta-data of the previous run of lazyblorg
         self.template_definitions = None
@@ -96,7 +104,9 @@ class Lazyblorg(object):
                     "can fix the issue in the Org-mode file. Reason: " + message.value
                 Utils.error_exit_with_userlog(options.logfilename, 20, verbose_message)
             else:
-                self.blog_data.extend(file_blog_data)
+                #pdb.set_trace()## FIXXME
+                ## extend sections of blog_data separately:
+                self.blog_data = Utils.append_lists_in_dict(file_blog_data, self.blog_data)
 
         ## dump blogdata for debugging purpose ...
         if options.verbose:
@@ -117,12 +127,15 @@ class Lazyblorg(object):
             with open(options.metadatafilename, 'rb') as input:
                 self.previous_metadata = pickle.load(input)
 
+        ## extract HTML templates and store in class var
+        self.template_definitions = self._generate_template_definitions_from_template_data(self.blog_data[TEMPLATES])
+
         ## run comparing algorithm (last metadata, current metadata)
         generate, marked_for_RSS, increment_version = self._compare_blogdata_to_metadata()
 
         return generate, marked_for_RSS, increment_version
 
-    def parse_HTML_output_template_and_generate_template_definitions(self):
+    def OLD_parse_HTML_output_template_and_generate_template_definitions(self):
         """
 
         Parse the template Org-mode file which contains the HTML
@@ -179,7 +192,7 @@ class Lazyblorg(object):
 
         return parser.parse_orgmode_file()
 
-    def _parse_HTML_output_template(self, filename):
+    def OLD_parse_HTML_output_template(self, filename):
         """
         This function parses an Org-mode file which holds the definitions of the output format.
 
@@ -203,20 +216,21 @@ class Lazyblorg(object):
         self.logging.debug('checking for basic template definitions in parsed data ...')
 
         if not template_data:
-            message = "Sorry, no suitable data could be parsed from the template definition file. " + \
+            message = "Sorry, no suitable template data could be parsed from the Org-mode files. " + \
                 "Please check if it meets all criteria as described in the original template " + \
                 "file \"blog-format.org\"."
             Utils.error_exit_with_userlog(options.logfilename, 40, message)
 
-        matching_title_template_data = [entry for entry in template_data if entry['title'] == u'Templates']
+        matching_title_template_data = [entry for entry in template_data \
+                                            if entry['title'] == u'Templates']
 
         if not matching_title_template_data:
-            message = "Sorry, no suitable data within heading \"Templates\" could be found in " + \
-                "the template definition file. " + \
-                "Please check if you mistyped its name."
+            message = "Sorry, no definitions found for HTML templates. " + \
+                "Please check if you probably have a typo in its heading name \"Templates\"."
             Utils.error_exit_with_userlog(options.logfilename, 41, message)
 
-        html_definitions = [x for x in matching_title_template_data[0]['content'] if x[0] == 'html-block']
+        html_definitions = [x for x in matching_title_template_data[0]['content'] \
+                                if x[0] == 'html-block']
 
         found_elements = [x[1] for x in html_definitions]
 
@@ -387,11 +401,6 @@ if __name__ == "__main__":
                         "is written to. Next run, it will be read and used for comparison to current situation." +
                         "Therefore, this file can be missing in the first run.")
 
-    parser.add_argument("--template", dest="templatefilename", metavar='ORGFILE', required=True,
-                        help="Path to an Org-mode file containing the output template definitions. " +
-                        "Please use/see example file \"templates/blog-format.org\" which is part " +
-                        "of the original lazyblorg repository.")
-
     parser.add_argument("--logfile", dest="logfilename", metavar='ORGFILE', required=True,
                         help="Path to a file where warnings (inactive time-stamps) and errors " +
                         "(active time-stamps) are being appended in Org-mode format. " +
@@ -450,13 +459,6 @@ if __name__ == "__main__":
         ##    logging.critical("Please give me a file to write to with option \"--metadata\".")
         ##    Utils.error_exit(4)
 
-        if not os.path.isfile(options.templatefilename):
-            logging.warn("Blog data file \"" + options.templatefilename + "\" is not found. Assuming first run!")
-
-        ##if not options.templatefilename:
-        ##    logging.critical("Please give me a file which holds the template definitions with option \"--template\".")
-        ##    Utils.error_exit(7)
-
         if not os.path.isfile(options.metadatafilename):
             logging.warn("Blog data file \"" + options.metadatafilename + "\" is not found. Assuming first run!")
 
@@ -475,7 +477,7 @@ if __name__ == "__main__":
         ## main algorithm:
         lazyblorg = Lazyblorg(options, logging)
         ## FIXXME: encapsulate following lines in lazyblorg.run() ?
-        lazyblorg.parse_HTML_output_template_and_generate_template_definitions()
+        #lazyblorg.parse_HTML_output_template_and_generate_template_definitions()
         generate, marked_for_RSS, increment_version = lazyblorg.determine_changes()
         lazyblorg.generate_output(generate, marked_for_RSS, increment_version)
 
