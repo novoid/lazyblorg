@@ -1,4 +1,4 @@
-# Time-stamp: <2013-10-01 21:06:11 vk>
+# Time-stamp: <2013-10-19 18:52:51 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -311,27 +311,32 @@ vk@gary ~/src/lazyblorg (git)-[master] %
   - [ ] optionally: generate calendar archive page(s)
   - [ ] optionally: generate tag overview page(s)
 
-** NEXT separate blogdata structures via tags                 :architecture:
+** NEXT implement: creating PERSISTENT pages                     :userstory:
 :PROPERTIES:
-:CREATED:  [2013-09-15 Sun 19:38]
+:CREATED:  [2013-10-19 Sat 18:50]
 :END:
 
-- all articles got :blog:
-  - :lb_tag: -> create example.com/blog/tags/<tagname=article name>
-    - description of tags
-    - __blog_data['TAGS']
-    - TAG_FOR_TAG_ENTRY = 'lb_tag'
-  - :lb_persistent: -> create example.com/blog//<article name>
-    - __blog_data['PERSISTENT']
-    - TAG_FOR_PERSISTENT_ENTRY = 'lb_persistent'
-  - else: normal blog articles example.com/blog/2013/12/31/<name>
-    - __blog_data['TEMPORAL']
+- htmlizer
 
-- adopt method for getting link to any article; get also URL of it
-  (relative to /) (see id:2013-09-29-get-link)
+** NEXT implement: creating TAG pages                             :userstory:
+:PROPERTIES:
+:CREATED:  [2013-10-19 Sat 18:50]
+:END:
+
+- htmlizer
 ** NEXT create constants.py as module                         :architecture:
 :PROPERTIES:
 :CREATED:  [2013-10-01 Tue 21:05]
+:END:
+
+** NEXT Glossary: variable names and so on                    :architecture:
+:PROPERTIES:
+:CREATED:  [2013-10-14 Mon 12:34]
+:END:
+
+** NEXT Refactor: unify all variables according to glossary    :architecture:
+:PROPERTIES:
+:CREATED:  [2013-10-14 Mon 12:35]
 :END:
 ** NEXT adopt method for getting link to any article; get also URL
 :PROPERTIES:
@@ -416,6 +421,14 @@ A sub-heading «result» contains the results which is expected.
 - sorted by last date within LOGBOOK or PROPERTIES drawers
 - one general RSS feed
 - one feed for each tag
+- ? differ heading-only feeds and full feeds
+  - OR: use only full feeds
+** TODO documentation: describe tags for templates, persistent, tag, and normal :userstory:
+:PROPERTIES:
+:CREATED:  [2013-10-19 Sat 18:01]
+:END:
+
+- emphasize that templates, persistent, tag are mutual exclusive tags!
 
 ** TODO mark updates on entries                                :architecture:
 :PROPERTIES:
@@ -622,6 +635,11 @@ page. Further headings contain more content for other pages.
   - www.example.com/i/aB3 ->
 - generate short URL as hash from ID?
   - is it possible without getting a high chance of conflicts?
+    - YES:
+      - use 4-letter-part of sha1-hash
+      - before storing, check on conflict with existing one
+        - use creation-date as first-come-first-serve
+        - in case of conflict: add more sha1-letters to short-URL
 
 - [2013-08-29 Thu]: idea: www.example.com/s(.html)#ID
   - one (long) HTML page with links to all pages
@@ -965,11 +983,10 @@ CLOSED: [2013-08-20 Tue 18:15]
 For a complete list of *content elements*, please take a look at
 id:implemented-org-elements (above)
 
-~blog_data~ is a Python dict (each per blog entry type/category) of
-Python lists containing one dictionary entry per blog entry:
+~blog_data~ is a Python list containing one dictionary entry per blog entry:
 
 #+BEGIN_SRC python
-  blog_data['TEMPORAL'] = \
+  blog_data = \
   [ {'level': 2,                                                ## number of asterisks
      'title': u'This is a blog entry about foo', 
      'tags': [u'tag1', u'tag2'], 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-10-12 18:36:09 vk>
+# Time-stamp: <2013-10-19 18:03:15 vk>
 
 import re
 import os
@@ -83,9 +83,8 @@ class OrgParser(object):
     TEMPLATES = 'TEMPLATES'
 
     ## for description please visit: lazyblog.org > Notes > Representation of blog data
-    __blog_data = {}
-    ## __blog_data: dictionary of lists of all parsed entries of __filename: contains 
-    ##              a list with elements of type __entry_data
+    __blog_data = []
+    ## __blog_data: contains a list with elements of type __entry_data
 
     __entry_data = {}  ## dict of currently parsed blog entry data: gets "filled" 
                        ## while parsing the entry
@@ -100,7 +99,7 @@ class OrgParser(object):
         assert filename.__class__ == str or filename.__class__ == unicode
         assert os.path.isfile(filename)
         self.__filename = filename
-        self.__blog_data = {self.TAGS:[], self.PERSISTENT:[], self.TEMPORAL:[], self.TEMPLATES:[]}
+        self.__blog_data = []
         self.__entry_data = {}
 
         ## create logger (see http://docs.python.org/2/howto/logging-cookbook.html)
@@ -212,18 +211,25 @@ class OrgParser(object):
             #pdb.set_trace()## FIXXME
             ## debug with: self._OrgParser__entry_data['tags']
             ## debug with: self._OrgParser__blog_data
+            
+            ## FIXXME: adding as list entry
+
             if self.TAG_FOR_TEMPLATES_ENTRY in self.__entry_data['tags']:
-                self.logging.debug("OrgParser: check OK; appending to blog category TEMPLATES ...")
-                self.__blog_data[self.TEMPLATES].append(self.__entry_data)
-            if self.TAG_FOR_TAG_ENTRY in self.__entry_data['tags']:
-                self.logging.debug("OrgParser: check OK; appending to blog category TAGS ...")
-                self.__blog_data[self.TAGS].append(self.__entry_data)
+                self.logging.debug("OrgParser: check OK; appending blog category TEMPLATES ...")
+                self.__entry_data['category'] = self.TEMPLATES
+            elif self.TAG_FOR_TAG_ENTRY in self.__entry_data['tags']:
+                self.logging.debug("OrgParser: check OK; appending blog category TAGS ...")
+                self.__entry_data['category'] = self.TAGS
             elif self.TAG_FOR_PERSISTENT_ENTRY in self.__entry_data['tags']:
                 self.logging.debug("OrgParser: check OK; appending to blog category PERSISTENT ...")
-                self.__blog_data[self.PERSISTENT].append(self.__entry_data)
+                self.__entry_data['category'] = self.PERSISTENT
             else:
                 self.logging.debug("OrgParser: check OK; appending to blog category TEMPORAL ...")
-                self.__blog_data[self.TEMPORAL].append(self.__entry_data)
+                self.__entry_data['category'] = self.TEMPORAL
+
+            ## debug with: self._OrgParser__entry_data
+            #pdb.set_trace()## FIXXME
+            self.__blog_data.append(self.__entry_data)
 
         self.__entry_data = {}  ## empty current entry data
         ## Pdb-debugging with, e.g., self._OrgParser__entry_data['content']
@@ -516,6 +522,12 @@ class OrgParser(object):
                 raise OrgParserException("unknown FSM state \"%s\"" % str(state))
 
             previous_line = line
+
+        if state != self.SEARCHING_BLOG_HEADER:
+            ## in case file ends while parsing an blog entry (no following heading is finishing current entry):
+            self.logging.debug("OrgParser: finished file \"%s\" while parsing blog entry. Finishing it." % 
+                               self.__filename)
+            self.__handle_blog_end(u"")
 
         self.logging.debug("OrgParser: finished file \"%s\"" % self.__filename)
         #pdb.set_trace()## FIXXME:   data = self._OrgParser__entry_data ; data['content']

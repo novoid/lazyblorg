@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-30 15:08:38 vk>
+# Time-stamp: <2013-10-19 18:53:52 vk>
 
 import logging
 import os
@@ -13,6 +13,7 @@ import re  ## RegEx: for parsing/sanitizing
 import pdb
                 #pdb.set_trace()## FIXXME
 
+### FIXXXME: differ according to category (persistent, tags, temporal, templates)
 
 class HtmlizerException(Exception):
     """
@@ -45,6 +46,13 @@ class Htmlizer(object):
     ## is a permanent blog page (tag is found) or a time-oriented
     ## (normal) blog-entry (this tag is missing).
     PERMANENT_ENTRY_TAG = 'permanent'
+
+    ## categories of blog entries:
+    ## FIXXME: also defined in multiple other files
+    TAGS = 'TAGS'
+    PERSISTENT = 'PERSISTENT'
+    TEMPORAL = 'TEMPORAL'
+    TEMPLATES = 'TEMPLATES'
 
     ## this gets added to the time in order to describe time zone of the blog:
     TIME_ZONE_ADDON = '+02:00'
@@ -112,13 +120,31 @@ class Htmlizer(object):
 
             entry = self.sanitize_and_htmlize_blog_content(entry)
 
-            if self.PERMANENT_ENTRY_TAG in entry['tags']:
-                self.logging.debug("entry \"%s\" is a permanent page (not time-oriented)" % entry['id'])
-                pass  ## FIXXME
+            if entry['category'] == self.TAGS:
+                self.logging.debug("entry \"%s\" is a tag page" % entry['id'])
+                self.logging.warn("generating tag pages not implemented yet")
+                ## FIXXME: maybe: remove self.TAGS from list of tags?
+                pass  ## FIXXME: generate tag blog entry
 
-            else:
+            elif entry['category'] == self.PERSISTENT:
+                self.logging.debug("entry \"%s\" is a persistent page" % entry['id'])
+                self.logging.warn("generating persistent pages not implemented yet")
+                ## FIXXME: maybe: remove self.PERSISTENT from list of tags?
+                pass  ## FIXXME: generate persistent blog entry
+
+            elif entry['category'] == self.TEMPORAL:
+                #pdb.set_trace()## FIXXME
                 self.logging.debug("entry \"%s\" is an ordinary time-oriented blog entry" % entry['id'])
                 self._create_time_oriented_blog_article(entry)
+
+            elif entry['category'] == self.TEMPLATES:
+                self.logging.debug("entry \"%s\" is the/a HTML template definition. Ignoring." % entry['id'])
+
+            else:
+                message = "entry [" + entry['id'] + "] has an unknown category [" + \
+                    repr(entry['category']) + "]. Please check and fix before next run."
+                self.logging.critical(message)
+                raise HtmlizerException(message)
 
     def sanitize_and_htmlize_blog_content(self, entry):
         """
@@ -199,7 +225,7 @@ class Htmlizer(object):
                 ## example:
                 ## ['html-block', u'my-HTML-example name', [u'    foo', u'bar', u'  <foo />', u'<a href="bar">baz</a>']]
 
-                if entry['content'][index][1] is None:
+                if not entry['content'][index][1]:
                     ## if html-block has no name -> insert as raw HTML
                     result = '\n'.join(entry['content'][index][2])
                 else:

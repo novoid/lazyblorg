@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-10-13 14:14:04 vk>
+# Time-stamp: <2013-10-19 18:08:44 vk>
 
 import sys
 import logging
@@ -150,26 +150,27 @@ class Utils(object):
 
         for entry in blogdata:
 
-            pdb.set_trace()## FIXXME: check, if category is stored in entry and modify below
-            checksum = Utils.__generate_checksum_for_blog_entry(blogdata['title'],
-                                                                blogdata['tags'],
-                                                                blogdata['content'])
+            #pdb.set_trace()
+            checksum = Utils.__generate_checksum_for_blog_entry(entry['title'],
+                                                                entry['tags'],
+                                                                entry['content'])
             
-            if blogdata['id'] in metadata.keys():
+            if entry['id'] in metadata.keys():
                 logging.error("We got a duplicate ID in blogdata: \"" +
-                              str(blogdata['id']) + "\". Please correct it and re-run this tool.")
-                pdb.set_trace()## FIXXME
+                              str(entry['id']) + "\". Please correct it and re-run this tool.")
+                ##   [x['id'] for x in blogdata]
+                #pdb.set_trace()## FIXXME
                 Utils.error_exit(30)
             else:
-                assert('created' in blogdata.keys())
-                assert('timestamp' in blogdata.keys())
+                assert('created' in entry.keys())
+                assert('timestamp' in entry.keys())
                 #pdb.set_trace()## FIXXME
-                metadata[blogdata['id']] = {'created': blogdata['created'],
-                                         'timestamp': blogdata['timestamp'],
+                metadata[entry['id']] = {'created': entry['created'],
+                                         'timestamp': entry['timestamp'],
                                          'checksum': checksum,
-                                         'category': category}
+                                         'category': entry['category']}
 
-        pdb.set_trace()## FIXXME
+        #pdb.set_trace()## FIXXME
         return metadata
 
 
@@ -206,7 +207,7 @@ class Utils(object):
         for entry in blogdata[TAGS]:
             metadata += Utils.__generate_metadata_from_blogdata_core(metadata, entry, TAGS)
 
-        pdb.set_trace()## FIXXME
+        #pdb.set_trace()## FIXXME
         return metadata
 
     @staticmethod

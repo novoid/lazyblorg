@@ -1,116 +1,120 @@
 (lp0
 (dp1
-S'level'
+S'category'
 p2
+S'TEMPORAL'
+p3
+sS'level'
+p4
 I2
 sS'timestamp'
-p3
+p5
 cdatetime
 datetime
-p4
+p6
 (S'\x07\xdd\x02\x0e\x13\x02\x00\x00\x00\x00'
-p5
-tp6
-Rp7
+p7
+tp8
+Rp9
 sS'tags'
-p8
-(lp9
-Vblog
 p10
-aVmytest
-p11
-aVprogramming
+(lp11
+Vblog
 p12
-asS'created'
+aVmytest
 p13
-g4
-(S'\x07\xdd\x02\x0c\n:\x00\x00\x00\x00'
+aVprogramming
 p14
-tp15
-Rp16
+asS'created'
+p15
+g6
+(S'\x07\xdd\x02\x0c\n:\x00\x00\x00\x00'
+p16
+tp17
+Rp18
 sS'content'
-p17
-(lp18
-(lp19
+p19
+(lp20
+(lp21
 S'par'
-p20
+p22
 aVThis is an introduction text which describes the blog entry with some catchy information. Readers should be convinced to read this interesting text. [[https://github.com/novoid/Memacs][Memacs]] is an external link to Memacs.
-p21
-aa(lp22
-S'heading'
 p23
-a(dp24
-S'title'
+aa(lp24
+S'heading'
 p25
+a(dp26
+S'title'
+p27
 VSub-heading foo
-p26
-sg2
-I3
-saa(lp27
-g20
-aVThis is a dummy text whose only purpose is to generate some content which is then processed by this lovely tool. The resulting web blog might win the Pulitzer Prize some day!
 p28
-aa(lp29
-g20
-aV- this list - gives a great overview - about something
+sg4
+I3
+saa(lp29
+g22
+aVThis is a dummy text whose only purpose is to generate some content which is then processed by this lovely tool. The resulting web blog might win the Pulitzer Prize some day!
 p30
 aa(lp31
-g23
-a(dp32
+g22
+aV- this list - gives a great overview - about something
+p32
+aa(lp33
 g25
+a(dp34
+g27
 VSub-sub heading about something
-p33
-sg2
-I4
-saa(lp34
-g20
-aVThis is a dummy text whose only purpose is to generate some content which is then processed by this lovely tool. The resulting web blog might win the Pulitzer Prize some day!
 p35
-aa(lp36
-S'verse-block'
-p37
-aI00
-a(lp38
-VWell, in here, I want to write verbatim text.
-p39
-aVLine breaks should be exactly the same.
-p40
-aV
-p41
-aVThis is a
-p42
-aVdummy text whose only purpose is to generate
-p43
-aVsome content
-p44
-aVwhich is then processed by this lovely tool.
-p45
-aVThe resulting web blog
-p46
-aVmight win the Pulitzer Prize some day!
-p47
-ag41
-aaa(lp48
-g23
-a(dp49
-g25
-VSub-heading bar
-p50
-sg2
-I3
-saa(lp51
-g20
+sg4
+I4
+saa(lp36
+g22
 aVThis is a dummy text whose only purpose is to generate some content which is then processed by this lovely tool. The resulting web blog might win the Pulitzer Prize some day!
+p37
+aa(lp38
+S'verse-block'
+p39
+aI00
+a(lp40
+VWell, in here, I want to write verbatim text.
+p41
+aVLine breaks should be exactly the same.
+p42
+aV
+p43
+aVThis is a
+p44
+aVdummy text whose only purpose is to generate
+p45
+aVsome content
+p46
+aVwhich is then processed by this lovely tool.
+p47
+aVThe resulting web blog
+p48
+aVmight win the Pulitzer Prize some day!
+p49
+ag43
+aaa(lp50
+g25
+a(dp51
+g27
+VSub-heading bar
 p52
+sg4
+I3
+saa(lp53
+g22
+aVThis is a dummy text whose only purpose is to generate some content which is then processed by this lovely tool. The resulting web blog might win the Pulitzer Prize some day!
+p54
 aasS'finished-timestamp-history'
-p53
-(lp54
-g7
-asg25
-VThis is an example blog entry
 p55
-sS'id'
-p56
-V2013-02-12-lazyblorg-example-entry
+(lp56
+g9
+asg27
+VThis is an example blog entry
 p57
+sS'id'
+p58
+V2013-02-12-lazyblorg-example-entry
+p59
 sa.

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-10-13 13:19:33 vk>
+# Time-stamp: <2013-10-19 18:55:54 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -64,7 +64,7 @@ class Lazyblorg(object):
     template_definitions = None  ## list of definitions of templates
 
     ## categories of blog entries:
-    ## FIXXME: also defined in OrgParser and utils.py
+    ## FIXXME: also defined in: OrgParser utils.py htmlizer
     TAGS = 'TAGS'
     PERSISTENT = 'PERSISTENT'
     TEMPORAL = 'TEMPORAL'
@@ -76,7 +76,7 @@ class Lazyblorg(object):
         self.logging = logging
 
         self.list_of_orgfiles = []
-        self.blog_data = {}
+        self.blog_data = []
         self.metadata = []  ## meta-data of the current run of lazyblorg
         self.previous_metadata = None  ## meta-data of the previous run of lazyblorg
         self.template_definitions = None
@@ -105,14 +105,16 @@ class Lazyblorg(object):
                 Utils.error_exit_with_userlog(options.logfilename, 20, verbose_message)
             else:
                 #pdb.set_trace()## FIXXME
-                ## extend sections of blog_data separately:
-                self.blog_data = Utils.append_lists_in_dict(file_blog_data, self.blog_data)
+                self.blog_data += file_blog_data
 
         ## dump blogdata for debugging purpose ...
         if options.verbose:
             with open('lazyblorg_dump_of_blogdata_from_last_verbose_run.pk', 'wb') as output:
                 pickle.dump(self.blog_data, output, 0)  ## always use ASCII format: easier to debug from outside
 
+        #pdb.set_trace()## FIXXME
+        ## FIXXME: debug with: [x['id'] for x in self.blog_data]
+        
         ## generate persistent data which is used to compare this status
         ## with the status of the next invocation:
         self.metadata = Utils.generate_metadata_from_blogdata(self.blog_data)
@@ -128,7 +130,7 @@ class Lazyblorg(object):
                 self.previous_metadata = pickle.load(input)
 
         ## extract HTML templates and store in class var
-        self.template_definitions = self._generate_template_definitions_from_template_data(self.blog_data[TEMPLATES])
+        self.template_definitions = self._generate_template_definitions_from_template_data()
 
         ## run comparing algorithm (last metadata, current metadata)
         generate, marked_for_RSS, increment_version = self._compare_blogdata_to_metadata()
@@ -204,16 +206,20 @@ class Lazyblorg(object):
 
         return template_parser.parse_orgmode_file()
 
-    def _generate_template_definitions_from_template_data(self, template_data):
+    def _generate_template_definitions_from_template_data(self):
         """
         This function checks for (only) basic format definitions and exits
         if something important is missing.
 
-        @param template_data: list which contains the format data of the template
         @param return: list of HTML definitions as Org-mode HTML block list-elements
         """
 
         self.logging.debug('checking for basic template definitions in parsed data ...')
+
+        ## extract template_data from blog_data:
+        template_data = [x for x in self.blog_data \
+                             if x['id']=='lazyblorg-templates' and x['title'] == u'Templates']
+        #pdb.set_trace()## FIXXME
 
         if not template_data:
             message = "Sorry, no suitable template data could be parsed from the Org-mode files. " + \
@@ -221,15 +227,7 @@ class Lazyblorg(object):
                 "file \"blog-format.org\"."
             Utils.error_exit_with_userlog(options.logfilename, 40, message)
 
-        matching_title_template_data = [entry for entry in template_data \
-                                            if entry['title'] == u'Templates']
-
-        if not matching_title_template_data:
-            message = "Sorry, no definitions found for HTML templates. " + \
-                "Please check if you probably have a typo in its heading name \"Templates\"."
-            Utils.error_exit_with_userlog(options.logfilename, 41, message)
-
-        html_definitions = [x for x in matching_title_template_data[0]['content'] \
+        html_definitions = [x for x in template_data[0]['content'] \
                                 if x[0] == 'html-block']
 
         found_elements = [x[1] for x in html_definitions]
