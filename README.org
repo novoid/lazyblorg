@@ -1,4 +1,4 @@
-## Time-stamp: <2013-09-13 16:13:50 vk>
+## Time-stamp: <2013-10-19 19:09:12 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -28,9 +28,9 @@ Saint-Exupéry]])
 And: your blog entries can be written *anywhere in your Org-mode
 files*. They will be found by lazyblorg. :-)
 
-Further advantages are listed in the FAQ section below.
+Further advantages are listed below.
 
-** Example
+** Example workflow for creating a blog entry
 
 1. write a blog entry *anywhere* in your Org-mode files
 2. tag your entry with ~:blog:~
@@ -177,9 +177,18 @@ Org-mode syntax (see section "notes" in [[file:dev/lazyblorg.org]]).
 
 Just drop me a line: lazyblorg <at-sign> Karl <minus-sign> Voit <dot> at
 
-* FIXXME: Install
+* FIXXME: Install (current status)
 
-Currently, lazyblorg is in alpha status. It's not ready yet - Sorry!
+Currently, lazyblorg is in *alpha status*. It's not ready yet - Sorry!
+
+What's working so far:
+- parsing a very basic sub-set of Org-mode
+- parsing the HTML templates
+- generating HTML5 pages with a sub-set of the sub-set of the Org-mode
+  syntax elements
+
+Non-working things are either mentioned in [[https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org][dev/lazyblorg.org]] or marked
+with "FIXXME" in the source code files.
 
 * Contribute!
 
@@ -188,9 +197,10 @@ I am looking for your ideas:
 If you want to contribute to this cool project, please fork and
 contribute!
 
-Issues, bugs, userstories, ... are maintained in dev/lazyblorg.org
+Issues, bugs, userstories, ... are maintained in [[https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org][dev/lazyblorg.org]]
 
-I am using [[http://www.python.org/dev/peps/pep-0008/][Python PEP8]] and [[http://en.wikipedia.org/wiki/Test-driven_development][Test Driven Development (TDD)]].
+I am using [[http://www.python.org/dev/peps/pep-0008/][Python PEP8]] and some ideas from [[http://en.wikipedia.org/wiki/Test-driven_development][Test Driven Development
+(TDD)]].
 
 
 * Local Variables                                                  :noexport:
