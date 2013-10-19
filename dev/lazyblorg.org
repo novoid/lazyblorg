@@ -1,4 +1,4 @@
-# Time-stamp: <2013-10-19 18:52:51 vk>
+# Time-stamp: <2013-10-19 19:16:58 vk>
 # -*- coding: utf-8 -*-
 * header information                                               :noexport:
 :PROPERTIES:
@@ -310,6 +310,14 @@ vk@gary ~/src/lazyblorg (git)-[master] %
   - [ ] optionally: generate overview page for last n entries
   - [ ] optionally: generate calendar archive page(s)
   - [ ] optionally: generate tag overview page(s)
+** NEXT implement method to get URL of an blogdata id         :architecture:
+:PROPERTIES:
+:CREATED:  [2013-10-19 Sat 19:16]
+:END:
+** NEXT create constants.py as module                         :architecture:
+:PROPERTIES:
+:CREATED:  [2013-10-01 Tue 21:05]
+:END:
 
 ** NEXT implement: creating PERSISTENT pages                     :userstory:
 :PROPERTIES:
@@ -324,10 +332,6 @@ vk@gary ~/src/lazyblorg (git)-[master] %
 :END:
 
 - htmlizer
-** NEXT create constants.py as module                         :architecture:
-:PROPERTIES:
-:CREATED:  [2013-10-01 Tue 21:05]
-:END:
 
 ** NEXT Glossary: variable names and so on                    :architecture:
 :PROPERTIES:
