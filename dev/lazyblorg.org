@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "german8"; -*-
-# Time-stamp: <2014-01-29 18:04:57 vk>
+# Time-stamp: <2014-01-29 22:45:33 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -311,18 +311,30 @@ vk@gary ~/src/lazyblorg (git)-[master] %
   - [ ] optionally: generate calendar archive page(s)
   - [ ] optionally: generate tag overview page(s)
 
-** NEXT implement method to get URL of an blogdata id         :architecture:
+** NEXT create constants.py as module                         :architecture:
+:PROPERTIES:
+:CREATED:  [2013-10-01 Tue 21:05]
+:END:
+
+- handle configuration and run-time variables using this module
+- ? parse config variables from Org-mode heading?
+** NEXT make alpha version of blog available on my domain            :tests:
+:PROPERTIES:
+:CREATED:  [2014-01-29 Wed 22:40]
+:END:
+
+- get feedback from real-world data
+- be able to tweet URLs of (very simple) blog entries
+- site-logo (in SVG) as hard-coded URL in template?
+
+** NEXT implement method(s) to get URL of an blogdata id       :architecture:
 :PROPERTIES:
 :CREATED:  [2013-10-19 Sat 19:16]
 :END:
 
 - get absolute URL of any entry ID
-- get relative URL to the CSS for an entry ID
-
-** NEXT create constants.py as module                         :architecture:
-:PROPERTIES:
-:CREATED:  [2013-10-01 Tue 21:05]
-:END:
+- get relative (to a given URL) URL of any entry ID
+- get relative URL to the central CSS for an entry ID
 
 ** NEXT implement: creating PERSISTENT pages                     :userstory:
 :PROPERTIES:
@@ -388,6 +400,10 @@ vk@gary ~/src/lazyblorg (git)-[master] %
   6. in case of non-article (persistent, tag, ...):
      - put file in global folder named "tsfile" in root
      - link wirh absolute path
+** NEXT catch all exceptions and create a log entry           :architecture:
+:PROPERTIES:
+:CREATED:  [2013-08-29 Thu 16:28]
+:END:
 
 ** NEXT Glossary: variable names and so on                    :architecture:
 :PROPERTIES:
@@ -403,17 +419,19 @@ vk@gary ~/src/lazyblorg (git)-[master] %
 :CREATED:  [2013-10-19 Sat 19:18]
 :END:
 
+1. lists
+2. URLs/links
+   - handle links to other blog entries
+3. 
+
 ** NEXT htmlizer: generate more Org-mode elements             :architecture:
 :PROPERTIES:
 :CREATED:  [2013-10-19 Sat 19:19]
 :END:
-** NEXT adopt method for getting link to any article; get also URL
-:PROPERTIES:
-:CREATED:  [2013-09-29 Sun 15:01]
-:ID: 2013-09-29-get-link
-:END:
 
-- URL relative to /
+- also: search for FIXXMEs in htmlizer
+  - I did some quick & dirty copying (quote, src, ...) in order to
+    enable real-world data parsing
 
 ** STARTED test generate_output (comparing HTML/CSS output files)     :tests:
 :PROPERTIES:
@@ -446,10 +464,6 @@ A sub-heading «result» contains the results which is expected.
 :END:
 :PROPERTIES:
 :CREATED: [2013-09-13 Fri 14:06]
-:END:
-** NEXT catch all exceptions and create a log entry           :architecture:
-:PROPERTIES:
-:CREATED:  [2013-08-29 Thu 16:28]
 :END:
 ** NEXT CSS: manually create CSS for an entry                 :architecture:
 :PROPERTIES:
