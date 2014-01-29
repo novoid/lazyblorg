@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-01-29 20:11:35 vk>
+# Time-stamp: <2014-01-29 20:32:47 vk>
 
 import logging
 import os
@@ -67,6 +67,9 @@ class Htmlizer(object):
     ## find '&amp;' in an active URL and fix it to '&':
     FIX_AMPERSAND_URL_REGEX = re.compile('(href="http(s)?://\S+?)&amp;(\S+?")')
 
+    ## any ISO date-stamp of format YYYY-MM-DD:
+    DATESTAMP_REGEX = re.compile('([12]\d\d\d)-([012345]\d)-([012345]\d)')
+    
     def __init__(self, template_definitions, prefix_dir, blog_tag, about_blog, targetdir, blog_data,
                  generate, increment_version):
         """
@@ -484,8 +487,8 @@ class Htmlizer(object):
         folder = werkzeug.utils.secure_filename(entryid)
 
         ## FIXXME: refactor to: remove *any* ISO date-stamp infront of the folder name! (regex)
-        if folder[0:11] == year + '-' + month + '-' + day + '-':
-            ## folder contains the date-stamp in ISO format -> get rid of it (it's in the path anyway)
+        if self.DATESTAMP_REGEX.match(folder[0:10]):
+            ## folder contains any date-stamp in ISO format -> get rid of it (it's in the path anyway)
             folder = folder[11:]
 
         return os.path.join(self.targetdir, self.prefix_dir, year, month, day, folder)
