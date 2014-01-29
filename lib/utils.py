@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-10-19 18:08:44 vk>
+# Time-stamp: <2014-01-29 17:48:18 vk>
 
 import sys
 import logging
@@ -114,19 +114,18 @@ class Utils(object):
                                "\n")
 
     @staticmethod
-    def __generate_checksum_for_blog_entry(title, tags, content):
+    def __generate_checksum_for_blog_entry(title, content):
         """
 
         Creates a hash value which should be unique to the most
         important identifiers of content of a single blog entry.
 
         @param title: string of the blog entry title
-        @param tags: list of the blog entry tags as strings
         @param content: array of arrays containing the content of the blog entry
         @param return: hexadecimal value of the hash
         """
 
-        return md5(str([title, tags, content])).hexdigest()
+        return md5(str([title, content])).hexdigest()
 
     @staticmethod
     def generate_metadata_from_blogdata(blogdata):
@@ -152,7 +151,6 @@ class Utils(object):
 
             #pdb.set_trace()
             checksum = Utils.__generate_checksum_for_blog_entry(entry['title'],
-                                                                entry['tags'],
                                                                 entry['content'])
             
             if entry['id'] in metadata.keys():
