@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-10-19 18:55:54 vk>
+# Time-stamp: <2014-01-29 19:09:22 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -190,6 +190,7 @@ class Lazyblorg(object):
             self.logging.warning("Skipping non-file \"%s\" because this tool only parses files." % filename)
             return
 
+        self.logging.info("Parsing \"%s\" ..." % filename)
         parser = OrgParser(filename)
 
         return parser.parse_orgmode_file()

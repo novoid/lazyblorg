@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-10-19 18:53:52 vk>
+# Time-stamp: <2014-01-29 20:11:35 vk>
 
 import logging
 import os
 import werkzeug.utils  ## for sanitizing path components
 import datetime
 import re  ## RegEx: for parsing/sanitizing
+import codecs
 #from lib.utils import *
 
 ## debugging:   for setting a breakpoint:  pdb.set_trace()
@@ -247,6 +248,32 @@ class Htmlizer(object):
                 result += mycontent
                 result += self.template_definition_by_name('pre-end')
 
+            elif entry['content'][index][0] == 'quote-block':
+
+                ## example:
+                ## ['quote-block', False, [u'first line', u'second line']]
+
+                ## FIXXME: replace pre with suitable quotation environment!
+                result = self.template_definition_by_name('pre-begin')
+                mycontent = '\n'.join(entry['content'][index][2])
+                self.logging.debug("result [%s]" % repr(result))
+                self.logging.debug("mycontent [%s]" % repr(mycontent))
+                result += mycontent
+                result += self.template_definition_by_name('pre-end')
+
+            elif entry['content'][index][0] == 'src-block':
+
+                ## example:
+                ## ['src-block', False, [u'first line', u'second line']]
+
+                ## FIXXME: replace pre with suitable quotation environment!
+                result = self.template_definition_by_name('pre-begin')
+                mycontent = '\n'.join(entry['content'][index][2])
+                self.logging.debug("result [%s]" % repr(result))
+                self.logging.debug("mycontent [%s]" % repr(mycontent))
+                result += mycontent
+                result += self.template_definition_by_name('pre-end')
+
             else:
                 message = "htmlizer.py/sanitize_and_htmlize_blog_content(): content element [" + str(entry['content'][index][0]) + \
                     "] not recognized."
@@ -328,7 +355,7 @@ class Htmlizer(object):
 
         filename = os.path.join(path, "index.html")
 
-        with open(filename, 'wb') as output:
+        with codecs.open(filename, 'wb', encoding='utf-8') as output:
 
             ## replace-loop of all relevant strings and placeholder-strings
             ## article-header       | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
@@ -363,7 +390,12 @@ class Htmlizer(object):
                     self.logging.critical(message)
                     raise HtmlizerException(message)
                 else:
-                    output.write(element)
+                    try:
+                        output.write(unicode(element))
+                    except:
+                        self.logging.critical("Error in entry: " + str(entry['id']))
+                        self.logging.critical("Element type: " + str(type(element)))
+                        raise
 
             content = u''
             for articlepart in ['article-end', 'article-footer']:

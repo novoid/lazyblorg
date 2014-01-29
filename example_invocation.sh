@@ -1,3 +1,5 @@
+# rm -rf testdata/2del/*
+
 PYTHONPATH="~/src/lazyblorg:" ./lazyblorg.py \
     --aboutblog "lazyblorg test blog" \
     --targetdir testdata/2del \

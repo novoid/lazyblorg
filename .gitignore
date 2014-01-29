@@ -11,3 +11,4 @@ testdata/2del/*
 lib/tests/simple_org_-_lastrun.pk
 lazyblorg_dump_of_blogdata_from_last_verbose_run.pk
 parse_template.sh
+realdata_invocation.sh

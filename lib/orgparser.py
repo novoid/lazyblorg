@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-10-19 18:03:15 vk>
+# Time-stamp: <2014-01-29 19:28:55 vk>
 
 import re
 import os
@@ -64,7 +64,7 @@ class OrgParser(object):
     LOG_REGEX = re.compile('^- State\s+"' + BLOG_FINISHED_STATE + '"\s+from\s+"\S*"\s+([\[{].*[\]}])$')
     LOG_TIMESTAMP_IDX = 1
 
-    BLOCK_REGEX = re.compile('^#\+BEGIN_(SRC|VERSE|QUOTE|CENTER|HTML|ASCII|LATEX)(\s+(.*))?$')
+    BLOCK_REGEX = re.compile('^#\+BEGIN_(SRC|EXAMPLE|VERSE|QUOTE|CENTER|HTML|ASCII|LATEX)(\s+(.*))?$')
     BLOCK_TYPE_IDX = 1
     BLOCK_LANGUAGE_IDX = 3
 
@@ -105,22 +105,18 @@ class OrgParser(object):
         ## create logger (see http://docs.python.org/2/howto/logging-cookbook.html)
         self.logging = logging.getLogger('lazyblorg.OrgParser')
 
-    def __check_if_entry_is_OK(self):
+    def __check_if_entry_is_OK(self, check_only_title=False):
         """
         Return True if current entry from "self.__entry_data" is a valid and
         complete blog article and thus can be added to the blog data.
 
+        @param check_only_title: if True, check only title, level, and tags
         @param return: True if OK or False if not OK (and entry has to be skipped)
         """
 
         self.logging.debug("OrgParser: check_entry_data: checking current entry ...")
         errors = 0
 
-        if not 'id' in self.__entry_data.keys():
-            self.logging.error("Heading does not contain any ID within PROPERTY drawer")
-            errors += 1
-        else:
-            self.logging.debug("OrgParser: checking id [%s]" % self.__entry_data['id'])
 
         if not 'level' in self.__entry_data.keys():
             self.logging.error("Heading does not contain a heading level")
@@ -128,22 +124,6 @@ class OrgParser(object):
 
         if not 'title' in self.__entry_data.keys():
             self.logging.error("Heading does not contain a title")
-            errors += 1
-
-        if not 'timestamp' in self.__entry_data.keys():
-            self.logging.error("Heading does not contain a most recent timestamp")
-            errors += 1
-
-        if not 'created' in self.__entry_data.keys():
-            self.logging.error("Heading does not contain a timestamp for created")
-            errors += 1
-
-        if 'content' in self.__entry_data.keys():
-            if len(self.__entry_data['content']) < 1:
-                self.logging.error("Heading does not contain a filled content")
-                errors += 1
-        else:
-            self.logging.error("Heading does not contain a content")
             errors += 1
 
         if not 'tags' in self.__entry_data.keys() or self.__entry_data['tags'] is None:
@@ -158,6 +138,31 @@ class OrgParser(object):
                                        self.TAG_FOR_BLOG_ENTY + " -> no blog entry")
                 return False
 
+        if not check_only_title:
+        
+            if not 'id' in self.__entry_data.keys():
+                self.logging.error("Heading does not contain any ID within PROPERTY drawer")
+                errors += 1
+            else:
+                self.logging.debug("OrgParser: checking id [%s]" % self.__entry_data['id'])
+    
+            if not 'timestamp' in self.__entry_data.keys():
+                self.logging.error("Heading does not contain a most recent timestamp")
+                errors += 1
+    
+            if not 'created' in self.__entry_data.keys():
+                self.logging.error("Heading does not contain a timestamp for created")
+                errors += 1
+    
+            if 'content' in self.__entry_data.keys():
+                if len(self.__entry_data['content']) < 1:
+                    self.logging.error("Heading does not contain a filled content")
+                    errors += 1
+            else:
+                self.logging.error("Heading does not contain a content")
+                errors += 1
+
+
         if errors > 0:
             self.logging.error("check_entry_data: " + str(errors) +
                                " not matching criteria found for heading \"" +
@@ -168,7 +173,7 @@ class OrgParser(object):
             self.logging.debug("OrgParser: check_entry_data: current entry has been checked positively for being added to the blog data")
             return True
 
-    def __handle_blog_heading(self, stars, title, tags):
+    def __handle_heading_and_check_if_it_is_blog_heading(self, stars, title, tags):
         """
         Handles a heading line of a blog entry.
 
@@ -176,7 +181,7 @@ class OrgParser(object):
         @param title: string containing description of heading line
         @param tags: string containing raw tags like ":tag1:tag2:"
         @param blog_data: data representation of the blog data parsed so far
-        @param return: True if nothing failed
+        @param return: True if it is a blog heading; false if not
         """
 
         assert stars.__class__ == str or stars.__class__ == unicode
@@ -196,7 +201,8 @@ class OrgParser(object):
                             self.__entry_data['title'],
                             str(self.__entry_data['tags'])))
 
-        return True
+        return self.__check_if_entry_is_OK(check_only_title=True)
+
 
     def __handle_blog_end(self, line):
         """
@@ -239,10 +245,13 @@ class OrgParser(object):
         if heading_components and heading_components.group(self.HEADING_STATE_IDX) == self.BLOG_FINISHED_STATE:
             self.logging.debug("OrgParser: found heading (directly after previous blog entry)")
 
-            self.__handle_blog_heading(heading_components.group(self.HEADING_STARS_IDX),
-                                       heading_components.group(self.HEADING_TITLE_IDX),
-                                       heading_components.group(self.HEADING_TAGS_IDX))
-            return self.BLOG_HEADER
+            if self.__handle_heading_and_check_if_it_is_blog_heading(heading_components.group(self.HEADING_STARS_IDX),
+                                                                     heading_components.group(self.HEADING_TITLE_IDX),
+                                                                     heading_components.group(self.HEADING_TAGS_IDX)):
+                return self.BLOG_HEADER
+            else:
+                self.__entry_data = {}  ## empty current entry data
+                return self.SEARCHING_BLOG_HEADER
 
         else:
             return self.SEARCHING_BLOG_HEADER
@@ -294,12 +303,16 @@ class OrgParser(object):
 
                 if components and components.group(self.HEADING_STATE_IDX) == self.BLOG_FINISHED_STATE:
 
-                    self.__handle_blog_heading(components.group(self.HEADING_STARS_IDX),
-                                               components.group(self.HEADING_TITLE_IDX),
-                                               components.group(self.HEADING_TAGS_IDX))
-                    state = self.BLOG_HEADER
-                    previous_line = line
-                    continue
+                    if self.__handle_heading_and_check_if_it_is_blog_heading(components.group(self.HEADING_STARS_IDX),
+                                                                             components.group(self.HEADING_TITLE_IDX),
+                                                                             components.group(self.HEADING_TAGS_IDX)):
+                        state = self.BLOG_HEADER
+                        previous_line = line
+                        continue
+                    else:
+                        self.__entry_data = {}  ## empty current entry data
+                        previous_line = line
+                        continue
 
                 else:
                     self.logging.debug("OrgParser: line is not of any interest, skipping.")
@@ -372,7 +385,7 @@ class OrgParser(object):
 
                     if block_type == 'SRC' or block_type == 'HTML' or block_type == 'VERSE' or \
                             block_type == 'QUOTE' or block_type == 'CENTER' or block_type == 'ASCII' or \
-                            block_type == 'LATEX':
+                            block_type == 'LATEX' or block_type == 'EXAMPLE':
                         self.__entry_data['content'].append([block_type.lower() + '-block', previous_name, []])
                     else:
                         ## if BLOCK_REGEX is in sync with the if-statement above, this should never be reached!

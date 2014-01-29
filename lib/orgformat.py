@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-09-28 13:00:43 vk>
+# Time-stamp: <2014-01-29 18:17:02 vk>
 
 ## This file is originally from Memacs
 ## https://github.com/novoid/Memacs
@@ -34,7 +34,7 @@ class OrgFormat(object):
     """
 
     SINGLE_ORGMODE_TIMESTAMP = "([<\[]([12]\d\d\d)-([012345]\d)-([012345]\d) " + \
-        "(Mon|Tue|Wed|Thu|Fri|Sat|Sun) " + \
+        "(Mon|Tue|Wed|Thu|Fri|Sat|Sun|Mo|Di|Mi|Do|Fr|Sa|So) " + \
         "(([01]\d)|(20|21|22|23)):([012345]\d)[>\]])"
 
     ORGMODE_TIMESTAMP_REGEX = re.compile(SINGLE_ORGMODE_TIMESTAMP + "$")
