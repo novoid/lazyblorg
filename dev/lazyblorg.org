@@ -1,5 +1,5 @@
-# Time-stamp: <2013-10-19 19:16:58 vk>
-# -*- coding: utf-8 -*-
+# -*- mode: org; coding: utf-8; flyspell-default-dictionary: "german8"; -*-
+# Time-stamp: <2014-01-29 18:04:57 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -310,10 +310,15 @@ vk@gary ~/src/lazyblorg (git)-[master] %
   - [ ] optionally: generate overview page for last n entries
   - [ ] optionally: generate calendar archive page(s)
   - [ ] optionally: generate tag overview page(s)
+
 ** NEXT implement method to get URL of an blogdata id         :architecture:
 :PROPERTIES:
 :CREATED:  [2013-10-19 Sat 19:16]
 :END:
+
+- get absolute URL of any entry ID
+- get relative URL to the CSS for an entry ID
+
 ** NEXT create constants.py as module                         :architecture:
 :PROPERTIES:
 :CREATED:  [2013-10-01 Tue 21:05]
@@ -332,6 +337,57 @@ vk@gary ~/src/lazyblorg (git)-[master] %
 :END:
 
 - htmlizer
+** NEXT embed images that are defined by tsfile-statements       :userstory:
+:PROPERTIES:
+:CREATED:  [2014-01-29 Wed 17:30]
+:END:
+
+- article mentions following:
+: [[tsfile:2014-01-29 foo bar.png]]
+
+- open questions
+
+  - [X] how to tell width/height?
+    - http://orgmode.org/worg/org-tutorials/images-and-xhtml-export.html
+      : #+ATTR_HTML: alt="Zoomed image."
+      : #+ATTR_HTML: width="300" style="border:2px solid black;"
+      : #+ATTR_HTML: style="float:left;"
+      : [[image]]
+    - multiple attr-lines per image
+      - RegEx: "#+ATTR_HTML: " followed by one or more "alt=[...]", "width=[...]", "height=[...]", "style=[...]"
+      - alt -> write directly to alt attribute
+      - width/height -> write directly to width/height attribute
+      - style -> write directly to style attribute
+
+  - [ ] create yasnippet file with attr line with drop-downs for
+    common values
+    - [ ] three standard-sizes?
+      - small = xx em
+      - medium = 50% textwidth
+      - big = textwidth
+
+  - [ ] scaling images -> probably future feature instead of here!
+    - if scaled, add its size-identifier to original file name
+      - "2014-01-29 file name.png" -> "2014-01-29 file name - scaled 42em.png"
+      - makes it possible to use same file with different scaling
+        sizes
+
+- procedure
+  1. [ ] additional parameter of files.org_archive
+  2. parse files.org_archive on first usage of tsfile link
+     - RegEx: [FILENAME] (with brackets!)
+     - create global look-up dict: filename -> path
+  3. get file location
+     - add as list element in dict "payload"
+     - this makes multiple paths per item possible!
+  4. error if file not found
+     - probably: re-try alternative path if file was found multiple times
+  5. in case of article:
+     - put file in article folder
+     - link locally (relative path)
+  6. in case of non-article (persistent, tag, ...):
+     - put file in global folder named "tsfile" in root
+     - link wirh absolute path
 
 ** NEXT Glossary: variable names and so on                    :architecture:
 :PROPERTIES:
@@ -341,6 +397,15 @@ vk@gary ~/src/lazyblorg (git)-[master] %
 ** NEXT Refactor: unify all variables according to glossary    :architecture:
 :PROPERTIES:
 :CREATED:  [2013-10-14 Mon 12:35]
+:END:
+** NEXT parse more Org-mode elements                           :architecture:
+:PROPERTIES:
+:CREATED:  [2013-10-19 Sat 19:18]
+:END:
+
+** NEXT htmlizer: generate more Org-mode elements             :architecture:
+:PROPERTIES:
+:CREATED:  [2013-10-19 Sat 19:19]
 :END:
 ** NEXT adopt method for getting link to any article; get also URL
 :PROPERTIES:
@@ -475,7 +540,10 @@ see also id:2012-11-06-ago-generating
   - basic tools used
   - basic workflow
   - ...
-
+** TODO add option to tweet title/url for new/updated articles   :userstory:
+:PROPERTIES:
+:CREATED:  [2013-10-20 Sun 18:37]
+:END:
 ** TODO [#B] CSS generated using Org/babel                    :architecture:
 :PROPERTIES:
 :CREATED:  [2012-12-13 Thu 10:08]
@@ -625,6 +693,17 @@ display: block;
 Somewhere in my Org files, I do have a heading «$BLOGNAME». Within
 its sub-heading «Help» there is the text for the main help
 page. Further headings contain more content for other pages.
+** TODO Pre-search for new blog articles before invoking lazyblorg :userstory:
+:PROPERTIES:
+:CREATED:  [2013-10-20 Sun 18:34]
+:END:
+
+- do a "egrep '^\*+ .*:blog:' | wc -l" and compare with last number
+  - if changed, run lazyblorg
+  - if not changed, do nothing
+- does not work when same number of blog articles get deleted as
+  created in between
+- probably add this to best practice or FAQs
 
 ** SOMEDAY add/create/include/handle short URLs for each entry   :userstory:
 :LOGBOOK:
