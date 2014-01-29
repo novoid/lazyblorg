@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-27 20:04:54 vk>
+# Time-stamp: <2014-01-29 21:40:37 vk>
 
 import argparse  ## command line arguments
 import unittest
@@ -43,12 +43,12 @@ class TestLazyblorg(unittest.TestCase):
         ## Checks on the situation before first iteration:
 
         ## manually written Org-mode file; has to be placed in "../testdata/basic_blog_update_test/"
+        template_file = "../templates/blog-format.org"
         org_testfile_firstrun = "../testdata/basic_blog_update_test/basic_blog_update_test_-_first_run.org"
         metadata_firstrun_output = "../testdata/basic_blog_update_test/basic_blog_update_test_-_first_run.pk"
         metadata_secondrun_input = "../testdata/basic_blog_update_test/basic_blog_update_test_-_first_run.pk_temp"
         log_firstrun = "../testdata/basic_blog_update_test/basic_blog_update_test_-_first_run.log"
         org_testfile_secondrun = "../testdata/basic_blog_update_test/basic_blog_update_test_-_second_run.org"
-        template_file = "../templates/blog-format.org"
 
         ## might be left over from a failed previous run:
         if os.path.isfile(metadata_secondrun_input):
@@ -58,6 +58,7 @@ class TestLazyblorg(unittest.TestCase):
         if os.path.isfile(log_firstrun):
             remove(log_firstrun)
 
+        self.assertTrue(os.path.isfile(template_file))  ## check, if test input file is found
         self.assertTrue(os.path.isfile(org_testfile_firstrun))  ## check, if test input file is found
         self.assertTrue(os.path.isfile(org_testfile_secondrun))  ## check, if test input file is found
         
@@ -70,13 +71,12 @@ class TestLazyblorg(unittest.TestCase):
         first_parser.add_argument("--orgfiles", dest="orgfiles", nargs='+')
         first_parser.add_argument("--targetdir", dest="targetdir")
         first_parser.add_argument("--metadata", dest="metadatafilename")
-        first_parser.add_argument("--template", dest="templatefilename")
         first_parser.add_argument("--logfile", dest="logfilename")
         first_parser.add_argument("-v", "--verbose", dest="verbose", action="store_true")
 
-        myoptions = "--orgfiles " + org_testfile_firstrun + \
+        myoptions = "--orgfiles " + org_testfile_firstrun + " " + template_file + \
             " --targetdir ../testdata/basic_blog_update_test/2del-results/ --metadata " + \
-            metadata_firstrun_output + " --template " + template_file + \
+            metadata_firstrun_output + \
             " --logfile " + log_firstrun# + " --verbose"
 
         options = first_parser.parse_args(myoptions.split())
@@ -94,7 +94,7 @@ class TestLazyblorg(unittest.TestCase):
 
         self.assertTrue(increment_version == [])
         self.assertTrue(generate_sorted == marked_for_RSS_sorted)
-        self.assertTrue(generate_sorted == [u'case4', u'case5', u'case6', u'case7', u'case8'])
+        self.assertTrue(generate_sorted == [u'case4', u'case5', u'case6', u'case7', u'case8', u'lazyblorg-templates'])
 
         ## Checks on the situation before second iteration:
 
@@ -107,13 +107,12 @@ class TestLazyblorg(unittest.TestCase):
         second_parser.add_argument("--orgfiles", dest="orgfiles", nargs='+')
         second_parser.add_argument("--targetdir", dest="targetdir")
         second_parser.add_argument("--metadata", dest="metadatafilename")
-        second_parser.add_argument("--template", dest="templatefilename")
         second_parser.add_argument("--logfile", dest="logfilename")
         second_parser.add_argument("-v", "--verbose", dest="verbose", action="store_true")
 
-        myoptions = "--orgfiles " + org_testfile_secondrun + \
+        myoptions = "--orgfiles " + org_testfile_secondrun + " " + template_file + \
             " --targetdir ../testdata/basic_blog_update_test/2del-results/ --metadata " + \
-            metadata_secondrun_input + " --template " + template_file + \
+            metadata_secondrun_input + \
             " --logfile " + log_firstrun# + " --verbose"
 
         options = second_parser.parse_args(myoptions.split())
@@ -131,7 +130,7 @@ class TestLazyblorg(unittest.TestCase):
 
         self.assertTrue(increment_version_sorted == [u'case8'])
         self.assertTrue(marked_for_RSS_sorted == [u'case1', u'case8'])
-        self.assertTrue(generate_sorted == [u'case1', u'case5', u'case6', u'case7', u'case8'])
+        self.assertTrue(generate_sorted == [u'case1', u'case5', u'case6', u'case7', u'case8', u'lazyblorg-templates'])
 
         remove(metadata_secondrun_input)
         if os.path.isfile(metadata_secondrun_input + '_temp'):

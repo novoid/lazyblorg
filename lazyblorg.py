@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-01-29 19:09:22 vk>
+# Time-stamp: <2014-01-29 20:39:37 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -226,7 +226,7 @@ class Lazyblorg(object):
             message = "Sorry, no suitable template data could be parsed from the Org-mode files. " + \
                 "Please check if it meets all criteria as described in the original template " + \
                 "file \"blog-format.org\"."
-            Utils.error_exit_with_userlog(options.logfilename, 40, message)
+            Utils.error_exit_with_userlog(self.options.logfilename, 40, message)
 
         html_definitions = [x for x in template_data[0]['content'] \
                                 if x[0] == 'html-block']
@@ -242,7 +242,7 @@ class Lazyblorg(object):
                 message = "Sorry, no definition for element \"" + element + "\" could be found within " + \
                     "the template definition file. " + \
                     "Please check if you mistyped its name or similar."
-                Utils.error_exit_with_userlog(options.logfilename, 42, message)
+                Utils.error_exit_with_userlog(self.options.logfilename, 42, message)
 
         return html_definitions
 
