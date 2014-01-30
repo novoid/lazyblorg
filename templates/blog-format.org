@@ -1,4 +1,4 @@
-## Time-stamp: <2014-01-30 15:52:56 vk>
+## Time-stamp: <2014-01-30 15:58:57 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -225,6 +225,8 @@ in future.
 	  
 *** Pre-formatted text
 
+Without name/label:
+
 #+NAME: pre-begin
 #+BEGIN_HTML
 
@@ -236,6 +238,25 @@ in future.
 	  </pre>
 
 #+END_HTML
+
+With name/label:
+
+#+NAME: named-pre-begin
+#+BEGIN_HTML
+
+<p>
+
+    #NAME#:<br />
+	  <pre>
+#+END_HTML
+
+#+NAME: named-pre-end
+#+BEGIN_HTML
+	  </pre>
+
+</p>
+#+END_HTML
+
 
 *** HTML blocks
 

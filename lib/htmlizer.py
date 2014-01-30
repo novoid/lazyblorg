@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-01-30 15:51:49 vk>
+# Time-stamp: <2014-01-30 16:01:51 vk>
 
 import logging
 import os
@@ -248,13 +248,22 @@ class Htmlizer(object):
 
                 ## example:
                 ## ['verse-block', False, [u'first line', u'second line']]
-
-                result = self.template_definition_by_name('pre-begin')
+                result = None
+                
+                result = self.template_definition_by_name('named-pre-begin')
+                if entry['content'][index][1]:
+                    result = self.template_definition_by_name('named-pre-begin')
+                    result = result.replace('#NAME#', entry['content'][index][1])
+                else:
+                    result = self.template_definition_by_name('pre-begin')
                 mycontent = '\n'.join(entry['content'][index][2])
                 self.logging.debug("result [%s]" % repr(result))
                 self.logging.debug("mycontent [%s]" % repr(mycontent))
                 result += mycontent
-                result += self.template_definition_by_name('pre-end')
+                if entry['content'][index][1]:
+                    result += self.template_definition_by_name('named-pre-end')
+                else:
+                    result += self.template_definition_by_name('pre-end')
 
             elif entry['content'][index][0] == 'quote-block':
 
