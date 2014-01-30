@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-01-30 16:13:02 vk>
+# Time-stamp: <2014-01-30 18:33:01 vk>
 
 import logging
 import os
@@ -70,6 +70,12 @@ class Htmlizer(object):
     ## find '&amp;' in an active URL and fix it to '&':
     FIX_AMPERSAND_URL_REGEX = re.compile('(href="http(s)?://\S+?)&amp;(\S+?")')
 
+    ## find *bold text*:
+    BOLD_REGEX = re.compile('(\W)\*([a-zA-Z0-9._/\\ -]+?)\*(\W)')
+    
+    ## find ~teletype or source text~:
+    TELETYPE_REGEX = re.compile('(\W)~([a-zA-Z0-9._/\\ -]+?)~(\W)')
+    
     ## any ISO date-stamp of format YYYY-MM-DD:
     DATESTAMP_REGEX = re.compile('([12]\d\d\d)-([012345]\d)-([012345]\d)')
     
@@ -189,6 +195,7 @@ class Htmlizer(object):
 
                 result = self.sanitize_html_characters(result)
                 result = self.sanitize_external_links(result)
+                result = self.htmlize_simple_text_formatting(result)
                 result = self.fix_ampersands_in_url(result)
                 template = self.template_definition_by_name('paragraph')
                 result = template.replace('#PAR-CONTENT#', result)
@@ -208,6 +215,7 @@ class Htmlizer(object):
                 result = entry['content'][index][1]['title']
                 result = self.sanitize_html_characters(result)
                 result = self.sanitize_external_links(result)
+                result = self.htmlize_simple_text_formatting(result)
                 result = self.fix_ampersands_in_url(result)
                 result = self.template_definition_by_name('section-begin').replace('#SECTION-TITLE#', result)
                 result = result.replace('#SECTION-LEVEL#', str(relative_level))
@@ -221,6 +229,7 @@ class Htmlizer(object):
                 for listitem in entry['content'][index][1]:
                     content = self.sanitize_html_characters(listitem)
                     content = self.sanitize_external_links(content)
+                    content = self.htmlize_simple_text_formatting(result)
                     content = self.fix_ampersands_in_url(content)
                     content += self.template_definition_by_name('ul-item').replace('#CONTENT#', content)
                     result += content
@@ -276,7 +285,7 @@ class Htmlizer(object):
                 mycontent = '\n'.join(entry['content'][index][2])
                 self.logging.debug("result [%s]" % repr(result))
                 self.logging.debug("mycontent [%s]" % repr(mycontent))
-                result += self.sanitize_external_links(self.sanitize_html_characters(mycontent))
+                result += self.htmlize_simple_text_formatting(self.sanitize_external_links(self.sanitize_html_characters(mycontent)))
                 result += self.template_definition_by_name('blockquote-end')
 
             elif entry['content'][index][0] == 'src-block':
@@ -329,6 +338,26 @@ class Htmlizer(object):
 
         return result
 
+    
+    def htmlize_simple_text_formatting(self, content):
+        """
+        Transforms simple text formatting syntax into HTML entities such as
+        *bold*, ~source~.
+
+        FIXXME: not yet implemented: /italic/ (<i>), _underlined_, +strikethrough+ (<s>)
+
+        @param entry: string
+        @param return: HTMLized string
+
+        """
+
+        assert(type(content) == str or type(content) == unicode)
+        
+        content = re.subn(self.BOLD_REGEX, r'\1<b>\2</b>\3', content)[0]
+        content = re.subn(self.TELETYPE_REGEX, r'\1<code>\2</code>\3', content)[0]
+
+        return content
+    
     def sanitize_html_characters(self, content):
         """
         Replaces all occurrences of [<>] with their HTML representation.

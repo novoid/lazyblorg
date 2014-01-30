@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "german8"; -*-
-# Time-stamp: <2014-01-30 16:12:59 vk>
+# Time-stamp: <2014-01-30 18:24:22 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -310,6 +310,20 @@ vk@gary ~/src/lazyblorg (git)-[master] %
   - [ ] optionally: generate overview page for last n entries
   - [ ] optionally: generate calendar archive page(s)
   - [ ] optionally: generate tag overview page(s)
+** NEXT make alpha version of blog available on my domain            :tests:
+:PROPERTIES:
+:CREATED:  [2014-01-29 Wed 22:40]
+:END:
+
+- why
+  - get feedback from real-world data
+  - be able to tweet URLs of (very simple) blog entries
+- how
+  - [X] site-logo (in SVG) as hard-coded URL in template?
+  - [X] write "public voit Introduction"
+  - [ ] embed inline-CSS
+  - [ ] simplified layout
+
 ** NEXT create constants.py as module                         :architecture:
 :PROPERTIES:
 :CREATED:  [2013-10-01 Tue 21:05]
@@ -317,14 +331,6 @@ vk@gary ~/src/lazyblorg (git)-[master] %
 
 - handle configuration and run-time variables using this module
 - ? parse config variables from Org-mode heading?
-** NEXT make alpha version of blog available on my domain            :tests:
-:PROPERTIES:
-:CREATED:  [2014-01-29 Wed 22:40]
-:END:
-
-- get feedback from real-world data
-- be able to tweet URLs of (very simple) blog entries
-- site-logo (in SVG) as hard-coded URL in template?
 
 ** NEXT implement method(s) to get URL of an blogdata id       :architecture:
 :PROPERTIES:
