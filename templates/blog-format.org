@@ -1,4 +1,4 @@
-## Time-stamp: <2014-01-30 20:09:32 vk>
+## Time-stamp: <2014-01-30 20:52:40 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -77,12 +77,14 @@ background: -o-linear-gradient(top, #fcfcfc 0%,#fefcea 100%,#fc100c 100%); /* Op
 background: -ms-linear-gradient(top, #fcfcfc 0%,#fefcea 100%,#fc100c 100%); /* IE10+ */
 background: linear-gradient(to bottom, #fcfcfc 0%,#fefcea 100%,#fc100c 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#fc100c',GradientType=0 ); /* IE6-9 */
+font-family:Trebuchet MS,Verdana,Helvetica,sans-serif;
 ">
+  <meta charset="UTF-8">
   <!-- WARNING: This page is written in (X)HTML5 and might not be displayed correctly in old browsers. -->
+  <!-- NOTE: The CSS for now is completely inline (no central CSS file) and is definitively subject to future improvements. -->
     
     <head>
-      <meta charset="UTF-8">
-      <link rel="stylesheet" type="text/css" href="../../../../style.css" />
+      <!-- link rel="stylesheet" type="text/css" href="../../../../style.css" / -->
       <title>#ARTICLE-TITLE#</title>
       <style type="text/css">
       </style>
@@ -151,7 +153,7 @@ padding-top:2em;">
 
 	  <nav style="margin-left:-2em;">
 	    <span class="breadcrumbs">
-	      <a href="../../../../"><img src="http://karl-voit.at/images/public-voit_logo.svg" alt="public voit logo" width="40%" style="vertical-align:middle;"></a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
+	      <a href="../../../../"><img src="http://karl-voit.at/images/public-voit_logo.svg" alt="public voit logo" width="350" style="vertical-align:middle;"></a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
 	      #ARTICLE-YEAR#&nbsp;&ndash;&nbsp;#ARTICLE-MONTH#&nbsp;&ndash;&nbsp;#ARTICLE-DAY#
 	      <!-- a href="../../../">#ARTICLE-YEAR#</a>&nbsp;&ndash;&nbsp;<a href="../../">#ARTICLE-MONTH#</a>&nbsp;&ndash;&nbsp;<a href="../">#ARTICLE-DAY#</a -->
 	    </span>
