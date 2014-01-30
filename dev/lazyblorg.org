@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "german8"; -*-
-# Time-stamp: <2014-01-30 15:12:36 vk>
+# Time-stamp: <2014-01-30 15:52:52 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -479,7 +479,10 @@ A sub-heading «result» contains the results which is expected.
 :END:
 
 - HTML5-example: see Kröner2011 p.123ff
-
+** NEXT move inline CSS from blog-format.org into CSS file    :architecture:
+:PROPERTIES:
+:CREATED:  [2014-01-30 Thu 15:52]
+:END:
 ** NEXT [#C] HTML: manually create month overview page        :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 14:12]

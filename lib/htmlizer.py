@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-01-30 15:13:26 vk>
+# Time-stamp: <2014-01-30 15:51:49 vk>
 
 import logging
 import os
@@ -232,6 +232,7 @@ class Htmlizer(object):
                 ## example:
                 ## ['html-block', u'my-HTML-example name', [u'    foo', u'bar', u'  <foo />', u'<a href="bar">baz</a>']]
 
+                #import pdb; pdb.set_trace()
                 if not entry['content'][index][1]:
                     ## if html-block has no name -> insert as raw HTML
                     result = '\n'.join(entry['content'][index][2])
@@ -239,7 +240,8 @@ class Htmlizer(object):
                     ## if html-block has a name -> insert as html-source-code-example
                     result = self.template_definition_by_name('html-begin')
                     result = result.replace('#NAME#', entry['content'][index][1])
-                    result += '\n'.join(entry['content'][index][2])
+                    result += self.sanitize_html_characters(\
+                        '\n'.join(entry['content'][index][2])).replace(' ', '&nbsp;').replace('\n', '<br />\n')
                     result += self.template_definition_by_name('html-end')
 
             elif entry['content'][index][0] == 'verse-block':

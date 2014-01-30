@@ -1,4 +1,4 @@
-## Time-stamp: <2013-09-29 16:38:12 vk>
+## Time-stamp: <2014-01-30 15:52:56 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -63,7 +63,7 @@ Have fun with modifying lazyblorg to your requirements!
 
 *** Header
 
-- #TITLE#: heading/title of the blog article
+- #ARTICLE-TITLE#: heading/title of the blog article
 
 #+NAME: article-header
 #+BEGIN_HTML
@@ -74,7 +74,7 @@ Have fun with modifying lazyblorg to your requirements!
     <head>
       <meta charset="UTF-8">
       <link rel="stylesheet" type="text/css" href="../../../../style.css" />
-      <title>#TITLE#</title>
+      <title>#ARTICLE-TITLE#</title>
       <style type="text/css">
       </style>
   
@@ -119,12 +119,10 @@ Have fun with modifying lazyblorg to your requirements!
 	<header>
 
 	  <nav>
-	    <ol class="breadcrumbs">
-	      <li><a href="../../../../">#BLOGNAME#&nbsp;&nbsp;&gt;</a></li>
-	      <li><a href="../../../">#ARTICLE-YEAR#&nbsp;&nbsp;&gt;</a></li>
-	      <li><a href="../../">#ARTICLE-MONTH#&nbsp;&nbsp;&gt;</a></li>
-	      <li><a href="../">#ARTICLE-DAY#&nbsp;&nbsp;&gt;</a></li>
-	    </ol>
+	    <span class="breadcrumbs">
+	      <a href="../../../../"><img src="http://karl-voit.at/images/public-voit_logo.svg" width="20%"></a>&nbsp;&nbsp;&gt;
+	      <a href="../../../">#ARTICLE-YEAR#</a>&nbsp;&ndash;&nbsp;<a href="../../">#ARTICLE-MONTH#</a>&nbsp;&ndash;&nbsp;<a href="../">#ARTICLE-DAY#</a>
+	    </span>
 	  </nav>
 
 	  <h1>#ARTICLE-TITLE#</h1>
@@ -195,6 +193,9 @@ Have fun with modifying lazyblorg to your requirements!
 
 *** URLs
 
+*NOTE*: this does not have any influence on URLs and might be removed
+in future.
+
 - #A-URL#: URL of a hyperlink
 - #CONTENT#: description of the hyperlink
 
@@ -242,17 +243,20 @@ Have fun with modifying lazyblorg to your requirements!
 
 #+NAME: html-begin
 #+BEGIN_HTML
+
 <p>
+
     #NAME#:<br />
-	  <samp>
+	  <div class="example_code" style="width:auto;background-color:#ffffff;padding:5px;border:1px solid #d4d4d4;font-size:14px;font-family:courier new;">
 #+END_HTML
 
 #+NAME: html-end
 #+BEGIN_HTML
-	  </samp>
-</p>
-#+END_HTML
+	  </div>
 
+</p>
+
+#+END_HTML
 
 *** ignore me
 

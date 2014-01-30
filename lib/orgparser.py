@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-01-29 19:28:55 vk>
+# Time-stamp: <2014-01-30 15:52:58 vk>
 
 import re
 import os
@@ -374,6 +374,13 @@ class OrgParser(object):
                     continue
 
                 elif line.startswith('#+BEGIN_'):
+
+                    ## if this block has a name, do save it in content data below:
+                    named_block = False
+                    if previous_line.upper().startswith('#+NAME: '):
+                        named_block = True
+                        self.logging.debug("OrgParser: this block is a named one: [%s]" % previous_name)
+
                     block_components = self.BLOCK_REGEX.match(line)
                     if not block_components:
                         raise OrgParserException('I found a line beginning with ' +
@@ -386,7 +393,10 @@ class OrgParser(object):
                     if block_type == 'SRC' or block_type == 'HTML' or block_type == 'VERSE' or \
                             block_type == 'QUOTE' or block_type == 'CENTER' or block_type == 'ASCII' or \
                             block_type == 'LATEX' or block_type == 'EXAMPLE':
-                        self.__entry_data['content'].append([block_type.lower() + '-block', previous_name, []])
+                        if named_block:
+                            self.__entry_data['content'].append([block_type.lower() + '-block', previous_name, []])
+                        else:
+                            self.__entry_data['content'].append([block_type.lower() + '-block', None, []])
                     else:
                         ## if BLOCK_REGEX is in sync with the if-statement above, this should never be reached!
                         raise OrgParserException('I found a block type \"' + str(line) +
