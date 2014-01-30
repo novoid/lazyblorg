@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2013-08-30 13:29:58 vk>
+# Time-stamp: <2014-01-30 18:39:05 vk>
 
 import unittest
 from lib.htmlizer import *
@@ -21,6 +21,34 @@ class TestHtmlizer(unittest.TestCase):
         pass
 
 
+    def test_simple_formatting(self):
+
+        template_definitions = 'foo'
+        prefix_dir = 'foo'
+        targetdir = 'foo'
+        blog_data = 'foo'
+        generate = 'foo'
+        increment_version = 'foo'
+        htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir, 
+                            blog_data, generate, increment_version)
+
+        self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"This is *bold face* and ~teletype style~.") ==
+                        u"This is <b>bold face</b> and <code>teletype style</code>.")
+    
+    def test_sanitize_HTML_entities(self):
+
+        template_definitions = 'foo'
+        prefix_dir = 'foo'
+        targetdir = 'foo'
+        blog_data = 'foo'
+        generate = 'foo'
+        increment_version = 'foo'
+        htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir, 
+                            blog_data, generate, increment_version)
+
+        self.assertTrue(htmlizer.sanitize_html_characters(u"An & and <this> will be ampersand and <similar>.") ==
+                        u"An &amp; and &lt;this&gt; will be ampersand and &lt;similar&gt;.")
+    
     def test_sanitize_external_links(self):
 
         template_definitions = 'foo'
