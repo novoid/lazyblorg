@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-01-30 16:01:51 vk>
+# Time-stamp: <2014-01-30 16:13:02 vk>
 
 import logging
 import os
@@ -270,20 +270,22 @@ class Htmlizer(object):
                 ## example:
                 ## ['quote-block', False, [u'first line', u'second line']]
 
-                ## FIXXME: replace pre with suitable quotation environment!
-                result = self.template_definition_by_name('pre-begin')
+                ## FIXXME: add interpretation of quotes: things like lists can occur within
+                
+                result = self.template_definition_by_name('blockquote-begin')
                 mycontent = '\n'.join(entry['content'][index][2])
                 self.logging.debug("result [%s]" % repr(result))
                 self.logging.debug("mycontent [%s]" % repr(mycontent))
-                result += mycontent
-                result += self.template_definition_by_name('pre-end')
+                result += self.sanitize_external_links(self.sanitize_html_characters(mycontent))
+                result += self.template_definition_by_name('blockquote-end')
 
             elif entry['content'][index][0] == 'src-block':
 
                 ## example:
                 ## ['src-block', False, [u'first line', u'second line']]
 
-                ## FIXXME: replace pre with suitable quotation environment!
+                ## FIXXME: replace pre with suitable source code environment!
+                
                 result = self.template_definition_by_name('pre-begin')
                 mycontent = '\n'.join(entry['content'][index][2])
                 self.logging.debug("result [%s]" % repr(result))

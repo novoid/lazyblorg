@@ -1,4 +1,4 @@
-## Time-stamp: <2014-01-30 15:58:57 vk>
+## Time-stamp: <2014-01-30 16:06:09 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -191,7 +191,7 @@ Have fun with modifying lazyblorg to your requirements!
 
 #+END_HTML
 
-*** URLs
+*** URLs (please ignore)
 
 *NOTE*: this does not have any influence on URLs and might be removed
 in future.
@@ -257,7 +257,6 @@ With name/label:
 </p>
 #+END_HTML
 
-
 *** HTML blocks
 
 - #NAME#: Org-mode name of the block
@@ -276,6 +275,20 @@ With name/label:
 	  </div>
 
 </p>
+
+#+END_HTML
+
+*** QUOTE blocks
+
+#+NAME: blockquote-begin
+#+BEGIN_HTML
+
+<blockquote>
+#+END_HTML
+
+#+NAME: blockquote-end
+#+BEGIN_HTML
+</blockquote>
 
 #+END_HTML
 
