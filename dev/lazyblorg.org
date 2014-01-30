@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "german8"; -*-
-# Time-stamp: <2014-01-29 22:45:33 vk>
+# Time-stamp: <2014-01-30 15:12:36 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -310,7 +310,6 @@ vk@gary ~/src/lazyblorg (git)-[master] %
   - [ ] optionally: generate overview page for last n entries
   - [ ] optionally: generate calendar archive page(s)
   - [ ] optionally: generate tag overview page(s)
-
 ** NEXT create constants.py as module                         :architecture:
 :PROPERTIES:
 :CREATED:  [2013-10-01 Tue 21:05]
@@ -420,7 +419,7 @@ vk@gary ~/src/lazyblorg (git)-[master] %
 :END:
 
 1. lists
-2. URLs/links
+2. links
    - handle links to other blog entries
 3. 
 

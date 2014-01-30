@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-01-29 20:32:47 vk>
+# Time-stamp: <2014-01-30 15:13:26 vk>
 
 import logging
 import os
@@ -59,10 +59,13 @@ class Htmlizer(object):
     TIME_ZONE_ADDON = '+02:00'
 
     ## find external links such as [[foo][bar]]:
-    EXT_ORG_LINK_REGEX = re.compile('\[\[(.+?)\]\[(.+?)\]\]')
+    EXT_URL_WITH_DESCRIPTION_REGEX = re.compile('\[\[(.+?)\]\[(.+?)\]\]')
+
+    ## find external links such as [[foo]]:
+    EXT_URL_WITHOUT_DESCRIPTION_REGEX = re.compile('\[\[(.+?)\]\]')
 
     ## find external links such as http(s)://foo.bar
-    EXT_URL_LINK_REGEX = re.compile('([^"])(http(s)?:\/\/\S+)')
+    EXT_URL_LINK_REGEX = re.compile('([^"<>\[])(http(s)?:\/\/\S+)')
 
     ## find '&amp;' in an active URL and fix it to '&':
     FIX_AMPERSAND_URL_REGEX = re.compile('(href="http(s)?://\S+?)&amp;(\S+?")')
@@ -335,16 +338,13 @@ class Htmlizer(object):
         @param return: sanitized string
         """
 
-        orglink_result = re.sub(self.EXT_ORG_LINK_REGEX, r'<a href="\1">\2</a>', content)
-        #if orglink_result != content:
-        #    self.logging.debug("sanitize_external_links: changed \"%s\" to \"%s\"" % (content, orglink_result))
+        content = re.sub(self.EXT_URL_LINK_REGEX, r'\1<a href="\2">\2</a>', content)
 
-        urllink_result = re.sub(self.EXT_URL_LINK_REGEX, r'\1<a href="\2">\2</a>', orglink_result)
-        #if urllink_result != orglink_result:
-        #    self.logging.debug("sanitize_external_links: changed \"%s\" to \"%s\"" %
-        #                       (orglink_result, urllink_result))
+        content = re.sub(self.EXT_URL_WITH_DESCRIPTION_REGEX, r'<a href="\1">\2</a>', content)
 
-        return urllink_result
+        content = re.sub(self.EXT_URL_WITHOUT_DESCRIPTION_REGEX, r'<a href="\1">\1</a>', content)
+
+        return content
 
     def _create_time_oriented_blog_article(self, entry):
         """
@@ -455,9 +455,9 @@ class Htmlizer(object):
 
         content = template
 
-        content = content.replace('#ARTICLE-TITLE#', entry['title'])
-        content = content.replace('#ABOUT-BLOG#', self.about_blog)
-        content = content.replace('#BLOGNAME#', self.prefix_dir)
+        content = content.replace('#ARTICLE-TITLE#', self.sanitize_external_links(self.sanitize_html_characters(entry['title'])))
+        content = content.replace('#ABOUT-BLOG#', self.sanitize_external_links(self.sanitize_html_characters(self.about_blog)))
+        content = content.replace('#BLOGNAME#', self.sanitize_external_links(self.sanitize_html_characters(self.prefix_dir)))
 
         oldesttimestamp, year, month, day, hours, minutes = self._get_oldest_timestamp_for_entry(entry)
         iso_timestamp = '-'.join([year, month, day]) + 'T' + hours + ':' + minutes
