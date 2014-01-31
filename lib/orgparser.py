@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-01-31 19:28:20 vk>
+# Time-stamp: <2014-01-31 22:32:26 vk>
 
 import re
 import os
@@ -68,6 +68,9 @@ class OrgParser(object):
     BLOCK_TYPE_IDX = 1
     BLOCK_LANGUAGE_IDX = 3
 
+    ## matching five dashes (or more) which resembles an horizontal rule: http://orgmode.org/org.html#Horizontal-rules
+    HR_REGEX = re.compile('^-{5,}\s*$')
+    
     __filename = u''
 
     ## tag strings of blog entry categories:
@@ -344,6 +347,7 @@ class OrgParser(object):
                     self.__entry_data['content'] = []
 
                 heading_components = self.HEADING_REGEX.match(line)
+                hr_components = self.HR_REGEX.match(line)
 
                 if line == ':PROPERTIES:':
                     self.logging.debug("OrgParser: found PROPERTIES drawer")
@@ -354,6 +358,11 @@ class OrgParser(object):
                 elif line == ':LOGBOOK:':
                     self.logging.debug("OrgParser: found LOGBOOK drawer")
                     state = self.DRAWER_LOGBOOK
+                    previous_line = line
+                    continue
+
+                elif hr_components:
+                    self.__entry_data['content'].append(['hr'])
                     previous_line = line
                     continue
 
