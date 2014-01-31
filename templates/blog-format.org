@@ -1,4 +1,4 @@
-## Time-stamp: <2014-01-30 20:52:40 vk>
+## Time-stamp: <2014-01-31 17:56:24 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -68,27 +68,180 @@ Have fun with modifying lazyblorg to your requirements!
 #+NAME: article-header
 #+BEGIN_HTML
   <!DOCTYPE html>
-  <html xmlns="http://www.w3.org/1999/xhtml" style="
-background: #fcfcfc; /* Old browsers */
-background: -moz-linear-gradient(top, #fcfcfc 0%, #fefcea 100%, #fc100c 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fcfcfc), color-stop(100%,#fefcea), color-stop(100%,#fc100c)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top, #fcfcfc 0%,#fefcea 100%,#fc100c 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top, #fcfcfc 0%,#fefcea 100%,#fc100c 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top, #fcfcfc 0%,#fefcea 100%,#fc100c 100%); /* IE10+ */
-background: linear-gradient(to bottom, #fcfcfc 0%,#fefcea 100%,#fc100c 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#fc100c',GradientType=0 ); /* IE6-9 */
-font-family:Trebuchet MS,Verdana,Helvetica,sans-serif;
-">
+  <html xmlns="http://www.w3.org/1999/xhtml">
   <meta charset="UTF-8">
+
+
+<!-- NOTE: There is no central CSS file yet. It is definitively a subject to future improvements. -->
+<style>
+body {
+  background: #fcfcfc; /* Old browsers */
+  background: -moz-linear-gradient(top, #fcfcfc 0%, #fefcea 100%, #fc100c 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fcfcfc), color-stop(100%,#fefcea), color-stop(100%,#fc100c)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #fcfcfc 0%,#fefcea 100%,#fc100c 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #fcfcfc 0%,#fefcea 100%,#fc100c 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #fcfcfc 0%,#fefcea 100%,#fc100c 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #fcfcfc 0%,#fefcea 100%,#fc100c 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#fc100c',GradientType=0 ); /* IE6-9 */
+  font-family:Trebuchet MS,Verdana,Helvetica,sans-serif;
+}
+
+.article-header-nav {
+	position:relative;
+	padding:10px 20px;
+	background:#f8f8f8;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	border:1px solid #e8e8e8;
+	margin-bottom:20px;
+	}
+
+.breadcrumbs {
+  font-size:150%;
+  font-family:Impact, Charcoal, sans-serif;
+}
+
+.article-title {
+	OLDcolor:#0089e0;
+  margin-bottom:2em;
+}
+
+.published-on {
+  font-size:80%;
+  color:gray;
+
+  text-align:right;
+  margin-left:auto;
+  margin-right:auto;
+  max-width:60em;
+  padding-top:2em;
+}
+
+.test-rightside {
+  margin: 0px auto;
+  position: relative;
+  /*left: 750px;*/
+  padding-top:0px;
+  /*width:20% 240px*/;
+  float:right;
+}
+
+.rightside {
+  margin: 0px auto;
+  float:right;
+}
+
+.article {
+  margin-left:auto;
+  margin-right:auto;
+  max-width:40em;
+  nobackground-color:#b0e0e6;
+  padding-top:2em;
+}
+
+/* happily stolen from http://cssglobe.com/pure-css3-post-tags/ */
+.tags {
+	margin:0;
+	padding:0;
+  margin-top:1em;
+  margin-right:-2em;
+  float:right;
+	list-style:none;
+	}
+.tags li, .tags a {
+	float:left;
+	height:24px;
+	line-height:24px;
+	position:relative;
+	font-size:13px;
+	}
+.tags a {
+	margin-left:20px;
+	padding:0 10px 0 12px;
+	ORIGINALbackground:#0089e0;
+	background:#2222ff;
+	color:#fff;
+	text-decoration:none;
+	-moz-border-radius-bottomright:4px;
+	-webkit-border-bottom-right-radius:4px;
+	border-bottom-right-radius:4px;
+	-moz-border-radius-topright:4px;
+	-webkit-border-top-right-radius:4px;
+	border-top-right-radius:4px;
+	}
+.tags a:before {
+	content:"";
+	float:left;
+	position:absolute;
+	top:0;
+	left:-12px;
+	width:0;
+	height:0;
+	ORIGINALborder-color:transparent #0089e0 transparent transparent;
+	border-color:transparent #2222ff transparent transparent;
+	border-style:solid;
+	border-width:12px 12px 12px 0;
+	}
+.tags a:after {
+	content:"";
+	position:absolute;
+	top:10px;
+	left:0;
+	float:left;
+	width:4px;
+	height:4px;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;
+	background:#fff;
+	-moz-box-shadow:-1px -1px 2px #004977;
+	-webkit-box-shadow:-1px -1px 2px #004977;
+	box-shadow:-1px -1px 2px #004977;
+	}
+.tags a:hover{background:#555;}
+.tags a:hover:before{border-color:transparent #555 transparent transparent;}
+
+
+.section-title {
+  color:#404040;
+  margin-left:1em;
+}
+
+
+footer {
+
+  text-align:center;
+  color:gray;
+  font-size:80%;
+
+  max-width:60em;
+  margin-left:auto;
+  margin-right:auto;
+	position:relative;
+
+	padding:5px 10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+
+	border:1px solid #e8e8e8;
+	margin-bottom:20px;
+	margin-top:5em;
+	}
+
+
+</style>
+
+
   <!-- WARNING: This page is written in (X)HTML5 and might not be displayed correctly in old browsers. -->
-  <!-- NOTE: The CSS for now is completely inline (no central CSS file) and is definitively subject to future improvements. -->
-    
+
     <head>
       <!-- link rel="stylesheet" type="text/css" href="../../../../style.css" / -->
       <title>#ARTICLE-TITLE#</title>
       <style type="text/css">
       </style>
-  
+
     </head>
 #+END_HTML
 
@@ -115,15 +268,19 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', end
 
 #+NAME: article-footer
 #+BEGIN_HTML
-    <footer style="text-align:right;">
-      <p>#ABOUT-BLOG#
+	  <aside class="published-on">
+	    Published on <time datetime="#ARTICLE-PUBLISHED-HTML-DATETIME#">#ARTICLE-PUBLISHED-HUMAN-READABLE#</time>
+	  </aside>
 
-	<a href="http://validator.w3.org/check/referer">check HTML5 validity</a>
+    <footer>
+      <p><i>#ABOUT-BLOG#</i> is authored in <a href="http://orgmode.org">Org-mode</a> and generated by <a href="https://github.com/novoid/lazyblorg">lazyblorg</a>
 
-	<a href="http://jigsaw.w3.org/css-validator/">check CSS validity</a>
+	 	&nbsp;&bull;&nbsp; <a href="http://validator.w3.org/check/referer">HTML5</a>
+
+	 	&nbsp;&bull;&nbsp; <a href="http://jigsaw.w3.org/css-validator/">CSS3</a>
       </p>
     </footer>
-    
+
   </body>
 </html>
 #+END_HTML
@@ -132,7 +289,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', end
 
 - #BLOGNAME#: short name of the blog
 - #ARTICLE-YEAR#: four digit year of the article (folder path)
-- #ARTICLE-MONTH#: two digit month of the article (folder path) 
+- #ARTICLE-MONTH#: two digit month of the article (folder path)
 - #ARTICLE-DAY#: two digit day of the article (folder path)
 - #ARTICLE-PUBLISHED-HTML-DATETIME#: time-stamp of publishing in HTML
   date-time format (e.g., 2011-10-30T15:00+02:00)
@@ -142,57 +299,56 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', end
 #+NAME: article-header-begin
 #+BEGIN_HTML
   <body>
-    <article style="
-margin-left:auto;
-margin-right:auto;
-max-width:40em;
-nobackground-color:#b0e0e6;
-padding-top:2em;">
-      
+    <article class="article">
+
 	<header>
 
-	  <nav style="margin-left:-2em;">
+	  <nav class="article-header-nav" style="margin-left:-2em;">
 	    <span class="breadcrumbs">
-	      <a href="../../../../"><img src="http://karl-voit.at/images/public-voit_logo.svg" alt="public voit logo" width="350" style="vertical-align:middle;"></a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;
-	      #ARTICLE-YEAR#&nbsp;&ndash;&nbsp;#ARTICLE-MONTH#&nbsp;&ndash;&nbsp;#ARTICLE-DAY#
+	      <a href="../../../../"><img src="http://karl-voit.at/images/public-voit_logo.svg" alt="public voit logo" width="350" style="vertical-align:middle;"></a><span style="padding-top:1em;">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;
+	      #ARTICLE-YEAR#&nbsp;&ndash;&nbsp;#ARTICLE-MONTH#&nbsp;&ndash;&nbsp;#ARTICLE-DAY#</span>
 	      <!-- a href="../../../">#ARTICLE-YEAR#</a>&nbsp;&ndash;&nbsp;<a href="../../">#ARTICLE-MONTH#</a>&nbsp;&ndash;&nbsp;<a href="../">#ARTICLE-DAY#</a -->
 	    </span>
 	  </nav>
 
-	  <h1 style="padding-top:2em;">#ARTICLE-TITLE#</h1>
-	  <aside style="font-size:80%; color:gray;text-align:right">
-	    <p>Published on <time datetime="#ARTICLE-PUBLISHED-HTML-DATETIME#">#ARTICLE-PUBLISHED-HUMAN-READABLE#</time></p>
-	  </aside>
 #+END_HTML
+
 
 #+NAME: article-tags-begin
 #+BEGIN_HTML
-	  <aside style="text-align:right;font-size:90%;color:brown;">
-	    <p>
+	  <aside>
+	    <ul class="tags">
 #+END_HTML
 
 - #TAGNAME#: string of a tag
 
 #+NAME: article-tag
 #+BEGIN_HTML
-	      <span class="tag">#TAGNAME#</span>&nbsp;
+	      <!-- span class="tag">#TAGNAME#</span>&nbsp;-->
+        <li><a href="#">#TAGNAME#</a></li>
 #+END_HTML
 
 #+NAME: article-tags-end
 #+BEGIN_HTML
-	    </p>
+	    </ul>
 	  </aside>
 #+END_HTML
 
 #+NAME: article-header-end
 #+BEGIN_HTML
+
+	  <h1 class="article-title" style="padding-top:2em;">#ARTICLE-TITLE#</h1>
+
 	</header>
+
+  <div class="article-body">
 
 #+END_HTML
 
 #+NAME: article-end
 #+BEGIN_HTML
-      
+
+    </div> <!-- article-body -->
     </article>
 
 #+END_HTML
@@ -205,9 +361,8 @@ padding-top:2em;">
 #+NAME: section-begin
 #+BEGIN_HTML
 
+	  <header><h#SECTION-LEVEL# class="section-title">#SECTION-TITLE#</h#SECTION-LEVEL#></header>
 
-	  <header><h#SECTION-LEVEL#>#SECTION-TITLE#</h#SECTION-LEVEL#></header>
-	  
 #+END_HTML
 
 *** Paragraph
@@ -237,9 +392,9 @@ in future.
 #+BEGIN_HTML
 <a href="#A-URL#">#CONTENT#</a>
 #+END_HTML
-	  
+
 *** Lists
-		
+
 #+NAME: ul-begin
 #+BEGIN_HTML
 	  <ul>
@@ -256,7 +411,7 @@ in future.
 #+BEGIN_HTML
 	  </ul>
 #+END_HTML
-	  
+
 *** Pre-formatted text
 
 Without name/label:
@@ -328,14 +483,14 @@ With name/label:
 
 *** ignore me
 
-#+NAME: 
+#+NAME:
 #+BEGIN_HTML
 #+END_HTML
 
-#+NAME: 
+#+NAME:
 #+BEGIN_HTML
 #+END_HTML
-	  
+
 
 
 
