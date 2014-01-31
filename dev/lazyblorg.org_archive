@@ -1148,3 +1148,38 @@ CLOSED: [2014-01-31 Fr 11:01]
   - [X] embed inline-CSS
   - [X] simplified layout
 
+** DONE nicely draw tags around tags                             :userstory:
+CLOSED: [2014-01-31 Fri 18:17] SCHEDULED: <2014-01-31 Fr>
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2014-01-31 Fri 18:17]
+:END:
+:PROPERTIES:
+:CREATED:  [2014-01-31 Fr 11:01]
+:ARCHIVE_TIME: 2014-01-31 Fri 18:17
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: issues
+:END:
+
+- http://cssglobe.com/pure-css3-post-tags/
+
+** DONE adopt CSS from http://cssglobe.com/lab/css3_tags/01.html :architecture:
+CLOSED: [2014-01-31 Fri 18:17] SCHEDULED: <2014-01-31 Fr>
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2014-01-31 Fri 18:17]
+:END:
+:PROPERTIES:
+:CREATED:  [2014-01-31 Fr 11:08]
+:ARCHIVE_TIME: 2014-01-31 Fri 18:17
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: issues
+:END:
+
+- rounded corners
+- CSS style information tag
+
