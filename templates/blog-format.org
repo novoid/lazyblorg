@@ -1,4 +1,4 @@
-## Time-stamp: <2014-01-31 17:56:24 vk>
+## Time-stamp: <2014-01-31 22:09:40 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -70,169 +70,10 @@ Have fun with modifying lazyblorg to your requirements!
   <!DOCTYPE html>
   <html xmlns="http://www.w3.org/1999/xhtml">
   <meta charset="UTF-8">
-
-
-<!-- NOTE: There is no central CSS file yet. It is definitively a subject to future improvements. -->
-<style>
-body {
-  background: #fcfcfc; /* Old browsers */
-  background: -moz-linear-gradient(top, #fcfcfc 0%, #fefcea 100%, #fc100c 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fcfcfc), color-stop(100%,#fefcea), color-stop(100%,#fc100c)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #fcfcfc 0%,#fefcea 100%,#fc100c 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #fcfcfc 0%,#fefcea 100%,#fc100c 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #fcfcfc 0%,#fefcea 100%,#fc100c 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #fcfcfc 0%,#fefcea 100%,#fc100c 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#fc100c',GradientType=0 ); /* IE6-9 */
-  font-family:Trebuchet MS,Verdana,Helvetica,sans-serif;
-}
-
-.article-header-nav {
-	position:relative;
-	padding:10px 20px;
-	background:#f8f8f8;
-	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
-	border-radius:10px;
-	border:1px solid #e8e8e8;
-	margin-bottom:20px;
-	}
-
-.breadcrumbs {
-  font-size:150%;
-  font-family:Impact, Charcoal, sans-serif;
-}
-
-.article-title {
-	OLDcolor:#0089e0;
-  margin-bottom:2em;
-}
-
-.published-on {
-  font-size:80%;
-  color:gray;
-
-  text-align:right;
-  margin-left:auto;
-  margin-right:auto;
-  max-width:60em;
-  padding-top:2em;
-}
-
-.test-rightside {
-  margin: 0px auto;
-  position: relative;
-  /*left: 750px;*/
-  padding-top:0px;
-  /*width:20% 240px*/;
-  float:right;
-}
-
-.rightside {
-  margin: 0px auto;
-  float:right;
-}
-
-.article {
-  margin-left:auto;
-  margin-right:auto;
-  max-width:40em;
-  nobackground-color:#b0e0e6;
-  padding-top:2em;
-}
-
-/* happily stolen from http://cssglobe.com/pure-css3-post-tags/ */
-.tags {
-	margin:0;
-	padding:0;
-  margin-top:1em;
-  margin-right:-2em;
-  float:right;
-	list-style:none;
-	}
-.tags li, .tags a {
-	float:left;
-	height:24px;
-	line-height:24px;
-	position:relative;
-	font-size:13px;
-	}
-.tags a {
-	margin-left:20px;
-	padding:0 10px 0 12px;
-	ORIGINALbackground:#0089e0;
-	background:#2222ff;
-	color:#fff;
-	text-decoration:none;
-	-moz-border-radius-bottomright:4px;
-	-webkit-border-bottom-right-radius:4px;
-	border-bottom-right-radius:4px;
-	-moz-border-radius-topright:4px;
-	-webkit-border-top-right-radius:4px;
-	border-top-right-radius:4px;
-	}
-.tags a:before {
-	content:"";
-	float:left;
-	position:absolute;
-	top:0;
-	left:-12px;
-	width:0;
-	height:0;
-	ORIGINALborder-color:transparent #0089e0 transparent transparent;
-	border-color:transparent #2222ff transparent transparent;
-	border-style:solid;
-	border-width:12px 12px 12px 0;
-	}
-.tags a:after {
-	content:"";
-	position:absolute;
-	top:10px;
-	left:0;
-	float:left;
-	width:4px;
-	height:4px;
-	-moz-border-radius:2px;
-	-webkit-border-radius:2px;
-	border-radius:2px;
-	background:#fff;
-	-moz-box-shadow:-1px -1px 2px #004977;
-	-webkit-box-shadow:-1px -1px 2px #004977;
-	box-shadow:-1px -1px 2px #004977;
-	}
-.tags a:hover{background:#555;}
-.tags a:hover:before{border-color:transparent #555 transparent transparent;}
-
-
-.section-title {
-  color:#404040;
-  margin-left:1em;
-}
-
-
-footer {
-
-  text-align:center;
-  color:gray;
-  font-size:80%;
-
-  max-width:60em;
-  margin-left:auto;
-  margin-right:auto;
-	position:relative;
-
-	padding:5px 10px;
-	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
-	border-radius:10px;
-
-	border:1px solid #e8e8e8;
-	margin-bottom:20px;
-	margin-top:5em;
-	}
-
-
-</style>
-
+  <meta name="author" content="Karl Voit" />
+  <meta name="generator" content="lazyblorg" />
+  <link rel="stylesheet" title="public voit Standard CSS Style"
+        href="http://Karl-Voit.at/public_voit.css" type="text/css" media="screen"  />
 
   <!-- WARNING: This page is written in (X)HTML5 and might not be displayed correctly in old browsers. -->
 
@@ -243,23 +84,6 @@ footer {
       </style>
 
     </head>
-#+END_HTML
-
-Background gradient:
-
-- http://www.colorzilla.com/gradient-editor/
-  - http://www.colorzilla.com/gradient-editor/#fcfcfc+0,fefcea+100,fc100c+100;Custom
-
-
-#+BEGIN_HTML
-background: #fcfcfc; /* Old browsers */
-background: -moz-linear-gradient(top, #fcfcfc 0%, #fefcea 100%, #fc100c 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fcfcfc), color-stop(100%,#fefcea), color-stop(100%,#fc100c)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top, #fcfcfc 0%,#fefcea 100%,#fc100c 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top, #fcfcfc 0%,#fefcea 100%,#fc100c 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top, #fcfcfc 0%,#fefcea 100%,#fc100c 100%); /* IE10+ */
-background: linear-gradient(to bottom, #fcfcfc 0%,#fefcea 100%,#fc100c 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#fc100c',GradientType=0 ); /* IE6-9 */
 #+END_HTML
 
 *** Footer
