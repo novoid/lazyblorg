@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-01-30 18:33:01 vk>
+# Time-stamp: <2014-01-31 23:22:10 vk>
 
 import logging
 import os
@@ -199,6 +199,9 @@ class Htmlizer(object):
                 result = self.fix_ampersands_in_url(result)
                 template = self.template_definition_by_name('paragraph')
                 result = template.replace('#PAR-CONTENT#', result)
+
+            elif entry['content'][index][0] == 'hr':
+                pass
 
             elif entry['content'][index][0] == 'heading':
 
