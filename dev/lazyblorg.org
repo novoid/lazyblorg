@@ -1,5 +1,5 @@
-# -*- mode: org; coding: utf-8; flyspell-default-dictionary: "german8"; -*-
-# Time-stamp: <2014-01-30 18:24:22 vk>
+# -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
+# Time-stamp: <2014-01-31 13:14:32 karl.voit>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -310,19 +310,23 @@ vk@gary ~/src/lazyblorg (git)-[master] %
   - [ ] optionally: generate overview page for last n entries
   - [ ] optionally: generate calendar archive page(s)
   - [ ] optionally: generate tag overview page(s)
-** NEXT make alpha version of blog available on my domain            :tests:
+
+** STARTED nicely draw tags around tags                          :userstory:
+SCHEDULED: <2014-01-31 Fr>
 :PROPERTIES:
-:CREATED:  [2014-01-29 Wed 22:40]
+:CREATED:  [2014-01-31 Fr 11:01]
 :END:
 
-- why
-  - get feedback from real-world data
-  - be able to tweet URLs of (very simple) blog entries
-- how
-  - [X] site-logo (in SVG) as hard-coded URL in template?
-  - [X] write "public voit Introduction"
-  - [ ] embed inline-CSS
-  - [ ] simplified layout
+- http://cssglobe.com/pure-css3-post-tags/
+
+** STARTED adopt CSS from http://cssglobe.com/lab/css3_tags/01.html :architecture:
+SCHEDULED: <2014-01-31 Fr>
+:PROPERTIES:
+:CREATED:  [2014-01-31 Fr 11:08]
+:END:
+
+- rounded corners
+- CSS style information tag
 
 ** NEXT create constants.py as module                         :architecture:
 :PROPERTIES:
@@ -331,7 +335,6 @@ vk@gary ~/src/lazyblorg (git)-[master] %
 
 - handle configuration and run-time variables using this module
 - ? parse config variables from Org-mode heading?
-
 ** NEXT implement method(s) to get URL of an blogdata id       :architecture:
 :PROPERTIES:
 :CREATED:  [2013-10-19 Sat 19:16]
