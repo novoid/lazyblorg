@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-01-31 13:14:32 karl.voit>
+# Time-stamp: <2014-01-31 22:47:55 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -311,23 +311,6 @@ vk@gary ~/src/lazyblorg (git)-[master] %
   - [ ] optionally: generate calendar archive page(s)
   - [ ] optionally: generate tag overview page(s)
 
-** STARTED nicely draw tags around tags                          :userstory:
-SCHEDULED: <2014-01-31 Fr>
-:PROPERTIES:
-:CREATED:  [2014-01-31 Fr 11:01]
-:END:
-
-- http://cssglobe.com/pure-css3-post-tags/
-
-** STARTED adopt CSS from http://cssglobe.com/lab/css3_tags/01.html :architecture:
-SCHEDULED: <2014-01-31 Fr>
-:PROPERTIES:
-:CREATED:  [2014-01-31 Fr 11:08]
-:END:
-
-- rounded corners
-- CSS style information tag
-
 ** NEXT create constants.py as module                         :architecture:
 :PROPERTIES:
 :CREATED:  [2013-10-01 Tue 21:05]
@@ -335,6 +318,27 @@ SCHEDULED: <2014-01-31 Fr>
 
 - handle configuration and run-time variables using this module
 - ? parse config variables from Org-mode heading?
+
+** NEXT paper: sketch main page                                   :userstory:
+:PROPERTIES:
+:CREATED:  [2013-02-14 Thu 16:39]
+:END:
+** NEXT HTML: manually create main jumping page                :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 12:24]
+:END:
+
+- HTML5-example: see Kröner2011 p.123ff
+
+** NEXT HTML: manually create month overview page             :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 14:12]
+:END:
+
+** NEXT HTML: manually create day overview page               :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 14:11]
+:END:
 ** NEXT implement method(s) to get URL of an blogdata id       :architecture:
 :PROPERTIES:
 :CREATED:  [2013-10-19 Sat 19:16]
@@ -477,17 +481,6 @@ A sub-heading «result» contains the results which is expected.
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 14:14]
 :END:
-
-** NEXT paper: sketch main page                                   :userstory:
-:PROPERTIES:
-:CREATED:  [2013-02-14 Thu 16:39]
-:END:
-** NEXT HTML: manually create main jumping page                :architecture:
-:PROPERTIES:
-:CREATED:  [2013-02-12 Tue 12:24]
-:END:
-
-- HTML5-example: see Kröner2011 p.123ff
 ** NEXT move inline CSS from blog-format.org into CSS file    :architecture:
 :PROPERTIES:
 :CREATED:  [2014-01-30 Thu 15:52]
@@ -498,16 +491,6 @@ A sub-heading «result» contains the results which is expected.
 :END:
 
 - htmlizer.py -> "## FIXXME: replace pre with suitable source code environment!"
-
-** NEXT [#C] HTML: manually create month overview page        :architecture:
-:PROPERTIES:
-:CREATED:  [2013-02-12 Tue 14:12]
-:END:
-
-** NEXT [#C] HTML: manually create day overview page          :architecture:
-:PROPERTIES:
-:CREATED:  [2013-02-12 Tue 14:11]
-:END:
 
 ** NEXT [#C] HTML: manually create year overview page         :architecture:
 :PROPERTIES:
@@ -962,57 +945,57 @@ are some for "lazyblog" (without the 'r').
 Org elements: from ox-ascii.el (Org-mode)
 
 #+NAME: implemented-org-elements
-| *Org Element*       | [fn:earmarked] | [fn:lowprio] | implemented since | [fn:internalrepresentation]                                      | *HTML5*           |
-|---------------------+----------------+--------------+-------------------+------------------------------------------------------------------+-------------------|
-| bold                |                |              |                   |                                                                  | em                |
-| center-block        |                | x            |                   |                                                                  |                   |
-| clock               |                | x            |                   |                                                                  |                   |
-| code                |                |              |                   |                                                                  | code              |
-| drawer              |                |              |                   |                                                                  |                   |
-| dynamic-block       |                | x            |                   |                                                                  |                   |
-| entity              |                |              |                   |                                                                  |                   |
-| example-block       |                |              |                   |                                                                  |                   |
-| export-block        |                | x            |                   |                                                                  |                   |
-| export-snippet      |                | x            |                   |                                                                  |                   |
-| fixed-width         |                | x            |                   |                                                                  |                   |
-| footnote-definition |                | x            |                   |                                                                  |                   |
-| footnote-reference  |                | x            |                   |                                                                  |                   |
-| headline            | x              |              |                   | ['heading', {'level': 3, 'title': u'my title'}]                  | section+header+h1 |
-| horizontal-rule     |                | x            |                   |                                                                  |                   |
-| inline-src-block    |                | x            |                   |                                                                  |                   |
-| inlinetask          |                | x            |                   |                                                                  |                   |
-| inner-template      |                | x            |                   |                                                                  |                   |
-| italic              |                | x            |                   |                                                                  |                   |
-| item                |                |              |                   |                                                                  |                   |
-| keyword             |                | x            |                   |                                                                  |                   |
-| latex-environment   |                | x            |                   |                                                                  |                   |
-| latex-fragment      |                | x            |                   |                                                                  |                   |
-| line-break          |                | x            |                   |                                                                  |                   |
-| link                | x              |              |                   |                                                                  |                   |
-| paragraph           | x              |              |                   | ['par', u'line1', u'line2']                                      |                   |
-| plain-list          | x              |              |                   | ['list-itemize', [u'first line', u'second line']]                | ul+li             |
-| plain-text          | x              |              |                   | see: paragraph                                                   |                   |
-| planning            |                | x            |                   |                                                                  |                   |
-| quote-block         |                |              |                   |                                                                  | blockquote        |
-| quote-section       |                |              |                   |                                                                  |                   |
-| radio-target        |                | x            |                   |                                                                  |                   |
-| section             |                |              |                   |                                                                  |                   |
-| special-block       |                | x            |                   |                                                                  |                   |
-| src-block           |                |              |                   |                                                                  |                   |
-| statistics-cookie   |                | x            |                   |                                                                  |                   |
-| strike-through      |                | x            |                   |                                                                  |                   |
-| subscript           |                | x            |                   |                                                                  |                   |
-| superscript         |                | x            |                   |                                                                  |                   |
-| table               |                |              |                   |                                                                  |                   |
-| table-cell          |                |              |                   |                                                                  |                   |
-| table-row           |                |              |                   |                                                                  |                   |
-| target              |                |              |                   |                                                                  |                   |
-| template            |                | x            |                   |                                                                  |                   |
-| timestamp           |                | x            |                   |                                                                  |                   |
-| underline           |                | x            |                   |                                                                  |                   |
-| verbatim            |                |              |                   |                                                                  | pre               |
-| verse-block         |                |              |                   | ['verse-block', 'name or None', [u'first line', u'second line']] | pre               |
-| html-block          |                |              |                   | ['html-block', 'name or None', [u'first line', u'second line']]  |                   |
+| *Org Element*       | [fn:earmarked] | [fn:lowprio] | implemented since | [fn:internalrepresentation]                                        | *HTML5*                                                  |
+|---------------------+----------------+--------------+-------------------+--------------------------------------------------------------------+----------------------------------------------------------|
+| bold                |                |              | <2014-01-30 Thu>  |                                                                    | b                                                        |
+| center-block        |                | x            |                   |                                                                    |                                                          |
+| clock               |                | x            |                   |                                                                    |                                                          |
+| code                |                |              | <2014-01-30 Thu>  |                                                                    | code                                                     |
+| drawer              |                | x            |                   |                                                                    |                                                          |
+| dynamic-block       |                | x            |                   |                                                                    |                                                          |
+| entity              |                |              |                   |                                                                    |                                                          |
+| example-block       |                |              | <2014-01-30 Thu>  | ['example-block', 'name or None', [u'first line', u'second line']] | FIXXME                                                   |
+| export-block        |                | x            |                   |                                                                    |                                                          |
+| export-snippet      |                | x            |                   |                                                                    |                                                          |
+| fixed-width         |                | x            |                   |                                                                    |                                                          |
+| footnote-definition |                | x            |                   |                                                                    |                                                          |
+| footnote-reference  |                | x            |                   |                                                                    |                                                          |
+| headline            |                |              | <2014-01-30 Thu>  | ['heading', {'level': 3, 'title': u'my title'}]                    | section+header+h1                                        |
+| horizontal-rule     |                |              | <2014-01-31 Fri>  | ['hr']                                                             | (ignored and only interpreted to mark end of standfirst) |
+| inline-src-block    |                | x            |                   |                                                                    |                                                          |
+| inlinetask          |                | x            |                   |                                                                    |                                                          |
+| inner-template      |                | x            |                   |                                                                    |                                                          |
+| italic              |                | x            |                   |                                                                    |                                                          |
+| item                |                |              |                   |                                                                    |                                                          |
+| keyword             |                | x            |                   |                                                                    |                                                          |
+| latex-environment   |                |              | <2014-01-30 Thu>  | ['latex-block', 'name or None', [u'first line', u'second line']]   | FIXXME                                                   |
+| latex-fragment      |                | x            |                   |                                                                    |                                                          |
+| line-break          |                | x            |                   |                                                                    |                                                          |
+| link                | x              |              |                   |                                                                    |                                                          |
+| paragraph           |                |              | <2014-01-30 Thu>  | ['par', u'line1', u'line2']                                        | p                                                        |
+| plain-list          | x              |              |                   | ['list-itemize', [u'first line', u'second line']]                  | ul+li                                                    |
+| plain-text          |                |              | <2014-01-30 Thu>  | see: paragraph                                                     |                                                          |
+| planning            |                | x            |                   |                                                                    |                                                          |
+| quote-block         |                |              | <2014-01-30 Thu>  | ['quote-block', 'name or None', [u'first line', u'second line']]   | blockquote                                               |
+| quote-section       |                | ?            |                   |                                                                    |                                                          |
+| radio-target        |                | x            |                   |                                                                    |                                                          |
+| section             |                |              | <2014-01-30 Thu>  | ['heading', {'title': u'Sub-heading foo', 'level': 3}]             | h2, h3, ...                                              |
+| special-block       |                | x            |                   |                                                                    |                                                          |
+| src-block           |                |              | <2014-01-30 Thu>  | ['src-block', 'name or None', [u'first line', u'second line']]     | pre                                                      |
+| statistics-cookie   |                | x            |                   |                                                                    |                                                          |
+| strike-through      |                | x            |                   |                                                                    |                                                          |
+| subscript           |                | x            |                   |                                                                    |                                                          |
+| superscript         |                | x            |                   |                                                                    |                                                          |
+| table               | x              |              |                   |                                                                    |                                                          |
+| table-cell          | x              |              |                   |                                                                    |                                                          |
+| table-row           | x              |              |                   |                                                                    |                                                          |
+| target              |                |              |                   |                                                                    |                                                          |
+| template            |                | x            |                   |                                                                    |                                                          |
+| timestamp           |                | x            |                   |                                                                    |                                                          |
+| underline           |                | x            |                   |                                                                    |                                                          |
+| verbatim            | x              |              |                   |                                                                    | pre                                                      |
+| verse-block         |                |              | <2014-01-30 Thu>  | ['verse-block', 'name or None', [u'first line', u'second line']]   | pre                                                      |
+| html-block          |                |              | <2014-01-30 Thu>  | ['html-block', 'name or None', [u'first line', u'second line']]    | pre (if no #+NAME: then insert directly!)                |
 
 NOTE: OrgParser is using "par" for anything it can not interpret as
 something else.
@@ -1036,7 +1019,7 @@ take some time or might never get implemented)
 #+NAME: template-placeholders-and-their-processing
 | *placeholder*                      | *description*                                      | gets sanitized | *source*                                                  |
 |------------------------------------+----------------------------------------------------+----------------+-----------------------------------------------------------|
-| #TITLE#                            | heading/title of the blog article                  | x              | Org: heading                                              |
+| #ARTICLE-TITLE#                    | heading/title of the blog article                  | x              | Org: heading                                              |
 | #ABOUT-BLOG#                       | a line of text which describes the blog in general |                | FIXXME                                                    |
 | #BLOGNAME#                         | short name of the blog                             |                | FIXXME                                                    |
 | #ARTICLE-YEAR#                     | four digit year of the article (folder path)       |                | Org: CREATED-time-stamp                                   |
@@ -1055,32 +1038,32 @@ take some time or might never get implemented)
 
 
 #+NAME: template-elements-besides-org-elements
-| *What*                | *template-name*      | *placeholder replacements*                                 |
-|-----------------------+----------------------+------------------------------------------------------------|
-| article               | article-header       | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-|                       | article-footer       | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-|                       | article-header-begin | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-|                       | article-tags-begin   |                                                            |
-|                       | article-tag          | TAGNAME                                                    |
-|                       | article-tags-end     | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-|                       | article-header-end   | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-|                       | article-end          | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-|-----------------------+----------------------+------------------------------------------------------------|
-| headline              | section-begin        | SECTION-TITLE, SECTION-LEVEL                               |
-|-----------------------+----------------------+------------------------------------------------------------|
-| paragraph, plain-text | paragraph            | PAR-CONTENT                                                |
-|-----------------------+----------------------+------------------------------------------------------------|
-| URLs                  | a-href               | A-URL, CONTENT                                             |
-|-----------------------+----------------------+------------------------------------------------------------|
-| plain-list            | ul-begin             |                                                            |
-|                       | ul-item              |                                                            |
-|                       | ul-end               |                                                            |
-|-----------------------+----------------------+------------------------------------------------------------|
-| pre-fromatted text    | pre-begin            |                                                            |
-|                       | pre-end              |                                                            |
-|-----------------------+----------------------+------------------------------------------------------------|
-| html-block            | html-begin           | NAME                                                       |
-|                       | html-end             |                                                            |
+| *What*                | *template-name*      | *placeholder replacements*                                         |
+|-----------------------+----------------------+--------------------------------------------------------------------|
+| article               | article-header       | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
+|                       | article-footer       | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
+|                       | article-header-begin | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
+|                       | article-tags-begin   |                                                                    |
+|                       | article-tag          | TAGNAME                                                            |
+|                       | article-tags-end     | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
+|                       | article-header-end   | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
+|                       | article-end          | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
+|-----------------------+----------------------+--------------------------------------------------------------------|
+| headline              | section-begin        | SECTION-TITLE, SECTION-LEVEL                                       |
+|-----------------------+----------------------+--------------------------------------------------------------------|
+| paragraph, plain-text | paragraph            | PAR-CONTENT                                                        |
+|-----------------------+----------------------+--------------------------------------------------------------------|
+| URLs                  | a-href               | A-URL, CONTENT                                                     |
+|-----------------------+----------------------+--------------------------------------------------------------------|
+| plain-list            | ul-begin             |                                                                    |
+|                       | ul-item              |                                                                    |
+|                       | ul-end               |                                                                    |
+|-----------------------+----------------------+--------------------------------------------------------------------|
+| pre-fromatted text    | pre-begin            |                                                                    |
+|                       | pre-end              |                                                                    |
+|-----------------------+----------------------+--------------------------------------------------------------------|
+| html-block            | html-begin           | NAME                                                               |
+|                       | html-end             |                                                                    |
 
 
 
@@ -1285,7 +1268,7 @@ implemented but moved to a (separate) user-story above.
 ** Original post (How this all started)
 
 Copied from: http://article.gmane.org/gmane.emacs.orgmode/49747/
-
+#+BEGIN_QUOTE
 Hi!
 
 I got a nice idea on how a very easy to use Org-mode blog system
@@ -1404,6 +1387,8 @@ The basic script workflow is not that complicated:
     - optionally: generate overview page for last n entries
     - optionally: generate calendar archive page(s)
     - optionally: generate tag overview page(s)
+
+#+END_QUOTE
 
 * Local Variables                                                  :noexport:
 # Local Variables:
