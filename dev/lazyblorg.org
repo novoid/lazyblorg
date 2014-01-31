@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-01-31 22:47:55 vk>
+# Time-stamp: <2014-01-31 23:57:10 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -322,6 +322,10 @@ vk@gary ~/src/lazyblorg (git)-[master] %
 ** NEXT paper: sketch main page                                   :userstory:
 :PROPERTIES:
 :CREATED:  [2013-02-14 Thu 16:39]
+:END:
+** NEXT CSS: if page is less than one page, place footer at bottom :userstory:
+:PROPERTIES:
+:CREATED:  [2014-01-31 Fri 23:56]
 :END:
 ** NEXT HTML: manually create main jumping page                :architecture:
 :PROPERTIES:
