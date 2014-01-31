@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-01-30 20:33:13 vk>
+# Time-stamp: <2014-01-31 19:28:20 vk>
 
 import re
 import os
@@ -275,7 +275,7 @@ class OrgParser(object):
         block_type = None
 
         ## name of the previous element with a name defined like: "#+NAME: foo bar"
-        previous_name = None
+        previous_name = False
 
         ## contains content of previous line
         ## NOTE: only valid as long a state does not use "continue" in the previous
@@ -396,7 +396,7 @@ class OrgParser(object):
                         if named_block:
                             self.__entry_data['content'].append([block_type.lower() + '-block', previous_name, []])
                         else:
-                            self.__entry_data['content'].append([block_type.lower() + '-block', None, []])
+                            self.__entry_data['content'].append([block_type.lower() + '-block', False, []])
                     else:
                         ## if BLOCK_REGEX is in sync with the if-statement above, this should never be reached!
                         raise OrgParserException('I found a block type \"' + str(line) +
