@@ -1,4 +1,4 @@
-## Time-stamp: <2013-10-19 19:09:12 vk>
+## Time-stamp: <2014-01-31 20:44:03 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -179,7 +179,9 @@ Just drop me a line: lazyblorg <at-sign> Karl <minus-sign> Voit <dot> at
 
 * FIXXME: Install (current status)
 
-Currently, lazyblorg is in *alpha status*. It's not ready yet - Sorry!
+Currently, lazyblorg is in *beta status*. It's not finished
+yet. However, I am using it for [[http://Karl-Voit.at][my own blog]] and therefore it gets more
+and more ready to use as I add new features.
 
 What's working so far:
 - parsing a very basic sub-set of Org-mode
@@ -189,6 +191,33 @@ What's working so far:
 
 Non-working things are either mentioned in [[https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org][dev/lazyblorg.org]] or marked
 with "FIXXME" in the source code files.
+
+** How to Start
+
+1. Get the source
+2. do a test-drive with ~example_invocation.sh~
+   - this should work
+   - if not, there is something wrong with the set-up; maybe missing
+     external libraries, wrong paths, ...
+3. study, understand, and adopt the content of ~[[https://github.com/novoid/lazyblorg/blob/master/example_invocation.sh][example_invocation.sh]]~
+4. get youself an overview on *what defines a lazyblorg blog post*
+   1. A (direct) tag has to be ~blog~
+      - Sorry, no tag inheritance (yet)
+   2. You have to add an ~:ID:~ property
+   3. The entry has to be marked with ~DONE~
+   4. A ~:LOGBOOK:~ entry has to be found with the time-stamp of
+      setting the entry to ~DONE~
+      - in [[https://github.com/novoid/dot-emacs][my set-up]], this is created automatically
+   5. Do not use Org-mode elements that lazyblorg does not understand
+      - you should not get a disaster if you are using new
+        elements. Only the result might be disappointing.
+5. write your own blog posts
+6. write your own CSS file
+   - you can [[http://Karl-Voit.at/public_voit.css][take a look on mine]] if you do not care that I am not
+     really into Web design :-)
+7. adopt the blog template in ~[[https://github.com/novoid/lazyblorg/blob/master/templates/blog-format.org][templates/blog-format.org]]~
+8. publish your pages on a web space of your choice
+9. have fun with a pretty neat method to generate your blog pages
 
 * Contribute!
 
