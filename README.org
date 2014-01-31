@@ -1,4 +1,4 @@
-## Time-stamp: <2014-01-31 20:44:03 vk>
+## Time-stamp: <2014-01-31 21:03:17 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -158,10 +158,10 @@ Yes, please do read [[file:dev/lazyblorg.org]] (especially section "notes").
 
 *** Lazyblorg uses what technology?
 
-- Python 2.x
-  - misc dependencies, nothing fancy
-- input: Org-mode files of version 8.x
-- output: static HTML5, CSS3
+- input files: Org-mode files of version 8.x
+- processing: Python 2.x
+  - some dependencies on libraries, nothing fancy
+- output files: static HTML5, CSS3
 
 *** Can I use the Org-mode parser (in Python) for other purposes as well? 
 
@@ -177,7 +177,7 @@ Org-mode syntax (see section "notes" in [[file:dev/lazyblorg.org]]).
 
 Just drop me a line: lazyblorg <at-sign> Karl <minus-sign> Voit <dot> at
 
-* FIXXME: Install (current status)
+* Installing and Starting with lazyblorg
 
 Currently, lazyblorg is in *beta status*. It's not finished
 yet. However, I am using it for [[http://Karl-Voit.at][my own blog]] and therefore it gets more
