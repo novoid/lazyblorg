@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-02-01 20:28:21 vk>
+# Time-stamp: <2014-02-01 20:55:35 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -119,14 +119,19 @@ class Lazyblorg(object):
         ## with the status of the next invocation:
         self.metadata = Utils.generate_metadata_from_blogdata(self.blog_data)
 
+        ## create path to new metadatafile if it does not exist:
+        if not os.path.isdir(os.path.dirname(options.new_metadatafilename)):
+            logging.debug("path of new_metadatafilename \"" + options.new_metadatafilename + "\" does not exist. Creating ...")
+            os.makedirs(os.path.dirname(options.new_metadatafilename))
+        
         ## write this status to the persistent data file:
-        with open(options.metadatafilename + '_temp', 'wb') as output:
+        with open(options.new_metadatafilename, 'wb') as output:
             pickle.dump(self.metadata, output, self.PICKLE_FORMAT)
 
         ## load old metadata from file
-        if os.path.isfile(options.metadatafilename):
-            logging.debug("reading old \"" + options.metadatafilename + "\" ...")
-            with open(options.metadatafilename, 'rb') as input:
+        if os.path.isfile(options.previous_metadatafilename):
+            logging.debug("reading old \"" + options.previous_metadatafilename + "\" ...")
+            with open(options.previous_metadatafilename, 'rb') as input:
                 self.previous_metadata = pickle.load(input)
 
         ## extract HTML templates and store in class var
@@ -395,10 +400,14 @@ if __name__ == "__main__":
                         help="Path where the HTML files will be written to. " +
                         "On first run, this should be an empty directory.")
 
-    parser.add_argument("--metadata", dest="metadatafilename", metavar='FILE', required=True,
-                        help="Path to a file where persistent meta-data of the blog entries " +
-                        "is written to. Next run, it will be read and used for comparison to current situation." +
+    parser.add_argument("--previous-metadata", dest="previous_metadatafilename", metavar='FILE', required=True,
+                        help="Path to a file where persistent meta-data of the previous blog run " +
+                        "was written to. It will be read and used for comparison to the current run, the current situation." +
                         "Therefore, this file can be missing in the first run.")
+
+    parser.add_argument("--new-metadata", dest="new_metadatafilename", metavar='FILE', required=True,
+                        help="Path to a file where persistent meta-data of the blog entries of the current run " +
+                        "is written to.")
 
     parser.add_argument("--logfile", dest="logfilename", metavar='ORGFILE', required=True,
                         help="Path to a file where warnings (inactive time-stamps) and errors " +
@@ -445,20 +454,12 @@ if __name__ == "__main__":
                           "This does not make any sense, you silly fool :-)")
             Utils.error_exit(1)
 
-        ##if not options.targetdir:
-        ##    logging.critical("Please give me a folder to write to with option \"--targetdir\".")
-        ##    Utils.error_exit(2)
-
         if not os.path.isdir(options.targetdir):
             logging.critical("Target directory \"" + options.targetdir + "\" is not a directory. Aborting.")
             Utils.error_exit(3)
 
-        ##if not options.metadatafilename:
-        ##    logging.critical("Please give me a file to write to with option \"--metadata\".")
-        ##    Utils.error_exit(4)
-
-        if not os.path.isfile(options.metadatafilename):
-            logging.warn("Blog data file \"" + options.metadatafilename + "\" is not found. Assuming first run!")
+        if not os.path.isfile(options.previous_metadatafilename):
+            logging.warn("Blog data file \"" + options.previous_metadatafilename + "\" is not found. Assuming first run!")
 
         logging.debug("extracting list of Org-mode files ...")
         logging.debug("len(orgfiles) [%s]" % str(len(options.orgfiles)))
@@ -480,16 +481,6 @@ if __name__ == "__main__":
         lazyblorg.generate_output(generate, marked_for_RSS, increment_version)
 
         logging.debug("-------------> cleaning up the stage ...")
-
-        ## remove old options.metadatafilename
-        if os.path.isfile(options.metadatafilename):
-            logging.debug("deleting old \"" + options.metadatafilename + "\" ...")
-            os.remove(options.metadatafilename)
-
-        ## rename options.metadatafilename + '_temp' -> options.metadatafilename
-        logging.debug("removing temporary \"" + options.metadatafilename + "_temp\" to \"" +
-                      options.metadatafilename + "\" ...")
-        os.rename(options.metadatafilename + '_temp', options.metadatafilename)
 
         logging.debug("successfully finished.")
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-01-29 21:40:37 vk>
+# Time-stamp: <2014-02-01 21:01:26 vk>
 
 import argparse  ## command line arguments
 import unittest
@@ -47,6 +47,7 @@ class TestLazyblorg(unittest.TestCase):
         org_testfile_firstrun = "../testdata/basic_blog_update_test/basic_blog_update_test_-_first_run.org"
         metadata_firstrun_output = "../testdata/basic_blog_update_test/basic_blog_update_test_-_first_run.pk"
         metadata_secondrun_input = "../testdata/basic_blog_update_test/basic_blog_update_test_-_first_run.pk_temp"
+        metadata_secondrun_output = "../testdata/basic_blog_update_test/basic_blog_update_test_-_second_run.pk"
         log_firstrun = "../testdata/basic_blog_update_test/basic_blog_update_test_-_first_run.log"
         org_testfile_secondrun = "../testdata/basic_blog_update_test/basic_blog_update_test_-_second_run.org"
 
@@ -70,12 +71,13 @@ class TestLazyblorg(unittest.TestCase):
         first_parser = argparse.ArgumentParser()
         first_parser.add_argument("--orgfiles", dest="orgfiles", nargs='+')
         first_parser.add_argument("--targetdir", dest="targetdir")
-        first_parser.add_argument("--metadata", dest="metadatafilename")
+        first_parser.add_argument("--new-metadata", dest="new_metadatafilename")
+        first_parser.add_argument("--previous-metadata", dest="previous_metadatafilename")
         first_parser.add_argument("--logfile", dest="logfilename")
         first_parser.add_argument("-v", "--verbose", dest="verbose", action="store_true")
 
         myoptions = "--orgfiles " + org_testfile_firstrun + " " + template_file + \
-            " --targetdir ../testdata/basic_blog_update_test/2del-results/ --metadata " + \
+            " --targetdir ../testdata/basic_blog_update_test/2del-results/ --previous-metadata NOTEXISTING.pk --new-metadata " + \
             metadata_firstrun_output + \
             " --logfile " + log_firstrun# + " --verbose"
 
@@ -98,22 +100,22 @@ class TestLazyblorg(unittest.TestCase):
 
         ## Checks on the situation before second iteration:
 
-        self.assertTrue(os.path.isfile(org_testfile_secondrun))  ## check, if test input file is found
-        self.assertTrue(os.path.isfile(metadata_secondrun_input))
+        ## none
 
         ## Building the call parameters:
 
         second_parser = argparse.ArgumentParser()
         second_parser.add_argument("--orgfiles", dest="orgfiles", nargs='+')
         second_parser.add_argument("--targetdir", dest="targetdir")
-        second_parser.add_argument("--metadata", dest="metadatafilename")
+        first_parser.add_argument("--new-metadata", dest="new_metadatafilename")
+        first_parser.add_argument("--previous-metadata", dest="previous_metadatafilename")
         second_parser.add_argument("--logfile", dest="logfilename")
         second_parser.add_argument("-v", "--verbose", dest="verbose", action="store_true")
 
         myoptions = "--orgfiles " + org_testfile_secondrun + " " + template_file + \
-            " --targetdir ../testdata/basic_blog_update_test/2del-results/ --metadata " + \
+            " --targetdir ../testdata/basic_blog_update_test/2del-results/ --previous-metadata " + \
             metadata_secondrun_input + \
-            " --logfile " + log_firstrun# + " --verbose"
+            " --new-metadata " + metadata_secondrun_output + " --logfile " + log_firstrun# + " --verbose"
 
         options = second_parser.parse_args(myoptions.split())
 

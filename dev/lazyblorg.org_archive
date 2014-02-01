@@ -1461,3 +1461,40 @@ CLOSED: [2014-02-01 Sat 20:06]
 
 - see id:2014-02-01-time-stamps
 
+** DONE [#A] compare status with published version of meta-data :architecture:
+CLOSED: [2014-02-01 Sat 21:02]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-02-01 Sat 21:02]
+:END:
+:PROPERTIES:
+:CREATED:  [2014-02-01 Sat 14:15]
+:ARCHIVE_TIME: 2014-02-01 Sat 21:02
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: issues
+:END:
+
+- up to now:
+  - lazyblorg generates meta-data from the parsed Org-mode data and
+    compares it with a metadata.pk file from the previous run
+
+- in future:
+  - the new meta-data will be compared with the metadata.pk from the webspace
+    - can be local public_html folder
+
+- why?
+  - this way, I can locally re-run the blog generating step as often
+    as I want without messing up the update information and such
+
+- how?
+  - additional command line parameter "--previous-metadata"
+  - renaming old command line parameter "metadata" to "--new-metadata"
+  - probably continue current functionality if both are same?
+
+- new checks:
+  - [X] both parameters are required ones
+  - [X] previous and new one can be missing
+  - [X] new one can exist, will be silently overwritten
+

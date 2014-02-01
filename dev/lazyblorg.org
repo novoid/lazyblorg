@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-02-01 20:07:06 vk>
+# Time-stamp: <2014-02-01 21:02:23 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -209,23 +209,6 @@ CLOSED: [2014-02-01 Sat 15:03]
 :END:
 
 - see paper from [2014-01-31 Fri] 
-
-** NEXT [#A] compare status with published version of meta-data :architecture:
-:PROPERTIES:
-:CREATED:  [2014-02-01 Sat 14:15]
-:END:
-
-- up to now:
-  - lazyblorg generates meta-data from the parsed Org-mode data and
-    compares it with a metadata.pk file from the previous run
-
-- in future:
-  - the new meta-data will be compared with the metadata.pk from the webspace
-    - can be local public_html folder
-
-- why?
-  - this way, I can locally re-run the blog generating step as often
-    as I want without messing up the update information and such
 
 ** NEXT HTML: manually create main jumping page                :architecture:
 :PROPERTIES:
@@ -1056,7 +1039,6 @@ One entry with key=ID holds a dict with following entries:
 - 'created': datetime.datetime(2013, 8, 22, 21, 6)
   - datetime object of the CREATED property from the PROPERTY drawer
   - [ ] FIXXME: why not the first CLOSED time-stamp?
-
 ** Time-stamps
 :PROPERTIES:
 :CREATED:  [2014-02-01 Sat 20:04]
@@ -1097,6 +1079,7 @@ After parsing entry from above:
   [2014-01-30 Thu 14:02]
 
 Oldest entry of entry['finished-timestamp-history'] is the publication time-stamp!
+
 
 ** Development Schedule
 :PROPERTIES:
