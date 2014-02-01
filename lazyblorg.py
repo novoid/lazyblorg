@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-02-01 20:13:37 vk>
+# Time-stamp: <2014-02-01 20:21:49 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -37,11 +37,11 @@ BLOG_PREFIX = u'blog'
 BLOG_TAG = u'blog'
 
 EPILOG = u"\n\
-  :copyright: (c) 2013 and following by Karl Voit <tools@Karl-Voit.at>\n\
-  :license: GPL v3 or any later version\n\
-  :URL: https://github.com/novoid/lazyblorg\n\
-  :bugreports: via github or <tools@Karl-Voit.at>\n\
-  :version: " + PROG_VERSION_NUMBER + " from " + PROG_VERSION_DATE + "\n"
+  :copyright:  (c) 2013 and following by Karl Voit <tools@Karl-Voit.at>\n\
+  :license:    GPL v3 or any later version\n\
+  :URL:        https://github.com/novoid/lazyblorg\n\
+  :bugreports: via github (preferred) or <tools@Karl-Voit.at>\n\
+  :version:    " + PROG_VERSION_NUMBER + " from " + PROG_VERSION_DATE + "\n"
 
 
 class Lazyblorg(object):
@@ -433,13 +433,12 @@ if __name__ == "__main__":
 
         if not os.path.isfile(options.logfilename):
             logging.debug("log file \"" + options.logfilename + "\" is not found. Initializing with heading ...")
-
-        with open(options.logfilename, 'a') as outputhandle:
-            outputhandle.write(u"## -*- coding: utf-8 -*-\n" +
-                               "## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/\n" +
-                               "* Warnings and Error messages from lazyblorg     :lazyblorg:log:\n\n" +
-                               "Messages gets appended to this file. Please remove fixed issues manually.\n")
-            outputhandle.flush()
+            with open(options.logfilename, 'a') as outputhandle:
+                outputhandle.write(u"## -*- coding: utf-8 -*-\n" +
+                                   "## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/\n" +
+                                   "* Warnings and Error messages from lazyblorg     :lazyblorg:log:\n\n" +
+                                   "Messages gets appended to this file. Please remove fixed issues manually.\n\n")
+                outputhandle.flush()
 
         if options.verbose and options.quiet:
             logging.error("Options \"--verbose\" and \"--quiet\" found. " +
