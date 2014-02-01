@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-02-01 21:01:26 vk>
+# Time-stamp: <2014-02-01 21:12:37 vk>
 
 import argparse  ## command line arguments
 import unittest
@@ -46,14 +46,13 @@ class TestLazyblorg(unittest.TestCase):
         template_file = "../templates/blog-format.org"
         org_testfile_firstrun = "../testdata/basic_blog_update_test/basic_blog_update_test_-_first_run.org"
         metadata_firstrun_output = "../testdata/basic_blog_update_test/basic_blog_update_test_-_first_run.pk"
-        metadata_secondrun_input = "../testdata/basic_blog_update_test/basic_blog_update_test_-_first_run.pk_temp"
         metadata_secondrun_output = "../testdata/basic_blog_update_test/basic_blog_update_test_-_second_run.pk"
         log_firstrun = "../testdata/basic_blog_update_test/basic_blog_update_test_-_first_run.log"
         org_testfile_secondrun = "../testdata/basic_blog_update_test/basic_blog_update_test_-_second_run.org"
 
         ## might be left over from a failed previous run:
-        if os.path.isfile(metadata_secondrun_input):
-            remove(metadata_secondrun_input)
+        if os.path.isfile(metadata_firstrun_output):
+            remove(metadata_firstrun_output)
 
         ## might be left over from a failed previous run:
         if os.path.isfile(log_firstrun):
@@ -63,9 +62,6 @@ class TestLazyblorg(unittest.TestCase):
         self.assertTrue(os.path.isfile(org_testfile_firstrun))  ## check, if test input file is found
         self.assertTrue(os.path.isfile(org_testfile_secondrun))  ## check, if test input file is found
         
-        ## should not be found yet because test will generate them:
-        self.assertFalse(os.path.isfile(metadata_firstrun_output))
-
         ## Building the call parameters:
 
         first_parser = argparse.ArgumentParser()
@@ -107,14 +103,14 @@ class TestLazyblorg(unittest.TestCase):
         second_parser = argparse.ArgumentParser()
         second_parser.add_argument("--orgfiles", dest="orgfiles", nargs='+')
         second_parser.add_argument("--targetdir", dest="targetdir")
-        first_parser.add_argument("--new-metadata", dest="new_metadatafilename")
-        first_parser.add_argument("--previous-metadata", dest="previous_metadatafilename")
+        second_parser.add_argument("--new-metadata", dest="new_metadatafilename")
+        second_parser.add_argument("--previous-metadata", dest="previous_metadatafilename")
         second_parser.add_argument("--logfile", dest="logfilename")
         second_parser.add_argument("-v", "--verbose", dest="verbose", action="store_true")
 
         myoptions = "--orgfiles " + org_testfile_secondrun + " " + template_file + \
             " --targetdir ../testdata/basic_blog_update_test/2del-results/ --previous-metadata " + \
-            metadata_secondrun_input + \
+            metadata_firstrun_output + \
             " --new-metadata " + metadata_secondrun_output + " --logfile " + log_firstrun# + " --verbose"
 
         options = second_parser.parse_args(myoptions.split())
@@ -134,12 +130,12 @@ class TestLazyblorg(unittest.TestCase):
         self.assertTrue(marked_for_RSS_sorted == [u'case1', u'case8'])
         self.assertTrue(generate_sorted == [u'case1', u'case5', u'case6', u'case7', u'case8', u'lazyblorg-templates'])
 
-        remove(metadata_secondrun_input)
-        if os.path.isfile(metadata_secondrun_input + '_temp'):
-            remove(metadata_secondrun_input + '_temp')
         if os.path.isfile(log_firstrun):
             remove(log_firstrun)
-        
+
+        remove(metadata_firstrun_output)
+        remove(metadata_secondrun_output)
+
         return
 
 
