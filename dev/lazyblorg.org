@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-01-31 23:57:10 vk>
+# Time-stamp: <2014-02-01 15:03:08 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -41,87 +41,6 @@ http://orgmode.org/org.html#Setting-tags
 
 NOTE: Some issues that are marked as DONE or CANCELED are moved to the
 corresponding archive-file "lazyblorg.org_archive".
-
-** DONE setting up test entry and resulting data                     :tests:
-CLOSED: [2013-02-12 Tue 14:13] SCHEDULED: <2013-02-12 Tue>
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2013-02-12 Tue 14:13]
-:END:
-:PROPERTIES:
-:CREATED: [2012-04-17 Tue 14:08]
-:END:
-
-- my local copy:
-  - file:///home/vk/src/lazyblorg/testdata/full_test/blog/2013/02/12/lazyblorg-example-entry/index.html
-- http://www.w3schools.com/tags/default.asp
-
-- [X] Org-mode example files
-  - containing non blogging content *and* headings marked with ":blog:" tag
-  - containing the string ":blog:" as non-tag
-  - containing org-mode blog entries in different hierarchy depth
-- [X] containing elements:
-  - headings 1-3
-  - paragraphs
-  - external links (URLs)
-  - itemize-list
-  - verse-block
-  - no images yet
-- [X] corresponding resulting HTML(5) files
-  - meaning of HTML5 elements: [[http://stackoverflow.com/questions/4781077/html5-best-practices-section-header-aside-article-tags/6527766#6527766][short overview on stackoverflow]]
-    - small: small print for legalese, or terms and conditions
-    - em: emphasizing
-    - header: on top of document or "section"; defined by its content
-      (not position)
-    - footer: at bottom of document or "section"; contains
-      information about containing elements
-    - aside: side bar; defined by content, not position; for related
-      information; e.g., pullquotes
-    - nav: major navigation information
-    - article: content that would probably go together for RSS feed
-    - section: content that is grouped; consider "header", "footer",
-      "nav", "sidebar", "article" as special kind of sections
-    - hgroup: grouping headings (for overview/index)
-    - date/time:
-      - <time datetime="17:00">5pm</time>
-      - <time datetime="2010-04-07">April 7th</time>
-      - <time datetime="2010-04-07T17:00">5pm on April 7th</time>
-      - <time>5pm on April 7th</time>
-      - "pubdate" attribute has been removed from the standard and is
-        considered invalid on http://html5.validator.nu/
-- no CSS yet
-
-** DONE sketch article layout                                    :userstory:
-CLOSED: [2013-02-14 Thu 16:44]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2013-02-14 Thu 16:44]
-:END:
-:PROPERTIES:
-:CREATED:  [2013-02-14 Thu 16:39]
-:END:
-
-#+BEGIN_VERSE
-
-MyBlog > 2013 > 02 > 14                               Published: 2013-02-14 T 16:40
-
-               This is my Title About Something                Tag1 Foo Bar lang:en
-
-    <article body text>
-
-
-
-
-About this Blog                                                      check HTML/CSS
-#+END_VERSE
-
-- Breadcrumbs: gray
-- Published...: gray
-- Title(s): dark turquoise
-- Tags: gray
-- body: black
-- About this: gray, small
-- check ...: gray, small
-- background: bright yellowish with possible gradient from dark (top)
-  to bright (bottom)
 
 ** DONE spike: time-ordered-index data structure              :architecture:
 CLOSED: [2013-08-20 Tue 15:02]
@@ -242,91 +161,79 @@ CLOSED: [2012-11-10 Sat 18:10] DEADLINE: <2012-11-10 Sat>
 :PROPERTIES:
 :CREATED:  [2012-11-07 Wed 21:23]
 :END:
-** STARTED implement basic work-flow *stub*                    :architecture:
-:PROPERTIES:
-:CREATED:  [2013-02-12 Tue 10:37]
+** DONE paper: sketch main page                                  :userstory:
+CLOSED: [2014-02-01 Sat 15:02]
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2014-02-01 Sat 15:02]
 :END:
-
-- *no working version, only work-flow stub*, which will be filled with
-  the actual code later on
-
-invoking source code:
-#+BEGIN_VERSE
-vk@gary ~/src/lazyblorg (git)-[master] % PYTHONPATH="~/src/lazyblorg:" ./lazyblorg.py testdata/manual_prototype/org/test.org --targetdir testdata/2del -v
-DEBUG    2013-05-20 17:58:02,643 extracting list of Org-mode files ...
-DEBUG    2013-05-20 17:58:02,643 len(args) [1]
-DEBUG    2013-05-20 17:58:02,643 1 filenames found: [testdata/manual_prototype/org/test.org]
-DEBUG    2013-05-20 17:58:02,643 iterate over files ...
-DEBUG    2013-05-20 17:58:02,644 OrgParser: doing file "testdata/manual_prototype/org/test.org" ...
-DEBUG    2013-05-20 17:58:02,644 OrgParser: finished on file "testdata/manual_prototype/org/test.org"
-DEBUG    2013-05-20 17:58:02,644 successfully finished.
-vk@gary ~/src/lazyblorg (git)-[master] %
-#+END_VERSE
-
-- [X] find all headings with state DONE and tag :blog:
-  - optionally: add all other tags starting with "blog-" as blog tags
-
-- [X] one entry starts at such a heading until EOF OR same or less level
-  heading is found
-
-- [X] create checksum (see id:2013-02-15-checksum)
-  - data['title']
-  - data['timestamp']
-  - data['tags']
-  - data['content']
-
-- [X] compare raw text and IDs with last run
-
-  - known ID, raw text unchanged: ignore, no change
-
-- [X] generate output files
-
-  - new ID
-    - generate new blog entry
-      - extract YYYY-MM-DD from LOGBOOK-drawer (first *->DONE transformation)
-      - generate YYYY/MM/DD-folder structure in blog accordingly
-      - generate sanitized blog title as file name
-
-- [-] on any error:
-  - [X] create an orgmode event from current time that appears on agenda
-  - [X] with daily repeat -> so it gets noticed on the following day(s) too
-  - [-] in the description of that entry:
-    - BONUS: babel-sh-snippet with prepared command to re-try the
-      run :-)
-
-- [ ] mark Updates
-
-  - known ID, raw text differs
-    - generate update of existing entry
-      - add "(Update n)" (with n is the n-th update) to entry title
-        - optionally: add this also to URL
-          - disadvantage: broken old URLs
-          - advantage: URL reflects update state
-        - ALTERNATIVELY: add "(Update YYYY-MM-DD)" instead of number
-          - numbers don't mean anything
-
-- on any activity:
-  - [ ] re-write RSS feed for last n entries
-  - [ ] optionally: generate overview page for last n entries
-  - [ ] optionally: generate calendar archive page(s)
-  - [ ] optionally: generate tag overview page(s)
-
-** NEXT create constants.py as module                         :architecture:
-:PROPERTIES:
-:CREATED:  [2013-10-01 Tue 21:05]
-:END:
-
-- handle configuration and run-time variables using this module
-- ? parse config variables from Org-mode heading?
-
-** NEXT paper: sketch main page                                   :userstory:
 :PROPERTIES:
 :CREATED:  [2013-02-14 Thu 16:39]
 :END:
-** NEXT CSS: if page is less than one page, place footer at bottom :userstory:
-:PROPERTIES:
-:CREATED:  [2014-01-31 Fri 23:56]
+
+- top: public voit banner (as usual)
+- main content: 7 most recent blog entries
+  - only up to first HR or heading
+    - if HR/heading is found, add "read while article..." as link below
+- side-bar
+  1. "about" (persistent page)
+     - about this blog
+       - SW being used
+       - how to follow
+       - link to RSS
+     - about Karl Voit
+       - Twitter
+       - github
+  2. "tags" (persistent page)
+     - explaining why I am using tags
+     - auto-tags
+     - overview on tags
+  3. 2011, 2012, 2013, ...: yearly overview pages
+     - of all years that contain blog articles
+  4. "follow me": get updates via RSS (persistent page)
+     - explaining the methods I provide
+
+Defining the content in a special template heading:
+
+- main page as "** Mainpage"
+------------
+- side-bar as "*** Sidebar"
+  - list of elements
+  - HR as separator (as shown above)
+** DONE paper: sketch overview pages                             :userstory:
+CLOSED: [2014-02-01 Sat 15:03]
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2014-02-01 Sat 15:03]
 :END:
+:PROPERTIES:
+:CREATED:  [2014-02-01 Sat 15:02]
+:END:
+
+- see paper from [2014-01-31 Fri] 
+
+** NEXT [#A] find out why I took CREATED and not the first DONE time-stamp :architecture:
+:PROPERTIES:
+:CREATED:  [2014-02-01 Sat 14:20]
+:END:
+
+- meta-data file
+- to determine the time of publishing
+- and so forth
+
+** NEXT [#A] compare status with published version of meta-data :architecture:
+:PROPERTIES:
+:CREATED:  [2014-02-01 Sat 14:15]
+:END:
+
+- up to now:
+  - lazyblorg generates meta-data from the parsed Org-mode data and
+    compares it with a metadata.pk file from the previous run
+- in future:
+  - the new meta-data will be compared with the metadata.pk from the webspace
+    - can be local public_html folder
+- why?
+  - this way, I can locally re-run the blog generating step as often
+    as I want without messing up the update information and such
+
 ** NEXT HTML: manually create main jumping page                :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 12:24]
@@ -342,6 +249,27 @@ vk@gary ~/src/lazyblorg (git)-[master] %
 ** NEXT HTML: manually create day overview page               :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 14:11]
+:END:
+** NEXT get ordered lists of blog entries                     :architecture:
+:PROPERTIES:
+:CREATED:  [2014-02-01 Sat 13:48]
+:END:
+
+- [ ] time-ordered by issue day (for overview pages)
+- [ ] time-ordered by last modification (for RSS and main page)
+- [ ] method to get previous/next entry for each list entry
+
+** NEXT create constants.py as module                         :architecture:
+:PROPERTIES:
+:CREATED:  [2013-10-01 Tue 21:05]
+:END:
+
+- handle configuration and run-time variables using this module
+- ? parse config variables from Org-mode heading?
+
+** NEXT CSS: if page is less than one page, place footer at bottom :userstory:
+:PROPERTIES:
+:CREATED:  [2014-01-31 Fri 23:56]
 :END:
 ** NEXT implement method(s) to get URL of an blogdata id       :architecture:
 :PROPERTIES:
@@ -1153,6 +1081,7 @@ One entry with key=ID holds a dict with following entries:
   - md5 check-sum of: [title, tags, finished_timestamp_history, content]
 - 'created': datetime.datetime(2013, 8, 22, 21, 6)
   - datetime object of the CREATED property from the PROPERTY drawer
+  - [ ] FIXXME: why not the first CLOSED time-stamp?
 
 ** Development Schedule
 :PROPERTIES:
