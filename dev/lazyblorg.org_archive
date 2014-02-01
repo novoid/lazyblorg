@@ -1355,3 +1355,88 @@ vk@gary ~/src/lazyblorg (git)-[master] %
   - [ ] optionally: generate calendar archive page(s)
   - [ ] optionally: generate tag overview page(s)
 
+** DONE CSS: manually create CSS for an entry                 :architecture:
+CLOSED: [2014-02-01 Sat 15:26]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-02-01 Sat 15:26]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 14:14]
+:ARCHIVE_TIME: 2014-02-01 Sat 15:26
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: issues
+:END:
+
+** DONE move all inline CSS from blog-format.org into CSS file :architecture:
+CLOSED: [2014-02-01 Sat 15:29]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-02-01 Sat 15:29]
+:END:
+:PROPERTIES:
+:CREATED:  [2014-01-30 Thu 15:52]
+:ARCHIVE_TIME: 2014-02-01 Sat 15:29
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: issues
+:END:
+
+** DONE CSS: add slightly yellowish background                   :userstory:
+CLOSED: [2014-02-01 Sat 15:30]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2014-02-01 Sat 15:30]
+:END:
+:PROPERTIES:
+:CREATED: [2012-05-11 Fri 09:36]
+:ARCHIVE_TIME: 2014-02-01 Sat 15:30
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: issues
+:END:
+
+- if possible: very smooth color gradient from top to bottom
+
+** DONE [#C] Inline HTML                                         :userstory:
+CLOSED: [2014-02-01 Sat 15:35]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2014-02-01 Sat 15:35]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 10:32]
+:ARCHIVE_TIME: 2014-02-01 Sat 15:35
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: issues
+:END:
+
+- writing HTML tags directly (not within any SRC-blocks)
+- makes it easier to port old blog content
+
+** CANCELLED [#C] content of help pages from Org heading :userstory:ARCHIVE:
+CLOSED: [2014-02-01 Sat 15:36]
+:LOGBOOK:
+- State "CANCELLED"  from "TODO"       [2014-02-01 Sat 15:36] \\
+  not a good idea any more
+:END:
+:PROPERTIES:
+:CREATED:  [2013-02-27 Wed 16:37]
+:ARCHIVE_TIME: 2014-02-01 Sat 15:36
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: CANCELLED
+:ARCHIVE_ITAGS: issues
+:END:
+
+Somewhere in my Org files, I do have a heading «$BLOGNAME». Within
+its sub-heading «Help» there is the text for the main help
+page. Further headings contain more content for other pages.
+

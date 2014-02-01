@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-02-01 15:03:08 vk>
+# Time-stamp: <2014-02-01 15:50:52 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -358,15 +358,22 @@ CLOSED: [2014-02-01 Sat 15:03]
 :PROPERTIES:
 :CREATED:  [2013-10-14 Mon 12:35]
 :END:
-** NEXT parse more Org-mode elements                           :architecture:
+** NEXT parse/htmlize: lists                                     :userstory:
 :PROPERTIES:
-:CREATED:  [2013-10-19 Sat 19:18]
+:CREATED:  [2014-02-01 Sat 15:25]
 :END:
 
-1. lists
-2. links
-   - handle links to other blog entries
-3. 
+** NEXT parse/htmlize: tables                                    :userstory:
+:PROPERTIES:
+:CREATED:  [2014-02-01 Sat 15:25]
+:END:
+
+** NEXT parse/htmlize: internal links
+:PROPERTIES:
+:CREATED:  [2014-02-01 Sat 15:25]
+:END:
+
+- to other blog articles, persistent pages, tag pages
 
 ** NEXT htmlizer: generate more Org-mode elements             :architecture:
 :PROPERTIES:
@@ -376,6 +383,31 @@ CLOSED: [2014-02-01 Sat 15:03]
 - also: search for FIXXMEs in htmlizer
   - I did some quick & dirty copying (quote, src, ...) in order to
     enable real-world data parsing
+** NEXT include image files                                      :userstory:
+:PROPERTIES:
+:CREATED:  [2012-11-05 Mon 10:54]
+:END:
+
+- "lbimg:image.png"
+  - works in Orgmode using custom link to valid folder
+  - lazyblorg recognizes it and translates it to img
+
+- show a fixed maximum width/height image
+  - probably with a magnifying glass and a plus symbol in its lower
+    right corner
+- show the big version when clicking on it
+
+- see Kröner2011 p.140ff for HTML5 and figure/caption
+
+- handle old HTTP-ATTR lines and new Org-mode HTTP attributes
+
+*** TODO research different Org-mode ways of defining including images
+:PROPERTIES:
+:CREATED:  [2012-11-05 Mon 10:55]
+:END:
+
+1. just link a file, do not show image
+2. show the linked image directly
 
 ** STARTED test generate_output (comparing HTML/CSS output files)     :tests:
 :PROPERTIES:
@@ -397,25 +429,16 @@ A sub-heading «Org» contains the Org-mode document/snippet which gets
 parsed.
 
 A sub-heading «result» contains the results which is expected.
-** NEXT research: Python Jinja as template system             :architecture:
-:PROPERTIES:
-:CREATED:  [2013-09-05 Thu 17:00]
-:END:
-
-** NEXT take a look at SASS -> CSS                            :architecture:
+** NEXT [#C] take a look at SASS -> CSS                       :architecture:
 :LOGBOOK:
 - Not scheduled, was "2013-09-16 Mon" on [2013-09-23 Mon 18:37]
 :END:
 :PROPERTIES:
 :CREATED: [2013-09-13 Fri 14:06]
 :END:
-** NEXT CSS: manually create CSS for an entry                 :architecture:
+** NEXT [#C] research: Python Jinja as template system        :architecture:
 :PROPERTIES:
-:CREATED:  [2013-02-12 Tue 14:14]
-:END:
-** NEXT move inline CSS from blog-format.org into CSS file    :architecture:
-:PROPERTIES:
-:CREATED:  [2014-01-30 Thu 15:52]
+:CREATED:  [2013-09-05 Thu 17:00]
 :END:
 ** NEXT [#C] source code: replace pre with suitable environment  :userstory:
 :PROPERTIES:
@@ -469,14 +492,7 @@ A sub-heading «result» contains the results which is expected.
       2. YYYY-MM-DD: short description
 
 see also id:2012-11-06-ago-generating
-** TODO CSS: add slightly yellowish background                   :userstory:
-:PROPERTIES:
-:CREATED: [2012-05-11 Fri 09:36]
-:END:
-
-- if possible: very smooth color gradient from top to bottom
-
-** TODO write colophon                                           :userstory:
+** TODO write about/colophon                                      :userstory:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 11:31]
 :END:
@@ -491,95 +507,21 @@ see also id:2012-11-06-ago-generating
 :PROPERTIES:
 :CREATED:  [2013-10-20 Sun 18:37]
 :END:
-** TODO [#B] CSS generated using Org/babel                    :architecture:
-:PROPERTIES:
-:CREATED:  [2012-12-13 Thu 10:08]
-:END:
 
-- css.org with Comments and css-blocks
+- e.g., publish new stuff on a "public-voit"-Twitter-account
+  - probably there is a cloud service that translates RSS to Twitter?
+  - probably more RSS-to-something-translators?
 
-#+BEGIN_SRC css
-example-CSS content
-#+END_SRC
-
-- automatically extracting CSS code from that Org-mode file
-
-- example: http://www.tbray.org/ongoing/When/201x/2011/04/21/Reflowing
-
-backward compatibility for old browsers:
-#+BEGIN_SRC css
-section, article, header, footer, nav, aside, hgroup {
-display: block;
-}
-#+END_SRC
-** TODO [#B] include image files                                 :userstory:
-:PROPERTIES:
-:CREATED:  [2012-11-05 Mon 10:54]
-:END:
-
-- "lbimg:image.png"
-  - works in Orgmode using custom link to valid folder
-  - lazyblorg recognizes it and translates it to img
-
-- show a fixed maximum width/height image
-  - probably with a magnifying glass and a plus symbol in its lower
-    right corner
-- show the big version when clicking on it
-
-- see Kröner2011 p.140ff for HTML5 and figure/caption
-
-*** TODO research different Org-mode ways of defining including images
-:PROPERTIES:
-:CREATED:  [2012-11-05 Mon 10:55]
-:END:
-
-1. just link a file, do not show image
-2. show the linked image directly
-** TODO [#B] format tables                                       :userstory:
-:PROPERTIES:
-:CREATED:  [2012-12-21 Fri 09:49]
-:END:
-
-- add JavaScript to be able to sort by column
-- possible cnadidates for methods
-  - http://tablesorter.com/docs/
-  - HTML5 (?)
-  - CSS: http://www.cssjuice.com/16-sortable-table-techniques/
-
-- for lists
-  - http://farhadi.ir/projects/html5sortable/
-
-** TODO [#C] Date in heading = link to day in Wikipedia          :userstory:
+** TODO link to day in Wikipedia               :userstory:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:38]
 :END:
 
+- historic context
 - YYYY-MM-DD -> links to Wikipedia-entries of days
   - https://en.wikipedia.org/wiki/Portal:Current_events/2010_August_26
 
-** TODO [#C] add frames to images                                :userstory:
-:PROPERTIES:
-:CREATED:  [2013-02-12 Tue 11:27]
-:END:
-
-- example: http://www.tbray.org/ongoing/When/200x/2006/04/08/Picture-Frames
-  - caution: that's Java
-
-** TODO [#C] tags, tag cloud, tag descriptions                   :userstory:
-:PROPERTIES:
-:CREATED:  [2012-11-05 Mon 10:57]
-:END:
-
-- tag cloud for getting a quick overview on the blog itself
-- a list of all tags on front page with link to tag-descriptions
-- each tag gets a tag-description page
-  - what I mean by this tag with examples
-  - link to RSS feed for this tag
-  - link to a list of blog entries for this tag
-
-- see also id:2012-11-11-autotags
-
-** TODO [#C] auto-tag entries                                    :userstory:
+** TODO auto-tag entries                                         :userstory:
 :PROPERTIES:
 :CREATED:  [2012-11-11 Sun 13:43]
 :ID: 2012-11-11-autotags
@@ -619,28 +561,67 @@ display: block;
 
 - Example: if "What The World Needs"|"WTWN:" is found, link to a page
   where WTWN-series is described in general.
-** TODO [#C] Inline HTML                                         :userstory:
+
+** TODO [#B] CSS generated using Org/babel                    :architecture:
 :PROPERTIES:
-:CREATED:  [2013-02-12 Tue 10:32]
+:CREATED:  [2012-12-13 Thu 10:08]
 :END:
 
-- writing HTML tags directly (not within any SRC-blocks)
-- makes it easier to port old blog content
+- css.org with Comments and css-blocks
 
-** TODO [#C] internal links to other blog entries                :userstory:
+#+BEGIN_SRC css
+example-CSS content
+#+END_SRC
+
+- automatically extracting CSS code from that Org-mode file
+
+- example: http://www.tbray.org/ongoing/When/201x/2011/04/21/Reflowing
+
+backward compatibility for old browsers:
+#+BEGIN_SRC css
+section, article, header, footer, nav, aside, hgroup {
+display: block;
+}
+#+END_SRC
+** TODO [#B] format tables                                       :userstory:
 :PROPERTIES:
-:CREATED:  [2013-02-12 Tue 10:34]
+:CREATED:  [2012-12-21 Fri 09:49]
 :END:
 
-** TODO [#C] content of help pages from Org heading              :userstory:
+- add JavaScript to be able to sort by column
+- possible cnadidates for methods
+  - http://tablesorter.com/docs/
+  - HTML5 (?)
+  - CSS: http://www.cssjuice.com/16-sortable-table-techniques/
+
+- for lists
+  - http://farhadi.ir/projects/html5sortable/
+
+** TODO [#C] add frames to images                                :userstory:
 :PROPERTIES:
-:CREATED:  [2013-02-27 Wed 16:37]
+:CREATED:  [2013-02-12 Tue 11:27]
 :END:
 
-Somewhere in my Org files, I do have a heading «$BLOGNAME». Within
-its sub-heading «Help» there is the text for the main help
-page. Further headings contain more content for other pages.
-** TODO Pre-search for new blog articles before invoking lazyblorg :userstory:
+- example: http://www.tbray.org/ongoing/When/200x/2006/04/08/Picture-Frames
+  - caution: that's Java
+
+** TODO [#C] tags, tag cloud, tag descriptions                   :userstory:
+:PROPERTIES:
+:CREATED:  [2012-11-05 Mon 10:57]
+:END:
+
+- tag cloud for getting a quick overview on the blog itself
+- a list of all tags on front page with link to tag-descriptions
+- each tag gets a tag-description page
+  - what I mean by this tag with examples
+  - link to RSS feed for this tag
+  - link to a list of blog entries for this tag
+
+- see also id:2012-11-11-autotags
+** SOMEDAY [#C] Pre-search for new blog articles before invoking lazyblorg :userstory:
+:LOGBOOK:
+- State "SOMEDAY"    from "TODO"       [2014-02-01 Sat 15:36]
+:END:
 :PROPERTIES:
 :CREATED:  [2013-10-20 Sun 18:34]
 :END:
