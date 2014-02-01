@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-01-31 22:32:26 vk>
+# Time-stamp: <2014-02-01 13:19:41 vk>
 
 import re
 import os
@@ -58,13 +58,13 @@ class OrgParser(object):
     HEADING_TITLE_IDX = 4
     HEADING_TAGS_IDX = 6  ## components(HEADING_TAGS_IDX)[1:-1].split(':') -> array of tags
 
-    CREATED_REGEX = re.compile('^:CREATED:\s+' + OrgFormat.SINGLE_ORGMODE_TIMESTAMP)
+    CREATED_REGEX = re.compile('^:CREATED:\s+' + OrgFormat.SINGLE_ORGMODE_TIMESTAMP, re.IGNORECASE)
     CREATED_TIMESTAMP_IDX = 1
 
-    LOG_REGEX = re.compile('^- State\s+"' + BLOG_FINISHED_STATE + '"\s+from\s+"\S*"\s+([\[{].*[\]}])$')
+    LOG_REGEX = re.compile('^- State\s+"' + BLOG_FINISHED_STATE + '"\s+from\s+"\S*"\s+([\[{].*[\]}])$', re.IGNORECASE)
     LOG_TIMESTAMP_IDX = 1
 
-    BLOCK_REGEX = re.compile('^#\+BEGIN_(SRC|EXAMPLE|VERSE|QUOTE|CENTER|HTML|ASCII|LATEX)(\s+(.*))?$')
+    BLOCK_REGEX = re.compile('^#\+BEGIN_(SRC|EXAMPLE|VERSE|QUOTE|CENTER|HTML|ASCII|LATEX)(\s+(.*))?$', re.IGNORECASE)
     BLOCK_TYPE_IDX = 1
     BLOCK_LANGUAGE_IDX = 3
 
@@ -327,12 +327,12 @@ class OrgParser(object):
                 ## after header found: search for drawers (DRAWER_*) until content -> ENTRY_CONTENT
                 ## NOTE: yes, content between header and drawers is ignored/lost.
 
-                if line == ':PROPERTIES:':
+                if line.upper() == ':PROPERTIES:':
                     self.logging.debug("OrgParser: found PROPERTIES drawer")
                     state = self.DRAWER_PROP
                     previous_line = line
                     continue
-                elif line == ':LOGBOOK:':
+                elif line.upper() == ':LOGBOOK:':
                     self.logging.debug("OrgParser: found LOGBOOK drawer")
                     state = self.DRAWER_LOGBOOK
                     previous_line = line
@@ -349,13 +349,13 @@ class OrgParser(object):
                 heading_components = self.HEADING_REGEX.match(line)
                 hr_components = self.HR_REGEX.match(line)
 
-                if line == ':PROPERTIES:':
+                if line.upper() == ':PROPERTIES:':
                     self.logging.debug("OrgParser: found PROPERTIES drawer")
                     state = self.DRAWER_PROP
                     previous_line = line
                     continue
 
-                elif line == ':LOGBOOK:':
+                elif line.upper() == ':LOGBOOK:':
                     self.logging.debug("OrgParser: found LOGBOOK drawer")
                     state = self.DRAWER_LOGBOOK
                     previous_line = line
@@ -382,7 +382,7 @@ class OrgParser(object):
                     previous_line = line
                     continue
 
-                elif line.startswith('#+BEGIN_'):
+                elif line.upper().startswith('#+BEGIN_'):
 
                     ## if this block has a name, do save it in content data below:
                     named_block = False
@@ -451,7 +451,7 @@ class OrgParser(object):
 
                 ## parse properties for ID and CREATED and return to ENTRY_CONTENT
 
-                if line == ':END:':
+                if line.upper() == ':END:':
                     self.logging.debug("OrgParser: end of drawer")
                     state = self.ENTRY_CONTENT
                     previous_line = line
@@ -463,10 +463,10 @@ class OrgParser(object):
                     previous_line = line
                     continue
 
-                if line.startswith(':ID:'):
+                if line.upper().startswith(':ID:'):
                     self.__entry_data['id'] = line[4:].strip().replace(u' ', '')
 
-                if line.startswith(':CREATED:'):
+                if line.upper().startswith(':CREATED:'):
                     datetimestamp = OrgFormat.orgmode_timestamp_to_datetime(
                         self.CREATED_REGEX.match(line).group(self.CREATED_TIMESTAMP_IDX)
                         )
@@ -480,7 +480,7 @@ class OrgParser(object):
 
                 ## parse logbook entries for state changes to self.BLOG_FINISHED_STATE and return to ENTRY_CONTENT
 
-                if line == ':END:':
+                if line.upper() == ':END:':
                     self.logging.debug("OrgParser: end of drawer")
                     state = self.ENTRY_CONTENT
                     previous_line = line
