@@ -1,4 +1,4 @@
-## Time-stamp: <2014-01-31 22:09:40 vk>
+## Time-stamp: <2014-02-01 15:29:38 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -80,9 +80,7 @@ Have fun with modifying lazyblorg to your requirements!
     <head>
       <!-- link rel="stylesheet" type="text/css" href="../../../../style.css" / -->
       <title>#ARTICLE-TITLE#</title>
-      <style type="text/css">
-      </style>
-
+      
     </head>
 #+END_HTML
 
@@ -127,7 +125,7 @@ Have fun with modifying lazyblorg to your requirements!
 
 	<header>
 
-	  <nav class="article-header-nav" style="margin-left:-2em;">
+	  <nav class="article-header-nav">
 	    <span class="breadcrumbs">
 	      <a href="../../../../"><img src="http://karl-voit.at/images/public-voit_logo.svg" alt="public voit logo" width="350" style="vertical-align:middle;"></a><span style="padding-top:1em;">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;
 	      #ARTICLE-YEAR#&nbsp;&ndash;&nbsp;#ARTICLE-MONTH#&nbsp;&ndash;&nbsp;#ARTICLE-DAY#</span>
@@ -161,7 +159,7 @@ Have fun with modifying lazyblorg to your requirements!
 #+NAME: article-header-end
 #+BEGIN_HTML
 
-	  <h1 class="article-title" style="padding-top:2em;">#ARTICLE-TITLE#</h1>
+	  <h1 class="article-title">#ARTICLE-TITLE#</h1>
 
 	</header>
 
@@ -280,7 +278,7 @@ With name/label:
 <p>
 
     #NAME#:<br />
-	  <div class="example_code" style="width:auto;background-color:#ffffff;padding:5px;border:1px solid #d4d4d4;font-size:14px;font-family:courier new;">
+	  <div class="example_code">
 #+END_HTML
 
 #+NAME: html-end
