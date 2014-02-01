@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-02-01 20:21:49 vk>
+# Time-stamp: <2014-02-01 20:28:21 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -433,7 +433,7 @@ if __name__ == "__main__":
 
         if not os.path.isfile(options.logfilename):
             logging.debug("log file \"" + options.logfilename + "\" is not found. Initializing with heading ...")
-            with open(options.logfilename, 'a') as outputhandle:
+            with codecs.open(options.logfilename, 'w', encoding='utf-8') as outputhandle:
                 outputhandle.write(u"## -*- coding: utf-8 -*-\n" +
                                    "## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/\n" +
                                    "* Warnings and Error messages from lazyblorg     :lazyblorg:log:\n\n" +
