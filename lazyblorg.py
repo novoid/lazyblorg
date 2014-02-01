@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-01-29 20:39:37 vk>
+# Time-stamp: <2014-02-01 20:13:37 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -24,8 +24,8 @@ import pickle  ## for serializing and storing objects into files
 #pdb.set_trace()## FIXXME
 import pdb
 
-PROG_VERSION_NUMBER = u"0.1"
-PROG_VERSION_DATE = u"2013-08-27"
+PROG_VERSION_NUMBER = u"0.2"
+PROG_VERSION_DATE = u"2014-02-01"
 INVOCATION_TIME = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
 ## the prefix is added to the blog entry path such as: TARGETPATH/BLOG_PREFIX/2013/12/31/blog-id/
@@ -37,11 +37,11 @@ BLOG_PREFIX = u'blog'
 BLOG_TAG = u'blog'
 
 EPILOG = u"\n\
-:copyright: (c) 2013 by Karl Voit <tools@Karl-Voit.at>\n\
-:license: GPL v3 or any later version\n\
-:URL: https://github.com/novoid/lazyblorg\n\
-:bugreports: via github or <tools@Karl-Voit.at>\n\
-:version: " + PROG_VERSION_NUMBER + " from " + PROG_VERSION_DATE + "\n"
+  :copyright: (c) 2013 and following by Karl Voit <tools@Karl-Voit.at>\n\
+  :license: GPL v3 or any later version\n\
+  :URL: https://github.com/novoid/lazyblorg\n\
+  :bugreports: via github or <tools@Karl-Voit.at>\n\
+  :version: " + PROG_VERSION_NUMBER + " from " + PROG_VERSION_DATE + "\n"
 
 
 class Lazyblorg(object):
