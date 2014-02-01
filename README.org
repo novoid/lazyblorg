@@ -1,4 +1,4 @@
-## Time-stamp: <2014-01-31 21:03:17 vk>
+## Time-stamp: <2014-02-01 14:33:50 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -195,7 +195,7 @@ with "FIXXME" in the source code files.
 ** How to Start
 
 1. Get the source
-2. do a test-drive with ~example_invocation.sh~
+2. do a test-drive with ~lazyblorg/example_invocation.sh~
    - this should work
    - if not, there is something wrong with the set-up; maybe missing
      external libraries, wrong paths, ...
@@ -215,8 +215,30 @@ with "FIXXME" in the source code files.
 6. write your own CSS file
    - you can [[http://Karl-Voit.at/public_voit.css][take a look on mine]] if you do not care that I am not
      really into Web design :-)
-7. adopt the blog template in ~[[https://github.com/novoid/lazyblorg/blob/master/templates/blog-format.org][templates/blog-format.org]]~
+7. adopt the blog template in ~[[https://github.com/novoid/lazyblorg/blob/master/templates/blog-format.org][lazyblorg/templates/blog-format.org]]~
 8. publish your pages on a web space of your choice
+   - publishing can be done in various ways. This is how I do it using
+     ~lazyblorg/make_and_publish_public_voit.sh~ which is an
+     adopted version of ~example_invocation.sh~:
+     1. executing ~testall.sh~
+        - this is for checking whether or not recent code changes did
+          something harmful to my (unfortunately very limited) set of
+          unit tests
+     2. executing ~lazyblorg~ with my more or less fixed set of
+        command line parameters
+     3. executing ~rsync -av testdata/2del/blog/* $HOME/public_html/~
+        - it synchronizes the newly generated blog data to the local
+          copy of my web space data
+     4. executing ~[[http://www.cis.upenn.edu/~bcpierce/unison/][unison]]~
+        - in order to transfer my local copy of my web space data to
+          my public web space
+   - This method has the advantage, that generating (executing
+     ~lazyblorg~) and publishing (executing ~unison~) are separate
+     steps. I can locally re-generate the blog (for testing purposes)
+     as often I want to. However, as long as I do not sync it to my
+     web space, I keep the meta-data (which is in the local web space
+     copy) of the published version (and not the meta-data of the
+     previous test-run).
 9. have fun with a pretty neat method to generate your blog pages
 
 * Contribute!
