@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Time-stamp: <2014-01-31 23:22:10 vk>
+# Time-stamp: <2014-02-01 12:57:59 vk>
 
 import logging
 import os
@@ -201,7 +201,7 @@ class Htmlizer(object):
                 result = template.replace('#PAR-CONTENT#', result)
 
             elif entry['content'][index][0] == 'hr':
-                pass
+                result="<div class=\"orgmode-hr\" />"
 
             elif entry['content'][index][0] == 'heading':
 
@@ -307,7 +307,7 @@ class Htmlizer(object):
 
             else:
                 message = "htmlizer.py/sanitize_and_htmlize_blog_content(): content element [" + str(entry['content'][index][0]) + \
-                    "] not recognized."
+                    "] of ID " + str(entry['id']) + "not recognized."
                 self.logging.critical(message)
                 raise HtmlizerException(message)
 
