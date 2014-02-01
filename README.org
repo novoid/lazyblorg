@@ -1,4 +1,4 @@
-## Time-stamp: <2014-02-01 14:33:50 vk>
+## Time-stamp: <2014-02-01 14:38:47 vk>
 ## -*- coding: utf-8 -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -33,11 +33,13 @@ Further advantages are listed below.
 ** Example workflow for creating a blog entry
 
 1. write a blog entry *anywhere* in your Org-mode files
+   - With lazyblorg, you can, e.g., write a blog article about an
+     event as a sub-heading of the event itself!
 2. tag your entry with ~:blog:~
 3. add an unique ID in the PROPERTIES drawer
    - You might want to use a package that automatically generates
      unique IDs to your headings (I don't).
-   - You might want to take a look [[article.gmane.org/gmane.emacs.orgmode/16199][at this solution using file or
+   - You might want to take a look [[http://article.gmane.org/gmane.emacs.orgmode/16199][at this solution using file or
      directory variables]].
 4. set the state of your entry to ~DONE~
    - make sure that a ~:LOGBOOK:~ drawer entry will be created that
@@ -199,7 +201,7 @@ with "FIXXME" in the source code files.
    - this should work
    - if not, there is something wrong with the set-up; maybe missing
      external libraries, wrong paths, ...
-3. study, understand, and adopt the content of ~[[https://github.com/novoid/lazyblorg/blob/master/example_invocation.sh][example_invocation.sh]]~
+3. study, understand, and adopt the content of [[https://github.com/novoid/lazyblorg/blob/master/example_invocation.sh][example_invocation.sh]]
 4. get youself an overview on *what defines a lazyblorg blog post*
    1. A (direct) tag has to be ~blog~
       - Sorry, no tag inheritance (yet)
@@ -215,7 +217,7 @@ with "FIXXME" in the source code files.
 6. write your own CSS file
    - you can [[http://Karl-Voit.at/public_voit.css][take a look on mine]] if you do not care that I am not
      really into Web design :-)
-7. adopt the blog template in ~[[https://github.com/novoid/lazyblorg/blob/master/templates/blog-format.org][lazyblorg/templates/blog-format.org]]~
+7. adopt the blog template in [[https://github.com/novoid/lazyblorg/blob/master/templates/blog-format.org][lazyblorg/templates/blog-format.org]]
 8. publish your pages on a web space of your choice
    - publishing can be done in various ways. This is how I do it using
      ~lazyblorg/make_and_publish_public_voit.sh~ which is an
@@ -229,16 +231,16 @@ with "FIXXME" in the source code files.
      3. executing ~rsync -av testdata/2del/blog/* $HOME/public_html/~
         - it synchronizes the newly generated blog data to the local
           copy of my web space data
-     4. executing ~[[http://www.cis.upenn.edu/~bcpierce/unison/][unison]]~
+     4. executing [[http://www.cis.upenn.edu/~bcpierce/unison/][unison]]
         - in order to transfer my local copy of my web space data to
           my public web space
    - This method has the advantage, that generating (executing
      ~lazyblorg~) and publishing (executing ~unison~) are separate
-     steps. I can locally re-generate the blog (for testing purposes)
-     as often I want to. However, as long as I do not sync it to my
-     web space, I keep the meta-data (which is in the local web space
-     copy) of the published version (and not the meta-data of the
-     previous test-run).
+     steps. This way, I can locally re-generate the blog (for testing
+     purposes) as often I want to. However, as long as I do not sync
+     it to my web space, I keep the meta-data (which is in the local
+     web space copy) of the published version (and not the meta-data
+     of the previous test-run).
 9. have fun with a pretty neat method to generate your blog pages
 
 * Contribute!
