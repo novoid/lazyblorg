@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-02 17:11:47 vk>
+# Time-stamp: <2014-02-02 19:18:40 vk>
 
 import logging
 import os
@@ -58,8 +58,8 @@ class Htmlizer(object):
     ## this gets added to the time in order to describe time zone of the blog:
     TIME_ZONE_ADDON = '+02:00'
 
-    ## find external links such as [[foo][bar]]:
-    EXT_URL_WITH_DESCRIPTION_REGEX = re.compile('\[\[(.+?)\]\[(.+?)\]\]')
+    ## find external links such as [[http(s)://foo.com][bar]]:
+    EXT_URL_WITH_DESCRIPTION_REGEX = re.compile('\[\[(http[^ ]+?)\]\[(.+?)\]\]')
 
     ## find external links such as [[foo]]:
     EXT_URL_WITHOUT_DESCRIPTION_REGEX = re.compile('\[\[(.+?)\]\]')

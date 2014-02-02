@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-02-02 13:46:40 vk>
+# Time-stamp: <2014-02-02 19:22:43 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -209,20 +209,6 @@ CLOSED: [2014-02-01 Sat 15:03]
 :END:
 
 - see paper from [2014-01-31 Fri]
-
-** NEXT unit-testing Org-file to HTML snippet                        :tests:
-SCHEDULED: <2014-02-02 Sun>
-:PROPERTIES:
-:CREATED:  [2014-02-02 Sun 11:56]
-:END:
-
-- parsing a test file -> parse_orgmode_file()
-  - probably: taking only one specific ID from it?
-  - assert entry
-- apply htmlizer -> init() + copy few lines from run()
-- compare string with expected output
-
-- [ ] add links to test-org in README and notes
 
 ** NEXT HTML: manually create main jumping page                :architecture:
 :PROPERTIES:
@@ -832,6 +818,9 @@ are some for "lazyblog" (without the 'r').
 
 - list of Org Mode elements: http://article.gmane.org/gmane.emacs.orgmode/67871
   - will get on Worg some day!
+
+- an Org-mode test-file (for unit testing) containing all implemented
+  Org-mode syntax elements: [[https://github.com/novoid/lazyblorg/blob/master/testdata/currently_supported_orgmode_syntax.org][testdata/currently_supported_orgmode_syntax.org]]
 
 Org elements: from ox-ascii.el (Org-mode)
 

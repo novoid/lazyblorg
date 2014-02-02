@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; ispell-local-dictionary: "german8"; -*-
-# Time-stamp: <2014-02-02 17:12:33 vk>
+# Time-stamp: <2014-02-02 18:44:23 vk>
 
 * DONE lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer :publicvoit:lazyblorg:MixedCaseTag:blog:
 CLOSED: [2014-01-30 Thu 13:01]
@@ -126,27 +126,6 @@ UPPER-case example with name
 #+begin_example
 lower-case example with name
 #+end_example
-** LATEX-blocks                                                   :noexport:
-:PROPERTIES:
-:CREATED:  [2014-02-02 Sun 14:28]
-:END:
-
-#+BEGIN_LaTeX
-This is a mixed case \LaTeX{} block without a name.
-   Indented line.
-
-Another paragraph.
-
-$42 * 7 = \frac{c}{45x}$
-#+END_LaTeX
-
-#+BEGIN_LATEX
-This is an UPPER case \LaTeX{} block without a name.
-#+END_LATEX
-
-#+begin_latex
-This is a lower case \LaTeX{} block without a name.
-#+end_latex
 ** QUOTE-blocks
 :PROPERTIES:
 :CREATED:  [2014-02-02 Sun 16:47]
@@ -211,38 +190,6 @@ UPPER-case verse with name
 lower-case verse with name
 #+end_verse
 
-** VERBATIM-blocks                                                :noexport:
-:PROPERTIES:
-:CREATED:  [2014-02-02 Sun 16:47]
-:END:
-
-#+BEGIN_VERBATIM
-UPPER-case verbatim without name
-  indented line
-     another indented line
-This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg and such.
-
-  Last line.
-
-This is a multi-line paragraph to demonstrate the behavior of line
-break and so on. As you can see, the line breaks are now different
-from Org-mode source or not.
-#+END_VERBATIM
-
-#+begin_verbatim
-lower-case verbatim without name
-#+end_verbatim
-
-#+NAME: a name
-#+BEGIN_VERBATIM
-UPPER-case verbatim with name
-#+END_VERBATIM
-
-#+NAME: Another name
-#+begin_verbatim
-lower-case verbatim with name
-#+end_verbatim
-
 ** SRC-blocks
 :PROPERTIES:
 :CREATED:  [2014-02-02 Sun 16:47]
@@ -283,6 +230,59 @@ if test == 42:
 else:
     print "there is something phishy around here."
 #+END_SRC
+** LATEX-blocks                                                   :noexport:
+:PROPERTIES:
+:CREATED:  [2014-02-02 Sun 14:28]
+:END:
+
+#+BEGIN_LaTeX
+This is a mixed case \LaTeX{} block without a name.
+   Indented line.
+
+Another paragraph.
+
+$42 * 7 = \frac{c}{45x}$
+#+END_LaTeX
+
+#+BEGIN_LATEX
+This is an UPPER case \LaTeX{} block without a name.
+#+END_LATEX
+
+#+begin_latex
+This is a lower case \LaTeX{} block without a name.
+#+end_latex
+
+** VERBATIM-blocks                                                :noexport:
+:PROPERTIES:
+:CREATED:  [2014-02-02 Sun 16:47]
+:END:
+
+#+BEGIN_VERBATIM
+UPPER-case verbatim without name
+  indented line
+     another indented line
+This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg and such.
+
+  Last line.
+
+This is a multi-line paragraph to demonstrate the behavior of line
+break and so on. As you can see, the line breaks are now different
+from Org-mode source or not.
+#+END_VERBATIM
+
+#+begin_verbatim
+lower-case verbatim without name
+#+end_verbatim
+
+#+NAME: a name
+#+BEGIN_VERBATIM
+UPPER-case verbatim with name
+#+END_VERBATIM
+
+#+NAME: Another name
+#+begin_verbatim
+lower-case verbatim with name
+#+end_verbatim
 
 ** noexport-tags in headings
 
@@ -313,44 +313,6 @@ Between this and the previous paragraph, there is no horizontal rule.
 ---------
 
 Between this and the previous paragraph, there was an horizontal rule.
-
-** pre-formatted blocks: VERSE
-:PROPERTIES:
-:CREATED:  [2014-01-30 Thu 15:54]
-:END:
-
-#+BEGIN_VERSE
-This is verse without any title.
-  Second line.
-
-     Last line.
-#+END_VERSE
-
-#+NAME: This is the title/name of the verse block
-#+BEGIN_VERSE
-This is verse with a title.
-  Second line.
-
-     Last line.
-#+END_VERSE
-
-** QUOTE-blocks
-:PROPERTIES:
-:CREATED:  [2014-01-30 Thu 16:06]
-:END:
-
-#+BEGIN_QUOTE
-Das ist ein tolles Zitat von irgendeiner Quelle mit tollen Dingen wie
-URLs von Seiten wie http://heise.de oder anderen netten Sachen wie
-Listen, was hier aber noch recht gemein ist:
-
-- Das ist ein Listenelement
-- Das ist die zweite Zeile der Liste
-  - hier ist verschachtelte auch noch
-- hier wieder nicht
-
-Und so weiter.
-#+END_QUOTE
 
 ** Lists                                                          :noexport:
 :PROPERTIES:

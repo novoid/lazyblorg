@@ -1,5 +1,5 @@
-## Time-stamp: <2014-02-01 14:38:47 vk>
-## -*- coding: utf-8 -*-
+## Time-stamp: <2014-02-02 19:22:31 vk>
+## -*- coding: utf-8;mode: org;  -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 * lazyblorg -- blogging with Org-mode for very lazy people
@@ -125,8 +125,14 @@ Get it from [[https://github.com/novoid/lazyblorg][github]] and read the install
 *** What Org-mode elements are supported by lazyblorg?
 
 The parser only implements a sub-set of Org-mode syntax. See section
-"notes" in [[file:dev/lazyblorg.org]] for a detailed list of supported
-elements.
+"notes" in [[file:dev/lazyblorg.org]] for a a plan of supported elements.
+
+An Org-mode test-file (for unit testing) containing all implemented
+Org-mode syntax elements can be found at:
+[[https://github.com/novoid/lazyblorg/blob/master/testdata/currently_supported_orgmode_syntax.org][testdata/currently_supported_orgmode_syntax.org]]
+
+This test-file produces an example HTML entry that can be found at: 
+[[https://github.com/novoid/lazyblorg/blob/master/testdata/currently_supported_orgmode_syntax.html][testdata/currently_supported_orgmode_syntax.html]]
 
 *** Where can I find support for lazyblorg?
 

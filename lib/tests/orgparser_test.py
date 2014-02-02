@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# Time-stamp: <2013-10-19 18:07:30 vk>
+# -*- coding: utf-8; mode: python; -*-
+# Time-stamp: <2014-02-02 19:19:11 vk>
 
 import unittest
 from lib.utils import *

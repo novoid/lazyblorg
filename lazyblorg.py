@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# Time-stamp: <2014-02-01 20:55:35 vk>
+# -*- coding: utf-8; mode: python; -*-
+# Time-stamp: <2014-02-02 19:19:13 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
