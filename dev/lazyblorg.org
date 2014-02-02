@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-02-02 12:26:30 vk>
+# Time-stamp: <2014-02-02 13:46:40 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -211,16 +211,19 @@ CLOSED: [2014-02-01 Sat 15:03]
 - see paper from [2014-01-31 Fri]
 
 ** NEXT unit-testing Org-file to HTML snippet                        :tests:
+SCHEDULED: <2014-02-02 Sun>
 :PROPERTIES:
 :CREATED:  [2014-02-02 Sun 11:56]
 :END:
 
-- parsing a test file
+- parsing a test file -> parse_orgmode_file()
   - probably: taking only one specific ID from it?
-- apply parser
-- apply htmlizer
-  - BUT: get HTML string out of it!
+  - assert entry
+- apply htmlizer -> init() + copy few lines from run()
 - compare string with expected output
+
+- [ ] add links to test-org in README and notes
+
 ** NEXT HTML: manually create main jumping page                :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 12:24]
@@ -395,7 +398,6 @@ CLOSED: [2014-02-01 Sat 15:03]
 
 1. just link a file, do not show image
 2. show the linked image directly
-
 ** STARTED test generate_output (comparing HTML/CSS output files)     :tests:
 :PROPERTIES:
 :CREATED:  [2013-02-14 Thu 17:28]
@@ -548,7 +550,6 @@ see also id:2012-11-06-ago-generating
 
 - Example: if "What The World Needs"|"WTWN:" is found, link to a page
   where WTWN-series is described in general.
-
 ** TODO [#B] CSS generated using Org/babel                    :architecture:
 :PROPERTIES:
 :CREATED:  [2012-12-13 Thu 10:08]
@@ -665,16 +666,6 @@ display: block;
   - POST to script, adding comment to my inbox.org (containing
     link to ID)
 - disqus: I do not want to outsource comment hosting :-(
-
-** SOMEDAY handle :noexport: tag                                 :userstory:
-:LOGBOOK:
-- State "SOMEDAY"    from ""           [2013-08-22 Thu 11:45]
-:END:
-:PROPERTIES:
-:CREATED:  [2013-08-22 Thu 11:45]
-:END:
-
-- see http://orgmode.org/manual/Selective-export.html
 
 ** SOMEDAY guessing language of entry                            :userstory:
 :LOGBOOK:

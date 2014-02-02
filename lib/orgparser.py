@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-02 13:11:56 vk>
+# Time-stamp: <2014-02-02 13:45:10 vk>
 
 import re
 import os
@@ -49,6 +49,7 @@ class OrgParser(object):
     LIST = 'list'
     TABLE = 'table'
     COLON_BLOCK = 'colon_block'
+    SKIPPING_NOEXPORT_HEADING = 'skipping_noexport_heading'
 
     ## asterisk(s), whitespace, word(s), optional followed by optional tags:
     HEADING_REGEX = re.compile('^(\*+)\s+((' + BLOG_FINISHED_STATE + ')\s+)?(.*?)(\s+(:\S+:)+)?\s*$')
@@ -272,7 +273,8 @@ class OrgParser(object):
 
         ## finite state machine:
         ## SEARCHING_BLOG_HEADER | BLOG_HEADER | ENTRY_CONTENT | ...
-        ## ... DRAWER_PROP | DRAWER_LOGBOOK | BLOCK | LIST | TABLE | COLON_BLOCK
+        ## ... DRAWER_PROP | DRAWER_LOGBOOK | BLOCK | LIST | TABLE | COLON_BLOCK | ..
+        ## ... SKIPPING_NOEXPORT_HEADING
         state = self.SEARCHING_BLOG_HEADER
 
         ## type of last/current block found
@@ -287,6 +289,10 @@ class OrgParser(object):
         ##       parsing step without "previous_line = line"
         previous_line = False
 
+        ## if skipping a heading within an entry, this variable holds
+        ## the level of heading of the noexport-heading:
+        noexport_level = False
+                
         for rawline in codecs.open(self.__filename, 'r', encoding='utf-8'):
 
             line = rawline.rstrip()  ## remove trailing whitespace
@@ -294,6 +300,25 @@ class OrgParser(object):
             self.logging.debug("OrgParser: ------------------------------- %s" % state)
             self.logging.debug("OrgParser: %s ###### line: \"%s\"" % (state, line))
 
+            if state == self.SKIPPING_NOEXPORT_HEADING:
+
+                ## ignore until end of blog entry  OR
+                ## ignore until next heading on same level  OR
+                ## ignore until next heading on higher level
+                components = self.HEADING_REGEX.match(line)
+
+                ## next heading: if level same or higher: set status to self.ENTRY_CONTENT
+                if components:
+                    if len(components.group(self.HEADING_STARS_IDX)) <= noexport_level:
+                        state = self.ENTRY_CONTENT
+                        ## keep current line and continue parsing normally
+                    else:
+                        ## ignore heading because it is a sub-heading of the noexport heading
+                        continue
+                else:
+                    ## ignore line because it is no heading at all
+                    continue
+            
             if state == self.SEARCHING_BLOG_HEADER:
 
                 ## search for header line of a blog entry -> BLOG_HEADER
@@ -420,6 +445,15 @@ class OrgParser(object):
                     self.logging.debug("OrgParser: found new heading")
                     level = len(heading_components.group(self.HEADING_STARS_IDX))
 
+                    if heading_components.group(self.HEADING_TAGS_IDX):
+                        ## there are tags
+                        if "NOEXPORT" in heading_components.group(self.HEADING_TAGS_IDX).upper():
+                            self.logging.debug("OrgParser: new heading has NOEXPORT tag, skipping.")
+                            state = self.SKIPPING_NOEXPORT_HEADING
+                            noexport_level = level
+                            previous_line = line  ## maybe this is not needed
+                            continue
+                    
                     if level <= self.__entry_data['level']:
                         ## level is same or higher as main heading of blog entry: end of blog entry
                         state = self.__handle_blog_end(line)
