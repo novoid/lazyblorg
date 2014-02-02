@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-02 18:46:11 vk>
+# Time-stamp: <2014-02-02 19:27:13 vk>
 
 import argparse  ## command line arguments
 import unittest
@@ -201,7 +201,6 @@ class TestLazyblorg(unittest.TestCase):
 
         htmlizer = Htmlizer(template_definitions, testname, "blog", "about this blog",
                             target_dir, blog_data, generate, increment_version)
-        #htmlizer.run()  ## FIXXME: return value?
 
         filename = htmlcontent = None
         for entry in blog_data:

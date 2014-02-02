@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-02 16:59:46 vk>
+# Time-stamp: <2014-02-02 19:28:39 vk>
 
 import re
 import os
@@ -220,7 +220,7 @@ class OrgParser(object):
 
         self.logging.debug("OrgParser: end of blog entry; checking entry ...")
         if self.__check_if_entry_is_OK():
-            #pdb.set_trace()## FIXXME
+
             ## debug with: self._OrgParser__entry_data['tags']
             ## debug with: self._OrgParser__blog_data
 
@@ -240,7 +240,6 @@ class OrgParser(object):
                 self.__entry_data['category'] = self.TEMPORAL
 
             ## debug with: self._OrgParser__entry_data
-            #pdb.set_trace()## FIXXME
             self.__blog_data.append(self.__entry_data)
 
         self.__entry_data = {}  ## empty current entry data
@@ -598,7 +597,7 @@ class OrgParser(object):
             self.__handle_blog_end(u"")
 
         self.logging.debug("OrgParser: finished file \"%s\"" % self.__filename)
-        #pdb.set_trace()## FIXXME:   data = self._OrgParser__entry_data ; data['content']
+        #debug:   data = self._OrgParser__entry_data ; data['content']
         ## self._OrgParser__blog_data
             ## self._OrgParser__entry_data
             ## self._OrgParser__filename

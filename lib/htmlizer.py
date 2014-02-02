@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-02 19:18:40 vk>
+# Time-stamp: <2014-02-02 19:28:04 vk>
 
 import logging
 import os
@@ -197,7 +197,7 @@ class Htmlizer(object):
         @param return: partially sanitized and completely htmlized entry['content']
         """
 
-        #pdb.set_trace()## FIXXME    [x[0] for x in entry['content']] -> which element types
+        #debug:  [x[0] for x in entry['content']] -> which element types
 
         #for element in entry['content']:
         for index in range(0, len(entry['content'])):

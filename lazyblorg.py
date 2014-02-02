@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-02 19:19:13 vk>
+# Time-stamp: <2014-02-02 19:26:48 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -104,7 +104,6 @@ class Lazyblorg(object):
                     "can fix the issue in the Org-mode file. Reason: " + message.value
                 Utils.error_exit_with_userlog(options.logfilename, 20, verbose_message)
             else:
-                #pdb.set_trace()## FIXXME
                 self.blog_data += file_blog_data
 
         ## dump blogdata for debugging purpose ...
@@ -112,7 +111,6 @@ class Lazyblorg(object):
             with open('lazyblorg_dump_of_blogdata_from_last_verbose_run.pk', 'wb') as output:
                 pickle.dump(self.blog_data, output, 0)  ## always use ASCII format: easier to debug from outside
 
-        #pdb.set_trace()## FIXXME
         ## FIXXME: debug with: [x['id'] for x in self.blog_data]
         
         ## generate persistent data which is used to compare this status
@@ -225,7 +223,6 @@ class Lazyblorg(object):
         ## extract template_data from blog_data:
         template_data = [x for x in self.blog_data \
                              if x['id']=='lazyblorg-templates' and x['title'] == u'Templates']
-        #pdb.set_trace()## FIXXME
 
         if not template_data:
             message = "Sorry, no suitable template data could be parsed from the Org-mode files. " + \

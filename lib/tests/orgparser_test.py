@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-02 19:19:11 vk>
+# Time-stamp: <2014-02-02 19:26:03 vk>
 
 import unittest
 from lib.utils import *
@@ -76,11 +76,7 @@ class TestOrgParser(unittest.TestCase):
                 print blog_data[0]['content'][x]
                 print "   ===============            ==================="
 
-        #pdb.set_trace()## FIXXME
         self.assertTrue(Utils.list_of_dicts_are_equal(reference_blog_data, blog_data, ignoreorder=True))
-
-        ## optionally clean up:
-        #remove(testfile_temp_output)
 
 ## END OF FILE #################################################################
 # Local Variables:

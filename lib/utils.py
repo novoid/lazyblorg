@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-# Time-stamp: <2014-01-29 17:48:18 vk>
+# -*- coding: utf-8; mode: python; -*-
+# Time-stamp: <2014-02-02 19:31:35 vk>
 
 import sys
 import logging
@@ -149,7 +149,6 @@ class Utils(object):
 
         for entry in blogdata:
 
-            #pdb.set_trace()
             checksum = Utils.__generate_checksum_for_blog_entry(entry['title'],
                                                                 entry['content'])
             
@@ -157,18 +156,15 @@ class Utils(object):
                 logging.error("We got a duplicate ID in blogdata: \"" +
                               str(entry['id']) + "\". Please correct it and re-run this tool.")
                 ##   [x['id'] for x in blogdata]
-                #pdb.set_trace()## FIXXME
                 Utils.error_exit(30)
             else:
                 assert('created' in entry.keys())
                 assert('timestamp' in entry.keys())
-                #pdb.set_trace()## FIXXME
                 metadata[entry['id']] = {'created': entry['created'],
                                          'timestamp': entry['timestamp'],
                                          'checksum': checksum,
                                          'category': entry['category']}
 
-        #pdb.set_trace()## FIXXME
         return metadata
 
 
@@ -205,7 +201,6 @@ class Utils(object):
         for entry in blogdata[TAGS]:
             metadata += Utils.__generate_metadata_from_blogdata_core(metadata, entry, TAGS)
 
-        #pdb.set_trace()## FIXXME
         return metadata
 
     @staticmethod
@@ -275,8 +270,6 @@ class Utils(object):
 
         if not ignoreorder:
             return data1 == data2
-
-        #pdb.set_trace()## FIXXME
 
         if data1 is None or data2 is None:
             ## both arguments should exist

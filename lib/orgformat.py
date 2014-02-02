@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-# Time-stamp: <2014-01-29 18:17:02 vk>
+# -*- coding: utf-8; mode: python; -*-
+# Time-stamp: <2014-02-02 19:31:06 vk>
 
 ## This file is originally from Memacs
 ## https://github.com/novoid/Memacs
