@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-02 13:45:10 vk>
+# Time-stamp: <2014-02-02 16:59:46 vk>
 
 import re
 import os
@@ -556,7 +556,7 @@ class OrgParser(object):
                 else:
                     if block_type == 'SRC' or block_type == 'HTML' or block_type == 'VERSE' or \
                             block_type == 'QUOTE' or block_type == 'CENTER' or block_type == 'ASCII' or \
-                            block_type == 'LATEX':
+                            block_type == 'LATEX' or block_type == 'EXAMPLE':
                          ## append to the last element of content (which is a list from the current block) to
                          ## its last element (which contains the list of the block content):
                         self.__entry_data['content'][-1][-1].append(line)

@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-02 12:25:38 vk>
+# Time-stamp: <2014-02-02 17:11:47 vk>
 
 import logging
 import os
@@ -280,10 +280,11 @@ class Htmlizer(object):
                         '\n'.join(entry['content'][index][2])).replace(' ', '&nbsp;').replace('\n', '<br />\n')
                     result += self.template_definition_by_name('html-end')
 
-            elif entry['content'][index][0] == 'verse-block':
+            elif entry['content'][index][0] == 'verse-block' or entry['content'][index][0] == 'example-block':
 
                 ## example:
                 ## ['verse-block', False, [u'first line', u'second line']]
+                ## ['example-block', False, [u'first line', u'second line']]
                 result = None
                 
                 result = self.template_definition_by_name('named-pre-begin')
@@ -321,17 +322,18 @@ class Htmlizer(object):
                 ## ['src-block', False, [u'first line', u'second line']]
 
                 ## FIXXME: replace pre with suitable source code environment!
-                
-                result = self.template_definition_by_name('pre-begin')
-                mycontent = '\n'.join(entry['content'][index][2])
-                self.logging.debug("result [%s]" % repr(result))
-                self.logging.debug("mycontent [%s]" % repr(mycontent))
-                result += mycontent
-                result += self.template_definition_by_name('pre-end')
+
+                result = self.template_definition_by_name('html-begin')
+                ## FIXXME: implement name for src blocks:
+                #if entry['content'][index][1]:
+                #    result = result.replace('#NAME#', entry['content'][index][1])
+                result += self.sanitize_html_characters(\
+                                                        '\n'.join(entry['content'][index][2])).replace(' ', '&nbsp;').replace('\n', '<br />\n')
+                result += self.template_definition_by_name('html-end')
 
             else:
                 message = "htmlizer.py/sanitize_and_htmlize_blog_content(): content element [" + str(entry['content'][index][0]) + \
-                    "] of ID " + str(entry['id']) + "not recognized."
+                    "] of ID " + str(entry['id']) + " is not recognized (yet?)."
                 self.logging.critical(message)
                 raise HtmlizerException(message)
 

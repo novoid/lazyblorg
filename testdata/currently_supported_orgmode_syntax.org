@@ -1,0 +1,423 @@
+# -*- mode: org; coding: utf-8; ispell-local-dictionary: "german8"; -*-
+# Time-stamp: <2014-02-02 17:12:33 vk>
+
+* DONE lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer :publicvoit:lazyblorg:MixedCaseTag:blog:
+CLOSED: [2014-01-30 Thu 13:01]
+:LOGBOOK:
+- State "DONE"       from "DONE"       [2014-02-01 Sat 15:03]
+- State "DONE"       from ""           [2014-01-30 Thu 14:02]
+:END:
+:PROPERTIES:
+:CREATED:  [2014-01-28 Tue 12:00]
+:ID: 2014-01-27-full-syntax-test
+:END:
+
+This is a test entry for testing all currently implemented Org-mode
+syntax elements.
+
+** Implicit Org-mode Elements in This File
+:PROPERTIES:
+:CREATED:  [2014-02-02 Sun 14:24]
+:END:
+
+- headings
+- article tags
+- paragraphs
+
+** Drawers and Time-Stamps
+
+Note: the time-stamps in the LOGBOOK and PROPERTIES drawers above are
+set to different days so that it is possible to check which time-stamp
+is used for what blog elements.
+
+#+NAME: A copy of the header
+#+BEGIN_VERSE
+CLOSED: [2014-01-30 Thu 13:01]
+:LOGBOOK:
+- State "DONE"       from "DONE"       [2014-02-01 Sat 15:03]
+- State "DONE"       from ""           [2014-01-30 Thu 14:02]
+:END:
+:PROPERTIES:
+:CREATED:  [2014-01-28 Tue 12:00]
+:ID: 2014-01-27-full-syntax-test
+:END:
+#+END_VERSE
+
+** Basic Text Formatting
+:PROPERTIES:
+:CREATED:  [2014-01-30 Thu 16:33]
+:END:
+
+This is *bold* and *bold case*. And this is ~teletype style~.
+
+Examples with line-breaks in between: *This is a bold sentence which
+has a line break*.
+
+*** not yet implemented                                      :noexport:
+
+and /italic/ and _underlined_ and +strikethrough+ 
+
+: This is a verbose statement.
+: With a second line.
+:    ... and a third one http://heise.de *not bold* foobar
+
+** URLs
+
+Without brackets: http://heise.de
+
+With brackets and no description: [[http://heise.de]]
+
+With brackets and a description: [[http://heise.de][heise]]
+
+URLs with line breaks within: this is a very tough example of [[https://github.com/novoid/lazyblorg][an url
+like this which is very long]].
+
+Multiple URLs in one line: http://heise.de [[http://heise.de]] [[http://heise.de][heise]]
+
+** HTML-blocks
+:PROPERTIES:
+:CREATED:  [2014-01-30 Thu 15:09]
+:END:
+
+#+BEGIN_HTML
+<p>
+  <!-- a multi
+       line comment -->
+  <b>This is without any title</b>
+</p>
+#+END_HTML
+
+#+NAME: Example HTML snippet
+#+BEGIN_HTML
+<b>This is with a title</b>
+<ul>
+  <li>example list item</li>
+</ul>
+#+END_HTML
+
+** EXAMPLE-blocks
+:PROPERTIES:
+:CREATED:  [2014-02-02 Sun 14:21]
+:END:
+
+#+BEGIN_EXAMPLE
+UPPER-case example without name
+  indented line
+     another indented line
+This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg and such.
+
+  Last line.
+
+This is a multi-line paragraph to demonstrate the behavior of line
+break and so on. As you can see, the line breaks are now different
+from Org-mode source or not.
+#+END_EXAMPLE
+
+#+begin_example
+lower-case example without name
+#+end_example
+
+#+NAME: a name
+#+BEGIN_EXAMPLE
+UPPER-case example with name
+#+END_EXAMPLE
+
+#+NAME: Another name
+#+begin_example
+lower-case example with name
+#+end_example
+** LATEX-blocks                                                   :noexport:
+:PROPERTIES:
+:CREATED:  [2014-02-02 Sun 14:28]
+:END:
+
+#+BEGIN_LaTeX
+This is a mixed case \LaTeX{} block without a name.
+   Indented line.
+
+Another paragraph.
+
+$42 * 7 = \frac{c}{45x}$
+#+END_LaTeX
+
+#+BEGIN_LATEX
+This is an UPPER case \LaTeX{} block without a name.
+#+END_LATEX
+
+#+begin_latex
+This is a lower case \LaTeX{} block without a name.
+#+end_latex
+** QUOTE-blocks
+:PROPERTIES:
+:CREATED:  [2014-02-02 Sun 16:47]
+:END:
+
+#+BEGIN_QUOTE
+UPPER-case quote without name
+  indented line
+     another indented line
+This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg and such.
+
+  Last line.
+
+This is a multi-line paragraph to demonstrate the behavior of line
+break and so on. As you can see, the line breaks are now different
+from Org-mode source or not.
+#+END_QUOTE
+
+#+begin_quote
+lower-case quote without name
+#+end_quote
+
+#+NAME: a name
+#+BEGIN_QUOTE
+UPPER-case quote with name
+#+END_QUOTE
+
+#+NAME: Another name
+#+begin_quote
+lower-case quote with name
+#+end_quote
+
+** VERSE-blocks
+:PROPERTIES:
+:CREATED:  [2014-02-02 Sun 16:47]
+:END:
+
+#+BEGIN_VERSE
+UPPER-case verse without name
+  indented line
+     another indented line
+This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg and such.
+
+  Last line.
+
+This is a multi-line paragraph to demonstrate the behavior of line
+break and so on. As you can see, the line breaks are now different
+from Org-mode source or not.
+#+END_VERSE
+
+#+begin_verse
+lower-case verse without name
+#+end_verse
+
+#+NAME: a name
+#+BEGIN_VERSE
+UPPER-case verse with name
+#+END_VERSE
+
+#+NAME: Another name
+#+begin_verse
+lower-case verse with name
+#+end_verse
+
+** VERBATIM-blocks                                                :noexport:
+:PROPERTIES:
+:CREATED:  [2014-02-02 Sun 16:47]
+:END:
+
+#+BEGIN_VERBATIM
+UPPER-case verbatim without name
+  indented line
+     another indented line
+This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg and such.
+
+  Last line.
+
+This is a multi-line paragraph to demonstrate the behavior of line
+break and so on. As you can see, the line breaks are now different
+from Org-mode source or not.
+#+END_VERBATIM
+
+#+begin_verbatim
+lower-case verbatim without name
+#+end_verbatim
+
+#+NAME: a name
+#+BEGIN_VERBATIM
+UPPER-case verbatim with name
+#+END_VERBATIM
+
+#+NAME: Another name
+#+begin_verbatim
+lower-case verbatim with name
+#+end_verbatim
+
+** SRC-blocks
+:PROPERTIES:
+:CREATED:  [2014-02-02 Sun 16:47]
+:END:
+
+#+BEGIN_SRC
+UPPER-case src without name
+  indented line
+     another indented line
+This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg and such.
+
+  Last line.
+
+This is a multi-line paragraph to demonstrate the behavior of line
+break and so on. As you can see, the line breaks are now different
+from Org-mode source or not.
+#+END_SRC
+
+#+begin_src
+lower-case src without name
+#+end_src
+
+#+NAME: a name
+#+BEGIN_SRC
+UPPER-case src with name
+#+END_SRC
+
+#+NAME: Another name
+#+begin_src
+lower-case src with name
+#+end_src
+
+#+BEGIN_SRC python
+test = 42;
+print "Hello Python world!"
+if test == 42:
+    print "yes, it is 42"
+else:
+    print "there is something phishy around here."
+#+END_SRC
+
+** noexport-tags in headings
+
+*** ignored heading with lower-case tag                            :noexport:
+
+**** ignored sub-heading of a noexport heading
+
+*** ignored heading with upper-case tag                          :NOEXPORT:
+
+**** ignored sub-heading of a noexport heading
+
+*** not ignored because it got no :noexport: tag set
+
+This is somewhat tricky because it contains a tag surrounded by colons.
+
+*** not ignored because it got no :NOEXPORT: tag set
+
+This is somewhat tricky because it contains a tag surrounded by colons.
+** Horizontal Rule
+:PROPERTIES:
+:CREATED:  [2014-02-02 Sun 14:25]
+:END:
+
+Horizontal rules end up only in a wider vertical space.
+
+Between this and the previous paragraph, there is no horizontal rule.
+
+---------
+
+Between this and the previous paragraph, there was an horizontal rule.
+
+** pre-formatted blocks: VERSE
+:PROPERTIES:
+:CREATED:  [2014-01-30 Thu 15:54]
+:END:
+
+#+BEGIN_VERSE
+This is verse without any title.
+  Second line.
+
+     Last line.
+#+END_VERSE
+
+#+NAME: This is the title/name of the verse block
+#+BEGIN_VERSE
+This is verse with a title.
+  Second line.
+
+     Last line.
+#+END_VERSE
+
+** QUOTE-blocks
+:PROPERTIES:
+:CREATED:  [2014-01-30 Thu 16:06]
+:END:
+
+#+BEGIN_QUOTE
+Das ist ein tolles Zitat von irgendeiner Quelle mit tollen Dingen wie
+URLs von Seiten wie http://heise.de oder anderen netten Sachen wie
+Listen, was hier aber noch recht gemein ist:
+
+- Das ist ein Listenelement
+- Das ist die zweite Zeile der Liste
+  - hier ist verschachtelte auch noch
+- hier wieder nicht
+
+Und so weiter.
+#+END_QUOTE
+
+** Lists                                                          :noexport:
+:PROPERTIES:
+:CREATED:  [2014-01-30 Thu 16:20]
+:END:
+
+Simple lists:
+
+- first line
+- second line
+  - another list in a list
+  - don't get confused
+    - even more lists
+    - bah!
+- back to first list
+
+Ordered lists:
+
+1. first line
+2. second line
+   1. another list in a list
+   2. don't get confused
+      1. even more lists
+      2. bah!
+3. back to first list
+
+Mixed lists:
+
+1. first line
+2. second line
+   - another list in a list
+   - don't get confused
+     1. even more lists
+     2. bah!
+3. back to first list
+
+** Tables                                                         :noexport:
+:PROPERTIES:
+:CREATED:  [2014-01-30 Thu 20:14]
+:END:
+
+A basic table:
+
+| Season | Sports  |
+| Winter | Skiing  |
+| Summer | Bathing |
+
+| Season | Light |
+|--------+-------|
+| Winter | low   |
+| Summer | much  |
+
+| *Header1* | *a wide column is here*              | *Something else* |
+|-----------+--------------------------------------+------------------|
+| foo bar   | This is a really wide column as well |               23 |
+| Hänsel    | und Gretel                           |            42.77 |
+|-----------+--------------------------------------+------------------|
+|           |                                      |            65.77 |
+#+TBLFM: @>$3=vsum(@I$3..@II$3)
+
+
+
+* local vars
+
+en_US | de_AT
+
+# Local Variables:
+# mode: auto-fill
+# mode: flyspell
+# End:
