@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-02 11:55:14 vk>
+# Time-stamp: <2014-02-02 13:11:56 vk>
 
 import re
 import os
@@ -70,7 +70,7 @@ class OrgParser(object):
 
     ## matching five dashes (or more) which resembles an horizontal rule: http://orgmode.org/org.html#Horizontal-rules
     HR_REGEX = re.compile('^-{5,}\s*$')
-    
+
     __filename = u''
 
     ## tag strings of blog entry categories:
@@ -89,7 +89,7 @@ class OrgParser(object):
     __blog_data = []
     ## __blog_data: contains a list with elements of type __entry_data
 
-    __entry_data = {}  ## dict of currently parsed blog entry data: gets "filled" 
+    __entry_data = {}  ## dict of currently parsed blog entry data: gets "filled"
                        ## while parsing the entry
 
     def __init__(self, filename):
@@ -142,21 +142,21 @@ class OrgParser(object):
                 return False
 
         if not check_only_title:
-        
+
             if not 'id' in self.__entry_data.keys():
                 self.logging.error("Heading does not contain any ID within PROPERTY drawer")
                 errors += 1
             else:
                 self.logging.debug("OrgParser: checking id [%s]" % self.__entry_data['id'])
-    
+
             if not 'timestamp' in self.__entry_data.keys():
                 self.logging.error("Heading does not contain a most recent timestamp")
                 errors += 1
-    
+
             if not 'created' in self.__entry_data.keys():
                 self.logging.error("Heading does not contain a timestamp for created")
                 errors += 1
-    
+
             if 'content' in self.__entry_data.keys():
                 if len(self.__entry_data['content']) < 1:
                     self.logging.error("Heading does not contain a filled content")
@@ -196,6 +196,8 @@ class OrgParser(object):
         self.__entry_data['level'] = len(stars)
         if tags:
             self.__entry_data['tags'] = tags[1:-1].split(':')
+            if ":NOEXPORT:" in tags.upper():
+                return False
         else:
             self.__entry_data['tags'] = None
 
@@ -220,7 +222,7 @@ class OrgParser(object):
             #pdb.set_trace()## FIXXME
             ## debug with: self._OrgParser__entry_data['tags']
             ## debug with: self._OrgParser__blog_data
-            
+
             ## FIXXME: adding as list entry
 
             if self.TAG_FOR_TEMPLATES_ENTRY in self.__entry_data['tags']:
@@ -253,7 +255,7 @@ class OrgParser(object):
                                                                      heading_components.group(self.HEADING_TAGS_IDX)):
                 return self.BLOG_HEADER
             else:
-                self.__entry_data = {}  ## empty current entry data
+                self.__entry_data = {}  ## empty the current entry data for the upcoming entry
                 return self.SEARCHING_BLOG_HEADER
 
         else:
@@ -557,7 +559,7 @@ class OrgParser(object):
 
         if state != self.SEARCHING_BLOG_HEADER:
             ## in case file ends while parsing an blog entry (no following heading is finishing current entry):
-            self.logging.debug("OrgParser: finished file \"%s\" while parsing blog entry. Finishing it." % 
+            self.logging.debug("OrgParser: finished file \"%s\" while parsing blog entry. Finishing it." %
                                self.__filename)
             self.__handle_blog_end(u"")
 
