@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-02-01 21:02:23 vk>
+# Time-stamp: <2014-02-02 12:26:30 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -208,8 +208,19 @@ CLOSED: [2014-02-01 Sat 15:03]
 :CREATED:  [2014-02-01 Sat 15:02]
 :END:
 
-- see paper from [2014-01-31 Fri] 
+- see paper from [2014-01-31 Fri]
 
+** NEXT unit-testing Org-file to HTML snippet                        :tests:
+:PROPERTIES:
+:CREATED:  [2014-02-02 Sun 11:56]
+:END:
+
+- parsing a test file
+  - probably: taking only one specific ID from it?
+- apply parser
+- apply htmlizer
+  - BUT: get HTML string out of it!
+- compare string with expected output
 ** NEXT HTML: manually create main jumping page                :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 12:24]

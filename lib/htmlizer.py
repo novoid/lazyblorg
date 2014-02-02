@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-# Time-stamp: <2014-02-01 12:57:59 vk>
+# -*- coding: utf-8; mode: python; -*-
+# Time-stamp: <2014-02-02 12:25:38 vk>
 
 import logging
 import os
@@ -116,8 +116,6 @@ class Htmlizer(object):
         Basic method that creates all the output.
         """
 
-        ## FIXXME: copy CSS file (future enhancement - for now it shall be manually placed)
-
         for entry in self.blog_data:
 
             ## example entry:
@@ -132,6 +130,7 @@ class Htmlizer(object):
             ##  }
 
             entry = self.sanitize_and_htmlize_blog_content(entry)
+            filename = htmlcontent = None
 
             if entry['category'] == self.TAGS:
                 self.logging.debug("entry \"%s\" is a tag page" % entry['id'])
@@ -148,7 +147,7 @@ class Htmlizer(object):
             elif entry['category'] == self.TEMPORAL:
                 #pdb.set_trace()## FIXXME
                 self.logging.debug("entry \"%s\" is an ordinary time-oriented blog entry" % entry['id'])
-                self._create_time_oriented_blog_article(entry)
+                filename, htmlcontent = self._create_time_oriented_blog_article(entry)
 
             elif entry['category'] == self.TEMPLATES:
                 self.logging.debug("entry \"%s\" is the/a HTML template definition. Ignoring." % entry['id'])
@@ -159,6 +158,31 @@ class Htmlizer(object):
                 self.logging.critical(message)
                 raise HtmlizerException(message)
 
+            if entry['category'] == self.TAGS or entry['category'] == self.PERSISTENT or entry['category'] == self.TEMPORAL:
+                self.write_htmlcontent_to_file(filename, htmlcontent)
+
+    def write_htmlcontent_to_file(self, filename, htmlcontent):
+        """
+        Creates the file and writes the content of htmlcontent into it.
+
+        @param filename: the name of the file to write to including path
+        @param htmlcontent: the (UTF-8) string of the HTML content
+        @param return: True if success
+        """
+        
+        if filename and htmlcontent:
+            with codecs.open(filename, 'wb', encoding='utf-8') as output:
+                try:
+                    output.write(htmlcontent)
+                except:
+                    self.logging.critical("Error when writing file: " + str(filename))
+                    raise
+                    return False
+            return True
+        else:
+            self.logging.critical("No filename (" + str(filename) + ") or htmlcontent when writing file: " + str(filename))
+            return False
+            
     def sanitize_and_htmlize_blog_content(self, entry):
         """
         Inspects a selection of the entry content data and sanitizes
@@ -403,54 +427,54 @@ class Htmlizer(object):
 
         filename = os.path.join(path, "index.html")
 
-        with codecs.open(filename, 'wb', encoding='utf-8') as output:
+        htmlcontent = u''
 
-            ## replace-loop of all relevant strings and placeholder-strings
-            ## article-header       | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-            ## article-header-begin | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-            ## article-tags-begin   | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-            ## article-tag          | TAGNAME                                                    |
-            ## article-tags-end     | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-            ## article-header-end   | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-            ## content              | *                                                          |
-            ## article-end          | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-            ## article-footer       | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
+        ## replace-loop of all relevant strings and placeholder-strings
+        ## article-header       | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
+        ## article-header-begin | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
+        ## article-tags-begin   | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
+        ## article-tag          | TAGNAME                                                    |
+        ## article-tags-end     | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
+        ## article-header-end   | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
+        ## content              | *                                                          |
+        ## article-end          | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
+        ## article-footer       | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
 
-            content = u''
+        content = u''
 
-            for articlepart in ['article-header', 'article-header-begin', 'article-tags-begin']:
-                content += self.template_definition_by_name(articlepart)
-            output.write(self._replace_general_article_placeholders(entry, content))
+        for articlepart in ['article-header', 'article-header-begin', 'article-tags-begin']:
+            content += self.template_definition_by_name(articlepart)
+        htmlcontent += self._replace_general_article_placeholders(entry, content)
 
-            content = self._replace_tag_placeholders(entry['tags'], self.template_definition_by_name('article-tag'))
-            output.write(content)
+        content = self._replace_tag_placeholders(entry['tags'], self.template_definition_by_name('article-tag'))
+        htmlcontent += content
 
-            content = u''
-            for articlepart in ['article-tags-end', 'article-header-end']:
-                content += self.template_definition_by_name(articlepart)
-            output.write(self._replace_general_article_placeholders(entry, content))
+        content = u''
+        for articlepart in ['article-tags-end', 'article-header-end']:
+            content += self.template_definition_by_name(articlepart)
+        htmlcontent += self._replace_general_article_placeholders(entry, content)
 
-            for element in entry['content']:
-                if type(element) != str and type(element) != unicode:
-                    message = "element in entry['content'] is of type \"" + str(type(element)) + \
-                        "\" which can not be written: [" + repr(element) + "]. Please do fix it in " + \
-                        "htmlizer.py/sanitize_and_htmlize_blog_content()"
-                    self.logging.critical(message)
-                    raise HtmlizerException(message)
-                else:
-                    try:
-                        output.write(unicode(element))
-                    except:
-                        self.logging.critical("Error in entry: " + str(entry['id']))
-                        self.logging.critical("Element type: " + str(type(element)))
-                        raise
+        for element in entry['content']:
+            if type(element) != str and type(element) != unicode:
+                message = "element in entry['content'] is of type \"" + str(type(element)) + \
+                    "\" which can not be written: [" + repr(element) + "]. Please do fix it in " + \
+                    "htmlizer.py/sanitize_and_htmlize_blog_content()"
+                self.logging.critical(message)
+                raise HtmlizerException(message)
+            else:
+                try:
+                    htmlcontent += unicode(element)
+                except:
+                    self.logging.critical("Error in entry: " + str(entry['id']))
+                    self.logging.critical("Element type: " + str(type(element)))
+                    raise
 
-            content = u''
-            for articlepart in ['article-end', 'article-footer']:
-                content += self.template_definition_by_name(articlepart)
-            output.write(self._replace_general_article_placeholders(entry, content))
+        content = u''
+        for articlepart in ['article-end', 'article-footer']:
+            content += self.template_definition_by_name(articlepart)
+        htmlcontent += self._replace_general_article_placeholders(entry, content)
 
-        return
+        return filename, htmlcontent
 
     def _replace_tag_placeholders(self, tags, template_string):
         """

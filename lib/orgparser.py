@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-# Time-stamp: <2014-02-01 13:19:41 vk>
+# -*- coding: utf-8; mode: python; -*-
+# Time-stamp: <2014-02-02 11:55:14 vk>
 
 import re
 import os
