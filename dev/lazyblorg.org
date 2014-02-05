@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-02-02 19:22:43 vk>
+# Time-stamp: <2014-02-05 19:44:53 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -900,6 +900,7 @@ take some time or might never get implemented)
 | *placeholder*                      | *description*                                      | gets sanitized | *source*                                                  |
 |------------------------------------+----------------------------------------------------+----------------+-----------------------------------------------------------|
 | #ARTICLE-TITLE#                    | heading/title of the blog article                  | x              | Org: heading                                              |
+| #ARTICLE-ID#                       | id of the article                                  |                | PROPERTIES-drawer                                         |
 | #ABOUT-BLOG#                       | a line of text which describes the blog in general |                | FIXXME                                                    |
 | #BLOGNAME#                         | short name of the blog                             |                | FIXXME                                                    |
 | #ARTICLE-YEAR#                     | four digit year of the article (folder path)       |                | Org: CREATED-time-stamp                                   |
@@ -918,32 +919,32 @@ take some time or might never get implemented)
 
 
 #+NAME: template-elements-besides-org-elements
-| *What*                | *template-name*      | *placeholder replacements*                                         |
-|-----------------------+----------------------+--------------------------------------------------------------------|
-| article               | article-header       | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-|                       | article-footer       | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-|                       | article-header-begin | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-|                       | article-tags-begin   |                                                                    |
-|                       | article-tag          | TAGNAME                                                            |
-|                       | article-tags-end     | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-|                       | article-header-end   | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-|                       | article-end          | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-|-----------------------+----------------------+--------------------------------------------------------------------|
-| headline              | section-begin        | SECTION-TITLE, SECTION-LEVEL                                       |
-|-----------------------+----------------------+--------------------------------------------------------------------|
-| paragraph, plain-text | paragraph            | PAR-CONTENT                                                        |
-|-----------------------+----------------------+--------------------------------------------------------------------|
-| URLs                  | a-href               | A-URL, CONTENT                                                     |
-|-----------------------+----------------------+--------------------------------------------------------------------|
-| plain-list            | ul-begin             |                                                                    |
-|                       | ul-item              |                                                                    |
-|                       | ul-end               |                                                                    |
-|-----------------------+----------------------+--------------------------------------------------------------------|
-| pre-fromatted text    | pre-begin            |                                                                    |
-|                       | pre-end              |                                                                    |
-|-----------------------+----------------------+--------------------------------------------------------------------|
-| html-block            | html-begin           | NAME                                                               |
-|                       | html-end             |                                                                    |
+| *What*                | *template-name*      | *placeholder replacements*                                            |
+|-----------------------+----------------------+-----------------------------------------------------------------------|
+| article               | article-header       | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
+|                       | article-footer       | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
+|                       | article-header-begin | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
+|                       | article-tags-begin   |                                                                       |
+|                       | article-tag          | TAGNAME                                                               |
+|                       | article-tags-end     | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
+|                       | article-header-end   | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
+|                       | article-end          | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
+|-----------------------+----------------------+-----------------------------------------------------------------------|
+| headline              | section-begin        | SECTION-TITLE, SECTION-LEVEL                                          |
+|-----------------------+----------------------+-----------------------------------------------------------------------|
+| paragraph, plain-text | paragraph            | PAR-CONTENT                                                           |
+|-----------------------+----------------------+-----------------------------------------------------------------------|
+| URLs                  | a-href               | A-URL, CONTENT                                                        |
+|-----------------------+----------------------+-----------------------------------------------------------------------|
+| plain-list            | ul-begin             |                                                                       |
+|                       | ul-item              |                                                                       |
+|                       | ul-end               |                                                                       |
+|-----------------------+----------------------+-----------------------------------------------------------------------|
+| pre-fromatted text    | pre-begin            |                                                                       |
+|                       | pre-end              |                                                                       |
+|-----------------------+----------------------+-----------------------------------------------------------------------|
+| html-block            | html-begin           | NAME                                                                  |
+|                       | html-end             |                                                                       |
 
 
 

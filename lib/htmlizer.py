@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-02 19:28:04 vk>
+# Time-stamp: <2014-02-05 19:11:35 vk>
 
 import logging
 import os
@@ -432,15 +432,15 @@ class Htmlizer(object):
         htmlcontent = u''
 
         ## replace-loop of all relevant strings and placeholder-strings
-        ## article-header       | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-        ## article-header-begin | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-        ## article-tags-begin   | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-        ## article-tag          | TAGNAME                                                    |
-        ## article-tags-end     | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-        ## article-header-end   | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-        ## content              | *                                                          |
-        ## article-end          | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
-        ## article-footer       | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*) |
+        ## article-header       | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*)     |
+        ## article-header-begin | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*)     |
+        ## article-tags-begin   | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*)     |
+        ## article-tag          | TAGNAME                                                        |
+        ## article-tags-end     | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*)     |
+        ## article-header-end   | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*)     |
+        ## content              | *                                                              |
+        ## article-end          | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*)     |
+        ## article-footer       | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*)  |
 
         content = u''
 
@@ -509,6 +509,7 @@ class Htmlizer(object):
         - #TITLE#
     - #ABOUT-BLOG#
     - #BLOGNAME#
+        - #ARTICLE-ID#: the (manually set) ID from the PROPERTIES drawer
         - #ARTICLE-YEAR#: four digit year of the article (folder path)
         - #ARTICLE-MONTH#: two digit month of the article (folder path)
         - #ARTICLE-DAY#: two digit day of the article (folder path)
@@ -533,6 +534,7 @@ class Htmlizer(object):
         oldesttimestamp, year, month, day, hours, minutes = self._get_oldest_timestamp_for_entry(entry)
         iso_timestamp = '-'.join([year, month, day]) + 'T' + hours + ':' + minutes
 
+        content = content.replace('#ARTICLE-ID#', entry['id'])
         content = content.replace('#ARTICLE-YEAR#', year)
         content = content.replace('#ARTICLE-MONTH#', month)
         content = content.replace('#ARTICLE-DAY#', day)
