@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-02-05 19:44:53 vk>
+# Time-stamp: <2014-02-09 10:37:04 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -226,6 +226,15 @@ CLOSED: [2014-02-01 Sat 15:03]
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 14:11]
 :END:
+** NEXT INFO: stats on files, headings and entries processed          :wish:
+:PROPERTIES:
+:CREATED:  [2014-02-09 Sun 10:31]
+:END:
+
+Example:
+: 16 files (422933 lines) with 975 headings parsed
+: resulted in 23 articles, 12 persistent pages, 79 tag pages
+
 ** NEXT get ordered lists of blog entries                     :architecture:
 :PROPERTIES:
 :CREATED:  [2014-02-01 Sat 13:48]
@@ -259,6 +268,7 @@ CLOSED: [2014-02-01 Sat 15:03]
 ** NEXT implement: creating PERSISTENT pages                     :userstory:
 :PROPERTIES:
 :CREATED:  [2013-10-19 Sat 18:50]
+:ID: 2013-10-19-persistent-pages
 :END:
 
 - htmlizer
@@ -269,6 +279,17 @@ CLOSED: [2014-02-01 Sat 15:03]
 :END:
 
 - htmlizer
+** NEXT impressum/about page                                     :userstory:
+:PROPERTIES:
+:CREATED:  [2014-02-09 Sun 10:33]
+:BLOCKER: 2013-10-19-persistent-pages
+:END:
+
+- example: [[https://blog.fefe.de/impressum.html]]
+- example: Tim Bray
+  - http://www.tbray.org/ongoing/WhatItIs
+  - http://www.tbray.org/ongoing/misc/Tim
+
 ** NEXT embed images that are defined by tsfile-statements       :userstory:
 :PROPERTIES:
 :CREATED:  [2014-01-29 Wed 17:30]
@@ -426,6 +447,19 @@ A sub-heading «result» contains the results which is expected.
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 14:12]
 :END:
+** TODO ID of sub-headings get stored and processed to anchors   :userstory:
+:PROPERTIES:
+:CREATED:  [2014-02-09 Sun 10:28]
+:END:
+
+- I want to
+  - refer to any ID of any blog article heading or blog article
+    sub-heading using the same method:
+: [[id:any-id][anchor text]]
+
+- lazyblorg has to be able to derive following according to any ID:
+  - get the URL of a blog entry
+  - get the ID/HREF of any sub-heading of any blog entry
 
 ** TODO provide RSS feed(s)                                      :userstory:
 :PROPERTIES:
@@ -536,6 +570,24 @@ see also id:2012-11-06-ago-generating
 
 - Example: if "What The World Needs"|"WTWN:" is found, link to a page
   where WTWN-series is described in general.
+** TODO add tree of headings on each article with sub-headings   :userstory:
+:PROPERTIES:
+:CREATED:  [2014-02-08 Sat 11:06]
+:END:
+
+- probably in sidebar?
+** TODO handle Org-mode priorities in heading                    :userstory:
+:PROPERTIES:
+:CREATED:  [2014-02-08 Sat 11:11]
+:END:
+
+Like "[#A]".
+
+- possible ideas
+  - ignore priorities
+    - suppress!
+  - convert into given tags ("important", ...)
+
 ** TODO [#B] CSS generated using Org/babel                    :architecture:
 :PROPERTIES:
 :CREATED:  [2012-12-13 Thu 10:08]
