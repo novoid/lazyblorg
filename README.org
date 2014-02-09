@@ -1,6 +1,13 @@
-## Time-stamp: <2014-02-02 19:22:31 vk>
+## Time-stamp: <2014-02-09 10:54:17 vk>
 ## -*- coding: utf-8;mode: org;  -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
+
+#+BEGIN_QUOTE
+«A designer knows he has achieved perfection not when there is nothing
+left to add, but when there is nothing left to take away.» ([[https://en.wikipedia.org/wiki/Antoine_de_Saint-Exup%25C3%25A9ry][Antoine de
+Saint-Exupéry]])
+#+END_QUOTE
+
 
 * lazyblorg -- blogging with Org-mode for very lazy people
 
@@ -17,13 +24,18 @@ See [[http://article.gmane.org/gmane.emacs.orgmode/49747/][my original post to t
   - modifying configuration settings, e.g., in script files
   - (optional) creating scheduled tasks (crond, ...)
 
+This piece of software is a sheer beauty with regard to:
+- simplicity of creating an additional blog entry
+- integration into my personal workflows
+  - here, you have to either adapt my awesome workflows or you have to
+    find alternative ways of doing following things:
+    - linking/including images (I use [[https://github.com/novoid/Memacs/blob/master/docs/memacs_filenametimestamps.org][Memacs]])
+    - copying resulting HTML files to webspace (I do it using [[http://www.cis.upenn.edu/~bcpierce/unison/][unison]]/rsync)
+    - more to come
+
 ** Why lazyblorg?
 
 *Minimum effort* for blogging.
-
-«A designer knows he has achieved perfection not when there is nothing
-left to add, but when there is nothing left to take away.» ([[https://en.wikipedia.org/wiki/Antoine_de_Saint-Exup%25C3%25A9ry][Antoine de
-Saint-Exupéry]])
 
 And: your blog entries can be written *anywhere in your Org-mode
 files*. They will be found by lazyblorg. :-)
@@ -99,6 +111,13 @@ lazyblorg will support a basic set of syntax of Org-mode. It will also
 support RSS feed(s), tags, (external) image files, tables, static
 pages (outside of day-oriented blog entry hierarchy), updates, and
 more.
+
+#+BEGIN_QUOTE
+«Technology develops from the primitive via the complex to the
+simple.» 
+#+END_QUOTE
+([[https://en.wikipedia.org/wiki/Antoine_de_Saint-Exup%25C3%25A9ry][Antoine de Saint-Exupéry]]; note: lazyblorg is currently "primitive"
+but with a great outlook up to the status of being simple)
 
 ** FAQs
 
