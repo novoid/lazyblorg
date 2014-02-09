@@ -13,4 +13,3 @@ lazyblorg_dump_of_blogdata_from_last_verbose_run.pk
 parse_template.sh
 regenerate_public_voit.sh
 make_and_publish_public_voit.sh
-/testdata/currently_supported_orgmode_syntax.html

@@ -1,4 +1,4 @@
-## Time-stamp: <2014-02-09 10:54:17 vk>
+## Time-stamp: <2014-02-09 11:01:34 vk>
 ## -*- coding: utf-8;mode: org;  -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -175,13 +175,13 @@ My plan as of 2013-08:
   additional, let's keep it that way: development stopped because it
   reached sufficient perfection :-)
 
-See also [[file:dev/lazyblorg.org]] for the issue tracking with all kind
+See also [[https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org][dev/lazyblorg.org]] for the issue tracking with all kind
 of information about the development (open issues, plans,
 documentation, ...).
 
 *** Is there any documentation about the internals of lazyblorg?
 
-Yes, please do read [[file:dev/lazyblorg.org]] (especially section "notes").
+Yes, please do read [[https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org][dev/lazyblorg.org]] (especially section "notes").
 
 *** Lazyblorg uses what technology?
 
@@ -192,13 +192,13 @@ Yes, please do read [[file:dev/lazyblorg.org]] (especially section "notes").
 
 *** Can I use the Org-mode parser (in Python) for other purposes as well? 
 
-Yes, please do read [[file:dev/lazyblorg.org]] and [[file:lib/orgparser.py]].
+Yes, please do read [[https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org][dev/lazyblorg.org]] and [[https://github.com/novoid/lazyblorg/blob/master/lib/orgparser.py][lib/orgparser.py]].
 
 Although, you have to modify it a bit since I filter out headings
 that meet the criteria of being a blog article.
 
 Please also note that this parser only implements a sub-set of
-Org-mode syntax (see section "notes" in [[file:dev/lazyblorg.org]]).
+Org-mode syntax (see section "notes" in [[https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org][dev/lazyblorg.org]]).
 
 *** I do have a question but it is not listed here. Where to ask?
 
