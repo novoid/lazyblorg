@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-02 19:23:17 vk>
+# Time-stamp: <2014-02-13 22:10:42 vk>
 
 import unittest
 from lib.htmlizer import *
@@ -34,6 +34,13 @@ class TestHtmlizer(unittest.TestCase):
 
         self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"This is *bold face* and ~teletype style~.") ==
                         u"This is <b>bold face</b> and <code>teletype style</code>.")
+
+        ## real-world examples:
+        # FIXXME: issue with german umlauts
+        #self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"Das ist *mit Umlaut Öäß und so weiter*.") ==
+        #                u"Das ist <b>mit Umlaut Öäß und so weiter</b>.")
+        #self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"Das ist *mit Umlaut Öäß und Ende*") ==
+        #                u"Das ist <b>mit Umlaut Öäß und Ende</b>")
 
     def test_sanitize_HTML_entities(self):
 
@@ -100,6 +107,11 @@ class TestHtmlizer(unittest.TestCase):
         htmlstring = "Multiple URLs in one line: <a href=\"http://heise.de\">http://heise.de</a> <a href=\"http://heise.de\">http://heise.de</a> <a href=\"http://heise.de\">heise</a>"
         self.assertTrue(htmlizer.sanitize_external_links(orgstring) == htmlstring)
 
+        ## edge cases
+
+        orgstring = "URLs with special characters: [[https://de.wikipedia.org/wiki/Partition_%28Datentr%C3%A4ger%29]] [[https://de.wikipedia.org/wiki/Partition_%28Datentr%C3%A4ger%29][description]] foobar"
+        htmlstring = "URLs with special characters: <a href=\"https://de.wikipedia.org/wiki/Partition_%28Datentr%C3%A4ger%29\">https://de.wikipedia.org/wiki/Partition_%28Datentr%C3%A4ger%29</a> <a href=\"https://de.wikipedia.org/wiki/Partition_%28Datentr%C3%A4ger%29\">description</a> foobar"
+        self.assertTrue(htmlizer.sanitize_external_links(orgstring) == htmlstring)
 
     def test_fix_ampersands_in_url(self):
 

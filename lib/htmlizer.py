@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-05 19:11:35 vk>
+# Time-stamp: <2014-02-13 22:11:02 vk>
 
 import logging
 import os
@@ -70,15 +70,17 @@ class Htmlizer(object):
     ## find '&amp;' in an active URL and fix it to '&':
     FIX_AMPERSAND_URL_REGEX = re.compile('(href="http(s)?://\S+?)&amp;(\S+?")')
 
-    ## find *bold text*:
-    BOLD_REGEX = re.compile('(\W)\*([a-zA-Z0-9._/\\ -]+?)\*(\W)')
-    
+    ## find *bold text*: FIXXME: issue with german umlauts
+    BOLD_REGEX = re.compile('(\W)\*([öÖäÄÜüßa-zA-Z0-9._/\\ -]+?)\*(\W)')
+    #BOLD_REGEX = re.compile('([\W^])\*([öÖäÄÜüßa-zA-Z0-9._/\\ -]*?\S)\*([\W$])')
+    #BOLD_REGEX = re.compile('([\W^])\*(.*?\S)\*([\W$])')
+
     ## find ~teletype or source text~:
-    TELETYPE_REGEX = re.compile('(\W)~([a-zA-Z0-9._/\\ -]+?)~(\W)')
-    
+    TELETYPE_REGEX = re.compile('(\W)~([öÖäÄÜüßa-zA-Z0-9._/\\ -]+?)~(\W)')
+
     ## any ISO date-stamp of format YYYY-MM-DD:
     DATESTAMP_REGEX = re.compile('([12]\d\d\d)-([012345]\d)-([012345]\d)')
-    
+
     def __init__(self, template_definitions, prefix_dir, blog_tag, about_blog, targetdir, blog_data,
                  generate, increment_version):
         """
@@ -169,7 +171,7 @@ class Htmlizer(object):
         @param htmlcontent: the (UTF-8) string of the HTML content
         @param return: True if success
         """
-        
+
         if filename and htmlcontent:
             with codecs.open(filename, 'wb', encoding='utf-8') as output:
                 try:
@@ -182,7 +184,7 @@ class Htmlizer(object):
         else:
             self.logging.critical("No filename (" + str(filename) + ") or htmlcontent when writing file: " + str(filename))
             return False
-            
+
     def sanitize_and_htmlize_blog_content(self, entry):
         """
         Inspects a selection of the entry content data and sanitizes
@@ -286,7 +288,7 @@ class Htmlizer(object):
                 ## ['verse-block', False, [u'first line', u'second line']]
                 ## ['example-block', False, [u'first line', u'second line']]
                 result = None
-                
+
                 result = self.template_definition_by_name('named-pre-begin')
                 if entry['content'][index][1]:
                     result = self.template_definition_by_name('named-pre-begin')
@@ -308,7 +310,7 @@ class Htmlizer(object):
                 ## ['quote-block', False, [u'first line', u'second line']]
 
                 ## FIXXME: add interpretation of quotes: things like lists can occur within
-                
+
                 result = self.template_definition_by_name('blockquote-begin')
                 mycontent = '\n'.join(entry['content'][index][2])
                 self.logging.debug("result [%s]" % repr(result))
@@ -367,7 +369,7 @@ class Htmlizer(object):
 
         return result
 
-    
+
     def htmlize_simple_text_formatting(self, content):
         """
         Transforms simple text formatting syntax into HTML entities such as
@@ -381,12 +383,16 @@ class Htmlizer(object):
         """
 
         assert(type(content) == str or type(content) == unicode)
-        
+
+        #import pdb; pdb.set_trace()
+        #FIXXME: issue with german umlauts
+        #print "before: [" + content + "]"
         content = re.subn(self.BOLD_REGEX, r'\1<b>\2</b>\3', content)[0]
         content = re.subn(self.TELETYPE_REGEX, r'\1<code>\2</code>\3', content)[0]
+        #print "after:  [" + content + "]"
 
         return content
-    
+
     def sanitize_html_characters(self, content):
         """
         Replaces all occurrences of [<>] with their HTML representation.
