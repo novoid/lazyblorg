@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-13 22:10:42 vk>
+# Time-stamp: <2014-02-25 18:52:11 vk>
 
 import unittest
 from lib.htmlizer import *
@@ -37,10 +37,28 @@ class TestHtmlizer(unittest.TestCase):
 
         ## real-world examples:
         # FIXXME: issue with german umlauts
-        #self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"Das ist *mit Umlaut Öäß und so weiter*.") ==
-        #                u"Das ist <b>mit Umlaut Öäß und so weiter</b>.")
-        #self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"Das ist *mit Umlaut Öäß und Ende*") ==
-        #                u"Das ist <b>mit Umlaut Öäß und Ende</b>")
+        self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"Das ist *ohne Umlaut und so weiter*.") ==
+                        u"Das ist <b>ohne Umlaut und so weiter</b>.")
+        self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"Das ist *ohne Umlaut und Ende*") ==
+                        u"Das ist <b>ohne Umlaut und Ende</b>")
+        self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"*ohne Umlaut und Anfang und Ende*") ==
+                        u"<b>ohne Umlaut und Anfang und Ende</b>")
+
+        self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"Das ist *mit Umlaut Öäß und so weiter*.") ==
+                        u"Das ist <b>mit Umlaut Öäß und so weiter</b>.")
+        print "output: "+ htmlizer.htmlize_simple_text_formatting(u"Das ist *mit Umlaut Öäß und Ende*")
+        print "check:  "+ u"Das ist <b>mit Umlaut Öäß und Ende</b>"
+        self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"Das ist *mit Umlaut Öäß und Ende*") ==
+                        u"Das ist <b>mit Umlaut Öäß und Ende</b>")
+        self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"*mit Umlaut Öäß und Anfang und Ende*") ==
+                        u"<b>mit Umlaut Öäß und Anfang und Ende</b>")
+
+        self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"Das ist ~mit Umlaut Öäß und so weiter~.") ==
+                        u"Das ist <code>mit Umlaut Öäß und so weiter</code>.")
+        self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"Das ist ~mit Umlaut Öäß und Ende~") ==
+                        u"Das ist <code>mit Umlaut Öäß und Ende</code>")
+        self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"~mit Umlaut Öäß und Anfang und Ende~") ==
+                        u"<code>mit Umlaut Öäß und Anfang und Ende</code>")
 
     def test_sanitize_HTML_entities(self):
 

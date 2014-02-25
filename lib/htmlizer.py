@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-13 22:11:02 vk>
+# Time-stamp: <2014-02-25 18:49:40 vk>
 
 import logging
 import os
@@ -59,24 +59,27 @@ class Htmlizer(object):
     TIME_ZONE_ADDON = '+02:00'
 
     ## find external links such as [[http(s)://foo.com][bar]]:
-    EXT_URL_WITH_DESCRIPTION_REGEX = re.compile('\[\[(http[^ ]+?)\]\[(.+?)\]\]')
+    EXT_URL_WITH_DESCRIPTION_REGEX = re.compile(u'\[\[(http[^ ]+?)\]\[(.+?)\]\]')
 
     ## find external links such as [[foo]]:
-    EXT_URL_WITHOUT_DESCRIPTION_REGEX = re.compile('\[\[(.+?)\]\]')
+    EXT_URL_WITHOUT_DESCRIPTION_REGEX = re.compile(u'\[\[(.+?)\]\]')
 
     ## find external links such as http(s)://foo.bar
-    EXT_URL_LINK_REGEX = re.compile('([^"<>\[])(http(s)?:\/\/\S+)')
+    EXT_URL_LINK_REGEX = re.compile(u'([^"<>\[])(http(s)?:\/\/\S+)')
 
     ## find '&amp;' in an active URL and fix it to '&':
-    FIX_AMPERSAND_URL_REGEX = re.compile('(href="http(s)?://\S+?)&amp;(\S+?")')
+    FIX_AMPERSAND_URL_REGEX = re.compile(u'(href="http(s)?://\S+?)&amp;(\S+?")')
 
     ## find *bold text*: FIXXME: issue with german umlauts
-    BOLD_REGEX = re.compile('(\W)\*([öÖäÄÜüßa-zA-Z0-9._/\\ -]+?)\*(\W)')
+    BOLD_REGEX = re.compile(u'\*([^*]*)\*', flags = re.U)
+    BOLD_REGEX = re.compile(u'([\W^])\*([öÖäÄÜüßa-zA-Z0-9._/\\ -]+?)\*([\W$])')
+    #BOLD_REGEX = re.compile(u'([\W^])\*([öÖäÄÜüßa-zA-Z0-9._/\\ -]+?)\*([\W$])')
+    #BOLD_REGEX = re.compile(u'(\W)\*([öÖäÄÜüßa-zA-Z0-9._/\\ -]+?)\*(\W)')
     #BOLD_REGEX = re.compile('([\W^])\*([öÖäÄÜüßa-zA-Z0-9._/\\ -]*?\S)\*([\W$])')
     #BOLD_REGEX = re.compile('([\W^])\*(.*?\S)\*([\W$])')
 
     ## find ~teletype or source text~:
-    TELETYPE_REGEX = re.compile('(\W)~([öÖäÄÜüßa-zA-Z0-9._/\\ -]+?)~(\W)')
+    TELETYPE_REGEX = re.compile(u'(\W)~([öÖäÄÜüßa-zA-Z0-9._/\\ -]+?)~(\W)')
 
     ## any ISO date-stamp of format YYYY-MM-DD:
     DATESTAMP_REGEX = re.compile('([12]\d\d\d)-([012345]\d)-([012345]\d)')
