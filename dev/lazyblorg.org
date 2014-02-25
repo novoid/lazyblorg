@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-02-09 10:37:04 vk>
+# Time-stamp: <2014-02-25 19:43:12 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -209,7 +209,6 @@ CLOSED: [2014-02-01 Sat 15:03]
 :END:
 
 - see paper from [2014-01-31 Fri]
-
 ** NEXT HTML: manually create main jumping page                :architecture:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 12:24]
@@ -644,6 +643,14 @@ display: block;
   - link to a list of blog entries for this tag
 
 - see also id:2012-11-11-autotags
+** TODO collect Org-mode data & provide download link on each page :userstory:
+:PROPERTIES:
+:CREATED:  [2014-02-20 Do 15:48]
+:END:
+
+- collect data
+  - omit :noexport: headings
+
 ** SOMEDAY [#C] Pre-search for new blog articles before invoking lazyblorg :userstory:
 :LOGBOOK:
 - State "SOMEDAY"    from "TODO"       [2014-02-01 Sat 15:36]
@@ -1364,6 +1371,17 @@ The basic script workflow is not that complicated:
     - optionally: generate tag overview page(s)
 
 #+END_QUOTE
+
+** Other Org-mode parsers
+:PROPERTIES:
+:CREATED:  [2014-02-25 Tue 19:41]
+:END:
+
+- https://bazaar.launchpad.net/~washort/+junk/pyporgan/files/head:/pyporgan/
+  - very clean
+  - parses only structure -> very basic
+- https://github.com/bjonnh/PyOrgMode
+  - very basic
 
 * Local Variables                                                  :noexport:
 # Local Variables:
