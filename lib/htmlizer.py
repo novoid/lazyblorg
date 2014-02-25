@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-25 19:11:07 vk>
+# Time-stamp: <2014-02-25 19:34:16 vk>
 
 import logging
 import os
@@ -70,16 +70,11 @@ class Htmlizer(object):
     ## find '&amp;' in an active URL and fix it to '&':
     FIX_AMPERSAND_URL_REGEX = re.compile(u'(href="http(s)?://\S+?)&amp;(\S+?")', flags = re.U)
 
-    ## find *bold text*: FIXXME: issue with german umlauts
-    BOLD_REGEX = re.compile(u'\*([^*]*)\*', flags = re.U)
-    BOLD_REGEX = re.compile(u'([\W^])\*([öÖäÄÜüßa-zA-Z0-9._/\\ -]+?)\*([\W$])')
-    #BOLD_REGEX = re.compile(u'([\W^])\*([öÖäÄÜüßa-zA-Z0-9._/\\ -]+?)\*([\W$])')
-    #BOLD_REGEX = re.compile(u'(\W)\*([öÖäÄÜüßa-zA-Z0-9._/\\ -]+?)\*(\W)')
-    #BOLD_REGEX = re.compile('([\W^])\*([öÖäÄÜüßa-zA-Z0-9._/\\ -]*?\S)\*([\W$])')
-    #BOLD_REGEX = re.compile('([\W^])\*(.*?\S)\*([\W$])')
+    ## find *bold text*:
+    BOLD_REGEX = re.compile(u'\*([^*]+)\*', flags = re.U)
 
     ## find ~teletype or source text~:
-    TELETYPE_REGEX = re.compile(u'(\W)~([öÖäÄÜüßa-zA-Z0-9._/\\ -]+?)~(\W)', flags = re.U)
+    TELETYPE_REGEX = re.compile(u'~([^~]+)~', flags = re.U)
 
     ## any ISO date-stamp of format YYYY-MM-DD:
     DATESTAMP_REGEX = re.compile('([12]\d\d\d)-([012345]\d)-([012345]\d)', flags = re.U)
@@ -385,15 +380,10 @@ class Htmlizer(object):
 
         """
 
-        #assert(type(content) == str or type(content) == unicode)
         assert(type(content) == unicode)
 
-        #import pdb; pdb.set_trace()
-        #FIXXME: issue with german umlauts
-        #print "before: [" + content + "]"
-        content = re.subn(self.BOLD_REGEX, ur'\1<b>\2</b>\3', content)[0]
-        content = re.subn(self.TELETYPE_REGEX, ur'\1<code>\2</code>\3', content)[0]
-        #print "after:  [" + content + "]"
+        content = re.subn(self.BOLD_REGEX, ur'<b>\1</b>', content)[0]
+        content = re.subn(self.TELETYPE_REGEX, ur'<code>\1</code>', content)[0]
 
         assert(type(content) == unicode)
 
