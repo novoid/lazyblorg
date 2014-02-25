@@ -1,5 +1,5 @@
-## Time-stamp: <2014-02-09 11:01:34 vk>
 ## -*- coding: utf-8;mode: org;  -*-
+## Time-stamp: <2014-02-25 17:33:07 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -267,6 +267,25 @@ with "FIXXME" in the source code files.
      web space copy) of the published version (and not the meta-data
      of the previous test-run).
 9. have fun with a pretty neat method to generate your blog pages
+
+** Preview Blog Article
+:PROPERTIES:
+:CREATED:  [2014-02-25 Tue 17:27]
+:END:
+
+There is a simple method to preview the article under the cursor. The
+script [[https://github.com/novoid/lazyblorg/blob/master/preview_blogentry.sh][preview_blogentry.sh]] contains an ELISP function that extracts
+the current blog article (all lazyblorg citeria has to be fulfilled:
+ID, ~blog~ tag, status ~DONE~), stores it into a temporary file, and
+invokes lazyblorg via ~preview_blogentry.sh~ with this temporary file
+and the Org-mode file containing the format definitions.
+
+If this worked out, your browser shows you all generated blog
+articles.
+
+Please do adopt the scripts to you specific requirements - the ones
+from the repository are for my personal set-up which is unlikely to
+fit yours (directory paths mostly).
 
 * Contribute!
 
