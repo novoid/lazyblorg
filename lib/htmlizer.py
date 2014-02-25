@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-25 18:49:40 vk>
+# Time-stamp: <2014-02-25 19:11:07 vk>
 
 import logging
 import os
@@ -59,16 +59,16 @@ class Htmlizer(object):
     TIME_ZONE_ADDON = '+02:00'
 
     ## find external links such as [[http(s)://foo.com][bar]]:
-    EXT_URL_WITH_DESCRIPTION_REGEX = re.compile(u'\[\[(http[^ ]+?)\]\[(.+?)\]\]')
+    EXT_URL_WITH_DESCRIPTION_REGEX = re.compile(u'\[\[(http[^ ]+?)\]\[(.+?)\]\]', flags = re.U)
 
     ## find external links such as [[foo]]:
-    EXT_URL_WITHOUT_DESCRIPTION_REGEX = re.compile(u'\[\[(.+?)\]\]')
+    EXT_URL_WITHOUT_DESCRIPTION_REGEX = re.compile(u'\[\[(.+?)\]\]', flags = re.U)
 
     ## find external links such as http(s)://foo.bar
-    EXT_URL_LINK_REGEX = re.compile(u'([^"<>\[])(http(s)?:\/\/\S+)')
+    EXT_URL_LINK_REGEX = re.compile(u'([^"<>\[])(http(s)?:\/\/\S+)', flags = re.U)
 
     ## find '&amp;' in an active URL and fix it to '&':
-    FIX_AMPERSAND_URL_REGEX = re.compile(u'(href="http(s)?://\S+?)&amp;(\S+?")')
+    FIX_AMPERSAND_URL_REGEX = re.compile(u'(href="http(s)?://\S+?)&amp;(\S+?")', flags = re.U)
 
     ## find *bold text*: FIXXME: issue with german umlauts
     BOLD_REGEX = re.compile(u'\*([^*]*)\*', flags = re.U)
@@ -79,10 +79,10 @@ class Htmlizer(object):
     #BOLD_REGEX = re.compile('([\W^])\*(.*?\S)\*([\W$])')
 
     ## find ~teletype or source text~:
-    TELETYPE_REGEX = re.compile(u'(\W)~([öÖäÄÜüßa-zA-Z0-9._/\\ -]+?)~(\W)')
+    TELETYPE_REGEX = re.compile(u'(\W)~([öÖäÄÜüßa-zA-Z0-9._/\\ -]+?)~(\W)', flags = re.U)
 
     ## any ISO date-stamp of format YYYY-MM-DD:
-    DATESTAMP_REGEX = re.compile('([12]\d\d\d)-([012345]\d)-([012345]\d)')
+    DATESTAMP_REGEX = re.compile('([12]\d\d\d)-([012345]\d)-([012345]\d)', flags = re.U)
 
     def __init__(self, template_definitions, prefix_dir, blog_tag, about_blog, targetdir, blog_data,
                  generate, increment_version):
@@ -220,7 +220,7 @@ class Htmlizer(object):
 
                 ## join all lines of a paragraph to one single long
                 ## line in order to enable sanitizing URLs and such:
-                result = ' '.join(entry['content'][index][1:])
+                result = u' '.join(entry['content'][index][1:])
 
                 result = self.sanitize_html_characters(result)
                 result = self.sanitize_external_links(result)
@@ -315,7 +315,7 @@ class Htmlizer(object):
                 ## FIXXME: add interpretation of quotes: things like lists can occur within
 
                 result = self.template_definition_by_name('blockquote-begin')
-                mycontent = '\n'.join(entry['content'][index][2])
+                mycontent = u'\n'.join(entry['content'][index][2])
                 self.logging.debug("result [%s]" % repr(result))
                 self.logging.debug("mycontent [%s]" % repr(mycontent))
                 result += self.htmlize_simple_text_formatting(self.sanitize_external_links(self.sanitize_html_characters(mycontent)))
@@ -366,7 +366,7 @@ class Htmlizer(object):
         @param return: fixed string
         """
 
-        result = re.sub(self.FIX_AMPERSAND_URL_REGEX, r'\1&\3', content)
+        result = re.sub(self.FIX_AMPERSAND_URL_REGEX, ur'\1&\3', content)
         if result != content:
             self.logging.debug("fix_ampersands_in_url: fixed \"%s\" to \"%s\"" % (content, result))
 
@@ -385,14 +385,17 @@ class Htmlizer(object):
 
         """
 
-        assert(type(content) == str or type(content) == unicode)
+        #assert(type(content) == str or type(content) == unicode)
+        assert(type(content) == unicode)
 
         #import pdb; pdb.set_trace()
         #FIXXME: issue with german umlauts
         #print "before: [" + content + "]"
-        content = re.subn(self.BOLD_REGEX, r'\1<b>\2</b>\3', content)[0]
-        content = re.subn(self.TELETYPE_REGEX, r'\1<code>\2</code>\3', content)[0]
+        content = re.subn(self.BOLD_REGEX, ur'\1<b>\2</b>\3', content)[0]
+        content = re.subn(self.TELETYPE_REGEX, ur'\1<code>\2</code>\3', content)[0]
         #print "after:  [" + content + "]"
+
+        assert(type(content) == unicode)
 
         return content
 
@@ -404,7 +407,7 @@ class Htmlizer(object):
         @param return: sanitized string
         """
 
-        return content.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+        return content.replace(u'&', u'&amp;').replace(u'<', u'&lt;').replace(u'>', u'&gt;')
 
     def sanitize_external_links(self, content):
         """
@@ -418,11 +421,11 @@ class Htmlizer(object):
         @param return: sanitized string
         """
 
-        content = re.sub(self.EXT_URL_LINK_REGEX, r'\1<a href="\2">\2</a>', content)
+        content = re.sub(self.EXT_URL_LINK_REGEX, ur'\1<a href="\2">\2</a>', content)
 
-        content = re.sub(self.EXT_URL_WITH_DESCRIPTION_REGEX, r'<a href="\1">\2</a>', content)
+        content = re.sub(self.EXT_URL_WITH_DESCRIPTION_REGEX, ur'<a href="\1">\2</a>', content)
 
-        content = re.sub(self.EXT_URL_WITHOUT_DESCRIPTION_REGEX, r'<a href="\1">\1</a>', content)
+        content = re.sub(self.EXT_URL_WITHOUT_DESCRIPTION_REGEX, ur'<a href="\1">\1</a>', content)
 
         return content
 

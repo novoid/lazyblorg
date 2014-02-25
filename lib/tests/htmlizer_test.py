@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-25 18:52:11 vk>
+# Time-stamp: <2014-02-25 19:12:55 vk>
 
 import unittest
 from lib.htmlizer import *
@@ -23,12 +23,12 @@ class TestHtmlizer(unittest.TestCase):
 
     def test_simple_formatting(self):
 
-        template_definitions = 'foo'
-        prefix_dir = 'foo'
-        targetdir = 'foo'
-        blog_data = 'foo'
-        generate = 'foo'
-        increment_version = 'foo'
+        template_definitions = u'foo'
+        prefix_dir = u'foo'
+        targetdir = u'foo'
+        blog_data = u'foo'
+        generate = u'foo'
+        increment_version = u'foo'
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
                             blog_data, generate, increment_version)
 
