@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-25 19:34:16 vk>
+# Time-stamp: <2014-02-27 21:56:59 vk>
 
 import logging
 import os
@@ -147,7 +147,7 @@ class Htmlizer(object):
             elif entry['category'] == self.TEMPORAL:
                 #pdb.set_trace()## FIXXME
                 self.logging.debug("entry \"%s\" is an ordinary time-oriented blog entry" % entry['id'])
-                filename, htmlcontent = self._create_time_oriented_blog_article(entry)
+                htmlfilename, orgfilename, htmlcontent = self._create_time_oriented_blog_article(entry)
 
             elif entry['category'] == self.TEMPLATES:
                 self.logging.debug("entry \"%s\" is the/a HTML template definition. Ignoring." % entry['id'])
@@ -159,7 +159,8 @@ class Htmlizer(object):
                 raise HtmlizerException(message)
 
             if entry['category'] == self.TAGS or entry['category'] == self.PERSISTENT or entry['category'] == self.TEMPORAL:
-                self.write_htmlcontent_to_file(filename, htmlcontent)
+                self.write_htmlcontent_to_file(htmlfilename, htmlcontent)
+                self.write_orgcontent_to_file(orgfilename, entry['rawcontent'])
 
     def write_htmlcontent_to_file(self, filename, htmlcontent):
         """
@@ -183,6 +184,28 @@ class Htmlizer(object):
             self.logging.critical("No filename (" + str(filename) + ") or htmlcontent when writing file: " + str(filename))
             return False
 
+    def write_orgcontent_to_file(self, orgfilename, rawcontent):
+        """
+        Creates the file and writes the raw Org-mode source into it.
+
+        @param orgfilename: the name of the file to write to including path
+        @param rawcontent: the (UTF-8) string of the HTML content
+        @param return: True if success
+        """
+
+        if orgfilename and rawcontent:
+            with codecs.open(orgfilename, 'wb', encoding='utf-8') as output:
+                try:
+                    output.write(rawcontent)
+                except:
+                    self.logging.critical("Error when writing file: " + str(orgfilename))
+                    raise
+                    return False
+            return True
+        else:
+            self.logging.critical("No filename (" + str(orgfilename) + ") or Org-mode raw content when writing file: " + str(orgfilename))
+            return False
+        
     def sanitize_and_htmlize_blog_content(self, entry):
         """
         Inspects a selection of the entry content data and sanitizes
@@ -424,12 +447,15 @@ class Htmlizer(object):
         Creates a (normal) time-oriented blog article (in contrast to a permanent blog article).
 
         @param entry: blog entry data
-        @param return: hopefully :-) (but nothing special)
+        @param return: htmlfilename: string containing the file name of the HTML file
+        @param return: orgfilename: string containing the file name of the Org-mode raw content file
+        @param return: htmlcontent: the HTML content of the entry
         """
 
         path = self._create_target_path_for_id(entry['id'])
 
-        filename = os.path.join(path, "index.html")
+        htmlfilename = os.path.join(path, "index.html")
+        orgfilename = os.path.join(path, "source.org.txt")
 
         htmlcontent = u''
 
@@ -478,7 +504,7 @@ class Htmlizer(object):
             content += self.template_definition_by_name(articlepart)
         htmlcontent += self._replace_general_article_placeholders(entry, content)
 
-        return filename, htmlcontent
+        return htmlfilename, orgfilename, htmlcontent
 
     def _replace_tag_placeholders(self, tags, template_string):
         """

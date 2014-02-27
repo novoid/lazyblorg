@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-02 19:26:03 vk>
+# Time-stamp: <2014-02-27 22:16:50 vk>
 
 import unittest
 from lib.utils import *
@@ -32,9 +32,9 @@ class TestOrgParser(unittest.TestCase):
 
     def test_simple_org_to_blogdata(self):
 
-            ## format of the storage file
-            ## pickle offers, e.g., 0 (ASCII; human-readable) or pickle.HIGHEST_PROTOCOL (binary; more efficient)
-            #PICKLE_FORMAT = pickle.HIGHEST_PROTOCOL
+        ## format of the storage file
+        ## pickle offers, e.g., 0 (ASCII; human-readable) or pickle.HIGHEST_PROTOCOL (binary; more efficient)
+        #PICKLE_FORMAT = pickle.HIGHEST_PROTOCOL
         PICKLE_FORMAT = 0
 
         testfile_org = "simple.org"  ## manually written Org-mode file; has to be placed in "lib/tests/"

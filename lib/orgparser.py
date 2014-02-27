@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-02 19:28:39 vk>
+# Time-stamp: <2014-02-27 21:44:54 vk>
 
 import re
 import os
@@ -210,11 +210,12 @@ class OrgParser(object):
         return self.__check_if_entry_is_OK(check_only_title=True)
 
 
-    def __handle_blog_end(self, line):
+    def __handle_blog_end(self, line, rawcontent):
         """
         Handles the end of the current blog entry.
 
         @param line: string containing current parsed line
+        @param rawcontent: string containing the raw Org-mode source of the current blog entry
         @param return: ID of next state
         """
 
@@ -239,6 +240,9 @@ class OrgParser(object):
                 self.logging.debug("OrgParser: check OK; appending to blog category TEMPORAL ...")
                 self.__entry_data['category'] = self.TEMPORAL
 
+            ## adding the Org-mode source:
+            self.__entry_data['rawcontent'] = rawcontent
+                
             ## debug with: self._OrgParser__entry_data
             self.__blog_data.append(self.__entry_data)
 
@@ -291,9 +295,17 @@ class OrgParser(object):
         ## if skipping a heading within an entry, this variable holds
         ## the level of heading of the noexport-heading:
         noexport_level = False
-                
+
+        ## collect the lines of the raw Org-mode entry (without noexport-headings):
+        rawcontent = u""
+        ignore_line_for_rawcontent = True
+        
         for rawline in codecs.open(self.__filename, 'r', encoding='utf-8'):
 
+            if not ignore_line_for_rawcontent:
+                rawcontent += line + '\n'  ## FIXXME: first blog header is lost if file starts directly with it
+            ignore_line_for_rawcontent = False
+                
             line = rawline.rstrip()  ## remove trailing whitespace
 
             self.logging.debug("OrgParser: ------------------------------- %s" % state)
@@ -313,9 +325,11 @@ class OrgParser(object):
                         ## keep current line and continue parsing normally
                     else:
                         ## ignore heading because it is a sub-heading of the noexport heading
+                        ignore_line_for_rawcontent = True
                         continue
                 else:
                     ## ignore line because it is no heading at all
+                    ignore_line_for_rawcontent = True
                     continue
             
             if state == self.SEARCHING_BLOG_HEADER:
@@ -341,10 +355,12 @@ class OrgParser(object):
                     else:
                         self.__entry_data = {}  ## empty current entry data
                         previous_line = line
+                        ignore_line_for_rawcontent = True
                         continue
 
                 else:
                     self.logging.debug("OrgParser: line is not of any interest, skipping.")
+                    ignore_line_for_rawcontent = True
                     previous_line = line
                     continue
 
@@ -451,12 +467,15 @@ class OrgParser(object):
                             state = self.SKIPPING_NOEXPORT_HEADING
                             noexport_level = level
                             previous_line = line  ## maybe this is not needed
+                            ignore_line_for_rawcontent = True
                             continue
                     
                     if level <= self.__entry_data['level']:
                         ## level is same or higher as main heading of blog entry: end of blog entry
-                        state = self.__handle_blog_end(line)
+                        state = self.__handle_blog_end(line, rawcontent)
+                        rawcontent = u""
                         previous_line = line
+                        ignore_line_for_rawcontent = True
                         continue
                     else:
                         ## sub-heading of entry
@@ -496,6 +515,7 @@ class OrgParser(object):
                     ## if all properties already found, ignore rest of PROPERTIES and all other PROPERTIES (of sub-headings)
                     self.logging.debug("OrgParser: ignoring PROPERTIES since I already got my ID and CREATED")
                     previous_line = line
+                    ignore_line_for_rawcontent = True  ## OK, here I omit some unimportant properties others might want to see
                     continue
 
                 if line.upper().startswith(':ID:'):
@@ -594,7 +614,7 @@ class OrgParser(object):
             ## in case file ends while parsing an blog entry (no following heading is finishing current entry):
             self.logging.debug("OrgParser: finished file \"%s\" while parsing blog entry. Finishing it." %
                                self.__filename)
-            self.__handle_blog_end(u"")
+            self.__handle_blog_end(u"", rawcontent)
 
         self.logging.debug("OrgParser: finished file \"%s\"" % self.__filename)
         #debug:   data = self._OrgParser__entry_data ; data['content']

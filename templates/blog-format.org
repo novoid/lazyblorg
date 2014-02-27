@@ -1,4 +1,4 @@
-## Time-stamp: <2014-02-05 19:31:26 vk>
+## Time-stamp: <2014-02-27 22:16:02 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -125,7 +125,11 @@ Have fun with modifying lazyblorg to your requirements!
 #+NAME: article-header-begin
 #+BEGIN_HTML
   <body>
+
+    <div class="article-orgsource"><a href="source.org.txt">&#960;</a></div>
+
     <article class="article">
+
 
 	<header>
 

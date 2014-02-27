@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-02-25 19:43:12 vk>
+# Time-stamp: <2014-02-27 22:21:48 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -404,26 +404,6 @@ Example:
 
 1. just link a file, do not show image
 2. show the linked image directly
-** STARTED test generate_output (comparing HTML/CSS output files)     :tests:
-:PROPERTIES:
-:CREATED:  [2013-02-14 Thu 17:28]
-:END:
-
-- Python: comparing files/directories: http://docs.python.org/2/library/filecmp.html
-
-- example: https://github.com/bjonnh/PyOrgMode/blob/master/test.py
-  - comparing Org-mode files line-by-line
-
-*** Idea: parse content test cases from Org file
-
-A file like «tests.org» contains test cases, each one in a
-heading. if it starts with «test: » it is a test case followed by its
-test name.
-
-A sub-heading «Org» contains the Org-mode document/snippet which gets
-parsed.
-
-A sub-heading «result» contains the results which is expected.
 ** NEXT [#C] take a look at SASS -> CSS                       :architecture:
 :LOGBOOK:
 - Not scheduled, was "2013-09-16 Mon" on [2013-09-23 Mon 18:37]
@@ -643,14 +623,6 @@ display: block;
   - link to a list of blog entries for this tag
 
 - see also id:2012-11-11-autotags
-** TODO collect Org-mode data & provide download link on each page :userstory:
-:PROPERTIES:
-:CREATED:  [2014-02-20 Do 15:48]
-:END:
-
-- collect data
-  - omit :noexport: headings
-
 ** SOMEDAY [#C] Pre-search for new blog articles before invoking lazyblorg :userstory:
 :LOGBOOK:
 - State "SOMEDAY"    from "TODO"       [2014-02-01 Sat 15:36]
