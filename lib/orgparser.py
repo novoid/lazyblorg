@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-27 21:44:54 vk>
+# Time-stamp: <2014-02-28 15:28:58 vk>
 
 import re
 import os
@@ -303,7 +303,7 @@ class OrgParser(object):
         for rawline in codecs.open(self.__filename, 'r', encoding='utf-8'):
 
             if not ignore_line_for_rawcontent:
-                rawcontent += line + '\n'  ## FIXXME: first blog header is lost if file starts directly with it
+                rawcontent += line + '\n'  ## first blog header is lost if file starts directly with it: is fixed below
             ignore_line_for_rawcontent = False
                 
             line = rawline.rstrip()  ## remove trailing whitespace
@@ -351,6 +351,9 @@ class OrgParser(object):
                                                                              components.group(self.HEADING_TAGS_IDX)):
                         state = self.BLOG_HEADER
                         previous_line = line
+                        if ignore_line_for_rawcontent:
+                            ## if it is first line, save current heading to rawcontent:
+                            rawcontent += line + '\n'  ## fixes: first blog header is lost if file starts directly with it
                         continue
                     else:
                         self.__entry_data = {}  ## empty current entry data
