@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-01 20:37:42 vk>
+# Time-stamp: <2014-03-01 23:07:21 vk>
 
 import logging
 import os
@@ -57,6 +57,9 @@ class Htmlizer(object):
 
     ## this gets added to the time in order to describe time zone of the blog:
     TIME_ZONE_ADDON = '+02:00'
+
+    ## show this many article teasers on entry page
+    NUMBER_OF_TEASER_ARTICLES = 3
 
     ## find external links such as [[http(s)://foo.com][bar]]:
     EXT_URL_WITH_DESCRIPTION_REGEX = re.compile(u'\[\[(http[^ ]+?)\]\[(.+?)\]\]', flags = re.U)
@@ -130,6 +133,7 @@ class Htmlizer(object):
             ##  }
 
             entry = self.sanitize_and_htmlize_blog_content(entry)
+
             filename = htmlcontent = None
 
             if entry['category'] == self.TAGS:
@@ -161,7 +165,85 @@ class Htmlizer(object):
             if entry['category'] == self.TAGS or entry['category'] == self.PERSISTENT or entry['category'] == self.TEMPORAL:
                 self.write_htmlcontent_to_file(htmlfilename, htmlcontent)
                 self.write_orgcontent_to_file(orgfilename, entry['rawcontent'])
+                
+        entry_list_by_newest_timestamp = self.generate_entry_list_by_newest_timestamp()
+        self.generate_entry_page(entry_list_by_newest_timestamp)
 
+    def generate_entry_list_by_newest_timestamp(self):
+        """
+
+        Returns a sorted list of dicts of entry-IDs and their newest time-stamp. 
+        Sort order ist newest time-stamp at the front.
+        
+        @param: return: a sorted list like [ {'id':'a-new-entry', 'timestamp':datetime(), 'url'="<URL>"}, {...}]
+        """
+
+        entrylist = []
+        
+        for entry in self.blog_data:
+            entrylist.append({
+                'id':entry['id'],
+                'timestamp':self._get_newest_timestamp_for_entry(entry)[0],
+                'url':self._target_path_for_id_without_targetdir_and_prefixdir(entry['id']),
+                'category':entry['category']
+            })
+
+        return sorted(entrylist, key=lambda entry: entry['timestamp'], reverse=True)
+
+    def generate_entry_page(self, entry_list_by_newest_timestamp):
+        """
+        Generates and write the blog entry page with sneak previews of the most recent articles/updates.
+
+        @param: entry_list_by_newest_timestamp: a sorted list like [ {'id':'a-new-entry', 'timestamp':datetime(), 'url'="<URL>"}, {...}]
+        """
+
+        entry_page_filename = os.path.join(self.targetdir, self.prefix_dir, "index.html")
+
+        htmlcontent = u'' + self.template_definition_by_name('entrypage-header')
+
+        for listentry in entry_list_by_newest_timestamp[0:self.NUMBER_OF_TEASER_ARTICLES]:
+
+            entry = self.blog_data_with_id(listentry['id'])
+
+            if entry['category'] == 'TEMPORAL':
+
+                content = self.template_definition_by_name('article-preview').replace(
+                    '#ARTICLE-TITLE#', self.sanitize_external_links(self.sanitize_html_characters(entry['title'])))
+                content = content.replace('#ARTICLE-URL#', listentry['url'])
+                content = content.replace('#ARTICLE-ID#', entry['id'])
+
+                year, month, day, hours, minutes = str(listentry['timestamp'].year).zfill(2), \
+                                                   str(listentry['timestamp'].month).zfill(2), \
+                                                   str(listentry['timestamp'].day).zfill(2), \
+                                                   str(listentry['timestamp'].hour).zfill(2), \
+                                                   str(listentry['timestamp'].minute).zfill(2)
+                iso_timestamp = '-'.join([year, month, day]) + 'T' + hours + ':' + minutes
+
+                content = content.replace('#ARTICLE-YEAR#', year)
+                content = content.replace('#ARTICLE-MONTH#', month)
+                content = content.replace('#ARTICLE-DAY#', day)
+                content = content.replace('#ARTICLE-PUBLISHED-HTML-DATETIME#', iso_timestamp + self.TIME_ZONE_ADDON)
+                content = content.replace('#ARTICLE-PUBLISHED-HUMAN-READABLE#', iso_timestamp)
+                #import pdb; pdb.set_trace()
+                content = content.replace('#ARTICLE-TEASER#', '\n'.join(entry['htmlteaser']))
+                
+                htmlcontent += content
+                
+            elif entry['category'] == 'PERSISTENT':
+                pass ## FIXXME: implement!
+
+            elif entry['category'] == 'TAGS':
+                pass ## FIXXME: implement!
+
+        ## add footer:
+        htmlcontent += self.template_definition_by_name('entrypage-footer')
+        
+        htmlcontent = htmlcontent.replace('#ABOUT-BLOG#', self.sanitize_external_links(self.sanitize_html_characters(self.about_blog)))
+        htmlcontent = htmlcontent.replace('#BLOGNAME#', self.sanitize_external_links(self.sanitize_html_characters(self.prefix_dir)))
+        self.write_htmlcontent_to_file(entry_page_filename, htmlcontent)
+            
+        return
+        
     def write_htmlcontent_to_file(self, filename, htmlcontent):
         """
         Creates the file and writes the content of htmlcontent into it.
@@ -211,6 +293,8 @@ class Htmlizer(object):
         Inspects a selection of the entry content data and sanitizes
         it for HTML. Each element gets converted to HTML as well.
 
+        The teaser text of temporal articles is generated as well: entry['htmlteaser']
+
         Currently things that get sanitized:
         - [[foo][bar]] -> <a href="foo">bar</a>
         - id:foo -> internal links to blog article if "foo" is found as an id
@@ -222,6 +306,8 @@ class Htmlizer(object):
 
         #debug:  [x[0] for x in entry['content']] -> which element types
 
+        teaser_finished = False  ## teaser is finished on first sub-heading or <hr>-element
+        
         #for element in entry['content']:
         for index in range(0, len(entry['content'])):
 
@@ -248,9 +334,18 @@ class Htmlizer(object):
                 result = template.replace('#PAR-CONTENT#', result)
 
             elif entry['content'][index][0] == 'hr':
+
+                if not teaser_finished:
+                    entry['htmlteaser'] = entry['content'][:index]
+                    teaser_finished = True
+
                 result="<div class=\"orgmode-hr\" />"
 
             elif entry['content'][index][0] == 'heading':
+
+                if not teaser_finished:
+                    entry['htmlteaser'] = entry['content'][:index]
+                    teaser_finished = True
 
                 ## example:
                 ## ['heading', {'title': u'Sub-heading foo', 'level': 3}]
@@ -360,6 +455,10 @@ class Htmlizer(object):
                 self.logging.critical(message)
                 raise HtmlizerException(message)
 
+            ## in case no sub-heading or <hr>-element was found: everything is the teaser:
+            if not teaser_finished:
+                entry['htmlteaser'] = entry['content']
+            
             ## replace element in entry with the result string:
             entry['content'][index] = result
 

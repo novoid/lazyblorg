@@ -1,4 +1,4 @@
-## Time-stamp: <2014-03-01 21:15:06 vk>
+## Time-stamp: <2014-03-01 22:44:47 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -435,10 +435,7 @@ FIXXME
 **** Header
 
 - #BLOGNAME#: short name of the blog
-- #YEAR#: four digit year
-- #MONTH-LONGNAME#: name of the month like "Jannuary" or "February"
-- #MONTH-SHORTNAME#: three letter name of the month like "Jan" or "Feb"
-- #MONTH-TWODIGITNUMBER#: number of the month like "01" or "02"
+- #ABOUT-BLOG#: a line of text which describes the blog in general
 
 #+NAME: entrypage-header
 #+BEGIN_HTML
@@ -451,10 +448,6 @@ FIXXME
         href="http://Karl-Voit.at/public_voit.css" type="text/css" media="screen"  />
 
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
-
-    <head>
-      <title>#BLOGNAME#: #YEAR#-#MONTH-TWODIGITNUMBER#</title>
-    </head>
 
   <body>
 
@@ -488,7 +481,7 @@ FIXXME
   date-time format (e.g., 2011-10-30T15:00+02:00)
 - #ARTICLE-PUBLISHED-HUMAN-READABLE#: time-stamp of publishing in
   human readable format (e.g., 2011-10-30T15:00)
-- #ARTICLE-PREVIEW#: First lines up to the first heading or <hr>-element
+- #ARTICLE-TEASER#: First lines up to the first heading or <hr>-element
 
 #+NAME: article-preview
 #+BEGIN_HTML
@@ -496,7 +489,7 @@ FIXXME
 
 <h1><a href="#ARTICLE-URL#">#ARTICLE-YEAR#-#ARTICLE-MONTH#-#ARTICLE-DAY#: #ARTICLE-TITLE#</a></h1>
 
-#ARTICLE-PREVIEW#
+#ARTICLE-TEASER#
 
 <p>
 <a href="#ARTICLE-URL#" class="article-preview-more">more&nbsp;...</a>
@@ -508,10 +501,7 @@ FIXXME
 **** Footer
 
 - #BLOGNAME#: short name of the blog
-- #YEAR#: four digit year
-- #MONTH-LONGNAME#: name of the month like "Jannuary" or "February"
-- #MONTH-SHORTNAME#: three letter name of the month like "Jan" or "Feb"
-- #MONTH-TWODIGITNUMBER#: number of the month like "01" or "02"
+- #ABOUT-BLOG#: a line of text which describes the blog in general
 
 #+NAME: entrypage-footer
 #+BEGIN_HTML

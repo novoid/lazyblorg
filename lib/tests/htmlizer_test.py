@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-01 20:39:03 vk>
+# Time-stamp: <2014-03-01 21:53:53 vk>
 
 import unittest
 from lib.htmlizer import *
@@ -41,6 +41,44 @@ class TestHtmlizer(unittest.TestCase):
         self.assertTrue(htmlizer._get_oldest_timestamp_for_entry(entry) == (datetime.datetime(2008, 1, 29, 19, 40),
                                                                             "2008", "01", "29",
                                                                             "19", "40"))
+        
+    def testgenerate_entry_list_by_newest_timestamp(self):
+
+        template_definitions = u'foo'
+        prefix_dir = u'foo'
+        blog_data = u'foo'
+        targetdir = u'foo'
+        generate = u'foo'
+        increment_version = u'foo'
+
+        tmphtmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
+                            blog_data, generate, increment_version)
+        
+        blog_data = [{'id':'a_entry_from_2008',
+                      'category':tmphtmlizer.PERSISTENT,
+                      'finished-timestamp-history':[datetime.datetime(2008, 12, 29, 19, 40),
+                                                    datetime.datetime(2008, 1, 29, 19, 40),
+                                                    datetime.datetime(2008, 11, 29, 19, 40)]},
+                     {'id':'b_entry_from_2007',
+                      'category':tmphtmlizer.TEMPORAL,
+                      'finished-timestamp-history':[datetime.datetime(2007, 12, 29, 19, 40),
+                                                    datetime.datetime(2007, 1, 29, 19, 40),
+                                                    datetime.datetime(2007, 11, 29, 19, 40)]},
+                     {'id':'c_entry_from_2011',
+                      'category':tmphtmlizer.TAGS,
+                      'finished-timestamp-history':[datetime.datetime(2011, 12, 29, 19, 40),
+                                                    datetime.datetime(2011, 1, 29, 19, 40),
+                                                    datetime.datetime(2011, 11, 29, 19, 40)]}]
+
+        htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
+                            blog_data, generate, increment_version)
+
+        entrylist = htmlizer.generate_entry_list_by_newest_timestamp()
+
+        self.assertTrue(entrylist[0]['id'] == 'c_entry_from_2011')
+        self.assertTrue(entrylist[1]['id'] == 'a_entry_from_2008')
+        self.assertTrue(entrylist[2]['id'] == 'b_entry_from_2007')
+        
         
     def test_simple_formatting(self):
 
