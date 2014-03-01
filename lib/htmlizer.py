@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-27 21:56:59 vk>
+# Time-stamp: <2014-03-01 20:37:42 vk>
 
 import logging
 import os
@@ -452,7 +452,7 @@ class Htmlizer(object):
         @param return: htmlcontent: the HTML content of the entry
         """
 
-        path = self._create_target_path_for_id(entry['id'])
+        path = self._create_target_path_for_id_with_targetdir_and_prefixdir(entry['id'])
 
         htmlfilename = os.path.join(path, "index.html")
         orgfilename = os.path.join(path, "source.org.txt")
@@ -571,10 +571,12 @@ class Htmlizer(object):
 
         return content
 
-    def _target_path_for_id(self, entryid):
+    def _target_path_for_id_with_targetdir_and_prefixdir(self, entryid):
         """
-        Creates a directory path for a given blog ID such as:
-        "TARGETDIR/blog/2013/02/12/ID" from the oldest finished
+        Returnes a directory path for a given blog ID such as:
+        PERSISTENT: FIXXME
+        TAGS: FIXXME
+        TEMPORAL: "TARGETDIR/blog/2013/02/12/ID" from the oldest finished
         time-stamp.
 
         @param entryid: ID of a blog entry
@@ -583,17 +585,67 @@ class Htmlizer(object):
 
         entry = self.blog_data_with_id(entryid)
 
-        oldesttimestamp, year, month, day, hours, minutes = self._get_oldest_timestamp_for_entry(entry)
+        if entry['category'] == self.TAGS:
+            return ## FIXXME: implement!
+        
+        if entry['category'] == self.PERSISTENT:
+            return ## FIXXME: implement!
+        
+        if entry['category'] == self.TEMPORAL:
+            return os.path.join(self.targetdir, self.prefix_dir, self._target_path_for_id_without_targetdir_and_prefixdir(entryid))
 
-        folder = werkzeug.utils.secure_filename(entryid)
+    def _target_path_for_id_without_targetdir_and_prefixdir(self, entryid):
+        """
+        Returnes a directory path for a given blog ID such as:
+        PERSISTENT: FIXXME
+        TAGS: FIXXME
+        TEMPORAL: "2013/02/12/ID" from the oldest finished time-stamp.
 
-        ## FIXXME: refactor to: remove *any* ISO date-stamp infront of the folder name! (regex)
-        if self.DATESTAMP_REGEX.match(folder[0:10]):
+        @param entryid: ID of a blog entry
+        @param return: the resulting path as os.path string
+        """
+
+        entry = self.blog_data_with_id(entryid)
+
+        if entry['category'] == self.TAGS:
+            return ## FIXXME: implement!
+        
+        if entry['category'] == self.PERSISTENT:
+            return ## FIXXME: implement!
+        
+        if entry['category'] == self.TEMPORAL:
+
+            oldesttimestamp, year, month, day, hours, minutes = self._get_oldest_timestamp_for_entry(entry)
+
+            folder = werkzeug.utils.secure_filename(entryid)
+
+            if self.DATESTAMP_REGEX.match(folder[0:10]):
             ## folder contains any date-stamp in ISO format -> get rid of it (it's in the path anyway)
-            folder = folder[11:]
+                folder = folder[11:]
 
-        return os.path.join(self.targetdir, self.prefix_dir, year, month, day, folder)
+            return os.path.join(year, month, day, folder)
 
+    def _get_newest_timestamp_for_entry(self, entry):
+        """
+        Reads data of entry and returns datetime object of the newest
+        time-stamp of the finished-timestamp-history.
+
+        Example result: datetime.datetime(2013, 8, 29, 19, 40)
+
+        Implicit assumptions:
+        - newest: no blog article is from before 1970-01-01
+
+        @param entry: data of a blog entry
+        @param return: datetime object of its oldest time-stamp within finished-timestamp-history
+        @param return: year: four digit year as string
+        @param return: month: two digit month as string
+        @param return: day: two digit day as string
+        @param return: hours: two digit hours as string
+        @param return: minutes: two digit minutes as string
+        """
+
+        return self.__get_oldest_or_newest_timestamp_for_entry(entry, "NEWEST")
+        
     def _get_oldest_timestamp_for_entry(self, entry):
         """
         Reads data of entry and returns datetime object of the oldest
@@ -613,19 +665,52 @@ class Htmlizer(object):
         @param return: minutes: two digit minutes as string
         """
 
+        return self.__get_oldest_or_newest_timestamp_for_entry(entry, "OLDEST")
+        
+    def __get_oldest_or_newest_timestamp_for_entry(self, entry, search_for):
+        """
+        Reads data of entry and returns datetime object of the oldest or newest
+        time-stamp of the finished-timestamp-history.
+
+        Example result: datetime.datetime(2013, 8, 29, 19, 40)
+
+        Implicit assumptions:
+        - oldest: no blog article is from the future (comparison to now)
+        - newest: no blog article is from before 1970-01-01
+
+        @param entry: data of a blog entry
+        @param search_for: string "OLDEST" or "NEWEST"
+        @param return: datetime object of its oldest time-stamp within finished-timestamp-history
+        @param return: year: four digit year as string
+        @param return: month: two digit month as string
+        @param return: day: two digit day as string
+        @param return: hours: two digit hours as string
+        @param return: minutes: two digit minutes as string
+        """
+
         assert(entry)
+        assert(search_for == "OLDEST" or search_for == "NEWEST")
         assert('finished-timestamp-history' in entry.keys())
 
-        oldesttimestamp = datetime.datetime.now()
-        for timestamp in entry['finished-timestamp-history']:
-            if timestamp < oldesttimestamp:
-                oldesttimestamp = timestamp
+        returntimestamp = False
+        if search_for == "OLDEST":
+            oldesttimestamp = datetime.datetime.now()
+            for timestamp in entry['finished-timestamp-history']:
+                if timestamp < oldesttimestamp:
+                    oldesttimestamp = timestamp
+            returntimestamp = oldesttimestamp
+        elif search_for == "NEWEST":
+            newesttimestamp = datetime.datetime(1970,1,1)
+            for timestamp in entry['finished-timestamp-history']:
+                if timestamp > newesttimestamp:
+                    newesttimestamp = timestamp
+            returntimestamp = newesttimestamp
+                
+        return returntimestamp, str(returntimestamp.year).zfill(2), str(returntimestamp.month).zfill(2), \
+            str(returntimestamp.day).zfill(2), \
+            str(returntimestamp.hour).zfill(2), str(returntimestamp.minute).zfill(2)
 
-        return oldesttimestamp, str(oldesttimestamp.year).zfill(2), str(oldesttimestamp.month).zfill(2), \
-            str(oldesttimestamp.day).zfill(2), \
-            str(oldesttimestamp.hour).zfill(2), str(oldesttimestamp.minute).zfill(2)
-
-    def _create_target_path_for_id(self, entryid):
+    def _create_target_path_for_id_with_targetdir_and_prefixdir(self, entryid):
         """
         Creates a folder hierarchy for a given blog ID such as: TARGETDIR/blog/2013/02/12/ID
 
@@ -633,10 +718,10 @@ class Htmlizer(object):
         @param return: path that was created
         """
 
-        self.logging.debug("_create_target_path_for_id(%s) called" % entryid)
+        self.logging.debug("_create_target_path_for_id_with_targetdir_and_prefixdir(%s) called" % entryid)
 
         assert(os.path.isdir(self.targetdir))
-        idpath = self._target_path_for_id(entryid)
+        idpath = self._target_path_for_id_with_targetdir_and_prefixdir(entryid)
 
         try:
             self.logging.debug("creating path: \"%s\"" % idpath)

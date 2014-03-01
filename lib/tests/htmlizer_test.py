@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-25 19:35:20 vk>
+# Time-stamp: <2014-03-01 20:39:03 vk>
 
 import unittest
 from lib.htmlizer import *
@@ -20,7 +20,28 @@ class TestHtmlizer(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_get_newest_and_oldest_timestamp(self):
 
+        template_definitions = u'foo'
+        prefix_dir = u'foo'
+        targetdir = u'foo'
+        blog_data = u'foo'
+        generate = u'foo'
+        increment_version = u'foo'
+        htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
+                            blog_data, generate, increment_version)
+
+        entry = {'finished-timestamp-history':[datetime.datetime(2011, 12, 29, 19, 40),
+                                               datetime.datetime(2008, 1, 29, 19, 40),
+                                               datetime.datetime(2013, 1, 29, 19, 40)]}
+
+        self.assertTrue(htmlizer._get_newest_timestamp_for_entry(entry) == (datetime.datetime(2013, 1, 29, 19, 40),
+                                                                            "2013", "01", "29",
+                                                                            "19", "40"))
+        self.assertTrue(htmlizer._get_oldest_timestamp_for_entry(entry) == (datetime.datetime(2008, 1, 29, 19, 40),
+                                                                            "2008", "01", "29",
+                                                                            "19", "40"))
+        
     def test_simple_formatting(self):
 
         template_definitions = u'foo'
