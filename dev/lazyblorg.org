@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-02-27 22:21:48 vk>
+# Time-stamp: <2014-03-01 23:08:12 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -209,39 +209,152 @@ CLOSED: [2014-02-01 Sat 15:03]
 :END:
 
 - see paper from [2014-01-31 Fri]
-** NEXT HTML: manually create main jumping page                :architecture:
+
+** DONE implement method(s) to get URL of an blogdata id      :architecture:
+CLOSED: [2014-03-01 Sat 20:10]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-03-01 Sat 20:10]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-10-19 Sat 19:16]
+:END:
+
+- [X] get absolute/relative URL of any entry ID
+
+  - (Pdb) self._target_path_for_id_with_targetdir_and_prefixdir(entry['id'])
+    - u'testdata/2del/blog/2013/08/21/lazyblorg-templates'
+    - (Pdb) self.targetdir  ->   'testdata/2del'
+    - self.prefix_dir ->  blog
+
+  - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
+    - u'2013/08/21/lazyblorg-templates'
+
+** STARTED HTML: manually create main jumping page            :architecture:
+SCHEDULED: <2014-03-02 Sun>
+:LOGBOOK:
+- Rescheduled from "2014-03-01 Sat" on [2014-03-01 Sat 23:08]
+:END:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 12:24]
 :END:
 
 - HTML5-example: see Kröner2011 p.123ff
 
-** NEXT HTML: manually create month overview page             :architecture:
+** STARTED implement: creating PERSISTENT pages                  :userstory:
+SCHEDULED: <2014-03-02 Sun>
+:LOGBOOK:
+- Rescheduled from "2014-03-01 Sat" on [2014-03-01 Sat 23:08]
+:END:
 :PROPERTIES:
-:CREATED:  [2013-02-12 Tue 14:12]
+:CREATED:  [2013-10-19 Sat 18:50]
+:ID: 2013-10-19-persistent-pages
 :END:
 
-** NEXT HTML: manually create day overview page               :architecture:
-:PROPERTIES:
-:CREATED:  [2013-02-12 Tue 14:11]
-:END:
-** NEXT INFO: stats on files, headings and entries processed          :wish:
-:PROPERTIES:
-:CREATED:  [2014-02-09 Sun 10:31]
-:END:
+- htmlizer
 
-Example:
-: 16 files (422933 lines) with 975 headings parsed
-: resulted in 23 articles, 12 persistent pages, 79 tag pages
-
-** NEXT get ordered lists of blog entries                     :architecture:
+** STARTED get ordered lists of blog entries                  :architecture:
 :PROPERTIES:
 :CREATED:  [2014-02-01 Sat 13:48]
 :END:
 
+- [X] time-ordered by last modification (for RSS and main page)
+  - Newest entry of entry['finished-timestamp-history'] is the
+    time-stamp of the last update
+  - for each entry in entries
+    - get newest entry of entry['finished-timestamp-history']
+    - store to a sorted list (newest first or last)
+
 - [ ] time-ordered by issue day (for overview pages)
-- [ ] time-ordered by last modification (for RSS and main page)
-- [ ] method to get previous/next entry for each list entry
+  - Oldest entry of entry['finished-timestamp-history'] is the publication time-stamp!
+  - for each entry in entries
+    - get oldest entry of entry['finished-timestamp-history']
+    - store to a sorted list (newest first or last)
+
+** NEXT parse/htmlize: internal links                            :userstory:
+:PROPERTIES:
+:CREATED:  [2014-02-01 Sat 15:25]
+:END:
+
+- to other blog articles, persistent pages, tag pages
+- by ID
+
+** STARTED HTML: manually create month overview page          :architecture:
+:LOGBOOK:
+- Not scheduled, was "2014-03-01 Sat" on [2014-03-01 Sat 21:01]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 14:12]
+:END:
+
+#+BEGIN_EXAMPLE
+[[Public Voit]] > [[2014]] - 01
+
+- 2014-01-17: Title of the blog article
+- 2014-01-21: Another title
+
+#+END_EXAMPLE
+
+- tasks
+  - [X] create blog-format.org entries with HTML source and
+    replacement entities
+  - [ ] implement in Python
+
+** NEXT HTML: manually create year overview page              :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 14:12]
+:END:
+
+#+BEGIN_EXAMPLE
+[[Public Voit]] > [[Archive]]: 2014
+
+January: 2 [is link to monthly overview]
+February: 
+March: 4
+...
+
+#+END_EXAMPLE
+
+- tasks
+  - [ ] create blog-format.org entries with HTML source and
+    replacement entities
+  - [ ] implement in Python
+
+** NEXT HTML: manually create archive overview page         :architecture:
+
+#+BEGIN_EXAMPLE
+[[Public Voit]] > Archive
+
+[from year of oldest entry to year of newest entry]
+
+|      | Jan | Feb | Mar | Apr | May | Jun | Jul | Aug | Sep | Oct | Nov | Dec |
+| 2009 |     |     | [[1]]   |     | [[5]]   |     |     | [[2]]   |     |     |     |     |
+| 2010 |     |     |     |     |     |     |     |     |     |     |     |     |
+| 2011 |     |     |     |     |     |     |     |     |     |     |     |     |
+| 2012 |     |     |     |     |     |     |     |     |     |     |     |     |
+| 2013 |     |     |     |     |     |     |     |     |     |     |     |     |
+| 2014 |     |     |     |     |     |     |     |     |     |     |     |     |
+
+#+END_EXAMPLE
+
+- tasks
+  - [ ] create blog-format.org entries with HTML source and
+    replacement entities
+  - [ ] implement in Python
+
+** NEXT HTML: manually create day overview page               :architecture:
+:LOGBOOK:
+- Not scheduled, was "2014-03-01 Sat" on [2014-03-01 Sat 21:01]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 14:11]
+:END:
+
+like monthly overview but only for the day
+
+- tasks
+  - [ ] create blog-format.org entries with HTML source and
+    replacement entities
+  - [ ] implement in Python
 
 ** NEXT create constants.py as module                         :architecture:
 :PROPERTIES:
@@ -250,27 +363,6 @@ Example:
 
 - handle configuration and run-time variables using this module
 - ? parse config variables from Org-mode heading?
-
-** NEXT CSS: if page is less than one page, place footer at bottom :userstory:
-:PROPERTIES:
-:CREATED:  [2014-01-31 Fri 23:56]
-:END:
-** NEXT implement method(s) to get URL of an blogdata id       :architecture:
-:PROPERTIES:
-:CREATED:  [2013-10-19 Sat 19:16]
-:END:
-
-- get absolute URL of any entry ID
-- get relative (to a given URL) URL of any entry ID
-- get relative URL to the central CSS for an entry ID
-
-** NEXT implement: creating PERSISTENT pages                     :userstory:
-:PROPERTIES:
-:CREATED:  [2013-10-19 Sat 18:50]
-:ID: 2013-10-19-persistent-pages
-:END:
-
-- htmlizer
 
 ** NEXT implement: creating TAG pages                             :userstory:
 :PROPERTIES:
@@ -288,6 +380,15 @@ Example:
 - example: Tim Bray
   - http://www.tbray.org/ongoing/WhatItIs
   - http://www.tbray.org/ongoing/misc/Tim
+
+** NEXT INFO: stats on files, headings and entries processed          :wish:
+:PROPERTIES:
+:CREATED:  [2014-02-09 Sun 10:31]
+:END:
+
+Example:
+: 16 files (422933 lines) with 975 headings parsed
+: resulted in 23 articles, 12 persistent pages, 79 tag pages
 
 ** NEXT embed images that are defined by tsfile-statements       :userstory:
 :PROPERTIES:
@@ -364,13 +465,6 @@ Example:
 :CREATED:  [2014-02-01 Sat 15:25]
 :END:
 
-** NEXT parse/htmlize: internal links
-:PROPERTIES:
-:CREATED:  [2014-02-01 Sat 15:25]
-:END:
-
-- to other blog articles, persistent pages, tag pages
-
 ** NEXT htmlizer: generate more Org-mode elements             :architecture:
 :PROPERTIES:
 :CREATED:  [2013-10-19 Sat 19:19]
@@ -404,6 +498,10 @@ Example:
 
 1. just link a file, do not show image
 2. show the linked image directly
+** NEXT [#C] CSS: if page is less than one page, place footer at bottom :userstory:
+:PROPERTIES:
+:CREATED:  [2014-01-31 Fri 23:56]
+:END:
 ** NEXT [#C] take a look at SASS -> CSS                       :architecture:
 :LOGBOOK:
 - Not scheduled, was "2013-09-16 Mon" on [2013-09-23 Mon 18:37]
@@ -421,11 +519,6 @@ Example:
 :END:
 
 - htmlizer.py -> "## FIXXME: replace pre with suitable source code environment!"
-
-** NEXT [#C] HTML: manually create year overview page         :architecture:
-:PROPERTIES:
-:CREATED:  [2013-02-12 Tue 14:12]
-:END:
 ** TODO ID of sub-headings get stored and processed to anchors   :userstory:
 :PROPERTIES:
 :CREATED:  [2014-02-09 Sun 10:28]
@@ -440,7 +533,7 @@ Example:
   - get the URL of a blog entry
   - get the ID/HREF of any sub-heading of any blog entry
 
-** TODO provide RSS feed(s)                                      :userstory:
+** TODO [#A] provide RSS feed(s)                                 :userstory:
 :PROPERTIES:
 :CREATED:  [2012-11-05 Mon 10:57]
 :END:
@@ -450,6 +543,7 @@ Example:
 - one feed for each tag
 - ? differ heading-only feeds and full feeds
   - OR: use only full feeds
+
 ** TODO documentation: describe tags for templates, persistent, tag, and normal :userstory:
 :PROPERTIES:
 :CREATED:  [2013-10-19 Sat 18:01]
@@ -500,7 +594,7 @@ see also id:2012-11-06-ago-generating
   - probably there is a cloud service that translates RSS to Twitter?
   - probably more RSS-to-something-translators?
 
-** TODO link to day in Wikipedia               :userstory:
+** TODO link to day in Wikipedia                                 :userstory:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:38]
 :END:
@@ -623,6 +717,18 @@ display: block;
   - link to a list of blog entries for this tag
 
 - see also id:2012-11-11-autotags
+** SOMEDAY add diff to previous version in case of update        :userstory:
+:LOGBOOK:
+- State "SOMEDAY"    from ""           [2014-02-28 Fr 09:27]
+:END:
+:PROPERTIES:
+:CREATED:  [2014-02-28 Fr 09:27]
+:END:
+
+- should be possible because lazyblorg stores old raw content and gets
+  new one
+- [ ] what happens in case of re-generation blog with old diffs?
+
 ** SOMEDAY [#C] Pre-search for new blog articles before invoking lazyblorg :userstory:
 :LOGBOOK:
 - State "SOMEDAY"    from "TODO"       [2014-02-01 Sat 15:36]
@@ -684,7 +790,7 @@ display: block;
     link to ID)
 - disqus: I do not want to outsource comment hosting :-(
 
-** SOMEDAY guessing language of entry                            :userstory:
+** SOMEDAY Auto-tag: guessing language of entry                   :userstory:
 :LOGBOOK:
 - State "SOMEDAY"    from ""           [2013-01-08 Tue 14:36]
 :END:
@@ -1142,7 +1248,7 @@ this is the plan (from 2012-11):
 NOTE: if entries are marked as done in this section, they are not
 implemented but moved to a (separate) user-story above.
 
-- Workflow to create a blog entry
+- [X] Workflow to create a blog entry
   - make sure that there is an (uniq) :ID: property
   - add tag :blog: to heading
   - write content, subheadings, ...
@@ -1153,12 +1259,12 @@ implemented but moved to a (separate) user-story above.
   - [X] paragraphs (p)
   - [X] headings (h1..n)
   - [X] http-references (a href)
-  - [X] lists (ul)
+  - [ ] lists (ul)
   - [X] quote (verbatim)
-  - [X] images (img)
-  - [X] tables
+  - [ ] images (img)
+  - [ ] tables
   - [X] inline-HTML
-  - [X] internal links to other entries
+  - [ ] internal links to other entries
 
 - advantages
   - a blog entry can be located anywhere in all of my Orgmode files
@@ -1170,7 +1276,7 @@ implemented but moved to a (separate) user-story above.
   - self-hosting without any fancy services behind like RDBS
 
 - open issues
-  - [X] comments
+  - [ ] comments
     - simplest form: generate unique Email link and add at bottom
       - very easy to be done for catch-all MTAs
       - automatically derive whitelist for MTA to avoid old spam
@@ -1178,7 +1284,7 @@ implemented but moved to a (separate) user-story above.
       - POST to script, adding comment to my inbox.org (containing
         link to ID)
     - disqus: I do not want to outsource comment hosting :-(
-  - [X] how to include and format graphics?
+  - [ ] how to include and format graphics?
     - sometimes, I e.g. want to have an image aligned right with text
       flowing around it
   - [-] probably: usage of in-between format like ikiwiki
