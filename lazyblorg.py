@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-02 19:26:48 vk>
+# Time-stamp: <2014-03-02 12:52:48 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -27,10 +27,6 @@ import pdb
 PROG_VERSION_NUMBER = u"0.2"
 PROG_VERSION_DATE = u"2014-02-01"
 INVOCATION_TIME = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
-
-## the prefix is added to the blog entry path such as: TARGETPATH/BLOG_PREFIX/2013/12/31/blog-id/
-## set either to a string which is a valid folder name or set it to ''
-BLOG_PREFIX = u'blog'
 
 ## this Org-mode tag marks blog entries:
 ## FIXXME: also defined as TAG_FOR_BLOG_ENTY in OrgParser!
@@ -167,7 +163,7 @@ class Lazyblorg(object):
         @param return:
         """
 
-        htmlizer = Htmlizer(self.template_definitions, BLOG_PREFIX, BLOG_TAG, self.options.aboutblog,
+        htmlizer = Htmlizer(self.template_definitions, self.options.blogname, BLOG_TAG, self.options.aboutblog,
                             self.options.targetdir, self.blog_data, generate, increment_version)
 
         ## FIXXME: try except HtmlizerException?
@@ -388,6 +384,10 @@ if __name__ == "__main__":
 
     parser.add_argument("--orgfiles", dest="orgfiles", nargs='+', metavar='ORGFILE', required=True,
                         help="One or more Org-mode files which contains all blog articles (and possible other stuff).")
+
+    parser.add_argument("--blogname", dest="blogname", metavar='STRING', required=True,
+                        help="The name of the blog. " +
+                        "E.g., \"public voit\" in my case.")
 
     parser.add_argument("--aboutblog", dest="aboutblog", metavar='STRING', required=True,
                         help="A short description about the blog. " +

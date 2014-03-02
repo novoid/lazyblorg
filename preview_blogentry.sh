@@ -1,6 +1,7 @@
-#!/bin/zsh
+ #!/bin/zsh
 cd ~/src/lazyblorg
 rm -rf testdata/2del/*
+mkdir testdata/2del/blog
 
 ## This script provides a quick preview of the current blog entry in your local browser.
 ## You will need a LISP function similar to the one below:
@@ -34,8 +35,9 @@ rm -rf testdata/2del/*
 
 PYTHONPATH="~/src/lazyblorg:" ./lazyblorg.py \
     --quiet \
+    --blogname "public voit" \
     --aboutblog "public voit" \
-    --targetdir testdata/2del \
+    --targetdir testdata/2del/blog \
     --previous-metadata nonexisting-preview-metadata.pk \
     --new-metadata testdata/2del/blog/preview-metadata.pk \
     --logfile testdata/2del/errors.org \

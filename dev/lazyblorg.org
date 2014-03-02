@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-03-01 23:08:12 vk>
+# Time-stamp: <2014-03-02 12:59:33 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -228,7 +228,6 @@ CLOSED: [2014-03-01 Sat 20:10]
 
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
-
 ** STARTED HTML: manually create main jumping page            :architecture:
 SCHEDULED: <2014-03-02 Sun>
 :LOGBOOK:

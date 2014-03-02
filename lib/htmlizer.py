@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-02 12:19:59 vk>
+# Time-stamp: <2014-03-02 12:59:33 vk>
 
 import logging
 import os
@@ -39,7 +39,7 @@ class Htmlizer(object):
     blog_data = None  ## internal representation of the complete blog content
     generate = None  ## list of IDs which blog entries should be generated
     increment_version = None  ## list of IDs which blog entries gets an update
-    prefix_dir = None  ## string which is the base directory after targetdirectory
+    blogname = None  ## string which is the base directory after targetdirectory
     blog_tag = None  ## string that marks blog entries (as Org-mode tag)
     about_blog = None  ## string containing a short description of the blog
 
@@ -82,13 +82,13 @@ class Htmlizer(object):
     ## any ISO date-stamp of format YYYY-MM-DD:
     DATESTAMP_REGEX = re.compile('([12]\d\d\d)-([012345]\d)-([012345]\d)', flags = re.U)
 
-    def __init__(self, template_definitions, prefix_dir, blog_tag, about_blog, targetdir, blog_data,
+    def __init__(self, template_definitions, blogname, blog_tag, about_blog, targetdir, blog_data,
                  generate, increment_version):
         """
         This function initializes the class instance with the class variables.
 
         @param template_definitions: list of lists ['description', 'content'] with content being the HTML templates
-        @param prefix_dir: string which is the base directory after targetdirectory
+        @param blogname: string which is the base directory after targetdirectory
         @param blog_tag: string that marks blog entries (as Org-mode tag)
         @param about_blog: string containing a short description of the blog
         @param targetdir: string of the base directory of the blog
@@ -99,7 +99,7 @@ class Htmlizer(object):
 
         ## initialize class variables
         self.template_definitions = template_definitions
-        self.prefix_dir = prefix_dir
+        self.blogname = blogname
         self.blog_tag = blog_tag
         self.about_blog = about_blog
         self.targetdir = targetdir
@@ -197,7 +197,7 @@ class Htmlizer(object):
         @param: entry_list_by_newest_timestamp: a sorted list like [ {'id':'a-new-entry', 'timestamp':datetime(), 'url'="<URL>"}, {...}]
         """
 
-        entry_page_filename = os.path.join(self.targetdir, self.prefix_dir, "index.html")
+        entry_page_filename = os.path.join(self.targetdir, "index.html")
 
         htmlcontent = u'' + self.template_definition_by_name('entrypage-header')
 
@@ -253,7 +253,7 @@ class Htmlizer(object):
         htmlcontent += self.template_definition_by_name('entrypage-footer')
         
         htmlcontent = htmlcontent.replace('#ABOUT-BLOG#', self.sanitize_external_links(self.sanitize_html_characters(self.about_blog)))
-        htmlcontent = htmlcontent.replace('#BLOGNAME#', self.sanitize_external_links(self.sanitize_html_characters(self.prefix_dir)))
+        htmlcontent = htmlcontent.replace('#BLOGNAME#', self.sanitize_external_links(self.sanitize_html_characters(self.blogname)))
         self.write_htmlcontent_to_file(entry_page_filename, htmlcontent)
             
         return
@@ -672,7 +672,7 @@ class Htmlizer(object):
 
         content = content.replace('#ARTICLE-TITLE#', self.sanitize_external_links(self.sanitize_html_characters(entry['title'])))
         content = content.replace('#ABOUT-BLOG#', self.sanitize_external_links(self.sanitize_html_characters(self.about_blog)))
-        content = content.replace('#BLOGNAME#', self.sanitize_external_links(self.sanitize_html_characters(self.prefix_dir)))
+        content = content.replace('#BLOGNAME#', self.sanitize_external_links(self.sanitize_html_characters(self.blogname)))
 
         oldesttimestamp, year, month, day, hours, minutes = self._get_oldest_timestamp_for_entry(entry)
         iso_timestamp = '-'.join([year, month, day]) + 'T' + hours + ':' + minutes
@@ -707,7 +707,7 @@ class Htmlizer(object):
             return ## FIXXME: implement!
         
         if entry['category'] == self.TEMPORAL:
-            return os.path.join(self.targetdir, self.prefix_dir, self._target_path_for_id_without_targetdir_and_prefixdir(entryid))
+            return os.path.join(self.targetdir, self._target_path_for_id_without_targetdir_and_prefixdir(entryid))
 
     def _target_path_for_id_without_targetdir_and_prefixdir(self, entryid):
         """
