@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-01 21:53:53 vk>
+# Time-stamp: <2014-03-02 12:16:13 vk>
 
 import unittest
 from lib.htmlizer import *
@@ -20,6 +20,72 @@ class TestHtmlizer(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_sanitize_and_htmlize_blog_content(self):
+        """
+        This tests only the correct recognition of teaser parts of an 
+        article: teaser ends with first heading or first <hr>-element.
+        """
+
+        prefix_dir = u'foo'
+        targetdir = u'foo'
+        blog_data = u'foo'
+        generate = u'foo'
+        increment_version = u'foo'
+
+        template_definitions = [
+            ['html-block', u'paragraph', [u'<p>#PAR-CONTENT#</p>']],
+            ['html-block', u'section-begin', [u'<header>#SECTION-TITLE#</header>']]
+        ]
+
+        ## entry['content'][index][0] == 'hr': -> ohne template_definition
+        ## 
+        ## entry['content'][index][0] == 'par': template_definition[9]
+        ## ['html-block', u'paragraph', [u'', u'<p>', u'', u'#PAR-CONTENT#', u'', u'</p>', u'']]
+        ## 
+        ## entry['content'][index][0] == 'heading': template_definition[8]
+        ## ['html-block', u'section-begin', [u'', u'\t  <header><h#SECTION-LEVEL# class="section-title">#SECTION-TITLE#</h#SECTION-LEVEL#></header>', u'']]
+
+        htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
+                            blog_data, generate, increment_version)
+
+        entry = {'content':[ \
+                             ['par', u'First paragraph'],
+                             ['par', u'Second paragraph'],
+                         ]}
+        htmlized_content_expected = [u'<p>First paragraph</p>', u'<p>Second paragraph</p>']
+        htmlized_entry_test = htmlizer.sanitize_and_htmlize_blog_content(entry)
+        self.assertTrue(htmlized_entry_test['content'] == htmlized_content_expected)
+        self.assertTrue('htmlteaser-equals-content' in htmlized_entry_test.keys())
+        self.assertTrue(htmlized_entry_test['htmlteaser-equals-content'] == True)
+        self.assertTrue('htmlteaser' not in htmlized_entry_test.keys())
+        
+        entry = {'content':[ \
+                             ['par', u'First paragraph'],
+                             ['hr'],
+                             ['par', u'Second paragraph']
+                         ]}
+        htmlized_content_expected = [u'<p>First paragraph</p>', '<div class="orgmode-hr" />', u'<p>Second paragraph</p>']
+        htmlized_entry_test = htmlizer.sanitize_and_htmlize_blog_content(entry)
+        self.assertTrue(htmlized_entry_test['content'] == htmlized_content_expected)
+        self.assertTrue(htmlized_entry_test['htmlteaser'] == [u'<p>First paragraph</p>'])
+        self.assertTrue('htmlteaser-equals-content' in htmlized_entry_test.keys())
+        self.assertTrue(htmlized_entry_test['htmlteaser-equals-content'] == False)
+
+        entry = {'content':[ \
+                             ['par', u'First paragraph'],
+                             ['heading', {'title': u'My article header', 'level': 3}],
+                             ['par', u'Second paragraph']
+                         ],\
+                 'level':1}
+        htmlized_content_expected = [u'<p>First paragraph</p>', u'<header>My article header</header>', u'<p>Second paragraph</p>']
+        htmlized_entry_test = htmlizer.sanitize_and_htmlize_blog_content(entry)
+
+        self.assertTrue(htmlized_entry_test['content'] == htmlized_content_expected)
+        self.assertTrue(htmlized_entry_test['htmlteaser'] == [u'<p>First paragraph</p>'])
+        self.assertTrue('htmlteaser-equals-content' in htmlized_entry_test.keys())
+        self.assertTrue(htmlized_entry_test['htmlteaser-equals-content'] == False)
+
+        
     def test_get_newest_and_oldest_timestamp(self):
 
         template_definitions = u'foo'

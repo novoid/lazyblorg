@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-01 23:07:21 vk>
+# Time-stamp: <2014-03-02 12:19:59 vk>
 
 import logging
 import os
@@ -207,11 +207,22 @@ class Htmlizer(object):
 
             if entry['category'] == 'TEMPORAL':
 
-                content = self.template_definition_by_name('article-preview').replace(
-                    '#ARTICLE-TITLE#', self.sanitize_external_links(self.sanitize_html_characters(entry['title'])))
+                content = self.template_definition_by_name('article-preview-begin')
+                assert('htmlteaser-equals-content' in entry.keys())
+
+                if not entry['htmlteaser-equals-content']:
+                    ## there is more in the article than in the teaser alone:
+                    content += self.template_definition_by_name('article-preview-more')
+
+                content += self.template_definition_by_name('article-preview-end')
+
+                ## replacing keywords:
+                
+                content = content.replace('#ARTICLE-TITLE#', self.sanitize_external_links(
+                    self.sanitize_html_characters(entry['title'])))
                 content = content.replace('#ARTICLE-URL#', listentry['url'])
                 content = content.replace('#ARTICLE-ID#', entry['id'])
-
+                
                 year, month, day, hours, minutes = str(listentry['timestamp'].year).zfill(2), \
                                                    str(listentry['timestamp'].month).zfill(2), \
                                                    str(listentry['timestamp'].day).zfill(2), \
@@ -224,9 +235,12 @@ class Htmlizer(object):
                 content = content.replace('#ARTICLE-DAY#', day)
                 content = content.replace('#ARTICLE-PUBLISHED-HTML-DATETIME#', iso_timestamp + self.TIME_ZONE_ADDON)
                 content = content.replace('#ARTICLE-PUBLISHED-HUMAN-READABLE#', iso_timestamp)
-                #import pdb; pdb.set_trace()
-                content = content.replace('#ARTICLE-TEASER#', '\n'.join(entry['htmlteaser']))
-                
+
+                if entry['htmlteaser-equals-content']:
+                    content = content.replace('#ARTICLE-TEASER#', '\n'.join(entry['content']))
+                else:
+                    content = content.replace('#ARTICLE-TEASER#', '\n'.join(entry['htmlteaser']))
+
                 htmlcontent += content
                 
             elif entry['category'] == 'PERSISTENT':
@@ -339,7 +353,7 @@ class Htmlizer(object):
                     entry['htmlteaser'] = entry['content'][:index]
                     teaser_finished = True
 
-                result="<div class=\"orgmode-hr\" />"
+                result="<div class=\"orgmode-hr\" />" ## FIXXME: <hr> is hardcoded here; add to templates?
 
             elif entry['content'][index][0] == 'heading':
 
@@ -455,12 +469,14 @@ class Htmlizer(object):
                 self.logging.critical(message)
                 raise HtmlizerException(message)
 
-            ## in case no sub-heading or <hr>-element was found: everything is the teaser:
-            if not teaser_finished:
-                entry['htmlteaser'] = entry['content']
-            
             ## replace element in entry with the result string:
             entry['content'][index] = result
+
+        ## in case no sub-heading or <hr>-element was found: everything is the teaser:
+        if not teaser_finished:
+            entry['htmlteaser-equals-content'] = True
+        else:
+            entry['htmlteaser-equals-content'] = False
 
         return entry
 

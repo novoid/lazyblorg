@@ -1,4 +1,4 @@
-## Time-stamp: <2014-03-01 22:44:47 vk>
+## Time-stamp: <2014-03-02 11:15:17 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -483,7 +483,7 @@ FIXXME
   human readable format (e.g., 2011-10-30T15:00)
 - #ARTICLE-TEASER#: First lines up to the first heading or <hr>-element
 
-#+NAME: article-preview
+#+NAME: article-preview-begin
 #+BEGIN_HTML
   <article> 
 
@@ -491,10 +491,17 @@ FIXXME
 
 #ARTICLE-TEASER#
 
+#+END_HTML
+
+#+NAME: article-preview-more
+#+BEGIN_HTML
 <p>
 <a href="#ARTICLE-URL#" class="article-preview-more">more&nbsp;...</a>
 </p>
+#+END_HTML
 
+#+NAME: article-preview-end
+#+BEGIN_HTML
   </article> 
 #+END_HTML
 
