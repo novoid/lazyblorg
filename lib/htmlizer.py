@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-02 17:56:31 vk>
+# Time-stamp: <2014-03-02 18:13:24 vk>
 
 import logging
 import os
@@ -44,9 +44,9 @@ class Htmlizer(object):
     about_blog = None  ## string containing a short description of the blog
 
     ## this tag (withing tag list of article) determines if an article
-    ## is a permanent blog page (tag is found) or a time-oriented
+    ## is a persistent blog page (tag is found) or a time-oriented
     ## (normal) blog-entry (this tag is missing).
-    PERMANENT_ENTRY_TAG = 'permanent'
+    PERSISTENT_ENTRY_TAG = 'persistent'
 
     ## categories of blog entries:
     ## FIXXME: also defined in multiple other files
@@ -559,7 +559,7 @@ class Htmlizer(object):
 
     def _create_time_oriented_blog_article(self, entry):
         """
-        Creates a (normal) time-oriented blog article (in contrast to a permanent blog article).
+        Creates a (normal) time-oriented blog article (in contrast to a persistent blog article).
 
         @param entry: blog entry data
         @param return: htmlfilename: string containing the file name of the HTML file

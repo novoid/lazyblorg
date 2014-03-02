@@ -1,4 +1,4 @@
-## Time-stamp: <2014-03-02 17:58:45 vk>
+## Time-stamp: <2014-03-02 18:13:37 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -427,7 +427,7 @@ FIXXME
 
 FIXXME
 
-** Permanent
+** Persistent
 
 *** Entry Page
 
@@ -449,9 +449,9 @@ FIXXME
 
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
-  <body class="permanent-body">
+  <body class="persistent-body">
 
-  <header class="permanent-header">
+  <header class="persistent-header">
 
       <nav class="article-header-nav">
         <span class="breadcrumbs">
@@ -539,7 +539,7 @@ FIXXME
 #+END_HTML
 
 
-*** Other Permanent Pages
+*** Other Persistent Pages
 
 FIXXME
 
