@@ -1,4 +1,4 @@
-# Time-stamp: <2013-08-26 19:26:04 vk>
+# Time-stamp: <2014-03-02 18:26:33 vk>
 # -*- coding: utf-8 -*-
 
 * Heading of no interest
@@ -48,6 +48,10 @@ might win the Pulitzer Prize some day!
 - this list
 - gives a great overview
 - about something
+
+internal link: [[id:2013-02-12-lazyblorg-example-entry]]
+
+internal link with link description: [[id:2013-02-12-lazyblorg-example-entry][this is the description with *bold* as well]]
 
 **** Sub-sub heading about something
 :PROPERTIES:

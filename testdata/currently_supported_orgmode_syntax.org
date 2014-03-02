@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; ispell-local-dictionary: "german8"; -*-
-# Time-stamp: <2014-02-02 18:44:23 vk>
+# Time-stamp: <2014-03-02 19:24:17 vk>
 
 * DONE lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer :publicvoit:lazyblorg:MixedCaseTag:blog:
 CLOSED: [2014-01-30 Thu 13:01]
@@ -73,6 +73,40 @@ URLs with line breaks within: this is a very tough example of [[https://github.c
 like this which is very long]].
 
 Multiple URLs in one line: http://heise.de [[http://heise.de]] [[http://heise.de][heise]]
+
+** Links to IDs                                                   :noexport:
+:PROPERTIES:
+:CREATED:  [2014-03-02 Sun 19:22]
+:END:
+
+simple links: [[id:2014-01-27-full-syntax-test]]
+
+with description: [[id:2014-01-27-full-syntax-test][this is the description text]]
+
+with formatted description: [[id:2014-01-27-full-syntax-test][this is a *formatted* ~description~ text]]
+
+#+BEGIN_HTML
+	  <header><h2 class="section-title">Links to IDs</h2></header>
+
+<p>
+
+simple links: <a href="../../../2014/01/27/full-syntax-test">2014-01-27-full-syntax-test</a>
+
+</p>
+
+<p>
+
+with description: <a href="../../../2014/01/27/full-syntax-test">this is the description text</a>
+
+</p>
+
+<p>
+
+with formatted description: <a href="../../../2014/01/27/full-syntax-test">this is a <b>formatted</b> <code>description</code> text</a>
+
+</p>
+
+#+END_HTML
 
 ** HTML-blocks
 :PROPERTIES:

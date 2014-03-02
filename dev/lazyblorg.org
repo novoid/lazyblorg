@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-03-02 18:00:53 vk>
+# Time-stamp: <2014-03-02 19:30:37 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -228,9 +228,29 @@ CLOSED: [2014-03-01 Sat 20:10]
 
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
+
+** STARTED parse/htmlize: internal links                         :userstory:
+SCHEDULED: <2014-03-03 Mon>
+:PROPERTIES:
+:CREATED:  [2014-02-01 Sat 15:25]
+:END:
+
+- to other blog articles, persistent pages, tag pages
+- by ID
+- recognize: "[[id:foobar]]"
+
+- [ ] htmlizer.py: def sanitize_internal_links(self, sourcecategory, content):
+  - error, if ID not found in blog_data!
+
+- [ ] htmlizer_tests.py: def test_sanitize_internal_links(self):
+
+- [ ] add section to testdata/currently_supported_orgmode_syntax.org
+  - section including HTML result draft already exists but is tagged
+    with NOEXPORT!
+
 ** STARTED implement: creating PERSISTENT pages                  :userstory:
-SCHEDULED: <2014-03-02 Sun>
 :LOGBOOK:
+- Not scheduled, was "2014-03-03 Mon" on [2014-03-02 Sun 19:26]
 - Rescheduled from "2014-03-01 Sat" on [2014-03-01 Sat 23:08]
 :END:
 :PROPERTIES:
@@ -257,14 +277,6 @@ SCHEDULED: <2014-03-02 Sun>
   - for each entry in entries
     - get oldest entry of entry['finished-timestamp-history']
     - store to a sorted list (newest first or last)
-
-** NEXT parse/htmlize: internal links                            :userstory:
-:PROPERTIES:
-:CREATED:  [2014-02-01 Sat 15:25]
-:END:
-
-- to other blog articles, persistent pages, tag pages
-- by ID
 
 ** STARTED HTML: manually create month overview page          :architecture:
 :LOGBOOK:
@@ -357,7 +369,9 @@ like monthly overview but only for the day
 :CREATED:  [2013-10-19 Sat 18:50]
 :END:
 
-- htmlizer
+- [ ] htmlizer
+- [ ] update test_sanitize_internal_links() in htmlizer_test.py
+
 ** NEXT impressum/about page                                     :userstory:
 :PROPERTIES:
 :CREATED:  [2014-02-09 Sun 10:33]

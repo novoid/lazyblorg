@@ -59,66 +59,74 @@ g22
 aV- this list - gives a great overview - about something
 p32
 aa(lp33
+g22
+aVinternal link: [[id:2013-02-12-lazyblorg-example-entry]]
+p34
+aa(lp35
+g22
+aVinternal link with link description: [[id:2013-02-12-lazyblorg-example-entry][this is the description with *bold* as well]]
+p36
+aa(lp37
 g25
-a(dp34
+a(dp38
 g27
 VSub-sub heading about something
-p35
+p39
 sg4
 I4
-saa(lp36
+saa(lp40
 g22
 aVThis is a dummy text whose only purpose is to generate some content which is then processed by this lovely tool. The resulting web blog might win the Pulitzer Prize some day!
-p37
-aa(lp38
-S'verse-block'
-p39
-aI00
-a(lp40
-VWell, in here, I want to write verbatim text.
 p41
-aVLine breaks should be exactly the same.
-p42
-aV
+aa(lp42
+S'verse-block'
 p43
-aVThis is a
-p44
-aVdummy text whose only purpose is to generate
+aI00
+a(lp44
+VWell, in here, I want to write verbatim text.
 p45
-aVsome content
+aVLine breaks should be exactly the same.
 p46
-aVwhich is then processed by this lovely tool.
+aV
 p47
-aVThe resulting web blog
+aVThis is a
 p48
-aVmight win the Pulitzer Prize some day!
+aVdummy text whose only purpose is to generate
 p49
-ag43
-aaa(lp50
+aVsome content
+p50
+aVwhich is then processed by this lovely tool.
+p51
+aVThe resulting web blog
+p52
+aVmight win the Pulitzer Prize some day!
+p53
+ag47
+aaa(lp54
 g25
-a(dp51
+a(dp55
 g27
 VSub-heading bar
-p52
+p56
 sg4
 I3
-saa(lp53
+saa(lp57
 g22
 aVThis is a dummy text whose only purpose is to generate some content which is then processed by this lovely tool. The resulting web blog might win the Pulitzer Prize some day!
-p54
+p58
 aasS'rawcontent'
-p55
-V** DONE This is an example blog entry              :blog:mytest:programming:\u000aCLOSED: [2013-02-14 Thu 19:02]\u000a:LOGBOOK:\u000a- State "DONE"       from ""           [2013-02-14 Thu 19:02]\u000a:END:\u000a:PROPERTIES:\u000a:CREATED:  [2013-02-12 Tue 10:58]\u000a:ID: 2013-02-12-lazyblorg-example-entry\u000a:END:\u000a\u000aThis is an introduction text which describes the blog entry with some\u000acatchy information. Readers should be convinced to read this\u000ainteresting text. [[https://github.com/novoid/Memacs][Memacs]] is an external link to Memacs.\u000a\u000a*** Sub-heading foo\u000a:PROPERTIES:\u000a:END:\u000a\u000aThis is a dummy text whose only purpose is to generate some content\u000awhich is then processed by this lovely tool. The resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a- this list\u000a- gives a great overview\u000a- about something\u000a\u000a**** Sub-sub heading about something\u000a:PROPERTIES:\u000a:END:\u000a\u000aThis is a dummy text whose only purpose is to generate some content\u000awhich is then processed by this lovely tool. The resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a#+BEGIN_VERSE\u000aWell, in here, I want to write verbatim text.\u000aLine breaks should be exactly the same.\u000a\u000aThis is a\u000adummy text whose only purpose is to generate\u000asome content\u000awhich is then processed by this lovely tool.\u000aThe resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a#+END_VERSE\u000a\u000a*** Sub-heading bar\u000a:PROPERTIES:\u000a:END:\u000a\u000aThis is a dummy text whose only purpose is to generate some content\u000awhich is then processed by this lovely tool. The resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a
-p56
+p59
+V** DONE This is an example blog entry              :blog:mytest:programming:\u000aCLOSED: [2013-02-14 Thu 19:02]\u000a:LOGBOOK:\u000a- State "DONE"       from ""           [2013-02-14 Thu 19:02]\u000a:END:\u000a:PROPERTIES:\u000a:CREATED:  [2013-02-12 Tue 10:58]\u000a:ID: 2013-02-12-lazyblorg-example-entry\u000a:END:\u000a\u000aThis is an introduction text which describes the blog entry with some\u000acatchy information. Readers should be convinced to read this\u000ainteresting text. [[https://github.com/novoid/Memacs][Memacs]] is an external link to Memacs.\u000a\u000a*** Sub-heading foo\u000a:PROPERTIES:\u000a:END:\u000a\u000aThis is a dummy text whose only purpose is to generate some content\u000awhich is then processed by this lovely tool. The resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a- this list\u000a- gives a great overview\u000a- about something\u000a\u000ainternal link: [[id:2013-02-12-lazyblorg-example-entry]]\u000a\u000ainternal link with link description: [[id:2013-02-12-lazyblorg-example-entry][this is the description with *bold* as well]]\u000a\u000a**** Sub-sub heading about something\u000a:PROPERTIES:\u000a:END:\u000a\u000aThis is a dummy text whose only purpose is to generate some content\u000awhich is then processed by this lovely tool. The resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a#+BEGIN_VERSE\u000aWell, in here, I want to write verbatim text.\u000aLine breaks should be exactly the same.\u000a\u000aThis is a\u000adummy text whose only purpose is to generate\u000asome content\u000awhich is then processed by this lovely tool.\u000aThe resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a#+END_VERSE\u000a\u000a*** Sub-heading bar\u000a:PROPERTIES:\u000a:END:\u000a\u000aThis is a dummy text whose only purpose is to generate some content\u000awhich is then processed by this lovely tool. The resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a
+p60
 sS'finished-timestamp-history'
-p57
-(lp58
+p61
+(lp62
 g9
 asg27
 VThis is an example blog entry
-p59
+p63
 sS'id'
-p60
+p64
 V2013-02-12-lazyblorg-example-entry
-p61
+p65
 sa.

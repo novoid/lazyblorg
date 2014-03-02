@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-02 12:16:13 vk>
+# Time-stamp: <2014-03-02 19:22:38 vk>
 
 import unittest
 from lib.htmlizer import *
@@ -200,6 +200,101 @@ class TestHtmlizer(unittest.TestCase):
         self.assertTrue(htmlizer.sanitize_html_characters(u"An & and <this> will be ampersand and <similar>.") ==
                         u"An &amp; and &lt;this&gt; will be ampersand and &lt;similar&gt;.")
 
+    def FIXXMEtest_sanitize_internal_links(self):
+        
+        template_definitions = u'foo'
+        prefix_dir = u'foo'
+        blog_data = u'foo'
+        targetdir = u'mytargetdir'
+        generate = u'foo'
+        increment_version = u'foo'
+        tmphtmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
+                            blog_data, generate, increment_version)
+
+        blog_data = [{'id':'2014-03-02-my-persistent',
+                      'category':tmphtmlizer.PERSISTENT,
+                      'finished-timestamp-history':[datetime.datetime(2008, 12, 29, 19, 40),
+                                                    datetime.datetime(2008, 1, 29, 19, 40),
+                                                    datetime.datetime(2008, 11, 29, 19, 40)]},
+                     {'id':'2014-03-02-my-temporal',
+                      'category':tmphtmlizer.TEMPORAL,
+                      'finished-timestamp-history':[datetime.datetime(2007, 12, 29, 19, 40),
+                                                    datetime.datetime(2007, 1, 29, 19, 40),
+                                                    datetime.datetime(2007, 11, 29, 19, 40)]},
+                     {'id':'my-tag',
+                      'category':tmphtmlizer.TAGS,
+                      'finished-timestamp-history':[datetime.datetime(2011, 12, 29, 19, 40),
+                                                    datetime.datetime(2011, 1, 29, 19, 40),
+                                                    datetime.datetime(2011, 11, 29, 19, 40)]}]
+
+        htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
+                            blog_data, generate, increment_version)
+
+        ## Org-mode links of style [[id:foo][bar]] or [[id:foo]]:
+
+        ## FIXXME: also defined in htmlizer.py and more! -> grab from central instance!
+        TAGS = 'TAGS'
+        PERSISTENT = 'PERSISTENT'
+        TEMPORAL = 'TEMPORAL'
+        
+        ## simple links:
+        self.assertTrue(htmlizer.sanitize_internal_links(TEMPORAL, "[[id:2014-03-02-my-persistent]]") ==
+                        "<a href=\"../../../../my-persistent/\">2014-03-02-my-persistent</a>")
+        self.assertTrue(htmlizer.sanitize_internal_links(TEMPORAL, "[[id:2014-03-02-my-temporal]") ==
+                        "<a href=\"../../../../2007/01/29/my-temporal/\">2014-03-02-my-temporal</a>")
+        ## self.assertTrue(htmlizer.sanitize_internal_links(TEMPORAL, "[[id:my-tag]]") ==
+        ##                 "<a href=\"../../../../tag/my-tag\">my-tag</a>")
+
+        ## links with description:
+        self.assertTrue(htmlizer.sanitize_internal_links(TEMPORAL, "[[id:2014-03-02-my-persistent][my description text]]") ==
+                        "<a href=\"../../../../my-persistent/\">my description text</a>")
+        self.assertTrue(htmlizer.sanitize_internal_links(TEMPORAL, "[[id:2014-03-02-my-temporal][another description text]]") ==
+                        "<a href=\"../../../../2007/01/29/my-temporal/\">another description text</a>")
+        ## self.assertTrue(htmlizer.sanitize_internal_links(TEMPORAL, "[[id:my-tag][tag link description text]]") ==
+        ##                 "<a href=\"../../../../tag/my-tag\">tag link description text</a>")
+
+        self.assertTrue(htmlizer.sanitize_internal_links(PERSISTENT, "[[id:2014-03-02-my-persistent][my description text]]") ==
+                        "<a href=\"../my-persistent/\">my description text</a>")
+        self.assertTrue(htmlizer.sanitize_internal_links(PERSISTENT, "[[id:2014-03-02-my-temporal][another description text]]") ==
+                        "<a href=\"../2007/01/29/my-temporal/\">another description text</a>")
+        ## self.assertTrue(htmlizer.sanitize_internal_links(PERSISTENT, "[[id:my-tag][tag link description text]]") ==
+        ##                 "<a href=\"../../../../tag/my-tag\">tag link description text</a>")
+
+        self.assertTrue(htmlizer.sanitize_internal_links(TAGS, "[[id:2014-03-02-my-persistent][my description text]]") ==
+                        "<a href=\"../../my-persistent/\">my description text</a>")
+        self.assertTrue(htmlizer.sanitize_internal_links(TAGS, "[[id:2014-03-02-my-temporal][another description text]]") ==
+                        "<a href=\"../../2007/01/29/my-temporal/\">another description text</a>")
+        ## self.assertTrue(htmlizer.sanitize_internal_links(TAGS, "[[id:my-tag][tag link description text]]") ==
+        ##                 "<a href=\"../../../../tag/my-tag\">tag link description text</a>")
+
+        ## links with description and formatting:
+        self.assertTrue(htmlizer.sanitize_internal_links(TEMPORAL, "[[id:2014-03-02-my-persistent][my *description* text]]") ==
+                        "<a href=\"../../../../my-persistent/\">my <b>description</b> text</a>")
+        self.assertTrue(htmlizer.sanitize_internal_links(TEMPORAL, "[[id:2014-03-02-my-temporal][another ~description~ text]]") ==
+                        "<a href=\"../../../../2007/01/29/my-temporal/\">another <code>description</code> text</a>")
+        self.assertTrue(htmlizer.sanitize_internal_links(TEMPORAL, "[[id:2014-03-02-my-persistent][my *description* ~text~]]") ==
+                        "<a href=\"../../../../my-persistent/\">my <b>description</b> <code>text</code></a>")
+
+        ## multiple internal links in one line:
+        myinput = "foo [[id:2014-03-02-my-persistent][my *description* text]], " + \
+                "[[id:2014-03-02-my-temporal]], " + \
+                "[[id:2014-03-02-my-temporal][another ~description~ text]] and so forth"
+        myoutput = "foo <a href=\"../../../../my-persistent/\">my <b>description</b> text</a>, " + \
+                 "<a href=\"../../../../2007/01/29/my-temporal/\">2014-03-02-my-temporal</a>, " + \
+                 "<a href=\"../../../../2007/01/29/my-temporal/\">another <code>description</code> text</a>"
+        self.assertTrue(htmlizer.sanitize_internal_links(TEMPORAL, myinput) == myoutput)
+
+        ## internal and external links in one line:
+        myinput = "foo http://karl-voit.at [[id:2014-03-02-my-persistent][my *description* text]], " + \
+                "[[id:2014-03-02-my-temporal]], [[http://karl-voit.at][my home-page]], " + \
+                "[[id:2014-03-02-my-temporal][another ~description~ text]] and so forth"
+        myoutput = "foo <a href=\"http://karl-voit.at\">http://karl-voit.at</a> " + \
+                 "<a href=\"../../../../my-persistent/\">my <b>description</b> text</a>, " + \
+                 "<a href=\"../../../../2007/01/29/my-temporal/\">2014-03-02-my-temporal</a>, " + \
+                 "[[http://karl-voit.at][my home-page]], " + \
+                 "<a href=\"../../../../2007/01/29/my-temporal/\">another <code>description</code> text</a>"
+        self.assertTrue(htmlizer.sanitize_internal_links(TEMPORAL, myinput) == myoutput)
+        
     def test_sanitize_external_links(self):
 
         template_definitions = 'foo'

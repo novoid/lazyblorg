@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-02 18:19:16 vk>
+# Time-stamp: <2014-03-02 19:21:14 vk>
 
 import logging
 import os
@@ -60,6 +60,10 @@ class Htmlizer(object):
 
     ## show this many article teasers on entry page
     NUMBER_OF_TEASER_ARTICLES = 10
+
+    ## find internal links to Org-mode IDs: [[id:simple]] and [[id:with][a description]]
+    ID_SIMPLE_LINK_REGEX = re.compile('\[\[id:(\S+)\]\]')
+    ID_DESCRIBED_LINK_REGEX = re.compile('\[\[id:(\S+)\]\[(.+?)\]\]')
 
     ## find external links such as [[http(s)://foo.com][bar]]:
     EXT_URL_WITH_DESCRIPTION_REGEX = re.compile(u'\[\[(http[^ ]+?)\]\[(.+?)\]\]', flags = re.U)
@@ -537,6 +541,23 @@ class Htmlizer(object):
 
         return content.replace(u'&', u'&amp;').replace(u'<', u'&lt;').replace(u'>', u'&gt;')
 
+    def sanitize_internal_links(self, sourcecategory, content):
+        """
+        Replaces all internal Org-mode links of type [[id:foo]] or [[id:foo][bar baz]].
+
+        @param sourcecategory: constant string determining type of current entry
+        @param entry: string
+        @param return: sanitized string
+        """
+
+        # self.ID_DESCRIBED_LINK_REGEX = re.compile('\[\[id:(\S+)\]\[(.+?)\]\]')
+        # self.ID_SIMPLE_LINK_REGEX = re.compile('\[\[id:(\S+)\]\]')
+
+        #content = re.sub(self.ID_SIMPLE_LINK_REGEX, ur'<a href="\1">\1</a>', content)
+        #content = re.sub(self.ID_DESCRIBED_LINK_REGEX, ur'<a href="\1">\2</a>', content)
+        
+        return content
+
     def sanitize_external_links(self, content):
         """
         Replaces all external Org-mode links of type [[foo][bar]] with
@@ -827,7 +848,7 @@ class Htmlizer(object):
 
     def _create_target_path_for_id_with_targetdir(self, entryid):
         """
-        Creates a folder hierarchy for a given blog ID such as: TARGETDIR/blog/2013/02/12/ID
+        Creates a folder hierarchy for a given blog ID such as: TARGETDIR/2013/02/12/ID
 
         @param entryid: ID of a blog entry
         @param return: path that was created
