@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-02 18:13:24 vk>
+# Time-stamp: <2014-03-02 18:19:16 vk>
 
 import logging
 import os
@@ -184,7 +184,7 @@ class Htmlizer(object):
             entrylist.append({
                 'id':entry['id'],
                 'timestamp':self._get_newest_timestamp_for_entry(entry)[0],
-                'url':self._target_path_for_id_without_targetdir_and_prefixdir(entry['id']),
+                'url':self._target_path_for_id_without_targetdir(entry['id']),
                 'category':entry['category']
             })
 
@@ -567,7 +567,7 @@ class Htmlizer(object):
         @param return: htmlcontent: the HTML content of the entry
         """
 
-        path = self._create_target_path_for_id_with_targetdir_and_prefixdir(entry['id'])
+        path = self._create_target_path_for_id_with_targetdir(entry['id'])
 
         htmlfilename = os.path.join(path, "index.html")
         orgfilename = os.path.join(path, "source.org.txt")
@@ -686,7 +686,7 @@ class Htmlizer(object):
 
         return content
 
-    def _target_path_for_id_with_targetdir_and_prefixdir(self, entryid):
+    def _target_path_for_id_with_targetdir(self, entryid):
         """
         Returnes a directory path for a given blog ID such as:
         PERSISTENT: FIXXME
@@ -707,9 +707,9 @@ class Htmlizer(object):
             return ## FIXXME: implement!
         
         if entry['category'] == self.TEMPORAL:
-            return os.path.join(self.targetdir, self._target_path_for_id_without_targetdir_and_prefixdir(entryid))
+            return os.path.join(self.targetdir, self._target_path_for_id_without_targetdir(entryid))
 
-    def _target_path_for_id_without_targetdir_and_prefixdir(self, entryid):
+    def _target_path_for_id_without_targetdir(self, entryid):
         """
         Returnes a directory path for a given blog ID such as:
         PERSISTENT: FIXXME
@@ -825,7 +825,7 @@ class Htmlizer(object):
             str(returntimestamp.day).zfill(2), \
             str(returntimestamp.hour).zfill(2), str(returntimestamp.minute).zfill(2)
 
-    def _create_target_path_for_id_with_targetdir_and_prefixdir(self, entryid):
+    def _create_target_path_for_id_with_targetdir(self, entryid):
         """
         Creates a folder hierarchy for a given blog ID such as: TARGETDIR/blog/2013/02/12/ID
 
@@ -833,10 +833,10 @@ class Htmlizer(object):
         @param return: path that was created
         """
 
-        self.logging.debug("_create_target_path_for_id_with_targetdir_and_prefixdir(%s) called" % entryid)
+        self.logging.debug("_create_target_path_for_id_with_targetdir(%s) called" % entryid)
 
         assert(os.path.isdir(self.targetdir))
-        idpath = self._target_path_for_id_with_targetdir_and_prefixdir(entryid)
+        idpath = self._target_path_for_id_with_targetdir(entryid)
 
         try:
             self.logging.debug("creating path: \"%s\"" % idpath)
