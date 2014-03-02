@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-02 12:59:33 vk>
+# Time-stamp: <2014-03-02 17:56:31 vk>
 
 import logging
 import os
@@ -59,7 +59,7 @@ class Htmlizer(object):
     TIME_ZONE_ADDON = '+02:00'
 
     ## show this many article teasers on entry page
-    NUMBER_OF_TEASER_ARTICLES = 3
+    NUMBER_OF_TEASER_ARTICLES = 10
 
     ## find external links such as [[http(s)://foo.com][bar]]:
     EXT_URL_WITH_DESCRIPTION_REGEX = re.compile(u'\[\[(http[^ ]+?)\]\[(.+?)\]\]', flags = re.U)
