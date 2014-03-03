@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-03-03 20:50:28 vk>
+# Time-stamp: <2014-03-03 21:00:09 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -239,7 +239,10 @@ CLOSED: [2014-03-01 Sat 20:10]
 :ID: 2013-10-19-persistent-pages
 :END:
 
-- htmlizer
+- [ ] define tag to mark persistent pages
+- [ ] adopt parsing in htmlizer.py
+- [ ] test ID-links from temporal and persistent pages
+- [ ] add documentation
 
 ** STARTED get ordered lists of blog entries                  :architecture:
 :PROPERTIES:
