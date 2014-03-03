@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2014-02-25 17:33:07 vk>
+## Time-stamp: <2014-03-03 21:36:17 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -12,26 +12,38 @@ Saint-Exupéry]])
 * lazyblorg -- blogging with Org-mode for very lazy people
 
 This is a web log (blog) environment for [[http://en.wikipedia.org/wiki/Emacs][GNU Emacs]] with [[http://orgmode.org/][Org-mode]]
-which generates static HTML5 web pages.
+which generates static HTML5 web pages. It is much more superior to
+any other Org-mode-to-blog-solution I have seen so far!
 
-For a list of similar/alternative projects, please visit
+If you don't believe me right away, there is a list of
+similar/alternative projects on
 http://orgmode.org/worg/org-blog-wiki.html
 
-See [[http://article.gmane.org/gmane.emacs.orgmode/49747/][my original post to the Org-mode ML]] for how this idea started.
+See [[http://article.gmane.org/gmane.emacs.orgmode/49747/][my original post to the Org-mode ML]] for how this idea of lazyblorg
+started in 2011.
 
-- *target group*: users of [[http://orgmode.org/][Org-mode]] who want to do blogging very easily
+- *target group*: lazy users of [[http://orgmode.org/][Org-mode]] who want to do blogging very
+  easily and totally cool
+
 - *skills necessary*
   - modifying configuration settings, e.g., in script files
-  - (optional) creating scheduled tasks (crond, ...)
+  - optional: creating scheduled tasks (crond, ...) if you are a
+    *really* lazy one (and if you trust lazyblorg to do its job in the
+    background)
 
-This piece of software is a sheer beauty with regard to:
-- simplicity of creating an additional blog entry
+This awesome piece of software is a sheer beauty with regard to:
+- simplicity of creating a new blog entry
+  - *I mean it*: there is no step which can be skipped!
 - integration into my personal workflows
-  - here, you have to either adapt my awesome workflows or you have to
-    find alternative ways of doing following things:
-    - linking/including images (I use [[https://github.com/novoid/Memacs/blob/master/docs/memacs_filenametimestamps.org][Memacs]])
+  - here, you have to either adapt my totally awesome workflows or you
+    have to find alternative ways of doing following things:
+    - linking/including image files or attachments in general (I use [[https://github.com/novoid/Memacs/blob/master/docs/memacs_filenametimestamps.org][this Memacs module]])
+      - advantage of my method: I imply add
+        ~tsfile:2014-03-03-this-is-my-file-name.jpg~ (with brackets)
+        and I really don't care where the file is currently located on
+        my system
     - copying resulting HTML files to webspace (I do it using [[http://www.cis.upenn.edu/~bcpierce/unison/][unison]]/rsync)
-    - more to come
+    - probably more to come
 
 ** Why lazyblorg?
 
@@ -61,17 +73,22 @@ That's it. lazyblorg does the rest. It feels like magic, doesn't it? :-)
 
 ** Advantages
 
+These things make a blogger a happy one:
+
 *No other Org-mode blogging system* I know of is able to process blog
 entries which are *scattered across all your Org-mode documents*.
 
 *No other Org-mode blogging system* I know of is able to generate a
 blog entry with that *minimum effort* to the author.
 
-- You do not need to maintain a specific Org-mode file that contains
-  you blog posts only.
-  - [[http://www.tbray.org/ongoing/When/201x/2011/03/07/BNotes][*Create* blog posts]] *anywhere* in between your notes, todos,
-    contacts, ...
-- You don't need to write HTML code by yourself.
+You do not need to maintain a specific Org-mode file that contains you
+blog posts only. [[http://www.tbray.org/ongoing/When/201x/2011/03/07/BNotes][*Create* blog posts]] *anywhere* in between your notes,
+todos, contacts, ...
+
+
+And there are some technological advantages you might consider as well:
+
+- You don't need to write or correct HTML code by yourself.
 - produces static, state-of-the-art HTML5
   - it's super-fast on delivery to browsers
   - very low computing requirements on your web server: minimum of server load
@@ -88,22 +105,34 @@ blog entry with that *minimum effort* to the author.
 
 ** Disadvantages
 
+Yes, there are some disadvantages. I am totally honest to you since we
+are getting close friends right now:
+
 - lazyblorg *re-generates the complete set of output pages on every run*
-  - this will probably changed in a future release (no high priority)
+  - this will probably changed in a future release (to me: no high priority)
   - most of the time this is not an issue at all
     - if pages are generated on a different system as the web server
       runs on, performance is a minor issue
     - if you don't have thousands of pages, this will not take long
+
 - lazyblorg is implemented in Python:
   - Its Org-mode parser supports *only a sub-set of Org-mode syntax*
     and features.
+    - Whenever I think that an additional Org-mode syntax element is
+      needed for my blog, I start thinking of implementing it
+
 - lazyblorg is using state-of-the art HTML5 and CSS3
   - No old HTML4.01 transitional stuff or similar
   - Results might not be compatible with browsers such as Internet
     Explorer or mobile devices.
-- You have to accept the one-time setup which requires knowledge of:
+    - tell your Internet Explorer friends that they should do
+      themselves a favor and switch to a real browser
+
+- You have to accept the one-time setup effort which requires
+  knowledge of:
   - using command-line tools
   - modifying configuration files
+  - summary: getting this beautiful thing to work in your environment
 
 ** Features
 
@@ -144,7 +173,7 @@ Get it from [[https://github.com/novoid/lazyblorg][github]] and read the install
 *** What Org-mode elements are supported by lazyblorg?
 
 The parser only implements a sub-set of Org-mode syntax. See section
-"notes" in [[file:dev/lazyblorg.org]] for a a plan of supported elements.
+"notes" in [[file:dev/lazyblorg.org]] for a plan of supported elements.
 
 An Org-mode test-file (for unit testing) containing all implemented
 Org-mode syntax elements can be found at:
@@ -155,7 +184,7 @@ This test-file produces an example HTML entry that can be found at:
 
 *** Where can I find support for lazyblorg?
 
-Short: please do help yourself. :-)
+In short: please do help yourself. :-)
 
 Long: I developed lazyblorg for my own purposes and therefore it is
 optimized for my own requirements only. If you find lazyblorg cool
@@ -165,7 +194,7 @@ requirements than my own.
 
 *** Is lazyblorg in active development? What are the future plans?
 
-Currently (2013-08): yes (heavy) :-)
+Currently (2014-03): yes (heavy) :-)
 
 My plan as of 2013-08: 
 - develop lazyblorg to be able to replace my current web page and its blog.
@@ -186,16 +215,25 @@ Yes, please do read [[https://github.com/novoid/lazyblorg/blob/master/dev/lazybl
 *** Lazyblorg uses what technology?
 
 - input files: Org-mode files of version 8.x
+  - my personal Org-mode is from the [[http://orgmode.org/][Org-mode git repository]]; so I
+    tend to stay up-to-date to get newest features and fixes
 - processing: Python 2.x
   - some dependencies on libraries, nothing fancy
+  - I started with Python 2.x and never got the tension to test Python
+    3.x so far
 - output files: static HTML5, CSS3
 
 *** Can I use the Org-mode parser (in Python) for other purposes as well? 
 
 Yes, please do read [[https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org][dev/lazyblorg.org]] and [[https://github.com/novoid/lazyblorg/blob/master/lib/orgparser.py][lib/orgparser.py]].
 
-Although, you have to modify it a bit since I filter out headings
-that meet the criteria of being a blog article.
+Although, you have to modify it a bit since I filter out headings that
+meet the criteria of being a blog article. You also have to know that
+I did not write a clean parser (separate lexical and syntactic
+analysis) for Org-mode. I used the naive line-by-line method in order
+to get the sub-set Org-mode syntax done quickly. There certainly is a
+downside of this method in terms of capability and probably also
+maintainability.
 
 Please also note that this parser only implements a sub-set of
 Org-mode syntax (see section "notes" in [[https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org][dev/lazyblorg.org]]).
@@ -222,12 +260,22 @@ with "FIXXME" in the source code files.
 ** How to Start
 
 1. Get the source
-2. do a test-drive with ~lazyblorg/example_invocation.sh~
-   - this should work
+   - ~git clone https://github.com/novoid/lazyblorg.git~ or
+     [[https://github.com/novoid/lazyblorg/archive/master.zip][download current version as ZIP file]]
+
+2. do a technological test-drive
+   - start: ~lazyblorg/example_invocation.sh~
+   - this should work with GNU/Linux (and most probably OS X)
    - if not, there is something wrong with the set-up; maybe missing
      external libraries, wrong paths, ...
+
 3. study, understand, and adopt the content of [[https://github.com/novoid/lazyblorg/blob/master/example_invocation.sh][example_invocation.sh]]
-4. get youself an overview on *what defines a lazyblorg blog post*
+   - with this, you are able to modify command line parameters to meet
+     your requirements
+   - if unsure, ask for help using ~lazyblorg.py --help~
+
+4. get yourself an overview on *what defines a lazyblorg blog post* and
+   write your own blog posts
    1. A (direct) tag has to be ~blog~
       - Sorry, no tag inheritance (yet)
    2. You have to add an ~:ID:~ property
@@ -238,15 +286,21 @@ with "FIXXME" in the source code files.
    5. Do not use Org-mode elements that lazyblorg does not understand
       - you should not get a disaster if you are using new
         elements. Only the result might be disappointing.
-5. write your own blog posts
-6. write your own CSS file
+
+5. OPTIONAL: write your own CSS file
    - you can [[http://Karl-Voit.at/public_voit.css][take a look on mine]] if you do not care that I am not
      really into Web design :-)
-7. adopt the blog template in [[https://github.com/novoid/lazyblorg/blob/master/templates/blog-format.org][lazyblorg/templates/blog-format.org]]
-8. publish your pages on a web space of your choice
+   - please replace hard-coded URL to CSS file in
+     [[https://github.com/novoid/lazyblorg/blob/master/templates/blog-format.org][lazyblorg/templates/blog-format.org]] and link it to your CSS file
+
+6. OPTIONAL: adopt the blog template
+   - default template is defined in
+     [[https://github.com/novoid/lazyblorg/blob/master/templates/blog-format.org][lazyblorg/templates/blog-format.org]]
+
+7. publish your pages on a web space of your choice
    - publishing can be done in various ways. This is how I do it using
      ~lazyblorg/make_and_publish_public_voit.sh~ which is an
-     adopted version of ~example_invocation.sh~:
+     adopted version of ~lazyblorg/example_invocation.sh~:
      1. executing ~testall.sh~
         - this is for checking whether or not recent code changes did
           something harmful to my (unfortunately very limited) set of
@@ -256,6 +310,9 @@ with "FIXXME" in the source code files.
      3. executing ~rsync -av testdata/2del/blog/* $HOME/public_html/~
         - it synchronizes the newly generated blog data to the local
           copy of my web space data
+        - this separation makes sense to me because with this, I am
+          able to do test drives without overwriting my (local copy of
+          my) blog
      4. executing [[http://www.cis.upenn.edu/~bcpierce/unison/][unison]]
         - in order to transfer my local copy of my web space data to
           my public web space
@@ -266,26 +323,43 @@ with "FIXXME" in the source code files.
      it to my web space, I keep the meta-data (which is in the local
      web space copy) of the published version (and not the meta-data
      of the previous test-run).
-9. have fun with a pretty neat method to generate your blog pages
+
+8. have fun with a pretty neat method to generate your blog pages
+
+Because we are already close friends now, I tell you a *hidden
+feature* of lazyblorg nobody knows yet: whenever you see a π-symbol in
+the upper right corner of a blog entry on [[http://qr.cx/7wKz][my blog]]: this is a link to
+the original Org-mode source of that page. This way, you can compare
+Org-mode-source and HTML-result right away. Isn't that cool? :-)
 
 ** Preview Blog Article
 :PROPERTIES:
 :CREATED:  [2014-02-25 Tue 17:27]
 :END:
 
-There is a simple method to preview the article under the cursor. The
-script [[https://github.com/novoid/lazyblorg/blob/master/preview_blogentry.sh][preview_blogentry.sh]] contains an ELISP function that extracts
-the current blog article (all lazyblorg citeria has to be fulfilled:
-ID, ~blog~ tag, status ~DONE~), stores it into a temporary file, and
-invokes lazyblorg via ~preview_blogentry.sh~ with this temporary file
-and the Org-mode file containing the format definitions.
+It is tedious to re-generate the whole blog and even upload it to your
+web-space just to check the HTML version of the article you are
+currently writing.
+
+Yeah, this also sucks at my side.
+
+Good news everybody: There is a simple method to preview the article
+under the cursor. The script [[https://github.com/novoid/lazyblorg/blob/master/preview_blogentry.sh][preview_blogentry.sh]] contains an ELISP
+function that extracts the current blog article (all lazyblorg criteria
+has to be fulfilled: ID, ~blog~ tag, status ~DONE~), stores it into a
+temporary file, and invokes lazyblorg via ~preview_blogentry.sh~ with
+this temporary file and the Org-mode file containing the format
+definitions.
 
 If this worked out, your browser shows you all generated blog
 articles.
 
-Please do adopt the scripts to you specific requirements - the ones
-from the repository are for my personal set-up which is unlikely to
-fit yours (directory paths mostly).
+Please *do adopt the mentioned scripts* to you specific requirements -
+the ones from the repository are for my personal set-up which is
+unlikely to fit yours (directory paths mostly).
+
+Bang! Another damn cool feature of lazyblorg. This is going better and
+better. :-)
 
 * Contribute!
 
@@ -294,7 +368,7 @@ I am looking for your ideas:
 If you want to contribute to this cool project, please fork and
 contribute!
 
-Issues, bugs, userstories, ... are maintained in [[https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org][dev/lazyblorg.org]]
+Issues, bugs, user-stories, ... are maintained in [[https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org][dev/lazyblorg.org]]
 
 I am using [[http://www.python.org/dev/peps/pep-0008/][Python PEP8]] and some ideas from [[http://en.wikipedia.org/wiki/Test-driven_development][Test Driven Development
 (TDD)]].
