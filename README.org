@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2014-03-03 21:40:16 vk>
+## Time-stamp: <2014-03-03 21:45:05 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -112,8 +112,8 @@ And there are some technological advantages you might consider as well:
 
 ** Disadvantages
 
-Yes, there are some disadvantages. I am totally honest to you since we
-are getting close friends right now:
+Yes, there are some disadvantages. I am totally honest with you since we
+are becoming close friends right now:
 
 - lazyblorg *re-generates the complete set of output pages on every run*
   - this will probably changed in a future release (to me: no high priority)
@@ -155,6 +155,8 @@ simple.»
 ([[https://en.wikipedia.org/wiki/Antoine_de_Saint-Exup%25C3%25A9ry][Antoine de Saint-Exupéry]]; note: lazyblorg is currently "primitive"
 but with a great outlook up to the status of being simple)
 
+See FAQs for "What Org-mode elements are supported by lazyblorg?"
+
 ** FAQs
 
 *** Why lazyblorg and not <another project>?
@@ -194,10 +196,10 @@ This test-file produces an example HTML entry that can be found at:
 In short: please do help yourself. :-)
 
 Long: I developed lazyblorg for my own purposes and therefore it is
-optimized for my own requirements only. If you find lazyblorg cool
-and you want to use it on your own, I am totally OK with
-that. However, I can not offer much time in supporting other
-requirements than my own.
+optimized for my own requirements only. If you find lazyblorg cool and
+you want to use it on your own, I am totally OK with that. However, I
+can not offer much time in supporting other requirements than my
+own. If you did not catch this by yourself: I am lazy.
 
 *** Is lazyblorg in active development? What are the future plans?
 
