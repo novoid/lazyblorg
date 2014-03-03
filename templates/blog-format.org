@@ -50,7 +50,7 @@ id:implemented-org-elements in [[file:../dev/lazyblorg.org]]
 
 Have fun with modifying lazyblorg to your requirements!
 
-* DONE Templates                                           :lb_templates:blog:
+* DONE Templates :lb_templates:blog:
 :LOGBOOK:
 - State "DONE"       from "DONE"       [2013-08-21 Wed 17:50]
 :END:
@@ -463,7 +463,7 @@ FIXXME
 
   <p>
 
-    This is the home-page of Karl Voit. See the sidebar for further information of <a href="2014/01/30/public-voit-beta/">my brand new web log</a>. My old homepage can be found <a href="unmaintained/">here</a>.
+    This is the home-page of Karl Voit. See the (future) sidebar for further information of <a href="2014/01/30/public-voit-beta/">my brand new web log</a>. My previous homepage can be found <a href="unmaintained/">here</a>. 
 
   </p>
 
@@ -543,7 +543,7 @@ FIXXME
 
 FIXXME
 
-* Local Variables                                                  :noexport:
+* Local Variables :noexport:
 # Local Variables:
 # mode: auto-fill
 # mode: flyspell
