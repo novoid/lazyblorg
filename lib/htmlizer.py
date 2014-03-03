@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-03 20:23:01 vk>
+# Time-stamp: <2014-03-03 20:44:37 vk>
 
 import logging
 import os
@@ -218,7 +218,8 @@ class Htmlizer(object):
                 content += self.template_definition_by_name('article-preview-end')
 
                 ## replacing keywords:
-                
+
+                content = self.sanitize_internal_links(entry['category'], content)
                 content = content.replace('#ARTICLE-TITLE#', self.sanitize_external_links(
                     self.sanitize_html_characters(entry['title'])))
                 content = content.replace('#ARTICLE-URL#', listentry['url'])
@@ -342,6 +343,7 @@ class Htmlizer(object):
                 result = u' '.join(entry['content'][index][1:])
 
                 result = self.sanitize_html_characters(result)
+                result = self.sanitize_internal_links(entry['category'], result)
                 result = self.sanitize_external_links(result)
                 result = self.htmlize_simple_text_formatting(result)
                 result = self.fix_ampersands_in_url(result)
@@ -374,6 +376,7 @@ class Htmlizer(object):
 
                 result = entry['content'][index][1]['title']
                 result = self.sanitize_html_characters(result)
+                result = self.sanitize_internal_links(entry['category'], result)
                 result = self.sanitize_external_links(result)
                 result = self.htmlize_simple_text_formatting(result)
                 result = self.fix_ampersands_in_url(result)
@@ -388,6 +391,7 @@ class Htmlizer(object):
                 result = self.template_definition_by_name('ul-begin')
                 for listitem in entry['content'][index][1]:
                     content = self.sanitize_html_characters(listitem)
+                    content = self.sanitize_internal_links(entry['category'], content)
                     content = self.sanitize_external_links(content)
                     content = self.htmlize_simple_text_formatting(result)
                     content = self.fix_ampersands_in_url(content)
@@ -446,6 +450,7 @@ class Htmlizer(object):
                 self.logging.debug("result [%s]" % repr(result))
                 self.logging.debug("mycontent [%s]" % repr(mycontent))
                 result += self.htmlize_simple_text_formatting(self.sanitize_external_links(self.sanitize_html_characters(mycontent)))
+                result = self.sanitize_internal_links(entry['category'], result)
                 result += self.template_definition_by_name('blockquote-end')
 
             elif entry['content'][index][0] == 'src-block':

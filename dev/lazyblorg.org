@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-03-02 19:30:37 vk>
+# Time-stamp: <2014-03-03 20:50:28 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -228,25 +228,6 @@ CLOSED: [2014-03-01 Sat 20:10]
 
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
-
-** STARTED parse/htmlize: internal links                         :userstory:
-SCHEDULED: <2014-03-03 Mon>
-:PROPERTIES:
-:CREATED:  [2014-02-01 Sat 15:25]
-:END:
-
-- to other blog articles, persistent pages, tag pages
-- by ID
-- recognize: "[[id:foobar]]"
-
-- [ ] htmlizer.py: def sanitize_internal_links(self, sourcecategory, content):
-  - error, if ID not found in blog_data!
-
-- [ ] htmlizer_tests.py: def test_sanitize_internal_links(self):
-
-- [ ] add section to testdata/currently_supported_orgmode_syntax.org
-  - section including HTML result draft already exists but is tagged
-    with NOEXPORT!
 
 ** STARTED implement: creating PERSISTENT pages                  :userstory:
 :LOGBOOK:
@@ -953,6 +934,7 @@ are some for "lazyblog" (without the 'r').
 ** Implemented Org-mode Elements
 :PROPERTIES:
 :ID: implemented-org-elements
+:CREATED:  [2014-03-03 Mon 20:49]
 :END:
 
 - list of Org Mode elements: http://article.gmane.org/gmane.emacs.orgmode/67871
@@ -966,6 +948,8 @@ Org elements: from ox-ascii.el (Org-mode)
 #+NAME: implemented-org-elements
 | *Org Element*       | [fn:earmarked] | [fn:lowprio] | implemented since | [fn:internalrepresentation]                                        | *HTML5*                                                  |
 |---------------------+----------------+--------------+-------------------+--------------------------------------------------------------------+----------------------------------------------------------|
+| external hyperlinks |                |              | <2014-01-30 Thu>  |                                                                    | a                                                        |
+| internal links      |                |              | <2014-03-03 Mon>  |                                                                    | a                                                        |
 | bold                |                |              | <2014-01-30 Thu>  |                                                                    | b                                                        |
 | center-block        |                | x            |                   |                                                                    |                                                          |
 | clock               |                | x            |                   |                                                                    |                                                          |

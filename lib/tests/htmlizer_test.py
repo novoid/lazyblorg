@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-03 20:22:28 vk>
+# Time-stamp: <2014-03-03 20:41:20 vk>
 
 import unittest
 from lib.htmlizer import *
@@ -51,7 +51,7 @@ class TestHtmlizer(unittest.TestCase):
         entry = {'content':[ \
                              ['par', u'First paragraph'],
                              ['par', u'Second paragraph'],
-                         ]}
+                         ], 'category':'TEMPORAL'}
         htmlized_content_expected = [u'<p>First paragraph</p>', u'<p>Second paragraph</p>']
         htmlized_entry_test = htmlizer.sanitize_and_htmlize_blog_content(entry)
         self.assertTrue(htmlized_entry_test['content'] == htmlized_content_expected)
@@ -63,7 +63,7 @@ class TestHtmlizer(unittest.TestCase):
                              ['par', u'First paragraph'],
                              ['hr'],
                              ['par', u'Second paragraph']
-                         ]}
+                         ], 'category':'TEMPORAL'}
         htmlized_content_expected = [u'<p>First paragraph</p>', '<div class="orgmode-hr" />', u'<p>Second paragraph</p>']
         htmlized_entry_test = htmlizer.sanitize_and_htmlize_blog_content(entry)
         self.assertTrue(htmlized_entry_test['content'] == htmlized_content_expected)
@@ -76,7 +76,7 @@ class TestHtmlizer(unittest.TestCase):
                              ['heading', {'title': u'My article header', 'level': 3}],
                              ['par', u'Second paragraph']
                          ],\
-                 'level':1}
+                 'level':1, 'category':'TEMPORAL'}
         htmlized_content_expected = [u'<p>First paragraph</p>', u'<header>My article header</header>', u'<p>Second paragraph</p>']
         htmlized_entry_test = htmlizer.sanitize_and_htmlize_blog_content(entry)
 
@@ -99,7 +99,7 @@ class TestHtmlizer(unittest.TestCase):
 
         entry = {'finished-timestamp-history':[datetime.datetime(2011, 12, 29, 19, 40),
                                                datetime.datetime(2008, 1, 29, 19, 40),
-                                               datetime.datetime(2013, 1, 29, 19, 40)]}
+                                               datetime.datetime(2013, 1, 29, 19, 40)], 'category':'TEMPORAL'}
 
         self.assertTrue(htmlizer._get_newest_timestamp_for_entry(entry) == (datetime.datetime(2013, 1, 29, 19, 40),
                                                                             "2013", "01", "29",

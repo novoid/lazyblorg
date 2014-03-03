@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-02 18:38:00 vk>
+# Time-stamp: <2014-03-03 20:27:15 vk>
 
 import argparse  ## command line arguments
 import unittest
@@ -236,13 +236,13 @@ class TestLazyblorg(unittest.TestCase):
         for line in range(len(comparison_string_array)): 
             if contentarray_from_file[line].rstrip() != comparison_string_array[line].rstrip(): 
                 print "=================  first difference  ===================== in line " + str(line)
-                print "  [" + contentarray_from_file[line-1].rstrip() + "]"
-                print "> [" + contentarray_from_file[line].rstrip() + "]"
-                print "  [" + contentarray_from_file[line+1].rstrip() + "]"
+                print "       [" + contentarray_from_file[line-1].rstrip() + "]"
+                print "found  [" + contentarray_from_file[line].rstrip() + "]"
+                print "       [" + contentarray_from_file[line+1].rstrip() + "]"
                 print "    ---------------  comparison data:  --------------------"
-                print "  [" + comparison_string_array[line-1].rstrip() + "]"
-                print "> [" + comparison_string_array[line].rstrip() + "]"
-                print "  [" + comparison_string_array[line+1].rstrip() + "]"
+                print "       [" + comparison_string_array[line-1].rstrip() + "]"
+                print "should [" + comparison_string_array[line].rstrip() + "]"
+                print "       [" + comparison_string_array[line+1].rstrip() + "]"
                 print "=================                    ====================="
                 self.assertTrue(contentarray_from_file[line].rstrip() == comparison_string_array[line].rstrip())
                     
