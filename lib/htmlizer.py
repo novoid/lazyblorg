@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-02 19:21:14 vk>
+# Time-stamp: <2014-03-03 20:23:01 vk>
 
 import logging
 import os
@@ -9,10 +9,8 @@ import re  ## RegEx: for parsing/sanitizing
 import codecs
 #from lib.utils import *
 
-## debugging:   for setting a breakpoint:  pdb.set_trace()
 ## NOTE: pdb hides private variables as well. Please use:   data = self._OrgParser__entry_data ; data['content']
 import pdb
-                #pdb.set_trace()## FIXXME
 
 ### FIXXXME: differ according to category (persistent, tags, temporal, templates)
 
@@ -62,8 +60,8 @@ class Htmlizer(object):
     NUMBER_OF_TEASER_ARTICLES = 10
 
     ## find internal links to Org-mode IDs: [[id:simple]] and [[id:with][a description]]
-    ID_SIMPLE_LINK_REGEX = re.compile('\[\[id:(\S+)\]\]')
-    ID_DESCRIBED_LINK_REGEX = re.compile('\[\[id:(\S+)\]\[(.+?)\]\]')
+    ID_SIMPLE_LINK_REGEX = re.compile('(\[\[id:(\S+)\]\])')
+    ID_DESCRIBED_LINK_REGEX = re.compile('(\[\[id:(\S+)\]\[(.+?)\]\])')
 
     ## find external links such as [[http(s)://foo.com][bar]]:
     EXT_URL_WITH_DESCRIPTION_REGEX = re.compile(u'\[\[(http[^ ]+?)\]\[(.+?)\]\]', flags = re.U)
@@ -153,7 +151,6 @@ class Htmlizer(object):
                 pass  ## FIXXME: generate persistent blog entry
 
             elif entry['category'] == self.TEMPORAL:
-                #pdb.set_trace()## FIXXME
                 self.logging.debug("entry \"%s\" is an ordinary time-oriented blog entry" % entry['id'])
                 htmlfilename, orgfilename, htmlcontent = self._create_time_oriented_blog_article(entry)
 
@@ -404,7 +401,6 @@ class Htmlizer(object):
                 ## example:
                 ## ['html-block', u'my-HTML-example name', [u'    foo', u'bar', u'  <foo />', u'<a href="bar">baz</a>']]
 
-                #import pdb; pdb.set_trace()
                 if not entry['content'][index][1]:
                     ## if html-block has no name -> insert as raw HTML
                     result = '\n'.join(entry['content'][index][2])
@@ -541,6 +537,38 @@ class Htmlizer(object):
 
         return content.replace(u'&', u'&amp;').replace(u'<', u'&lt;').replace(u'>', u'&gt;')
 
+    def generate_relative_url_from_sourcecategory_to_id(self, sourcecategory, targetid):
+        """
+        returns a string containing a relative link from any article of same 
+        category as sourcecategory to the page of targetid.
+
+        @param sourcecategory: constant string determining type of source entry
+        @param targetid: ID of blog_data entry
+        @param return: string with relative URL
+        """
+
+        assert(type(targetid) == unicode or type(targetid) == str)
+        
+        url = u""
+        
+        ## build back-traverse URL
+        if sourcecategory == self.TEMPORAL:
+            url = u"../../../../"
+        elif sourcecategory == self.PERSISTENT:
+            url = u"../"
+        elif sourcecategory == self.TAGS:
+            url = u"../../"
+        else:
+            message = "generate_relative_url_from_sourcecategory_to_id() found an unknown sourcecategory [" + \
+                      str(sourcecategory) + "]"
+            self.logging.critical(message)
+            raise HtmlizerException(message)
+
+        ## add targetid-URL
+        url += self._target_path_for_id_without_targetdir(targetid)
+
+        return url
+
     def sanitize_internal_links(self, sourcecategory, content):
         """
         Replaces all internal Org-mode links of type [[id:foo]] or [[id:foo][bar baz]].
@@ -550,11 +578,30 @@ class Htmlizer(object):
         @param return: sanitized string
         """
 
-        # self.ID_DESCRIBED_LINK_REGEX = re.compile('\[\[id:(\S+)\]\[(.+?)\]\]')
-        # self.ID_SIMPLE_LINK_REGEX = re.compile('\[\[id:(\S+)\]\]')
-
-        #content = re.sub(self.ID_SIMPLE_LINK_REGEX, ur'<a href="\1">\1</a>', content)
-        #content = re.sub(self.ID_DESCRIBED_LINK_REGEX, ur'<a href="\1">\2</a>', content)
+        assert(type(content) == unicode)
+        
+        newcontent = u""
+        
+        allmatches = re.findall(self.ID_SIMPLE_LINK_REGEX, content)
+        if allmatches != []:
+            ## allmatches == [(u'[[id:2014-03-02-my-persistent]]', u'2014-03-02-my-persistent')]
+            ##   ... FOR ONE MATCH OR FOR MULTIPLE:
+            ##               [(u'[[id:2014-03-02-my-temporal]]', u'2014-03-02-my-temporal'), \
+            ##                (u'[[id:2015-03-02-my-additional-temporal]]', u'2015-03-02-my-additional-temporal')]
+            for currentmatch in allmatches:
+                internal_link = currentmatch[0]
+                targetid = currentmatch[1]
+                url = self.generate_relative_url_from_sourcecategory_to_id(sourcecategory, targetid)
+                content = content.replace(internal_link, "<a href=\"" + url + "\">" + targetid + "</a>");
+        
+        allmatches = re.findall(self.ID_DESCRIBED_LINK_REGEX, content)
+        if allmatches != []:
+            for currentmatch in allmatches:
+                internal_link = currentmatch[0]
+                targetid = currentmatch[1]
+                description = currentmatch[2]
+                url = self.generate_relative_url_from_sourcecategory_to_id(sourcecategory, targetid)
+                content = content.replace(internal_link, "<a href=\"" + url + "\">" + description + "</a>");
         
         return content
 
@@ -742,23 +789,25 @@ class Htmlizer(object):
         """
 
         entry = self.blog_data_with_id(entryid)
+        
+        folder = werkzeug.utils.secure_filename(entryid)
+
+        if self.DATESTAMP_REGEX.match(folder[0:10]):
+        ## folder contains any date-stamp in ISO format -> get rid of it (it's in the path anyway)
+            folder = folder[11:]
 
         if entry['category'] == self.TAGS:
-            return ## FIXXME: implement!
+            ## TAGS: url is like "/tags/mytag/"
+            return os.path.join("tags", folder)
         
         if entry['category'] == self.PERSISTENT:
-            return ## FIXXME: implement!
+            ## PERSISTENT: url is like "/my-id/"
+            return os.path.join(folder)
         
         if entry['category'] == self.TEMPORAL:
+            ## TEMPORAL: url is like "/2014/03/30/my-id/"
 
             oldesttimestamp, year, month, day, hours, minutes = self._get_oldest_timestamp_for_entry(entry)
-
-            folder = werkzeug.utils.secure_filename(entryid)
-
-            if self.DATESTAMP_REGEX.match(folder[0:10]):
-            ## folder contains any date-stamp in ISO format -> get rid of it (it's in the path anyway)
-                folder = folder[11:]
-
             return os.path.join(year, month, day, folder)
 
     def _get_newest_timestamp_for_entry(self, entry):
@@ -904,7 +953,8 @@ class Htmlizer(object):
             return matching_elements[0]
         else:
             message = "blog_data_with_id(\"" + entryid + \
-                "\") did not find exactly one result (as expected): [" + str(matching_elements) + "]"
+                "\") did not find exactly one result (as expected): [" + str(matching_elements) + \
+                "]. Maybe you mistyped an internal link id (or there are multiple blog entries sharing IDs)?"
             self.logging.error(message)
             raise HtmlizerException(message)  ## FIXXME: maybe an Exception is too harsh here? (error-recovery?)
 
