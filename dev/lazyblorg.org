@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-03-03 21:00:09 vk>
+# Time-stamp: <2014-03-04 13:41:18 karl.voit>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -262,6 +262,10 @@ CLOSED: [2014-03-01 Sat 20:10]
     - get oldest entry of entry['finished-timestamp-history']
     - store to a sorted list (newest first or last)
 
+** NEXT tags of articles on entry page                            :userstory:
+:PROPERTIES:
+:CREATED:  [2014-03-04 Di 13:41]
+:END:
 ** STARTED HTML: manually create month overview page          :architecture:
 :LOGBOOK:
 - Not scheduled, was "2014-03-01 Sat" on [2014-03-01 Sat 21:01]
