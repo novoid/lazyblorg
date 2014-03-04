@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2014-03-03 21:45:05 vk>
+## Time-stamp: <2014-03-04 18:39:23 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -341,7 +341,97 @@ the upper right corner of a blog entry on [[http://qr.cx/7wKz][my blog]]: this i
 the original Org-mode source of that page. This way, you can compare
 Org-mode-source and HTML-result right away. Isn't that cool? :-)
 
-** Preview Blog Article
+** Five categories of page type
+:PROPERTIES:
+:CREATED:  [2014-03-04 Di 08:52]
+:END:
+
+There are five different types of pages in lazyblorg. Most of the
+time, you are going to produce temporal pages. However, it is
+important to understand the other ones as well.
+
+In order to process a blog-heading to its HTML5 representation, its
+Org-mode file has to be included in the ~--orgfiles~ command line
+argument of ~lazyblorg.py~. Do not forget to include the archive files
+as well.
+
+1. *temporal*
+   - associated with a certain (first) publishing date
+     - the date of the most recent update is derived from the most
+       recent time-stamp when you are marking the heading as DONE
+   - URLs end up like ~http://example.com/2014/03/30/this-is-the-ID/~ where
+     "this-is-the-ID" is derived from the ID-property
+     - the date is taken from the oldest time-stamp when the heading
+       was marked as DONE
+     - if the ID starts with an ISO date, this date gets truncated:
+       "2014-03-30-this-is-the-ID" gets "this-is-the-ID"
+       - reason: you can use general terms like "sports" without
+         worrying that another heading has "sports" as ID as well
+         ("2014-03-30-sports" is pretty unique in contrast to "sports").
+       - hey, isn't this nice or what?
+   - criteria (as already mentioned above)
+     1. ID set
+     2. tag: ~blog~
+     3. status is DONE
+
+2. *persistent*
+   - pages that will be constantly updated to stay up-to-date are
+     realized as persistent pages
+   - this type is very handy for, e.g., about-pages, [[http://en.wikipedia.org/wiki/Colophon_%2528publishing%2529][colophon]],
+     constantly updated tutorials/howtos, and so forth
+   - URLs are like ~http://example.com/this-is-the-ID/~
+     - if it starts with an ISO date: same truncation as with the
+       temporal IDs
+   - criteria
+     1. ID set
+     2. tag: ~blog~
+     3. tag: ~persistent~
+     4. status is DONE
+
+3. *tags*
+   - Tag pages are a specialty of lazyblorg. Unlike other systems,
+     lazyblorg embraces tags as very important classification
+     meta-data. When I am using a tag, I associate a specific context
+     with it. This specific context is highly subjective unless I
+     explain it to you. Tag pages are my explanation, what I do mean
+     by using a certain tag. In the future, tags of temporal pages are
+     automatically linked to (existing) tag pages describing each tag.
+   - Hence: tag pages are like persistent pages which describe a
+     certain tag.
+   - URLs are like ~http://example.com/tags/this-is-the-ID/~
+     - if it starts with an ISO date: same truncation as with the
+       temporal IDs
+   - criteria
+     1. ID set
+     2. tag: ~blog~
+     3. tag: ~tags~
+     4. status is DONE
+
+4. *entry page*
+   - The main or entry page is handled in a special way. It is a
+     persistent page whose content is generated using HTML snippets
+     from the templates and enriched with links to the most recent
+     updated pages. So far, there is not much Org-mode on the entry
+     page. It is more or less a dash-board and a jumping page.
+   - The URL is like ~http://example.com/~
+
+5. *templates*
+   - There must be exactly one heading which meets the criteria of a
+     templates heading (see below). Within this heading, separate HTML
+     blocks define the HTML snippets that are used by lazyblorg to
+     generate the HTML pages. Please take a look at
+     [[https://github.com/novoid/lazyblorg/blob/master/templates/blog-format.org][lazyblorg/templates/blog-format.org]] to get an impression how this
+     works.
+   - You might want to start with my blog-format template and adopt it
+     to your needs.
+   - criteria
+     1. ID set
+     2. tag: ~blog~
+     3. tag: ~lb_templates~
+     4. status is DONE
+     5. contains all necessary HTML blocks with pre-defined names
+
+** BONUS: Preview Blog Article
 :PROPERTIES:
 :CREATED:  [2014-02-25 Tue 17:27]
 :END:
