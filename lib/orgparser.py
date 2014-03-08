@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-08 19:36:46 vk>
+# Time-stamp: <2014-03-08 20:00:58 vk>
 
 import re
 import os
@@ -273,7 +273,8 @@ class OrgParser(object):
         """
 
         self.logging.debug("OrgParser: doing file \"%s\" ..." % self.__filename)
-
+        stats_parsed_org_lines = 0
+        
         ## finite state machine:
         ## SEARCHING_BLOG_HEADER | BLOG_HEADER | ENTRY_CONTENT | ...
         ## ... DRAWER_PROP | DRAWER_LOGBOOK | BLOCK | LIST | TABLE | COLON_BLOCK | ..
@@ -310,7 +311,8 @@ class OrgParser(object):
 
             self.logging.debug("OrgParser: ------------------------------- %s" % state)
             self.logging.debug("OrgParser: %s ###### line: \"%s\"" % (state, line))
-
+            stats_parsed_org_lines += 1  ## increment statistical counter variable
+            
             if state == self.SKIPPING_NOEXPORT_HEADING:
 
                 ## ignore until end of blog entry  OR
@@ -624,7 +626,7 @@ class OrgParser(object):
         ## self._OrgParser__blog_data
             ## self._OrgParser__entry_data
             ## self._OrgParser__filename
-        return self.__blog_data
+        return self.__blog_data, stats_parsed_org_lines
 
 
 # Local Variables:

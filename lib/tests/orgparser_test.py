@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-08 19:38:01 vk>
+# Time-stamp: <2014-03-08 20:04:14 vk>
 
 import unittest
 from lib.utils import *
@@ -51,8 +51,8 @@ class TestOrgParser(unittest.TestCase):
         parser = OrgParser(testfile_org)
 
         ## parse the example Org-mode file:
-        blog_data.extend(parser.parse_orgmode_file())
-        #pdb.set_trace()## FIXXME
+        file_blog_data, stats_parsed_org_lines = parser.parse_orgmode_file()
+        blog_data.extend(file_blog_data)
 
         ## write data to dump file:
         with open(testfile_temp_output, 'wb') as output:

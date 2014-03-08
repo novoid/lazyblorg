@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-08 19:27:07 vk>
+# Time-stamp: <2014-03-08 20:24:49 vk>
 
 import logging
 import os
@@ -46,6 +46,7 @@ class Htmlizer(object):
     TAG_FOR_TAG_ENTRY = u'lb_tags'  ## if an entry is tagged with this, it's an TAGS entry
     TAG_FOR_PERSISTENT_ENTRY = u'lb_persistent'  ## if an entry is tagged with this, it's an PERSISTENT entry
     TAG_FOR_TEMPLATES_ENTRY = u'lb_templates'  ## if an entry is tagged with this, it's an TEMPLATES entry
+
 
     ## categories of blog entries:
     ## FIXXME: also defined in multiple other files
@@ -120,8 +121,15 @@ class Htmlizer(object):
     def run(self):
         """
         Basic method that creates all the output.
+
+        @param: return: stats_generated_total: total articles generated
+        @param: return: stats_generated_temporal: temporal articles generated
+        @param: return: stats_generated_persistent: persistent articles generated
+        @param: return: stats_generated_tags: tag articles generated
         """
 
+        stats_generated_total, stats_generated_temporal, stats_generated_persistent, stats_generated_tags = 0, 0, 0, 0
+        
         for entry in self.blog_data:
 
             ## example entry:
@@ -144,16 +152,19 @@ class Htmlizer(object):
                 self.logging.warn("generating tag pages not implemented yet")
                 ## FIXXME: maybe: remove self.TAGS from list of tags?
                 pass  ## FIXXME: generate tag blog entry
+                stats_generated_tags += 1
 
             elif entry['category'] == self.PERSISTENT:
                 self.logging.debug("entry \"%s\" is a persistent page" % entry['id'])
                 self.logging.warn("generating persistent pages not implemented yet")
                 ## FIXXME: maybe: remove self.PERSISTENT from list of tags?
                 pass  ## FIXXME: generate persistent blog entry
+                stats_generated_persistent += 1
 
             elif entry['category'] == self.TEMPORAL:
                 self.logging.debug("entry \"%s\" is an ordinary time-oriented blog entry" % entry['id'])
                 htmlfilename, orgfilename, htmlcontent = self._create_time_oriented_blog_article(entry)
+                stats_generated_temporal += 1
 
             elif entry['category'] == self.TEMPLATES:
                 self.logging.debug("entry \"%s\" is the/a HTML template definition. Ignoring." % entry['id'])
@@ -167,9 +178,12 @@ class Htmlizer(object):
             if entry['category'] == self.TAGS or entry['category'] == self.PERSISTENT or entry['category'] == self.TEMPORAL:
                 self.write_htmlcontent_to_file(htmlfilename, htmlcontent)
                 self.write_orgcontent_to_file(orgfilename, entry['rawcontent'])
+                stats_generated_total += 1
                 
         entry_list_by_newest_timestamp = self.generate_entry_list_by_newest_timestamp()
         self.generate_entry_page(entry_list_by_newest_timestamp)
+        stats_generated_total += 1
+        return stats_generated_total, stats_generated_temporal, stats_generated_persistent, stats_generated_tags
 
     def generate_entry_list_by_newest_timestamp(self):
         """

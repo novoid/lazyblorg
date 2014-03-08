@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-02 12:52:48 vk>
+# Time-stamp: <2014-03-08 20:35:34 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -89,11 +89,13 @@ class Lazyblorg(object):
         """
 
         options = self.options
+        stats_parsed_org_files, stats_parsed_org_lines = 0, 0
 
         logging.debug("iterate over files ...")
         for filename in options.orgfiles:
+            new_org_lines = 0
             try:
-                file_blog_data = self._parse_orgmode_file(filename)  ## parsing one Org-mode file
+                file_blog_data, new_org_lines = self._parse_orgmode_file(filename)  ## parsing one Org-mode file
             except OrgParserException as message:
                 verbose_message = "Parsing error in file \"" + filename + \
                     "\" which is not good. Therefore, I stop here and hope you " + \
@@ -101,6 +103,8 @@ class Lazyblorg(object):
                 Utils.error_exit_with_userlog(options.logfilename, 20, verbose_message)
             else:
                 self.blog_data += file_blog_data
+                stats_parsed_org_files += 1
+                stats_parsed_org_lines += new_org_lines
 
         ## dump blogdata for debugging purpose ...
         if options.verbose:
@@ -134,7 +138,7 @@ class Lazyblorg(object):
         ## run comparing algorithm (last metadata, current metadata)
         generate, marked_for_RSS, increment_version = self._compare_blogdata_to_metadata()
 
-        return generate, marked_for_RSS, increment_version
+        return generate, marked_for_RSS, increment_version, stats_parsed_org_files, stats_parsed_org_lines
 
     def OLD_parse_HTML_output_template_and_generate_template_definitions(self):
         """
@@ -167,7 +171,7 @@ class Lazyblorg(object):
                             self.options.targetdir, self.blog_data, generate, increment_version)
 
         ## FIXXME: try except HtmlizerException?
-        htmlizer.run()  ## FIXXME: return value?
+        return htmlizer.run()  ## FIXXME: return value?
 
         ## FIXXME: generate pages
         ## (metadata, blog_data, template_definitions, options.tagetdir)
@@ -474,9 +478,17 @@ if __name__ == "__main__":
         lazyblorg = Lazyblorg(options, logging)
         ## FIXXME: encapsulate following lines in lazyblorg.run() ?
         #lazyblorg.parse_HTML_output_template_and_generate_template_definitions()
-        generate, marked_for_RSS, increment_version = lazyblorg.determine_changes()
-        lazyblorg.generate_output(generate, marked_for_RSS, increment_version)
+        generate, marked_for_RSS, increment_version, stats_parsed_org_files, stats_parsed_org_lines = lazyblorg.determine_changes()
+        stats_generated_total, stats_generated_temporal, \
+            stats_generated_persistent, stats_generated_tags = lazyblorg.generate_output(generate, marked_for_RSS, increment_version)
 
+        logging.info("Parsed " + str(stats_parsed_org_files) + " Org-mode files with " + str(stats_parsed_org_lines) + " lines")
+        logging.info("Generated " + str(stats_generated_total) + " articles: " + \
+                     str(stats_generated_persistent) + " persistent, " + \
+                     str(stats_generated_temporal) + " temporal, " + \
+                     str(stats_generated_tags) + " tag" + \
+                     ", 1 entry page")
+        
         logging.debug("-------------> cleaning up the stage ...")
 
         logging.debug("successfully finished.")

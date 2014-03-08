@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-03-08 19:39:28 vk>
+# Time-stamp: <2014-03-08 20:36:27 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -382,15 +382,6 @@ like monthly overview but only for the day
 - example: Tim Bray
   - http://www.tbray.org/ongoing/WhatItIs
   - http://www.tbray.org/ongoing/misc/Tim
-
-** NEXT INFO: stats on files, headings and entries processed          :wish:
-:PROPERTIES:
-:CREATED:  [2014-02-09 Sun 10:31]
-:END:
-
-Example:
-: 16 files (422933 lines) with 975 headings parsed
-: resulted in 23 articles, 12 persistent pages, 79 tag pages
 
 ** NEXT embed images that are defined by tsfile-statements       :userstory:
 :PROPERTIES:
