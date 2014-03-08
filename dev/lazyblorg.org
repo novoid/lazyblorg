@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-03-04 13:41:18 karl.voit>
+# Time-stamp: <2014-03-08 18:52:43 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -266,6 +266,15 @@ CLOSED: [2014-03-01 Sat 20:10]
 :PROPERTIES:
 :CREATED:  [2014-03-04 Di 13:41]
 :END:
+** NEXT move blog-tag(s) to CLI parameter                        :userstory:
+:PROPERTIES:
+:CREATED:  [2014-03-08 Sat 18:51]
+:END:
+
+- filter Org-mode articles with parameter of one or more tags
+- allows for generating different blogs (or sub-blogs) just with
+  different commands
+
 ** STARTED HTML: manually create month overview page          :architecture:
 :LOGBOOK:
 - Not scheduled, was "2014-03-01 Sat" on [2014-03-01 Sat 21:01]
@@ -1443,7 +1452,7 @@ The basic script workflow is not that complicated:
 
 #+END_QUOTE
 
-** Other Org-mode parsers
+** Other Org-mode parsers or Org-to-HTML blog methods
 :PROPERTIES:
 :CREATED:  [2014-02-25 Tue 19:41]
 :END:
@@ -1453,6 +1462,12 @@ The basic script workflow is not that complicated:
   - parses only structure -> very basic
 - https://github.com/bjonnh/PyOrgMode
   - very basic
+
+- http://atlanis.net/blog/posts/new-site-stasis.html
+  - a description on how to use Stasis to generate HTML from Org-mode
+
+- Org-mode > Octopress > Jekyll > HTML:
+  - http://www.railsonmaui.com/blog/2014/03/05/octopress-setup-with-github-and-org-mode-v2/
 
 * Local Variables                                                  :noexport:
 # Local Variables:
