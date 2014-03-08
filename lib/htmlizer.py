@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-03 20:44:37 vk>
+# Time-stamp: <2014-03-08 19:27:07 vk>
 
 import logging
 import os
@@ -12,7 +12,6 @@ import codecs
 ## NOTE: pdb hides private variables as well. Please use:   data = self._OrgParser__entry_data ; data['content']
 import pdb
 
-### FIXXXME: differ according to category (persistent, tags, temporal, templates)
 
 class HtmlizerException(Exception):
     """
@@ -44,7 +43,9 @@ class Htmlizer(object):
     ## this tag (withing tag list of article) determines if an article
     ## is a persistent blog page (tag is found) or a time-oriented
     ## (normal) blog-entry (this tag is missing).
-    PERSISTENT_ENTRY_TAG = 'persistent'
+    TAG_FOR_TAG_ENTRY = u'lb_tags'  ## if an entry is tagged with this, it's an TAGS entry
+    TAG_FOR_PERSISTENT_ENTRY = u'lb_persistent'  ## if an entry is tagged with this, it's an PERSISTENT entry
+    TAG_FOR_TEMPLATES_ENTRY = u'lb_templates'  ## if an entry is tagged with this, it's an TEMPLATES entry
 
     ## categories of blog entries:
     ## FIXXME: also defined in multiple other files
@@ -772,16 +773,22 @@ class Htmlizer(object):
         """
 
         entry = self.blog_data_with_id(entryid)
+        return os.path.join(self.targetdir, self._target_path_for_id_without_targetdir(entryid))
 
-        if entry['category'] == self.TAGS:
-            return ## FIXXME: implement!
-        
-        if entry['category'] == self.PERSISTENT:
-            return ## FIXXME: implement!
-        
-        if entry['category'] == self.TEMPORAL:
-            return os.path.join(self.targetdir, self._target_path_for_id_without_targetdir(entryid))
+    def _get_entry_folder_name_from_entryid(self, entryid):
+        """
+        Takes the entry ID as string, removes optionally ISO datestamp,
+        and returns a string that can be securely used as folder name.
+        """
 
+        folder = werkzeug.utils.secure_filename(entryid)
+
+        if self.DATESTAMP_REGEX.match(folder[0:10]):
+        ## folder contains any date-stamp in ISO format -> get rid of it (it's in the path anyway)
+            folder = folder[11:]
+
+        return folder
+        
     def _target_path_for_id_without_targetdir(self, entryid):
         """
         Returnes a directory path for a given blog ID such as:
@@ -794,13 +801,8 @@ class Htmlizer(object):
         """
 
         entry = self.blog_data_with_id(entryid)
+        folder = self._get_entry_folder_name_from_entryid(entryid)
         
-        folder = werkzeug.utils.secure_filename(entryid)
-
-        if self.DATESTAMP_REGEX.match(folder[0:10]):
-        ## folder contains any date-stamp in ISO format -> get rid of it (it's in the path anyway)
-            folder = folder[11:]
-
         if entry['category'] == self.TAGS:
             ## TAGS: url is like "/tags/mytag/"
             return os.path.join("tags", folder)

@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-03-08 18:52:43 vk>
+# Time-stamp: <2014-03-08 19:39:28 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -230,6 +230,7 @@ CLOSED: [2014-03-01 Sat 20:10]
     - u'2013/08/21/lazyblorg-templates'
 
 ** STARTED implement: creating PERSISTENT pages                  :userstory:
+SCHEDULED: <2014-03-08 Sat>
 :LOGBOOK:
 - Not scheduled, was "2014-03-03 Mon" on [2014-03-02 Sun 19:26]
 - Rescheduled from "2014-03-01 Sat" on [2014-03-01 Sat 23:08]
@@ -239,10 +240,12 @@ CLOSED: [2014-03-01 Sat 20:10]
 :ID: 2013-10-19-persistent-pages
 :END:
 
-- [ ] define tag to mark persistent pages
-- [ ] adopt parsing in htmlizer.py
-- [ ] test ID-links from temporal and persistent pages
-- [ ] add documentation
+1. [X] define tag to mark persistent pages
+   - tag: ~persistent~
+2. [X] adopt parsing in org-arser.py
+3. [ ] adopt generating in htmlizer.py
+4. [ ] test ID-links from temporal and persistent pages
+5. [ ] add documentation
 
 ** STARTED get ordered lists of blog entries                  :architecture:
 :PROPERTIES:

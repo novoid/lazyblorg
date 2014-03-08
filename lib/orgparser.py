@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-02 19:24:21 vk>
+# Time-stamp: <2014-03-08 19:36:46 vk>
 
 import re
 import os
@@ -75,7 +75,7 @@ class OrgParser(object):
     __filename = u''
 
     ## tag strings of blog entry categories:
-    TAG_FOR_TAG_ENTRY = u'lb_tag'  ## if an entry is tagged with this, it's an TAGS entry
+    TAG_FOR_TAG_ENTRY = u'lb_tags'  ## if an entry is tagged with this, it's an TAGS entry
     TAG_FOR_PERSISTENT_ENTRY = u'lb_persistent'  ## if an entry is tagged with this, it's an PERSISTENT entry
     TAG_FOR_TEMPLATES_ENTRY = u'lb_templates'  ## if an entry is tagged with this, it's an TEMPLATES entry
 

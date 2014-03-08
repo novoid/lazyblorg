@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2014-03-04 18:44:52 vk>
+## Time-stamp: <2014-03-08 19:26:50 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -397,7 +397,7 @@ URLs are like ~http://example.com/this-is-the-ID/~:
 - criteria
   1. ID set
   2. tag: ~blog~
-  3. tag: ~persistent~
+  3. tag: ~lb_persistent~
   4. status is DONE
 
 *** tags
@@ -420,7 +420,7 @@ URLs are like ~http://example.com/tags/this-is-the-ID/~
 - criteria
   1. ID set
   2. tag: ~blog~
-  3. tag: ~tags~
+  3. tag: ~lb_tags~
   4. status is DONE
 
 *** entry page

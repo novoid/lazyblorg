@@ -1,4 +1,4 @@
-# Time-stamp: <2014-03-02 18:26:33 vk>
+# Time-stamp: <2014-03-08 19:35:02 vk>
 # -*- coding: utf-8 -*-
 
 * Heading of no interest
@@ -101,6 +101,32 @@ CLOSED: [2013-08-24 Sat 22:50]
 
 This lacks only the blog tag
 
+** DONE This is an persistent blog article :programming:mytest:lb_persistent:blog:
+CLOSED: [2014-03-08 Sat 19:32]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-03-08 Sat 19:32]
+:END:
+:PROPERTIES:
+:CREATED:  [2014-03-08 Sat 19:30]
+:ID: peristent-example-entry
+:END:
+
+This blog article is not a temporal nor a tag entry - it's a
+persistent blog page.
+
+You should expect me to be updated occasionally.
+
+** DONE tag-test                           :mytest:programming:lb_tags:blog:
+CLOSED: [2014-03-08 Sat 19:35]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-03-08 Sat 19:35]
+:END:
+:PROPERTIES:
+:CREATED:  [2014-03-08 Sat 19:33]
+:ID: 2014-03-08-tag-test-entry
+:END:
+
+Here, you can read about the test-tag "tag-test".
 
 * End heading
 :PROPERTIES:
