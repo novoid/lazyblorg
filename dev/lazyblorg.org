@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-03-08 20:36:27 vk>
+# Time-stamp: <2014-03-08 22:42:06 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -229,24 +229,6 @@ CLOSED: [2014-03-01 Sat 20:10]
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
 
-** STARTED implement: creating PERSISTENT pages                  :userstory:
-SCHEDULED: <2014-03-08 Sat>
-:LOGBOOK:
-- Not scheduled, was "2014-03-03 Mon" on [2014-03-02 Sun 19:26]
-- Rescheduled from "2014-03-01 Sat" on [2014-03-01 Sat 23:08]
-:END:
-:PROPERTIES:
-:CREATED:  [2013-10-19 Sat 18:50]
-:ID: 2013-10-19-persistent-pages
-:END:
-
-1. [X] define tag to mark persistent pages
-   - tag: ~persistent~
-2. [X] adopt parsing in org-arser.py
-3. [ ] adopt generating in htmlizer.py
-4. [ ] test ID-links from temporal and persistent pages
-5. [ ] add documentation
-
 ** STARTED get ordered lists of blog entries                  :architecture:
 :PROPERTIES:
 :CREATED:  [2014-02-01 Sat 13:48]
@@ -373,6 +355,7 @@ like monthly overview but only for the day
 - [ ] update test_sanitize_internal_links() in htmlizer_test.py
 
 ** NEXT impressum/about page                                     :userstory:
+SCHEDULED: <2014-03-09 Sun>
 :PROPERTIES:
 :CREATED:  [2014-02-09 Sun 10:33]
 :BLOCKER: 2013-10-19-persistent-pages
@@ -537,13 +520,6 @@ like monthly overview but only for the day
 - ? differ heading-only feeds and full feeds
   - OR: use only full feeds
 
-** TODO documentation: describe tags for templates, persistent, tag, and normal :userstory:
-:PROPERTIES:
-:CREATED:  [2013-10-19 Sat 18:01]
-:END:
-
-- emphasize that templates, persistent, tag are mutual exclusive tags!
-
 ** TODO mark updates on entries                                :architecture:
 :PROPERTIES:
 :CREATED:  [2012-11-05 Mon 10:50]
@@ -568,6 +544,7 @@ like monthly overview but only for the day
 
 see also id:2012-11-06-ago-generating
 ** TODO write about/colophon                                      :userstory:
+SCHEDULED: <2014-03-09 Sun>
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 11:31]
 :END:
@@ -1052,32 +1029,37 @@ take some time or might never get implemented)
 
 
 #+NAME: template-elements-besides-org-elements
-| *What*                | *template-name*      | *placeholder replacements*                                            |
-|-----------------------+----------------------+-----------------------------------------------------------------------|
-| article               | article-header       | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
-|                       | article-footer       | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
-|                       | article-header-begin | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
-|                       | article-tags-begin   |                                                                       |
-|                       | article-tag          | TAGNAME                                                               |
-|                       | article-tags-end     | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
-|                       | article-header-end   | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
-|                       | article-end          | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
-|-----------------------+----------------------+-----------------------------------------------------------------------|
-| headline              | section-begin        | SECTION-TITLE, SECTION-LEVEL                                          |
-|-----------------------+----------------------+-----------------------------------------------------------------------|
-| paragraph, plain-text | paragraph            | PAR-CONTENT                                                           |
-|-----------------------+----------------------+-----------------------------------------------------------------------|
-| URLs                  | a-href               | A-URL, CONTENT                                                        |
-|-----------------------+----------------------+-----------------------------------------------------------------------|
-| plain-list            | ul-begin             |                                                                       |
-|                       | ul-item              |                                                                       |
-|                       | ul-end               |                                                                       |
-|-----------------------+----------------------+-----------------------------------------------------------------------|
-| pre-fromatted text    | pre-begin            |                                                                       |
-|                       | pre-end              |                                                                       |
-|-----------------------+----------------------+-----------------------------------------------------------------------|
-| html-block            | html-begin           | NAME                                                                  |
-|                       | html-end             |                                                                       |
+| *What*                | *template-name*         | *placeholder replacements*                                            |
+|-----------------------+-------------------------+-----------------------------------------------------------------------|
+| article               | article-header          | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
+|                       | article-header-begin    | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
+|                       | article-header-end      | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
+|                       | article-tags-begin      |                                                                       |
+|                       | article-tag             | TAGNAME                                                               |
+|                       | article-tags-end        | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
+|                       | article-footer          | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
+|                       | article-end             | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
+|                       | persistent-header       | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
+|                       | persistent-header-begin | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
+|                       | persistent-header-end   | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
+|                       | persistent-footer       | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
+|                       | persistent-end          | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
+|-----------------------+-------------------------+-----------------------------------------------------------------------|
+| headline              | section-begin           | SECTION-TITLE, SECTION-LEVEL                                          |
+|-----------------------+-------------------------+-----------------------------------------------------------------------|
+| paragraph, plain-text | paragraph               | PAR-CONTENT                                                           |
+|-----------------------+-------------------------+-----------------------------------------------------------------------|
+| URLs                  | a-href                  | A-URL, CONTENT                                                        |
+|-----------------------+-------------------------+-----------------------------------------------------------------------|
+| plain-list            | ul-begin                |                                                                       |
+|                       | ul-item                 |                                                                       |
+|                       | ul-end                  |                                                                       |
+|-----------------------+-------------------------+-----------------------------------------------------------------------|
+| pre-fromatted text    | pre-begin               |                                                                       |
+|                       | pre-end                 |                                                                       |
+|-----------------------+-------------------------+-----------------------------------------------------------------------|
+| html-block            | html-begin              | NAME                                                                  |
+|                       | html-end                |                                                                       |
 
 
 
@@ -1096,6 +1078,10 @@ For a complete list of *content elements*, please take a look at
 id:implemented-org-elements (above)
 
 ~blog_data~ is a Python list containing one dictionary entry per blog entry:
+
+- FIXXME: add examples of:
+  - category
+  - other additional data
 
 #+BEGIN_SRC python
   blog_data = \

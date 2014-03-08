@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-08 20:18:49 vk>
+# Time-stamp: <2014-03-08 20:39:52 vk>
 
 import argparse  ## command line arguments
 import unittest
@@ -209,7 +209,7 @@ class TestLazyblorg(unittest.TestCase):
             entry = htmlizer.sanitize_and_htmlize_blog_content(entry)
 
             if entry['category'] == htmlizer.TEMPORAL:
-                filename, orgfilename, htmlcontent = htmlizer._create_time_oriented_blog_article(entry)
+                filename, orgfilename, htmlcontent = htmlizer._generate_temporal_article(entry)
 
         htmloutputname = "../testdata/" + testname + ".html"
                 

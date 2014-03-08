@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2014-03-08 19:26:50 vk>
+## Time-stamp: <2014-03-08 22:35:46 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -401,6 +401,8 @@ URLs are like ~http://example.com/this-is-the-ID/~:
   4. status is DONE
 
 *** tags
+
+NOT IMPLEMENTED YET!
 
 Tag pages are a specialty of lazyblorg. Unlike other systems,
 lazyblorg embraces tags as very important classification

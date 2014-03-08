@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-08 20:24:49 vk>
+# Time-stamp: <2014-03-08 22:33:56 vk>
 
 import logging
 import os
@@ -54,6 +54,7 @@ class Htmlizer(object):
     PERSISTENT = 'PERSISTENT'
     TEMPORAL = 'TEMPORAL'
     TEMPLATES = 'TEMPLATES'
+    ENTRYPAGE = 'ENTRYPAGE'
 
     ## this gets added to the time in order to describe time zone of the blog:
     TIME_ZONE_ADDON = '+02:00'
@@ -150,20 +151,16 @@ class Htmlizer(object):
             if entry['category'] == self.TAGS:
                 self.logging.debug("entry \"%s\" is a tag page" % entry['id'])
                 self.logging.warn("generating tag pages not implemented yet")
-                ## FIXXME: maybe: remove self.TAGS from list of tags?
-                pass  ## FIXXME: generate tag blog entry
-                stats_generated_tags += 1
+                stats_generated_tags += 1  ## FIXXME: generate tag blog entry
 
             elif entry['category'] == self.PERSISTENT:
                 self.logging.debug("entry \"%s\" is a persistent page" % entry['id'])
-                self.logging.warn("generating persistent pages not implemented yet")
-                ## FIXXME: maybe: remove self.PERSISTENT from list of tags?
-                pass  ## FIXXME: generate persistent blog entry
+                htmlfilename, orgfilename, htmlcontent = self._generate_persistent_article(entry)
                 stats_generated_persistent += 1
 
             elif entry['category'] == self.TEMPORAL:
                 self.logging.debug("entry \"%s\" is an ordinary time-oriented blog entry" % entry['id'])
-                htmlfilename, orgfilename, htmlcontent = self._create_time_oriented_blog_article(entry)
+                htmlfilename, orgfilename, htmlcontent = self._generate_temporal_article(entry)
                 stats_generated_temporal += 1
 
             elif entry['category'] == self.TEMPLATES:
@@ -221,7 +218,7 @@ class Htmlizer(object):
 
             entry = self.blog_data_with_id(listentry['id'])
 
-            if entry['category'] == 'TEMPORAL':
+            if entry['category'] == 'TEMPORAL' or entry['category'] == 'PERSISTENT':
 
                 content = self.template_definition_by_name('article-preview-begin')
                 assert('htmlteaser-equals-content' in entry.keys())
@@ -260,9 +257,6 @@ class Htmlizer(object):
 
                 htmlcontent += content
                 
-            elif entry['category'] == 'PERSISTENT':
-                pass ## FIXXME: implement!
-
             elif entry['category'] == 'TAGS':
                 pass ## FIXXME: implement!
 
@@ -271,6 +265,7 @@ class Htmlizer(object):
         
         htmlcontent = htmlcontent.replace('#ABOUT-BLOG#', self.sanitize_external_links(self.sanitize_html_characters(self.about_blog)))
         htmlcontent = htmlcontent.replace('#BLOGNAME#', self.sanitize_external_links(self.sanitize_html_characters(self.blogname)))
+        htmlcontent = self.sanitize_internal_links(self.ENTRYPAGE, htmlcontent)
         self.write_htmlcontent_to_file(entry_page_filename, htmlcontent)
             
         return
@@ -578,6 +573,8 @@ class Htmlizer(object):
             url = u"../"
         elif sourcecategory == self.TAGS:
             url = u"../../"
+        elif sourcecategory == self.ENTRYPAGE:
+            url = u""
         else:
             message = "generate_relative_url_from_sourcecategory_to_id() found an unknown sourcecategory [" + \
                       str(sourcecategory) + "]"
@@ -645,7 +642,7 @@ class Htmlizer(object):
 
         return content
 
-    def _create_time_oriented_blog_article(self, entry):
+    def _generate_temporal_article(self, entry):
         """
         Creates a (normal) time-oriented blog article (in contrast to a persistent blog article).
 
@@ -656,38 +653,77 @@ class Htmlizer(object):
         """
 
         path = self._create_target_path_for_id_with_targetdir(entry['id'])
-
         htmlfilename = os.path.join(path, "index.html")
         orgfilename = os.path.join(path, "source.org.txt")
-
         htmlcontent = u''
-
-        ## replace-loop of all relevant strings and placeholder-strings
-        ## article-header       | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*)     |
-        ## article-header-begin | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*)     |
-        ## article-tags-begin   | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*)     |
-        ## article-tag          | TAGNAME                                                        |
-        ## article-tags-end     | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*)     |
-        ## article-header-end   | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*)     |
-        ## content              | *                                                              |
-        ## article-end          | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(YEAR,MONTH,DAY,PUB*)     |
-        ## article-footer       | TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*)  |
-
         content = u''
 
         for articlepart in ['article-header', 'article-header-begin', 'article-tags-begin']:
             content += self.template_definition_by_name(articlepart)
         htmlcontent += self._replace_general_article_placeholders(entry, content)
-
-        content = self._replace_tag_placeholders(entry['tags'], self.template_definition_by_name('article-tag'))
-        htmlcontent += content
+        htmlcontent += self._replace_tag_placeholders(entry['tags'], self.template_definition_by_name('article-tag'))
 
         content = u''
         for articlepart in ['article-tags-end', 'article-header-end']:
             content += self.template_definition_by_name(articlepart)
         htmlcontent += self._replace_general_article_placeholders(entry, content)
 
-        for element in entry['content']:
+        htmlcontent += self.__collect_raw_content(entry['content'])
+        
+        content = u''
+        for articlepart in ['article-end', 'article-footer']:
+            content += self.template_definition_by_name(articlepart)
+        htmlcontent += self._replace_general_article_placeholders(entry, content)
+
+        return htmlfilename, orgfilename, htmlcontent
+
+    def _generate_persistent_article(self, entry):
+        """
+        Creates a persistent blog article.
+
+        @param entry: blog entry data
+        @param return: htmlfilename: string containing the file name of the HTML file
+        @param return: orgfilename: string containing the file name of the Org-mode raw content file
+        @param return: htmlcontent: the HTML content of the entry
+        """
+
+        path = self._create_target_path_for_id_with_targetdir(entry['id'])
+        htmlfilename = os.path.join(path, "index.html")
+        orgfilename = os.path.join(path, "source.org.txt")
+        htmlcontent = u''
+        content = u''
+
+        for articlepart in ['persistent-header', 'persistent-header-begin', 'article-tags-begin']:
+            content += self.template_definition_by_name(articlepart)
+        htmlcontent += self._replace_general_article_placeholders(entry, content)
+        #htmlcontent = self.sanitize_internal_links(entry['category'], htmlcontent)
+        htmlcontent += self._replace_tag_placeholders(entry['tags'], self.template_definition_by_name('article-tag'))
+
+        content = u''
+        for articlepart in ['article-tags-end', 'persistent-header-end']:
+            content += self.template_definition_by_name(articlepart)
+        htmlcontent += self._replace_general_article_placeholders(entry, content)
+
+        htmlcontent += self.__collect_raw_content(entry['content'])
+        
+        content = u''
+        for articlepart in ['persistent-end', 'persistent-footer']:
+            content += self.template_definition_by_name(articlepart)
+        htmlcontent += self._replace_general_article_placeholders(entry, content)
+
+        return htmlfilename, orgfilename, htmlcontent
+
+    def __collect_raw_content(self, contentarray):
+        """
+        Iterates over the contentarray and returns a concatenated string in unicode.
+
+        @param contentarray: array of strings containing the content-elements
+        @param return: string with collected content strings in unicode
+        """
+
+        htmlcontent = u''
+
+        for element in contentarray:
             if type(element) != str and type(element) != unicode:
                 message = "element in entry['content'] is of type \"" + str(type(element)) + \
                     "\" which can not be written: [" + repr(element) + "]. Please do fix it in " + \
@@ -702,13 +738,9 @@ class Htmlizer(object):
                     self.logging.critical("Element type: " + str(type(element)))
                     raise
 
-        content = u''
-        for articlepart in ['article-end', 'article-footer']:
-            content += self.template_definition_by_name(articlepart)
-        htmlcontent += self._replace_general_article_placeholders(entry, content)
-
-        return htmlfilename, orgfilename, htmlcontent
-
+        assert(type(htmlcontent) == unicode)
+        return htmlcontent
+    
     def _replace_tag_placeholders(self, tags, template_string):
         """
         Takes the list of tags and the template definition for tags
@@ -726,8 +758,10 @@ class Htmlizer(object):
 
         result = u''
 
+
         for tag in tags:
-            if tag == self.blog_tag:
+            if tag in [self.blog_tag, self.TAG_FOR_TAG_ENTRY, self.TAG_FOR_PERSISTENT_ENTRY, self.TAG_FOR_TEMPLATES_ENTRY]:
+                ## omit lazyblog tags for marking temporal, tag, persistent, or template headings
                 continue
             else:
                 result += template_string.replace('#TAGNAME#', tag)
@@ -738,14 +772,13 @@ class Htmlizer(object):
         """
         General article placeholders are:
         - #TITLE#
-    - #ABOUT-BLOG#
-    - #BLOGNAME#
+        - #ABOUT-BLOG#
+        - #BLOGNAME#
         - #ARTICLE-ID#: the (manually set) ID from the PROPERTIES drawer
         - #ARTICLE-YEAR#: four digit year of the article (folder path)
         - #ARTICLE-MONTH#: two digit month of the article (folder path)
         - #ARTICLE-DAY#: two digit day of the article (folder path)
-        - #ARTICLE-PUBLISHED-HTML-DATETIME#: time-stamp of publishing in HTML
-          date-time format
+        - #ARTICLE-PUBLISHED-HTML-DATETIME#: time-stamp of publishing in HTML date-time format
         - #ARTICLE-PUBLISHED-HUMAN-READABLE#: time-stamp of publishing in
 
         This method replaces all placeholders from above with their
@@ -777,10 +810,9 @@ class Htmlizer(object):
     def _target_path_for_id_with_targetdir(self, entryid):
         """
         Returnes a directory path for a given blog ID such as:
-        PERSISTENT: FIXXME
-        TAGS: FIXXME
-        TEMPORAL: "TARGETDIR/blog/2013/02/12/ID" from the oldest finished
-        time-stamp.
+        PERSISTENT: "TARGETDIR/ID" from the oldest finished time-stamp.
+        TAGS: "TARGETDIR/tags/ID" from the oldest finished time-stamp.
+        TEMPORAL: "TARGETDIR/2013/02/12/ID" from the oldest finished time-stamp.
 
         @param entryid: ID of a blog entry
         @param return: the resulting path as os.path string
@@ -806,8 +838,8 @@ class Htmlizer(object):
     def _target_path_for_id_without_targetdir(self, entryid):
         """
         Returnes a directory path for a given blog ID such as:
-        PERSISTENT: FIXXME
-        TAGS: FIXXME
+        PERSISTENT: "ID" from the oldest finished time-stamp.
+        TAGS: "tags/ID" from the oldest finished time-stamp.
         TEMPORAL: "2013/02/12/ID" from the oldest finished time-stamp.
 
         @param entryid: ID of a blog entry
