@@ -41,7 +41,7 @@ PYTHONPATH="~/src/lazyblorg:" ./lazyblorg.py \
     --previous-metadata nonexisting-preview-metadata.pk \
     --new-metadata testdata/2del/blog/preview-metadata.pk \
     --logfile testdata/2del/errors.org \
-    --orgfiles ./templates/blog-format.org \
+    --orgfiles ./testdata/about-placeholder.org ./templates/blog-format.org \
     /tmp/lazyblorg-preview.org && \
 find testdata/2del -name '*.html' -exec xdg-open "{}" \;
                
