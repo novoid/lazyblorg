@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2014-03-08 22:35:46 vk>
+## Time-stamp: <2014-03-09 19:59:03 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -231,6 +231,16 @@ Yes, please do read [[https://github.com/novoid/lazyblorg/blob/master/dev/lazybl
   - I started with Python 2.x and never got the tension to test Python
     3.x so far
 - output files: static HTML5, CSS3
+*** Isn't this quite slow?
+
+As with 2014-03-09, the parser and htmlizer is performing pretty well
+in my opinion. When I re-generate [[http://karl-voit.at][my whole blog]], I currently get this
+summary output:
+
+#+BEGIN_VERSE
+Parsed 27 Org-mode files with 274209 lines (in 4.60 seconds)
+Generated 30 articles: 1 persistent, 28 temporal, 0 tag, 1 entry page (in 0.13 seconds)
+#+END_VERSE
 
 *** Can I use the Org-mode parser (in Python) for other purposes as well? 
 
