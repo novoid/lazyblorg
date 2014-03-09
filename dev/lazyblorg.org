@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-03-09 15:01:05 vk>
+# Time-stamp: <2014-03-09 16:21:42 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -722,22 +722,6 @@ display: block;
     - www.example.com/s/#ID
     - *shorter!*
 
-** SOMEDAY blog comments                                          :userstory:
-:LOGBOOK:
-- State "SOMEDAY"    from ""           [2013-02-12 Tue 10:35]
-:END:
-:PROPERTIES:
-:CREATED:  [2013-02-12 Tue 10:35]
-:END:
-
-- simplest form: generate unique Email link and add at bottom
-  - very easy to be done for catch-all MTAs
-  - automatically derive whitelist for MTA to avoid old spam
-- simple HTML form
-  - POST to script, adding comment to my inbox.org (containing
-    link to ID)
-- disqus: I do not want to outsource comment hosting :-(
-
 ** SOMEDAY Auto-tag: guessing language of entry                   :userstory:
 :LOGBOOK:
 - State "SOMEDAY"    from ""           [2013-01-08 Tue 14:36]
@@ -1236,7 +1220,7 @@ implemented but moved to a (separate) user-story above.
   - self-hosting without any fancy services behind like RDBS
 
 - open issues
-  - [ ] comments
+  - [X] comments
     - simplest form: generate unique Email link and add at bottom
       - very easy to be done for catch-all MTAs
       - automatically derive whitelist for MTA to avoid old spam
