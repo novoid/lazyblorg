@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-03-09 16:21:42 vk>
+# Time-stamp: <2014-03-09 19:56:32 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -246,7 +246,6 @@ CLOSED: [2014-03-01 Sat 20:10]
   - for each entry in entries
     - get oldest entry of entry['finished-timestamp-history']
     - store to a sorted list (newest first or last)
-
 ** NEXT tags of articles on entry page                            :userstory:
 :PROPERTIES:
 :CREATED:  [2014-03-04 Di 13:41]
@@ -559,6 +558,8 @@ see also id:2012-11-06-ago-generating
 
 - auto-tags are visually separated from manual tags to make it clear
   that they are automatically generated (and might be bogus sometime)
+- [ ] add to about-page
+- [ ] add to documentation (README, ...)
 
 *** Language
 :PROPERTIES:

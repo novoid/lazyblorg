@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-08 21:05:53 vk>
+# Time-stamp: <2014-03-09 19:56:01 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -19,6 +19,7 @@ from lib.utils import *
 from lib.orgparser import *
 from lib.htmlizer import *
 import pickle  ## for serializing and storing objects into files
+from time import time ## for measuring execution time
 
 ## debugging:   for setting a breakpoint:
 #pdb.set_trace()## FIXXME
@@ -476,19 +477,23 @@ if __name__ == "__main__":
             logging.debug("%s filenames found")
 
         ## main algorithm:
+
+        time_before_parsing = time()
         lazyblorg = Lazyblorg(options, logging)
         ## FIXXME: encapsulate following lines in lazyblorg.run() ?
         #lazyblorg.parse_HTML_output_template_and_generate_template_definitions()
         generate, marked_for_RSS, increment_version, stats_parsed_org_files, stats_parsed_org_lines = lazyblorg.determine_changes()
+        time_after_parsing = time()
         stats_generated_total, stats_generated_temporal, \
             stats_generated_persistent, stats_generated_tags = lazyblorg.generate_output(generate, marked_for_RSS, increment_version)
+        time_after_htmlizing = time()
 
-        logging.info("Parsed " + str(stats_parsed_org_files) + " Org-mode files with " + str(stats_parsed_org_lines) + " lines")
+        logging.info("Parsed " + str(stats_parsed_org_files) + " Org-mode files with " + str(stats_parsed_org_lines) + " lines (in %.2f seconds)" % (time_after_parsing - time_before_parsing))
         logging.info("Generated " + str(stats_generated_total) + " articles: " + \
                      str(stats_generated_persistent) + " persistent, " + \
                      str(stats_generated_temporal) + " temporal, " + \
                      str(stats_generated_tags) + " tag" + \
-                     ", 1 entry page")
+                     ", 1 entry page (in %.2f seconds)" % (time_after_htmlizing - time_after_parsing))
         
         logging.debug("-------------> cleaning up the stage ...")
 
