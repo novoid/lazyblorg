@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-08 22:33:56 vk>
+# Time-stamp: <2014-03-09 15:22:45 vk>
 
 import logging
 import os
@@ -674,6 +674,7 @@ class Htmlizer(object):
         for articlepart in ['article-end', 'article-footer']:
             content += self.template_definition_by_name(articlepart)
         htmlcontent += self._replace_general_article_placeholders(entry, content)
+        htmlcontent = self.sanitize_internal_links(self.TEMPORAL, htmlcontent)
 
         return htmlfilename, orgfilename, htmlcontent
 
@@ -710,6 +711,7 @@ class Htmlizer(object):
         for articlepart in ['persistent-end', 'persistent-footer']:
             content += self.template_definition_by_name(articlepart)
         htmlcontent += self._replace_general_article_placeholders(entry, content)
+        htmlcontent = self.sanitize_internal_links(self.PERSISTENT, htmlcontent)
 
         return htmlfilename, orgfilename, htmlcontent
 

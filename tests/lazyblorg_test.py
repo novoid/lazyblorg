@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-08 20:39:52 vk>
+# Time-stamp: <2014-03-09 15:48:45 vk>
 
 import argparse  ## command line arguments
 import unittest
@@ -147,6 +147,7 @@ class TestLazyblorg(unittest.TestCase):
         testname = "currently_supported_orgmode_syntax"
         template_file = "../templates/blog-format.org"
         org_testfile = "../testdata/" + testname + ".org"
+        additional_org_file = "../testdata/about-placeholder.org"
         metadata_output = "../testdata/" + testname + ".pk"
         metadata_input = "../testdata/nonexisting.pk"
         log_firstrun = "../testdata/" + testname + ".log"
@@ -162,6 +163,7 @@ class TestLazyblorg(unittest.TestCase):
 
         self.assertTrue(os.path.isfile(template_file))  ## check, if test input file is found
         self.assertTrue(os.path.isfile(org_testfile))  ## check, if test input file is found
+        self.assertTrue(os.path.isfile(additional_org_file))  ## check, if test input file is found
         
         ## Building the call parameters:
         first_parser = argparse.ArgumentParser()
@@ -172,7 +174,7 @@ class TestLazyblorg(unittest.TestCase):
         first_parser.add_argument("--logfile", dest="logfilename")
         first_parser.add_argument("-v", "--verbose", dest="verbose", action="store_true")
 
-        myoptions = "--orgfiles " + org_testfile + " " + template_file + \
+        myoptions = "--orgfiles " + org_testfile + " " + template_file + " " + additional_org_file + \
             " --targetdir " + target_dir + " --previous-metadata " + metadata_input + " --new-metadata " + \
             metadata_output + \
             " --logfile " + log_firstrun# + " --verbose"
@@ -191,11 +193,13 @@ class TestLazyblorg(unittest.TestCase):
 
         self.assertTrue(increment_version == [])
         self.assertTrue(generate_sorted == marked_for_RSS_sorted)
-        self.assertTrue(generate_sorted == [u'2014-01-27-full-syntax-test', u'lazyblorg-templates'])
+        self.assertTrue(generate_sorted == [u'2014-01-27-full-syntax-test', u'2014-03-09-about', u'lazyblorg-templates'])
 
         blog_data, stats_parsed_org_lines = mylazyblorg._parse_orgmode_file(org_testfile)
         template_blog_data, template_stats_parsed_org_lines = mylazyblorg._parse_orgmode_file(template_file)
+        additional_blog_data, additional_stats_parsed_org_lines = mylazyblorg._parse_orgmode_file(additional_org_file)
         blog_data += template_blog_data
+        blog_data += additional_blog_data
         
         ## extract HTML templates and store in class var
         template_definitions = mylazyblorg._generate_template_definitions_from_template_data()
@@ -210,6 +214,8 @@ class TestLazyblorg(unittest.TestCase):
 
             if entry['category'] == htmlizer.TEMPORAL:
                 filename, orgfilename, htmlcontent = htmlizer._generate_temporal_article(entry)
+            elif entry['category'] == htmlizer.PERSISTENT:
+                pass  ## FIXXME: probably add test for generating about-page as well
 
         htmloutputname = "../testdata/" + testname + ".html"
                 

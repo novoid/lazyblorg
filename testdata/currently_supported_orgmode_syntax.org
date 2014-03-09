@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; ispell-local-dictionary: "german8"; -*-
-# Time-stamp: <2014-03-03 20:44:11 vk>
+# Time-stamp: <2014-03-09 15:39:45 vk>
 
 * DONE lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer :publicvoit:lazyblorg:MixedCaseTag:blog:
 CLOSED: [2014-01-30 Thu 13:01]

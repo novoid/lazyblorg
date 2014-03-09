@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-03-08 22:42:06 vk>
+# Time-stamp: <2014-03-09 15:01:05 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -349,22 +349,11 @@ like monthly overview but only for the day
 ** NEXT implement: creating TAG pages                             :userstory:
 :PROPERTIES:
 :CREATED:  [2013-10-19 Sat 18:50]
+:ID: 2013-10-19-lb-tag-pages
 :END:
 
 - [ ] htmlizer
 - [ ] update test_sanitize_internal_links() in htmlizer_test.py
-
-** NEXT impressum/about page                                     :userstory:
-SCHEDULED: <2014-03-09 Sun>
-:PROPERTIES:
-:CREATED:  [2014-02-09 Sun 10:33]
-:BLOCKER: 2013-10-19-persistent-pages
-:END:
-
-- example: [[https://blog.fefe.de/impressum.html]]
-- example: Tim Bray
-  - http://www.tbray.org/ongoing/WhatItIs
-  - http://www.tbray.org/ongoing/misc/Tim
 
 ** NEXT embed images that are defined by tsfile-statements       :userstory:
 :PROPERTIES:
@@ -512,6 +501,7 @@ SCHEDULED: <2014-03-09 Sun>
 ** TODO [#A] provide RSS feed(s)                                 :userstory:
 :PROPERTIES:
 :CREATED:  [2012-11-05 Mon 10:57]
+:ID: 2012-11-05-lb-rss
 :END:
 
 - sorted by last date within LOGBOOK or PROPERTIES drawers
@@ -543,18 +533,6 @@ SCHEDULED: <2014-03-09 Sun>
       2. YYYY-MM-DD: short description
 
 see also id:2012-11-06-ago-generating
-** TODO write about/colophon                                      :userstory:
-SCHEDULED: <2014-03-09 Sun>
-:PROPERTIES:
-:CREATED:  [2013-02-12 Tue 11:31]
-:END:
-
-- example: http://www.tbray.org/ongoing/misc/Colophon
-
-- containing
-  - basic tools used
-  - basic workflow
-  - ...
 ** TODO add option to tweet title/url for new/updated articles   :userstory:
 :PROPERTIES:
 :CREATED:  [2013-10-20 Sun 18:37]
