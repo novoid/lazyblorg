@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2014-03-09 19:59:03 vk>
+## Time-stamp: <2014-03-14 13:34:02 karl.voit>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -51,6 +51,28 @@ lazyblorg.
 - optional: creating scheduled tasks (crond, ...) if you are a
   *really* lazy one (and if you trust lazyblorg to do its job in the
   background)
+
+** System requirements
+:PROPERTIES:
+:CREATED:  [2014-03-14 Fr 13:24]
+:END:
+
+Development platform is Debian GNU/Linux. So with any GNU/Linux you
+should be fine as well.
+
+It might work on OS X but I never tried it so far.
+
+I definitely does not work with Microsoft Windows. Although a
+programmer can add a couple of ~os.path.thisorthat()~ here and there
+and it should be good to go. Please consider sending a pull-request if
+you are fixing this issue. Thanks!
+
+** Version
+:PROPERTIES:
+:CREATED:  [2014-03-14 Fr 13:28]
+:END:
+
+Currently, I consider lazyblorg in beta-status with version 0.6 or so.
 
 ** Why lazyblorg?
 
@@ -203,10 +225,11 @@ own. If you did not catch this by yourself: I am lazy.
 
 *** Is lazyblorg in active development? What are the future plans?
 
-Currently (2014-03): yes (heavy) :-)
+This section was updated on 2014-03-14:
 
-My plan as of 2013-08: 
-- develop lazyblorg to be able to replace my current web page and its blog.
+Currently: yes (heavy) :-)
+
+My general plan: 
 - Add features to lazyblorg as long as I feel the urge to.
 - Be open to enhancements done by others on github.
 - If lazyblorg reaches a state, where I do not need anything
@@ -216,6 +239,18 @@ My plan as of 2013-08:
 See also [[https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org][dev/lazyblorg.org]] for the issue tracking with all kind
 of information about the development (open issues, plans,
 documentation, ...).
+
+Already accomplished:
+- develop lazyblorg to be able to replace my current web page and its blog.
+
+Next:
+- RSS
+- tag-pages
+- Auto-tags
+- overview pages (monthly, yearly)
+- internal refactoring (object containing all constants, ...)
+- lists
+- include image files
 
 *** Is there any documentation about the internals of lazyblorg?
 
