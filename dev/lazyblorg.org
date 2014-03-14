@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-03-09 19:56:32 vk>
+# Time-stamp: <2014-03-14 13:37:07 karl.voit>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -229,6 +229,34 @@ CLOSED: [2014-03-01 Sat 20:10]
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
 
+** NEXT [#A] provide RSS feed(s)                                 :userstory:
+:PROPERTIES:
+:CREATED:  [2012-11-05 Mon 10:57]
+:ID: 2012-11-05-lb-rss
+:END:
+
+- sorted by last date within LOGBOOK or PROPERTIES drawers
+- one general RSS feed
+- one feed for each tag
+- ? differ heading-only feeds and full feeds
+  - OR: use only full feeds
+
+- python
+  - http://bytes.com/topic/python/answers/769576-there-any-generic-rss-atom-generator-python
+    - "I wouldn't generate XML directly but using ElementTree to
+      generate Atom. I did it myself three months ago and it was
+      really trivial."
+    - http://search.cpan.org/~miyagawa/XML-Atom-0.28/lib/XML/Atom/Feed.pm
+    - http://www.imc.org/atom-syntax/mail-archive/msg18662.html
+    - http://blog.ianbicking.org/2007/08/02/atom-models/
+    - http://codespeak.net/lxml/objectify.html#tree-generation-with-the-e-factory
+    - https://github.com/lkiesow/python-feedgen
+      - looks promising
+    - https://pypi.python.org/pypi/PyRSS2Gen
+
+- self-generating XML is not that hard to do
+  - example: [[tsfile:2014-03-10-heise-example.rss]]
+
 ** STARTED get ordered lists of blog entries                  :architecture:
 :PROPERTIES:
 :CREATED:  [2014-02-01 Sat 13:48]
@@ -246,6 +274,24 @@ CLOSED: [2014-03-01 Sat 20:10]
   - for each entry in entries
     - get oldest entry of entry['finished-timestamp-history']
     - store to a sorted list (newest first or last)
+** NEXT introduce a hidden tag                                   :userstory:
+:PROPERTIES:
+:CREATED:  [2014-03-12 Mi 17:54]
+:END:
+
+- articles tagged with the hidden tag don't show up in the RSS feed or
+  the overview pages
+- you have to have the URL of the article in order to see it
+- handy for temporary stuff to put online only for a group of people
+  you are giving the link directly
+
+** NEXT create constants.py as module                         :architecture:
+:PROPERTIES:
+:CREATED:  [2013-10-01 Tue 21:05]
+:END:
+
+- handle configuration and run-time variables using this module
+- ? parse config variables from Org-mode heading?
 ** NEXT tags of articles on entry page                            :userstory:
 :PROPERTIES:
 :CREATED:  [2014-03-04 Di 13:41]
@@ -336,14 +382,15 @@ like monthly overview but only for the day
   - [ ] create blog-format.org entries with HTML source and
     replacement entities
   - [ ] implement in Python
-
-** NEXT create constants.py as module                         :architecture:
+** NEXT internal links to sub-headings                        :architecture:
 :PROPERTIES:
-:CREATED:  [2013-10-01 Tue 21:05]
+:CREATED:  [2014-03-10 Mo 09:55]
 :END:
 
-- handle configuration and run-time variables using this module
-- ? parse config variables from Org-mode heading?
+- sub-headings within blog articles can have ID-property as well
+- parser indexes those IDs
+- HTML template adds anchor-ID
+- sanitize internal links resolves those links as well
 
 ** NEXT implement: creating TAG pages                             :userstory:
 :PROPERTIES:
@@ -496,18 +543,6 @@ like monthly overview but only for the day
 - lazyblorg has to be able to derive following according to any ID:
   - get the URL of a blog entry
   - get the ID/HREF of any sub-heading of any blog entry
-
-** TODO [#A] provide RSS feed(s)                                 :userstory:
-:PROPERTIES:
-:CREATED:  [2012-11-05 Mon 10:57]
-:ID: 2012-11-05-lb-rss
-:END:
-
-- sorted by last date within LOGBOOK or PROPERTIES drawers
-- one general RSS feed
-- one feed for each tag
-- ? differ heading-only feeds and full feeds
-  - OR: use only full feeds
 
 ** TODO mark updates on entries                                :architecture:
 :PROPERTIES:
@@ -1399,6 +1434,15 @@ The basic script workflow is not that complicated:
 :PROPERTIES:
 :CREATED:  [2014-02-25 Tue 19:41]
 :END:
+
+- http://orgmode.org/worg/org-blog-wiki.html
+  - very good summary of all possible tools
+    - Should I mention that lazyblorg beats them all? No, you're
+      right - this is really obvious; silly me.
+- http://orgmode.org/worg/org-web.html
+  - list of web pages done with Org-mode
+
+Some notes of stuff I was looking into as well:
 
 - https://bazaar.launchpad.net/~washort/+junk/pyporgan/files/head:/pyporgan/
   - very clean
