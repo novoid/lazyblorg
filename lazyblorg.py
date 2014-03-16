@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-09 19:56:01 vk>
+# Time-stamp: <2014-03-16 18:47:15 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -67,6 +67,7 @@ class Lazyblorg(object):
     TEMPORAL = 'TEMPORAL'
     TEMPLATES = 'TEMPLATES'
 
+
     def __init__(self, options, logging):
 
         self.options = options
@@ -85,7 +86,7 @@ class Lazyblorg(object):
         and determines which articles changed in which way.
 
         @param return: generate: list of IDs of articles in blog_data/metadata that should be build
-        @param return: marked_for_RSS: list of IDs of articles in blog_data/metadata that are modified/new
+        @param return: marked_for_feed: list of IDs of articles in blog_data/metadata that are modified/new
         @param return: increment_version: list of IDs of articles in blog_data/metadata that got a new version
         """
 
@@ -137,9 +138,9 @@ class Lazyblorg(object):
         self.template_definitions = self._generate_template_definitions_from_template_data()
 
         ## run comparing algorithm (last metadata, current metadata)
-        generate, marked_for_RSS, increment_version = self._compare_blogdata_to_metadata()
+        generate, marked_for_feed, increment_version = self._compare_blogdata_to_metadata()
 
-        return generate, marked_for_RSS, increment_version, stats_parsed_org_files, stats_parsed_org_lines
+        return generate, marked_for_feed, increment_version, stats_parsed_org_files, stats_parsed_org_lines
 
     def OLD_parse_HTML_output_template_and_generate_template_definitions(self):
         """
@@ -157,13 +158,13 @@ class Lazyblorg(object):
 
         return True
 
-    def generate_output(self, generate, marked_for_RSS, increment_version):
+    def generate_output(self, generate, marked_for_feed, increment_version):
         """
 
-        FIXXME
+        Generates the htmlized output pages and the RSS/ATOM feeds.
 
         @param generate: list of IDs of articles in blog_data/metadata that should be build
-        @param marked_for_RSS: list of IDs of articles in blog_data/metadata that are modified/new
+        @param marked_for_feed: list of IDs of articles in blog_data/metadata that are modified/new
         @param increment_version: list of IDs of articles in blog_data/metadata that got a new version
         @param return:
         """
@@ -173,11 +174,6 @@ class Lazyblorg(object):
 
         ## FIXXME: try except HtmlizerException?
         return htmlizer.run()  ## FIXXME: return value?
-
-        ## FIXXME: generate pages
-        ## (metadata, blog_data, template_definitions, options.tagetdir)
-
-        ## FIXXME: generate new RSS feed
 
     def _parse_orgmode_file(self, filename):
         """
@@ -263,7 +259,7 @@ class Lazyblorg(object):
         (dict) contains only entries with IDs -> should be done in parser:
         WARN, ignore
 
-        2) new ID found -> generate, mark_for_RSS
+        2) new ID found -> generate, mark_for_feed
 
         3) CREATED not found -> WARN, ignore
 
@@ -283,21 +279,21 @@ class Lazyblorg(object):
         checksum -> silent update -> generate
 
         8) known and matching: ID, CREATED; differs: checksum, last
-        timestamp -> normal update -> generate, mark_for_RSS,
+        timestamp -> normal update -> generate, mark_for_feed,
         increment_version
 
         The format of the metadata is described in dev/lazyblorg.org >
         Notes > Internal format of meta-data.
 
         @param return: generate: a list of metadata-entries that should be generated
-        @param return: marked_for_RSS: a list of metadata-entries that are candidates to be propagated using RSS feeds
+        @param return: marked_for_feed: a list of metadata-entries that are candidates to be propagated using RSS feeds
         @param return: increment_version: a list of metadata-entries that can be marked with an increased update number
         """
 
         self.logging.debug("compare_blog_metadata() called ...")
 
         generate = []
-        marked_for_RSS = []
+        marked_for_feed = []
         increment_version = []
         metadata = self.metadata
         previous_metadata = self.previous_metadata
@@ -321,13 +317,13 @@ class Lazyblorg(object):
             if previous_metadata is None:
                 self.logging.debug("case 2: brand-new entry (first run of lazyblorg)")
                 generate.append(entry)
-                marked_for_RSS.append(entry)
+                marked_for_feed.append(entry)
                 continue
 
             if entry not in previous_metadata.keys():
                 self.logging.debug("case 2: brand-new entry (lazyblorg was run previously)")
                 generate.append(entry)
-                marked_for_RSS.append(entry)
+                marked_for_feed.append(entry)
                 continue
 
             elif 'created' not in metadata[entry].keys():
@@ -361,9 +357,9 @@ class Lazyblorg(object):
             elif metadata[entry]['created'] == previous_metadata[entry]['created'] and \
                     metadata[entry]['timestamp'] != previous_metadata[entry]['timestamp'] and \
                     metadata[entry]['checksum'] != previous_metadata[entry]['checksum']:
-                self.logging.debug("case 8: normal update -> generate, mark_for_RSS, increment_version")
+                self.logging.debug("case 8: normal update -> generate, mark_for_feed, increment_version")
                 generate.append(entry)
-                marked_for_RSS.append(entry)
+                marked_for_feed.append(entry)
                 increment_version.append(entry)
                 continue
 
@@ -375,7 +371,7 @@ class Lazyblorg(object):
                 Utils.append_logfile_entry(self.options.logfilename, 'warn', message)
                 self.logging.warn(message)
 
-        return generate, marked_for_RSS, increment_version
+        return generate, marked_for_feed, increment_version
 
 
 if __name__ == "__main__":
@@ -482,10 +478,10 @@ if __name__ == "__main__":
         lazyblorg = Lazyblorg(options, logging)
         ## FIXXME: encapsulate following lines in lazyblorg.run() ?
         #lazyblorg.parse_HTML_output_template_and_generate_template_definitions()
-        generate, marked_for_RSS, increment_version, stats_parsed_org_files, stats_parsed_org_lines = lazyblorg.determine_changes()
+        generate, marked_for_feed, increment_version, stats_parsed_org_files, stats_parsed_org_lines = lazyblorg.determine_changes()
         time_after_parsing = time()
         stats_generated_total, stats_generated_temporal, \
-            stats_generated_persistent, stats_generated_tags = lazyblorg.generate_output(generate, marked_for_RSS, increment_version)
+            stats_generated_persistent, stats_generated_tags = lazyblorg.generate_output(generate, marked_for_feed, increment_version)
         time_after_htmlizing = time()
 
         logging.info("Parsed " + str(stats_parsed_org_files) + " Org-mode files with " + str(stats_parsed_org_lines) + " lines (in %.2f seconds)" % (time_after_parsing - time_before_parsing))

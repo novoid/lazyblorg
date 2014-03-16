@@ -12,7 +12,7 @@ CLOSED: [2013-08-24 Sat 22:54]
 :ID: case1
 :END:
 
-Case1: new ID found -> generate, mark_for_RSS
+Case1: new ID found -> generate, mark_for_feed
 
 ** DONE Case2: no ID found                                            :blog:
 CLOSED: [2013-08-24 Sat 22:54]
@@ -107,7 +107,7 @@ CLOSED: [2013-08-24 Sat 22:49]
 :END:
 
 known and matching: ID, CREATED; differs: checksum, last
-      timestamp -> normal update -> generate, mark_for_RSS,
+      timestamp -> normal update -> generate, mark_for_feed,
       increment_version
 
 This is additional text added before second run.

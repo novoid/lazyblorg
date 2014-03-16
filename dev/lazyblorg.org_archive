@@ -884,7 +884,7 @@ CLOSED: [2013-08-27 Tue 20:54]
 
 - [X] test-Org-mode
   - all eight cases:
-    1. new ID found -> generate, mark_for_RSS
+    1. new ID found -> generate, mark_for_feed
     2. no ID found -> is not possible here any more since metadata
       (dict) contains only entries with IDs -> should be done in parser:
       WARN, ignore
@@ -899,7 +899,7 @@ CLOSED: [2013-08-27 Tue 20:54]
     7. known and matching: ID, CREATED, last timestamp; differs:
        checksum -> silent update -> generate
     8. known and matching: ID, CREATED; differs: checksum, last
-      timestamp -> normal update -> generate, mark_for_RSS,
+      timestamp -> normal update -> generate, mark_for_feed,
       increment_version
   - how to create test.org
     - cases that need first run: 4, 5, 6, 7, 8
@@ -1103,7 +1103,7 @@ CLOSED: [2014-01-29 Wed 17:51]
 :END:
 
 - when I change lots of tags (only), their articles should not be
-  listed as updated (in RSS and such)
+  listed as updated (in feed and such)
 
 ** DONE parse URLs to href                                       :userstory:
 CLOSED: [2014-01-30 Thu 15:12] SCHEDULED: <2014-01-30 Thu>
@@ -1224,7 +1224,7 @@ CLOSED: [2013-02-12 Tue 14:13] SCHEDULED: <2013-02-12 Tue>
     - aside: side bar; defined by content, not position; for related
       information; e.g., pullquotes
     - nav: major navigation information
-    - article: content that would probably go together for RSS feed
+    - article: content that would probably go together for feed feed
     - section: content that is grouped; consider "header", "footer",
       "nav", "sidebar", "article" as special kind of sections
     - hgroup: grouping headings (for overview/index)
@@ -1350,7 +1350,7 @@ vk@gary ~/src/lazyblorg (git)-[master] %
           - numbers don't mean anything
 
 - on any activity:
-  - [ ] re-write RSS feed for last n entries
+  - [ ] re-write feed feed for last n entries
   - [ ] optionally: generate overview page for last n entries
   - [ ] optionally: generate calendar archive page(s)
   - [ ] optionally: generate tag overview page(s)

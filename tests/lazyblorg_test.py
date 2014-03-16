@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-09 15:48:45 vk>
+# Time-stamp: <2014-03-16 17:05:41 vk>
 
 import argparse  ## command line arguments
 import unittest
@@ -83,16 +83,16 @@ class TestLazyblorg(unittest.TestCase):
         ## Invoking lazyblorg first interation:
 
         first_lazyblorg = Lazyblorg(options, self.logging)
-        generate, marked_for_RSS, increment_version, stats_parsed_org_files, stats_parsed_org_lines = first_lazyblorg.determine_changes()
+        generate, marked_for_feed, increment_version, stats_parsed_org_files, stats_parsed_org_lines = first_lazyblorg.determine_changes()
 
         ## Checking results:
 
         generate_sorted = sorted(generate)
-        marked_for_RSS_sorted = sorted(marked_for_RSS)
+        marked_for_feed_sorted = sorted(marked_for_feed)
         ##increment_version_sorted = sorted(increment_version)
 
         self.assertTrue(increment_version == [])
-        self.assertTrue(generate_sorted == marked_for_RSS_sorted)
+        self.assertTrue(generate_sorted == marked_for_feed_sorted)
         self.assertTrue(generate_sorted == [u'case4', u'case5', u'case6', u'case7', u'case8', u'lazyblorg-templates'])
 
         ## Checks on the situation before second iteration:
@@ -119,16 +119,16 @@ class TestLazyblorg(unittest.TestCase):
         ## Invoking lazyblorg first interation:
 
         second_lazyblorg = Lazyblorg(options, self.logging)
-        generate, marked_for_RSS, increment_version, stats_parsed_org_files, stats_parsed_org_lines = second_lazyblorg.determine_changes()
+        generate, marked_for_feed, increment_version, stats_parsed_org_files, stats_parsed_org_lines = second_lazyblorg.determine_changes()
 
         ## Checking results:
 
         generate_sorted = sorted(generate)
-        marked_for_RSS_sorted = sorted(marked_for_RSS)
+        marked_for_feed_sorted = sorted(marked_for_feed)
         increment_version_sorted = sorted(increment_version)
 
         self.assertTrue(increment_version_sorted == [u'case8'])
-        self.assertTrue(marked_for_RSS_sorted == [u'case1', u'case8'])
+        self.assertTrue(marked_for_feed_sorted == [u'case1', u'case8'])
         self.assertTrue(generate_sorted == [u'case1', u'case5', u'case6', u'case7', u'case8', u'lazyblorg-templates'])
 
         if os.path.isfile(log_firstrun):
@@ -184,15 +184,15 @@ class TestLazyblorg(unittest.TestCase):
         ## Invoking lazyblorg first interation:
 
         mylazyblorg = Lazyblorg(options, self.logging)
-        generate, marked_for_RSS, increment_version, stats_parsed_org_files, stats_parsed_org_lines = mylazyblorg.determine_changes()
+        generate, marked_for_feed, increment_version, stats_parsed_org_files, stats_parsed_org_lines = mylazyblorg.determine_changes()
 
         ## Checking results:
 
         generate_sorted = sorted(generate)
-        marked_for_RSS_sorted = sorted(marked_for_RSS)
+        marked_for_feed_sorted = sorted(marked_for_feed)
 
         self.assertTrue(increment_version == [])
-        self.assertTrue(generate_sorted == marked_for_RSS_sorted)
+        self.assertTrue(generate_sorted == marked_for_feed_sorted)
         self.assertTrue(generate_sorted == [u'2014-01-27-full-syntax-test', u'2014-03-09-about', u'lazyblorg-templates'])
 
         blog_data, stats_parsed_org_lines = mylazyblorg._parse_orgmode_file(org_testfile)

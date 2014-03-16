@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2014-03-14 13:34:02 karl.voit>
+## Time-stamp: <2014-03-16 17:37:47 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -166,7 +166,7 @@ are becoming close friends right now:
 ** Features
 
 lazyblorg will support a basic set of syntax of Org-mode. It will also
-support RSS feed(s), tags, (external) image files, tables, static
+support RSS/ATOM feed(s), tags, (external) image files, tables, static
 pages (outside of day-oriented blog entry hierarchy), updates, and
 more.
 
@@ -244,7 +244,7 @@ Already accomplished:
 - develop lazyblorg to be able to replace my current web page and its blog.
 
 Next:
-- RSS
+- ATOM/RSS
 - tag-pages
 - Auto-tags
 - overview pages (monthly, yearly)
@@ -310,6 +310,26 @@ What's working so far:
 
 Non-working things are either mentioned in [[https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org][dev/lazyblorg.org]] or marked
 with "FIXXME" in the source code files.
+
+** External dependencies
+:PROPERTIES:
+:CREATED:  [2014-03-16 Sun 17:32]
+:END:
+
+The number of external dependencies is kept at a minimum.
+
+This is a list of the most important dependencies:
+- [[https://code.google.com/p/feedformatter/][feedformatter]]
+  - for formatting/generating RSS/ATOM feeds
+  - install with "pip install feedformatter"
+- [[http://werkzeug.pocoo.org/][Werkzeug]]
+  - for sanitizing path components
+  - I installed it on Debian GNU/Linux with ~apt-get install python-werkzeug~
+- pickle
+  - object serialization
+  - most likely: should be part of you Python distribution
+
+All other libraries should be part of any Python distribution.
 
 ** How to Start
 
@@ -385,7 +405,6 @@ feature* of lazyblorg nobody knows yet: whenever you see a π-symbol in
 the upper right corner of a blog entry on [[http://qr.cx/7wKz][my blog]]: this is a link to
 the original Org-mode source of that page. This way, you can compare
 Org-mode-source and HTML-result right away. Isn't that cool? :-)
-
 ** Five categories of page type
 :PROPERTIES:
 :CREATED:  [2014-03-04 Di 08:52]

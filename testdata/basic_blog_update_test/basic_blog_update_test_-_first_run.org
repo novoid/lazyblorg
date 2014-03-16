@@ -84,7 +84,7 @@ CLOSED: [2013-08-24 Sat 22:49]
 :END:
 
 known and matching: ID, CREATED; differs: checksum, last
-      timestamp -> normal update -> generate, mark_for_RSS,
+      timestamp -> normal update -> generate, mark_for_feed,
       increment_version
 
 ** DONE no blog tag

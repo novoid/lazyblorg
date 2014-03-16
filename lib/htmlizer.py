@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-09 15:22:45 vk>
+# Time-stamp: <2014-03-16 18:30:15 vk>
 
 import logging
 import os
@@ -8,6 +8,7 @@ import datetime
 import re  ## RegEx: for parsing/sanitizing
 import codecs
 #from lib.utils import *
+from feedformatter import Feed ## RSS/ATOM feeds
 
 ## NOTE: pdb hides private variables as well. Please use:   data = self._OrgParser__entry_data ; data['content']
 import pdb
@@ -61,6 +62,16 @@ class Htmlizer(object):
 
     ## show this many article teasers on entry page
     NUMBER_OF_TEASER_ARTICLES = 10
+
+    ## base directory of the RSS/ATOM feeds:
+    FEEDDIR = 'feeds'
+
+    ## (not only?) for feed meta-data: FIXXME: move to CLI parameters?
+    BASE_URL = 'http://Karl-Voit.at'
+    AUTHOR_NAME = "Karl Voit"
+
+    ## show this many article in feeds:
+    NUMBER_OF_FEED_ARTICLES = 10
 
     ## find internal links to Org-mode IDs: [[id:simple]] and [[id:with][a description]]
     ID_SIMPLE_LINK_REGEX = re.compile('(\[\[id:(\S+)\]\])')
@@ -180,7 +191,109 @@ class Htmlizer(object):
         entry_list_by_newest_timestamp = self.generate_entry_list_by_newest_timestamp()
         self.generate_entry_page(entry_list_by_newest_timestamp)
         stats_generated_total += 1
+
+        ## generate feeds:
+        feed_folder = os.path.join(self.targetdir, self.FEEDDIR)
+        if not os.path.isdir(feed_folder):
+            try:
+                self.logging.debug("creating path for feeds: \"%s\"" % feed_folder)
+                os.makedirs(feed_folder)
+            except OSError:
+                ## thrown, if it exists (no problem) or can not be created -> check!
+                if os.path.isdir(feed_folder):
+                    self.logging.debug("feed path [%s] already existed" % feed_folder)
+                else:
+                    message = "feed path [" + feed_folder + "] could not be created. Please check and fix before next run."
+                    self.logging.critical(message)
+                    raise HtmlizerException(message)
+        self.__generate_feeds_for_everything(entry_list_by_newest_timestamp)
+
         return stats_generated_total, stats_generated_temporal, stats_generated_persistent, stats_generated_tags
+
+    def __generate_feed_filename(self, feedstring):
+        """
+        Generator function for RSS/ATOM feed files.
+
+        @param feedstring: part of the feed file which describes the feed itself
+        @param return: RSS feed file name, ATOM feed file name
+        """
+
+        return \
+            os.path.join(self.targetdir, self.FEEDDIR, "lazyblorg-" + feedstring + ".rss_2.0.links-only.xml"), \
+            os.path.join(self.targetdir, self.FEEDDIR, "lazyblorg-" + feedstring + ".rss_2.0.links-and-content.xml"), \
+            os.path.join(self.targetdir, self.FEEDDIR, "lazyblorg-" + feedstring + ".atom_1.0.links-only.xml"), \
+            os.path.join(self.targetdir, self.FEEDDIR, "lazyblorg-" + feedstring + ".atom_1.0.links-and-content.xml")
+
+    def __generate_new_feed(self):
+        """
+        Generator function for a new RSS/ATOM feed.
+
+        @param return: a new feed object containing all feed-related meta-data
+        """
+
+        # Create the feed
+	feed = Feed()
+	
+	# Set the feed/channel level properties
+	feed.feed["title"] = self.blogname
+	feed.feed["link"] = self.BASE_URL
+	feed.feed["author"] = self.AUTHOR_NAME
+	feed.feed["description"] = self.about_blog
+
+        return feed
+
+    def __generate_feeds_for_everything(self, entry_list_by_newest_timestamp):
+        """
+        Generator function for the global RSS/ATOM feed.
+
+        @param return: none
+        """
+
+        rss_targetfile_links, rss_targetfile_content, \
+            atom_targetfile_links, atom_targetfile_content = self.__generate_feed_filename("all")
+
+        links_feed = self.__generate_new_feed()
+        content_feed = self.__generate_new_feed()
+
+        for listentry in entry_list_by_newest_timestamp[0:self.NUMBER_OF_FEED_ARTICLES]:
+
+            if listentry['category'] == self.TEMPLATES:
+                continue
+
+            ## listentry: (examples)
+            ## {'url': 'about', 'timestamp': datetime.datetime(2014, 3, 9, 14, 57), 'category': 'PERSISTENT',
+            ##  'id': u'2014-03-09-about'}
+            ## {'url': '2013/08/22/testid', 'timestamp': datetime.datetime(2013, 8, 22, 21, 6),
+            ##  'category': 'TEMPORAL', 'id': u'2013-08-22-testid'}
+
+            entry = self.blog_data_with_id(listentry['id'])
+            ## entry.keys() = ['category', 'level', 'timestamp', 'tags', 'created', 'content', 'htmlteaser-equals-content',
+            ##                 'rawcontent', 'finished-timestamp-history', 'title', 'id']
+
+            ## generate feed item without content:
+            item = {}
+            item["title"] = entry['title']
+            item["link"] = self.BASE_URL + "/" + listentry['url']
+            item["pubDate"] = datetime.datetime.timetuple(listentry['timestamp'])  ## time.localtime()
+            item["guid"] = listentry['id']
+            links_feed.items.append(item)
+            
+            ## generate feed item with content:
+            item = {}
+            item["title"] = entry['title']
+            item["link"] = self.BASE_URL + "/" + listentry['url']
+            item["pubDate"] = datetime.datetime.timetuple(listentry['timestamp'])  ## time.localtime()
+            item["guid"] = listentry['id']
+            item["description"] = '\n'.join(entry['content']).replace("<", "&lt;").replace(">", "&gt;")
+            content_feed.items.append(item)
+	
+	# Save the feed to a file in various formats
+	links_feed.format_rss2_file(rss_targetfile_links)
+	content_feed.format_rss2_file(rss_targetfile_content)
+	links_feed.format_atom_file(atom_targetfile_links)
+	content_feed.format_atom_file(atom_targetfile_content)
+
+        return
 
     def generate_entry_list_by_newest_timestamp(self):
         """

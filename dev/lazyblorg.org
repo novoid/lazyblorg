@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-03-14 13:37:07 karl.voit>
+# Time-stamp: <2014-03-16 18:46:03 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -100,13 +100,13 @@ CLOSED: [2013-08-20 Tue 14:44]
 | *case* | *ID*      | *created*    | *last_update*   | *checksum*   | *result*                     | *description*                    |
 |--------+-----------+--------------+-----------------+--------------+------------------------------+----------------------------------|
 |      1 | not found | DC           | DC              | DC           | WARNING                      | blog-entry without ID            |
-|      2 | not known | DC           | DC              | DC           | generate; RSS                | 1st time generation              |
+|      2 | not known | DC           | DC              | DC           | generate; FEED                | 1st time generation              |
 |      3 | known     | not found    | DC              | DC           | WARNING                      | blog-entry without CREATED       |
 |      4 | known     | not matching | DC              | DC           | ERROR                        | CREATED should not change        |
 |      5 | known     | matching     | same as CREATED | matching     |                              | not changed since 1st generation |
 |      6 | known     | matching     | unchanged       | matching     |                              | not changed since last update    |
-|      7 | known     | matching     | unchanged       | not matching | generate; noRSS; noIncrement | silent update                    |
-|      8 | known     | matching     | changed         | not matching | generate; RSS; Increment     | normal Update                    |
+|      7 | known     | matching     | unchanged       | not matching | generate; noFEED; noIncrement | silent update                    |
+|      8 | known     | matching     | changed         | not matching | generate; FEED; Increment     | normal Update                    |
 
 - for each ORGMODE-file
   - for each entry tagged with BLOGTAG AND in DONE state
@@ -116,7 +116,7 @@ CLOSED: [2013-08-20 Tue 14:44]
       - continue with next heading
     - if ID not known
       - case2
-      - generate RSS
+      - generate FEED
       - generate HTML
       - continue with next heading
     - if CREATED not found
@@ -134,13 +134,13 @@ CLOSED: [2013-08-20 Tue 14:44]
       - if LASTUPDATE changed
         - case8
         - increment update-number
-        - generate RSS
+        - generate FEED
         - generate HTML
       - else (if LASTUPDATE unchanged)
         - case7
         - generate HTML
 
-- "RSS" means:
+- "FEED" means:
   - update time-ordered-index
 
 - persistence storage has to hold (at least):
@@ -179,7 +179,7 @@ CLOSED: [2014-02-01 Sat 15:02]
      - about this blog
        - SW being used
        - how to follow
-       - link to RSS
+       - link to FEED
      - about Karl Voit
        - Twitter
        - github
@@ -189,7 +189,7 @@ CLOSED: [2014-02-01 Sat 15:02]
      - overview on tags
   3. 2011, 2012, 2013, ...: yearly overview pages
      - of all years that contain blog articles
-  4. "follow me": get updates via RSS (persistent page)
+  4. "follow me": get updates via FEED (persistent page)
      - explaining the methods I provide
 
 Defining the content in a special template heading:
@@ -229,17 +229,24 @@ CLOSED: [2014-03-01 Sat 20:10]
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
 
-** NEXT [#A] provide RSS feed(s)                                 :userstory:
+** NEXT [#A] provide FEED feed(s)                                 :userstory:
 :PROPERTIES:
 :CREATED:  [2012-11-05 Mon 10:57]
 :ID: 2012-11-05-lb-rss
 :END:
 
 - sorted by last date within LOGBOOK or PROPERTIES drawers
-- one general RSS feed
+- one general feed
 - one feed for each tag
 - ? differ heading-only feeds and full feeds
   - OR: use only full feeds
+
+- self-generating XML is not that hard to do
+  - RSS example: [[tsfile:2014-03-10-heise-example.rss]]
+
+- Differences between RSS and Atom?
+  - http://blog.webreakstuff.com/2005/07/rss-vs-atom-you-know-for-dummies/
+  - http://www.intertwingly.net/wiki/pie/Rss20AndAtom10Compared
 
 - python
   - http://bytes.com/topic/python/answers/769576-there-any-generic-rss-atom-generator-python
@@ -253,16 +260,73 @@ CLOSED: [2014-03-01 Sat 20:10]
     - https://github.com/lkiesow/python-feedgen
       - looks promising
     - https://pypi.python.org/pypi/PyRSS2Gen
+  - https://code.google.com/p/feedformatter/
+    - https://code.google.com/p/feedformatter/wiki/Tutorial
+      - looks great - I will stick with this:
+        #+BEGIN_SRC python
+from feedformatter import Feed
+import time
 
-- self-generating XML is not that hard to do
-  - example: [[tsfile:2014-03-10-heise-example.rss]]
+# Create the feed
+feed = Feed()
+
+# Set the feed/channel level properties
+feed.feed["title"] = "Example feed"
+feed.feed["link"] = "http://www.example.com"
+feed.feed["author"] = "Mr X. Ample"
+feed.feed["description"] = "A simple example feed with one item in it"
+
+# Create an item
+item = {}
+item["title"] = "Test item"
+item["link"] = "http://www.example.com/example_url"
+item["description"] = "And now for something completely different"
+item["pubDate"] = time.localtime()
+item["guid"] = "1234567890"
+
+# Add item to feed
+# You can do this as many times as you like with multiple items
+feed.items.append(item)
+
+# Print the feed to stdout in various formats
+print feed.format_rss1_string()
+print feed.format_rss2_string()
+print feed.format_atom_string()
+
+# Save the feed to a file in various formats
+feed.format_rss1_file("example_feed_rss1.xml")
+feed.format_rss2_file("example_feed_rss2.xml")
+feed.format_atom_file("example_feed_atom.xml")
+        #+END_SRC
+      - installing: ~pip install feedformatter~
+
+- I would like to generate:
+  - [ ] feeds/lazyblorg-all.rss -> RSS2.0
+    - http://karl-voit.at/feeds/lazyblorg-all.rss_2.0.links-and-content.xml
+    - http://karl-voit.at/feeds/lazyblorg-all.rss_2.0.links-only.xml
+  - [ ] feeds/lazyblorg-all.atom -> ATOM1.0
+    - http://karl-voit.at/feeds/lazyblorg-all.atom_1.0.links-and-content.xml
+    - http://karl-voit.at/feeds/lazyblorg-all.atom_1.0.links-only.xml
+  - [ ] feeds/lazyblorg-tags-lazyblorg.*
+
+- <2014-03-16 Sun 18:43>
+  - I finished a version using feedformatter
+  - disappointed so far:
+    - could not get content to feed
+      - it uses only the "preview-text" or similar
+    - works only for feeds without the whole content
+  - next steps: take a look at Tim Brays Atom-feed
+    - http://www.tbray.org/ongoing/ongoing.atom
+      - [[tsfile:2014-03-16_ongoing.atom]]
+    - generate my own atom feed with no external dependency to feedformatter
+      
 
 ** STARTED get ordered lists of blog entries                  :architecture:
 :PROPERTIES:
 :CREATED:  [2014-02-01 Sat 13:48]
 :END:
 
-- [X] time-ordered by last modification (for RSS and main page)
+- [X] time-ordered by last modification (for FEED and main page)
   - Newest entry of entry['finished-timestamp-history'] is the
     time-stamp of the last update
   - for each entry in entries
@@ -279,7 +343,7 @@ CLOSED: [2014-03-01 Sat 20:10]
 :CREATED:  [2014-03-12 Mi 17:54]
 :END:
 
-- articles tagged with the hidden tag don't show up in the RSS feed or
+- articles tagged with the hidden tag don't show up in the feed or
   the overview pages
 - you have to have the URL of the article in order to see it
 - handy for temporary stuff to put online only for a group of people
@@ -596,6 +660,11 @@ see also id:2012-11-06-ago-generating
 - [ ] add to about-page
 - [ ] add to documentation (README, ...)
 
+- feeds for auto-tags
+  - [ ] feeds/lazyblorg-shorts.*
+  - [ ] feeds/lazyblorg-deutsch.*
+  - [ ] feeds/lazyblorg-english.*
+
 *** Language
 :PROPERTIES:
 :CREATED:  [2012-11-11 Sun 13:44]
@@ -697,7 +766,7 @@ display: block;
 - a list of all tags on front page with link to tag-descriptions
 - each tag gets a tag-description page
   - what I mean by this tag with examples
-  - link to RSS feed for this tag
+  - link to feed for this tag
   - link to a list of blog entries for this tag
 
 - see also id:2012-11-11-autotags
@@ -1203,7 +1272,7 @@ this is the plan (from 2012-11):
   - CSS2 style
   - HTML5 blog entry page
   - Tag description page
-  - RSS feed
+  - feed
   - HTML5 blog entry page with update
   - Index overview page (archive)
   - description of basic work-flow for generating the blog
@@ -1295,7 +1364,7 @@ implemented but moved to a (separate) user-story above.
             - disadvantage: broken old URLs
             - advantage: URL reflects update state
   - on any activity:
-    - re-write RSS feed for last n entries
+    - re-write feed for last n entries
     - optionally: generate overview page for last n entries
     - optionally: generate calendar archive page(s)
     - optionally: generate tag overview page(s)
@@ -1423,7 +1492,7 @@ The basic script workflow is not that complicated:
             - disadvantage: broken old URLs
             - advantage: URL reflects update state
   - on any activity:
-    - re-write RSS feed for last n entries
+    - re-write feed for last n entries
     - optionally: generate overview page for last n entries
     - optionally: generate calendar archive page(s)
     - optionally: generate tag overview page(s)
