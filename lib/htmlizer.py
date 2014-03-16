@@ -1,14 +1,14 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-16 18:30:15 vk>
+# Time-stamp: <2014-03-16 20:34:20 vk>
 
 import logging
 import os
 import werkzeug.utils  ## for sanitizing path components
 import datetime
+from time import localtime, strftime
 import re  ## RegEx: for parsing/sanitizing
 import codecs
 #from lib.utils import *
-from feedformatter import Feed ## RSS/ATOM feeds
 
 ## NOTE: pdb hides private variables as well. Please use:   data = self._OrgParser__entry_data ; data['content']
 import pdb
@@ -57,8 +57,9 @@ class Htmlizer(object):
     TEMPLATES = 'TEMPLATES'
     ENTRYPAGE = 'ENTRYPAGE'
 
+    ## INTEGRATION: replace "+01:00" below with your time-zone indicator
     ## this gets added to the time in order to describe time zone of the blog:
-    TIME_ZONE_ADDON = '+02:00'
+    TIME_ZONE_ADDON = '+01:00'
 
     ## show this many article teasers on entry page
     NUMBER_OF_TEASER_ARTICLES = 10
@@ -66,6 +67,7 @@ class Htmlizer(object):
     ## base directory of the RSS/ATOM feeds:
     FEEDDIR = 'feeds'
 
+    ## INTEGRATION: put your URL and your name below:
     ## (not only?) for feed meta-data: FIXXME: move to CLI parameters?
     BASE_URL = 'http://Karl-Voit.at'
     AUTHOR_NAME = "Karl Voit"
@@ -141,7 +143,7 @@ class Htmlizer(object):
         """
 
         stats_generated_total, stats_generated_temporal, stats_generated_persistent, stats_generated_tags = 0, 0, 0, 0
-        
+
         for entry in self.blog_data:
 
             ## example entry:
@@ -162,7 +164,8 @@ class Htmlizer(object):
             if entry['category'] == self.TAGS:
                 self.logging.debug("entry \"%s\" is a tag page" % entry['id'])
                 self.logging.warn("generating tag pages not implemented yet")
-                stats_generated_tags += 1  ## FIXXME: generate tag blog entry
+                stats_generated_tags += 1
+                ## FIXXME: generate tag blog entry
 
             elif entry['category'] == self.PERSISTENT:
                 self.logging.debug("entry \"%s\" is a persistent page" % entry['id'])
@@ -184,10 +187,10 @@ class Htmlizer(object):
                 raise HtmlizerException(message)
 
             if entry['category'] == self.TAGS or entry['category'] == self.PERSISTENT or entry['category'] == self.TEMPORAL:
-                self.write_htmlcontent_to_file(htmlfilename, htmlcontent)
+                self.write_content_to_file(htmlfilename, htmlcontent)
                 self.write_orgcontent_to_file(orgfilename, entry['rawcontent'])
                 stats_generated_total += 1
-                
+
         entry_list_by_newest_timestamp = self.generate_entry_list_by_newest_timestamp()
         self.generate_entry_page(entry_list_by_newest_timestamp)
         stats_generated_total += 1
@@ -215,12 +218,10 @@ class Htmlizer(object):
         Generator function for RSS/ATOM feed files.
 
         @param feedstring: part of the feed file which describes the feed itself
-        @param return: RSS feed file name, ATOM feed file name
+        @param return: ATOM feed file names
         """
 
         return \
-            os.path.join(self.targetdir, self.FEEDDIR, "lazyblorg-" + feedstring + ".rss_2.0.links-only.xml"), \
-            os.path.join(self.targetdir, self.FEEDDIR, "lazyblorg-" + feedstring + ".rss_2.0.links-and-content.xml"), \
             os.path.join(self.targetdir, self.FEEDDIR, "lazyblorg-" + feedstring + ".atom_1.0.links-only.xml"), \
             os.path.join(self.targetdir, self.FEEDDIR, "lazyblorg-" + feedstring + ".atom_1.0.links-and-content.xml")
 
@@ -228,17 +229,26 @@ class Htmlizer(object):
         """
         Generator function for a new RSS/ATOM feed.
 
-        @param return: a new feed object containing all feed-related meta-data
+        @param return: a string containing all feed-related meta-data
         """
 
-        # Create the feed
-	feed = Feed()
-	
-	# Set the feed/channel level properties
-	feed.feed["title"] = self.blogname
-	feed.feed["link"] = self.BASE_URL
-	feed.feed["author"] = self.AUTHOR_NAME
-	feed.feed["description"] = self.about_blog
+        feed = u"""<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns='http://www.w3.org/2005/Atom'
+      xmlns:thr='http://purl.org/syndication/thread/1.0'
+      xml:lang='en-us'>
+  <title>""" + self.blogname + """</title>
+  <id>""" + self.BASE_URL + """</id>
+  <link href='""" + self.BASE_URL + """' />
+  <icon>/favicon.ico</icon>
+  <updated>""" + strftime('%Y-%m-%dT%H:%M:%S' + self.TIME_ZONE_ADDON, localtime()) + """</updated>
+  <author>
+    <name>""" + self.AUTHOR_NAME + """</name>
+  </author>
+  <subtitle>""" + self.about_blog + """</subtitle>
+  <rights>All content written by """ + self.AUTHOR_NAME + """</rights>
+  <generator uri='https://github.com/novoid/lazyblorg'>Generated from Org-mode source code using lazyblorg which is written in Python. Industrial-strength technology, baby.</generator>
+
+        """
 
         return feed
 
@@ -249,11 +259,9 @@ class Htmlizer(object):
         @param return: none
         """
 
-        rss_targetfile_links, rss_targetfile_content, \
-            atom_targetfile_links, atom_targetfile_content = self.__generate_feed_filename("all")
-
-        links_feed = self.__generate_new_feed()
-        content_feed = self.__generate_new_feed()
+        atom_targetfile_links, atom_targetfile_content = self.__generate_feed_filename("all")
+        links_atom_feed = self.__generate_new_feed()
+        content_atom_feed = self.__generate_new_feed()
 
         for listentry in entry_list_by_newest_timestamp[0:self.NUMBER_OF_FEED_ARTICLES]:
 
@@ -266,46 +274,68 @@ class Htmlizer(object):
             ## {'url': '2013/08/22/testid', 'timestamp': datetime.datetime(2013, 8, 22, 21, 6),
             ##  'category': 'TEMPORAL', 'id': u'2013-08-22-testid'}
 
-            entry = self.blog_data_with_id(listentry['id'])
-            ## entry.keys() = ['category', 'level', 'timestamp', 'tags', 'created', 'content', 'htmlteaser-equals-content',
-            ##                 'rawcontent', 'finished-timestamp-history', 'title', 'id']
+            blog_data_entry = self.blog_data_with_id(listentry['id'])
+            ## blog_data_entry.keys() = ['category', 'level', 'timestamp', 'tags', 'created', 'content', 'htmlteaser-equals-content',
+            ##                           'rawcontent', 'finished-timestamp-history', 'title', 'id']
 
-            ## generate feed item without content:
-            item = {}
-            item["title"] = entry['title']
-            item["link"] = self.BASE_URL + "/" + listentry['url']
-            item["pubDate"] = datetime.datetime.timetuple(listentry['timestamp'])  ## time.localtime()
-            item["guid"] = listentry['id']
-            links_feed.items.append(item)
+            ## filling feed entry string:
+            feedentry = u"""  <entry>
+    <title>""" + blog_data_entry['title'] + """</title>
+    <link href='""" + self.BASE_URL + "/" + listentry['url'] + """' />
+    <id>""" + self.BASE_URL + "/" + listentry['url'] + """</id>
+    <published>""" + self._get_oldest_timestamp_for_entry(blog_data_entry)[0].strftime('%Y-%m-%dT%H:%M:%S' + self.TIME_ZONE_ADDON) + """</published>
+    <updated>""" + self._get_newest_timestamp_for_entry(blog_data_entry)[0].strftime('%Y-%m-%dT%H:%M:%S' + self.TIME_ZONE_ADDON) + "</updated>\n"
+
+            ## adding all tags:
+            for tag in blog_data_entry['tags']:
+                
+                if tag == self.blog_tag or tag == self.TAG_FOR_TAG_ENTRY or \
+                   tag == self.TAG_FOR_PERSISTENT_ENTRY:
+                    ## omit internaly used tags
+                    continue
+                
+                feedentry += "    <category scheme='" + self.BASE_URL + "/" + "tags" + "/" + tag + "' term='" + tag + "' />\n"
+
+            ## add summary:
+            feedentry += "    <summary type='xhtml'>\n <div xmlns='http://www.w3.org/1999/xhtml'>"
+            if blog_data_entry['htmlteaser-equals-content']:
+                feedentry += '\n'.join(blog_data_entry['content'])
+            else:
+                feedentry += '\n'.join(blog_data_entry['htmlteaser'])
+            feedentry += "</div>\n </summary>"
+
+            links_atom_feed += feedentry + "\n  </entry>\n\n"
+            content_atom_feed += feedentry + """    <content type='xhtml'>
+      <div xmlns='http://www.w3.org/1999/xhtml'>
+	""" + '\n'.join(blog_data_entry['content']) + """
+      </div>
+    </content>
+  </entry>\n
+"""
+
+        links_atom_feed += "</feed>"
+        content_atom_feed += "</feed>"
+        
+        assert(type(links_atom_feed) == unicode)
+        assert(type(content_atom_feed) == unicode)
             
-            ## generate feed item with content:
-            item = {}
-            item["title"] = entry['title']
-            item["link"] = self.BASE_URL + "/" + listentry['url']
-            item["pubDate"] = datetime.datetime.timetuple(listentry['timestamp'])  ## time.localtime()
-            item["guid"] = listentry['id']
-            item["description"] = '\n'.join(entry['content']).replace("<", "&lt;").replace(">", "&gt;")
-            content_feed.items.append(item)
-	
 	# Save the feed to a file in various formats
-	links_feed.format_rss2_file(rss_targetfile_links)
-	content_feed.format_rss2_file(rss_targetfile_content)
-	links_feed.format_atom_file(atom_targetfile_links)
-	content_feed.format_atom_file(atom_targetfile_content)
+        self.write_content_to_file(atom_targetfile_links, links_atom_feed)
+        self.write_content_to_file(atom_targetfile_content, content_atom_feed)
 
         return
 
     def generate_entry_list_by_newest_timestamp(self):
         """
 
-        Returns a sorted list of dicts of entry-IDs and their newest time-stamp. 
+        Returns a sorted list of dicts of entry-IDs and their newest time-stamp.
         Sort order ist newest time-stamp at the front.
-        
+
         @param: return: a sorted list like [ {'id':'a-new-entry', 'timestamp':datetime(), 'url'="<URL>"}, {...}]
         """
 
         entrylist = []
-        
+
         for entry in self.blog_data:
             entrylist.append({
                 'id':entry['id'],
@@ -349,7 +379,7 @@ class Htmlizer(object):
                     self.sanitize_html_characters(entry['title'])))
                 content = content.replace('#ARTICLE-URL#', listentry['url'])
                 content = content.replace('#ARTICLE-ID#', entry['id'])
-                
+
                 year, month, day, hours, minutes = str(listentry['timestamp'].year).zfill(2), \
                                                    str(listentry['timestamp'].month).zfill(2), \
                                                    str(listentry['timestamp'].day).zfill(2), \
@@ -369,40 +399,40 @@ class Htmlizer(object):
                     content = content.replace('#ARTICLE-TEASER#', '\n'.join(entry['htmlteaser']))
 
                 htmlcontent += content
-                
+
             elif entry['category'] == 'TAGS':
                 pass ## FIXXME: implement!
 
         ## add footer:
         htmlcontent += self.template_definition_by_name('entrypage-footer')
-        
+
         htmlcontent = htmlcontent.replace('#ABOUT-BLOG#', self.sanitize_external_links(self.sanitize_html_characters(self.about_blog)))
         htmlcontent = htmlcontent.replace('#BLOGNAME#', self.sanitize_external_links(self.sanitize_html_characters(self.blogname)))
         htmlcontent = self.sanitize_internal_links(self.ENTRYPAGE, htmlcontent)
-        self.write_htmlcontent_to_file(entry_page_filename, htmlcontent)
-            
+        self.write_content_to_file(entry_page_filename, htmlcontent)
+
         return
-        
-    def write_htmlcontent_to_file(self, filename, htmlcontent):
+
+    def write_content_to_file(self, filename, content):
         """
-        Creates the file and writes the content of htmlcontent into it.
+        Creates a file and writes the content into it.
 
         @param filename: the name of the file to write to including path
         @param htmlcontent: the (UTF-8) string of the HTML content
         @param return: True if success
         """
 
-        if filename and htmlcontent:
+        if filename and content:
             with codecs.open(filename, 'wb', encoding='utf-8') as output:
                 try:
-                    output.write(htmlcontent)
+                    output.write(content)
                 except:
                     self.logging.critical("Error when writing file: " + str(filename))
                     raise
                     return False
             return True
         else:
-            self.logging.critical("No filename (" + str(filename) + ") or htmlcontent when writing file: " + str(filename))
+            self.logging.critical("No filename (" + str(filename) + ") or content when writing file: " + str(filename))
             return False
 
     def write_orgcontent_to_file(self, orgfilename, rawcontent):
@@ -426,7 +456,7 @@ class Htmlizer(object):
         else:
             self.logging.critical("No filename (" + str(orgfilename) + ") or Org-mode raw content when writing file: " + str(orgfilename))
             return False
-        
+
     def sanitize_and_htmlize_blog_content(self, entry):
         """
         Inspects a selection of the entry content data and sanitizes
@@ -446,7 +476,7 @@ class Htmlizer(object):
         #debug:  [x[0] for x in entry['content']] -> which element types
 
         teaser_finished = False  ## teaser is finished on first sub-heading or <hr>-element
-        
+
         #for element in entry['content']:
         for index in range(0, len(entry['content'])):
 
@@ -479,7 +509,7 @@ class Htmlizer(object):
                     entry['htmlteaser'] = entry['content'][:index]
                     teaser_finished = True
 
-                result="<div class=\"orgmode-hr\" />" ## FIXXME: <hr> is hardcoded here; add to templates?
+                result="<div class=\"orgmode-hr\" />"
 
             elif entry['content'][index][0] == 'heading':
 
@@ -667,7 +697,7 @@ class Htmlizer(object):
 
     def generate_relative_url_from_sourcecategory_to_id(self, sourcecategory, targetid):
         """
-        returns a string containing a relative link from any article of same 
+        returns a string containing a relative link from any article of same
         category as sourcecategory to the page of targetid.
 
         @param sourcecategory: constant string determining type of source entry
@@ -676,9 +706,9 @@ class Htmlizer(object):
         """
 
         assert(type(targetid) == unicode or type(targetid) == str)
-        
+
         url = u""
-        
+
         ## build back-traverse URL
         if sourcecategory == self.TEMPORAL:
             url = u"../../../../"
@@ -709,9 +739,9 @@ class Htmlizer(object):
         """
 
         assert(type(content) == unicode)
-        
+
         newcontent = u""
-        
+
         allmatches = re.findall(self.ID_SIMPLE_LINK_REGEX, content)
         if allmatches != []:
             ## allmatches == [(u'[[id:2014-03-02-my-persistent]]', u'2014-03-02-my-persistent')]
@@ -723,7 +753,7 @@ class Htmlizer(object):
                 targetid = currentmatch[1]
                 url = self.generate_relative_url_from_sourcecategory_to_id(sourcecategory, targetid)
                 content = content.replace(internal_link, "<a href=\"" + url + "\">" + targetid + "</a>");
-        
+
         allmatches = re.findall(self.ID_DESCRIBED_LINK_REGEX, content)
         if allmatches != []:
             for currentmatch in allmatches:
@@ -732,7 +762,7 @@ class Htmlizer(object):
                 description = currentmatch[2]
                 url = self.generate_relative_url_from_sourcecategory_to_id(sourcecategory, targetid)
                 content = content.replace(internal_link, "<a href=\"" + url + "\">" + description + "</a>");
-        
+
         return content
 
     def sanitize_external_links(self, content):
@@ -782,7 +812,7 @@ class Htmlizer(object):
         htmlcontent += self._replace_general_article_placeholders(entry, content)
 
         htmlcontent += self.__collect_raw_content(entry['content'])
-        
+
         content = u''
         for articlepart in ['article-end', 'article-footer']:
             content += self.template_definition_by_name(articlepart)
@@ -819,7 +849,7 @@ class Htmlizer(object):
         htmlcontent += self._replace_general_article_placeholders(entry, content)
 
         htmlcontent += self.__collect_raw_content(entry['content'])
-        
+
         content = u''
         for articlepart in ['persistent-end', 'persistent-footer']:
             content += self.template_definition_by_name(articlepart)
@@ -855,7 +885,7 @@ class Htmlizer(object):
 
         assert(type(htmlcontent) == unicode)
         return htmlcontent
-    
+
     def _replace_tag_placeholders(self, tags, template_string):
         """
         Takes the list of tags and the template definition for tags
@@ -949,7 +979,7 @@ class Htmlizer(object):
             folder = folder[11:]
 
         return folder
-        
+
     def _target_path_for_id_without_targetdir(self, entryid):
         """
         Returnes a directory path for a given blog ID such as:
@@ -963,15 +993,15 @@ class Htmlizer(object):
 
         entry = self.blog_data_with_id(entryid)
         folder = self._get_entry_folder_name_from_entryid(entryid)
-        
+
         if entry['category'] == self.TAGS:
             ## TAGS: url is like "/tags/mytag/"
             return os.path.join("tags", folder)
-        
+
         if entry['category'] == self.PERSISTENT:
             ## PERSISTENT: url is like "/my-id/"
             return os.path.join(folder)
-        
+
         if entry['category'] == self.TEMPORAL:
             ## TEMPORAL: url is like "/2014/03/30/my-id/"
 
@@ -998,7 +1028,7 @@ class Htmlizer(object):
         """
 
         return self.__get_oldest_or_newest_timestamp_for_entry(entry, "NEWEST")
-        
+
     def _get_oldest_timestamp_for_entry(self, entry):
         """
         Reads data of entry and returns datetime object of the oldest
@@ -1019,7 +1049,7 @@ class Htmlizer(object):
         """
 
         return self.__get_oldest_or_newest_timestamp_for_entry(entry, "OLDEST")
-        
+
     def __get_oldest_or_newest_timestamp_for_entry(self, entry, search_for):
         """
         Reads data of entry and returns datetime object of the oldest or newest
@@ -1042,8 +1072,9 @@ class Htmlizer(object):
         """
 
         assert(entry)
-        assert(search_for == "OLDEST" or search_for == "NEWEST")
+        assert(type(entry) == dict)
         assert('finished-timestamp-history' in entry.keys())
+        assert(search_for == "OLDEST" or search_for == "NEWEST")
 
         returntimestamp = False
         if search_for == "OLDEST":
@@ -1058,7 +1089,7 @@ class Htmlizer(object):
                 if timestamp > newesttimestamp:
                     newesttimestamp = timestamp
             returntimestamp = newesttimestamp
-                
+
         return returntimestamp, str(returntimestamp.year).zfill(2), str(returntimestamp.month).zfill(2), \
             str(returntimestamp.day).zfill(2), \
             str(returntimestamp.hour).zfill(2), str(returntimestamp.minute).zfill(2)

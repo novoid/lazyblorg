@@ -1797,3 +1797,119 @@ CLOSED: [2014-03-09 Sun 19:56]
 
 - not only lines processed but also duration
 
+** DONE [#A] provide FEED feed(s)                                :userstory:
+CLOSED: [2014-03-16 Sun 20:33]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-03-16 Sun 20:33]
+:END:
+:PROPERTIES:
+:CREATED:  [2012-11-05 Mon 10:57]
+:ID: 2012-11-05-lb-rss
+:ARCHIVE_TIME: 2014-03-16 Sun 20:33
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: issues
+:END:
+
+- sorted by last date within LOGBOOK or PROPERTIES drawers
+- one general feed
+- one feed for each tag
+- ? differ heading-only feeds and full feeds
+  - OR: use only full feeds
+
+- self-generating XML is not that hard to do
+  - RSS example: [[tsfile:2014-03-10-heise-example.rss]]
+
+- Differences between RSS and Atom?
+  - http://blog.webreakstuff.com/2005/07/rss-vs-atom-you-know-for-dummies/
+  - http://www.intertwingly.net/wiki/pie/Rss20AndAtom10Compared
+
+- python
+  - http://bytes.com/topic/python/answers/769576-there-any-generic-rss-atom-generator-python
+    - "I wouldn't generate XML directly but using ElementTree to
+      generate Atom. I did it myself three months ago and it was
+      really trivial."
+    - http://search.cpan.org/~miyagawa/XML-Atom-0.28/lib/XML/Atom/Feed.pm
+    - http://www.imc.org/atom-syntax/mail-archive/msg18662.html
+    - http://blog.ianbicking.org/2007/08/02/atom-models/
+    - http://codespeak.net/lxml/objectify.html#tree-generation-with-the-e-factory
+    - https://github.com/lkiesow/python-feedgen
+      - looks promising
+    - https://pypi.python.org/pypi/PyRSS2Gen
+  - https://code.google.com/p/feedformatter/
+    - https://code.google.com/p/feedformatter/wiki/Tutorial
+      - looks great - I will stick with this:
+        #+BEGIN_SRC python
+from feedformatter import Feed
+import time
+
+# Create the feed
+feed = Feed()
+
+# Set the feed/channel level properties
+feed.feed["title"] = "Example feed"
+feed.feed["link"] = "http://www.example.com"
+feed.feed["author"] = "Mr X. Ample"
+feed.feed["description"] = "A simple example feed with one item in it"
+
+# Create an item
+item = {}
+item["title"] = "Test item"
+item["link"] = "http://www.example.com/example_url"
+item["description"] = "And now for something completely different"
+item["pubDate"] = time.localtime()
+item["guid"] = "1234567890"
+
+# Add item to feed
+# You can do this as many times as you like with multiple items
+feed.items.append(item)
+
+# Print the feed to stdout in various formats
+print feed.format_rss1_string()
+print feed.format_rss2_string()
+print feed.format_atom_string()
+
+# Save the feed to a file in various formats
+feed.format_rss1_file("example_feed_rss1.xml")
+feed.format_rss2_file("example_feed_rss2.xml")
+feed.format_atom_file("example_feed_atom.xml")
+        #+END_SRC
+      - installing: ~pip install feedformatter~
+
+- I would like to generate:
+  - [-] feeds/lazyblorg-all.rss -> RSS2.0
+    - http://karl-voit.at/feeds/lazyblorg-all.rss_2.0.links-and-content.xml
+    - http://karl-voit.at/feeds/lazyblorg-all.rss_2.0.links-only.xml
+    - feedformatter supported RSS and this was no additional effort
+    - since I wrote my own ATOM feed generator, I will stick to Atom
+  - [X] feeds/lazyblorg-all.atom -> ATOM1.0
+    - http://karl-voit.at/feeds/lazyblorg-all.atom_1.0.links-and-content.xml
+    - http://karl-voit.at/feeds/lazyblorg-all.atom_1.0.links-only.xml
+  - [-] feeds/lazyblorg-tags-lazyblorg.*
+    - later on
+
+- <2014-03-16 Sun 18:43>
+  - I finished a version using feedformatter
+  - disappointed so far:
+    - could not get content to feed
+      - it uses only the "preview-text" or similar
+    - works only for feeds without the whole content
+  - next steps: take a look at Tim Brays Atom-feed
+    - http://www.tbray.org/ongoing/ongoing.atom
+      - [[tsfile:2014-03-16_ongoing.atom]]
+    - generate my own atom feed with no external dependency to feedformatter
+    - omitted lines from header:
+      #+BEGIN_EXAMPLE
+  <link rel='hub' href='http://pubsubhubbub.appspot.com/' />
+  <link rel='self' href='https://www.tbray.org/ongoing/ongoing.atom' />
+  <link rel='replies'       thr:count='101'       href='https://www.tbray.org/ongoing/comments.atom' />
+  <logo>rsslogo.jpg</logo>
+      #+END_EXAMPLE
+    - omitted lines from entry:
+      #+BEGIN_EXAMPLE
+    <link rel='replies'        thr:count='4'        type='application/xhtml+xml'        href='/ongoing/When/201x/2014/03/13/What-Retina-Means#comments' />
+      
+      #+END_EXAMPLE      
+

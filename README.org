@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2014-03-16 17:37:47 vk>
+## Time-stamp: <2014-03-16 18:48:42 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -319,9 +319,6 @@ with "FIXXME" in the source code files.
 The number of external dependencies is kept at a minimum.
 
 This is a list of the most important dependencies:
-- [[https://code.google.com/p/feedformatter/][feedformatter]]
-  - for formatting/generating RSS/ATOM feeds
-  - install with "pip install feedformatter"
 - [[http://werkzeug.pocoo.org/][Werkzeug]]
   - for sanitizing path components
   - I installed it on Debian GNU/Linux with ~apt-get install python-werkzeug~
