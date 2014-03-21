@@ -1,0 +1,267 @@
+/*  ------------------------------------------
+ *  Generic stuff
+ *  ------------------------------------------ */
+
+body {
+  /* gradient from: http://www.colorzilla.com/gradient-editor/#ffffff+0,ffffe6+100,fc100c+100;Custom */
+  background: #ffffff; /* Old browsers */
+  background: -moz-linear-gradient(top, #ffffff 0%, #ffffe6 100%, #fc100c 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#ffffe6), color-stop(100%,#fc100c)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #ffffff 0%,#ffffe6 100%,#fc100c 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #ffffff 0%,#ffffe6 100%,#fc100c 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #ffffff 0%,#ffffe6 100%,#fc100c 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #ffffff 0%,#ffffe6 100%,#fc100c 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffe6',GradientType=0 ); /* IE6-9 */
+  /*min-height:100%*/
+  font-family:Trebuchet MS,Verdana,Helvetica,sans-serif;
+}
+
+
+a {
+  text-decoration:none;
+}
+
+
+.breadcrumbs {
+  font-size:120%;
+  font-family:Verdana, Geneva, sans-serif
+}
+
+
+.rightside {
+  margin: 0px auto;
+  float:right;
+}
+
+
+.section-title {
+  color:#404040;
+  margin-left:1em;
+}
+
+
+.orgmode-hr {
+    margin-top:3em;
+}
+
+
+blockquote { /* http://tympanus.net/codrops/2012/07/25/modern-block-quote-styles/ */
+    background: #fff;
+    padding: 1em;
+    border-radius: 1em;
+    box-shadow: 
+        inset 0 2px 0 rgba(188, 147, 200, 0.7), 
+        -5px -4px 25px rgba(0, 0, 0, 0.3);
+}
+
+
+blockquote:before { /* http://text.jpatch.net/2010/09/css2-no-image-quotation-marks-in-blockquotes/ */
+    content:'\201C';
+    margin:1em -.15em 1em -.15em    ;
+    /*color:#33a8e5;*/
+    color:#e0e0e0; /* light-gray */
+    padding:.15em -.5em -.5em -.5em;
+    font-size:60px;
+    line-height:12px;
+    vertical-align:middle;
+    font-weight:bold;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+
+.example_code {
+    width:auto;
+    background-color:#ffffff;
+    padding:5px;
+    border:1px solid #d4d4d4;
+    font-size:14px;
+    font-family:courier new;
+}
+
+
+.email-comment {
+    max-width:40em;
+    margin-left:auto;
+    margin-right:auto;
+    padding-top:7em;
+    text-align:center;
+    color:#404040;
+    font-size:80%;
+}
+
+
+.published-on {
+  font-size:80%;
+  color:gray;
+
+  text-align:right;
+  margin-left:auto;
+  margin-right:auto;
+  max-width:60em;
+  padding-top:2em;
+}
+
+
+footer {
+
+  padding: 0.1em;
+  border-radius: 1em;
+  box-shadow: 
+      inset 0 2px 0 rgba(188, 147, 200, 0.7), 
+      -5px -4px 25px rgba(0, 0, 0, 0.3);
+
+  background:#f9f9f9;
+  text-align:center;
+  color:gray;
+  font-size:80%;
+
+  max-width:60em;
+  margin-left:auto;
+  margin-right:auto;
+  position:relative;
+  
+  margin-bottom:20px;
+  margin-top:5em;
+}
+
+#disqus_thread {
+
+  max-width:40em;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/*  ------------------------------------------
+ *  Permanent page
+ *  ------------------------------------------ */
+
+.persistent-body {
+  margin-left:auto;
+  margin-right:auto;
+  max-width:40em;
+  padding-top:2em;
+}
+
+.persistent-body h1{
+  font-size:100%;
+  color:black;
+}
+
+
+/*  ------------------------------------------
+ *  Permanent page > Entry page
+ *  ------------------------------------------ */
+
+.entry-page-article {
+  padding: 0.5em;
+  margin-bottom: 1.5em;
+  border-radius: 0.2em;
+  box-shadow: 
+      inset 0 2px 0 rgba(188, 147, 200, 0.7), 
+      -5px -4px 25px rgba(0, 0, 0, 0.3);
+
+  background:white;
+}
+
+
+
+
+/*  ------------------------------------------
+ *  Article
+ *  ------------------------------------------ */
+
+.article-orgsource {
+  float:right;
+  font-size:120%;
+  font-family:Verdana, Geneva, sans-serif
+}
+
+
+.article-header-nav {
+    padding: 1em;
+    border-radius: 1em;
+    box-shadow: 
+        inset 0 2px 0 rgba(188, 147, 200, 0.7), 
+        -5px -4px 25px rgba(0, 0, 0, 0.3);
+
+  background:#f9f9f9;
+  margin-bottom:20px;
+  margin-left:-2em;
+}
+
+.article-title {
+  margin-bottom:2em;
+  padding-top:2em;
+}
+
+.article {
+  margin-left:auto;
+  margin-right:auto;
+  max-width:40em;
+  padding-top:2em;
+}
+
+/* happily stolen from http://cssglobe.com/pure-css3-post-tags/ */
+.tags {
+  margin:0;
+  padding:0;
+  margin-top:1em;
+  margin-right:-2em;
+  float:right;
+  list-style:none;
+  }
+.tags li, .tags a {
+  float:left;
+  height:24px;
+  line-height:24px;
+  position:relative;
+  font-size:13px;
+  }
+.tags a {
+  margin-left:20px;
+  padding:0 10px 0 12px;
+  ORIGINALbackground:#0089e0;
+  background:#2222ff;
+  color:#fff;
+  text-decoration:none;
+  -moz-border-radius-bottomright:4px;
+  -webkit-border-bottom-right-radius:4px;
+  border-bottom-right-radius:4px;
+  -moz-border-radius-topright:4px;
+  -webkit-border-top-right-radius:4px;
+  border-top-right-radius:4px;
+  }
+.tags a:before {
+  content:"";
+  float:left;
+  position:absolute;
+  top:0;
+  left:-12px;
+  width:0;
+  height:0;
+  ORIGINALborder-color:transparent #0089e0 transparent transparent;
+  border-color:transparent #2222ff transparent transparent;
+  border-style:solid;
+  border-width:12px 12px 12px 0;
+  }
+.tags a:after {
+  content:"";
+  position:absolute;
+  top:10px;
+  left:0;
+  float:left;
+  width:4px;
+  height:4px;
+  -moz-border-radius:2px;
+  -webkit-border-radius:2px;
+  border-radius:2px;
+  background:#fff;
+  -moz-box-shadow:-1px -1px 2px #004977;
+  -webkit-box-shadow:-1px -1px 2px #004977;
+  box-shadow:-1px -1px 2px #004977;
+  }
+.tags a:hover{background:#555;}
+.tags a:hover:before{border-color:transparent #555 transparent transparent;}
+
+
+
