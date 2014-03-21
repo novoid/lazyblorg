@@ -3,16 +3,7 @@
  *  ------------------------------------------ */
 
 body {
-  /* gradient from: http://www.colorzilla.com/gradient-editor/#ffffff+0,ffffe6+100,fc100c+100;Custom */
-  background: #ffffff; /* Old browsers */
-  background: -moz-linear-gradient(top, #ffffff 0%, #ffffe6 100%, #fc100c 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#ffffe6), color-stop(100%,#fc100c)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #ffffff 0%,#ffffe6 100%,#fc100c 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #ffffff 0%,#ffffe6 100%,#fc100c 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #ffffff 0%,#ffffe6 100%,#fc100c 100%); /* IE10+ */
-  background: linear-gradient(to bottom, #ffffff 0%,#ffffe6 100%,#fc100c 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffe6',GradientType=0 ); /* IE6-9 */
-  /*min-height:100%*/
+  background: #fffff0;
   font-family:Trebuchet MS,Verdana,Helvetica,sans-serif;
 }
 
