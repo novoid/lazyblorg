@@ -1797,7 +1797,7 @@ CLOSED: [2014-03-09 Sun 19:56]
 
 - not only lines processed but also duration
 
-** DONE [#A] provide FEED feed(s)                                :userstory:
+** DONE [#A] provide feed(s)                                      :userstory:
 CLOSED: [2014-03-16 Sun 20:33]
 :LOGBOOK:
 - State "DONE"       from "NEXT"       [2014-03-16 Sun 20:33]

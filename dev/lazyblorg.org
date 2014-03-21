@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-03-16 20:33:12 vk>
+# Time-stamp: <2014-03-18 09:53:50 karl.voit>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -249,6 +249,10 @@ CLOSED: [2014-03-01 Sat 20:10]
 ** NEXT mark integration points with "## INTEGRATION: "           :userstory:
 :PROPERTIES:
 :CREATED:  [2014-03-16 Sun 20:04]
+:END:
+** NEXT move feed generator from htmlizer in own module       :architecture:
+:PROPERTIES:
+:CREATED:  [2014-03-18 Di 09:53]
 :END:
 ** NEXT introduce a hidden tag                                   :userstory:
 :PROPERTIES:
