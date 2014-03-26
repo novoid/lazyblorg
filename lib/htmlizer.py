@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-16 20:34:20 vk>
+# Time-stamp: <2014-03-26 19:45:00 vk>
 
 import logging
 import os
@@ -149,7 +149,9 @@ class Htmlizer(object):
             ## example entry:
             ## {'level': 2,
             ## 'timestamp': datetime.datetime(2013, 2, 14, 19, 2),
-            ## 'tags': [u'blog', u'mytest', u'programming'],
+            ## 'usertags': [u'mytest', u'programming'],
+            ## 'autotags': [u'german', u'short'],
+            ## 'lbtags': [u'blog'],
             ## 'created': datetime.datetime(2013, 2, 12, 10, 58),
             ## 'finished-timestamp-history': [datetime.datetime(2013, 2, 14, 19, 2)],
             ## 'title': u'This is an example blog entry',
@@ -275,8 +277,8 @@ class Htmlizer(object):
             ##  'category': 'TEMPORAL', 'id': u'2013-08-22-testid'}
 
             blog_data_entry = self.blog_data_with_id(listentry['id'])
-            ## blog_data_entry.keys() = ['category', 'level', 'timestamp', 'tags', 'created', 'content', 'htmlteaser-equals-content',
-            ##                           'rawcontent', 'finished-timestamp-history', 'title', 'id']
+            ## blog_data_entry.keys() = ['category', 'level', 'timestamp', 'usertags', 'autotags', 'lbtags', 'created', 'content', 
+            ##                           'htmlteaser-equals-content', 'rawcontent', 'finished-timestamp-history', 'title', 'id']
 
             ## filling feed entry string:
             feedentry = u"""  <entry>
@@ -287,14 +289,10 @@ class Htmlizer(object):
     <updated>""" + self._get_newest_timestamp_for_entry(blog_data_entry)[0].strftime('%Y-%m-%dT%H:%M:%S' + self.TIME_ZONE_ADDON) + "</updated>\n"
 
             ## adding all tags:
-            for tag in blog_data_entry['tags']:
-                
-                if tag == self.blog_tag or tag == self.TAG_FOR_TAG_ENTRY or \
-                   tag == self.TAG_FOR_PERSISTENT_ENTRY:
-                    ## omit internaly used tags
-                    continue
+            for tag in blog_data_entry['usertags']:
                 
                 feedentry += "    <category scheme='" + self.BASE_URL + "/" + "tags" + "/" + tag + "' term='" + tag + "' />\n"
+                ## FIXXME: handle autotags
 
             ## add summary:
             feedentry += "    <summary type='xhtml'>\n <div xmlns='http://www.w3.org/1999/xhtml'>"
@@ -804,7 +802,8 @@ class Htmlizer(object):
         for articlepart in ['article-header', 'article-header-begin', 'article-tags-begin']:
             content += self.template_definition_by_name(articlepart)
         htmlcontent += self._replace_general_article_placeholders(entry, content)
-        htmlcontent += self._replace_tag_placeholders(entry['tags'], self.template_definition_by_name('article-tag'))
+        htmlcontent += self._replace_tag_placeholders(entry['usertags'], self.template_definition_by_name('article-tag'))
+        ## FIXXME: handle autotags
 
         content = u''
         for articlepart in ['article-tags-end', 'article-header-end']:
@@ -841,7 +840,8 @@ class Htmlizer(object):
             content += self.template_definition_by_name(articlepart)
         htmlcontent += self._replace_general_article_placeholders(entry, content)
         #htmlcontent = self.sanitize_internal_links(entry['category'], htmlcontent)
-        htmlcontent += self._replace_tag_placeholders(entry['tags'], self.template_definition_by_name('article-tag'))
+        htmlcontent += self._replace_tag_placeholders(entry['usertags'], self.template_definition_by_name('article-tag'))
+        ## FIXXME: handle autotags
 
         content = u''
         for articlepart in ['article-tags-end', 'persistent-header-end']:
@@ -888,10 +888,8 @@ class Htmlizer(object):
 
     def _replace_tag_placeholders(self, tags, template_string):
         """
-        Takes the list of tags and the template definition for tags
+        Takes the list of user-tags and the template definition for tags
         and returns their concatenated string.
-
-        The tag "blog" will be suppressed.
 
         @param tags: list of strings containing all tags of an entry
         @param template_string: string with placeholders instead of tag
@@ -903,13 +901,8 @@ class Htmlizer(object):
 
         result = u''
 
-
         for tag in tags:
-            if tag in [self.blog_tag, self.TAG_FOR_TAG_ENTRY, self.TAG_FOR_PERSISTENT_ENTRY, self.TAG_FOR_TEMPLATES_ENTRY]:
-                ## omit lazyblog tags for marking temporal, tag, persistent, or template headings
-                continue
-            else:
-                result += template_string.replace('#TAGNAME#', tag)
+            result += template_string.replace('#TAGNAME#', tag)
 
         return result
 

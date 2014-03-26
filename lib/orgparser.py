@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-08 20:00:58 vk>
+# Time-stamp: <2014-03-26 19:43:46 vk>
 
 import re
 import os
@@ -34,7 +34,7 @@ class OrgParser(object):
 
     ## tag that is expected in any blog entry category:
     ## FIXXME: also defined as BLOG_TAG in lazyblorg.py!
-    TAG_FOR_BLOG_ENTY='blog'
+    TAG_FOR_BLOG_ENTRY='blog'
 
     LINE_SEPARATION_CHAR_WITHIN_PARAGRAPH = u' '
 
@@ -130,18 +130,6 @@ class OrgParser(object):
             self.logging.error("Heading does not contain a title")
             errors += 1
 
-        if not 'tags' in self.__entry_data.keys() or self.__entry_data['tags'] is None:
-            self.logging.debug("OrgParser: this has got no tags -> no blog entry")
-            return False
-            ## self.logging.info("Heading does not contain tags but this is probably OK: \"%s\"" %
-            ##                   self.__entry_data['title'])
-            ## errors += 1
-        else:
-            if self.TAG_FOR_BLOG_ENTY not in self.__entry_data['tags']:
-                self.logging.debug("OrgParser: this has no tag called " + \
-                                       self.TAG_FOR_BLOG_ENTY + " -> no blog entry")
-                return False
-
         if not check_only_title:
 
             if not 'id' in self.__entry_data.keys():
@@ -181,6 +169,16 @@ class OrgParser(object):
         """
         Handles a heading line of a blog entry.
 
+        Returns False if heading does not fulfill some lazyblorg requirements:
+        - no TAG_FOR_BLOG_ENTRY
+        - has NOEXPORT tag
+
+        Following blog data entry fields are being set:
+        - title
+        - level
+        - lbtags
+        - usertags
+
         @param stars: string containing the heading asterisks
         @param title: string containing description of heading line
         @param tags: string containing raw tags like ":tag1:tag2:"
@@ -190,22 +188,41 @@ class OrgParser(object):
 
         assert stars.__class__ == str or stars.__class__ == unicode
         assert title.__class__ == str or title.__class__ == unicode
-        if tags:
-            assert tags.__class__ == str or tags.__class__ == unicode
+        
+        if not tags:
+            ## not even the TAG_FOR_BLOG_ENTRY -> no blog article!
+            return False
 
+        assert tags.__class__ == str or tags.__class__ == unicode
+        
         self.__entry_data['title'] = title
         self.__entry_data['level'] = len(stars)
-        if tags:
-            self.__entry_data['tags'] = tags[1:-1].split(':')
-            if ":NOEXPORT:" in tags.upper():
-                return False
-        else:
-            self.__entry_data['tags'] = None
+        self.__entry_data['lbtags'] = []
+        self.__entry_data['usertags'] = []
 
-        self.logging.debug("OrgParser: heading: level[%s] title[%s] tags%s" %
+        ## ignore headings with noexport tag:
+        if ":NOEXPORT:" in tags.upper():
+            return False
+
+        ## ignore headings with no TAG_FOR_BLOG_ENTRY
+        if not ":" + self.TAG_FOR_BLOG_ENTRY + ":" in tags.lower():
+            return False
+        
+        rawtags = tags[1:-1].split(':')
+        for rawtag in rawtags:
+            ## separate lbtags from usertags:
+            if rawtag.lower() == self.TAG_FOR_TAG_ENTRY or rawtag.lower() == self.TAG_FOR_PERSISTENT_ENTRY or \
+               rawtag.lower() == self.TAG_FOR_TEMPLATES_ENTRY or rawtag.lower() == self.TAG_FOR_BLOG_ENTRY:
+                ## FIXXME: probably omit self.TAG_FOR_BLOG_ENTRY here?
+                ## FIXXME: at least make sure that it does not get added to usertags!
+                self.__entry_data['lbtags'].append(rawtag.lower())
+            else:
+                self.__entry_data['usertags'].append(rawtag)
+
+        self.logging.debug("OrgParser: heading: level[%s] title[%s] usertags[%s]" %
                            (str(self.__entry_data['level']),
                             self.__entry_data['title'],
-                            str(self.__entry_data['tags'])))
+                            str(self.__entry_data['usertags'])))
 
         return self.__check_if_entry_is_OK(check_only_title=True)
 
@@ -222,18 +239,18 @@ class OrgParser(object):
         self.logging.debug("OrgParser: end of blog entry; checking entry ...")
         if self.__check_if_entry_is_OK():
 
-            ## debug with: self._OrgParser__entry_data['tags']
+            ## debug with: self._OrgParser__entry_data['usertags']
             ## debug with: self._OrgParser__blog_data
 
             ## FIXXME: adding as list entry
 
-            if self.TAG_FOR_TEMPLATES_ENTRY in self.__entry_data['tags']:
+            if self.TAG_FOR_TEMPLATES_ENTRY in self.__entry_data['lbtags']:
                 self.logging.debug("OrgParser: check OK; appending blog category TEMPLATES ...")
                 self.__entry_data['category'] = self.TEMPLATES
-            elif self.TAG_FOR_TAG_ENTRY in self.__entry_data['tags']:
+            elif self.TAG_FOR_TAG_ENTRY in self.__entry_data['lbtags']:
                 self.logging.debug("OrgParser: check OK; appending blog category TAGS ...")
                 self.__entry_data['category'] = self.TAGS
-            elif self.TAG_FOR_PERSISTENT_ENTRY in self.__entry_data['tags']:
+            elif self.TAG_FOR_PERSISTENT_ENTRY in self.__entry_data['lbtags']:
                 self.logging.debug("OrgParser: check OK; appending to blog category PERSISTENT ...")
                 self.__entry_data['category'] = self.PERSISTENT
             else:

@@ -1,5 +1,5 @@
-# -*- mode: org; coding: utf-8; flyspell-default-dictionary: "en_US"; -*-
-# Time-stamp: <2014-03-26 10:51:44 karl.voit>
+# -*- mode: org; coding: utf-8; -*-
+# Time-stamp: <2014-03-26 19:44:07 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -246,10 +246,6 @@ CLOSED: [2014-03-01 Sat 20:10]
   - for each entry in entries
     - get oldest entry of entry['finished-timestamp-history']
     - store to a sorted list (newest first or last)
-** NEXT separate list of tags to lbtags, autotags, and usertags :architecture:
-:PROPERTIES:
-:CREATED:  [2014-03-26 Mi 10:50]
-:END:
 ** NEXT mark integration points with "## INTEGRATION: "           :userstory:
 :PROPERTIES:
 :CREATED:  [2014-03-16 Sun 20:04]
@@ -1448,6 +1444,4 @@ Some notes of stuff I was looking into as well:
 * Local Variables                                                  :noexport:
 # Local Variables:
 # mode: auto-fill
-# mode: flyspell
-# eval: (ispell-change-dictionary "en_US")
 # End:
