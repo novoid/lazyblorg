@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-03 20:41:20 vk>
+# Time-stamp: <2014-04-12 20:43:15 vk>
 
 import unittest
 from lib.htmlizer import *
@@ -274,6 +274,10 @@ class TestHtmlizer(unittest.TestCase):
                         u"<a href=\"../../2007/01/29/my-temporal\">another description text</a>")
         self.assertTrue(htmlizer.sanitize_internal_links(TAGS, u"[[id:my-tag][tag link description text]]") ==
                         u"<a href=\"../../tags/my-tag\">tag link description text</a>")
+        self.assertTrue(htmlizer.sanitize_internal_links(TAGS, u"like [[id:my-tag][text]] used") ==
+                        u"like <a href=\"../../tags/my-tag\">text</a> used")
+        self.assertTrue(htmlizer.sanitize_internal_links(TAGS, u"like [[id:my-tag][this]] and [[id:my-tag][that]] used") ==
+                        u"like <a href=\"../../tags/my-tag\">this</a> and <a href=\"../../tags/my-tag\">that</a> used")
 
         ## links with description and formatting:
         self.assertTrue(htmlizer.sanitize_internal_links(TEMPORAL, u"[[id:2014-03-02-my-persistent][my *description* text]]") ==

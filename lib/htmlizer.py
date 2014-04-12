@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-26 19:45:00 vk>
+# Time-stamp: <2014-04-12 21:14:23 vk>
 
 import logging
 import os
@@ -62,7 +62,7 @@ class Htmlizer(object):
     TIME_ZONE_ADDON = '+01:00'
 
     ## show this many article teasers on entry page
-    NUMBER_OF_TEASER_ARTICLES = 10
+    NUMBER_OF_TEASER_ARTICLES = 50
 
     ## base directory of the RSS/ATOM feeds:
     FEEDDIR = 'feeds'
@@ -76,8 +76,8 @@ class Htmlizer(object):
     NUMBER_OF_FEED_ARTICLES = 10
 
     ## find internal links to Org-mode IDs: [[id:simple]] and [[id:with][a description]]
-    ID_SIMPLE_LINK_REGEX = re.compile('(\[\[id:(\S+)\]\])')
-    ID_DESCRIBED_LINK_REGEX = re.compile('(\[\[id:(\S+)\]\[(.+?)\]\])')
+    ID_SIMPLE_LINK_REGEX = re.compile('(\[\[id:([^\[]+?)\]\])')
+    ID_DESCRIBED_LINK_REGEX = re.compile('(\[\[id:([^\]]+?)\]\[([^\]]+?)\]\])')
 
     ## find external links such as [[http(s)://foo.com][bar]]:
     EXT_URL_WITH_DESCRIPTION_REGEX = re.compile(u'\[\[(http[^ ]+?)\]\[(.+?)\]\]', flags = re.U)
