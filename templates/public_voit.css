@@ -2,9 +2,12 @@
  *  Generic stuff
  *  ------------------------------------------ */
 
+
 body {
   background: #fffff0;
-  font-family:Trebuchet MS,Verdana,Helvetica,sans-serif;
+  color:#252525;
+  /* font-family:Trebuchet MS,Verdana,Helvetica,sans-serif; */
+  font-family:Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
 
