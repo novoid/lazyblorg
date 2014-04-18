@@ -1,7 +1,7 @@
 # -*- mode: org; coding: utf-8; ispell-local-dictionary: "german8"; -*-
-# Time-stamp: <2014-03-09 15:39:45 vk>
+# Time-stamp: <2014-04-18 16:54:37 vk>
 
-* DONE lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer :publicvoit:lazyblorg:MixedCaseTag:blog:
+* DONE lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer :hidden:publicvoit:lazyblorg:MixedCaseTag:blog:
 CLOSED: [2014-01-30 Thu 13:01]
 :LOGBOOK:
 - State "DONE"       from "DONE"       [2014-02-01 Sat 15:03]
@@ -312,6 +312,16 @@ This is somewhat tricky because it contains a tag surrounded by colons.
 *** not ignored because it got no :NOEXPORT: tag set
 
 This is somewhat tricky because it contains a tag surrounded by colons.
+** Hidden blog entries
+:PROPERTIES:
+:CREATED:  [2014-04-18 Fri 16:52]
+:END:
+
+If you tag an lazyblorg-blog-entry with "hidden" (~TAG_FOR_HIDDEN~),
+the blog article will be generated. However, there will be no link in
+the Atom feeds, no link from the entry page, and no link on the
+navigation pages.
+
 ** Horizontal Rule
 :PROPERTIES:
 :CREATED:  [2014-02-02 Sun 14:25]

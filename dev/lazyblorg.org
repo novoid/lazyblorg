@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2014-03-26 19:44:07 vk>
+# Time-stamp: <2014-04-18 16:55:14 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -246,6 +246,36 @@ CLOSED: [2014-03-01 Sat 20:10]
   - for each entry in entries
     - get oldest entry of entry['finished-timestamp-history']
     - store to a sorted list (newest first or last)
+** NEXT fix hidden tag causing less entries than MAXNUMBER issue       :bug:
+:PROPERTIES:
+:CREATED:  [2014-04-18 Fri 16:51]
+:END:
+
+- new method for generating feed
+  - until found feed < MAXNUMBER or END-of-list:
+    - if hidden, find next one
+    - if not hidden, add to found feed
+
+** NEXT fix tilde in URL                                               :bug:
+:PROPERTIES:
+:CREATED:  [2014-03-30 Sun 14:55]
+:END:
+
+: http://sd.wareonearth.com/~phil/xdu/examp1.gif
+... gets messed up to:
+: http://sd.wareonearth.com/</code>phil/xdu/examp1.gif
+on https://karl-voit.at/2014/03/25/xdu
+
+- [ ] add unit test to htmlizer
+- [ ] fix bug
+- [ ] test
+
+** NEXT escape <> in blocks                                            :bug:
+:PROPERTIES:
+:CREATED:  [2014-04-12 Sat 18:03]
+:END:
+[2014-04-11 Fr. 14:50]
+
 ** NEXT mark integration points with "## INTEGRATION: "           :userstory:
 :PROPERTIES:
 :CREATED:  [2014-03-16 Sun 20:04]
@@ -254,16 +284,6 @@ CLOSED: [2014-03-01 Sat 20:10]
 :PROPERTIES:
 :CREATED:  [2014-03-18 Di 09:53]
 :END:
-** NEXT introduce a hidden tag                                   :userstory:
-:PROPERTIES:
-:CREATED:  [2014-03-12 Mi 17:54]
-:END:
-
-- articles tagged with the hidden tag don't show up in the feed or
-  the overview pages
-- you have to have the URL of the article in order to see it
-- handy for temporary stuff to put online only for a group of people
-  you are giving the link directly
 
 ** NEXT create constants.py as module                         :architecture:
 :PROPERTIES:
@@ -752,18 +772,6 @@ display: block;
 :END:
 
 - https://github.com/dsc/guess-language
-
-** SOMEDAY hidden entries by using tag "notlinked"               :userstory:
-:LOGBOOK:
-- State "SOMEDAY"    from ""           [2013-01-08 Tue 14:46]
-:END:
-:PROPERTIES:
-:CREATED:  [2012-12-14 Fri 22:51]
-:END:
-
-- if web server does not allow directory listing, this entry can only
-  be found with knowledge of the URL
-- check: is Google crawler able to find it when it's not linked?
 
 ** SOMEDAY fixed entries by using a tag                          :userstory:
 :LOGBOOK:

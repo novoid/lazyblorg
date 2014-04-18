@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-04-12 21:14:23 vk>
+# Time-stamp: <2014-04-18 16:49:26 vk>
 
 import logging
 import os
@@ -47,7 +47,7 @@ class Htmlizer(object):
     TAG_FOR_TAG_ENTRY = u'lb_tags'  ## if an entry is tagged with this, it's an TAGS entry
     TAG_FOR_PERSISTENT_ENTRY = u'lb_persistent'  ## if an entry is tagged with this, it's an PERSISTENT entry
     TAG_FOR_TEMPLATES_ENTRY = u'lb_templates'  ## if an entry is tagged with this, it's an TEMPLATES entry
-
+    TAG_FOR_HIDDEN = u'hidden'  ## if an entry is tagged with this, it will be omitted in feeds, the main page, and navigation pages
 
     ## categories of blog entries:
     ## FIXXME: also defined in multiple other files
@@ -280,6 +280,10 @@ class Htmlizer(object):
             ## blog_data_entry.keys() = ['category', 'level', 'timestamp', 'usertags', 'autotags', 'lbtags', 'created', 'content', 
             ##                           'htmlteaser-equals-content', 'rawcontent', 'finished-timestamp-history', 'title', 'id']
 
+            ## omit hidden entries:
+            if self.TAG_FOR_HIDDEN in blog_data_entry['usertags']:
+                continue
+
             ## filling feed entry string:
             feedentry = u"""  <entry>
     <title>""" + blog_data_entry['title'] + """</title>
@@ -358,6 +362,15 @@ class Htmlizer(object):
         for listentry in entry_list_by_newest_timestamp[0:self.NUMBER_OF_TEASER_ARTICLES]:
 
             entry = self.blog_data_with_id(listentry['id'])
+
+            ## omit hidden entries:
+            if self.TAG_FOR_HIDDEN in entry['usertags']:
+                continue
+                ## FIXXME: for each hidden entry within
+                ## self.NUMBER_OF_TEASER_ARTICLES, there will be one
+                ## entry missing. Fix this by switching to "until
+                ## enough articles on main page or no articles left:
+                ## find next article"
 
             if entry['category'] == 'TEMPORAL' or entry['category'] == 'PERSISTENT':
 

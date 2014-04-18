@@ -29,7 +29,8 @@
 	    </span>
 	  </nav>
 	  <aside>
-	    <ul class="tags">	      <!-- span class="tag">publicvoit</span>&nbsp;-->
+	    <ul class="tags">	      <!-- span class="tag">hidden</span>&nbsp;-->
+        <li><a href="#">hidden</a></li>	      <!-- span class="tag">publicvoit</span>&nbsp;-->
         <li><a href="#">publicvoit</a></li>	      <!-- span class="tag">lazyblorg</span>&nbsp;-->
         <li><a href="#">lazyblorg</a></li>	      <!-- span class="tag">MixedCaseTag</span>&nbsp;-->
         <li><a href="#">MixedCaseTag</a></li>	    </ul>
@@ -297,6 +298,14 @@ This is somewhat tricky because it contains a tag surrounded by colons.
 <p>
 
 This is somewhat tricky because it contains a tag surrounded by colons.
+
+</p>
+
+	  <header><h2 class="section-title">Hidden blog entries</h2></header>
+
+<p>
+
+If you tag an lazyblorg-blog-entry with "hidden" (<code>TAG_FOR_HIDDEN</code>), the blog article will be generated. However, there will be no link in the Atom feeds, no link from the entry page, and no link on the navigation pages.
 
 </p>
 
