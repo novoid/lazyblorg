@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-04-18 16:49:26 vk>
+# Time-stamp: <2014-04-19 15:31:04 vk>
 
 import logging
 import os
@@ -575,7 +575,7 @@ class Htmlizer(object):
                 else:
                     ## if html-block has a name -> insert as html-source-code-example
                     result = self.template_definition_by_name('html-begin')
-                    result = result.replace('#NAME#', entry['content'][index][1])
+                    result = result.replace('#NAME#', entry['content'][index][1] + u'<br />:')
                     result += self.sanitize_html_characters(\
                         '\n'.join(entry['content'][index][2])).replace(' ', '&nbsp;').replace('\n', '<br />\n')
                     result += self.template_definition_by_name('html-end')
@@ -625,9 +625,11 @@ class Htmlizer(object):
                 ## FIXXME: replace pre with suitable source code environment!
 
                 result = self.template_definition_by_name('html-begin')
-                ## FIXXME: implement name for src blocks:
-                #if entry['content'][index][1]:
-                #    result = result.replace('#NAME#', entry['content'][index][1])
+
+                if entry['content'][index][1]:
+                    result = result.replace('#NAME#', entry['content'][index][1] + u':<br />')
+                else:
+                    result = result.replace('#NAME#', "")
                 result += self.sanitize_html_characters(\
                                                         '\n'.join(entry['content'][index][2])).replace(' ', '&nbsp;').replace('\n', '<br />\n')
                 result += self.template_definition_by_name('html-end')

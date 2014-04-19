@@ -1,4 +1,4 @@
-## Time-stamp: <2014-03-16 20:40:42 vk>
+## Time-stamp: <2014-04-19 15:28:41 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -130,7 +130,7 @@ With name/label:
 
 <p>
 
-    #NAME#:<br />
+    #NAME#
 	  <pre>
 #+END_HTML
 
@@ -150,7 +150,7 @@ With name/label:
 
 <p>
 
-    #NAME#:<br />
+    #NAME#
 	  <div class="example_code">
 #+END_HTML
 
