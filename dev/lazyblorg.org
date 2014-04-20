@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2014-04-18 16:55:14 vk>
+# Time-stamp: <2014-04-20 20:18:31 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -246,16 +246,6 @@ CLOSED: [2014-03-01 Sat 20:10]
   - for each entry in entries
     - get oldest entry of entry['finished-timestamp-history']
     - store to a sorted list (newest first or last)
-** NEXT fix hidden tag causing less entries than MAXNUMBER issue       :bug:
-:PROPERTIES:
-:CREATED:  [2014-04-18 Fri 16:51]
-:END:
-
-- new method for generating feed
-  - until found feed < MAXNUMBER or END-of-list:
-    - if hidden, find next one
-    - if not hidden, add to found feed
-
 ** NEXT fix tilde in URL                                               :bug:
 :PROPERTIES:
 :CREATED:  [2014-03-30 Sun 14:55]
@@ -285,13 +275,25 @@ on https://karl-voit.at/2014/03/25/xdu
 :CREATED:  [2014-03-18 Di 09:53]
 :END:
 
-** NEXT create constants.py as module                         :architecture:
+** NEXT create config.py as module                       :architecture:
 :PROPERTIES:
 :CREATED:  [2013-10-01 Tue 21:05]
 :END:
 
 - handle configuration and run-time variables using this module
 - ? parse config variables from Org-mode heading?
+- see bitmessage/src/shared.py as an example
+  - it's rather simple to do
+** NEXT tag pages: content                                       :userstory:
+:PROPERTIES:
+:CREATED:  [2014-04-20 Sun 11:25]
+:END:
+
+- with:
+  - optional description,
+  - preview of latest x entries, and
+  - headings of all older entries
+
 ** NEXT tags of articles on entry page                            :userstory:
 :PROPERTIES:
 :CREATED:  [2014-03-04 Di 13:41]

@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-04-19 15:31:04 vk>
+# Time-stamp: <2014-04-20 20:19:25 vk>
 
 import logging
 import os
@@ -73,7 +73,7 @@ class Htmlizer(object):
     AUTHOR_NAME = "Karl Voit"
 
     ## show this many article in feeds:
-    NUMBER_OF_FEED_ARTICLES = 10
+    NUMBER_OF_FEED_ARTICLES = 999
 
     ## find internal links to Org-mode IDs: [[id:simple]] and [[id:with][a description]]
     ID_SIMPLE_LINK_REGEX = re.compile('(\[\[id:([^\[]+?)\]\])')
@@ -265,7 +265,16 @@ class Htmlizer(object):
         links_atom_feed = self.__generate_new_feed()
         content_atom_feed = self.__generate_new_feed()
 
-        for listentry in entry_list_by_newest_timestamp[0:self.NUMBER_OF_FEED_ARTICLES]:
+        number_of_current_feed_entries = 0
+        listentry = None
+        listentry_index = 0
+        
+        while number_of_current_feed_entries < self.NUMBER_OF_FEED_ARTICLES or \
+              len(entry_list_by_newest_timestamp) < number_of_current_feed_entries:
+
+            ## get next element from entry_list
+            listentry = entry_list_by_newest_timestamp[listentry_index]
+            listentry_index += 1
 
             if listentry['category'] == self.TEMPLATES:
                 continue
@@ -315,6 +324,8 @@ class Htmlizer(object):
   </entry>\n
 """
 
+            number_of_current_feed_entries += 1
+            
         links_atom_feed += "</feed>"
         content_atom_feed += "</feed>"
         
