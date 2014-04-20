@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-04-20 21:30:25 vk>
+# Time-stamp: <2014-04-20 21:43:59 vk>
 
 
 ## ===================================================================== ##
@@ -10,6 +10,20 @@
 ##  you are doing :-)                                                    ##
 ##                                                                       ##
 ## ===================================================================== ##
+
+## ---------------------------------------------------------------------
+## from ORGPARSER:  (FIXXME: remove after unifying constants)
+
+## string of the state which defines a blog entry to be published
+BLOG_FINISHED_STATE = u'DONE'  ## FIXXME: check, if not hardcoded anywhere!
+
+## tag that is expected in any blog entry category:
+TAG_FOR_BLOG_ENTRY='blog'
+
+
+
+## ---------------------------------------------------------------------
+## from HTMLIZER:  (FIXXME: remove after unifying constants)
 
 ## this tag (withing tag list of article) determines if an article
 ## is a persistent blog page (tag is found) or a time-oriented

@@ -1,6 +1,7 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-04-20 20:40:15 vk>
+# Time-stamp: <2014-04-20 21:43:35 vk>
 
+import config
 import re
 from os import path
 import codecs  ## open, close with Unicode
@@ -9,9 +10,6 @@ from orgformat import *
 
 ## debugging:   for setting a breakpoint:  pdb.set_trace()
 ## NOTE: pdb hides private variables as well. Please use:   data = self._OrgParser__entry_data ; data['content']
-import pdb
-                #pdb.set_trace()## FIXXME
-
 
 class OrgParserException(Exception):
     """
@@ -29,13 +27,6 @@ class OrgParser(object):
     Class for parsing Org-mode formatted files
     """
 
-    ## string of the state which defines a blog entry to be published
-    BLOG_FINISHED_STATE = u'DONE'
-
-    ## tag that is expected in any blog entry category:
-    ## FIXXME: also defined as BLOG_TAG in lazyblorg.py!
-    TAG_FOR_BLOG_ENTRY='blog'
-
     LINE_SEPARATION_CHAR_WITHIN_PARAGRAPH = u' '
 
     ## Finite State Machine: defining the states
@@ -52,7 +43,7 @@ class OrgParser(object):
     SKIPPING_NOEXPORT_HEADING = 'skipping_noexport_heading'
 
     ## asterisk(s), whitespace, word(s), optional followed by optional tags:
-    HEADING_REGEX = re.compile('^(\*+)\s+((' + BLOG_FINISHED_STATE + ')\s+)?(.*?)(\s+(:\S+:)+)?\s*$')
+    HEADING_REGEX = re.compile('^(\*+)\s+((' + config.BLOG_FINISHED_STATE + ')\s+)?(.*?)(\s+(:\S+:)+)?\s*$')
     ## REGEX.match(string).group(INDEX)
     HEADING_STARS_IDX = 1
     HEADING_STATE_IDX = 3
@@ -62,7 +53,7 @@ class OrgParser(object):
     CREATED_REGEX = re.compile('^:CREATED:\s+' + OrgFormat.SINGLE_ORGMODE_TIMESTAMP, re.IGNORECASE)
     CREATED_TIMESTAMP_IDX = 1
 
-    LOG_REGEX = re.compile('^- State\s+"' + BLOG_FINISHED_STATE + '"\s+from\s+"\S*"\s+([\[{].*[\]}])$', re.IGNORECASE)
+    LOG_REGEX = re.compile('^- State\s+"' + config.BLOG_FINISHED_STATE + '"\s+from\s+"\S*"\s+([\[{].*[\]}])$', re.IGNORECASE)
     LOG_TIMESTAMP_IDX = 1
 
     BLOCK_REGEX = re.compile('^#\+BEGIN_(SRC|EXAMPLE|VERSE|QUOTE|CENTER|HTML|ASCII|LATEX)(\s+(.*))?$', re.IGNORECASE)
@@ -73,18 +64,6 @@ class OrgParser(object):
     HR_REGEX = re.compile('^-{5,}\s*$')
 
     __filename = u''
-
-    ## tag strings of blog entry categories:
-    TAG_FOR_TAG_ENTRY = u'lb_tags'  ## if an entry is tagged with this, it's an TAGS entry
-    TAG_FOR_PERSISTENT_ENTRY = u'lb_persistent'  ## if an entry is tagged with this, it's an PERSISTENT entry
-    TAG_FOR_TEMPLATES_ENTRY = u'lb_templates'  ## if an entry is tagged with this, it's an TEMPLATES entry
-
-    ## categories of blog entries:
-    ## FIXXME: also defined in lazyblorg.py
-    TAGS = 'TAGS'
-    PERSISTENT = 'PERSISTENT'
-    TEMPORAL = 'TEMPORAL'
-    TEMPLATES = 'TEMPLATES'
 
     ## for description please visit: lazyblog.org > Notes > Representation of blog data
     __blog_data = []
@@ -205,15 +184,15 @@ class OrgParser(object):
             return False
 
         ## ignore headings with no TAG_FOR_BLOG_ENTRY
-        if not ":" + self.TAG_FOR_BLOG_ENTRY + ":" in tags.lower():
+        if not ":" + config.TAG_FOR_BLOG_ENTRY + ":" in tags.lower():
             return False
         
         rawtags = tags[1:-1].split(':')
         for rawtag in rawtags:
             ## separate lbtags from usertags:
-            if rawtag.lower() == self.TAG_FOR_TAG_ENTRY or rawtag.lower() == self.TAG_FOR_PERSISTENT_ENTRY or \
-               rawtag.lower() == self.TAG_FOR_TEMPLATES_ENTRY or rawtag.lower() == self.TAG_FOR_BLOG_ENTRY:
-                ## FIXXME: probably omit self.TAG_FOR_BLOG_ENTRY here?
+            if rawtag.lower() == config.TAG_FOR_TAG_ENTRY or rawtag.lower() == config.TAG_FOR_PERSISTENT_ENTRY or \
+               rawtag.lower() == config.TAG_FOR_TEMPLATES_ENTRY or rawtag.lower() == config.TAG_FOR_BLOG_ENTRY:
+                ## FIXXME: probably omit config.TAG_FOR_BLOG_ENTRY here?
                 ## FIXXME: at least make sure that it does not get added to usertags!
                 self.__entry_data['lbtags'].append(rawtag.lower())
             else:
@@ -244,18 +223,18 @@ class OrgParser(object):
 
             ## FIXXME: adding as list entry
 
-            if self.TAG_FOR_TEMPLATES_ENTRY in self.__entry_data['lbtags']:
+            if config.TAG_FOR_TEMPLATES_ENTRY in self.__entry_data['lbtags']:
                 self.logging.debug("OrgParser: check OK; appending blog category TEMPLATES ...")
-                self.__entry_data['category'] = self.TEMPLATES
-            elif self.TAG_FOR_TAG_ENTRY in self.__entry_data['lbtags']:
+                self.__entry_data['category'] = config.TEMPLATES
+            elif config.TAG_FOR_TAG_ENTRY in self.__entry_data['lbtags']:
                 self.logging.debug("OrgParser: check OK; appending blog category TAGS ...")
-                self.__entry_data['category'] = self.TAGS
-            elif self.TAG_FOR_PERSISTENT_ENTRY in self.__entry_data['lbtags']:
+                self.__entry_data['category'] = config.TAGS
+            elif config.TAG_FOR_PERSISTENT_ENTRY in self.__entry_data['lbtags']:
                 self.logging.debug("OrgParser: check OK; appending to blog category PERSISTENT ...")
-                self.__entry_data['category'] = self.PERSISTENT
+                self.__entry_data['category'] = config.PERSISTENT
             else:
                 self.logging.debug("OrgParser: check OK; appending to blog category TEMPORAL ...")
-                self.__entry_data['category'] = self.TEMPORAL
+                self.__entry_data['category'] = config.TEMPORAL
 
             ## adding the Org-mode source:
             self.__entry_data['rawcontent'] = rawcontent
@@ -268,7 +247,7 @@ class OrgParser(object):
 
         ## is newly found heading a new blog entry?
         heading_components = self.HEADING_REGEX.match(line)
-        if heading_components and heading_components.group(self.HEADING_STATE_IDX) == self.BLOG_FINISHED_STATE:
+        if heading_components and heading_components.group(self.HEADING_STATE_IDX) == config.BLOG_FINISHED_STATE:
             self.logging.debug("OrgParser: found heading (directly after previous blog entry)")
 
             if self.__handle_heading_and_check_if_it_is_blog_heading(heading_components.group(self.HEADING_STARS_IDX),
@@ -363,7 +342,7 @@ class OrgParser(object):
                 ## use my parser as a general Org-mode parser, you
                 ## have to modify at least this part.
 
-                if components and components.group(self.HEADING_STATE_IDX) == self.BLOG_FINISHED_STATE:
+                if components and components.group(self.HEADING_STATE_IDX) == config.BLOG_FINISHED_STATE:
 
                     if self.__handle_heading_and_check_if_it_is_blog_heading(components.group(self.HEADING_STARS_IDX),
                                                                              components.group(self.HEADING_TITLE_IDX),
@@ -555,7 +534,7 @@ class OrgParser(object):
 
             elif state == self.DRAWER_LOGBOOK:
 
-                ## parse logbook entries for state changes to self.BLOG_FINISHED_STATE and return to ENTRY_CONTENT
+                ## parse logbook entries for state changes to config.BLOG_FINISHED_STATE and return to ENTRY_CONTENT
 
                 if line.upper() == ':END:':
                     self.logging.debug("OrgParser: end of drawer")
