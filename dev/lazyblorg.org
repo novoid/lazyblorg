@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2014-04-20 21:44:42 vk>
+# Time-stamp: <2014-04-20 21:46:55 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -261,7 +261,8 @@ CLOSED: [2014-03-01 Sat 20:10]
   - [X] htmlizer
     - moving constants to config.py: htmlizer
   - [X] orgparser
-  - [ ] utils
+  - [X] utils
+    - nothing to do except some old left-overs
   - [ ] lazyblorg
   - [ ] testfiles(?)
 

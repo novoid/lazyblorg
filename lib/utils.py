@@ -1,6 +1,7 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-04-20 20:37:35 vk>
+# Time-stamp: <2014-04-20 21:46:31 vk>
 
+import config
 from sys import stdout, exit
 import logging
 from hashlib import md5  ## generating checksums
@@ -180,23 +181,16 @@ class Utils(object):
         <checksum>}, ...}
         """
 
-        ## categories of blog entries:
-        ## FIXXME: also defined in OrgParser and utils.py and OrgParser
-        TAGS = 'TAGS'
-        PERSISTENT = 'PERSISTENT'
-        TEMPORAL = 'TEMPORAL'
-        TEMPLATES = 'TEMPLATES'
-
         metadata = {} ## FIXXME: ??? separate metadata according to TEMPORAL, ...
 
-        for entry in blogdata[TEMPORAL]:
-            metadata.update(Utils.__generate_metadata_from_blogdata_core(metadata, entry, TEMPORAL))
-        for entry in blogdata[TEMPLATES]:
-            metadata += Utils.__generate_metadata_from_blogdata_core(metadata, entry, TEMPLATES)
-        for entry in blogdata[PERSISTENT]:
-            metadata += Utils.__generate_metadata_from_blogdata_core(metadata, entry, PERSISTENT)
-        for entry in blogdata[TAGS]:
-            metadata += Utils.__generate_metadata_from_blogdata_core(metadata, entry, TAGS)
+        for entry in blogdata[config.TEMPORAL]:
+            metadata.update(Utils.__generate_metadata_from_blogdata_core(metadata, entry, config.TEMPORAL))
+        for entry in blogdata[config.TEMPLATES]:
+            metadata += Utils.__generate_metadata_from_blogdata_core(metadata, entry, config.TEMPLATES)
+        for entry in blogdata[config.PERSISTENT]:
+            metadata += Utils.__generate_metadata_from_blogdata_core(metadata, entry, config.PERSISTENT)
+        for entry in blogdata[config.TAGS]:
+            metadata += Utils.__generate_metadata_from_blogdata_core(metadata, entry, config.TAGS)
 
         return metadata
 
