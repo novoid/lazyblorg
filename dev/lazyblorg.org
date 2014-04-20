@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2014-04-20 20:18:31 vk>
+# Time-stamp: <2014-04-20 21:36:43 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -246,6 +246,24 @@ CLOSED: [2014-03-01 Sat 20:10]
   - for each entry in entries
     - get oldest entry of entry['finished-timestamp-history']
     - store to a sorted list (newest first or last)
+
+** STARTED create config.py as module                         :architecture:
+:PROPERTIES:
+:CREATED:  [2013-10-01 Tue 21:05]
+:END:
+
+- handle configuration and run-time variables using this module
+- ? parse config variables from Org-mode heading?
+- see bitmessage/src/shared.py as an example
+  - it's rather simple to do
+
+- move CONSTANTS to config.py
+  - [X] htmlizer
+  - [ ] orgparser
+  - [ ] utils
+  - [ ] lazyblorg
+  - [ ] testfiles(?)
+
 ** NEXT fix tilde in URL                                               :bug:
 :PROPERTIES:
 :CREATED:  [2014-03-30 Sun 14:55]
@@ -274,16 +292,6 @@ on https://karl-voit.at/2014/03/25/xdu
 :PROPERTIES:
 :CREATED:  [2014-03-18 Di 09:53]
 :END:
-
-** NEXT create config.py as module                       :architecture:
-:PROPERTIES:
-:CREATED:  [2013-10-01 Tue 21:05]
-:END:
-
-- handle configuration and run-time variables using this module
-- ? parse config variables from Org-mode heading?
-- see bitmessage/src/shared.py as an example
-  - it's rather simple to do
 ** NEXT tag pages: content                                       :userstory:
 :PROPERTIES:
 :CREATED:  [2014-04-20 Sun 11:25]

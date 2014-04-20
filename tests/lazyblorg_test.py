@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-26 19:26:22 vk>
+# Time-stamp: <2014-04-20 21:34:22 vk>
 
+import config
 import argparse  ## command line arguments
 import unittest
 from lazyblorg import Lazyblorg
@@ -212,9 +213,9 @@ class TestLazyblorg(unittest.TestCase):
 
             entry = htmlizer.sanitize_and_htmlize_blog_content(entry)
 
-            if entry['category'] == htmlizer.TEMPORAL:
+            if entry['category'] == config.TEMPORAL:
                 filename, orgfilename, htmlcontent = htmlizer._generate_temporal_article(entry)
-            elif entry['category'] == htmlizer.PERSISTENT:
+            elif entry['category'] == config.PERSISTENT:
                 pass  ## FIXXME: probably add test for generating about-page as well
 
         htmloutputname = "../testdata/" + testname + ".html"

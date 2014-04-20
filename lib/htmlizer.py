@@ -1,6 +1,7 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-04-20 20:36:29 vk>
+# Time-stamp: <2014-04-20 21:35:25 vk>
 
+import config  ## lazyblorg-global settings
 import logging
 import os
 from werkzeug.utils import secure_filename  ## for sanitizing path components
@@ -38,40 +39,6 @@ class Htmlizer(object):
     blogname = None  ## string which is the base directory after targetdirectory
     blog_tag = None  ## string that marks blog entries (as Org-mode tag)
     about_blog = None  ## string containing a short description of the blog
-
-    ## this tag (withing tag list of article) determines if an article
-    ## is a persistent blog page (tag is found) or a time-oriented
-    ## (normal) blog-entry (this tag is missing).
-    TAG_FOR_TAG_ENTRY = u'lb_tags'  ## if an entry is tagged with this, it's an TAGS entry
-    TAG_FOR_PERSISTENT_ENTRY = u'lb_persistent'  ## if an entry is tagged with this, it's an PERSISTENT entry
-    TAG_FOR_TEMPLATES_ENTRY = u'lb_templates'  ## if an entry is tagged with this, it's an TEMPLATES entry
-    TAG_FOR_HIDDEN = u'hidden'  ## if an entry is tagged with this, it will be omitted in feeds, the main page, and navigation pages
-
-    ## categories of blog entries:
-    ## FIXXME: also defined in multiple other files
-    TAGS = 'TAGS'
-    PERSISTENT = 'PERSISTENT'
-    TEMPORAL = 'TEMPORAL'
-    TEMPLATES = 'TEMPLATES'
-    ENTRYPAGE = 'ENTRYPAGE'
-
-    ## INTEGRATION: replace "+01:00" below with your time-zone indicator
-    ## this gets added to the time in order to describe time zone of the blog:
-    TIME_ZONE_ADDON = '+01:00'
-
-    ## show this many article teasers on entry page
-    NUMBER_OF_TEASER_ARTICLES = 999
-
-    ## base directory of the RSS/ATOM feeds:
-    FEEDDIR = 'feeds'
-
-    ## INTEGRATION: put your URL and your name below:
-    ## (not only?) for feed meta-data: FIXXME: move to CLI parameters?
-    BASE_URL = 'http://Karl-Voit.at'
-    AUTHOR_NAME = "Karl Voit"
-
-    ## show this many article in feeds:
-    NUMBER_OF_FEED_ARTICLES = 10
 
     ## find internal links to Org-mode IDs: [[id:simple]] and [[id:with][a description]]
     ID_SIMPLE_LINK_REGEX = re.compile('(\[\[id:([^\[]+?)\]\])')
@@ -161,23 +128,23 @@ class Htmlizer(object):
 
             filename = htmlcontent = None
 
-            if entry['category'] == self.TAGS:
+            if entry['category'] == config.TAGS:
                 self.logging.debug("entry \"%s\" is a tag page" % entry['id'])
                 self.logging.warn("generating tag pages not implemented yet")
                 stats_generated_tags += 1
                 ## FIXXME: generate tag blog entry
 
-            elif entry['category'] == self.PERSISTENT:
+            elif entry['category'] == config.PERSISTENT:
                 self.logging.debug("entry \"%s\" is a persistent page" % entry['id'])
                 htmlfilename, orgfilename, htmlcontent = self._generate_persistent_article(entry)
                 stats_generated_persistent += 1
 
-            elif entry['category'] == self.TEMPORAL:
+            elif entry['category'] == config.TEMPORAL:
                 self.logging.debug("entry \"%s\" is an ordinary time-oriented blog entry" % entry['id'])
                 htmlfilename, orgfilename, htmlcontent = self._generate_temporal_article(entry)
                 stats_generated_temporal += 1
 
-            elif entry['category'] == self.TEMPLATES:
+            elif entry['category'] == config.TEMPLATES:
                 self.logging.debug("entry \"%s\" is the/a HTML template definition. Ignoring." % entry['id'])
 
             else:
@@ -186,7 +153,7 @@ class Htmlizer(object):
                 self.logging.critical(message)
                 raise HtmlizerException(message)
 
-            if entry['category'] == self.TAGS or entry['category'] == self.PERSISTENT or entry['category'] == self.TEMPORAL:
+            if entry['category'] == config.TAGS or entry['category'] == config.PERSISTENT or entry['category'] == config.TEMPORAL:
                 self.write_content_to_file(htmlfilename, htmlcontent)
                 self.write_orgcontent_to_file(orgfilename, entry['rawcontent'])
                 stats_generated_total += 1
@@ -196,7 +163,7 @@ class Htmlizer(object):
         stats_generated_total += 1
 
         ## generate feeds:
-        feed_folder = os.path.join(self.targetdir, self.FEEDDIR)
+        feed_folder = os.path.join(self.targetdir, config.FEEDDIR)
         if not os.path.isdir(feed_folder):
             try:
                 self.logging.debug("creating path for feeds: \"%s\"" % feed_folder)
@@ -222,8 +189,8 @@ class Htmlizer(object):
         """
 
         return \
-            os.path.join(self.targetdir, self.FEEDDIR, "lazyblorg-" + feedstring + ".atom_1.0.links-only.xml"), \
-            os.path.join(self.targetdir, self.FEEDDIR, "lazyblorg-" + feedstring + ".atom_1.0.links-and-content.xml")
+            os.path.join(self.targetdir, config.FEEDDIR, "lazyblorg-" + feedstring + ".atom_1.0.links-only.xml"), \
+            os.path.join(self.targetdir, config.FEEDDIR, "lazyblorg-" + feedstring + ".atom_1.0.links-and-content.xml")
 
     def __generate_new_feed(self):
         """
@@ -237,15 +204,15 @@ class Htmlizer(object):
       xmlns:thr='http://purl.org/syndication/thread/1.0'
       xml:lang='en-us'>
   <title>""" + self.blogname + """</title>
-  <id>""" + self.BASE_URL + """</id>
-  <link href='""" + self.BASE_URL + """' />
+  <id>""" + config.BASE_URL + """</id>
+  <link href='""" + config.BASE_URL + """' />
   <icon>/favicon.ico</icon>
-  <updated>""" + strftime('%Y-%m-%dT%H:%M:%S' + self.TIME_ZONE_ADDON, localtime()) + """</updated>
+  <updated>""" + strftime('%Y-%m-%dT%H:%M:%S' + config.TIME_ZONE_ADDON, localtime()) + """</updated>
   <author>
-    <name>""" + self.AUTHOR_NAME + """</name>
+    <name>""" + config.AUTHOR_NAME + """</name>
   </author>
   <subtitle>""" + self.about_blog + """</subtitle>
-  <rights>All content written by """ + self.AUTHOR_NAME + """</rights>
+  <rights>All content written by """ + config.AUTHOR_NAME + """</rights>
   <generator uri='https://github.com/novoid/lazyblorg'>Generated from Org-mode source code using lazyblorg which is written in Python. Industrial-strength technology, baby.</generator>
 
         """
@@ -267,14 +234,14 @@ class Htmlizer(object):
         listentry = None
         listentry_index = 0
         
-        while number_of_current_feed_entries < self.NUMBER_OF_FEED_ARTICLES and \
+        while number_of_current_feed_entries < config.NUMBER_OF_FEED_ARTICLES and \
               len(entry_list_by_newest_timestamp) < number_of_current_feed_entries:
 
             ## get next element from entry_list
             listentry = entry_list_by_newest_timestamp[listentry_index]
             listentry_index += 1
 
-            if listentry['category'] == self.TEMPLATES:
+            if listentry['category'] == config.TEMPLATES:
                 continue
 
             ## listentry: (examples)
@@ -288,21 +255,21 @@ class Htmlizer(object):
             ##                           'htmlteaser-equals-content', 'rawcontent', 'finished-timestamp-history', 'title', 'id']
 
             ## omit hidden entries:
-            if self.TAG_FOR_HIDDEN in blog_data_entry['usertags']:
+            if config.TAG_FOR_HIDDEN in blog_data_entry['usertags']:
                 continue
 
             ## filling feed entry string:
             feedentry = u"""  <entry>
     <title>""" + blog_data_entry['title'] + """</title>
-    <link href='""" + self.BASE_URL + "/" + listentry['url'] + """' />
-    <id>""" + self.BASE_URL + "/" + listentry['url'] + """</id>
-    <published>""" + self._get_oldest_timestamp_for_entry(blog_data_entry)[0].strftime('%Y-%m-%dT%H:%M:%S' + self.TIME_ZONE_ADDON) + """</published>
-    <updated>""" + self._get_newest_timestamp_for_entry(blog_data_entry)[0].strftime('%Y-%m-%dT%H:%M:%S' + self.TIME_ZONE_ADDON) + "</updated>\n"
+    <link href='""" + config.BASE_URL + "/" + listentry['url'] + """' />
+    <id>""" + config.BASE_URL + "/" + listentry['url'] + """</id>
+    <published>""" + self._get_oldest_timestamp_for_entry(blog_data_entry)[0].strftime('%Y-%m-%dT%H:%M:%S' + config.TIME_ZONE_ADDON) + """</published>
+    <updated>""" + self._get_newest_timestamp_for_entry(blog_data_entry)[0].strftime('%Y-%m-%dT%H:%M:%S' + config.TIME_ZONE_ADDON) + "</updated>\n"
 
             ## adding all tags:
             for tag in blog_data_entry['usertags']:
                 
-                feedentry += "    <category scheme='" + self.BASE_URL + "/" + "tags" + "/" + tag + "' term='" + tag + "' />\n"
+                feedentry += "    <category scheme='" + config.BASE_URL + "/" + "tags" + "/" + tag + "' term='" + tag + "' />\n"
                 ## FIXXME: handle autotags
 
             ## add summary:
@@ -372,7 +339,7 @@ class Htmlizer(object):
         listentry_index = 0
         number_of_current_teaser_entries = 0
         
-        while number_of_current_teaser_entries < self.NUMBER_OF_TEASER_ARTICLES and \
+        while number_of_current_teaser_entries < config.NUMBER_OF_TEASER_ARTICLES and \
               len(entry_list_by_newest_timestamp) < number_of_current_teaser_entries:
 
             ## get next element from entry_list
@@ -382,10 +349,10 @@ class Htmlizer(object):
             entry = self.blog_data_with_id(listentry['id'])
 
             ## omit hidden entries:
-            if self.TAG_FOR_HIDDEN in entry['usertags']:
+            if config.TAG_FOR_HIDDEN in entry['usertags']:
                 continue
                 ## FIXXME: for each hidden entry within
-                ## self.NUMBER_OF_TEASER_ARTICLES, there will be one
+                ## config.NUMBER_OF_TEASER_ARTICLES, there will be one
                 ## entry missing. Fix this by switching to "until
                 ## enough articles on main page or no articles left:
                 ## find next article"
@@ -419,7 +386,7 @@ class Htmlizer(object):
                 content = content.replace('#ARTICLE-YEAR#', year)
                 content = content.replace('#ARTICLE-MONTH#', month)
                 content = content.replace('#ARTICLE-DAY#', day)
-                content = content.replace('#ARTICLE-PUBLISHED-HTML-DATETIME#', iso_timestamp + self.TIME_ZONE_ADDON)
+                content = content.replace('#ARTICLE-PUBLISHED-HTML-DATETIME#', iso_timestamp + config.TIME_ZONE_ADDON)
                 content = content.replace('#ARTICLE-PUBLISHED-HUMAN-READABLE#', iso_timestamp)
 
                 if entry['htmlteaser-equals-content']:
@@ -439,7 +406,7 @@ class Htmlizer(object):
 
         htmlcontent = htmlcontent.replace('#ABOUT-BLOG#', self.sanitize_external_links(self.sanitize_html_characters(self.about_blog)))
         htmlcontent = htmlcontent.replace('#BLOGNAME#', self.sanitize_external_links(self.sanitize_html_characters(self.blogname)))
-        htmlcontent = self.sanitize_internal_links(self.ENTRYPAGE, htmlcontent)
+        htmlcontent = self.sanitize_internal_links(config.ENTRYPAGE, htmlcontent)
         self.write_content_to_file(entry_page_filename, htmlcontent)
 
         return
@@ -743,13 +710,13 @@ class Htmlizer(object):
         url = u""
 
         ## build back-traverse URL
-        if sourcecategory == self.TEMPORAL:
+        if sourcecategory == config.TEMPORAL:
             url = u"../../../../"
-        elif sourcecategory == self.PERSISTENT:
+        elif sourcecategory == config.PERSISTENT:
             url = u"../"
-        elif sourcecategory == self.TAGS:
+        elif sourcecategory == config.TAGS:
             url = u"../../"
-        elif sourcecategory == self.ENTRYPAGE:
+        elif sourcecategory == config.ENTRYPAGE:
             url = u""
         else:
             message = "generate_relative_url_from_sourcecategory_to_id() found an unknown sourcecategory [" + \
@@ -851,7 +818,7 @@ class Htmlizer(object):
         for articlepart in ['article-end', 'article-footer']:
             content += self.template_definition_by_name(articlepart)
         htmlcontent += self._replace_general_article_placeholders(entry, content)
-        htmlcontent = self.sanitize_internal_links(self.TEMPORAL, htmlcontent)
+        htmlcontent = self.sanitize_internal_links(config.TEMPORAL, htmlcontent)
 
         return htmlfilename, orgfilename, htmlcontent
 
@@ -889,7 +856,7 @@ class Htmlizer(object):
         for articlepart in ['persistent-end', 'persistent-footer']:
             content += self.template_definition_by_name(articlepart)
         htmlcontent += self._replace_general_article_placeholders(entry, content)
-        htmlcontent = self.sanitize_internal_links(self.PERSISTENT, htmlcontent)
+        htmlcontent = self.sanitize_internal_links(config.PERSISTENT, htmlcontent)
 
         return htmlfilename, orgfilename, htmlcontent
 
@@ -975,7 +942,7 @@ class Htmlizer(object):
         content = content.replace('#ARTICLE-YEAR#', year)
         content = content.replace('#ARTICLE-MONTH#', month)
         content = content.replace('#ARTICLE-DAY#', day)
-        content = content.replace('#ARTICLE-PUBLISHED-HTML-DATETIME#', iso_timestamp + self.TIME_ZONE_ADDON)
+        content = content.replace('#ARTICLE-PUBLISHED-HTML-DATETIME#', iso_timestamp + config.TIME_ZONE_ADDON)
         content = content.replace('#ARTICLE-PUBLISHED-HUMAN-READABLE#', iso_timestamp)
 
         return content
@@ -1022,15 +989,15 @@ class Htmlizer(object):
         entry = self.blog_data_with_id(entryid)
         folder = self._get_entry_folder_name_from_entryid(entryid)
 
-        if entry['category'] == self.TAGS:
+        if entry['category'] == config.TAGS:
             ## TAGS: url is like "/tags/mytag/"
             return os.path.join("tags", folder)
 
-        if entry['category'] == self.PERSISTENT:
+        if entry['category'] == config.PERSISTENT:
             ## PERSISTENT: url is like "/my-id/"
             return os.path.join(folder)
 
-        if entry['category'] == self.TEMPORAL:
+        if entry['category'] == config.TEMPORAL:
             ## TEMPORAL: url is like "/2014/03/30/my-id/"
 
             oldesttimestamp, year, month, day, hours, minutes = self._get_oldest_timestamp_for_entry(entry)
