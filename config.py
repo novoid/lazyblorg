@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-04-20 21:43:59 vk>
+# Time-stamp: <2014-04-20 22:04:02 vk>
 
 
 ## ===================================================================== ##
@@ -11,19 +11,45 @@
 ##                                                                       ##
 ## ===================================================================== ##
 
-## ---------------------------------------------------------------------
-## from ORGPARSER:  (FIXXME: remove after unifying constants)
+
+## INTEGRATION: modify variables in this file according to your requirements
+
+
+## put your URL and your name below:
+## (not only?) for feed meta-data: FIXXME: move to CLI parameters?
+BASE_URL = 'http://Karl-Voit.at'
+AUTHOR_NAME = "Karl Voit"
+
+## show this many article teasers on entry page
+NUMBER_OF_TEASER_ARTICLES = 999
+
+## show this many article in Atom feeds:
+NUMBER_OF_FEED_ARTICLES = 10
+
+## replace "+01:00" below with your time-zone indicator
+## this gets added to the time in order to describe time zone of the blog:
+TIME_ZONE_ADDON = '+01:00'
+
+
+
+
+
+
+## ===================================================================== ##
+##                                                                       ##
+##  These are INTERNAL lazyblorg-global configuration settings.          ##
+##                                                                       ##
+##  You might not want to modify anything if you do not REALLY know,     ##
+##  what you are doing :-)                                               ##
+##                                                                       ##
+## ===================================================================== ##
+
 
 ## string of the state which defines a blog entry to be published
-BLOG_FINISHED_STATE = u'DONE'  ## FIXXME: check, if not hardcoded anywhere!
+BLOG_FINISHED_STATE = u'DONE'
 
 ## tag that is expected in any blog entry category:
 TAG_FOR_BLOG_ENTRY='blog'
-
-
-
-## ---------------------------------------------------------------------
-## from HTMLIZER:  (FIXXME: remove after unifying constants)
 
 ## this tag (withing tag list of article) determines if an article
 ## is a persistent blog page (tag is found) or a time-oriented
@@ -40,23 +66,13 @@ TEMPORAL = 'TEMPORAL'
 TEMPLATES = 'TEMPLATES'
 ENTRYPAGE = 'ENTRYPAGE'
 
-## INTEGRATION: replace "+01:00" below with your time-zone indicator
-## this gets added to the time in order to describe time zone of the blog:
-TIME_ZONE_ADDON = '+01:00'
-
-## show this many article teasers on entry page
-NUMBER_OF_TEASER_ARTICLES = 999
-
 ## base directory of the RSS/ATOM feeds:
 FEEDDIR = 'feeds'
 
-## INTEGRATION: put your URL and your name below:
-## (not only?) for feed meta-data: FIXXME: move to CLI parameters?
-BASE_URL = 'http://Karl-Voit.at'
-AUTHOR_NAME = "Karl Voit"
-
-## show this many article in feeds:
-NUMBER_OF_FEED_ARTICLES = 10
+## format of the internal storage file
+## pickle offers, e.g., 0 (ASCII; human-readable) or pickle.HIGHEST_PROTOCOL (binary; more efficient)
+#PICKLE_FORMAT = pickle.HIGHEST_PROTOCOL
+PICKLE_FORMAT = 0
 
 
 

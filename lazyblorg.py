@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-04-20 20:35:53 vk>
+# Time-stamp: <2014-04-20 21:57:35 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -10,6 +10,7 @@
 ##  know, what you are doing :-)                                         ##
 ## ===================================================================== ##
 
+import config  ## lazyblorg-global settings
 import os
 import logging
 from datetime import datetime
@@ -29,9 +30,6 @@ PROG_VERSION_NUMBER = u"0.2"
 PROG_VERSION_DATE = u"2014-02-01"
 INVOCATION_TIME = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
-## this Org-mode tag marks blog entries:
-## FIXXME: also defined as TAG_FOR_BLOG_ENTY in OrgParser!
-BLOG_TAG = u'blog'
 
 EPILOG = u"\n\
   :copyright:  (c) 2013 and following by Karl Voit <tools@Karl-Voit.at>\n\
@@ -46,11 +44,6 @@ class Lazyblorg(object):
     Central lazyblorg Class with main algorithm and methods
     """
 
-    ## format of the storage file
-    ## pickle offers, e.g., 0 (ASCII; human-readable) or pickle.HIGHEST_PROTOCOL (binary; more efficient)
-    #PICKLE_FORMAT = pickle.HIGHEST_PROTOCOL
-    PICKLE_FORMAT = 0
-
     options = None
     list_of_orgfiles = []
     logging = None
@@ -59,14 +52,6 @@ class Lazyblorg(object):
     metadata = []  ## meta-data of the current run of lazyblorg
     previous_metadata = None  ## meta-data of the previous run of lazyblorg
     template_definitions = None  ## list of definitions of templates
-
-    ## categories of blog entries:
-    ## FIXXME: also defined in: OrgParser utils.py htmlizer
-    TAGS = 'TAGS'
-    PERSISTENT = 'PERSISTENT'
-    TEMPORAL = 'TEMPORAL'
-    TEMPLATES = 'TEMPLATES'
-
 
     def __init__(self, options, logging):
 
@@ -126,7 +111,7 @@ class Lazyblorg(object):
         
         ## write this status to the persistent data file:
         with open(options.new_metadatafilename, 'wb') as output:
-            pickle.dump(self.metadata, output, self.PICKLE_FORMAT)
+            pickle.dump(self.metadata, output, config.PICKLE_FORMAT)
 
         ## load old metadata from file
         if os.path.isfile(options.previous_metadatafilename):
@@ -169,8 +154,9 @@ class Lazyblorg(object):
         @param return:
         """
 
-        htmlizer = Htmlizer(self.template_definitions, self.options.blogname, BLOG_TAG, self.options.aboutblog,
-                            self.options.targetdir, self.blog_data, generate, increment_version)
+        htmlizer = Htmlizer(self.template_definitions, self.options.blogname, config.TAG_FOR_BLOG_ENTRY,
+                            self.options.aboutblog, self.options.targetdir, self.blog_data, generate,
+                            increment_version)
 
         ## FIXXME: try except HtmlizerException?
         return htmlizer.run()  ## FIXXME: return value?

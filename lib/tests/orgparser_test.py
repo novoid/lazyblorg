@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-04-20 20:39:33 vk>
+# Time-stamp: <2014-04-20 21:56:19 vk>
 
+import config  ## lazyblorg-global settings
 import unittest
 from lib.utils import *
 from lib.orgparser import *
@@ -33,11 +34,6 @@ class TestOrgParser(unittest.TestCase):
 
     def test_simple_org_to_blogdata(self):
 
-        ## format of the storage file
-        ## pickle offers, e.g., 0 (ASCII; human-readable) or pickle.HIGHEST_PROTOCOL (binary; more efficient)
-        #PICKLE_FORMAT = pickle.HIGHEST_PROTOCOL
-        PICKLE_FORMAT = 0
-
         testfile_org = "simple.org"  ## manually written Org-mode file; has to be placed in "lib/tests/"
         testfile_temp_output = "simple_org_-_lastrun.pk"
         testfile_temp_reference = "simple_org_-_reference.pk"
@@ -57,7 +53,7 @@ class TestOrgParser(unittest.TestCase):
 
         ## write data to dump file:
         with open(testfile_temp_output, 'wb') as output:
-            pickle.dump(blog_data, output, PICKLE_FORMAT)
+            pickle.dump(blog_data, output, config.PICKLE_FORMAT)
 
         ## check, if dump file was created:
         self.assertTrue(isfile(testfile_temp_output))
