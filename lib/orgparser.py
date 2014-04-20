@@ -1,9 +1,9 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-26 19:43:46 vk>
+# Time-stamp: <2014-04-20 20:40:15 vk>
 
 import re
-import os
-import codecs
+from os import path
+import codecs  ## open, close with Unicode
 import logging
 from orgformat import *
 
@@ -101,7 +101,7 @@ class OrgParser(object):
         """
 
         assert filename.__class__ == str or filename.__class__ == unicode
-        assert os.path.isfile(filename)
+        assert path.isfile(filename)
         self.__filename = filename
         self.__blog_data = []
         self.__entry_data = {}

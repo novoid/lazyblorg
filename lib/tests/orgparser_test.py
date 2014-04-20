@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-26 19:14:28 vk>
+# Time-stamp: <2014-04-20 20:39:33 vk>
 
 import unittest
 from lib.utils import *
 from lib.orgparser import *
 import pickle ## for serializing and storing objects into files
 from os import remove
+from os.path import isfile
 
 ## debugging:   for setting a breakpoint:  pdb.set_trace()## FIXXME
 import pdb
@@ -41,10 +42,10 @@ class TestOrgParser(unittest.TestCase):
         testfile_temp_output = "simple_org_-_lastrun.pk"
         testfile_temp_reference = "simple_org_-_reference.pk"
 
-        self.assertTrue(os.path.isfile(testfile_org))  ## check, if test input file is found
+        self.assertTrue(isfile(testfile_org))  ## check, if test input file is found
 
         ## make sure that no old output file is found:
-        if os.path.isfile(testfile_temp_output):
+        if isfile(testfile_temp_output):
             remove(testfile_temp_output)
             
         blog_data = []  ## initialize the empty list
@@ -59,7 +60,7 @@ class TestOrgParser(unittest.TestCase):
             pickle.dump(blog_data, output, PICKLE_FORMAT)
 
         ## check, if dump file was created:
-        self.assertTrue(os.path.isfile(testfile_temp_output))
+        self.assertTrue(isfile(testfile_temp_output))
 
         reference_blog_data = None
 

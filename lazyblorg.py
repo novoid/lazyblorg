@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-03-16 18:47:15 vk>
+# Time-stamp: <2014-04-20 20:35:53 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -12,9 +12,9 @@
 
 import os
 import logging
-import datetime
-import sys
-import argparse  ## command line arguments
+from datetime import datetime
+from sys import exit, argv
+from argparse import ArgumentParser, RawDescriptionHelpFormatter
 from lib.utils import *
 from lib.orgparser import *
 from lib.htmlizer import *
@@ -27,7 +27,7 @@ import pdb
 
 PROG_VERSION_NUMBER = u"0.2"
 PROG_VERSION_DATE = u"2014-02-01"
-INVOCATION_TIME = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+INVOCATION_TIME = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
 ## this Org-mode tag marks blog entries:
 ## FIXXME: also defined as TAG_FOR_BLOG_ENTY in OrgParser!
@@ -379,8 +379,8 @@ if __name__ == "__main__":
     mydescription = u"An Org-mode to HTML-blog system for very lazy people. Please refer to \n" + \
         "https://github.com/novoid/lazyblorg for more information."
 
-    parser = argparse.ArgumentParser(prog=sys.argv[0],
-                                     formatter_class=argparse.RawDescriptionHelpFormatter,  ## keep line breaks in EPILOG and such
+    parser = ArgumentParser(prog=argv[0],
+                                     formatter_class=RawDescriptionHelpFormatter,  ## keep line breaks in EPILOG and such
                                      epilog=EPILOG,
                                      description=mydescription)
 
@@ -429,9 +429,9 @@ if __name__ == "__main__":
     try:
 
         if options.version:
-            print os.path.basename(sys.argv[0]) + " version " + PROG_VERSION_NUMBER + \
+            print os.path.basename(argv[0]) + " version " + PROG_VERSION_NUMBER + \
                 " from " + PROG_VERSION_DATE
-            sys.exit(0)
+            exit(0)
 
         ## checking parameters ...
 

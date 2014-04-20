@@ -1,14 +1,11 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-02 19:31:35 vk>
+# Time-stamp: <2014-04-20 20:37:35 vk>
 
-import sys
+from sys import stdout, exit
 import logging
 from hashlib import md5  ## generating checksums
-import time  ## for generating Org-mode timestamps
+from time import localtime  ## for generating Org-mode timestamps
 from orgformat import *
-import pdb
-        #pdb.set_trace()## FIXXME
-
 
 class Utils(object):
     """
@@ -30,8 +27,8 @@ class Utils(object):
         logger = logging.getLogger('lazyblorg.Utils.error_exit')
         logger.debug("exiting with error code %s" % str(errorcode))
 
-        sys.stdout.flush()
-        sys.exit(errorcode)
+        stdout.flush()
+        exit(errorcode)
 
     @staticmethod
     def error_exit_with_userlog(logfilename, errorcode, message):
@@ -103,7 +100,7 @@ class Utils(object):
         logger.debug("appending to Org-mode log-file %s" % (filename))
 
         with open(filename, 'a') as outputhandle:
-            datetimestamp = OrgFormat.datetime(time.localtime())
+            datetimestamp = OrgFormat.datetime(localtime())
     ## add daily repeating that user gets it on agenda also on following days:
             datetimestamp = datetimestamp[:-1] + ' +1d>'
 

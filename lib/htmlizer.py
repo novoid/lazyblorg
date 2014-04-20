@@ -1,17 +1,15 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-04-20 20:25:22 vk>
+# Time-stamp: <2014-04-20 20:36:29 vk>
 
 import logging
 import os
-import werkzeug.utils  ## for sanitizing path components
-import datetime
+from werkzeug.utils import secure_filename  ## for sanitizing path components
+from datetime import datetime
 from time import localtime, strftime
 import re  ## RegEx: for parsing/sanitizing
 import codecs
-#from lib.utils import *
 
 ## NOTE: pdb hides private variables as well. Please use:   data = self._OrgParser__entry_data ; data['content']
-import pdb
 
 
 class HtmlizerException(Exception):
@@ -148,12 +146,12 @@ class Htmlizer(object):
 
             ## example entry:
             ## {'level': 2,
-            ## 'timestamp': datetime.datetime(2013, 2, 14, 19, 2),
+            ## 'timestamp': datetime(2013, 2, 14, 19, 2),
             ## 'usertags': [u'mytest', u'programming'],
             ## 'autotags': [u'german', u'short'],
             ## 'lbtags': [u'blog'],
-            ## 'created': datetime.datetime(2013, 2, 12, 10, 58),
-            ## 'finished-timestamp-history': [datetime.datetime(2013, 2, 14, 19, 2)],
+            ## 'created': datetime(2013, 2, 12, 10, 58),
+            ## 'finished-timestamp-history': [datetime(2013, 2, 14, 19, 2)],
             ## 'title': u'This is an example blog entry',
             ## 'id': u'2013-02-12-lazyblorg-example-entry',
             ## 'content': [['par', u'foo...'], [...]]
@@ -280,9 +278,9 @@ class Htmlizer(object):
                 continue
 
             ## listentry: (examples)
-            ## {'url': 'about', 'timestamp': datetime.datetime(2014, 3, 9, 14, 57), 'category': 'PERSISTENT',
+            ## {'url': 'about', 'timestamp': datetime(2014, 3, 9, 14, 57), 'category': 'PERSISTENT',
             ##  'id': u'2014-03-09-about'}
-            ## {'url': '2013/08/22/testid', 'timestamp': datetime.datetime(2013, 8, 22, 21, 6),
+            ## {'url': '2013/08/22/testid', 'timestamp': datetime(2013, 8, 22, 21, 6),
             ##  'category': 'TEMPORAL', 'id': u'2013-08-22-testid'}
 
             blog_data_entry = self.blog_data_with_id(listentry['id'])
@@ -1002,7 +1000,7 @@ class Htmlizer(object):
         and returns a string that can be securely used as folder name.
         """
 
-        folder = werkzeug.utils.secure_filename(entryid)
+        folder = secure_filename(entryid)
 
         if self.DATESTAMP_REGEX.match(folder[0:10]):
         ## folder contains any date-stamp in ISO format -> get rid of it (it's in the path anyway)
@@ -1043,7 +1041,7 @@ class Htmlizer(object):
         Reads data of entry and returns datetime object of the newest
         time-stamp of the finished-timestamp-history.
 
-        Example result: datetime.datetime(2013, 8, 29, 19, 40)
+        Example result: datetime(2013, 8, 29, 19, 40)
 
         Implicit assumptions:
         - newest: no blog article is from before 1970-01-01
@@ -1064,7 +1062,7 @@ class Htmlizer(object):
         Reads data of entry and returns datetime object of the oldest
         time-stamp of the finished-timestamp-history.
 
-        Example result: datetime.datetime(2013, 8, 29, 19, 40)
+        Example result: datetime(2013, 8, 29, 19, 40)
 
         Implicit assumptions:
         - no blog article is from the future (comparison to now)
@@ -1085,7 +1083,7 @@ class Htmlizer(object):
         Reads data of entry and returns datetime object of the oldest or newest
         time-stamp of the finished-timestamp-history.
 
-        Example result: datetime.datetime(2013, 8, 29, 19, 40)
+        Example result: datetime(2013, 8, 29, 19, 40)
 
         Implicit assumptions:
         - oldest: no blog article is from the future (comparison to now)
@@ -1108,13 +1106,13 @@ class Htmlizer(object):
 
         returntimestamp = False
         if search_for == "OLDEST":
-            oldesttimestamp = datetime.datetime.now()
+            oldesttimestamp = datetime.now()
             for timestamp in entry['finished-timestamp-history']:
                 if timestamp < oldesttimestamp:
                     oldesttimestamp = timestamp
             returntimestamp = oldesttimestamp
         elif search_for == "NEWEST":
-            newesttimestamp = datetime.datetime(1970,1,1)
+            newesttimestamp = datetime(1970,1,1)
             for timestamp in entry['finished-timestamp-history']:
                 if timestamp > newesttimestamp:
                     newesttimestamp = timestamp
