@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-04-20 20:19:25 vk>
+# Time-stamp: <2014-04-20 20:25:22 vk>
 
 import logging
 import os
@@ -62,7 +62,7 @@ class Htmlizer(object):
     TIME_ZONE_ADDON = '+01:00'
 
     ## show this many article teasers on entry page
-    NUMBER_OF_TEASER_ARTICLES = 50
+    NUMBER_OF_TEASER_ARTICLES = 999
 
     ## base directory of the RSS/ATOM feeds:
     FEEDDIR = 'feeds'
@@ -73,7 +73,7 @@ class Htmlizer(object):
     AUTHOR_NAME = "Karl Voit"
 
     ## show this many article in feeds:
-    NUMBER_OF_FEED_ARTICLES = 999
+    NUMBER_OF_FEED_ARTICLES = 10
 
     ## find internal links to Org-mode IDs: [[id:simple]] and [[id:with][a description]]
     ID_SIMPLE_LINK_REGEX = re.compile('(\[\[id:([^\[]+?)\]\])')
@@ -269,7 +269,7 @@ class Htmlizer(object):
         listentry = None
         listentry_index = 0
         
-        while number_of_current_feed_entries < self.NUMBER_OF_FEED_ARTICLES or \
+        while number_of_current_feed_entries < self.NUMBER_OF_FEED_ARTICLES and \
               len(entry_list_by_newest_timestamp) < number_of_current_feed_entries:
 
             ## get next element from entry_list
@@ -370,7 +370,16 @@ class Htmlizer(object):
 
         htmlcontent = u'' + self.template_definition_by_name('entrypage-header')
 
-        for listentry in entry_list_by_newest_timestamp[0:self.NUMBER_OF_TEASER_ARTICLES]:
+        listentry = None
+        listentry_index = 0
+        number_of_current_teaser_entries = 0
+        
+        while number_of_current_teaser_entries < self.NUMBER_OF_TEASER_ARTICLES and \
+              len(entry_list_by_newest_timestamp) < number_of_current_teaser_entries:
+
+            ## get next element from entry_list
+            listentry = entry_list_by_newest_timestamp[listentry_index]
+            listentry_index += 1
 
             entry = self.blog_data_with_id(listentry['id'])
 
@@ -425,6 +434,8 @@ class Htmlizer(object):
             elif entry['category'] == 'TAGS':
                 pass ## FIXXME: implement!
 
+        number_of_current_teaser_entries += 1
+            
         ## add footer:
         htmlcontent += self.template_definition_by_name('entrypage-footer')
 
