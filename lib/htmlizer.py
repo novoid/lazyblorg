@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-04-20 21:35:25 vk>
+# Time-stamp: <2014-04-24 21:58:26 vk>
 
 import config  ## lazyblorg-global settings
 import logging
@@ -235,7 +235,7 @@ class Htmlizer(object):
         listentry_index = 0
         
         while number_of_current_feed_entries < config.NUMBER_OF_FEED_ARTICLES and \
-              len(entry_list_by_newest_timestamp) < number_of_current_feed_entries:
+              len(entry_list_by_newest_timestamp) > listentry_index:
 
             ## get next element from entry_list
             listentry = entry_list_by_newest_timestamp[listentry_index]
@@ -338,9 +338,9 @@ class Htmlizer(object):
         listentry = None
         listentry_index = 0
         number_of_current_teaser_entries = 0
-        
+
         while number_of_current_teaser_entries < config.NUMBER_OF_TEASER_ARTICLES and \
-              len(entry_list_by_newest_timestamp) < number_of_current_teaser_entries:
+              len(entry_list_by_newest_timestamp) > listentry_index:
 
             ## get next element from entry_list
             listentry = entry_list_by_newest_timestamp[listentry_index]
