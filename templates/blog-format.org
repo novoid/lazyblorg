@@ -1,4 +1,4 @@
-## Time-stamp: <2014-04-19 15:28:41 vk>
+## Time-stamp: <2014-04-25 15:06:33 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -243,7 +243,7 @@ With name/label:
 
   <p>
 
-    Latest articles/updates:
+    Recent articles/updates:
 
   </p>
 
