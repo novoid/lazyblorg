@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2014-05-11 17:53:52 vk>
+# Time-stamp: <2014-05-11 18:54:04 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -267,7 +267,12 @@ A starting line which is not part of the list:
       second line you should also take into account
   - second again
 - first again
+Not a list any more.
 
+** NEXT create sidebar                                           :userstory:
+:PROPERTIES:
+:CREATED:  [2014-05-11 Sun 18:00]
+:END:
 ** NEXT fix tilde in URL                                               :bug:
 :PROPERTIES:
 :CREATED:  [2014-03-30 Sun 14:55]
@@ -340,7 +345,7 @@ on https://karl-voit.at/2014/03/25/xdu
     replacement entities
   - [ ] implement in Python
 
-** NEXT duck duck go site search                                 :userstory:
+** NEXT duck duck go site search in sidebar                       :userstory:
 :PROPERTIES:
 :CREATED:  [2014-05-03 Sat 15:57]
 :END:
