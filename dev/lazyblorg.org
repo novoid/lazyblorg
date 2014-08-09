@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2014-05-11 18:54:04 vk>
+# Time-stamp: <2014-08-09 15:10:07 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -228,6 +228,41 @@ CLOSED: [2014-03-01 Sat 20:10]
 
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
+** NEXT add sanitizing of URLs and such to VERSE blocks                :wish:
+SCHEDULED: <2014-08-09 Sat>
+:PROPERTIES:
+:CREATED:  [2014-08-09 Sat 12:11]
+:END:
+** NEXT fix: ~-escaping                                                :bug:
+:PROPERTIES:
+:CREATED:  [2014-06-22 Sun 18:32]
+:END:
+
+- see id:2014-05-09-managing-digital-photographs
+: All portrait photographs are rotated using [[http://www.sentex.net/~mwandel/jhead/][jhead]]. Also
+: with jhead, I generate file-name time-stamps from the Exif header
+: time-stamps. Using [[https://github.com/novoid/date2name][date2name]] I add time-stamps also to the movie
+: files. After processing all those files, they get moved to the
+: destination folder for new digicam files: ~$HOME/tmp/digicam/tmp/~.
+
+... will be transformed into:
+
+#+BEGIN_HTML
+All portrait photographs are rotated using 
+<a href="http://www.sentex.net/<code>mwandel/jhead/">jhead</a>. Also with jhead, 
+I generate file-name time-stamps from the Exif header time-stamps. 
+Using <a href="https://github.com/novoid/date2name">date2name</a> I add time-stamps 
+also to the movie files. After processing all those files, they get moved to the 
+destination folder for new digicam files: </code>$HOME/tmp/digicam/tmp/~.
+#+END_HTML
+
+** NEXT Atom-feed mit CDATA                                   :architecture:
+:PROPERTIES:
+:CREATED:  [2014-06-08 Sun 22:07]
+:END:
+
+- <2014-06-08 Sun> stefan2904 Twitter: can not read feed with tinyTinyRSS
+  - validator wants fixes
 
 ** STARTED get ordered lists of blog entries                  :architecture:
 :PROPERTIES:
@@ -247,8 +282,9 @@ CLOSED: [2014-03-01 Sat 20:10]
     - get oldest entry of entry['finished-timestamp-history']
     - store to a sorted list (newest first or last)
 ** NEXT parse/htmlize: lists                                     :userstory:
-SCHEDULED: <2014-05-11 Sun>
 :LOGBOOK:
+- Not scheduled, was "2014-05-18 Sun" on [2014-05-18 Sun 09:56]
+- Rescheduled from "2014-05-16 Fri" on [2014-05-17 Sat 11:34]
 - Rescheduled from "2014-05-10 Sat" on [2014-05-11 Sun 17:53]
 - Rescheduled from "2014-05-06 Tue" on [2014-05-07 Wed 17:32]
 - Rescheduled from "2014-04-28 Mon" on [2014-04-27 Sun 22:07]
