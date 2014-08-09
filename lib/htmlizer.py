@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-04-24 21:58:26 vk>
+# Time-stamp: <2014-08-09 15:22:16 vk>
 
 import config  ## lazyblorg-global settings
 import logging
@@ -581,6 +581,14 @@ class Htmlizer(object):
                 else:
                     result = self.template_definition_by_name('pre-begin')
                 mycontent = '\n'.join(entry['content'][index][2])
+
+                ## for verse blocks, do org-mode formatting:
+                if entry['content'][index][0] == 'verse-block':
+                    mycontent = self.htmlize_simple_text_formatting(
+                        self.sanitize_external_links(
+                            self.sanitize_html_characters(
+                                self.sanitize_internal_links(entry['category'], mycontent))))
+                    
                 self.logging.debug("result [%s]" % repr(result))
                 self.logging.debug("mycontent [%s]" % repr(mycontent))
                 result += mycontent
