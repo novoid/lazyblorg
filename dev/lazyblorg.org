@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2014-08-10 10:38:59 vk>
+# Time-stamp: <2014-08-10 18:17:58 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -311,6 +311,7 @@ SCHEDULED: <2014-08-10 Sun>
 - id:apps-I-am-using
 - id:2012-04-15-mobile-usage-pattern
 - id:2012-12-23-todo-with-orgmode
+- id:2014-08-10-other-peoples-IT-setup
 
 ** NEXT create sidebar                                           :userstory:
 :PROPERTIES:
@@ -474,6 +475,15 @@ like monthly overview but only for the day
 
 - [ ] htmlizer
 - [ ] update test_sanitize_internal_links() in htmlizer_test.py
+
+** NEXT fix links to tags in my current blog entries             :userstory:
+SCHEDULED: <2014-08-10 Sun>
+:PROPERTIES:
+:CREATED:  [2014-08-10 Sun 12:57]
+:BLOCKER: 2013-10-19-lb-tag-pages
+:END:
+
+- id:2014-08-10-other-peoples-IT-setup
 
 ** NEXT embed images that are defined by tsfile-statements       :userstory:
 :PROPERTIES:
@@ -1005,59 +1015,60 @@ are some for "lazyblog" (without the 'r').
 Org elements: from ox-ascii.el (Org-mode)
 
 #+NAME: implemented-org-elements
-| *Org Element*       | [fn:earmarked] | [fn:lowprio] | implemented since | [fn:internalrepresentation]                                        | *HTML5*                                                  |
-|---------------------+----------------+--------------+-------------------+--------------------------------------------------------------------+----------------------------------------------------------|
-| external hyperlinks |                |              | <2014-01-30 Thu>  |                                                                    | a                                                        |
-| internal links      |                |              | <2014-03-03 Mon>  |                                                                    | a                                                        |
-| bold                |                |              | <2014-01-30 Thu>  |                                                                    | b                                                        |
-| center-block        |                | x            |                   |                                                                    |                                                          |
-| clock               |                | x            |                   |                                                                    |                                                          |
-| code                |                |              | <2014-01-30 Thu>  |                                                                    | code                                                     |
-| drawer              |                | x            |                   |                                                                    |                                                          |
-| dynamic-block       |                | x            |                   |                                                                    |                                                          |
-| entity              |                |              |                   |                                                                    |                                                          |
-| example-block       |                |              | <2014-01-30 Thu>  | ['example-block', 'name or None', [u'first line', u'second line']] | FIXXME                                                   |
-| export-block        |                | x            |                   |                                                                    |                                                          |
-| export-snippet      |                | x            |                   |                                                                    |                                                          |
-| fixed-width         |                | x            |                   |                                                                    |                                                          |
-| footnote-definition |                | x            |                   |                                                                    |                                                          |
-| footnote-reference  |                | x            |                   |                                                                    |                                                          |
-| headline            |                |              | <2014-01-30 Thu>  | ['heading', {'level': 3, 'title': u'my title'}]                    | section+header+h1                                        |
-| horizontal-rule     |                |              | <2014-01-31 Fri>  | ['hr']                                                             | (ignored and only interpreted to mark end of standfirst) |
-| inline-src-block    |                | x            |                   |                                                                    |                                                          |
-| inlinetask          |                | x            |                   |                                                                    |                                                          |
-| inner-template      |                | x            |                   |                                                                    |                                                          |
-| italic              |                | x            |                   |                                                                    |                                                          |
-| item                |                |              |                   |                                                                    |                                                          |
-| keyword             |                | x            |                   |                                                                    |                                                          |
-| latex-environment   |                |              | <2014-01-30 Thu>  | ['latex-block', 'name or None', [u'first line', u'second line']]   | FIXXME                                                   |
-| latex-fragment      |                | x            |                   |                                                                    |                                                          |
-| line-break          |                | x            |                   |                                                                    |                                                          |
-| link                | x              |              |                   |                                                                    |                                                          |
-| paragraph           |                |              | <2014-01-30 Thu>  | ['par', u'line1', u'line2']                                        | p                                                        |
-| plain-list          | x              |              |                   | ['list-itemize', [u'first line', u'second line']]                  | ul+li                                                    |
-| plain-text          |                |              | <2014-01-30 Thu>  | see: paragraph                                                     |                                                          |
-| planning            |                | x            |                   |                                                                    |                                                          |
-| quote-block         |                |              | <2014-01-30 Thu>  | ['quote-block', 'name or None', [u'first line', u'second line']]   | blockquote                                               |
-| quote-section       |                | ?            |                   |                                                                    |                                                          |
-| radio-target        |                | x            |                   |                                                                    |                                                          |
-| section             |                |              | <2014-01-30 Thu>  | ['heading', {'title': u'Sub-heading foo', 'level': 3}]             | h2, h3, ...                                              |
-| special-block       |                | x            |                   |                                                                    |                                                          |
-| src-block           |                |              | <2014-01-30 Thu>  | ['src-block', 'name or None', [u'first line', u'second line']]     | pre                                                      |
-| statistics-cookie   |                | x            |                   |                                                                    |                                                          |
-| strike-through      |                | x            |                   |                                                                    |                                                          |
-| subscript           |                | x            |                   |                                                                    |                                                          |
-| superscript         |                | x            |                   |                                                                    |                                                          |
-| table               | x              |              |                   |                                                                    |                                                          |
-| table-cell          | x              |              |                   |                                                                    |                                                          |
-| table-row           | x              |              |                   |                                                                    |                                                          |
-| target              |                |              |                   |                                                                    |                                                          |
-| template            |                | x            |                   |                                                                    |                                                          |
-| timestamp           |                | x            |                   |                                                                    |                                                          |
-| underline           |                | x            |                   |                                                                    |                                                          |
-| verbatim            | x              |              |                   |                                                                    | pre                                                      |
-| verse-block         |                |              | <2014-01-30 Thu>  | ['verse-block', 'name or None', [u'first line', u'second line']]   | pre                                                      |
-| html-block          |                |              | <2014-01-30 Thu>  | ['html-block', 'name or None', [u'first line', u'second line']]    | pre (if no #+NAME: then insert directly!)                |
+| *Org Element*         | [fn:earmarked] | [fn:lowprio] | implemented since | [fn:internalrepresentation]                                        | *HTML5*                                                  |
+|-----------------------+----------------+--------------+-------------------+--------------------------------------------------------------------+----------------------------------------------------------|
+| external hyperlinks   |                |              | <2014-01-30 Thu>  |                                                                    | a                                                        |
+| internal links        |                |              | <2014-03-03 Mon>  |                                                                    | a                                                        |
+| bold                  |                |              | <2014-01-30 Thu>  |                                                                    | b                                                        |
+| center-block          |                | x            |                   |                                                                    |                                                          |
+| clock                 |                | x            |                   |                                                                    |                                                          |
+| code                  |                |              | <2014-01-30 Thu>  |                                                                    | code                                                     |
+| drawer                |                | x            |                   |                                                                    |                                                          |
+| dynamic-block         |                | x            |                   |                                                                    |                                                          |
+| entity                |                |              |                   |                                                                    |                                                          |
+| example-block         |                |              | <2014-01-30 Thu>  | ['example-block', 'name or None', [u'first line', u'second line']] | FIXXME                                                   |
+| example "colon-block" |                |              | <2014-08-10 Sun>  | ['colon-block', False, [u'first line', u'second line']]            | pre                                                      |
+| export-block          |                | x            |                   |                                                                    |                                                          |
+| export-snippet        |                | x            |                   |                                                                    |                                                          |
+| fixed-width           |                | x            |                   |                                                                    |                                                          |
+| footnote-definition   |                | x            |                   |                                                                    |                                                          |
+| footnote-reference    |                | x            |                   |                                                                    |                                                          |
+| headline              |                |              | <2014-01-30 Thu>  | ['heading', {'level': 3, 'title': u'my title'}]                    | section+header+h1                                        |
+| horizontal-rule       |                |              | <2014-01-31 Fri>  | ['hr']                                                             | (ignored and only interpreted to mark end of standfirst) |
+| inline-src-block      |                | x            |                   |                                                                    |                                                          |
+| inlinetask            |                | x            |                   |                                                                    |                                                          |
+| inner-template        |                | x            |                   |                                                                    |                                                          |
+| italic                |                | x            |                   |                                                                    |                                                          |
+| item                  |                |              |                   |                                                                    |                                                          |
+| keyword               |                | x            |                   |                                                                    |                                                          |
+| latex-environment     |                |              | <2014-01-30 Thu>  | ['latex-block', 'name or None', [u'first line', u'second line']]   | FIXXME                                                   |
+| latex-fragment        |                | x            |                   |                                                                    |                                                          |
+| line-break            |                | x            |                   |                                                                    |                                                          |
+| link                  | x              |              |                   |                                                                    |                                                          |
+| paragraph             |                |              | <2014-01-30 Thu>  | ['par', u'line1', u'line2']                                        | p                                                        |
+| plain-list            | x              |              |                   | ['list-itemize', [u'first line', u'second line']]                  | ul+li                                                    |
+| plain-text            |                |              | <2014-01-30 Thu>  | see: paragraph                                                     |                                                          |
+| planning              |                | x            |                   |                                                                    |                                                          |
+| quote-block           |                |              | <2014-01-30 Thu>  | ['quote-block', 'name or None', [u'first line', u'second line']]   | blockquote                                               |
+| quote-section         |                | ?            |                   |                                                                    |                                                          |
+| radio-target          |                | x            |                   |                                                                    |                                                          |
+| section               |                |              | <2014-01-30 Thu>  | ['heading', {'title': u'Sub-heading foo', 'level': 3}]             | h2, h3, ...                                              |
+| special-block         |                | x            |                   |                                                                    |                                                          |
+| src-block             |                |              | <2014-01-30 Thu>  | ['src-block', 'name or None', [u'first line', u'second line']]     | pre                                                      |
+| statistics-cookie     |                | x            |                   |                                                                    |                                                          |
+| strike-through        |                | x            |                   |                                                                    |                                                          |
+| subscript             |                | x            |                   |                                                                    |                                                          |
+| superscript           |                | x            |                   |                                                                    |                                                          |
+| table                 | x              |              |                   |                                                                    |                                                          |
+| table-cell            | x              |              |                   |                                                                    |                                                          |
+| table-row             | x              |              |                   |                                                                    |                                                          |
+| target                |                |              |                   |                                                                    |                                                          |
+| template              |                | x            |                   |                                                                    |                                                          |
+| timestamp             |                | x            |                   |                                                                    |                                                          |
+| underline             |                | x            |                   |                                                                    |                                                          |
+| verbatim              | x              |              |                   |                                                                    | pre                                                      |
+| verse-block           |                |              | <2014-01-30 Thu>  | ['verse-block', 'name or None', [u'first line', u'second line']]   | pre                                                      |
+| html-block            |                |              | <2014-01-30 Thu>  | ['html-block', 'name or None', [u'first line', u'second line']]    | pre (if no #+NAME: then insert directly!)                |
 
 NOTE: OrgParser is using "par" for anything it can not interpret as
 something else.

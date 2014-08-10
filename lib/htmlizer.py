@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-08-09 15:22:16 vk>
+# Time-stamp: <2014-08-10 18:08:18 vk>
 
 import config  ## lazyblorg-global settings
 import logging
@@ -567,11 +567,16 @@ class Htmlizer(object):
                         '\n'.join(entry['content'][index][2])).replace(' ', '&nbsp;').replace('\n', '<br />\n')
                     result += self.template_definition_by_name('html-end')
 
-            elif entry['content'][index][0] == 'verse-block' or entry['content'][index][0] == 'example-block':
+            elif entry['content'][index][0] == 'verse-block' or \
+                 entry['content'][index][0] == 'example-block' or \
+                 entry['content'][index][0] == 'colon-block':
 
                 ## example:
                 ## ['verse-block', False, [u'first line', u'second line']]
+                ## ['verse-block', u'This is something:', [u'first line', u'second line']]
                 ## ['example-block', False, [u'first line', u'second line']]
+                ## ['example-block', u'This is my example:', [u'first line', u'second line']]
+                ## ['colon-block', False, [u'first line', u'second line']]
                 result = None
 
                 result = self.template_definition_by_name('named-pre-begin')
@@ -580,14 +585,20 @@ class Htmlizer(object):
                     result = result.replace('#NAME#', entry['content'][index][1])
                 else:
                     result = self.template_definition_by_name('pre-begin')
-                mycontent = '\n'.join(entry['content'][index][2])
+
+                ## concatenate the content lines:
+                if entry['content'][index][0] == 'colon-block':
+                    ## remove the leading colons:
+                    mycontent = '\n'.join(entry['content'][index][2])[1:].replace('\n:', '\n')
+                else:
+                    mycontent = '\n'.join(entry['content'][index][2])
 
                 ## for verse blocks, do org-mode formatting:
                 if entry['content'][index][0] == 'verse-block':
                     mycontent = self.htmlize_simple_text_formatting(
                         self.sanitize_external_links(
-                            self.sanitize_html_characters(
-                                self.sanitize_internal_links(entry['category'], mycontent))))
+                            self.sanitize_internal_links(entry['category'], 
+                                                         self.sanitize_html_characters(mycontent))))
                     
                 self.logging.debug("result [%s]" % repr(result))
                 self.logging.debug("mycontent [%s]" % repr(mycontent))

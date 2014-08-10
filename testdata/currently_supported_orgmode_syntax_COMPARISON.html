@@ -186,6 +186,36 @@ from Org-mode source or not.	  </pre>
 	  <pre>lower-case example with name	  </pre>
 
 </p>
+	  <header><h2 class="section-title">COLON-blocks</h2></header>
+
+<p>
+
+This is how a colon-block looks like in Org-mode:
+
+</p>
+
+	  <pre>: This is an example colon-block as shown in Org-mode
+:
+: It can consist of multiple lines.
+: This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg and such.
+: explicit URL [[http://Karl-Voit.at]]
+:
+: However, the current parser needs at least one empty line following a colon block.	  </pre>
+
+<p>
+
+This is what lazyblorg does with it:
+
+</p>
+
+	  <pre> This is an example colon-block as shown in Org-mode
+
+ It can consist of multiple lines.
+ This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg and such.
+ explicit URL [[http://Karl-Voit.at]]
+
+ However, the current parser needs at least one empty line following a colon block.	  </pre>
+
 	  <header><h2 class="section-title">QUOTE-blocks</h2></header>
 
 <blockquote>UPPER-case quote without name

@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; ispell-local-dictionary: "german8"; -*-
-# Time-stamp: <2014-04-18 16:54:37 vk>
+# Time-stamp: <2014-08-10 18:14:59 vk>
 
 * DONE lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer :hidden:publicvoit:lazyblorg:MixedCaseTag:blog:
 CLOSED: [2014-01-30 Thu 13:01]
@@ -137,6 +137,34 @@ UPPER-case example with name
 #+begin_example
 lower-case example with name
 #+end_example
+
+** COLON-blocks
+:PROPERTIES:
+:CREATED:  [2014-08-10 Sun 18:10]
+:END:
+
+This is how a colon-block looks like in Org-mode:
+
+#+BEGIN_EXAMPLE
+: This is an example colon-block as shown in Org-mode
+:
+: It can consist of multiple lines.
+: This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg and such.
+: explicit URL [[http://Karl-Voit.at]]
+:
+: However, the current parser needs at least one empty line following a colon block.
+#+END_EXAMPLE
+
+This is what lazyblorg does with it:
+
+: This is an example colon-block as shown in Org-mode
+:
+: It can consist of multiple lines.
+: This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg and such.
+: explicit URL [[http://Karl-Voit.at]]
+:
+: However, the current parser needs at least one empty line following a colon block.
+
 ** QUOTE-blocks
 :PROPERTIES:
 :CREATED:  [2014-02-02 Sun 16:47]

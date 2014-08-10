@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-04-20 21:43:35 vk>
+# Time-stamp: <2014-08-10 18:00:50 vk>
 
 import config
 import re
@@ -457,6 +457,13 @@ class OrgParser(object):
                     previous_line = line
                     continue
 
+                elif line.startswith(': '):
+                    
+                    self.logging.debug("OrgParser: found COLON_BLOCK")
+                    state = self.COLON_BLOCK
+                    self.__entry_data['content'].append(['colon-block', False, [line]])
+                    previous_line = line
+
                 elif heading_components:
                     self.logging.debug("OrgParser: found new heading")
                     level = len(heading_components.group(self.HEADING_STARS_IDX))
@@ -602,9 +609,16 @@ class OrgParser(object):
             elif state == self.COLON_BLOCK:
 
                 ## parses sections started with a colon and return to ENTRY_CONTENT
-
-                ## FIXXME
-                pass
+                if line.startswith(':'):
+                    self.__entry_data['content'][-1][-1].append(line)
+                else:
+                    if line != u'':
+                        ## FIXXME: I feel ashamed but without goto I am probably not able to handle this
+                        raise OrgParserException('Sorry, this parser currently needs an empty line after ' +
+                                                 'a colon-block. Found following line instead: \"' + str(line) + '\"')
+                    state = self.ENTRY_CONTENT
+                    previous_line = line
+                    continue
 
             else:
                 raise OrgParserException("unknown FSM state \"%s\"" % str(state))
