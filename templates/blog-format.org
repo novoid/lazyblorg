@@ -1,4 +1,4 @@
-## Time-stamp: <2014-04-25 15:06:33 vk>
+## Time-stamp: <2014-08-10 18:25:22 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -137,6 +137,44 @@ With name/label:
 #+NAME: named-pre-end
 #+BEGIN_HTML
 	  </pre>
+
+</p>
+#+END_HTML
+
+*** SRC blocks (not HTML)
+
+Without name/label:
+
+#+NAME: src-begin
+#+BEGIN_HTML
+
+	  <div class="example_code">
+	  <pre>
+#+END_HTML
+
+#+NAME: src-end
+#+BEGIN_HTML
+	  </pre>
+    </div>
+
+#+END_HTML
+
+With name/label:
+
+#+NAME: named-src-begin
+#+BEGIN_HTML
+
+<p>
+
+    #NAME#
+	  <div class="example_code">
+	  <pre>
+#+END_HTML
+
+#+NAME: named-src-end
+#+BEGIN_HTML
+	  </pre>
+    </div>
 
 </p>
 #+END_HTML

@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2014-08-10 18:17:58 vk>
+# Time-stamp: <2014-08-10 18:33:20 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -228,6 +228,10 @@ CLOSED: [2014-03-01 Sat 20:10]
 
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
+** NEXT CSS: blocks like src: remove lines from right/top/bottom & add color gradient to right :wish:
+:PROPERTIES:
+:CREATED:  [2014-08-10 Sun 18:32]
+:END:
 ** NEXT fix: ~-escaping                                                :bug:
 :PROPERTIES:
 :CREATED:  [2014-06-22 Sun 18:32]
@@ -1143,6 +1147,10 @@ take some time or might never get implemented)
 |-----------------------+-------------------------+-----------------------------------------------------------------------|
 | html-block            | html-begin              | NAME                                                                  |
 |                       | html-end                |                                                                       |
+| src-block             | src-begin               |                                                                       |
+|                       | src-end                 |                                                                       |
+|                       | named-src-begin         |                                                                       |
+|                       | named-src-end           |                                                                       |
 
 
 

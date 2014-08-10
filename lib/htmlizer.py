@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-08-10 18:08:18 vk>
+# Time-stamp: <2014-08-10 18:36:52 vk>
 
 import config  ## lazyblorg-global settings
 import logging
@@ -628,17 +628,24 @@ class Htmlizer(object):
                 ## example:
                 ## ['src-block', False, [u'first line', u'second line']]
 
-                ## FIXXME: replace pre with suitable source code environment!
-
-                result = self.template_definition_by_name('html-begin')
+                result = None
 
                 if entry['content'][index][1]:
-                    result = result.replace('#NAME#', entry['content'][index][1] + u':<br />')
+                    result = self.template_definition_by_name('named-src-begin')
+                    result = result.replace('#NAME#', entry['content'][index][1])
                 else:
-                    result = result.replace('#NAME#', "")
-                result += self.sanitize_html_characters(\
-                                                        '\n'.join(entry['content'][index][2])).replace(' ', '&nbsp;').replace('\n', '<br />\n')
-                result += self.template_definition_by_name('html-end')
+                    result = self.template_definition_by_name('src-begin')
+
+                mycontent = '\n'.join(entry['content'][index][2])
+
+                self.logging.debug("result [%s]" % repr(result))
+                self.logging.debug("mycontent [%s]" % repr(mycontent))
+                result += mycontent
+                if entry['content'][index][1]:
+                    result += self.template_definition_by_name('named-src-end')
+                else:
+                    result += self.template_definition_by_name('src-end')
+
 
             else:
                 message = "htmlizer.py/sanitize_and_htmlize_blog_content(): content element [" + str(entry['content'][index][0]) + \
