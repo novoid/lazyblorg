@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2014-08-09 15:28:22 vk>
+# Time-stamp: <2014-08-10 10:38:59 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -286,6 +286,7 @@ destination folder for new digicam files: </code>$HOME/tmp/digicam/tmp/~.
 :END:
 :PROPERTIES:
 :CREATED:  [2014-02-01 Sat 15:25]
+:ID: 2014-08-10-lb-lists-implementation
 :END:
 
 A starting line which is not part of the list:
@@ -299,6 +300,17 @@ A starting line which is not part of the list:
   - second again
 - first again
 Not a list any more.
+
+** NEXT fix lists in my current blog entries                     :userstory:
+SCHEDULED: <2014-08-10 Sun>
+:PROPERTIES:
+:CREATED:  [2014-08-10 Sun 10:38]
+:BLOCKER: 2014-08-10-lb-lists-implementation
+:END:
+
+- id:apps-I-am-using
+- id:2012-04-15-mobile-usage-pattern
+- id:2012-12-23-todo-with-orgmode
 
 ** NEXT create sidebar                                           :userstory:
 :PROPERTIES:
@@ -532,7 +544,18 @@ like monthly overview but only for the day
 ** NEXT parse/htmlize: tables                                    :userstory:
 :PROPERTIES:
 :CREATED:  [2014-02-01 Sat 15:25]
+:ID: 2014-08-10-implement-lb-tables
 :END:
+
+** NEXT fix tables in my current blog entries                     :userstory:
+SCHEDULED: <2014-08-10 Sun>
+:PROPERTIES:
+:CREATED:  [2014-08-10 Sun 10:37]
+:BLOCKER: 2014-08-10-implement-lb-tables
+:END:
+
+- id:2014-05-09-managing-digital-photographs
+- id:apps-I-am-using
 
 ** NEXT htmlizer: generate more Org-mode elements             :architecture:
 :PROPERTIES:
