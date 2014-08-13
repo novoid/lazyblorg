@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-08-10 18:36:52 vk>
+# Time-stamp: <2014-08-13 19:28:22 vk>
 
 import config  ## lazyblorg-global settings
 import logging
@@ -259,10 +259,9 @@ class Htmlizer(object):
                 continue
 
             ## filling feed entry string:
-            feedentry = u"""  <entry>
+            feedentry = u"""<entry>
     <title>""" + blog_data_entry['title'] + """</title>
     <link href='""" + config.BASE_URL + "/" + listentry['url'] + """' />
-    <id>""" + config.BASE_URL + "/" + listentry['url'] + """</id>
     <published>""" + self._get_oldest_timestamp_for_entry(blog_data_entry)[0].strftime('%Y-%m-%dT%H:%M:%S' + config.TIME_ZONE_ADDON) + """</published>
     <updated>""" + self._get_newest_timestamp_for_entry(blog_data_entry)[0].strftime('%Y-%m-%dT%H:%M:%S' + config.TIME_ZONE_ADDON) + "</updated>\n"
 
@@ -273,21 +272,24 @@ class Htmlizer(object):
                 ## FIXXME: handle autotags
 
             ## add summary:
-            feedentry += "    <summary type='xhtml'>\n <div xmlns='http://www.w3.org/1999/xhtml'>"
+            feedentry += "    <summary type='xhtml'>\n<div xmlns='http://www.w3.org/1999/xhtml'>"
             if blog_data_entry['htmlteaser-equals-content']:
                 feedentry += '\n'.join(blog_data_entry['content'])
             else:
                 feedentry += '\n'.join(blog_data_entry['htmlteaser'])
-            feedentry += "</div>\n </summary>"
+            feedentry += "</div>\n    </summary>"
 
-            links_atom_feed += feedentry + "\n  </entry>\n\n"
+            ## add content to content-feed OR end entry for links-feed:
+            links_atom_feed += feedentry + "\n    <id>" + \
+                               config.BASE_URL + "/" + listentry['url'] + u"-from-feed-with-links" + \
+                               "</id>\n  </entry>\n\n"
             content_atom_feed += feedentry + """    <content type='xhtml'>
       <div xmlns='http://www.w3.org/1999/xhtml'>
 	""" + '\n'.join(blog_data_entry['content']) + """
       </div>
     </content>
-  </entry>\n
-"""
+    <id>""" + config.BASE_URL + "/" + listentry['url'] + u"-from-feed-with-content" + \
+        "</id>\n  </entry>\n"
 
             number_of_current_feed_entries += 1
             
