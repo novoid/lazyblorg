@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2014-04-18 18:01:02 vk>
+## Time-stamp: <2014-09-21 20:04:38 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -242,9 +242,9 @@ documentation, ...).
 
 Already accomplished:
 - develop lazyblorg to be able to replace my current web page and its blog.
+- ATOM/RSS
 
 Next:
-- ATOM/RSS
 - tag-pages
 - Auto-tags
 - overview pages (monthly, yearly)
@@ -268,14 +268,12 @@ Yes, please do read [[https://github.com/novoid/lazyblorg/blob/master/dev/lazybl
 - output files: static HTML5, CSS3
 *** Isn't this quite slow?
 
-As with 2014-03-09, the parser and htmlizer is performing pretty well
+As with 2014-09-21, the parser and htmlizer is performing pretty well
 in my opinion. When I re-generate [[http://karl-voit.at][my whole blog]], I currently get this
 summary output:
 
-#+BEGIN_VERSE
-Parsed 27 Org-mode files with 274209 lines (in 4.60 seconds)
-Generated 30 articles: 1 persistent, 28 temporal, 0 tag, 1 entry page (in 0.13 seconds)
-#+END_VERSE
+: Parsed 27 Org-mode files with 323327 lines (in 5.99 seconds)
+: Generated 61 articles: 8 persistent, 52 temporal, 0 tag, 1 entry page (in 0.30 seconds)
 
 *** Can I use the Org-mode parser (in Python) for other purposes as well? 
 
@@ -324,9 +322,9 @@ This is a list of the most important dependencies:
   - I installed it on Debian GNU/Linux with ~apt-get install python-werkzeug~
 - pickle
   - object serialization
-  - most likely: should be part of you Python distribution
+  - most likely: should be part of your Python distribution
 
-All other libraries should be part of any Python distribution.
+All other libraries should be part of a standard Python distribution.
 
 ** How to Start
 
@@ -348,15 +346,16 @@ All other libraries should be part of any Python distribution.
 4. get yourself an overview on *what defines a lazyblorg blog post* and
    write your own blog posts
    1. A (direct) tag has to be ~blog~
-      - Sorry, no tag inheritance (yet)
-   2. You have to add an ~:ID:~ property
+      - Sorry, no tag inheritance. Every blog entry has to be
+        explicitely tagged.
+   2. You have to add an unique ~:ID:~ property
    3. The entry has to be marked with ~DONE~
    4. A ~:LOGBOOK:~ entry has to be found with the time-stamp of
       setting the entry to ~DONE~
       - in [[https://github.com/novoid/dot-emacs][my set-up]], this is created automatically
    5. Do not use Org-mode elements that lazyblorg does not understand
       - you should not get a disaster if you are using new
-        elements. Only the result might be disappointing.
+        elements. The result might disappoint you, that's all.
 
 5. OPTIONAL: write your own CSS file
    - you can [[http://Karl-Voit.at/public_voit.css][take a look on mine]] if you do not care that I am not
@@ -387,7 +386,7 @@ All other libraries should be part of any Python distribution.
      4. executing [[http://www.cis.upenn.edu/~bcpierce/unison/][unison]]
         - in order to transfer my local copy of my web space data to
           my public web space
-   - This method has the advantage, that generating (executing
+   - This method has the advantage that generating (executing
      ~lazyblorg~) and publishing (executing ~unison~) are separate
      steps. This way, I can locally re-generate the blog (for testing
      purposes) as often I want to. However, as long as I do not sync
