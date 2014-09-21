@@ -1,4 +1,27 @@
  #!/bin/zsh
+
+warn_and_exit()
+{
+    cat <<EOF
+
+This script provides a quick preview of the current blog entry in your
+local browser.
+
+You have to adopt this script to your settings (paths, synchronization
+tool) in order to run properly.
+
+Therefore, I stop here until you modified this script to meet your
+requirements.
+
+EOF
+    exit 1
+    }
+
+## check for host name and show warning when not my own host:
+[ "x${HOSTNAME}" = "xgary" ] || warn_and_exit
+
+
+
 cd ~/src/lazyblorg
 rm -rf testdata/2del/*
 mkdir testdata/2del/blog
