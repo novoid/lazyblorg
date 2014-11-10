@@ -1,11 +1,23 @@
 /*  ------------------------------------------
  *  Generic stuff
  *  ------------------------------------------ */
+
 /* http://html-color-codes.info/ */
-/* replacing #555 */
+
+$white: #fff;
+$verylightgrey: #f9f9f9;
+$lightgrey: #e0e0e0; 
+$grey: #7e7e7e; /* replacing #555 */
+$darkgrey: #252525;
+
+$darkblue: #2222ff;
+$darkaquablue: #004977;
+
+$lightyellow: #fffff0;
+
 body {
-  background: #fffff0;
-  color: #252525;
+  background: $lightyellow;
+  color: $darkgrey;
   /* font-family:Trebuchet MS,Verdana,Helvetica,sans-serif; */
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif; }
 
@@ -21,7 +33,7 @@ a {
   float: right; }
 
 .section-title {
-  color: #252525;
+  color: $darkgrey;
   margin-left: 1em; }
 
 .orgmode-hr {
@@ -29,29 +41,29 @@ a {
 
 blockquote {
   /* http://tympanus.net/codrops/2012/07/25/modern-block-quote-styles/ */
-  background: white;
+  background: $white;
   padding: 1em;
   border-radius: 1em;
-  box-shadow: inset 0 2px 0 rgba(188, 147, 200, 0.7), -5px -4px 25px rgba(0, 0, 0, 0.3); }
-  blockquote:before {
+  box-shadow: inset 0 2px 0 rgba(188, 147, 200, 0.7), -5px -4px 25px rgba(0, 0, 0, 0.3);
+  &:before {
     /* http://text.jpatch.net/2010/09/css2-no-image-quotation-marks-in-blockquotes/ */
     content: '\201C';
     margin: 1em -0.15em 1em -0.15em;
     /*color:#33a8e5;*/
-    color: #e0e0e0;
+    color: $lightgrey;
     /* light-gray */
     padding: 0.15em -0.5em -0.5em -0.5em;
     font-size: 60px;
     line-height: 12px;
     vertical-align: middle;
     font-weight: bold;
-    font-family: Arial, Helvetica, sans-serif; }
+    font-family: Arial, Helvetica, sans-serif; } }
 
 .example_code {
   width: auto;
-  background-color: white;
+  background-color: $white;
   padding: 5px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid $lightgrey;
   font-size: 14px;
   font-family: courier new; }
 
@@ -61,7 +73,7 @@ blockquote {
   margin-right: auto;
   padding-top: 7em;
   text-align: center;
-  color: #252525;
+  color: $darkgrey;
   font-size: 80%; }
 
 .published-on {
@@ -77,7 +89,7 @@ footer {
   padding: 0.1em;
   border-radius: 1em;
   box-shadow: inset 0 2px 0 rgba(188, 147, 200, 0.7), -5px -4px 25px rgba(0, 0, 0, 0.3);
-  background: #f9f9f9;
+  background: $verylightgrey;
   text-align: center;
   color: gray;
   font-size: 80%;
@@ -96,18 +108,20 @@ footer {
 /*  ------------------------------------------
  *  Permanent page
  *  ------------------------------------------ */
+
 .persistent-body {
   margin-left: auto;
   margin-right: auto;
   max-width: 40em;
-  padding-top: 2em; }
-  .persistent-body h1 {
+  padding-top: 2em;
+  h1 {
     font-size: 100%;
-    color: black; }
+    color: black; } }
 
 /*  ------------------------------------------
  *  Permanent page > Entry page
  *  ------------------------------------------ */
+
 .entry-page-article {
   padding: 0.5em;
   margin-bottom: 1.5em;
@@ -118,6 +132,7 @@ footer {
 /*  ------------------------------------------
  *  Article
  *  ------------------------------------------ */
+
 .article-orgsource {
   float: right;
   font-size: 120%;
@@ -127,7 +142,7 @@ footer {
   padding: 1em;
   border-radius: 1em;
   box-shadow: inset 0 2px 0 rgba(188, 147, 200, 0.7), -5px -4px 25px rgba(0, 0, 0, 0.3);
-  background: #f9f9f9;
+  background: $verylightgrey;
   margin-bottom: 20px;
   margin-left: -2em; }
 
@@ -142,20 +157,21 @@ footer {
   padding-top: 2em; }
 
 /* happily stolen from http://cssglobe.com/pure-css3-post-tags/ */
+
 .tags {
   margin: 0;
   padding: 0;
   margin-top: 1em;
   margin-right: -2em;
   float: right;
-  list-style: none; }
-  .tags li {
+  list-style: none;
+  li {
     float: left;
     height: 24px;
     line-height: 24px;
     position: relative;
     font-size: 13px; }
-  .tags a {
+  a {
     float: left;
     height: 24px;
     line-height: 24px;
@@ -164,16 +180,16 @@ footer {
     margin-left: 20px;
     padding: 0 10px 0 12px;
     ORIGINALbackground: #0089e0;
-    background: #2222ff;
-    color: white;
+    background: $darkblue;
+    color: $white;
     text-decoration: none;
     -moz-border-radius-bottomright: 4px;
     -webkit-border-bottom-right-radius: 4px;
     border-bottom-right-radius: 4px;
     -moz-border-radius-topright: 4px;
     -webkit-border-top-right-radius: 4px;
-    border-top-right-radius: 4px; }
-    .tags a:before {
+    border-top-right-radius: 4px;
+    &:before {
       content: "";
       float: left;
       position: absolute;
@@ -182,10 +198,10 @@ footer {
       width: 0;
       height: 0;
       ORIGINALborder-color: transparent #0089e0 transparent transparent;
-      border-color: transparent #2222ff transparent transparent;
+      border-color: transparent $darkblue transparent transparent;
       border-style: solid;
       border-width: 12px 12px 12px 0; }
-    .tags a:after {
+    &:after {
       content: "";
       position: absolute;
       top: 10px;
@@ -196,11 +212,11 @@ footer {
       -moz-border-radius: 2px;
       -webkit-border-radius: 2px;
       border-radius: 2px;
-      background: white;
-      -moz-box-shadow: -1px -1px 2px #004977;
-      -webkit-box-shadow: -1px -1px 2px #004977;
-      box-shadow: -1px -1px 2px #004977; }
-    .tags a:hover {
-      background: #7e7e7e; }
-      .tags a:hover:before {
-        border-color: transparent #7e7e7e transparent transparent; }
+      background: $white;
+      -moz-box-shadow: -1px -1px 2px $darkaquablue;
+      -webkit-box-shadow: -1px -1px 2px $darkaquablue;
+      box-shadow: -1px -1px 2px $darkaquablue; }
+    &:hover {
+      background: $grey;
+      &:before {
+        border-color: transparent $grey transparent transparent; } } } }

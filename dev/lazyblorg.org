@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2014-08-10 18:33:20 vk>
+# Time-stamp: <2014-11-10 15:21:58 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -232,6 +232,99 @@ CLOSED: [2014-03-01 Sat 20:10]
 :PROPERTIES:
 :CREATED:  [2014-08-10 Sun 18:32]
 :END:
+** NEXT paper sketch: sidebar                                                            :userstory:
+SCHEDULED: <2014-11-10 Mon>
+:PROPERTIES:
+:CREATED:  [2014-11-01 Sat 11:53]
+:END:
+:LOGBOOK:
+- Rescheduled from "<2014-11-08 Sat>" on [2014-11-09 Sun 17:27]
+- Rescheduled from "<2014-10-31 Fri>" on [2014-11-01 Sat 11:53]
+- Rescheduled from "2014-09-23 Tue" on [2014-10-24 Fri 15:24]
+:END:
+:PROPERTIES:
+:CREATED:  [2014-09-21 Sun 12:32]
+:END:
+
+- example: http://blog.coderscabal.org/
+
+** NEXT create sidebar                                           :userstory:
+:PROPERTIES:
+:CREATED:  [2014-05-11 Sun 18:00]
+:END:
+
+- example: http://blog.coderscabal.org/
+  - http://blog.coderscabal.org/wp-content/themes/messdesk/style.css
+#+BEGIN_EXAMPLE
+#sidebar	{
+	float: right;
+	width: 300px;
+	padding: 0px 50px 0px 0px;
+	}
+
+#sidebar ul, #sidebar ul ol {
+	margin: 0;
+	padding: 0;
+	}
+
+#sidebar ul li {
+	list-style-type: none;
+	list-style-image: none;
+	margin: 0px 0px 25px 0px;
+	padding: 0px 0px 10px 0px;
+	background-image: url(images/bg_sidebar_bottom.png);
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	float: left;
+	}
+
+#sidebar ul p, #sidebar ul select {
+	margin: 5px 0 8px;
+	
+	}
+
+#sidebar ul ul, #sidebar ul ol {
+	margin: 0px;
+	background-image: url(images/bg_sidebar_ul.jpg);
+	background-repeat: repeat-y;
+	background-position: right top;
+	padding: 0px 0px 0px 45px;
+	float: left;
+	}
+
+#sidebar ul ul ul, #sidebar ul ol {
+	margin: 0 0 0 10px;
+	}
+
+ol li, #sidebar ul ol li {
+	list-style: decimal outside;
+	}
+
+#sidebar ul ul li, #sidebar ul ol li {
+	margin: 0px;
+	padding: 8px 0px;
+	background-image: url(images/bg_sidebar_li.jpg);
+	background-repeat: no-repeat;
+	background-position: left top;
+	float: left;
+	width: 255px;
+	}
+#sidebar ul li ul li ul {
+	margin: 0px;
+	padding: 0px;
+	float: left;
+background-image: none;
+	}
+
+#sidebar ul li ul li ul li {
+	margin: 0px;
+	padding: 8px 0px 0px 10px;
+	float: left;
+	width: 225px;
+background-image: none;
+	}
+
+#+END_EXAMPLE
 ** NEXT fix: ~-escaping                                                :bug:
 :PROPERTIES:
 :CREATED:  [2014-06-22 Sun 18:32]
@@ -254,6 +347,8 @@ Using <a href="https://github.com/novoid/date2name">date2name</a> I add time-sta
 also to the movie files. After processing all those files, they get moved to the 
 destination folder for new digicam files: </code>$HOME/tmp/digicam/tmp/~.
 #+END_HTML
+
+... which is wrong
 
 ** NEXT Atom-feed mit CDATA                                   :architecture:
 :PROPERTIES:
@@ -293,6 +388,8 @@ destination folder for new digicam files: </code>$HOME/tmp/digicam/tmp/~.
 :ID: 2014-08-10-lb-lists-implementation
 :END:
 
+- http://orgmode.org/worg/dev/org-syntax.html#Plain_Lists_and_Items
+
 A starting line which is not part of the list:
 - example list
 - second line
@@ -304,6 +401,15 @@ A starting line which is not part of the list:
   - second again
 - first again
 Not a list any more.
+
+** NEXT add: --include-archived-entries                                                  :userstory:
+:PROPERTIES:
+:CREATED:  [2014-10-19 So 12:01]
+:END:
+
+- [ ] check if archived tag gets removed
+- [ ] add command line parameter for adding archived entries
+  - by default, archived entries do *not* get added to the blog
 
 ** NEXT fix lists in my current blog entries                     :userstory:
 SCHEDULED: <2014-08-10 Sun>
@@ -317,10 +423,6 @@ SCHEDULED: <2014-08-10 Sun>
 - id:2012-12-23-todo-with-orgmode
 - id:2014-08-10-other-peoples-IT-setup
 
-** NEXT create sidebar                                           :userstory:
-:PROPERTIES:
-:CREATED:  [2014-05-11 Sun 18:00]
-:END:
 ** NEXT fix tilde in URL                                               :bug:
 :PROPERTIES:
 :CREATED:  [2014-03-30 Sun 14:55]
@@ -561,6 +663,8 @@ SCHEDULED: <2014-08-10 Sun>
 :ID: 2014-08-10-implement-lb-tables
 :END:
 
+- http://orgmode.org/worg/dev/org-syntax.html#Tables
+
 ** NEXT fix tables in my current blog entries                     :userstory:
 SCHEDULED: <2014-08-10 Sun>
 :PROPERTIES:
@@ -608,13 +712,6 @@ SCHEDULED: <2014-08-10 Sun>
 :PROPERTIES:
 :CREATED:  [2014-01-31 Fri 23:56]
 :END:
-** NEXT [#C] take a look at SASS -> CSS                       :architecture:
-:LOGBOOK:
-- Not scheduled, was "2013-09-16 Mon" on [2013-09-23 Mon 18:37]
-:END:
-:PROPERTIES:
-:CREATED: [2013-09-13 Fri 14:06]
-:END:
 ** NEXT [#C] research: Python Jinja as template system        :architecture:
 :PROPERTIES:
 :CREATED:  [2013-09-05 Thu 17:00]
@@ -625,6 +722,11 @@ SCHEDULED: <2014-08-10 Sun>
 :END:
 
 - htmlizer.py -> "## FIXXME: replace pre with suitable source code environment!"
+** NEXT add "read more articles with tag FOOBAR" to bottom                                :userstory:
+:PROPERTIES:
+:CREATED:  [2014-10-25 Sat 21:56]
+:END:
+[2014-10-25 Sa. 09:22]
 ** TODO ID of sub-headings get stored and processed to anchors   :userstory:
 :PROPERTIES:
 :CREATED:  [2014-02-09 Sun 10:28]
@@ -958,6 +1060,15 @@ For optimizing performance and RAM usage: use *two parsing processes*:
 - not much of a performance difference
 - only a nice-to-have
 
+** SOMEDAY implement bookmark RSS in lazyblorg
+:LOGBOOK:
+- State "SOMEDAY"    from ""           [2014-01-20 Mon 19:33]
+:END:
+:PROPERTIES:
+:CREATED:  [2014-01-20 Mon 19:33]
+:END:
+- [ ] handle public/private tags accordingly
+- [ ] migrate delicious private field to private tag
 * Notes                                                               :notes:
 
 ** Naming this project
@@ -1010,8 +1121,9 @@ are some for "lazyblog" (without the 'r').
 :CREATED:  [2014-03-03 Mon 20:49]
 :END:
 
-- list of Org Mode elements: http://article.gmane.org/gmane.emacs.orgmode/67871
-  - will get on Worg some day!
+- http://orgmode.org/worg/dev/org-syntax.html
+  - OLD: list of Org Mode elements: http://article.gmane.org/gmane.emacs.orgmode/67871
+    - will get on Worg some day!
 
 - an Org-mode test-file (for unit testing) containing all implemented
   Org-mode syntax elements: [[https://github.com/novoid/lazyblorg/blob/master/testdata/currently_supported_orgmode_syntax.org][testdata/currently_supported_orgmode_syntax.org]]
