@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2014-11-10 15:21:58 vk>
+# Time-stamp: <2014-12-26 15:30:39 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -212,6 +212,9 @@ CLOSED: [2014-02-01 Sat 15:03]
 
 ** DONE implement method(s) to get URL of an blogdata id      :architecture:
 CLOSED: [2014-03-01 Sat 20:10]
+:PROPERTIES:
+:CREATED:  [2014-11-30 Sun 12:42]
+:END:
 :LOGBOOK:
 - State "DONE"       from "NEXT"       [2014-03-01 Sat 20:10]
 :END:
@@ -228,16 +231,31 @@ CLOSED: [2014-03-01 Sat 20:10]
 
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
+
+** NEXT add tags to front page                                                           :userstory:
+SCHEDULED: <2014-12-26 Fri>
+:PROPERTIES:
+:CREATED:  [2014-12-26 Fri 14:54]
+:END:
+** NEXT add? [[http://www.heise.de/newsticker/meldung/c-t-entwickelt-datenschutzfreundliche-Social-Media-Buttons-weiter-2466687.html][Shariff: c't entwickelt datenschutzfreundliche Social-Media-Buttons weiter]]   :userstory:
+:PROPERTIES:
+:CREATED:  [2014-11-30 Sun 12:42]
+:END:
+
+- Erklärung: http://www.heise.de/newsticker/foren/S-Re-Find-ich-schon-Re-Keine-gute-Idee/forum-288901/msg-26149283/read/
+  - http://www.heise.de/ct/ausgabe/2014-26-Social-Media-Buttons-datenschutzkonform-nutzen-2463330.html
+- https://github.com/heiseonline/shariff
 ** NEXT CSS: blocks like src: remove lines from right/top/bottom & add color gradient to right :wish:
 :PROPERTIES:
 :CREATED:  [2014-08-10 Sun 18:32]
 :END:
-** NEXT paper sketch: sidebar                                                            :userstory:
-SCHEDULED: <2014-11-10 Mon>
+** NEXT [#A] (paper?) sketch: sidebar                                                     :userstory:
+SCHEDULED: <2014-12-26 Fri>
 :PROPERTIES:
 :CREATED:  [2014-11-01 Sat 11:53]
 :END:
 :LOGBOOK:
+- Rescheduled from "<2014-11-30 Sun>" on [2014-12-01 Mon 22:03]
 - Rescheduled from "<2014-11-08 Sat>" on [2014-11-09 Sun 17:27]
 - Rescheduled from "<2014-10-31 Fri>" on [2014-11-01 Sat 11:53]
 - Rescheduled from "2014-09-23 Tue" on [2014-10-24 Fri 15:24]
@@ -246,7 +264,22 @@ SCHEDULED: <2014-11-10 Mon>
 :CREATED:  [2014-09-21 Sun 12:32]
 :END:
 
-- example: http://blog.coderscabal.org/
+- examples:
+  - http://blog.coderscabal.org/
+  - http://semantic-ui.com/modules/sidebar.html
+
+|                                       |                                  |
+| public voit (the content of the page) |                                  |
+|                                       | Archive                          |
+|                                       | Recent articles                  |
+|                                       | Search via DuckDuckGo            |
+|---------------------------------------+----------------------------------|
+|                                       | About this blog                  |
+|                                       | How to use this blog efficiently |
+|---------------------------------------+----------------------------------|
+|                                       | Follow/subscribe links           |
+|                                       | Follow/subscribe content         |
+|                                       |                                  |
 
 ** NEXT create sidebar                                           :userstory:
 :PROPERTIES:
@@ -325,6 +358,7 @@ background-image: none;
 	}
 
 #+END_EXAMPLE
+
 ** NEXT fix: ~-escaping                                                :bug:
 :PROPERTIES:
 :CREATED:  [2014-06-22 Sun 18:32]
@@ -622,7 +656,7 @@ SCHEDULED: <2014-08-10 Sun>
 
   - [ ] scaling images -> probably future feature instead of here!
     - if scaled, add its size-identifier to original file name
-      - "2014-01-29 file name.png" -> "2014-01-29 file name - scaled 42em.png"
+      - "2014-01-29 file name.png" -> "42em/2014-01-29 file name - scaled 42em.png"
       - makes it possible to use same file with different scaling
         sizes
 
