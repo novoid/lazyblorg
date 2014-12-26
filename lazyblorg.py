@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-04-20 21:57:35 vk>
+# Time-stamp: <2014-12-26 16:40:21 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -99,7 +99,7 @@ class Lazyblorg(object):
                 pickle.dump(self.blog_data, output, 0)  ## always use ASCII format: easier to debug from outside
 
         ## FIXXME: debug with: [x['id'] for x in self.blog_data]
-        
+
         ## generate persistent data which is used to compare this status
         ## with the status of the next invocation:
         self.metadata = Utils.generate_metadata_from_blogdata(self.blog_data)
@@ -108,7 +108,7 @@ class Lazyblorg(object):
         if not os.path.isdir(os.path.dirname(options.new_metadatafilename)):
             logging.debug("path of new_metadatafilename \"" + options.new_metadatafilename + "\" does not exist. Creating ...")
             os.makedirs(os.path.dirname(options.new_metadatafilename))
-        
+
         ## write this status to the persistent data file:
         with open(options.new_metadatafilename, 'wb') as output:
             pickle.dump(self.metadata, output, config.PICKLE_FORMAT)
@@ -223,7 +223,9 @@ class Lazyblorg(object):
                         u'article-tag', u'article-tags-end', u'article-header-end', u'article-end',
                         u'section-begin', u'paragraph',
                         u'ul-begin', u'ul-item', u'ul-end', u'pre-begin', u'pre-end',
-                        u'entrypage-header', u'article-preview-begin', u'article-preview-more', u'article-preview-end', u'entrypage-footer']:
+                        u'entrypage-header', u'article-preview-header', u'article-preview-begin',
+                        u'article-preview-tags-begin', u'article-preview-tag', u'article-preview-tags-end',
+                        u'article-preview-more', u'article-preview-end', u'entrypage-footer']:
             if not element in found_elements:
                 message = "Sorry, no definition for element \"" + element + "\" could be found within " + \
                     "the template definition file. " + \
@@ -476,7 +478,7 @@ if __name__ == "__main__":
                      str(stats_generated_temporal) + " temporal, " + \
                      str(stats_generated_tags) + " tag" + \
                      ", 1 entry page (in %.2f seconds)" % (time_after_htmlizing - time_after_parsing))
-        
+
         logging.debug("-------------> cleaning up the stage ...")
 
         logging.debug("successfully finished.")

@@ -1,4 +1,4 @@
-## Time-stamp: <2014-08-10 18:25:22 vk>
+## Time-stamp: <2014-12-26 17:00:06 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -50,7 +50,10 @@ id:implemented-org-elements in [[file:../dev/lazyblorg.org]]
 
 Have fun with modifying lazyblorg to your requirements!
 
-* DONE Templates :lb_templates:blog:
+* DONE Templates                                                                  :lb_templates:blog:
+:PROPERTIES:
+:CREATED:  [2014-12-26 Fri 16:09]
+:END:
 :LOGBOOK:
 - State "DONE"       from "DONE"       [2013-08-21 Wed 17:50]
 :END:
@@ -229,7 +232,6 @@ With name/label:
 
 *** Entry Page
 
-
 **** Header
 
 - #BLOGNAME#: short name of the blog
@@ -295,16 +297,43 @@ With name/label:
 - #ARTICLE-MONTH#: two digit month of the article (folder path)
 - #ARTICLE-DAY#: two digit day of the article (folder path)
 - #ARTICLE-PUBLISHED-HTML-DATETIME#: time-stamp of publishing in HTML
-  date-time format (e.g., 2011-10-30T15:00+02:00)
+  date-time format (e.g., ~2011-10-30T15:00+02:00~)
 - #ARTICLE-PUBLISHED-HUMAN-READABLE#: time-stamp of publishing in
-  human readable format (e.g., 2011-10-30T15:00)
+  human readable format (e.g., ~2011-10-30T15:00~)
 - #ARTICLE-TEASER#: First lines up to the first heading or <hr>-element
 
-#+NAME: article-preview-begin
+#+NAME: article-preview-header
 #+BEGIN_HTML
 
 
 <article class="entry-page-article"> 
+#+END_HTML
+
+#+NAME: article-preview-tags-begin
+#+BEGIN_HTML
+
+	  <aside>
+	    <ul class="entry-page-article-tags">
+#+END_HTML
+
+- #TAGNAME#: string of a tag
+
+#+NAME: article-preview-tag
+#+BEGIN_HTML
+	      <!-- span class="tag">#TAGNAME#</span>&nbsp;-->
+        <li><a href="#">#TAGNAME#</a></li>
+#+END_HTML
+
+#+NAME: article-preview-tags-end
+#+BEGIN_HTML
+
+	    </ul>
+	  </aside>
+#+END_HTML
+
+
+#+NAME: article-preview-begin
+#+BEGIN_HTML
 
 <h1><a href="#ARTICLE-URL#">#ARTICLE-YEAR#-#ARTICLE-MONTH#-#ARTICLE-DAY#: #ARTICLE-TITLE#</a></h1>
 
@@ -617,9 +646,10 @@ With name/label:
 #+END_HTML
 
 
-** Tag
+** Tags
 
 FIXXME
+
 ** Day Overview
 
 FIXXME
@@ -718,7 +748,10 @@ FIXXME
 
 FIXXME
 
-* Local Variables :noexport:
+* Local Variables                                                                          :noexport:
+:PROPERTIES:
+:CREATED:  [2014-12-26 Fri 16:09]
+:END:
 # Local Variables:
 # mode: auto-fill
 # mode: flyspell

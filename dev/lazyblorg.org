@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2014-12-26 15:30:39 vk>
+# Time-stamp: <2014-12-26 23:16:28 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -232,11 +232,6 @@ CLOSED: [2014-03-01 Sat 20:10]
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
 
-** NEXT add tags to front page                                                           :userstory:
-SCHEDULED: <2014-12-26 Fri>
-:PROPERTIES:
-:CREATED:  [2014-12-26 Fri 14:54]
-:END:
 ** NEXT add? [[http://www.heise.de/newsticker/meldung/c-t-entwickelt-datenschutzfreundliche-Social-Media-Buttons-weiter-2466687.html][Shariff: c't entwickelt datenschutzfreundliche Social-Media-Buttons weiter]]   :userstory:
 :PROPERTIES:
 :CREATED:  [2014-11-30 Sun 12:42]

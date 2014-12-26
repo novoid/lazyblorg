@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-08-13 19:28:22 vk>
+# Time-stamp: <2014-12-26 16:32:19 vk>
 
 import config  ## lazyblorg-global settings
 import logging
@@ -361,7 +361,19 @@ class Htmlizer(object):
 
             if entry['category'] == 'TEMPORAL' or entry['category'] == 'PERSISTENT':
 
-                content = self.template_definition_by_name('article-preview-begin')
+                content = u""
+
+                for articlepart in ['article-preview-header', 'article-preview-tags-begin']:
+                    content += self.template_definition_by_name(articlepart)
+
+                ## tags of article
+                content += self._replace_tag_placeholders(entry['usertags'],
+                                                          self.template_definition_by_name('article-preview-tag'))
+                ## FIXXME: handle autotags
+                    
+                for articlepart in ['article-preview-tags-end', 'article-preview-begin']:
+                    content += self.template_definition_by_name(articlepart)
+
                 assert('htmlteaser-equals-content' in entry.keys())
 
                 if not entry['htmlteaser-equals-content']:
