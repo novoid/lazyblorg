@@ -2063,3 +2063,155 @@ CLOSED: [2014-12-26 Fri 23:16] SCHEDULED: <2014-12-26 Fri>
 :ARCHIVE_ITAGS: issues
 :END:
 - State "DONE"       from "NEXT"       [2014-12-26 Fri 23:16]
+
+** DONE duck duck go site search in sidebar                                              :userstory:
+CLOSED: [2014-12-27 Sat 21:55]
+:PROPERTIES:
+:CREATED:  [2014-05-03 Sat 15:57]
+:ARCHIVE_TIME: 2014-12-27 Sat 21:55
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: issues
+:END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-12-27 Sat 21:55]
+:END:
+[2014-05-01 Do. 08:35]
+
+- https://duckduckgo.com/search_box
+
+#+BEGIN_HTML
+<iframe src="http://duckduckgo.com/search.html?width=200&site=karl-voit.at&prefill=Search Public Voit" style="overflow:hidden;margin:0;padding:0;width:258px;height:40px;" frameborder="0"></iframe>
+#+END_HTML
+
+- http://hardik.org/2013/06/01/stylising-duckduckgo-site-search/
+
+** DONE [#A] (paper?) sketch: sidebar                                                    :userstory:
+CLOSED: [2014-12-27 Sat 18:03] SCHEDULED: <2014-12-27 Sat>
+:PROPERTIES:
+:CREATED:  [2014-11-01 Sat 11:53]
+:ARCHIVE_TIME: 2014-12-27 Sat 21:55
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: issues
+:END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-12-27 Sat 18:03]
+- Rescheduled from "<2014-11-30 Sun>" on [2014-12-01 Mon 22:03]
+- Rescheduled from "<2014-11-08 Sat>" on [2014-11-09 Sun 17:27]
+- Rescheduled from "<2014-10-31 Fri>" on [2014-11-01 Sat 11:53]
+- Rescheduled from "2014-09-23 Tue" on [2014-10-24 Fri 15:24]
+:END:
+:PROPERTIES:
+:CREATED:  [2014-09-21 Sun 12:32]
+:END:
+
+- examples:
+  - http://blog.coderscabal.org/
+  - http://semantic-ui.com/modules/sidebar.html
+
+|                                       |                                  |
+| public voit (the content of the page) |                                  |
+|                                       | Archive                          |
+|                                       | Recent articles                  |
+|                                       | Search via DuckDuckGo            |
+|---------------------------------------+----------------------------------|
+|                                       | About this blog                  |
+|                                       | How to use this blog efficiently |
+|---------------------------------------+----------------------------------|
+|                                       | Follow/subscribe links           |
+|                                       | Follow/subscribe content         |
+|                                       |                                  |
+
+** DONE create sidebar                                                                   :userstory:
+CLOSED: [2014-12-27 Sat 21:55]
+:PROPERTIES:
+:CREATED:  [2014-05-11 Sun 18:00]
+:ARCHIVE_TIME: 2014-12-27 Sat 21:55
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: issues
+:END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-12-27 Sat 21:55]
+:END:
+
+- example: http://blog.coderscabal.org/
+  - http://blog.coderscabal.org/wp-content/themes/messdesk/style.css
+#+BEGIN_EXAMPLE
+#sidebar	{
+	float: right;
+	width: 300px;
+	padding: 0px 50px 0px 0px;
+	}
+
+#sidebar ul, #sidebar ul ol {
+	margin: 0;
+	padding: 0;
+	}
+
+#sidebar ul li {
+	list-style-type: none;
+	list-style-image: none;
+	margin: 0px 0px 25px 0px;
+	padding: 0px 0px 10px 0px;
+	background-image: url(images/bg_sidebar_bottom.png);
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	float: left;
+	}
+
+#sidebar ul p, #sidebar ul select {
+	margin: 5px 0 8px;
+	
+	}
+
+#sidebar ul ul, #sidebar ul ol {
+	margin: 0px;
+	background-image: url(images/bg_sidebar_ul.jpg);
+	background-repeat: repeat-y;
+	background-position: right top;
+	padding: 0px 0px 0px 45px;
+	float: left;
+	}
+
+#sidebar ul ul ul, #sidebar ul ol {
+	margin: 0 0 0 10px;
+	}
+
+ol li, #sidebar ul ol li {
+	list-style: decimal outside;
+	}
+
+#sidebar ul ul li, #sidebar ul ol li {
+	margin: 0px;
+	padding: 8px 0px;
+	background-image: url(images/bg_sidebar_li.jpg);
+	background-repeat: no-repeat;
+	background-position: left top;
+	float: left;
+	width: 255px;
+	}
+#sidebar ul li ul li ul {
+	margin: 0px;
+	padding: 0px;
+	float: left;
+background-image: none;
+	}
+
+#sidebar ul li ul li ul li {
+	margin: 0px;
+	padding: 8px 0px 0px 10px;
+	float: left;
+	width: 225px;
+background-image: none;
+	}
+
+#+END_EXAMPLE
+
