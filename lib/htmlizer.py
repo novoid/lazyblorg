@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-12-26 16:32:19 vk>
+# Time-stamp: <2014-12-29 20:21:55 vk>
 
 import config  ## lazyblorg-global settings
 import logging
@@ -420,6 +420,7 @@ class Htmlizer(object):
 
         htmlcontent = htmlcontent.replace('#ABOUT-BLOG#', self.sanitize_external_links(self.sanitize_html_characters(self.about_blog)))
         htmlcontent = htmlcontent.replace('#BLOGNAME#', self.sanitize_external_links(self.sanitize_html_characters(self.blogname)))
+        htmlcontent = htmlcontent.replace('#COMMON-SIDEBAR#', self.template_definition_by_name('common-sidebar'))
         htmlcontent = self.sanitize_internal_links(config.ENTRYPAGE, htmlcontent)
         self.write_content_to_file(entry_page_filename, htmlcontent)
 
@@ -960,6 +961,7 @@ class Htmlizer(object):
         - #ARTICLE-DAY#: two digit day of the article (folder path)
         - #ARTICLE-PUBLISHED-HTML-DATETIME#: time-stamp of publishing in HTML date-time format
         - #ARTICLE-PUBLISHED-HUMAN-READABLE#: time-stamp of publishing in
+        - #COMMON-SIDEBAR#: the side-bar which is shared on all pages
 
         This method replaces all placeholders from above with their
         blog article content.
@@ -984,6 +986,7 @@ class Htmlizer(object):
         content = content.replace('#ARTICLE-DAY#', day)
         content = content.replace('#ARTICLE-PUBLISHED-HTML-DATETIME#', iso_timestamp + config.TIME_ZONE_ADDON)
         content = content.replace('#ARTICLE-PUBLISHED-HUMAN-READABLE#', iso_timestamp)
+        content = content.replace('#COMMON-SIDEBAR#', self.template_definition_by_name('common-sidebar'))
 
         return content
 

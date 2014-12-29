@@ -1,4 +1,4 @@
-## Time-stamp: <2014-12-29 18:27:22 vk>
+## Time-stamp: <2014-12-29 20:24:23 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -64,6 +64,28 @@ Have fun with modifying lazyblorg to your requirements!
 
 ** General elements
 
+*** Sidebar
+
+#+NAME: common-sidebar
+#+BEGIN_HTML
+
+  <div class="sidebar">
+     <div class="search">
+       <iframe src="http://duckduckgo.com/search.html?width=140&site=karl-voit.at&prefill=Search blog" frameborder="0"></iframe><br/>
+     </div>
+     <ul>
+     <li>TBD: Archive</li>
+     <li><a href="/">Recent articles</a></li>
+     <li>[[id:2014-03-09-about][About this blog]]</li>
+     <li>TBD: How to use this blog efficiently</li>
+     <li><a href="http://karl-voit.at/feeds/lazyblorg-all.atom_1.0.links-only.xml">Follow/subscribe links</a></li>
+     <li><a href="http://karl-voit.at/feeds/lazyblorg-all.atom_1.0.links-and-content.xml">Follow/subscribe content</a></li>
+     <li>TBD: Per Tag Feeds</li>
+     </ul>
+  </div>
+
+#+END_HTML
+
 *** Sections
 
 - #SECTION-TITLE#: title of the next heading/section
@@ -75,7 +97,6 @@ Have fun with modifying lazyblorg to your requirements!
 	  <header><h#SECTION-LEVEL# class="section-title">#SECTION-TITLE#</h#SECTION-LEVEL#></header>
 
 #+END_HTML
-
 *** Paragraph
 
 - #PAR-CONTENT#
@@ -236,6 +257,8 @@ With name/label:
 
 - #BLOGNAME#: short name of the blog
 - #ABOUT-BLOG#: a line of text which describes the blog in general
+- #COMMON-SIDEBAR# : the sidebar conentent which is shared on all pages
+
 
 #+NAME: entrypage-header
 #+BEGIN_HTML
@@ -253,7 +276,7 @@ With name/label:
 
   <header class="persistent-header">
 
-      <nav class="article-header-nav">
+      <nav class="entrypage-article-header-nav">
         <span class="breadcrumbs">
           <img src="http://karl-voit.at/images/public-voit_logo.svg" alt="public voit logo" width="350" style="vertical-align:middle;"><span style="padding-top:1em;">
         </span>
@@ -261,20 +284,7 @@ With name/label:
     
   </header>
 
-  <div class="entry-page-sidebar">
-     <div class="search">
-       <iframe src="http://duckduckgo.com/search.html?width=140&site=karl-voit.at&prefill=Search blog" frameborder="0"></iframe><br/>
-     </div>
-     <ul>
-     <li>TBD: Archive</li>
-     <li><a href="/">Recent articles</a></li>
-     <li>[[id:2014-03-09-about][About this blog]]</li>
-     <li>TBD: How to use this blog efficiently</li>
-     <li><a href="http://karl-voit.at/feeds/lazyblorg-all.atom_1.0.links-only.xml">Follow/subscribe links</a></li>
-     <li><a href="http://karl-voit.at/feeds/lazyblorg-all.atom_1.0.links-and-content.xml">Follow/subscribe content</a></li>
-     <li>TBD: Per Tag Feeds</li>
-     </ul>
-  </div>
+  #COMMON-SIDEBAR#
 
   <div class="entry-page-greetings">
   <p>
@@ -419,6 +429,7 @@ With name/label:
       <title>#ARTICLE-TITLE#</title>
       
     </head>
+
 #+END_HTML
 
 **** Top of Article
@@ -431,19 +442,22 @@ With name/label:
   date-time format (e.g., 2011-10-30T15:00+02:00)
 - #ARTICLE-PUBLISHED-HUMAN-READABLE#: time-stamp of publishing in
   human readable format (e.g., 2011-10-30T15:00)
+- #COMMON-SIDEBAR# : the sidebar conentent which is shared on all pages
 
 #+NAME: persistent-header-begin
 #+BEGIN_HTML
   <body>
 
-    <div class="article-orgsource"><a href="source.org.txt">&#960;</a></div>
+    <div class="common-orgsource"><a href="source.org.txt">&#960;</a></div>
 
-    <article class="persistent-article">
+    #COMMON-SIDEBAR#
+
+    <article class="common-article">
 
 
 	<header>
 
-	  <nav class="article-header-nav">
+	  <nav class="persistent-article-header-nav">
 	    <span class="breadcrumbs">
 	      <a href="../"><img src="http://karl-voit.at/images/public-voit_logo.svg" alt="public voit logo" width="350" style="vertical-align:middle;"></a>
 	    </span>
@@ -553,19 +567,18 @@ With name/label:
   date-time format (e.g., 2011-10-30T15:00+02:00)
 - #ARTICLE-PUBLISHED-HUMAN-READABLE#: time-stamp of publishing in
   human readable format (e.g., 2011-10-30T15:00)
+- #COMMON-SIDEBAR# : the sidebar conentent which is shared on all pages
 
 #+NAME: article-header-begin
 #+BEGIN_HTML
   <body>
 
-    <div class="article-orgsource"><a href="source.org.txt">&#960;</a></div>
-
-    <article class="temporal-article">
+    <div class="common-orgsource"><a href="source.org.txt">&#960;</a></div>
 
 
 	<header>
 
-	  <nav class="article-header-nav">
+	  <nav class="temporal-article-header-nav">
 	    <span class="breadcrumbs">
 	      <a href="../../../../"><img src="http://karl-voit.at/images/public-voit_logo.svg" alt="public voit logo" width="350" style="vertical-align:middle;"></a><span style="padding-top:1em;">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;
 	      #ARTICLE-YEAR#&nbsp;&ndash;&nbsp;#ARTICLE-MONTH#&nbsp;&ndash;&nbsp;#ARTICLE-DAY#</span>
@@ -578,8 +591,8 @@ With name/label:
 
 #+NAME: article-tags-begin
 #+BEGIN_HTML
-	  <aside>
-	    <ul class="tags">
+	  <aside class="temporal-article-header-tags">
+	    <ul>
 #+END_HTML
 
 - #TAGNAME#: string of a tag
@@ -599,19 +612,21 @@ With name/label:
 #+NAME: article-header-end
 #+BEGIN_HTML
 
-	  <h1 class="article-title">#ARTICLE-TITLE#</h1>
+	  <h1 class="temporal-article-header-title">#ARTICLE-TITLE#</h1>
 
 	</header>
 
-  <div class="article-body">
+  #COMMON-SIDEBAR#
+
+  <article class="common-article">
 
 #+END_HTML
 
 #+NAME: article-end
 #+BEGIN_HTML
 
-    </div> <!-- article-body -->
-    </article>
+
+  </article>
 
 #+END_HTML
 
@@ -703,7 +718,7 @@ FIXXME
 
 	<header>
 
-	  <nav class="article-header-nav">
+	  <nav class="month-overview-header-nav">
 	    <span class="breadcrumbs">
 	      <a href="../../"><img src="http://karl-voit.at/images/public-voit_logo.svg" alt="public voit logo" width="350" style="vertical-align:middle;"></a><span style="padding-top:1em;">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;
 	      #YEAR#&nbsp;&ndash;&nbsp;#MONTH-TWODIGITNUMBER#</span>

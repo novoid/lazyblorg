@@ -15,6 +15,26 @@ $darkaquablue: #004977;
 
 $lightyellow: #fffff0;
 
+
+/*
+header {
+    @extend .middle_section_wide;
+}
+*/
+
+body {
+    background: $lightyellow;
+    color: $darkgrey;
+    /* font-family:Trebuchet MS,Verdana,Helvetica,sans-serif; */
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    padding-top: 1em;
+}
+
+a {
+    text-decoration: none;
+}
+
+
 .middle_section_narrow {
     margin-left: auto;
     margin-right: auto;
@@ -27,121 +47,7 @@ $lightyellow: #fffff0;
     max-width: 60em;
 }
 
-header {
-    @extend .middle_section_wide;
-}
-
-body {
-    background: $lightyellow;
-    color: $darkgrey;
-    /* font-family:Trebuchet MS,Verdana,Helvetica,sans-serif; */
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-}
-
-a {
-    text-decoration: none;
-}
-
-.breadcrumbs {
-    font-size: 120%;
-    font-family: Verdana, Geneva, sans-serif;
-}
-
-.section-title {
-    color: $darkgrey;
-    margin-left: 1em;
-}
-
-.orgmode-hr {
-    margin-top: 3em;
-}
-
-blockquote {
-    /* http://tympanus.net/codrops/2012/07/25/modern-block-quote-styles/ */
-    background: $white;
-    padding: 1em;
-    border-radius: 1em;
-    box-shadow: inset 0 2px 0 rgba(188, 147, 200, 0.7), -5px -4px 25px rgba(0, 0, 0, 0.3);
-    &:before {
-	/* http://text.jpatch.net/2010/09/css2-no-image-quotation-marks-in-blockquotes/ */
-	content: '\201C';
-	margin: 1em -0.15em 1em -0.15em;
-	/*color:#33a8e5;*/
-	color: $lightgrey;
-	/* light-gray */
-	padding: 0.15em -0.5em -0.5em -0.5em;
-	font-size: 60px;
-	line-height: 12px;
-	vertical-align: middle;
-	font-weight: bold;
-	font-family: Arial, Helvetica, sans-serif;
-    }
-}
-
-.example_code {
-    width: auto;
-    background-color: $white;
-    padding: 5px;
-    border: 1px solid $lightgrey;
-    font-size: 14px;
-    font-family: courier new;
-}
-
-.email-comment {
-    @extend .middle_section_narrow;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 7em;
-    text-align: center;
-    color: $darkgrey;
-    font-size: 80%;
-}
-
-.published-on {
-    @extend .middle_section_wide;
-    font-size: 80%;
-    color: gray;
-    text-align: right;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 2em;
-}
-
-footer {
-    @extend .middle_section_wide;
-    padding: 0.1em;
-    border-radius: 1em;
-    box-shadow: inset 0 2px 0 rgba(188, 147, 200, 0.7), -5px -4px 25px rgba(0, 0, 0, 0.3);
-    background: $verylightgrey;
-    text-align: center;
-    color: gray;
-    font-size: 80%;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-    margin-bottom: 20px;
-    margin-top: 5em;
-}
-
-#disqus_thread {
-    @extend .middle_section_narrow;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-
-/*  ------------------------------------------
- *  Article
- *  ------------------------------------------ */
-
-.article-orgsource {
-    float: right;
-    font-size: 120%;
-    font-family: Verdana, Geneva, sans-serif;
-}
-
-.article-header-nav {
-    @extends header;
+.common-header-nav {
     padding: 1em;
 /*    padding-left: 13em;
     padding-top: 1em;
@@ -151,55 +57,24 @@ footer {
     box-shadow: inset 0 2px 0 rgba(188, 147, 200, 0.7), -5px -4px 25px rgba(0, 0, 0, 0.3);
     background: $verylightgrey;
     margin-bottom: 20px;
-    margin-left: -2em;
-}
-
-.article-title {
-    margin-bottom: 2em;
-    padding-top: 2em;
+/*    margin-left: -2em;*/
 }
 
 
-.common-article {
-    @extend .middle_section_narrow;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 2em;
-}
-
-.persistent-article {
-    @extend .common-article;
-}
-
-.temporal-article {
-    @extend .common-article;
+.common-orgsource {
+    float: right;
+    font-size: 120%;
+    font-family: Verdana, Geneva, sans-serif;
 }
 
 
-.entry-page-article {
-    @extend .common-article;
-/*    padding-top: 3em;
-    padding-left: 2em;
-    padding-right: 2em;
-    padding-bottom: 0.5em;
-    margin-bottom: 1.5em;
-    border-radius: 0.2em;
-    box-shadow: inset 0 2px 0 rgba(188, 147, 200, 0.7), -5px -4px 25px rgba(0, 0, 0, 0.3);
-    background: white;*/
-    .entry-page-article-tags {
-	margin: -1.5em -1em 0px 0px;
-	@extend .tags;
-    }
-}
-
-
-
-.tags {
+.common-tags {
     /* happily stolen from http://cssglobe.com/pure-css3-post-tags/ */
-    margin: 0;
-    padding: 0;
+    @extend .middle_section_narrow;
+    /*margin: 0;*/
+    /*padding: 0;
     margin-top: 1em;
-    margin-right: -2em;
+    margin-right: -2em;*/
     float: right;
     list-style: none;
     li {
@@ -265,18 +140,162 @@ footer {
     }
 }
 
+
+.common-article {
+    @extend .middle_section_narrow;
+    margin-left: auto;
+    margin-right: auto;
+    /*padding-top: 2em;*/
+}
+
+
+.breadcrumbs {
+    font-size: 120%;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+.section-title {
+    color: $darkgrey;
+    margin-left: 1em;
+}
+
+.orgmode-hr {
+    margin-top: 3em;
+}
+
+blockquote {
+    @extend .middle_section_narrow;
+    /* http://tympanus.net/codrops/2012/07/25/modern-block-quote-styles/ */
+    background: $white;
+    padding: 1em;
+    border-radius: 1em;
+    box-shadow: inset 0 2px 0 rgba(188, 147, 200, 0.7), -5px -4px 25px rgba(0, 0, 0, 0.3);
+    &:before {
+	/* http://text.jpatch.net/2010/09/css2-no-image-quotation-marks-in-blockquotes/ */
+	content: '\201C';
+	margin: 1em -0.15em 1em -0.15em;
+	/*color:#33a8e5;*/
+	color: $lightgrey;
+	/* light-gray */
+	padding: 0.15em -0.5em -0.5em -0.5em;
+	font-size: 60px;
+	line-height: 12px;
+	vertical-align: middle;
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+    }
+}
+
+.example_code {
+    @extend .middle_section_narrow;
+    width: auto;
+    background-color: $white;
+    padding: 5px;
+    border: 1px solid $lightgrey;
+    font-size: 14px;
+    font-family: courier new;
+}
+
+.email-comment {
+    @extend .middle_section_narrow;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 7em;
+    text-align: center;
+    color: $darkgrey;
+    font-size: 80%;
+}
+
+.published-on {
+    @extend .middle_section_wide;
+    font-size: 80%;
+    color: gray;
+    text-align: right;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 2em;
+}
+
+footer {
+    @extend .middle_section_wide;
+    padding: 0.1em;
+    border-radius: 1em;
+    box-shadow: inset 0 2px 0 rgba(188, 147, 200, 0.7), -5px -4px 25px rgba(0, 0, 0, 0.3);
+    background: $verylightgrey;
+    text-align: center;
+    color: gray;
+    font-size: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    margin-bottom: 20px;
+    margin-top: 5em;
+}
+
+#disqus_thread {
+    @extend .middle_section_narrow;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/*  ------------------------------------------
+ *  Article
+ *  ------------------------------------------ */
+
+.temporal-article-header-nav {
+    @extend .middle_section_wide;
+    @extend .common-header-nav;
+}
+
+
+.month-overview-header-nav {
+    @extend .middle_section_wide;
+    @extend .common-header-nav;
+}
+
+.temporal-article-header-tags {
+    @extend .middle_section_narrow;
+    @extend .common-tags;
+}
+
+.temporal-article-header-title {
+    @extend .middle_section_narrow;
+    padding-bottom: 1em;
+    padding-top: 2em;
+}
+
+
+.entry-page-article {
+    @extend .common-article;
+/*    padding-top: 3em;
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1.5em;
+    border-radius: 0.2em;
+    box-shadow: inset 0 2px 0 rgba(188, 147, 200, 0.7), -5px -4px 25px rgba(0, 0, 0, 0.3);
+    background: white;*/
+    .entry-page-article-tags {
+	/*margin: -1.5em -1em 0px 0px;*/
+	@extend .common-tags;
+    }
+}
+
+
+
+
 /*  ------------------------------------------
  *  Permanent page
  *  ------------------------------------------ */
 
 .persistent-header {
-    @extend header;
+
 }
 
 .persistent-body {
     margin-left: auto;
     margin-right: auto;
-    padding-top: 2em;
     p {
 	/*@extend .middle_section_narrow;*/
     }
@@ -285,6 +304,17 @@ footer {
 	color: black;
     }
 }
+
+.entrypage-article-header-nav {
+    @extend .middle_section_wide;
+    @extend .common-header-nav;
+}
+
+.persistent-article-header-nav {
+    @extend .middle_section_wide;
+    @extend .common-header-nav;
+}
+
 
 .entry-page-greetings {
     @extend .middle_section_narrow;
@@ -302,7 +332,7 @@ footer {
     background: white;
     .entry-page-article-tags {
 	margin: -1.5em -1em 0px 0px;
-	@extend .tags;
+	@extend .common-tags;
     }
 }
 
@@ -324,11 +354,6 @@ footer {
 	margin-left: -2em;
 	padding: 10px 0px 5px 0px;
     }
-}
-
-.entry-page-sidebar{
-
-    @extend .sidebar;
     
     iframe {  /* DuckDuckGo search bar */
 	/* FIXXME: this does not have any effect */
@@ -340,6 +365,5 @@ footer {
     	font-size: .5em;
 	padding-bottom: 0px;
         }
-
-    
 }
+

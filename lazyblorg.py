@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-12-26 16:40:21 vk>
+# Time-stamp: <2014-12-29 20:19:03 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -219,7 +219,8 @@ class Lazyblorg(object):
         found_elements = [x[1] for x in html_definitions]
 
         ## for documentation about the implemented elements: see id:implemented-org-elements in dev/lazyblorg.org
-        for element in [u'article-header', u'article-footer', u'article-header-begin', u'article-tags-begin',
+        for element in [u'common-sidebar',
+                        u'article-header', u'article-footer', u'article-header-begin', u'article-tags-begin',
                         u'article-tag', u'article-tags-end', u'article-header-end', u'article-end',
                         u'section-begin', u'paragraph',
                         u'ul-begin', u'ul-item', u'ul-end', u'pre-begin', u'pre-end',
@@ -489,6 +490,6 @@ if __name__ == "__main__":
 
 ## END OF FILE #################################################################
 # Local Variables:
-# mode: flyspell
-# eval: (ispell-change-dictionary "en_US")
+# DISABLEDmode: flyspell
+# DISABLEDeval: (ispell-change-dictionary "en_US")
 # End:
