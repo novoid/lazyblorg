@@ -71,6 +71,8 @@ a {
 .common-tags {
     /* happily stolen from http://cssglobe.com/pure-css3-post-tags/ */
     @extend .middle_section_narrow;
+    margin-right: 20%;  /* FIXXME: workaround until format of middle-section-narrow works */
+
     /*margin: 0;*/
     /*padding: 0;
     margin-top: 1em;
@@ -147,6 +149,16 @@ a {
     margin-right: auto;
     /*padding-top: 2em;*/
 }
+
+
+.common-article-header-title {
+    @extend .middle_section_narrow;
+    padding-bottom: 1em;
+    padding-top: 2em;
+    margin-left: 20%;   /* FIXXME: workaround until format of middle-section-narrow works */
+    margin-right: 20%;  /* FIXXME: workaround until format of middle-section-narrow works */
+}
+
 
 
 .breadcrumbs {
@@ -254,16 +266,6 @@ footer {
     @extend .common-header-nav;
 }
 
-.temporal-article-header-tags {
-    @extend .middle_section_narrow;
-    @extend .common-tags;
-}
-
-.temporal-article-header-title {
-    @extend .middle_section_narrow;
-    padding-bottom: 1em;
-    padding-top: 2em;
-}
 
 
 .entry-page-article {
@@ -328,7 +330,8 @@ footer {
     padding-bottom: 0.5em;
     margin-bottom: 1.5em;
     border-radius: 0.2em;
-    box-shadow: inset 0 2px 0 rgba(188, 147, 200, 0.7), -5px -4px 25px rgba(0, 0, 0, 0.3);
+/*    box-shadow: inset 0 2px 0 rgba(188, 147, 200, 0.7), -5px -4px 25px rgba(0, 0, 0, 0.3);*/
+    box-shadow: inset 0 2px 0 rgba(188, 147, 200, 0.7), -5px -4px 15px rgba(0, 0, 0, 0.3);
     background: white;
     .entry-page-article-tags {
 	margin: -1.5em -1em 0px 0px;

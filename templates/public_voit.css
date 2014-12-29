@@ -18,7 +18,7 @@ body {
 a {
   text-decoration: none; }
 
-.middle_section_narrow, .common-tags, .temporal-article-header-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, blockquote, .example_code, .email-comment, #disqus_thread, .temporal-article-header-title, .entry-page-greetings {
+.middle_section_narrow, .common-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, .common-article-header-title, blockquote, .example_code, .email-comment, #disqus_thread, .entry-page-greetings {
   margin-left: auto;
   margin-right: auto;
   max-width: 40em; }
@@ -45,21 +45,23 @@ a {
   font-size: 120%;
   font-family: Verdana, Geneva, sans-serif; }
 
-.common-tags, .temporal-article-header-tags, .entry-page-article .entry-page-article-tags {
+.common-tags, .entry-page-article .entry-page-article-tags {
   /* happily stolen from http://cssglobe.com/pure-css3-post-tags/ */
+  margin-right: 20%;
+  /* FIXXME: workaround until format of middle-section-narrow works */
   /*margin: 0;*/
   /*padding: 0;
   margin-top: 1em;
   margin-right: -2em;*/
   float: right;
   list-style: none; }
-  .common-tags li, .temporal-article-header-tags li, .entry-page-article .entry-page-article-tags li {
+  .common-tags li, .entry-page-article .entry-page-article-tags li {
     float: left;
     height: 30px;
     line-height: 24px;
     position: relative;
     font-size: 13px; }
-  .common-tags a, .temporal-article-header-tags a, .entry-page-article .entry-page-article-tags a {
+  .common-tags a, .entry-page-article .entry-page-article-tags a {
     float: left;
     height: 24px;
     line-height: 24px;
@@ -77,7 +79,7 @@ a {
     -moz-border-radius-topright: 4px;
     -webkit-border-top-right-radius: 4px;
     border-top-right-radius: 4px; }
-    .common-tags a:before, .temporal-article-header-tags a:before, .entry-page-article .entry-page-article-tags a:before {
+    .common-tags a:before, .entry-page-article .entry-page-article-tags a:before {
       content: "";
       float: left;
       position: absolute;
@@ -89,7 +91,7 @@ a {
       border-color: transparent #2222ff transparent transparent;
       border-style: solid;
       border-width: 12px 12px 12px 0; }
-    .common-tags a:after, .temporal-article-header-tags a:after, .entry-page-article .entry-page-article-tags a:after {
+    .common-tags a:after, .entry-page-article .entry-page-article-tags a:after {
       content: "";
       position: absolute;
       top: 10px;
@@ -104,15 +106,23 @@ a {
       -moz-box-shadow: -1px -1px 2px #004977;
       -webkit-box-shadow: -1px -1px 2px #004977;
       box-shadow: -1px -1px 2px #004977; }
-    .common-tags a:hover, .temporal-article-header-tags a:hover, .entry-page-article .entry-page-article-tags a:hover {
+    .common-tags a:hover, .entry-page-article .entry-page-article-tags a:hover {
       background: #7e7e7e; }
-      .common-tags a:hover:before, .temporal-article-header-tags a:hover:before, .entry-page-article .entry-page-article-tags a:hover:before {
+      .common-tags a:hover:before, .entry-page-article .entry-page-article-tags a:hover:before {
         border-color: transparent #7e7e7e transparent transparent; }
 
 .common-article, .entry-page-article {
   margin-left: auto;
   margin-right: auto;
   /*padding-top: 2em;*/ }
+
+.common-article-header-title {
+  padding-bottom: 1em;
+  padding-top: 2em;
+  margin-left: 20%;
+  /* FIXXME: workaround until format of middle-section-narrow works */
+  margin-right: 20%;
+  /* FIXXME: workaround until format of middle-section-narrow works */ }
 
 .breadcrumbs {
   font-size: 120%;
@@ -190,10 +200,6 @@ footer {
 /*  ------------------------------------------
  *  Article
  *  ------------------------------------------ */
-.temporal-article-header-title {
-  padding-bottom: 1em;
-  padding-top: 2em; }
-
 .entry-page-article {
   /*    padding-top: 3em;
       padding-left: 2em;
@@ -225,7 +231,8 @@ footer {
   padding-bottom: 0.5em;
   margin-bottom: 1.5em;
   border-radius: 0.2em;
-  box-shadow: inset 0 2px 0 rgba(188, 147, 200, 0.7), -5px -4px 25px rgba(0, 0, 0, 0.3);
+  /*    box-shadow: inset 0 2px 0 rgba(188, 147, 200, 0.7), -5px -4px 25px rgba(0, 0, 0, 0.3);*/
+  box-shadow: inset 0 2px 0 rgba(188, 147, 200, 0.7), -5px -4px 15px rgba(0, 0, 0, 0.3);
   background: white; }
   .entry-page-article .entry-page-article-tags {
     margin: -1.5em -1em 0px 0px; }
