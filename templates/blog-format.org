@@ -1,4 +1,4 @@
-## Time-stamp: <2014-12-27 21:41:27 vk>
+## Time-stamp: <2014-12-29 18:27:22 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -438,7 +438,7 @@ With name/label:
 
     <div class="article-orgsource"><a href="source.org.txt">&#960;</a></div>
 
-    <article class="article">
+    <article class="persistent-article">
 
 
 	<header>
@@ -560,7 +560,7 @@ With name/label:
 
     <div class="article-orgsource"><a href="source.org.txt">&#960;</a></div>
 
-    <article class="article">
+    <article class="temporal-article">
 
 
 	<header>

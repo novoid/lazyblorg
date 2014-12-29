@@ -159,16 +159,43 @@ footer {
     padding-top: 2em;
 }
 
-.article {
+
+.common-article {
     @extend .middle_section_narrow;
     margin-left: auto;
     margin-right: auto;
     padding-top: 2em;
 }
 
-/* happily stolen from http://cssglobe.com/pure-css3-post-tags/ */
+.persistent-article {
+    @extend .common-article;
+}
+
+.temporal-article {
+    @extend .common-article;
+}
+
+
+.entry-page-article {
+    @extend .common-article;
+/*    padding-top: 3em;
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1.5em;
+    border-radius: 0.2em;
+    box-shadow: inset 0 2px 0 rgba(188, 147, 200, 0.7), -5px -4px 25px rgba(0, 0, 0, 0.3);
+    background: white;*/
+    .entry-page-article-tags {
+	margin: -1.5em -1em 0px 0px;
+	@extend .tags;
+    }
+}
+
+
 
 .tags {
+    /* happily stolen from http://cssglobe.com/pure-css3-post-tags/ */
     margin: 0;
     padding: 0;
     margin-top: 1em;
@@ -263,13 +290,8 @@ footer {
     @extend .middle_section_narrow;
 }
 
-/*  ------------------------------------------
- *  Permanent page > Entry page
- *  ------------------------------------------ */
-
 .entry-page-article {
     @extend .middle_section_narrow;
-    /*padding: 0.5em;*/
     padding-top: 3em;
     padding-left: 2em;
     padding-right: 2em;
