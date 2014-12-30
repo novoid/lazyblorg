@@ -1,4 +1,4 @@
-## Time-stamp: <2014-12-29 21:06:41 vk>
+## Time-stamp: <2014-12-30 13:42:14 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -295,8 +295,9 @@ With name/label:
 
   <p>
 
-    Please notice: <a href="2014/01/30/public-voit-beta/">This site is under constant development</a>.
-
+    Please notice: <a href="2014/01/30/public-voit-beta/">This site is under constant development</a>. See 
+    <a href="https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org#23-implemented-org-mode-elements">current status of the blogging software</a> and 
+    <a href="https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org#1-issue-tracking">the next steps</a>.
   </p>
 
   <p>
@@ -363,7 +364,7 @@ With name/label:
 #+NAME: article-preview-more
 #+BEGIN_HTML
 <p>
-<a href="#ARTICLE-URL#" class="article-preview-more">more&nbsp;...</a>
+<a href="#ARTICLE-URL#" class="article-preview-more">Read the whole article&nbsp;...</a>
 </p>
 #+END_HTML
 

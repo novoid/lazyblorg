@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2014-12-27 21:55:57 vk>
+# Time-stamp: <2014-12-30 13:39:29 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -1111,6 +1111,9 @@ take some time or might never get implemented)
   - [[http://orgmode.org/org.html#index-g_t_0023_002bBEGIN_005fSRC-1885][SRC]]
   - [[http://orgmode.org/org.html#index-g_t_0023_002bBEGIN_005fVERSE-1492][VERSE]]
 
+The list of the placeholders and their occurrence might be a bit
+outdated. Please refer to [[https://github.com/novoid/lazyblorg/blob/master/templates/blog-format.org][blog format]] and the source code for the most
+current version.
 
 #+NAME: template-placeholders-and-their-processing
 | *placeholder*                      | *description*                                      | gets sanitized | *source*                                                  |
