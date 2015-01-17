@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2014-09-21 20:04:38 vk>
+## Time-stamp: <2015-01-17 19:37:56 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -266,6 +266,14 @@ Yes, please do read [[https://github.com/novoid/lazyblorg/blob/master/dev/lazybl
   - I started with Python 2.x and never got the tension to test Python
     3.x so far
 - output files: static HTML5, CSS3
+
+*** Why didn't you use HTML export/org-publish/Elisp/...?
+:PROPERTIES:
+:CREATED:  [2015-01-17 Sat 19:36]
+:END:
+
+Please do read my statement on [[https://github.com/novoid/lazyblorg/issues/2][GitHub]].
+
 *** Isn't this quite slow?
 
 As with 2014-09-21, the parser and htmlizer is performing pretty well
