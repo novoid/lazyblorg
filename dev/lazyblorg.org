@@ -232,6 +232,65 @@ CLOSED: [2014-03-01 Sat 20:10]
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
 
+** STARTED [#A] branch: replace htmlizer with pypandoc                                :architecture:
+:PROPERTIES:
+:CREATED:  [2015-01-27 Tue 12:22]
+:END:
+
+- why?
+  - Org-syntax elements like lists or tables are hard to parse and
+    htmlize correctly
+  - third party Org-mode parser and htmlizer would be *great*
+    - need to check third party library using unit tests!
+
+- this attempt:
+  - keep control of the basic parsing/htmlizing process
+  - convert blocks using pypandoc library
+  - reduce complexity of current parser/htmlizer
+
+- process
+  1. [X] get a rough overview what needs to be changed
+  2. [ ] write unit-test for basic test of pypandoc!
+  3. [ ] document pypandoc requirement and its test
+  4. [ ] thinking of: keeping parser/htmlizer and using pypandoc only
+     for hard to parse/htmlize blocks?
+     - [ ] test naïve pypandoc lazyblorg for public-voit before
+  5. [ ] data model (file_blog_data)
+     - simplified: instead of blocks and so on, there will only be
+       meta-data from the headings and blobs of Org-mode blocks
+  6. lazyblorg.py
+     - [ ] generate_output()
+       - using a different output module!
+         - pandocizer.py (or similar)
+     - [ ] keep old orgparser for templates?
+  7. orgparser.py
+     - unchanged states
+       - SEARCHING_BLOG_HEADER
+       - BLOG_HEADER
+       - DRAWER_PROP
+       - DRAWER_LOGBOOK
+       - SKIPPING_NOEXPORT_HEADING
+     - changed states
+       - [ ] ENTRY_CONTENT
+       - [ ] BLOCK
+       - [ ] LIST
+       - [ ] TABLE
+       - [ ] COLON_BLOCK
+     - definitions that need modifications
+       - [ ] parse_orgmode_file()
+     - [ ] HTML-blocks without title should stay HTML
+     - [ ] #+NAME of examples and some other blocks are being ignored by pypandoc
+  8. htmlizer.py -copy-> pandocizer.py (or similar)
+     - [ ] feed generator definitions
+       - feedentry += '\n'.join(blog_data_entry['content'])
+       - feedentry += '\n'.join(blog_data_entry['htmlteaser'])
+     - [ ] generate_entry_page()
+     - [ ] sanitize_and_htmlize_blog_content() -> completely obsolete?
+     - [ ] htmlize_simple_text_formatting() -> completely obsolete?
+     - [ ] sanitize_html_characters() -> completely obsolete?
+     - [ ] _generate_temporal_article()
+     - [ ] _generate_persistent_article()
+
 ** NEXT add? [[http://www.heise.de/newsticker/meldung/c-t-entwickelt-datenschutzfreundliche-Social-Media-Buttons-weiter-2466687.html][Shariff: c't entwickelt datenschutzfreundliche Social-Media-Buttons weiter]]   :userstory:
 :PROPERTIES:
 :CREATED:  [2014-11-30 Sun 12:42]

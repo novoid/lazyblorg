@@ -2215,3 +2215,48 @@ background-image: none;
 
 #+END_EXAMPLE
 
+** DONE spike: Python binding for pandoc to convert org-snippets to html              :architecture:
+CLOSED: [2015-01-27 Tue 12:22] SCHEDULED: <2015-01-30 Fr>
+:PROPERTIES:
+:CREATED:  [2015-01-19 Mo 13:46]
+:ID:       2015-01-19-spike-pypandoc
+:ARCHIVE_TIME: 2015-01-27 Tue 18:02
+:ARCHIVE_FILE: c:/Users/karl.voit/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: issues
+:END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2015-01-27 Tue 12:22]
+:END:
+[2015-01-18 So. 22:49]
+
+- [[https://pypi.python.org/pypi/pypandoc/][pypandoc 0.8.6 : Python Package Index]]
+  - last change 2015-01
+- https://pypi.python.org/pypi/pyandoc/
+  - older (outdated?)
+  - last change 2011-01
+
+Going with pyandoc:
+
+: pandoc -o org-mode-teaser.html org-mode-teaser.org
+
+... looks great!
+
+Using Python-bindings:
+#+BEGIN_EXAMPLE
+karl.voit@ATGRZ4043268X ../2del/2015-01-27-pyandoctests/pypandoc (git)-[master] % python           :(
+Python 2.7.8 (default, Jul 25 2014, 14:04:36)
+[GCC 4.8.3] on cygwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import pypandoc
+>>> output = pypandoc.convert('#some title', 'rst', format='md')
+>>> output
+u'some title\r\n==========\r\n'
+>>> output = pypandoc.convert('- *foo* bar', 'html', format='org')
+>>> output
+u'<ul>\r\n<li><strong>foo</strong> bar</li>\r\n</ul>\r\n'
+>>>
+#+END_EXAMPLE
+
