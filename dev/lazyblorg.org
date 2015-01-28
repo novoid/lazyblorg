@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2014-12-30 13:39:29 vk>
+# Time-stamp: <2015-01-27 18:02:58 karl.voit>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -44,11 +44,11 @@ corresponding archive-file "lazyblorg.org_archive".
 
 ** DONE spike: time-ordered-index data structure              :architecture:
 CLOSED: [2013-08-20 Tue 15:02]
-:LOGBOOK:
-- State "DONE"       from "STARTED"    [2013-08-20 Tue 15:02]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-08-20 Tue 14:57]
+:END:
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2013-08-20 Tue 15:02]
 :END:
 
 - problem:
@@ -89,12 +89,12 @@ Sorting by attribute of a class:
 
 ** DONE Decision algorithm for generating entries; storage data :architecture:
 CLOSED: [2013-08-20 Tue 14:44]
-:LOGBOOK:
-- State "DONE"       from "TODO"       [2013-08-20 Tue 14:44]
-:END:
 :PROPERTIES:
 :CREATED:  [2012-11-06 Tue]
 :ID: 2012-11-06-ago-generating
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2013-08-20 Tue 14:44]
 :END:
 
 | *case* | *ID*      | *created*    | *last_update*   | *checksum*   | *result*                     | *description*                    |
@@ -155,19 +155,20 @@ CLOSED: [2013-08-20 Tue 14:44]
 
 *** DONE [#A] finalize lazyblorg-algorithm sketch
 CLOSED: [2012-11-10 Sat 18:10] DEADLINE: <2012-11-10 Sat>
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2012-11-10 Sat 18:10]
-:END:
 :PROPERTIES:
 :CREATED:  [2012-11-07 Wed 21:23]
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2012-11-10 Sat 18:10]
+:END:
+
 ** DONE paper: sketch main page                                  :userstory:
 CLOSED: [2014-02-01 Sat 15:02]
-:LOGBOOK:
-- State "DONE"       from "STARTED"    [2014-02-01 Sat 15:02]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-02-14 Thu 16:39]
+:END:
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2014-02-01 Sat 15:02]
 :END:
 
 - top: public voit banner (as usual)
@@ -201,11 +202,11 @@ Defining the content in a special template heading:
   - HR as separator (as shown above)
 ** DONE paper: sketch overview pages                             :userstory:
 CLOSED: [2014-02-01 Sat 15:03]
-:LOGBOOK:
-- State "DONE"       from "STARTED"    [2014-02-01 Sat 15:03]
-:END:
 :PROPERTIES:
 :CREATED:  [2014-02-01 Sat 15:02]
+:END:
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2014-02-01 Sat 15:03]
 :END:
 
 - see paper from [2014-01-31 Fri]
@@ -213,13 +214,10 @@ CLOSED: [2014-02-01 Sat 15:03]
 ** DONE implement method(s) to get URL of an blogdata id      :architecture:
 CLOSED: [2014-03-01 Sat 20:10]
 :PROPERTIES:
-:CREATED:  [2014-11-30 Sun 12:42]
+:CREATED:  [2013-10-19 Sat 19:16]
 :END:
 :LOGBOOK:
 - State "DONE"       from "NEXT"       [2014-03-01 Sat 20:10]
-:END:
-:PROPERTIES:
-:CREATED:  [2013-10-19 Sat 19:16]
 :END:
 
 - [X] get absolute/relative URL of any entry ID
@@ -318,11 +316,11 @@ CLOSED: [2014-03-01 Sat 20:10]
 ... will be transformed into:
 
 #+BEGIN_HTML
-All portrait photographs are rotated using 
-<a href="http://www.sentex.net/<code>mwandel/jhead/">jhead</a>. Also with jhead, 
-I generate file-name time-stamps from the Exif header time-stamps. 
-Using <a href="https://github.com/novoid/date2name">date2name</a> I add time-stamps 
-also to the movie files. After processing all those files, they get moved to the 
+All portrait photographs are rotated using
+<a href="http://www.sentex.net/<code>mwandel/jhead/">jhead</a>. Also with jhead,
+I generate file-name time-stamps from the Exif header time-stamps.
+Using <a href="https://github.com/novoid/date2name">date2name</a> I add time-stamps
+also to the movie files. After processing all those files, they get moved to the
 destination folder for new digicam files: </code>$HOME/tmp/digicam/tmp/~.
 #+END_HTML
 
@@ -354,16 +352,16 @@ destination folder for new digicam files: </code>$HOME/tmp/digicam/tmp/~.
     - get oldest entry of entry['finished-timestamp-history']
     - store to a sorted list (newest first or last)
 ** NEXT parse/htmlize: lists                                     :userstory:
+:PROPERTIES:
+:CREATED:  [2014-02-01 Sat 15:25]
+:ID: 2014-08-10-lb-lists-implementation
+:END:
 :LOGBOOK:
 - Not scheduled, was "2014-05-18 Sun" on [2014-05-18 Sun 09:56]
 - Rescheduled from "2014-05-16 Fri" on [2014-05-17 Sat 11:34]
 - Rescheduled from "2014-05-10 Sat" on [2014-05-11 Sun 17:53]
 - Rescheduled from "2014-05-06 Tue" on [2014-05-07 Wed 17:32]
 - Rescheduled from "2014-04-28 Mon" on [2014-04-27 Sun 22:07]
-:END:
-:PROPERTIES:
-:CREATED:  [2014-02-01 Sat 15:25]
-:ID: 2014-08-10-lb-lists-implementation
 :END:
 
 - http://orgmode.org/worg/dev/org-syntax.html#Plain_Lists_and_Items
@@ -453,11 +451,11 @@ on https://karl-voit.at/2014/03/25/xdu
   different commands
 
 ** STARTED HTML: manually create month overview page          :architecture:
-:LOGBOOK:
-- Not scheduled, was "2014-03-01 Sat" on [2014-03-01 Sat 21:01]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 14:12]
+:END:
+:LOGBOOK:
+- Not scheduled, was "2014-03-01 Sat" on [2014-03-01 Sat 21:01]
 :END:
 
 #+BEGIN_EXAMPLE
@@ -482,7 +480,7 @@ on https://karl-voit.at/2014/03/25/xdu
 [[Public Voit]] > [[Archive]]: 2014
 
 January: 2 [is link to monthly overview]
-February: 
+February:
 March: 4
 ...
 
@@ -516,11 +514,11 @@ March: 4
   - [ ] implement in Python
 
 ** NEXT HTML: manually create day overview page               :architecture:
-:LOGBOOK:
-- Not scheduled, was "2014-03-01 Sat" on [2014-03-01 Sat 21:01]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 14:11]
+:END:
+:LOGBOOK:
+- Not scheduled, was "2014-03-01 Sat" on [2014-03-01 Sat 21:01]
 :END:
 
 like monthly overview but only for the day
@@ -870,11 +868,11 @@ display: block;
 
 - see also id:2012-11-11-autotags
 ** SOMEDAY add diff to previous version in case of update        :userstory:
-:LOGBOOK:
-- State "SOMEDAY"    from ""           [2014-02-28 Fr 09:27]
-:END:
 :PROPERTIES:
 :CREATED:  [2014-02-28 Fr 09:27]
+:END:
+:LOGBOOK:
+- State "SOMEDAY"    from ""           [2014-02-28 Fr 09:27]
 :END:
 
 - should be possible because lazyblorg stores old raw content and gets
@@ -882,11 +880,11 @@ display: block;
 - [ ] what happens in case of re-generation blog with old diffs?
 
 ** SOMEDAY [#C] Pre-search for new blog articles before invoking lazyblorg :userstory:
-:LOGBOOK:
-- State "SOMEDAY"    from "TODO"       [2014-02-01 Sat 15:36]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-10-20 Sun 18:34]
+:END:
+:LOGBOOK:
+- State "SOMEDAY"    from "TODO"       [2014-02-01 Sat 15:36]
 :END:
 
 - do a "egrep '^\*+ .*:blog:' | wc -l" and compare with last number
@@ -897,11 +895,11 @@ display: block;
 - probably add this to best practice or FAQs
 
 ** SOMEDAY add/create/include/handle short URLs for each entry   :userstory:
-:LOGBOOK:
-- State "SOMEDAY"    from ""           [2013-08-20 Tue 10:56]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-08-20 Tue 10:56]
+:END:
+:LOGBOOK:
+- State "SOMEDAY"    from ""           [2013-08-20 Tue 10:56]
 :END:
 
 - e.g.:
@@ -927,21 +925,21 @@ display: block;
     - *shorter!*
 
 ** SOMEDAY Auto-tag: guessing language of entry                   :userstory:
-:LOGBOOK:
-- State "SOMEDAY"    from ""           [2013-01-08 Tue 14:36]
-:END:
 :PROPERTIES:
 :CREATED:  [2012-11-11 Sun 10:53]
+:END:
+:LOGBOOK:
+- State "SOMEDAY"    from ""           [2013-01-08 Tue 14:36]
 :END:
 
 - https://github.com/dsc/guess-language
 
 ** SOMEDAY fixed entries by using a tag                          :userstory:
-:LOGBOOK:
-- State "SOMEDAY"    from ""           [2013-01-08 Tue 14:46]
-:END:
 :PROPERTIES:
 :CREATED:  [2012-12-21 Fri 09:48]
+:END:
+:LOGBOOK:
+- State "SOMEDAY"    from ""           [2013-01-08 Tue 14:46]
 :END:
 
 - outside of YYYY/MM/DD-hierarchy
@@ -950,29 +948,29 @@ display: block;
   - books I read
   - ...
 ** SOMEDAY publish (only) free/busy times (in multiple formats)  :userstory:
-:LOGBOOK:
-- State "SOMEDAY"    from ""           [2013-01-08 Tue 14:48]
-:END:
 :PROPERTIES:
 :CREATED:  [2012-12-29 Sat 17:40]
 :END:
+:LOGBOOK:
+- State "SOMEDAY"    from ""           [2013-01-08 Tue 14:48]
+:END:
 
 ** SOMEDAY CSS: round corners of images                          :userstory:
-:LOGBOOK:
-- State "SOMEDAY"    from "NEXT"       [2013-01-08 Tue 14:53]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-01-07 Mon 18:40]
+:END:
+:LOGBOOK:
+- State "SOMEDAY"    from "NEXT"       [2013-01-08 Tue 14:53]
 :END:
 
 - probably steal from http://www.tbray.org/ongoing/
 
 ** SOMEDAY [[http://tasker.dinglisch.net/][Tasker]]-script: share URL and send to my lazyblorg     :userstory:
-:LOGBOOK:
-- State "SOMEDAY"    from ""           [2013-07-20 Sat 10:58]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-08-22 Thu 21:19]
+:END:
+:LOGBOOK:
+- State "SOMEDAY"    from ""           [2013-07-20 Sat 10:58]
 :END:
 
 - open questions
@@ -985,11 +983,11 @@ display: block;
     - synchronous password?
     - ?
 ** SOMEDAY re-generate only necessary entries/pages            :architecture:
-:LOGBOOK:
-- State "SOMEDAY"    from ""           [2013-08-22 Thu 21:19]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-08-22 Thu 21:19]
+:END:
+:LOGBOOK:
+- State "SOMEDAY"    from ""           [2013-08-22 Thu 21:19]
 :END:
 
 switch from "delete everything and re-generate everything on every
@@ -998,11 +996,11 @@ run" to "delete and re-generate only necessary entries/pages"
 - [ ] adopt docstring of compare_blog_metadata()
 
 ** SOMEDAY [#C] in order not to parse *whole* content, split up parsing :architecture:
-:LOGBOOK:
-- State "SOMEDAY"    from ""           [2013-08-21 Wed 11:58]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-08-21 Wed 11:58]
+:END:
+:LOGBOOK:
+- State "SOMEDAY"    from ""           [2013-08-21 Wed 11:58]
 :END:
 
 For optimizing performance and RAM usage: use *two parsing processes*:
@@ -1016,25 +1014,27 @@ For optimizing performance and RAM usage: use *two parsing processes*:
   2. parse everything again and store only new or updated article contents
      - match with ID-links
 ** SOMEDAY [#C] do not parse HTML template file if unchanged  :architecture:
-:LOGBOOK:
-- State "SOMEDAY"    from ""           [2013-08-26 Mon 19:41]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-08-26 Mon 19:41]
+:END:
+:LOGBOOK:
+- State "SOMEDAY"    from ""           [2013-08-26 Mon 19:41]
 :END:
 
 - not much of a performance difference
 - only a nice-to-have
 
 ** SOMEDAY implement bookmark RSS in lazyblorg
-:LOGBOOK:
-- State "SOMEDAY"    from ""           [2014-01-20 Mon 19:33]
-:END:
 :PROPERTIES:
 :CREATED:  [2014-01-20 Mon 19:33]
 :END:
+:LOGBOOK:
+- State "SOMEDAY"    from ""           [2014-01-20 Mon 19:33]
+:END:
+
 - [ ] handle public/private tags accordingly
 - [ ] migrate delicious private field to private tag
+
 * Notes                                                               :notes:
 
 ** Naming this project
@@ -1238,12 +1238,12 @@ current version.
 
 ** Representation of blog data
 CLOSED: [2013-08-20 Tue 18:15]
-:LOGBOOK:
-- State "DONE"       from "STARTED"    [2013-08-20 Tue 18:15]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-05-21 Tue 15:26]
 :ID: blog_data
+:END:
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2013-08-20 Tue 18:15]
 :END:
 
 For a complete list of *content elements*, please take a look at
@@ -1258,15 +1258,15 @@ id:implemented-org-elements (above)
 #+BEGIN_SRC python
   blog_data = \
   [ {'level': 2,                                                ## number of asterisks
-     'title': u'This is a blog entry about foo', 
-     'tags': [u'tag1', u'tag2'], 
+     'title': u'This is a blog entry about foo',
+     'tags': [u'tag1', u'tag2'],
      'id': u'lazyblorg-example-entry',                          ## ID from PROPERTIES-drawer
      'finished-timestamp-history': [datetime1, datetime2, datetime3],
      'timestamp': datetime,                                    ## most current time-stamp
      'created: datetime,
      'content': [ ['par', u'This is the Org-mode content'],    ## 'par: paragraph containing anything that is not defined like tables, ...
                   '\n',    ## change of paragraph
-                  ['heading', {'level': 3, 'title': u'Another aspect'}],  
+                  ['heading', {'level': 3, 'title': u'Another aspect'}],
                   ['html-block', 'its name or None', [u'first line', u'second line', u'', u'last line']],
                   ['list-itemize', [u'first line', u'second line']],
                   ['table', u'followed by this table data'],         #FIXXME: table syntax
@@ -1295,7 +1295,7 @@ blog_data[0]['content']  ## -> list of elements of content
 #  ['table', u'FIXXME: followed by this table data'],
 #  ['image', u'FIXXME: followed by this image']]
 #+END_SRC
-** Internal format of meta-data 
+** Internal format of meta-data
 :PROPERTIES:
 :CREATED:  [2013-08-22 Thu 21:08]
 :END:
@@ -1303,7 +1303,7 @@ blog_data[0]['content']  ## -> list of elements of content
 Example:
 #+BEGIN_EXAMPLE
 >>> metadata
-{u'2013-08-22-testid': {'timestamp': datetime.datetime(2013, 8, 22, 21, 6), 'checksum': 'b757f8478bffd6c70a474f213d6520de', 'created': datetime.datetime(2013, 8, 22, 21, 6)}, 
+{u'2013-08-22-testid': {'timestamp': datetime.datetime(2013, 8, 22, 21, 6), 'checksum': 'b757f8478bffd6c70a474f213d6520de', 'created': datetime.datetime(2013, 8, 22, 21, 6)},
  u'2013-02-12-lazyblorg-example-entry': {'timestamp': datetime.datetime(2013, 2, 14, 19, 2), 'checksum': '24af2246a5121e829a0dbbd6e2425c15', 'created': datetime.datetime(2013, 2, 12, 10, 58)}}
 #+END_EXAMPLE
 
@@ -1629,6 +1629,9 @@ Some notes of stuff I was looking into as well:
 
 - Org-mode > Octopress > Jekyll > HTML:
   - http://www.railsonmaui.com/blog/2014/03/05/octopress-setup-with-github-and-org-mode-v2/
+
+- https://github.com/kelvinh/org-page
+  - example set-up: http://cmacr.ae/blog/2015/01/18/org-page-blogging/
 
 * Local Variables                                                  :noexport:
 # Local Variables:
