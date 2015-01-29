@@ -1,4 +1,4 @@
-## Time-stamp: <2014-12-30 13:42:14 vk>
+## Time-stamp: <2015-01-29 18:05:43 karl.voit>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -271,6 +271,10 @@ With name/label:
         href="http://Karl-Voit.at/public_voit.css" type="text/css" media="screen"  />
 
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
+
+  <head>
+  <title>Public Voit - Homepage of Karl Voit</title>
+  </head>
 
   <body class="persistent-body">
 
