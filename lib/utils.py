@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-09 12:16:16 vk>
+# Time-stamp: <2015-05-09 12:42:54 vk>
 
 import config
 from sys import stdout, exit
@@ -17,6 +17,7 @@ class Utils(object):
     ## The stopword lists were obtained from:
     ##     http://anoncvs.postgresql.org/cvsweb.cgi/pgsql/src/backend/snowball/stopwords/
     ## You can add as many languages as you wish. There have to be at least two of them.
+    ## Clearly, it helps when you omit stepwords that occur in multiple languages.
     STOPWORDS = [ ('english', [u'I', u'me', u'my', u'myself', u'we', u'our', u'ours',
                                u'ourselves', u'you', u'your', u'yours', u'yourself',
                                u'yourselves', u'he', u'him', u'his', u'himself',
