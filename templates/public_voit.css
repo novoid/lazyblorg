@@ -3,11 +3,6 @@
  *  ------------------------------------------ */
 /* http://html-color-codes.info/ */
 /* replacing #555 */
-/*
-header {
-    @extend .middle_section_wide;
-}
-*/
 body {
   background: #fffff0;
   color: #252525;
@@ -23,7 +18,7 @@ a {
   margin-right: auto;
   max-width: 40em; }
 
-.middle_section_wide, .published-on, footer, .temporal-article-header-nav, .month-overview-header-nav, .entrypage-article-header-nav, .persistent-article-header-nav {
+.middle_section_wide, header, .published-on, footer, .temporal-article-header-nav, .month-overview-header-nav, .entrypage-article-header-nav, .persistent-article-header-nav {
   margin-left: auto;
   margin-right: auto;
   max-width: 60em; }

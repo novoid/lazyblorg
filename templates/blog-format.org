@@ -1,4 +1,4 @@
-## Time-stamp: <2015-01-29 18:05:43 karl.voit>
+## Time-stamp: <2015-05-09 20:15:03 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -342,11 +342,18 @@ With name/label:
 
 - #TAGNAME#: string of a tag
 
-#+NAME: article-preview-tag
+#+NAME: article-preview-usertag
 #+BEGIN_HTML
-	      <!-- span class="tag">#TAGNAME#</span>&nbsp;-->
-        <li><a href="#">#TAGNAME#</a></li>
+                <li><a class="usertag" href="#">#TAGNAME#</a></li>
+
 #+END_HTML
+
+#+NAME: article-preview-autotag
+#+BEGIN_HTML
+                <li><a class="autotag" href="#">#TAGNAME#</a></li>
+
+#+END_HTML
+
 
 #+NAME: article-preview-tags-end
 #+BEGIN_HTML
@@ -586,21 +593,31 @@ With name/label:
 #+BEGIN_HTML
 	  <aside class="common-tags">
 	    <ul>
+
 #+END_HTML
 
 - #TAGNAME#: string of a tag
 
-#+NAME: article-tag
+#+NAME: article-usertag
 #+BEGIN_HTML
-	      <!-- span class="tag">#TAGNAME#</span>&nbsp;-->
-        <li><a href="#">#TAGNAME#</a></li>
+                <li><a class="usertag" href="#">#TAGNAME#</a></li>
+
+#+END_HTML
+
+#+NAME: article-autotag
+#+BEGIN_HTML
+                <li><a class="autotag" href="#">#TAGNAME#</a></li>
+
 #+END_HTML
 
 #+NAME: article-tags-end
 #+BEGIN_HTML
 	    </ul>
 	  </aside>
+
 #+END_HTML
+
+
 
 #+NAME: article-header-end
 #+BEGIN_HTML

@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2015-05-09 12:18:36 vk>
+# Time-stamp: <2015-05-09 19:52:33 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -1262,22 +1262,33 @@ CLOSED: [2015-05-09 Sat 12:17] SCHEDULED: <2015-05-09 Sat>
 :LOGBOOK:
 - State "DONE"       from "NEXT"       [2015-05-09 Sat 12:17]
 :END:
-
-**** NEXT implement: save auto-tag to object
-SCHEDULED: <2015-05-09 Sat>
-:PROPERTIES:
-:CREATED:  [2015-05-06 Wed 11:27]
-:END:
-
-**** NEXT implement: display auto-tags (differently)
-SCHEDULED: <2015-05-09 Sat>
-:PROPERTIES:
-:CREATED:  [2015-05-06 Wed 11:27]
-:END:
-**** NEXT implement: disable language guessing auto-tag using command line argument
+**** DONE implement: enable language guessing auto-tag using command line argument
+CLOSED: [2015-05-09 Sat 18:47]
 :PROPERTIES:
 :CREATED:  [2015-05-09 Sat 12:18]
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2015-05-09 Sat 18:47]
+:END:
+
+**** DONE implement: save auto-tag to object
+CLOSED: [2015-05-09 Sat 18:47] SCHEDULED: <2015-05-09 Sat>
+:PROPERTIES:
+:CREATED:  [2015-05-06 Wed 11:27]
+:END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2015-05-09 Sat 18:47]
+:END:
+
+**** STARTED implement: display auto-tags (differently)
+SCHEDULED: <2015-05-09 Sat>
+:PROPERTIES:
+:CREATED:  [2015-05-06 Wed 11:27]
+:END:
+
+- [X] write class information
+- [ ] different CSS format for the two classes
+
 *** Length
 :PROPERTIES:
 :CREATED:  [2012-11-11 Sun 13:44]
@@ -1710,7 +1721,8 @@ current version.
 |                       | article-header-begin    | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
 |                       | article-header-end      | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
 |                       | article-tags-begin      |                                                                       |
-|                       | article-tag             | TAGNAME                                                               |
+|                       | article-usertag         | TAGNAME                                                               |
+|                       | article-autotag         | TAGNAME                                                               |
 |                       | article-tags-end        | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
 |                       | article-footer          | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
 |                       | article-end             | ARTICLE-TITLE, ABOUT-BLOG, BLOGNAME, ARTICLE-(ID,YEAR,MONTH,DAY,PUB*) |
@@ -1766,7 +1778,8 @@ id:implemented-org-elements (above)
   blog_data = \
   [ {'level': 2,                                                ## number of asterisks
      'title': u'This is a blog entry about foo',
-     'tags': [u'tag1', u'tag2'],
+     'usertags': [u'tag1', u'tag2'],
+     'autotags': {'language': 'english'},
      'id': u'lazyblorg-example-entry',                          ## ID from PROPERTIES-drawer
      'finished-timestamp-history': [datetime1, datetime2, datetime3],
      'timestamp': datetime,                                    ## most current time-stamp
@@ -1789,7 +1802,7 @@ blog_data[0].keys()
 # ['title',
 #  'timestamp',
 #  'created',
-#  'tags',
+#  'usertags',
 #  'content',
 #  'finished-timestamp-history',
 #  'level',

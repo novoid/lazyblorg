@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-12-29 20:19:03 vk>
+# Time-stamp: <2015-05-09 20:16:24 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -156,7 +156,7 @@ class Lazyblorg(object):
 
         htmlizer = Htmlizer(self.template_definitions, self.options.blogname, config.TAG_FOR_BLOG_ENTRY,
                             self.options.aboutblog, self.options.targetdir, self.blog_data, generate,
-                            increment_version)
+                            increment_version, self.options.autotag_language)
 
         ## FIXXME: try except HtmlizerException?
         return htmlizer.run()  ## FIXXME: return value?
@@ -220,12 +220,14 @@ class Lazyblorg(object):
 
         ## for documentation about the implemented elements: see id:implemented-org-elements in dev/lazyblorg.org
         for element in [u'common-sidebar',
-                        u'article-header', u'article-footer', u'article-header-begin', u'article-tags-begin',
-                        u'article-tag', u'article-tags-end', u'article-header-end', u'article-end',
+                        u'article-header', u'article-footer', u'article-header-begin',
+                        u'article-tags-begin', u'article-usertag', u'article-autotag', u'article-tags-end',
+                        u'article-header-end', u'article-end',
                         u'section-begin', u'paragraph',
                         u'ul-begin', u'ul-item', u'ul-end', u'pre-begin', u'pre-end',
                         u'entrypage-header', u'article-preview-header', u'article-preview-begin',
-                        u'article-preview-tags-begin', u'article-preview-tag', u'article-preview-tags-end',
+                        u'article-preview-tags-begin', u'article-preview-usertag', u'article-preview-autotag',
+                        u'article-preview-tags-end',
                         u'article-preview-more', u'article-preview-end', u'entrypage-footer']:
             if not element in found_elements:
                 message = "Sorry, no definition for element \"" + element + "\" could be found within " + \
@@ -401,6 +403,9 @@ if __name__ == "__main__":
                         help="Path to a file where warnings (inactive time-stamps) and errors " +
                         "(active time-stamps) are being appended in Org-mode format. " +
                         "It is highly recommended, that you add this file to your agenda list.")
+
+    parser.add_argument("--autotag-language", dest="autotag_language", action="store_true",
+                        help="Enable guessing of the language of a blog entry and using this as an auto-tag.")
 
     parser.add_argument("-v", "--verbose", dest="verbose", action="store_true",
                         help="Enable verbose mode which is quite chatty - be warned.")

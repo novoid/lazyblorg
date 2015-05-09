@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-04-20 21:34:22 vk>
+# Time-stamp: <2015-05-09 19:14:56 vk>
 
 import config
 import argparse  ## command line arguments
@@ -153,6 +153,7 @@ class TestLazyblorg(unittest.TestCase):
         metadata_input = "../testdata/nonexisting.pk"
         log_firstrun = "../testdata/" + testname + ".log"
         target_dir = "../testdata/"
+        autotag_language = True
 
         ## might be left over from a failed previous run:
         if os.path.isfile(metadata_output):
@@ -206,7 +207,7 @@ class TestLazyblorg(unittest.TestCase):
         template_definitions = mylazyblorg._generate_template_definitions_from_template_data()
 
         htmlizer = Htmlizer(template_definitions, testname, "blog", "about this blog",
-                            target_dir, blog_data, generate, increment_version)
+                            target_dir, blog_data, generate, increment_version, autotag_language)
 
         filename = htmlcontent = None
         for entry in blog_data:
@@ -216,7 +217,8 @@ class TestLazyblorg(unittest.TestCase):
             if entry['category'] == config.TEMPORAL:
                 filename, orgfilename, htmlcontent = htmlizer._generate_temporal_article(entry)
             elif entry['category'] == config.PERSISTENT:
-                pass  ## FIXXME: probably add test for generating about-page as well
+                pass  # FIXXME: probably add test for generating about-page as well
+            ## FIXXME: probably add test for generating tags-page as well
 
         htmloutputname = "../testdata/" + testname + ".html"
                 
