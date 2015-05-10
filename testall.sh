@@ -8,6 +8,7 @@ cd lib/tests && \
 ./orgparser_test.sh && \
 ./utils_test.sh && \
 ./htmlizer_test.sh && \
+./pypandoc_test.sh && \
 cd ../../tests && \
 ./lazyblorg_test.sh && \
 cd .. && \

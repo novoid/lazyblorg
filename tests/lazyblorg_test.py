@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-09 19:14:56 vk>
+# Time-stamp: <2015-05-10 18:28:44 vk>
 
 import config
 import argparse  ## command line arguments
@@ -244,7 +244,7 @@ class TestLazyblorg(unittest.TestCase):
         
         ## a more fine-grained diff (only) on the first element in blog_data:
         for line in range(len(comparison_string_array)): 
-            if contentarray_from_file[line].rstrip() != comparison_string_array[line].rstrip(): 
+            if contentarray_from_file[line].rstrip() != comparison_string_array[line].rstrip():
                 print "=================  first difference  ===================== in line " + str(line)
                 print "       [" + contentarray_from_file[line-1].rstrip() + "]"
                 print "found  [" + contentarray_from_file[line].rstrip() + "]"

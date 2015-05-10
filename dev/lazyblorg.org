@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2015-05-09 19:52:33 vk>
+# Time-stamp: <2015-05-10 19:29:52 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -248,46 +248,58 @@ CLOSED: [2014-03-01 Sat 20:10]
 
 - process
   1. [X] get a rough overview what needs to be changed
-  2. [ ] write unit-test for basic test of pypandoc!
-  3. [ ] document pypandoc requirement and its test
-  4. [ ] thinking of: keeping parser/htmlizer and using pypandoc only
+  2. [X] write unit-test for basic test of pypandoc!
+  3. [X] document pypandoc requirement and its test
+  4. [X] include test_pypandoc.py in testall
+  5. [X] thinking of: keeping parser/htmlizer and using pypandoc only
      for hard to parse/htmlize blocks?
-     - [ ] test naïve pypandoc lazyblorg for public-voit before
-  5. [ ] data model (file_blog_data)
+     - [X] test naïve pypandoc lazyblorg for public-voit before
+     - decision: I stick to my own parser so far and might convert
+       some Org-mode syntax elements to pypandoc later on
+  6. [ ] data model (file_blog_data)
      - simplified: instead of blocks and so on, there will only be
        meta-data from the headings and blobs of Org-mode blocks
-  6. lazyblorg.py
+     - decision: not feasible because I need to much
+       insider-information on the blocks in order to do all the magic
+  7. [ ] implement tables using pypandoc
+     - in order to get experience of the possibilities
+     - don't forget sanitizing
+  8. [ ] implement lists using pypandoc
+     - don't forget sanitizing
+  9. lazyblorg.py
      - [ ] generate_output()
        - using a different output module!
          - pandocizer.py (or similar)
      - [ ] keep old orgparser for templates?
-  7. orgparser.py
-     - unchanged states
-       - SEARCHING_BLOG_HEADER
-       - BLOG_HEADER
-       - DRAWER_PROP
-       - DRAWER_LOGBOOK
-       - SKIPPING_NOEXPORT_HEADING
-     - changed states
-       - [ ] ENTRY_CONTENT
-       - [ ] BLOCK
-       - [ ] LIST
-       - [ ] TABLE
-       - [ ] COLON_BLOCK
-     - definitions that need modifications
-       - [ ] parse_orgmode_file()
-     - [ ] HTML-blocks without title should stay HTML
-     - [ ] #+NAME of examples and some other blocks are being ignored by pypandoc
-  8. htmlizer.py -copy-> pandocizer.py (or similar)
-     - [ ] feed generator definitions
-       - feedentry += '\n'.join(blog_data_entry['content'])
-       - feedentry += '\n'.join(blog_data_entry['htmlteaser'])
-     - [ ] generate_entry_page()
-     - [ ] sanitize_and_htmlize_blog_content() -> completely obsolete?
-     - [ ] htmlize_simple_text_formatting() -> completely obsolete?
-     - [ ] sanitize_html_characters() -> completely obsolete?
-     - [ ] _generate_temporal_article()
-     - [ ] _generate_persistent_article()
+  10. [ ] implement pypandoc_test.py testcase with all used Org-mode syntax elements
+  11. orgparser.py
+      - unchanged states
+        - SEARCHING_BLOG_HEADER
+        - BLOG_HEADER
+        - DRAWER_PROP
+        - DRAWER_LOGBOOK
+        - SKIPPING_NOEXPORT_HEADING
+      - changed states
+        - [ ] ENTRY_CONTENT
+        - [ ] BLOCK
+        - [ ] LIST
+        - [ ] TABLE
+        - [ ] COLON_BLOCK
+      - definitions that need modifications
+        - [ ] parse_orgmode_file()
+      - [ ] HTML-blocks without title should stay HTML
+      - [ ] #+NAME of examples and some other blocks are being ignored by pypandoc
+  12. htmlizer.py -copy-> pandocizer.py (or similar)
+      - [ ] feed generator definitions
+        - feedentry += '\n'.join(blog_data_entry['content'])
+        - feedentry += '\n'.join(blog_data_entry['htmlteaser'])
+      - [ ] generate_entry_page()
+      - [ ] sanitize_and_htmlize_blog_content() -> completely obsolete?
+      - [ ] htmlize_simple_text_formatting() -> completely obsolete?
+      - [ ] sanitize_html_characters() -> completely obsolete?
+      - [ ] _generate_temporal_article()
+      - [ ] _generate_persistent_article()
+  13. [ ] implement exception handling when pypandoc is not found/installed
 
 ** NEXT add? [[http://www.heise.de/newsticker/meldung/c-t-entwickelt-datenschutzfreundliche-Social-Media-Buttons-weiter-2466687.html][Shariff: c't entwickelt datenschutzfreundliche Social-Media-Buttons weiter]]   :userstory:
 :PROPERTIES:
@@ -1281,9 +1293,11 @@ CLOSED: [2015-05-09 Sat 18:47] SCHEDULED: <2015-05-09 Sat>
 :END:
 
 **** STARTED implement: display auto-tags (differently)
-SCHEDULED: <2015-05-09 Sat>
 :PROPERTIES:
 :CREATED:  [2015-05-06 Wed 11:27]
+:END:
+:LOGBOOK:
+- Not scheduled, was "<2015-05-09 Sat>" on [2015-05-09 Sat 22:49]
 :END:
 
 - [X] write class information
@@ -1311,6 +1325,7 @@ SCHEDULED: <2015-05-09 Sat>
 
 - Example: if "What The World Needs"|"WTWN:" is found, link to a page
   where WTWN-series is described in general.
+
 ** TODO add tree of headings on each article with sub-headings   :userstory:
 :PROPERTIES:
 :CREATED:  [2014-02-08 Sat 11:06]

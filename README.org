@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2015-01-17 19:37:56 vk>
+## Time-stamp: <2015-05-10 19:19:41 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -331,6 +331,11 @@ This is a list of the most important dependencies:
 - pickle
   - object serialization
   - most likely: should be part of your Python distribution
+- pypandoc
+  - some Org-mode syntax elements are being converted using [[http://pandoc.org/][Pandoc]] and
+    its Python binding [[https://github.com/bebraw/pypandoc][pypandoc]]
+  - you can get it via ~sudo apt-get install pandoc~ and ~sudo pip
+    install pypandoc~
 
 All other libraries should be part of a standard Python distribution.
 
