@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-14 19:32:26 vk>
+# Time-stamp: <2015-05-14 20:05:50 vk>
 
 import config
 import re
@@ -281,7 +281,7 @@ class OrgParser(object):
         block_type = None
 
         ## name of the previous element with a name defined like: "#+NAME: foo bar"
-        previous_name = False
+        previous_name = u''
 
         ## contains content of previous line
         ## NOTE: only valid as long a state does not use "continue" in the previous
@@ -411,7 +411,7 @@ class OrgParser(object):
 
                 elif line == u'':
                     self.logging.debug("OrgParser: found empty line")
-                    previous_name = False    #+NAME: here is only valid until empty line after element
+                    previous_name = u''    #+NAME: here is only valid until empty line after element
                     previous_line = line
                     #if len(self.__entry_data['content']) > 1:
                     #    if not self.__entry_data['content'][-1] == u'\n':
@@ -427,12 +427,6 @@ class OrgParser(object):
 
                 elif line.upper().startswith('#+BEGIN_'):
 
-                    ## if this block has a name, do save it in content data below:
-                    named_block = False
-                    if previous_line.upper().startswith('#+NAME: '):
-                        named_block = True
-                        self.logging.debug("OrgParser: this block is a named one: [%s]" % previous_name)
-
                     block_components = self.BLOCK_REGEX.match(line)
                     if not block_components:
                         raise OrgParserException('I found a line beginning with ' +
@@ -445,10 +439,11 @@ class OrgParser(object):
                     if block_type == 'SRC' or block_type == 'HTML' or block_type == 'VERSE' or \
                             block_type == 'QUOTE' or block_type == 'CENTER' or block_type == 'ASCII' or \
                             block_type == 'LATEX' or block_type == 'EXAMPLE':
-                        if named_block:
-                            self.__entry_data['content'].append([block_type.lower() + '-block', previous_name, []])
-                        else:
+                        if previous_name == u'':
                             self.__entry_data['content'].append([block_type.lower() + '-block', False, []])
+                        else:
+                            self.logging.debug("OrgParser: this block is a named one: [%s]" % previous_name)
+                            self.__entry_data['content'].append([block_type.lower() + '-block', previous_name, []])
                     else:
                         ## if BLOCK_REGEX is in sync with the if-statement above, this should never be reached!
                         raise OrgParserException('I found a block type \"' + str(line) +
@@ -462,6 +457,16 @@ class OrgParser(object):
                     self.logging.debug("OrgParser: found COLON_BLOCK")
                     state = self.COLON_BLOCK
                     self.__entry_data['content'].append(['colon-block', False, [line]])
+                    previous_line = line
+
+                elif line.startswith('|'):
+
+                    self.logging.debug("OrgParser: found TABLE")
+                    state = self.TABLE
+                    if previous_name == u'':
+                        self.__entry_data['content'].append(['table', False, [line]])
+                    else:
+                        self.__entry_data['content'].append(['table', previous_name, [line]])
                     previous_line = line
 
                 elif heading_components:
@@ -603,8 +608,23 @@ class OrgParser(object):
 
                 ## parses table data and return to ENTRY_CONTENT
 
-                ## FIXXME
-                pass
+                if line == u'':
+                    ## table is over now:
+                    state = self.ENTRY_CONTENT
+                    previous_line = line
+                    continue
+                elif line.upper().startswith('#+TBLFM:'):
+                    ## table formulas are omitted in output
+                    continue
+                elif line.startswith('|'):
+                    ## append to the last element of content (which is a list from the current block) to
+                    ## its last element (which contains the list of the block content):
+                    self.__entry_data['content'][-1][-1].append(line)
+                else:
+                    ## if in state TABLE, each line has to be either empty, TBLFM or pipe character:
+                    raise OrgParserException('In state TABLE, current line \"' + str(line) +
+                                             '\" did not start with either \"|\", \"#+TBLFM:\", or empty line.' +
+                                             ' Please do not confuse me and fix it.')
 
             elif state == self.COLON_BLOCK:
 
