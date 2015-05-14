@@ -1,20 +1,22 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-08-10 18:00:50 vk>
+# Time-stamp: <2015-05-14 19:32:26 vk>
 
 import config
 import re
 from os import path
-import codecs  ## open, close with Unicode
+import codecs  # open, close with Unicode
 import logging
 from orgformat import *
 
 ## debugging:   for setting a breakpoint:  pdb.set_trace()
 ## NOTE: pdb hides private variables as well. Please use:   data = self._OrgParser__entry_data ; data['content']
 
+
 class OrgParserException(Exception):
     """
     Exception for all kind of self-raised parsing errors
     """
+
     def __init__(self, value):
         self.value = value
 
@@ -48,7 +50,7 @@ class OrgParser(object):
     HEADING_STARS_IDX = 1
     HEADING_STATE_IDX = 3
     HEADING_TITLE_IDX = 4
-    HEADING_TAGS_IDX = 6  ## components(HEADING_TAGS_IDX)[1:-1].split(':') -> array of tags
+    HEADING_TAGS_IDX = 6  # components(HEADING_TAGS_IDX)[1:-1].split(':') -> array of tags
 
     CREATED_REGEX = re.compile('^:CREATED:\s+' + OrgFormat.SINGLE_ORGMODE_TIMESTAMP, re.IGNORECASE)
     CREATED_TIMESTAMP_IDX = 1
@@ -69,8 +71,8 @@ class OrgParser(object):
     __blog_data = []
     ## __blog_data: contains a list with elements of type __entry_data
 
-    __entry_data = {}  ## dict of currently parsed blog entry data: gets "filled"
-                       ## while parsing the entry
+    __entry_data = {}  # dict of currently parsed blog entry data: gets "filled"
+                       # while parsing the entry
 
     def __init__(self, filename):
         """
@@ -99,7 +101,6 @@ class OrgParser(object):
 
         self.logging.debug("OrgParser: check_entry_data: checking current entry ...")
         errors = 0
-
 
         if not 'level' in self.__entry_data.keys():
             self.logging.error("Heading does not contain a heading level")
@@ -132,7 +133,6 @@ class OrgParser(object):
             else:
                 self.logging.error("Heading does not contain a content")
                 errors += 1
-
 
         if errors > 0:
             self.logging.error("check_entry_data: " + str(errors) +
@@ -167,13 +167,13 @@ class OrgParser(object):
 
         assert stars.__class__ == str or stars.__class__ == unicode
         assert title.__class__ == str or title.__class__ == unicode
-        
+
         if not tags:
             ## not even the TAG_FOR_BLOG_ENTRY -> no blog article!
             return False
 
         assert tags.__class__ == str or tags.__class__ == unicode
-        
+
         self.__entry_data['title'] = title
         self.__entry_data['level'] = len(stars)
         self.__entry_data['lbtags'] = []
@@ -186,7 +186,7 @@ class OrgParser(object):
         ## ignore headings with no TAG_FOR_BLOG_ENTRY
         if not ":" + config.TAG_FOR_BLOG_ENTRY + ":" in tags.lower():
             return False
-        
+
         rawtags = tags[1:-1].split(':')
         for rawtag in rawtags:
             ## separate lbtags from usertags:
@@ -204,7 +204,6 @@ class OrgParser(object):
                             str(self.__entry_data['usertags'])))
 
         return self.__check_if_entry_is_OK(check_only_title=True)
-
 
     def __handle_blog_end(self, line, rawcontent):
         """
@@ -238,11 +237,11 @@ class OrgParser(object):
 
             ## adding the Org-mode source:
             self.__entry_data['rawcontent'] = rawcontent
-                
+
             ## debug with: self._OrgParser__entry_data
             self.__blog_data.append(self.__entry_data)
 
-        self.__entry_data = {}  ## empty current entry data
+        self.__entry_data = {}  # empty current entry data
         ## Pdb-debugging with, e.g., self._OrgParser__entry_data['content']
 
         ## is newly found heading a new blog entry?
@@ -255,7 +254,7 @@ class OrgParser(object):
                                                                      heading_components.group(self.HEADING_TAGS_IDX)):
                 return self.BLOG_HEADER
             else:
-                self.__entry_data = {}  ## empty the current entry data for the upcoming entry
+                self.__entry_data = {}  # empty the current entry data for the upcoming entry
                 return self.SEARCHING_BLOG_HEADER
 
         else:
@@ -270,7 +269,7 @@ class OrgParser(object):
 
         self.logging.debug("OrgParser: doing file \"%s\" ..." % self.__filename)
         stats_parsed_org_lines = 0
-        
+
         ## finite state machine:
         ## SEARCHING_BLOG_HEADER | BLOG_HEADER | ENTRY_CONTENT | ...
         ## ... DRAWER_PROP | DRAWER_LOGBOOK | BLOCK | LIST | TABLE | COLON_BLOCK | ..
@@ -287,7 +286,7 @@ class OrgParser(object):
         ## contains content of previous line
         ## NOTE: only valid as long a state does not use "continue" in the previous
         ##       parsing step without "previous_line = line"
-        previous_line = False
+        previous_line = u''
 
         ## if skipping a heading within an entry, this variable holds
         ## the level of heading of the noexport-heading:
@@ -296,19 +295,20 @@ class OrgParser(object):
         ## collect the lines of the raw Org-mode entry (without noexport-headings):
         rawcontent = u""
         ignore_line_for_rawcontent = True
-        
+        line = u''
+
         for rawline in codecs.open(self.__filename, 'r', encoding='utf-8'):
 
             if not ignore_line_for_rawcontent:
-                rawcontent += line + '\n'  ## first blog header is lost if file starts directly with it: is fixed below
+                rawcontent += line + '\n'  # first blog header is lost if file starts directly with it: is fixed below
             ignore_line_for_rawcontent = False
-                
-            line = rawline.rstrip()  ## remove trailing whitespace
+
+            line = rawline.rstrip()  # remove trailing whitespace
 
             self.logging.debug("OrgParser: ------------------------------- %s" % state)
             self.logging.debug("OrgParser: %s ###### line: \"%s\"" % (state, line))
-            stats_parsed_org_lines += 1  ## increment statistical counter variable
-            
+            stats_parsed_org_lines += 1  # increment statistical counter variable
+
             if state == self.SKIPPING_NOEXPORT_HEADING:
 
                 ## ignore until end of blog entry  OR
@@ -329,7 +329,7 @@ class OrgParser(object):
                     ## ignore line because it is no heading at all
                     ignore_line_for_rawcontent = True
                     continue
-            
+
             if state == self.SEARCHING_BLOG_HEADER:
 
                 ## search for header line of a blog entry -> BLOG_HEADER
@@ -351,10 +351,10 @@ class OrgParser(object):
                         previous_line = line
                         if ignore_line_for_rawcontent:
                             ## if it is first line, save current heading to rawcontent:
-                            rawcontent += line + '\n'  ## fixes: first blog header is lost if file starts directly with it
+                            rawcontent += line + '\n'  # fixes: first blog header is lost if file starts directly with it
                         continue
                     else:
-                        self.__entry_data = {}  ## empty current entry data
+                        self.__entry_data = {}  # empty current entry data
                         previous_line = line
                         ignore_line_for_rawcontent = True
                         continue
@@ -411,7 +411,7 @@ class OrgParser(object):
 
                 elif line == u'':
                     self.logging.debug("OrgParser: found empty line")
-                    previous_name = False    ## #+NAME: here is only valid until empty line after element
+                    previous_name = False    #+NAME: here is only valid until empty line after element
                     previous_line = line
                     #if len(self.__entry_data['content']) > 1:
                     #    if not self.__entry_data['content'][-1] == u'\n':
@@ -458,7 +458,7 @@ class OrgParser(object):
                     continue
 
                 elif line.startswith(': '):
-                    
+
                     self.logging.debug("OrgParser: found COLON_BLOCK")
                     state = self.COLON_BLOCK
                     self.__entry_data['content'].append(['colon-block', False, [line]])
@@ -474,10 +474,10 @@ class OrgParser(object):
                             self.logging.debug("OrgParser: new heading has NOEXPORT tag, skipping.")
                             state = self.SKIPPING_NOEXPORT_HEADING
                             noexport_level = level
-                            previous_line = line  ## maybe this is not needed
+                            previous_line = line  # maybe this is not needed
                             ignore_line_for_rawcontent = True
                             continue
-                    
+
                     if level <= self.__entry_data['level']:
                         ## level is same or higher as main heading of blog entry: end of blog entry
                         state = self.__handle_blog_end(line, rawcontent)
@@ -523,7 +523,7 @@ class OrgParser(object):
                     ## if all properties already found, ignore rest of PROPERTIES and all other PROPERTIES (of sub-headings)
                     self.logging.debug("OrgParser: ignoring PROPERTIES since I already got my ID and CREATED")
                     previous_line = line
-                    ignore_line_for_rawcontent = True  ## OK, here I omit some unimportant properties others might want to see
+                    ignore_line_for_rawcontent = True  # OK, here I omit some unimportant properties others might want to see
                     continue
 
                 if line.upper().startswith(':ID:'):
@@ -532,7 +532,7 @@ class OrgParser(object):
                 if line.upper().startswith(':CREATED:'):
                     datetimestamp = OrgFormat.orgmode_timestamp_to_datetime(
                         self.CREATED_REGEX.match(line).group(self.CREATED_TIMESTAMP_IDX)
-                        )
+                    )
                     self.__entry_data['created'] = datetimestamp
 
                 else:
