@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2015-05-10 19:29:52 vk>
+# Time-stamp: <2015-05-14 20:21:53 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -261,9 +261,13 @@ CLOSED: [2014-03-01 Sat 20:10]
        meta-data from the headings and blobs of Org-mode blocks
      - decision: not feasible because I need to much
        insider-information on the blocks in order to do all the magic
-  7. [ ] implement tables using pypandoc
+  7. [-] implement tables using pypandoc
      - in order to get experience of the possibilities
      - don't forget sanitizing
+     - [X] write parser
+     - [X] write parser tests
+     - [ ] write htmlizer
+     - [ ] write htmlizer tests
   8. [ ] implement lists using pypandoc
      - don't forget sanitizing
   9. lazyblorg.py
@@ -1622,7 +1626,6 @@ are some for "lazyblog" (without the 'r').
 
 - http://orgmode.org/worg/dev/org-syntax.html
   - OLD: list of Org Mode elements: http://article.gmane.org/gmane.emacs.orgmode/67871
-    - will get on Worg some day!
 
 - an Org-mode test-file (for unit testing) containing all implemented
   Org-mode syntax elements: [[https://github.com/novoid/lazyblorg/blob/master/testdata/currently_supported_orgmode_syntax.org][testdata/currently_supported_orgmode_syntax.org]]

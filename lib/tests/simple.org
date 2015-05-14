@@ -1,4 +1,4 @@
-# Time-stamp: <2014-03-08 19:35:02 vk>
+# Time-stamp: <2015-05-14 20:17:25 vk>
 # -*- coding: utf-8 -*-
 
 * Heading of no interest
@@ -74,6 +74,28 @@ The resulting web blog
 might win the Pulitzer Prize some day!
 
 #+END_VERSE
+
+**** Sub-sub heading with tables and stuff
+:PROPERTIES:
+:CREATED:  [2015-05-14 Thu 20:11]
+:END:
+
+| Table header  | foo | Bar |
+|---------------+-----+-----|
+| Table content | baz | 42  |
+
+#+NAME: Example-table-name
+| Table  | with | name |
+
+| Table | with | formula |
+|    42 |   23 |      65 |
+#+TBLFM: @2$3=$1+$2
+
+#+NAME: Example-table-name-including-formula
+| Table | with | formula | and name |
+|-------+------+---------+----------|
+|    42 |   23 |         |       65 |
+#+TBLFM: @2$4=$1+$2
 
 *** Sub-heading bar
 :PROPERTIES:

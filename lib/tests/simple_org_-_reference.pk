@@ -105,109 +105,102 @@ aaa(lp53
 g25
 a(dp54
 g14
-VSub-heading bar
+VSub-sub heading with tables and stuff
 p55
 sg4
-I3
+I4
 saa(lp56
+S'table'
+p57
+aI00
+a(lp58
+V| Table header  | foo | Bar |
+p59
+aV|---------------+-----+-----|
+p60
+aV| Table content | baz | 42  |
+p61
+aaa(lp62
+g57
+aVExample-table-name
+p63
+a(lp64
+V| Table  | with | name |
+p65
+aaa(lp66
+g57
+ag63
+a(lp67
+V| Table | with | formula |
+p68
+aV|    42 |   23 |      65 |
+p69
+aaa(lp70
+g57
+aVExample-table-name-including-formula
+p71
+a(lp72
+V| Table | with | formula | and name |
+p73
+aV|-------+------+---------+----------|
+p74
+aV|    42 |   23 |         |       65 |
+p75
+aaa(lp76
+g25
+a(dp77
+g14
+VSub-heading bar
+p78
+sg4
+I3
+saa(lp79
 g22
 aVThis is a dummy text whose only purpose is to generate some content which is then processed by this lovely tool. The resulting web blog might win the Pulitzer Prize some day!
-p57
+p80
 aasS'created'
-p58
+p81
 g6
 (S'\x07\xdd\x02\x0c\n:\x00\x00\x00\x00'
-p59
-tp60
-Rp61
+p82
+tp83
+Rp84
 sS'rawcontent'
-p62
-V** DONE This is an example blog entry              :blog:mytest:programming:\u000aCLOSED: [2013-02-14 Thu 19:02]\u000a:LOGBOOK:\u000a- State "DONE"       from ""           [2013-02-14 Thu 19:02]\u000a:END:\u000a:PROPERTIES:\u000a:CREATED:  [2013-02-12 Tue 10:58]\u000a:ID: 2013-02-12-lazyblorg-example-entry\u000a:END:\u000a\u000aThis is an introduction text which describes the blog entry with some\u000acatchy information. Readers should be convinced to read this\u000ainteresting text. [[https://github.com/novoid/Memacs][Memacs]] is an external link to Memacs.\u000a\u000a*** Sub-heading foo\u000a:PROPERTIES:\u000a:END:\u000a\u000aThis is a dummy text whose only purpose is to generate some content\u000awhich is then processed by this lovely tool. The resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a- this list\u000a- gives a great overview\u000a- about something\u000a\u000ainternal link: [[id:2013-02-12-lazyblorg-example-entry]]\u000a\u000ainternal link with link description: [[id:2013-02-12-lazyblorg-example-entry][this is the description with *bold* as well]]\u000a\u000a**** Sub-sub heading about something\u000a:PROPERTIES:\u000a:END:\u000a\u000aThis is a dummy text whose only purpose is to generate some content\u000awhich is then processed by this lovely tool. The resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a#+BEGIN_VERSE\u000aWell, in here, I want to write verbatim text.\u000aLine breaks should be exactly the same.\u000a\u000aThis is a\u000adummy text whose only purpose is to generate\u000asome content\u000awhich is then processed by this lovely tool.\u000aThe resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a#+END_VERSE\u000a\u000a*** Sub-heading bar\u000a:PROPERTIES:\u000a:END:\u000a\u000aThis is a dummy text whose only purpose is to generate some content\u000awhich is then processed by this lovely tool. The resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a
-p63
+p85
+V** DONE This is an example blog entry              :blog:mytest:programming:\u000aCLOSED: [2013-02-14 Thu 19:02]\u000a:LOGBOOK:\u000a- State "DONE"       from ""           [2013-02-14 Thu 19:02]\u000a:END:\u000a:PROPERTIES:\u000a:CREATED:  [2013-02-12 Tue 10:58]\u000a:ID: 2013-02-12-lazyblorg-example-entry\u000a:END:\u000a\u000aThis is an introduction text which describes the blog entry with some\u000acatchy information. Readers should be convinced to read this\u000ainteresting text. [[https://github.com/novoid/Memacs][Memacs]] is an external link to Memacs.\u000a\u000a*** Sub-heading foo\u000a:PROPERTIES:\u000a:END:\u000a\u000aThis is a dummy text whose only purpose is to generate some content\u000awhich is then processed by this lovely tool. The resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a- this list\u000a- gives a great overview\u000a- about something\u000a\u000ainternal link: [[id:2013-02-12-lazyblorg-example-entry]]\u000a\u000ainternal link with link description: [[id:2013-02-12-lazyblorg-example-entry][this is the description with *bold* as well]]\u000a\u000a**** Sub-sub heading about something\u000a:PROPERTIES:\u000a:END:\u000a\u000aThis is a dummy text whose only purpose is to generate some content\u000awhich is then processed by this lovely tool. The resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a#+BEGIN_VERSE\u000aWell, in here, I want to write verbatim text.\u000aLine breaks should be exactly the same.\u000a\u000aThis is a\u000adummy text whose only purpose is to generate\u000asome content\u000awhich is then processed by this lovely tool.\u000aThe resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a#+END_VERSE\u000a\u000a**** Sub-sub heading with tables and stuff\u000a:PROPERTIES:\u000a:END:\u000a\u000a| Table header  | foo | Bar |\u000a|---------------+-----+-----|\u000a| Table content | baz | 42  |\u000a\u000a#+NAME: Example-table-name\u000a| Table  | with | name |\u000a\u000a| Table | with | formula |\u000a|    42 |   23 |      65 |\u000a#+TBLFM: @2$3=$1+$2\u000a\u000a#+NAME: Example-table-name-including-formula\u000a| Table | with | formula | and name |\u000a|-------+------+---------+----------|\u000a|    42 |   23 |         |       65 |\u000a#+TBLFM: @2$4=$1+$2\u000a\u000a*** Sub-heading bar\u000a:PROPERTIES:\u000a:END:\u000a\u000aThis is a dummy text whose only purpose is to generate some content\u000awhich is then processed by this lovely tool. The resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a
+p86
 sS'finished-timestamp-history'
-p64
-(lp65
+p87
+(lp88
 g9
 asS'id'
-p66
+p89
 V2013-02-12-lazyblorg-example-entry
-p67
-sa(dp68
-g2
-S'PERSISTENT'
-p69
-sg4
-I2
-sg5
-g6
-(S'\x07\xde\x03\x08\x13 \x00\x00\x00\x00'
-p70
-tp71
-Rp72
-sg10
-(lp73
-Vprogramming
-p74
-aVmytest
-p75
-asg14
-VThis is an persistent blog article
-p76
-sg16
-(lp77
-Vlb_persistent
-p78
-aVblog
-p79
-asg19
-(lp80
-(lp81
-g22
-aVThis blog article is not a temporal nor a tag entry - it's a persistent blog page.
-p82
-aa(lp83
-g22
-aVYou should expect me to be updated occasionally.
-p84
-aasg58
-g6
-(S'\x07\xde\x03\x08\x13\x1e\x00\x00\x00\x00'
-p85
-tp86
-Rp87
-sg62
-V** DONE This is an persistent blog article :programming:mytest:lb_persistent:blog:\u000aCLOSED: [2014-03-08 Sat 19:32]\u000a:LOGBOOK:\u000a- State "DONE"       from "NEXT"       [2014-03-08 Sat 19:32]\u000a:END:\u000a:PROPERTIES:\u000a:CREATED:  [2014-03-08 Sat 19:30]\u000a:ID: peristent-example-entry\u000a:END:\u000a\u000aThis blog article is not a temporal nor a tag entry - it's a\u000apersistent blog page.\u000a\u000aYou should expect me to be updated occasionally.\u000a\u000a
-p88
-sg64
-(lp89
-g72
-asg66
-Vperistent-example-entry
 p90
 sa(dp91
 g2
-S'TAGS'
+S'PERSISTENT'
 p92
 sg4
 I2
 sg5
 g6
-(S'\x07\xde\x03\x08\x13#\x00\x00\x00\x00'
+(S'\x07\xde\x03\x08\x13 \x00\x00\x00\x00'
 p93
 tp94
 Rp95
 sg10
 (lp96
-Vmytest
+Vprogramming
 p97
-aVprogramming
+aVmytest
 p98
 asg14
-Vtag-test
+VThis is an persistent blog article
 p99
 sg16
 (lp100
-Vlb_tags
+Vlb_persistent
 p101
 aVblog
 p102
@@ -215,21 +208,73 @@ asg19
 (lp103
 (lp104
 g22
-aVHere, you can read about the test-tag "tag-test".
+aVThis blog article is not a temporal nor a tag entry - it's a persistent blog page.
 p105
-aasg58
+aa(lp106
+g22
+aVYou should expect me to be updated occasionally.
+p107
+aasg81
+g6
+(S'\x07\xde\x03\x08\x13\x1e\x00\x00\x00\x00'
+p108
+tp109
+Rp110
+sg85
+V** DONE This is an persistent blog article :programming:mytest:lb_persistent:blog:\u000aCLOSED: [2014-03-08 Sat 19:32]\u000a:LOGBOOK:\u000a- State "DONE"       from "NEXT"       [2014-03-08 Sat 19:32]\u000a:END:\u000a:PROPERTIES:\u000a:CREATED:  [2014-03-08 Sat 19:30]\u000a:ID: peristent-example-entry\u000a:END:\u000a\u000aThis blog article is not a temporal nor a tag entry - it's a\u000apersistent blog page.\u000a\u000aYou should expect me to be updated occasionally.\u000a\u000a
+p111
+sg87
+(lp112
+g95
+asg89
+Vperistent-example-entry
+p113
+sa(dp114
+g2
+S'TAGS'
+p115
+sg4
+I2
+sg5
+g6
+(S'\x07\xde\x03\x08\x13#\x00\x00\x00\x00'
+p116
+tp117
+Rp118
+sg10
+(lp119
+Vmytest
+p120
+aVprogramming
+p121
+asg14
+Vtag-test
+p122
+sg16
+(lp123
+Vlb_tags
+p124
+aVblog
+p125
+asg19
+(lp126
+(lp127
+g22
+aVHere, you can read about the test-tag "tag-test".
+p128
+aasg81
 g6
 (S'\x07\xde\x03\x08\x13!\x00\x00\x00\x00'
-p106
-tp107
-Rp108
-sg62
+p129
+tp130
+Rp131
+sg85
 VCLOSED: [2014-03-08 Sat 19:35]\u000a:LOGBOOK:\u000a- State "DONE"       from "NEXT"       [2014-03-08 Sat 19:35]\u000a:END:\u000a:PROPERTIES:\u000a:CREATED:  [2014-03-08 Sat 19:33]\u000a:ID: 2014-03-08-tag-test-entry\u000a:END:\u000a\u000aHere, you can read about the test-tag "tag-test".\u000a\u000a
-p109
-sg64
-(lp110
-g95
-asg66
+p132
+sg87
+(lp133
+g118
+asg89
 V2014-03-08-tag-test-entry
-p111
+p134
 sa.
