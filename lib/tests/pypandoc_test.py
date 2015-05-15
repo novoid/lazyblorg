@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-10 19:13:44 vk>
+# Time-stamp: <2015-05-15 13:58:10 vk>
 
 import unittest
 import sys
@@ -12,24 +12,23 @@ except ImportError:
     print "Could not find Python module \"pypandoc\".\nPlease install it, e.g., with \"sudo pip install pypandoc\"."
     sys.exit(1)
 
+
 class TestPypandoc(unittest.TestCase):
 
     ## FIXXME: (Note) These test are *not* exhaustive unit tests.
 
     logging = None
 
-
     def setUp(self):
         verbose = False
         quiet = False
         self.logging = Utils.initialize_logging("lazyblorg.tests", verbose, quiet)
 
-
     def tearDown(self):
         pass
 
-
     def test_pypandoc_compatibility(self):
+
         """
         This test is testing if org-mode can be converted to html via pypandoc
         """
@@ -43,8 +42,23 @@ class TestPypandoc(unittest.TestCase):
         This test is testing a basic pypandoc function call.
         """
 
-        self.assertEqual(pypandoc.convert('- *foo* bar', 'html5', format='org'),
-                         u'<ul>\n<li><strong>foo</strong> bar</li>\n</ul>\n')
+        pypandoc_result = pypandoc.convert('- *foo* bar', 'html5', format='org')
+        expected_html5_result = u'<ul>\n<li><strong>foo</strong> bar</li>\n</ul>\n'
+
+        self.assertEqual(Utils.normalize_lineendings(pypandoc_result), Utils.normalize_lineendings(expected_html5_result))
+
+    def test_pypandoc_with_umlauts(self):
+        """
+        This test is testing umlaut and charset with pypandoc.
+        """
+
+        pypandoc_result = pypandoc.convert('This is an umlaut test: öÄß€',
+                                           'html5', format='org', encoding='utf-8')
+        expected_html5_result = u'<p>This is an umlaut test: öÄß€</p>\n'
+
+        ## FIXXME: Umlaut conversion does habe encoding issues.
+        self.assertEqual(Utils.normalize_lineendings(pypandoc_result),
+                         Utils.normalize_lineendings(expected_html5_result))
 
     def test_pypandoc_formatting_examples(self):
         """
@@ -112,8 +126,9 @@ comment
 </ul>
 '''
         self.maxDiff = None
-        self.assertEqual(pypandoc.convert(org_example, 'html5', format='org'),
-                         expected_html5_result)
+        pypandoc_result = pypandoc.convert(org_example, 'html5', format='org')
+
+        self.assertEqual(Utils.normalize_lineendings(pypandoc_result), Utils.normalize_lineendings(expected_html5_result))
 
 
 # Local Variables:
