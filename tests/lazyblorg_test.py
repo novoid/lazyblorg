@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-10 18:28:44 vk>
+# Time-stamp: <2015-05-15 15:28:40 vk>
 
 import config
 import argparse  ## command line arguments
@@ -10,10 +10,8 @@ from lib.utils import *
 from lib.orgparser import *
 from lib.htmlizer import *
 import pickle ## for serializing and storing objects into files
-from os import remove
+import os
 
-## debugging:   for setting a breakpoint:  pdb.set_trace()## FIXXME
-import pdb
 
 class TestLazyblorg(unittest.TestCase):
 
@@ -23,22 +21,18 @@ class TestLazyblorg(unittest.TestCase):
 
     logging = None
 
-
     def setUp(self):
         verbose = False
         quiet = False
         self.logging = Utils.initialize_logging("lazyblorg", verbose, quiet)
 
-
     def tearDown(self):
         pass
-
 
     def test_parse_HTML_output_template_and_generate_template_definitions(self):
 
         ## FIXXME: implement!
         pass
-
 
     def test_determine_changes(self):
 
@@ -54,16 +48,16 @@ class TestLazyblorg(unittest.TestCase):
 
         ## might be left over from a failed previous run:
         if os.path.isfile(metadata_firstrun_output):
-            remove(metadata_firstrun_output)
+            os.remove(metadata_firstrun_output)
 
         ## might be left over from a failed previous run:
         if os.path.isfile(log_firstrun):
-            remove(log_firstrun)
+            os.remove(log_firstrun)
 
-        self.assertTrue(os.path.isfile(template_file))  ## check, if test input file is found
-        self.assertTrue(os.path.isfile(org_testfile_firstrun))  ## check, if test input file is found
-        self.assertTrue(os.path.isfile(org_testfile_secondrun))  ## check, if test input file is found
-        
+        self.assertTrue(os.path.isfile(template_file))  # check, if test input file is found
+        self.assertTrue(os.path.isfile(org_testfile_firstrun))  # check, if test input file is found
+        self.assertTrue(os.path.isfile(org_testfile_secondrun))  # check, if test input file is found
+
         ## Building the call parameters:
 
         first_parser = argparse.ArgumentParser()
@@ -133,10 +127,10 @@ class TestLazyblorg(unittest.TestCase):
         self.assertTrue(generate_sorted == [u'case1', u'case5', u'case6', u'case7', u'case8', u'lazyblorg-templates'])
 
         if os.path.isfile(log_firstrun):
-            remove(log_firstrun)
+            os.remove(log_firstrun)
 
-        remove(metadata_firstrun_output)
-        remove(metadata_secondrun_output)
+        os.remove(metadata_firstrun_output)
+        os.remove(metadata_secondrun_output)
 
         return
 
@@ -157,16 +151,16 @@ class TestLazyblorg(unittest.TestCase):
 
         ## might be left over from a failed previous run:
         if os.path.isfile(metadata_output):
-            remove(metadata_output)
+            os.remove(metadata_output)
 
         ## might be left over from a failed previous run:
         if os.path.isfile(log_firstrun):
-            remove(log_firstrun)
+            os.remove(log_firstrun)
 
-        self.assertTrue(os.path.isfile(template_file))  ## check, if test input file is found
-        self.assertTrue(os.path.isfile(org_testfile))  ## check, if test input file is found
-        self.assertTrue(os.path.isfile(additional_org_file))  ## check, if test input file is found
-        
+        self.assertTrue(os.path.isfile(template_file))  # check, if test input file is found
+        self.assertTrue(os.path.isfile(org_testfile))  # check, if test input file is found
+        self.assertTrue(os.path.isfile(additional_org_file))  # check, if test input file is found
+
         ## Building the call parameters:
         first_parser = argparse.ArgumentParser()
         first_parser.add_argument("--orgfiles", dest="orgfiles", nargs='+')
@@ -202,14 +196,14 @@ class TestLazyblorg(unittest.TestCase):
         additional_blog_data, additional_stats_parsed_org_lines = mylazyblorg._parse_orgmode_file(additional_org_file)
         blog_data += template_blog_data
         blog_data += additional_blog_data
-        
+
         ## extract HTML templates and store in class var
         template_definitions = mylazyblorg._generate_template_definitions_from_template_data()
 
         htmlizer = Htmlizer(template_definitions, testname, "blog", "about this blog",
                             target_dir, blog_data, generate, increment_version, autotag_language)
 
-        filename = htmlcontent = None
+        htmlcontent = None
         for entry in blog_data:
 
             entry = htmlizer.sanitize_and_htmlize_blog_content(entry)
@@ -221,13 +215,13 @@ class TestLazyblorg(unittest.TestCase):
             ## FIXXME: probably add test for generating tags-page as well
 
         htmloutputname = "../testdata/" + testname + ".html"
-                
+
         ## generating HTML output in order to manually check in browser as well:
         with codecs.open(htmloutputname, 'wb', encoding='utf-8') as output:
             output.write(htmlcontent)
 
         self.assertTrue(os.path.isfile(htmloutputname))
-            
+
         ## read in generated data from file:
         contentarray_from_file = []
         with codecs.open(htmloutputname, 'r', encoding='utf-8') as input:
@@ -235,34 +229,34 @@ class TestLazyblorg(unittest.TestCase):
 
         ## read in comparson data from file:
         comparisonfilename = "../testdata/" + testname + "_COMPARISON.html"
-        comparison_file_content = None
+
         with codecs.open(comparisonfilename, 'r', encoding='utf-8') as input:
             comparison_string_array = input.readlines()
 
         if len(comparison_string_array) != len(contentarray_from_file):
             print "length of produced data (" + str(len(contentarray_from_file)) + ") differs from comparison data (" + str(len(comparison_string_array)) + ")"
-        
+
         ## a more fine-grained diff (only) on the first element in blog_data:
-        for line in range(len(comparison_string_array)): 
-            if contentarray_from_file[line].rstrip() != comparison_string_array[line].rstrip():
-                print "=================  first difference  ===================== in line " + str(line)
-                print "       [" + contentarray_from_file[line-1].rstrip() + "]"
-                print "found  [" + contentarray_from_file[line].rstrip() + "]"
-                print "       [" + contentarray_from_file[line+1].rstrip() + "]"
-                print "    ---------------  comparison data:  --------------------"
-                print "       [" + comparison_string_array[line-1].rstrip() + "]"
-                print "should [" + comparison_string_array[line].rstrip() + "]"
-                print "       [" + comparison_string_array[line+1].rstrip() + "]"
-                print "=================                    ====================="
-                self.assertTrue(contentarray_from_file[line].rstrip() == comparison_string_array[line].rstrip())
-                    
+        Utils.diff_two_lists(contentarray_from_file, comparison_string_array)
+        #OLD# for line in range(len(comparison_string_array)):
+        #OLD#     if contentarray_from_file[line].rstrip() != comparison_string_array[line].rstrip():
+        #OLD#         print "=================  first difference  ===================== in line " + str(line)
+        #OLD#         print "       [" + contentarray_from_file[line-1].rstrip() + "]"
+        #OLD#         print "found  [" + contentarray_from_file[line].rstrip() + "]"
+        #OLD#         print "       [" + contentarray_from_file[line+1].rstrip() + "]"
+        #OLD#         print "    ---------------  comparison data:  --------------------"
+        #OLD#         print "       [" + comparison_string_array[line-1].rstrip() + "]"
+        #OLD#         print "should [" + comparison_string_array[line].rstrip() + "]"
+        #OLD#         print "       [" + comparison_string_array[line+1].rstrip() + "]"
+        #OLD#         print "=================                    ====================="
+        #OLD#         self.assertTrue(contentarray_from_file[line].rstrip() == comparison_string_array[line].rstrip())
+
         if os.path.isfile(metadata_output):
-            remove(metadata_output)
+            os.remove(metadata_output)
 
         if os.path.isdir("../testdata/" + testname):
             import shutil
             shutil.rmtree("../testdata/" + testname)
-            #import pdb; pdb.set_trace()
 
 
 ## END OF FILE #################################################################

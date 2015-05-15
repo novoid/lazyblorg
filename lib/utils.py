@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-15 14:01:04 vk>
+# Time-stamp: <2015-05-15 14:19:19 vk>
 
 import config
 from sys import stdout, exit
@@ -459,6 +459,33 @@ class Utils(object):
         """
 
         return mystring.replace('\r\n', '\n').replace('\r', '\n')
+
+    @staticmethod
+    def diff_two_lists(list1, list2):
+        """
+        Compares two lists, visually printing first difference.
+        Returns True, if lists are same; False otherwise.
+        """
+
+        if list1 == list2:
+            return True
+
+        for currentitem in range(len(list1)):
+            if list1[currentitem] != list2[currentitem]:
+                print "=================  first difference  ===================== in line " + str(currentitem)
+                print "       [" + list1[currentitem - 1].rstrip() + "]"
+                print "found  [" + list1[currentitem].rstrip() + "]"
+                print "       [" + list1[currentitem + 1].rstrip() + "]"
+                print "    ---------------  comparison data:  --------------------"
+                print "       [" + list2[currentitem - 1].rstrip() + "]"
+                print "should [" + list2[currentitem].rstrip() + "]"
+                print "       [" + list2[currentitem + 1].rstrip() + "]"
+                print "=================                    ====================="
+                return False
+
+        logger = logging.getLogger('lazyblorg.Utils.diff_two_lists')
+        logger.error("Internal error: The two lists are not equal but I can't find the difference..")
+
 
 
 # Local Variables:
