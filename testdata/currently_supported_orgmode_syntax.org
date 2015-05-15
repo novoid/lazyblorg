@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; ispell-local-dictionary: "german8"; -*-
-# Time-stamp: <2015-05-15 11:22:24 karl.voit>
+# Time-stamp: <2015-05-15 15:37:06 vk>
 
 * DONE lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer :hidden:publicvoit:lazyblorg:MixedCaseTag:blog:
 CLOSED: [2014-01-30 Thu 13:01]
@@ -398,7 +398,7 @@ Mixed lists:
      2. bah!
 3. back to first list
 
-** Tables                                                         :noexport:
+** Tables
 :PROPERTIES:
 :CREATED:  [2014-01-30 Thu 20:14]
 :END:
