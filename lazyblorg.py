@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-09 20:16:24 vk>
+# Time-stamp: <2015-05-15 15:32:01 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -10,7 +10,7 @@
 ##  know, what you are doing :-)                                         ##
 ## ===================================================================== ##
 
-import config  ## lazyblorg-global settings
+import config  # lazyblorg-global settings
 import os
 import logging
 from datetime import datetime
@@ -19,12 +19,9 @@ from argparse import ArgumentParser, RawDescriptionHelpFormatter
 from lib.utils import *
 from lib.orgparser import *
 from lib.htmlizer import *
-import pickle  ## for serializing and storing objects into files
-from time import time ## for measuring execution time
+import pickle  # for serializing and storing objects into files
+from time import time  # for measuring execution time
 
-## debugging:   for setting a breakpoint:
-#pdb.set_trace()## FIXXME
-import pdb
 
 PROG_VERSION_NUMBER = u"0.2"
 PROG_VERSION_DATE = u"2014-02-01"
@@ -49,9 +46,9 @@ class Lazyblorg(object):
     logging = None
 
     blog_data = []
-    metadata = []  ## meta-data of the current run of lazyblorg
-    previous_metadata = None  ## meta-data of the previous run of lazyblorg
-    template_definitions = None  ## list of definitions of templates
+    metadata = []  # meta-data of the current run of lazyblorg
+    previous_metadata = None  # meta-data of the previous run of lazyblorg
+    template_definitions = None  # list of definitions of templates
 
     def __init__(self, options, logging):
 
@@ -60,8 +57,8 @@ class Lazyblorg(object):
 
         self.list_of_orgfiles = []
         self.blog_data = []
-        self.metadata = []  ## meta-data of the current run of lazyblorg
-        self.previous_metadata = None  ## meta-data of the previous run of lazyblorg
+        self.metadata = []  # meta-data of the current run of lazyblorg
+        self.previous_metadata = None  # meta-data of the previous run of lazyblorg
         self.template_definitions = None
 
     def determine_changes(self):
@@ -82,7 +79,7 @@ class Lazyblorg(object):
         for filename in options.orgfiles:
             new_org_lines = 0
             try:
-                file_blog_data, new_org_lines = self._parse_orgmode_file(filename)  ## parsing one Org-mode file
+                file_blog_data, new_org_lines = self._parse_orgmode_file(filename)  # parsing one Org-mode file
             except OrgParserException as message:
                 verbose_message = "Parsing error in file \"" + filename + \
                     "\" which is not good. Therefore, I stop here and hope you " + \
@@ -96,7 +93,7 @@ class Lazyblorg(object):
         ## dump blogdata for debugging purpose ...
         if options.verbose:
             with open('lazyblorg_dump_of_blogdata_from_last_verbose_run.pk', 'wb') as output:
-                pickle.dump(self.blog_data, output, 0)  ## always use ASCII format: easier to debug from outside
+                pickle.dump(self.blog_data, output, 0)  # always use ASCII format: easier to debug from outside
 
         ## FIXXME: debug with: [x['id'] for x in self.blog_data]
 
@@ -159,7 +156,7 @@ class Lazyblorg(object):
                             increment_version, self.options.autotag_language)
 
         ## FIXXME: try except HtmlizerException?
-        return htmlizer.run()  ## FIXXME: return value?
+        return htmlizer.run()  # FIXXME: return value?
 
     def _parse_orgmode_file(self, filename):
         """
@@ -204,8 +201,8 @@ class Lazyblorg(object):
         self.logging.debug('checking for basic template definitions in parsed data ...')
 
         ## extract template_data from blog_data:
-        template_data = [x for x in self.blog_data \
-                             if x['id']=='lazyblorg-templates' and x['title'] == u'Templates']
+        template_data = [x for x in self.blog_data
+                         if x['id'] == 'lazyblorg-templates' and x['title'] == u'Templates']
 
         if not template_data:
             message = "Sorry, no suitable template data could be parsed from the Org-mode files. " + \
@@ -213,8 +210,8 @@ class Lazyblorg(object):
                 "file \"blog-format.org\"."
             Utils.error_exit_with_userlog(self.options.logfilename, 40, message)
 
-        html_definitions = [x for x in template_data[0]['content'] \
-                                if x[0] == 'html-block']
+        html_definitions = [x for x in template_data[0]['content']
+                            if x[0] == 'html-block']
 
         found_elements = [x[1] for x in html_definitions]
 
@@ -292,7 +289,7 @@ class Lazyblorg(object):
         if previous_metadata is None:
             self.logging.info("no previous metadata found: must be the first run of lazyblorg with this configuration")
 
-        for entry in metadata:  ## ignore blog entries that have been gone since last run
+        for entry in metadata:  # ignore blog entries that have been gone since last run
 
             ## debug output current entry and its meta-data:
             self.logging.debug(" processing entry [" + str(repr(entry)) +
@@ -371,9 +368,9 @@ if __name__ == "__main__":
         "https://github.com/novoid/lazyblorg for more information."
 
     parser = ArgumentParser(prog=argv[0],
-                                     formatter_class=RawDescriptionHelpFormatter,  ## keep line breaks in EPILOG and such
-                                     epilog=EPILOG,
-                                     description=mydescription)
+                            formatter_class=RawDescriptionHelpFormatter,  # keep line breaks in EPILOG and such
+                            epilog=EPILOG,
+                            description=mydescription)
 
     parser.add_argument("--orgfiles", dest="orgfiles", nargs='+', metavar='ORGFILE', required=True,
                         help="One or more Org-mode files which contains all blog articles (and possible other stuff).")
@@ -479,10 +476,10 @@ if __name__ == "__main__":
         time_after_htmlizing = time()
 
         logging.info("Parsed " + str(stats_parsed_org_files) + " Org-mode files with " + str(stats_parsed_org_lines) + " lines (in %.2f seconds)" % (time_after_parsing - time_before_parsing))
-        logging.info("Generated " + str(stats_generated_total) + " articles: " + \
-                     str(stats_generated_persistent) + " persistent, " + \
-                     str(stats_generated_temporal) + " temporal, " + \
-                     str(stats_generated_tags) + " tag" + \
+        logging.info("Generated " + str(stats_generated_total) + " articles: " +
+                     str(stats_generated_persistent) + " persistent, " +
+                     str(stats_generated_temporal) + " temporal, " +
+                     str(stats_generated_tags) + " tag" +
                      ", 1 entry page (in %.2f seconds)" % (time_after_htmlizing - time_after_parsing))
 
         logging.debug("-------------> cleaning up the stage ...")
