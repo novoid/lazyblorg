@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2015-05-14 20:21:53 vk>
+# Time-stamp: <2015-05-15 15:48:16 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -261,39 +261,29 @@ CLOSED: [2014-03-01 Sat 20:10]
        meta-data from the headings and blobs of Org-mode blocks
      - decision: not feasible because I need to much
        insider-information on the blocks in order to do all the magic
-  7. [-] implement tables using pypandoc
+  7. [X] implement exception handling when pypandoc is not found/installed
+  8. [X] implement pypandoc_test.py testcase with all used Org-mode syntax elements
+  9. [X] implement tables using pypandoc
      - in order to get experience of the possibilities
      - don't forget sanitizing
      - [X] write parser
      - [X] write parser tests
-     - [ ] write htmlizer
-     - [ ] write htmlizer tests
-  8. [ ] implement lists using pypandoc
-     - don't forget sanitizing
-  9. lazyblorg.py
-     - [ ] generate_output()
-       - using a different output module!
-         - pandocizer.py (or similar)
-     - [ ] keep old orgparser for templates?
-  10. [ ] implement pypandoc_test.py testcase with all used Org-mode syntax elements
-  11. orgparser.py
-      - unchanged states
-        - SEARCHING_BLOG_HEADER
-        - BLOG_HEADER
-        - DRAWER_PROP
-        - DRAWER_LOGBOOK
-        - SKIPPING_NOEXPORT_HEADING
-      - changed states
-        - [ ] ENTRY_CONTENT
-        - [ ] BLOCK
-        - [ ] LIST
-        - [ ] TABLE
-        - [ ] COLON_BLOCK
-      - definitions that need modifications
-        - [ ] parse_orgmode_file()
-      - [ ] HTML-blocks without title should stay HTML
-      - [ ] #+NAME of examples and some other blocks are being ignored by pypandoc
-  12. htmlizer.py -copy-> pandocizer.py (or similar)
+     - [X] write htmlizer
+     - [X] write htmlizer tests
+  10. [ ] add CSS for tables
+  11. [ ] implement lists using pypandoc
+      - don't forget sanitizing
+      - [ ] write parser
+      - [ ] write parser tests
+      - [ ] write htmlizer
+      - [ ] write htmlizer tests
+      - [ ] add CSS for lists
+  12. lazyblorg.py
+      - [ ] generate_output()
+        - using a different output module!
+          - pandocizer.py (or similar)
+      - [ ] keep old orgparser for templates?
+  13. htmlizer.py -copy-> pandocizer.py (or similar)
       - [ ] feed generator definitions
         - feedentry += '\n'.join(blog_data_entry['content'])
         - feedentry += '\n'.join(blog_data_entry['htmlteaser'])
@@ -303,7 +293,6 @@ CLOSED: [2014-03-01 Sat 20:10]
       - [ ] sanitize_html_characters() -> completely obsolete?
       - [ ] _generate_temporal_article()
       - [ ] _generate_persistent_article()
-  13. [ ] implement exception handling when pypandoc is not found/installed
 
 ** NEXT add? [[http://www.heise.de/newsticker/meldung/c-t-entwickelt-datenschutzfreundliche-Social-Media-Buttons-weiter-2466687.html][Shariff: c't entwickelt datenschutzfreundliche Social-Media-Buttons weiter]]   :userstory:
 :PROPERTIES:
