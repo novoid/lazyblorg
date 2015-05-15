@@ -43,7 +43,7 @@ class Htmlizer(object):
     Class for generating HTML output of lazyblorg
     """
 
-    logging = None  ## instance of logger
+    logging = None  # instance of logger
 
     template_definitions = None  # list of lists ['description', 'content'] with content being the HTML templates
     targetdir = None  # string of the base directory of the blog
@@ -60,25 +60,25 @@ class Htmlizer(object):
     ID_DESCRIBED_LINK_REGEX = re.compile('(\[\[id:([^\]]+?)\]\[([^\]]+?)\]\])')
 
     ## find external links such as [[http(s)://foo.com][bar]]:
-    EXT_URL_WITH_DESCRIPTION_REGEX = re.compile(u'\[\[(http[^ ]+?)\]\[(.+?)\]\]', flags = re.U)
+    EXT_URL_WITH_DESCRIPTION_REGEX = re.compile(u'\[\[(http[^ ]+?)\]\[(.+?)\]\]', flags=re.U)
 
     ## find external links such as [[foo]]:
-    EXT_URL_WITHOUT_DESCRIPTION_REGEX = re.compile(u'\[\[(.+?)\]\]', flags = re.U)
+    EXT_URL_WITHOUT_DESCRIPTION_REGEX = re.compile(u'\[\[(.+?)\]\]', flags=re.U)
 
     ## find external links such as http(s)://foo.bar
-    EXT_URL_LINK_REGEX = re.compile(u'([^"<>\[])(http(s)?:\/\/\S+)', flags = re.U)
+    EXT_URL_LINK_REGEX = re.compile(u'([^"<>\[])(http(s)?:\/\/\S+)', flags=re.U)
 
     ## find '&amp;' in an active URL and fix it to '&':
-    FIX_AMPERSAND_URL_REGEX = re.compile(u'(href="http(s)?://\S+?)&amp;(\S+?")', flags = re.U)
+    FIX_AMPERSAND_URL_REGEX = re.compile(u'(href="http(s)?://\S+?)&amp;(\S+?")', flags=re.U)
 
     ## find *bold text*:
-    BOLD_REGEX = re.compile(u'\*([^*]+)\*', flags = re.U)
+    BOLD_REGEX = re.compile(u'\*([^*]+)\*', flags=re.U)
 
     ## find ~teletype or source text~:
-    TELETYPE_REGEX = re.compile(u'~([^~]+)~', flags = re.U)
+    TELETYPE_REGEX = re.compile(u'~([^~]+)~', flags=re.U)
 
     ## any ISO date-stamp of format YYYY-MM-DD:
-    DATESTAMP_REGEX = re.compile('([12]\d\d\d)-([012345]\d)-([012345]\d)', flags = re.U)
+    DATESTAMP_REGEX = re.compile('([12]\d\d\d)-([012345]\d)-([012345]\d)', flags=re.U)
 
     def __init__(self, template_definitions, blogname, blog_tag, about_blog, targetdir, blog_data,
                  generate, increment_version, autotag_language):
@@ -143,7 +143,7 @@ class Htmlizer(object):
 
             entry = self.sanitize_and_htmlize_blog_content(entry)
 
-            filename = htmlcontent = None
+            htmlcontent = None
 
             if entry['category'] == config.TAGS:
                 self.logging.debug("entry \"%s\" is a tag page" % entry['id'])
@@ -320,7 +320,7 @@ class Htmlizer(object):
         assert(type(links_atom_feed) == unicode)
         assert(type(content_atom_feed) == unicode)
 
-	# Save the feed to a file in various formats
+        # Save the feed to a file in various formats
         self.write_content_to_file(atom_targetfile_links, links_atom_feed)
         self.write_content_to_file(atom_targetfile_content, content_atom_feed)
 
@@ -436,7 +436,7 @@ class Htmlizer(object):
                 htmlcontent += content
 
             elif entry['category'] == 'TAGS':
-                pass ## FIXXME: implement!
+                pass # FIXXME: implement!
 
         number_of_current_teaser_entries += 1
 
@@ -489,7 +489,6 @@ class Htmlizer(object):
                 except:
                     self.logging.critical("Error when writing file: " + str(orgfilename))
                     raise
-                    return False
             return True
         else:
             self.logging.critical("No filename (" + str(orgfilename) + ") or Org-mode raw content when writing file: " + str(orgfilename))
@@ -686,6 +685,24 @@ class Htmlizer(object):
                 else:
                     result += self.template_definition_by_name('src-end')
 
+            elif entry['content'][index][0] == 'table':
+
+                ## example:
+                ##  ['table', u'Table-name', [u'| My  | table |     |',
+                ##                            u'|-----+-------+-----|',
+                ##                            u'| 23  | 42    |  65 |',
+                ##                            u'| foo | bar   | baz |']]
+                ## entry['content'][index][1] == u'Table-name'
+                ## entry['content'][index][2] -> list of table rows
+
+                ## FIXXME: table name is ignored so far; probably don't separate it in orgparser?
+
+                sanitized_tablerows = []
+                for tablerow in entry['content'][index][2]:
+                    sanitized_tablerows.append(
+                            self.sanitize_internal_links(entry['category'], tablerow, keep_orgmode_format=True))
+                result = pypandoc.convert('\n'.join(sanitized_tablerows),
+                                          'html5', format='org')
 
             else:
                 message = "htmlizer.py/sanitize_and_htmlize_blog_content(): content element [" + str(entry['content'][index][0]) + \
@@ -739,7 +756,6 @@ class Htmlizer(object):
             self.logging.debug("fix_ampersands_in_url: fixed \"%s\" to \"%s\"" % (content, result))
 
         return result
-
 
     def htmlize_simple_text_formatting(self, content):
         """
@@ -806,18 +822,17 @@ class Htmlizer(object):
 
         return url
 
-    def sanitize_internal_links(self, sourcecategory, content):
+    def sanitize_internal_links(self, sourcecategory, content, keep_orgmode_format=False):
         """
         Replaces all internal Org-mode links of type [[id:foo]] or [[id:foo][bar baz]].
 
         @param sourcecategory: constant string determining type of current entry
-        @param entry: string
+        @param content: string containing the Org-mode content
+        @param keep_orgmode_format: boolean: if True, return Org-mode format instead of HTML format
         @param return: sanitized string
         """
 
         assert(type(content) == unicode)
-
-        newcontent = u""
 
         allmatches = re.findall(self.ID_SIMPLE_LINK_REGEX, content)
         if allmatches != []:
@@ -829,7 +844,10 @@ class Htmlizer(object):
                 internal_link = currentmatch[0]
                 targetid = currentmatch[1]
                 url = self.generate_relative_url_from_sourcecategory_to_id(sourcecategory, targetid)
-                content = content.replace(internal_link, "<a href=\"" + url + "\">" + targetid + "</a>");
+                if keep_orgmode_format:
+                    content = content.replace(internal_link, "[[" + url + "][" + targetid + "]]")
+                else:
+                    content = content.replace(internal_link, "<a href=\"" + url + "\">" + targetid + "</a>")
 
         allmatches = re.findall(self.ID_DESCRIBED_LINK_REGEX, content)
         if allmatches != []:
@@ -838,7 +856,10 @@ class Htmlizer(object):
                 targetid = currentmatch[1]
                 description = currentmatch[2]
                 url = self.generate_relative_url_from_sourcecategory_to_id(sourcecategory, targetid)
-                content = content.replace(internal_link, "<a href=\"" + url + "\">" + description + "</a>");
+                if keep_orgmode_format:
+                    content = content.replace(internal_link, "[[" + url + "][" + description + "]]")
+                else:
+                    content = content.replace(internal_link, "<a href=\"" + url + "\">" + description + "</a>")
 
         return content
 
@@ -966,7 +987,7 @@ class Htmlizer(object):
                 try:
                     htmlcontent += unicode(element)
                 except:
-                    self.logging.critical("Error in entry: " + str(entry['id']))
+                    self.logging.critical("Error in entry")
                     self.logging.critical("Element type: " + str(type(element)))
                     raise
 
@@ -1045,7 +1066,6 @@ class Htmlizer(object):
         @param return: the resulting path as os.path string
         """
 
-        entry = self.blog_data_with_id(entryid)
         return os.path.join(self.targetdir, self._target_path_for_id_without_targetdir(entryid))
 
     def _get_entry_folder_name_from_entryid(self, entryid):
@@ -1226,7 +1246,6 @@ class Htmlizer(object):
             self.logging.critical(message)
             raise HtmlizerException(message)
 
-
     def blog_data_with_id(self, entryid):
         """
         Returns the blog_data entry whose id matches entryid.
@@ -1235,7 +1254,10 @@ class Htmlizer(object):
         @param return: blog_data element
         """
 
+#        try:#FIXXME
         matching_elements = [x for x in self.blog_data if entryid == x['id']]
+#        except TypeError:
+#            import pdb; pdb.set_trace()
 
         if len(matching_elements) == 1:
             return matching_elements[0]
@@ -1244,7 +1266,7 @@ class Htmlizer(object):
                 "\") did not find exactly one result (as expected): [" + str(matching_elements) + \
                 "]. Maybe you mistyped an internal link id (or there are multiple blog entries sharing IDs)?"
             self.logging.error(message)
-            raise HtmlizerException(message)  ## FIXXME: maybe an Exception is too harsh here? (error-recovery?)
+            raise HtmlizerException(message)  # FIXXME: maybe an Exception is too harsh here? (error-recovery?)
 
 
 #    def __filter_org_entry_for_blog_entries(self):

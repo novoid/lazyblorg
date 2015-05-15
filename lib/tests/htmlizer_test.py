@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-09 18:26:47 vk>
+# Time-stamp: <2015-05-15 15:25:20 vk>
 
 import config
 import unittest
 from lib.htmlizer import *
 from lib.utils import *
+
 
 class TestHtmlizer(unittest.TestCase):
 
@@ -50,43 +51,207 @@ class TestHtmlizer(unittest.TestCase):
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
                             blog_data, generate, increment_version, autotag_language)
 
-        entry = {'content':[ \
-                             ['par', u'First paragraph'],
-                             ['par', u'Second paragraph'],
-                         ], 'category':'TEMPORAL'}
+        entry = {'content': [
+            ['par', u'First paragraph'],
+            ['par', u'Second paragraph'],
+        ], 'category': 'TEMPORAL'}
         htmlized_content_expected = [u'<p>First paragraph</p>', u'<p>Second paragraph</p>']
         htmlized_entry_test = htmlizer.sanitize_and_htmlize_blog_content(entry)
         self.assertTrue(htmlized_entry_test['content'] == htmlized_content_expected)
         self.assertTrue('htmlteaser-equals-content' in htmlized_entry_test.keys())
-        self.assertTrue(htmlized_entry_test['htmlteaser-equals-content'] == True)
+        self.assertTrue(htmlized_entry_test['htmlteaser-equals-content'] is True)
         self.assertTrue('htmlteaser' not in htmlized_entry_test.keys())
 
-        entry = {'content':[ \
-                             ['par', u'First paragraph'],
-                             ['hr'],
-                             ['par', u'Second paragraph']
-                         ], 'category':'TEMPORAL'}
+        entry = {'content': [
+            ['par', u'First paragraph'],
+            ['hr'],
+            ['par', u'Second paragraph']
+        ], 'category': 'TEMPORAL'}
         htmlized_content_expected = [u'<p>First paragraph</p>', '<div class="orgmode-hr" />', u'<p>Second paragraph</p>']
         htmlized_entry_test = htmlizer.sanitize_and_htmlize_blog_content(entry)
         self.assertTrue(htmlized_entry_test['content'] == htmlized_content_expected)
         self.assertTrue(htmlized_entry_test['htmlteaser'] == [u'<p>First paragraph</p>'])
         self.assertTrue('htmlteaser-equals-content' in htmlized_entry_test.keys())
-        self.assertTrue(htmlized_entry_test['htmlteaser-equals-content'] == False)
+        self.assertTrue(htmlized_entry_test['htmlteaser-equals-content'] is False)
 
-        entry = {'content':[ \
-                             ['par', u'First paragraph'],
-                             ['heading', {'title': u'My article header', 'level': 3}],
-                             ['par', u'Second paragraph']
-                         ],\
-                 'level':1, 'category':'TEMPORAL'}
+        entry = {'content': [
+            ['par', u'First paragraph'],
+            ['heading', {'title': u'My article header', 'level': 3}],
+            ['par', u'Second paragraph']
+        ], 'level': 1, 'category': 'TEMPORAL'}
         htmlized_content_expected = [u'<p>First paragraph</p>', u'<header>My article header</header>', u'<p>Second paragraph</p>']
         htmlized_entry_test = htmlizer.sanitize_and_htmlize_blog_content(entry)
 
         self.assertTrue(htmlized_entry_test['content'] == htmlized_content_expected)
         self.assertTrue(htmlized_entry_test['htmlteaser'] == [u'<p>First paragraph</p>'])
         self.assertTrue('htmlteaser-equals-content' in htmlized_entry_test.keys())
-        self.assertTrue(htmlized_entry_test['htmlteaser-equals-content'] == False)
+        self.assertTrue(htmlized_entry_test['htmlteaser-equals-content'] is False)
 
+    def test_sanitize_and_htmlize_simple_table(self):
+        """
+        This tests the correct htmlization of tables
+        """
+
+        prefix_dir = u'foo'
+        targetdir = u'foo'
+        blog_data = u'foo'
+        generate = u'foo'
+        increment_version = u'foo'
+        autotag_language = False
+
+        template_definitions = [
+            ['html-block', u'paragraph', [u'<p>#PAR-CONTENT#</p>']],
+            ['html-block', u'section-begin', [u'<header>#SECTION-TITLE#</header>']]
+        ]
+
+        htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
+                            blog_data, generate, increment_version, autotag_language)
+
+        entry = {'content': [
+            ['par', u'First paragraph'],
+            ['table', u'Table-name', [u'| My  | table |     |',
+                                      u'|-----+-------+-----|',
+                                      u'| 23  | 42    |  65 |',
+                                      u'| foo | bar   | baz |']],
+            ['par', u'Final paragraph']
+        ], 'level': 1, 'category': 'TEMPORAL'}
+        htmlized_table_expected = u'''<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">My</th>
+<th style="text-align: left;">table</th>
+<th style="text-align: left;"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">23</td>
+<td style="text-align: left;">42</td>
+<td style="text-align: left;">65</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">foo</td>
+<td style="text-align: left;">bar</td>
+<td style="text-align: left;">baz</td>
+</tr>
+</tbody>
+</table>
+'''
+        htmlized_content_expected = [u'<p>First paragraph</p>',
+                                     htmlized_table_expected,
+                                     u'<p>Final paragraph</p>']
+        htmlized_entry_test = htmlizer.sanitize_and_htmlize_blog_content(entry)
+
+        self.assertTrue(Utils.normalize_lineendings(htmlized_entry_test['content'][0]) ==
+                        Utils.normalize_lineendings(htmlized_content_expected[0]))
+
+        self.assertTrue(Utils.normalize_lineendings(htmlized_entry_test['content'][1]) ==
+                        Utils.normalize_lineendings(htmlized_content_expected[1]))
+
+        self.assertTrue(Utils.normalize_lineendings(htmlized_entry_test['content'][2]) ==
+                        Utils.normalize_lineendings(htmlized_content_expected[2]))
+
+        self.assertTrue('htmlteaser-equals-content' in htmlized_entry_test.keys())
+        self.assertTrue(htmlized_entry_test['htmlteaser-equals-content'] is True)
+
+    def test_sanitize_and_htmlize_complex_table(self):
+        """
+        This tests the correct htmlization of a complex table
+        """
+
+        prefix_dir = u'foo'
+        targetdir = u'foo'
+        generate = u'foo'
+        increment_version = u'foo'
+        autotag_language = False
+
+        blog_data = [{'id': '2014-03-02-my-persistent',
+                      'category': config.PERSISTENT,
+                      'finished-timestamp-history': [datetime.datetime(2008, 12, 29, 19, 40),
+                                                     datetime.datetime(2008, 1, 29, 19, 40),
+                                                     datetime.datetime(2008, 11, 29, 19, 40)]},
+                     {'id': '2014-03-02-my-temporal',
+                      'category': config.TEMPORAL,
+                      'finished-timestamp-history': [datetime.datetime(2007, 12, 29, 19, 40),
+                                                     datetime.datetime(2007, 1, 29, 19, 40),
+                                                     datetime.datetime(2007, 11, 29, 19, 40)]},
+                     {'id': '2015-03-02-my-additional-temporal',
+                      'category': config.TEMPORAL,
+                      'finished-timestamp-history': [datetime.datetime(2006, 12, 29, 19, 40),
+                                                     datetime.datetime(2006, 1, 29, 19, 40),
+                                                     datetime.datetime(2006, 11, 29, 19, 40)]},
+                     {'id': 'my-tag',
+                      'category': config.TAGS,
+                      'finished-timestamp-history': [datetime.datetime(2011, 12, 29, 19, 40),
+                                                     datetime.datetime(2011, 1, 29, 19, 40),
+                                                     datetime.datetime(2011, 11, 29, 19, 40)]}]
+
+        template_definitions = [
+            ['html-block', u'paragraph', [u'<p>#PAR-CONTENT#</p>']],
+            ['html-block', u'section-begin', [u'<header>#SECTION-TITLE#</header>']]
+        ]
+
+        htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
+                            blog_data, generate, increment_version, autotag_language)
+
+        entry = {'content': [
+            ['par', u'First paragraph'],
+            ['table', u'Table-name',
+             [u'| *What*               |   *€* | *Amount* |  *Sum* | *Notes*             |',
+              u'|----------------------+-------+----------+--------+---------------------|',
+              u'| [[https://roses.example.com/myroses.html][My Roses]]             | 42.23 |       12 | 506.76 | *best* roses ~evar~ |',
+              u'| [[id:2014-03-02-my-temporal][internal *link* test]] |    10 |        2 |     20 | Umlaut test: öÄß    |']],
+            ['par', u'Final paragraph']
+        ], 'level': 1, 'category': 'TEMPORAL'}
+        htmlized_table_expected = u'''<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>What</strong></th>
+<th style="text-align: left;"><strong>\u20ac</strong></th>
+<th style="text-align: left;"><strong>Amount</strong></th>
+<th style="text-align: left;"><strong>Sum</strong></th>
+<th style="text-align: left;"><strong>Notes</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://roses.example.com/myroses.html">My Roses</a></td>
+<td style="text-align: left;">42.23</td>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">506.76</td>
+<td style="text-align: left;"><strong>best</strong> roses <code>evar</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="../../../../2007/01/29/my-temporal">internal <strong>link</strong> test</a></td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">20</td>
+<td style="text-align: left;">Umlaut test: \xf6\xc4\xdf</td>
+</tr>
+</tbody>
+</table>
+'''
+        ## FIXXME: Umlauts do not work yet :-(
+        ## FIXXME: *foo* gets converted to <strong>foo</strong> instead of <b>foo</b>
+
+        htmlized_content_expected = [u'<p>First paragraph</p>',
+                                     htmlized_table_expected,
+                                     u'<p>Final paragraph</p>']
+        htmlized_entry_test = htmlizer.sanitize_and_htmlize_blog_content(entry)
+
+        self.assertTrue(Utils.normalize_lineendings(htmlized_entry_test['content'][0]) ==
+                        Utils.normalize_lineendings(htmlized_content_expected[0]))
+
+        Utils.diff_two_lists(htmlized_entry_test['content'][1].split('\n'),
+                             htmlized_content_expected[1].split('\n'))
+        self.assertTrue(Utils.normalize_lineendings(htmlized_entry_test['content'][1]) ==
+                        Utils.normalize_lineendings(htmlized_content_expected[1]))
+
+        self.assertTrue(Utils.normalize_lineendings(htmlized_entry_test['content'][2]) ==
+                        Utils.normalize_lineendings(htmlized_content_expected[2]))
+
+        self.assertTrue('htmlteaser-equals-content' in htmlized_entry_test.keys())
+        self.assertTrue(htmlized_entry_test['htmlteaser-equals-content'] is True)
 
     def test_get_newest_and_oldest_timestamp(self):
 
@@ -101,9 +266,10 @@ class TestHtmlizer(unittest.TestCase):
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
                             blog_data, generate, increment_version, autotag_language)
 
-        entry = {'finished-timestamp-history':[datetime.datetime(2011, 12, 29, 19, 40),
-                                               datetime.datetime(2008, 1, 29, 19, 40),
-                                               datetime.datetime(2013, 1, 29, 19, 40)], 'category':'TEMPORAL'}
+        entry = {'finished-timestamp-history': [datetime.datetime(2011, 12, 29, 19, 40),
+                                                datetime.datetime(2008, 1, 29, 19, 40),
+                                                datetime.datetime(2013, 1, 29, 19, 40)],
+                 'category': 'TEMPORAL'}
 
         self.assertTrue(htmlizer._get_newest_timestamp_for_entry(entry) == (datetime.datetime(2013, 1, 29, 19, 40),
                                                                             "2013", "01", "29",
@@ -125,21 +291,21 @@ class TestHtmlizer(unittest.TestCase):
         tmphtmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
                             blog_data, generate, increment_version, autotag_language)
 
-        blog_data = [{'id':'a_entry_from_2008',
-                      'category':config.PERSISTENT,
-                      'finished-timestamp-history':[datetime.datetime(2008, 12, 29, 19, 40),
-                                                    datetime.datetime(2008, 1, 29, 19, 40),
-                                                    datetime.datetime(2008, 11, 29, 19, 40)]},
-                     {'id':'b_entry_from_2007',
-                      'category':config.TEMPORAL,
-                      'finished-timestamp-history':[datetime.datetime(2007, 12, 29, 19, 40),
-                                                    datetime.datetime(2007, 1, 29, 19, 40),
-                                                    datetime.datetime(2007, 11, 29, 19, 40)]},
-                     {'id':'c_entry_from_2011',
-                      'category':config.TAGS,
-                      'finished-timestamp-history':[datetime.datetime(2011, 12, 29, 19, 40),
-                                                    datetime.datetime(2011, 1, 29, 19, 40),
-                                                    datetime.datetime(2011, 11, 29, 19, 40)]}]
+        blog_data = [{'id': 'a_entry_from_2008',
+                      'category': config.PERSISTENT,
+                      'finished-timestamp-history': [datetime.datetime(2008, 12, 29, 19, 40),
+                                                     datetime.datetime(2008, 1, 29, 19, 40),
+                                                     datetime.datetime(2008, 11, 29, 19, 40)]},
+                     {'id': 'b_entry_from_2007',
+                      'category': config.TEMPORAL,
+                      'finished-timestamp-history': [datetime.datetime(2007, 12, 29, 19, 40),
+                                                     datetime.datetime(2007, 1, 29, 19, 40),
+                                                     datetime.datetime(2007, 11, 29, 19, 40)]},
+                     {'id': 'c_entry_from_2011',
+                      'category': config.TAGS,
+                      'finished-timestamp-history': [datetime.datetime(2011, 12, 29, 19, 40),
+                                                     datetime.datetime(2011, 1, 29, 19, 40),
+                                                     datetime.datetime(2011, 11, 29, 19, 40)]}]
 
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
                             blog_data, generate, increment_version, autotag_language)
@@ -149,7 +315,6 @@ class TestHtmlizer(unittest.TestCase):
         self.assertTrue(entrylist[0]['id'] == 'c_entry_from_2011')
         self.assertTrue(entrylist[1]['id'] == 'a_entry_from_2008')
         self.assertTrue(entrylist[2]['id'] == 'b_entry_from_2007')
-
 
     def test_simple_formatting(self):
 
@@ -222,26 +387,26 @@ class TestHtmlizer(unittest.TestCase):
         tmphtmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
                             blog_data, generate, increment_version, autotag_language)
 
-        blog_data = [{'id':'2014-03-02-my-persistent',
-                      'category':config.PERSISTENT,
-                      'finished-timestamp-history':[datetime.datetime(2008, 12, 29, 19, 40),
-                                                    datetime.datetime(2008, 1, 29, 19, 40),
-                                                    datetime.datetime(2008, 11, 29, 19, 40)]},
-                     {'id':'2014-03-02-my-temporal',
-                      'category':config.TEMPORAL,
-                      'finished-timestamp-history':[datetime.datetime(2007, 12, 29, 19, 40),
-                                                    datetime.datetime(2007, 1, 29, 19, 40),
-                                                    datetime.datetime(2007, 11, 29, 19, 40)]},
-                     {'id':'2015-03-02-my-additional-temporal',
-                      'category':config.TEMPORAL,
-                      'finished-timestamp-history':[datetime.datetime(2006, 12, 29, 19, 40),
-                                                    datetime.datetime(2006, 1, 29, 19, 40),
-                                                    datetime.datetime(2006, 11, 29, 19, 40)]},
-                     {'id':'my-tag',
-                      'category':config.TAGS,
-                      'finished-timestamp-history':[datetime.datetime(2011, 12, 29, 19, 40),
-                                                    datetime.datetime(2011, 1, 29, 19, 40),
-                                                    datetime.datetime(2011, 11, 29, 19, 40)]}]
+        blog_data = [{'id': '2014-03-02-my-persistent',
+                      'category': config.PERSISTENT,
+                      'finished-timestamp-history': [datetime.datetime(2008, 12, 29, 19, 40),
+                                                     datetime.datetime(2008, 1, 29, 19, 40),
+                                                     datetime.datetime(2008, 11, 29, 19, 40)]},
+                     {'id': '2014-03-02-my-temporal',
+                      'category': config.TEMPORAL,
+                      'finished-timestamp-history': [datetime.datetime(2007, 12, 29, 19, 40),
+                                                     datetime.datetime(2007, 1, 29, 19, 40),
+                                                     datetime.datetime(2007, 11, 29, 19, 40)]},
+                     {'id': '2015-03-02-my-additional-temporal',
+                      'category': config.TEMPORAL,
+                      'finished-timestamp-history': [datetime.datetime(2006, 12, 29, 19, 40),
+                                                     datetime.datetime(2006, 1, 29, 19, 40),
+                                                     datetime.datetime(2006, 11, 29, 19, 40)]},
+                     {'id': 'my-tag',
+                      'category': config.TAGS,
+                      'finished-timestamp-history': [datetime.datetime(2011, 12, 29, 19, 40),
+                                                     datetime.datetime(2011, 1, 29, 19, 40),
+                                                     datetime.datetime(2011, 11, 29, 19, 40)]}]
 
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
                             blog_data, generate, increment_version, autotag_language)
@@ -258,6 +423,8 @@ class TestHtmlizer(unittest.TestCase):
                         u"<a href=\"../../../../2007/01/29/my-temporal\">2014-03-02-my-temporal</a>")
         self.assertTrue(htmlizer.sanitize_internal_links(config.TEMPORAL, u"[[id:my-tag]]") ==
                         u"<a href=\"../../../../tags/my-tag\">my-tag</a>")
+        self.assertTrue(htmlizer.sanitize_internal_links(config.TEMPORAL, u"[[id:my-tag]]", keep_orgmode_format=True) ==
+                        u"[[../../../../tags/my-tag][my-tag]]")
 
         ## links with description:
         self.assertTrue(htmlizer.sanitize_internal_links(config.TEMPORAL, u"[[id:2014-03-02-my-persistent][my description text]]") ==
@@ -284,6 +451,10 @@ class TestHtmlizer(unittest.TestCase):
                         u"like <a href=\"../../tags/my-tag\">text</a> used")
         self.assertTrue(htmlizer.sanitize_internal_links(config.TAGS, u"like [[id:my-tag][this]] and [[id:my-tag][that]] used") ==
                         u"like <a href=\"../../tags/my-tag\">this</a> and <a href=\"../../tags/my-tag\">that</a> used")
+        self.assertTrue(htmlizer.sanitize_internal_links(config.TAGS,
+                                                         u"like [[id:my-tag][this]] and [[id:my-tag][that]] used",
+                                                         keep_orgmode_format=True) ==
+                        u"like [[../../tags/my-tag][this]] and [[../../tags/my-tag][that]] used")
 
         ## links with description and formatting:
         self.assertTrue(htmlizer.sanitize_internal_links(config.TEMPORAL, u"[[id:2014-03-02-my-persistent][my *description* text]]") ==
@@ -301,12 +472,11 @@ class TestHtmlizer(unittest.TestCase):
             htmlizer.sanitize_internal_links(config.TEMPORAL, u"[[id:2014-03-02-my-persistent][my *description* text]]")) ==
             u"<a href=\"../../../../my-persistent\">my <b>description</b> text</a>")
 
-
         ## multiple internal links in one line:
         myinput = u"foo [[id:2014-03-02-my-persistent][my *description* text]], " + \
-                u"[[id:2014-03-02-my-temporal]], " + \
-                u"[[id:2015-03-02-my-additional-temporal]], " + \
-                u"[[id:2014-03-02-my-temporal][another ~description~ text]] and so forth"
+                  u"[[id:2014-03-02-my-temporal]], " + \
+                  u"[[id:2015-03-02-my-additional-temporal]], " + \
+                  u"[[id:2014-03-02-my-temporal][another ~description~ text]] and so forth"
         expectedoutput = u"foo <a href=\"../../../../my-persistent\">my *description* text</a>, " + \
                          u"<a href=\"../../../../2007/01/29/my-temporal\">2014-03-02-my-temporal</a>, " + \
                          u"<a href=\"../../../../2006/01/29/my-additional-temporal\">2015-03-02-my-additional-temporal</a>, " + \
@@ -319,8 +489,8 @@ class TestHtmlizer(unittest.TestCase):
 
         ## internal and external links in one line:
         myinput = u"foo http://karl-voit.at [[id:2014-03-02-my-persistent][my *description* text]], " + \
-                u"[[id:2014-03-02-my-temporal]], [[http://karl-voit.at][my home-page]], " + \
-                u"[[id:2014-03-02-my-temporal][another ~description~ text]] and so forth"
+                  u"[[id:2014-03-02-my-temporal]], [[http://karl-voit.at][my home-page]], " + \
+                  u"[[id:2014-03-02-my-temporal][another ~description~ text]] and so forth"
         expectedoutput = u"foo http://karl-voit.at " + \
                          u"<a href=\"../../../../my-persistent\">my *description* text</a>, " + \
                          u"<a href=\"../../../../2007/01/29/my-temporal\">2014-03-02-my-temporal</a>, " + \
@@ -357,20 +527,20 @@ class TestHtmlizer(unittest.TestCase):
         self.assertTrue(htmlizer.sanitize_external_links("xy[[http://foo][bar]][[http://first][second]]end") ==
                         "xy<a href=\"http://foo\">bar</a><a href=\"http://first\">second</a>end")
 
-        self.assertTrue(htmlizer.sanitize_external_links("This is an [[http://www.example.com][example " + \
-                                                             "web page]] and a [[https://example.com/page" + \
-                                                             ".shtml$%^&*][second]] one as well.") ==
-                        "This is an <a href=\"http://www.example.com\">example web page</a> " + \
-                                                             "and a <a href=\"https://example.com/page" + \
-                                                             ".shtml$%^&*\">second</a> one as well.")
+        self.assertTrue(htmlizer.sanitize_external_links("This is an [[http://www.example.com][example " +
+                                                         "web page]] and a [[https://example.com/page" +
+                                                         ".shtml$%^&*][second]] one as well.") ==
+                        "This is an <a href=\"http://www.example.com\">example web page</a> " +
+                        "and a <a href=\"https://example.com/page" +
+                        ".shtml$%^&*\">second</a> one as well.")
 
         ## URL links of style http(s)://example.org
 
-        self.assertTrue(htmlizer.sanitize_external_links("foo http://example.org bar") == \
-                            "foo <a href=\"http://example.org\">http://example.org</a> bar")
+        self.assertTrue(htmlizer.sanitize_external_links("foo http://example.org bar") ==
+                        "foo <a href=\"http://example.org\">http://example.org</a> bar")
 
-        self.assertTrue(htmlizer.sanitize_external_links("foo https://example.org bar") == \
-                            "foo <a href=\"https://example.org\">https://example.org</a> bar")
+        self.assertTrue(htmlizer.sanitize_external_links("foo https://example.org bar") ==
+                        "foo <a href=\"https://example.org\">https://example.org</a> bar")
 
         ## combining both URL styles:
 
@@ -404,8 +574,8 @@ class TestHtmlizer(unittest.TestCase):
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
                             blog_data, generate, increment_version, autotag_language)
 
-        self.assertTrue(htmlizer.fix_ampersands_in_url('href="http://www.example.com/index.html&amp;s=foo" bar') == \
-                            'href="http://www.example.com/index.html&s=foo" bar')
+        self.assertTrue(htmlizer.fix_ampersands_in_url('href="http://www.example.com/index.html&amp;s=foo" bar') ==
+                        'href="http://www.example.com/index.html&s=foo" bar')
 
         # does not work #self.assertTrue(htmlizer.fix_ampersands_in_url('href="http://www.exa&amp;mple.com/" + \
         # does not work #    "index.html&amp;s=fo&amp;o" bar') == \

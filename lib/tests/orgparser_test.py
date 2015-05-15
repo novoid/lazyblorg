@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-14 20:20:33 vk>
+# Time-stamp: <2015-05-15 14:16:42 vk>
 
 import config  # lazyblorg-global settings
 import unittest
@@ -60,13 +60,14 @@ class TestOrgParser(unittest.TestCase):
             reference_blog_data = pickle.load(fileinput)
 
         ## a more fine-grained diff (only) on the first element in blog_data:
-        for x in range(len(blog_data[0]['content'])):
-            if blog_data[0]['content'][x] != reference_blog_data[0]['content'][x]:
-                print "   =============== difference ==================="
-                print reference_blog_data[0]['content'][x]
-                print "   -------------------------------"
-                print blog_data[0]['content'][x]
-                print "   ===============            ==================="
+        Utils.diff_two_lists(blog_data[0]['content'], reference_blog_data[0]['content'])
+        #OLD# for x in range(len(blog_data[0]['content'])):
+        #OLD#     if blog_data[0]['content'][x] != reference_blog_data[0]['content'][x]:
+        #OLD#         print "   =============== difference ==================="
+        #OLD#         print reference_blog_data[0]['content'][x]
+        #OLD#         print "   -------------------------------"
+        #OLD#         print blog_data[0]['content'][x]
+        #OLD#         print "   ===============            ==================="
 
         self.assertTrue(Utils.list_of_dicts_are_equal(reference_blog_data, blog_data, ignoreorder=True))
 

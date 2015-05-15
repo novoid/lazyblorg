@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; ispell-local-dictionary: "german8"; -*-
-# Time-stamp: <2014-08-10 18:14:59 vk>
+# Time-stamp: <2015-05-15 11:22:24 karl.voit>
 
 * DONE lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer :hidden:publicvoit:lazyblorg:MixedCaseTag:blog:
 CLOSED: [2014-01-30 Thu 13:01]
@@ -414,14 +414,22 @@ A basic table:
 | Winter | low   |
 | Summer | much  |
 
-| *Header1* | *a wide column is here*              | *Something else* |
-|-----------+--------------------------------------+------------------|
-| foo bar   | This is a really wide column as well |               23 |
-| Hänsel    | und Gretel                           |            42.77 |
-|-----------+--------------------------------------+------------------|
-|           |                                      |            65.77 |
+| *Header1* | *a wide column is here*                                                                      | *Something else* |
+|-----------+----------------------------------------------------------------------------------------------+------------------|
+| foo bar   | This is a really, really, really, extra wide column as well to show how wide tables are done |               23 |
+| Hänsel    | und Gretel                                                                                   |            42.77 |
+|-----------+----------------------------------------------------------------------------------------------+------------------|
+|           |                                                                                              |            65.77 |
 #+TBLFM: @>$3=vsum(@I$3..@II$3)
 
+Complex table:
+
+#+NAME: My-table-name
+| *What*               |   *€* | *Amount* |  *Sum* | *Notes*             |
+|----------------------+-------+----------+--------+---------------------|
+| [[https://roses.example.com/myroses.html][My Roses]]             | 42.23 |       12 | 506.76 | *best* roses ~evar~ |
+| [[id:2014-01-27-full-syntax-test][internal *link* test]] |    10 |        2 |     20 | Umlaut test: öÄß    |
+#+TBLFM: $4=$2*$3
 
 
 * local vars
