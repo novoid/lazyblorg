@@ -1,15 +1,28 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-09 20:33:59 vk>
+# Time-stamp: <2015-05-15 15:14:46 vk>
 
 import config  # lazyblorg-global settings
+import sys
 import logging
 import os
-from werkzeug.utils import secure_filename  # for sanitizing path components
 from datetime import datetime
 from time import localtime, strftime
 import re  # RegEx: for parsing/sanitizing
 import codecs
 from lib.utils import Utils  # for guess_language_from_stopword_percentages()
+
+try:
+    from werkzeug.utils import secure_filename  # for sanitizing path components
+except ImportError:
+    print "Could not find Python module \"werkzeug\".\nPlease install it, e.g., with \"sudo pip install werkzeug\"."
+    sys.exit(1)
+
+try:
+    import pypandoc
+except ImportError:
+    print "Could not find Python module \"pypandoc\".\nPlease install it, e.g., with \"sudo pip install pypandoc\"."
+    sys.exit(1)
+
 
 ## NOTE: pdb hides private variables as well. Please use:   data = self._OrgParser__entry_data ; data['content']
 
