@@ -1,13 +1,14 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-09 12:42:54 vk>
+# Time-stamp: <2015-05-15 14:01:04 vk>
 
 import config
 from sys import stdout, exit
 import logging
-from hashlib import md5  ## generating checksums
-from time import localtime  ## for generating Org-mode timestamps
+from hashlib import md5  # generating checksums
+from time import localtime  # for generating Org-mode timestamps
 from orgformat import *
 from operator import itemgetter  # for sorted()
+
 
 class Utils(object):
     """
@@ -18,64 +19,64 @@ class Utils(object):
     ##     http://anoncvs.postgresql.org/cvsweb.cgi/pgsql/src/backend/snowball/stopwords/
     ## You can add as many languages as you wish. There have to be at least two of them.
     ## Clearly, it helps when you omit stepwords that occur in multiple languages.
-    STOPWORDS = [ ('english', [u'I', u'me', u'my', u'myself', u'we', u'our', u'ours',
-                               u'ourselves', u'you', u'your', u'yours', u'yourself',
-                               u'yourselves', u'he', u'him', u'his', u'himself',
-                               u'she', u'her', u'hers', u'herself', u'it', u'its',
-                               u'itself', u'they', u'them', u'their', u'theirs', u'themselves',
-                               u'what', u'which', u'who', u'whom', u'this', u'that',
-                               u'these', u'those', u'is', u'are', u'were', u'be',
-                               u'been', u'being', u'have', u'has', u'had', u'having',
-                               u'do', u'does', u'did', u'doing', u'a', u'the',
-                               u'and', u'but', u'if', u'or', u'because', u'as',
-                               u'until', u'while', u'of', u'at', u'by', u'for',
-                               u'with', u'about', u'against', u'between', u'into', u'through',
-                               u'during', u'before', u'after', u'above', u'below', u'to',
-                               u'from', u'up', u'down', u'on', u'off', u'over',
-                               u'under', u'again', u'further', u'then', u'once', u'here',
-                               u'there', u'when', u'where', u'why', u'how', u'all',
-                               u'any', u'both', u'each', u'few', u'more', u'most',
-                               u'other', u'some', u'such', u'no', u'nor', u'not',
-                               u'only', u'own', u'same', u'than', u'too', u'very',
-                               u'can', u'just', u'don', u'should', u'now']),
-                  ('deutsch', [u'aber', u'alle', u'allem', u'allen', u'aller', u'alles', u'als',
-                               u'also', u'ander', u'andere', u'anderem', u'anderen', u'anderer',
-                               u'anderes', u'anderm', u'andern', u'anderr', u'anders', u'auch',
-                               u'auf', u'aus', u'bei', u'bin', u'bis', u'bist',
-                               u'da', u'damit', u'dann', u'der', u'den', u'des',
-                               u'dem', u'die', u'das', u'daß', u'derselbe', u'derselben',
-                               u'denselben', u'desselben', u'demselben', u'dieselbe', u'dieselben', u'dasselbe',
-                               u'dazu', u'dein', u'deine', u'deinem', u'deinen', u'deiner',
-                               u'deines', u'denn', u'derer', u'dessen', u'dich', u'dir',
-                               u'du', u'dies', u'diese', u'diesem', u'diesen', u'dieser',
-                               u'dieses', u'doch', u'dort', u'durch', u'ein', u'eine',
-                               u'einem', u'einen', u'einer', u'eines', u'einig', u'einige',
-                               u'einigem', u'einigen', u'einiger', u'einiges', u'einmal', u'er',
-                               u'ihn', u'ihm', u'es', u'etwas', u'euer', u'eure',
-                               u'eurem', u'euren', u'eurer', u'eures', u'für', u'gegen',
-                               u'gewesen', u'hab', u'habe', u'haben', u'hat', u'hatte',
-                               u'hatten', u'hier', u'hin', u'hinter', u'ich', u'mich',
-                               u'mir', u'ihr', u'ihre', u'ihrem', u'ihren', u'ihrer',
-                               u'ihres', u'euch', u'im', u'indem', u'ins', u'ist',
-                               u'jede', u'jedem', u'jeden', u'jeder', u'jedes', u'jene',
-                               u'jenem', u'jenen', u'jener', u'jenes', u'jetzt', u'kann',
-                               u'kein', u'keine', u'keinem', u'keinen', u'keiner', u'keines',
-                               u'können', u'könnte', u'machen', u'man', u'manche', u'manchem',
-                               u'manchen', u'mancher', u'manches', u'mein', u'meine', u'meinem',
-                               u'meinen', u'meiner', u'meines', u'mit', u'muss', u'musste',
-                               u'nach', u'nicht', u'nichts', u'noch', u'nun', u'nur',
-                               u'ob', u'oder', u'ohne', u'sehr', u'sein', u'seine',
-                               u'seinem', u'seinen', u'seiner', u'seines', u'selbst', u'sich',
-                               u'sie', u'ihnen', u'sind', u'solche', u'solchem', u'solchen',
-                               u'solcher', u'solches', u'soll', u'sollte', u'sondern', u'sonst',
-                               u'über', u'um', u'und', u'uns', u'unse', u'unsem',
-                               u'unsen', u'unser', u'unses', u'unter', u'viel', u'vom',
-                               u'von', u'vor', u'während', u'war', u'waren', u'warst',
-                               u'weg', u'weil', u'weiter', u'welche', u'welchem', u'welchen',
-                               u'welcher', u'welches', u'wenn', u'werde', u'werden', u'wie',
-                               u'wieder', u'wir', u'wird', u'wirst', u'wo', u'wollen',
-                               u'wollte', u'würde', u'wüden', u'zu', u'zum', u'zur',
-                               u'zwar', u'zwischen'])]
+    STOPWORDS = [('english', [u'I', u'me', u'my', u'myself', u'we', u'our', u'ours',
+                              u'ourselves', u'you', u'your', u'yours', u'yourself',
+                              u'yourselves', u'he', u'him', u'his', u'himself',
+                              u'she', u'her', u'hers', u'herself', u'it', u'its',
+                              u'itself', u'they', u'them', u'their', u'theirs', u'themselves',
+                              u'what', u'which', u'who', u'whom', u'this', u'that',
+                              u'these', u'those', u'is', u'are', u'were', u'be',
+                              u'been', u'being', u'have', u'has', u'had', u'having',
+                              u'do', u'does', u'did', u'doing', u'a', u'the',
+                              u'and', u'but', u'if', u'or', u'because', u'as',
+                              u'until', u'while', u'of', u'at', u'by', u'for',
+                              u'with', u'about', u'against', u'between', u'into', u'through',
+                              u'during', u'before', u'after', u'above', u'below', u'to',
+                              u'from', u'up', u'down', u'on', u'off', u'over',
+                              u'under', u'again', u'further', u'then', u'once', u'here',
+                              u'there', u'when', u'where', u'why', u'how', u'all',
+                              u'any', u'both', u'each', u'few', u'more', u'most',
+                              u'other', u'some', u'such', u'no', u'nor', u'not',
+                              u'only', u'own', u'same', u'than', u'too', u'very',
+                              u'can', u'just', u'don', u'should', u'now']),
+                 ('deutsch', [u'aber', u'alle', u'allem', u'allen', u'aller', u'alles', u'als',
+                              u'also', u'ander', u'andere', u'anderem', u'anderen', u'anderer',
+                              u'anderes', u'anderm', u'andern', u'anderr', u'anders', u'auch',
+                              u'auf', u'aus', u'bei', u'bin', u'bis', u'bist',
+                              u'da', u'damit', u'dann', u'der', u'den', u'des',
+                              u'dem', u'die', u'das', u'daß', u'derselbe', u'derselben',
+                              u'denselben', u'desselben', u'demselben', u'dieselbe', u'dieselben', u'dasselbe',
+                              u'dazu', u'dein', u'deine', u'deinem', u'deinen', u'deiner',
+                              u'deines', u'denn', u'derer', u'dessen', u'dich', u'dir',
+                              u'du', u'dies', u'diese', u'diesem', u'diesen', u'dieser',
+                              u'dieses', u'doch', u'dort', u'durch', u'ein', u'eine',
+                              u'einem', u'einen', u'einer', u'eines', u'einig', u'einige',
+                              u'einigem', u'einigen', u'einiger', u'einiges', u'einmal', u'er',
+                              u'ihn', u'ihm', u'es', u'etwas', u'euer', u'eure',
+                              u'eurem', u'euren', u'eurer', u'eures', u'für', u'gegen',
+                              u'gewesen', u'hab', u'habe', u'haben', u'hat', u'hatte',
+                              u'hatten', u'hier', u'hin', u'hinter', u'ich', u'mich',
+                              u'mir', u'ihr', u'ihre', u'ihrem', u'ihren', u'ihrer',
+                              u'ihres', u'euch', u'im', u'indem', u'ins', u'ist',
+                              u'jede', u'jedem', u'jeden', u'jeder', u'jedes', u'jene',
+                              u'jenem', u'jenen', u'jener', u'jenes', u'jetzt', u'kann',
+                              u'kein', u'keine', u'keinem', u'keinen', u'keiner', u'keines',
+                              u'können', u'könnte', u'machen', u'man', u'manche', u'manchem',
+                              u'manchen', u'mancher', u'manches', u'mein', u'meine', u'meinem',
+                              u'meinen', u'meiner', u'meines', u'mit', u'muss', u'musste',
+                              u'nach', u'nicht', u'nichts', u'noch', u'nun', u'nur',
+                              u'ob', u'oder', u'ohne', u'sehr', u'sein', u'seine',
+                              u'seinem', u'seinen', u'seiner', u'seines', u'selbst', u'sich',
+                              u'sie', u'ihnen', u'sind', u'solche', u'solchem', u'solchen',
+                              u'solcher', u'solches', u'soll', u'sollte', u'sondern', u'sonst',
+                              u'über', u'um', u'und', u'uns', u'unse', u'unsem',
+                              u'unsen', u'unser', u'unses', u'unter', u'viel', u'vom',
+                              u'von', u'vor', u'während', u'war', u'waren', u'warst',
+                              u'weg', u'weil', u'weiter', u'welche', u'welchem', u'welchen',
+                              u'welcher', u'welches', u'wenn', u'werde', u'werden', u'wie',
+                              u'wieder', u'wir', u'wird', u'wirst', u'wo', u'wollen',
+                              u'wollte', u'würde', u'wüden', u'zu', u'zum', u'zur',
+                              u'zwar', u'zwischen'])]
 
     def __init__(self):
 
@@ -229,7 +230,6 @@ class Utils(object):
 
         return metadata
 
-
     @staticmethod
     def OLDgenerate_metadata_from_blogdata(blogdata):
         """
@@ -245,7 +245,7 @@ class Utils(object):
         <checksum>}, ...}
         """
 
-        metadata = {} ## FIXXME: ??? separate metadata according to TEMPORAL, ...
+        metadata = {} # FIXXME: ??? separate metadata according to TEMPORAL, ...
 
         for entry in blogdata[config.TEMPORAL]:
             metadata.update(Utils.__generate_metadata_from_blogdata_core(metadata, entry, config.TEMPORAL))
@@ -411,7 +411,6 @@ class Utils(object):
 
         return result
 
-
     @staticmethod
     def guess_language_from_stopword_percentages(textlist):
         """Returns a string of a language from STOPWORDS which is the best
@@ -436,17 +435,14 @@ class Utils(object):
         textlist = " ".join(textlist).split()
 
         result = []  # example result: [['english', 40], ['deutsch', 0]]
-        languagecount = 0
 
         ## determine stopword percentages of all given languages:
         for language in Utils.STOPWORDS:
             languagename = language[0]
             languagestopwords = language[1]
-            stopwordpercentage = 100*len([word for word in textlist if word in languagestopwords])/ \
+            stopwordpercentage = 100 * len([word for word in textlist if word in languagestopwords])/ \
                                  len(textlist)
             result.append([languagename, stopwordpercentage])
-
-            languagecount += 1
 
         sorted_result = sorted(result, key=itemgetter(1), reverse=True)  # sort according to percentage
 
@@ -455,6 +451,14 @@ class Utils(object):
             return sorted_result[0][0]
         else:
             return False
+
+    @staticmethod
+    def normalize_lineendings(mystring):
+        """
+        The line ending of mystring will be changed to simple newlines
+        """
+
+        return mystring.replace('\r\n', '\n').replace('\r', '\n')
 
 
 # Local Variables:
