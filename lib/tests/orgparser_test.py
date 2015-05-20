@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-15 14:16:42 vk>
+# Time-stamp: <2015-05-18 14:13:39 karl.voit>
 
 import config  # lazyblorg-global settings
 import unittest
@@ -26,6 +26,36 @@ class TestOrgParser(unittest.TestCase):
 
     def tearDown(self):
         pass
+
+    def test_get_list_indentation_number(self):
+
+        testfile_org = "simple.org"  # manually written Org-mode file; has to be placed in "lib/tests/"
+        blog_data = []  # initialize the empty list
+        parser = OrgParser(testfile_org)
+
+        try:
+            self.assertEqual(parser.get_list_indentation_number(42), 0)
+        except AssertionError:
+            pass  # this *should* be cause an AssertionError
+        try:
+            self.assertEqual(parser.get_list_indentation_number(True), 0)
+        except AssertionError:
+            pass  # this *should* be cause an AssertionError
+        try:
+            self.assertEqual(parser.get_list_indentation_number([u'x']), 0)
+        except AssertionError:
+            pass  # this *should* be cause an AssertionError
+
+        self.assertEqual(parser.get_list_indentation_number(u''), 0)
+        self.assertEqual(parser.get_list_indentation_number('x'), 0)
+        self.assertEqual(parser.get_list_indentation_number(u'x'), 0)
+        self.assertEqual(parser.get_list_indentation_number(u'-'), 0)
+        self.assertEqual(parser.get_list_indentation_number('  - foo bar'), 4)
+        self.assertEqual(parser.get_list_indentation_number(u'  - foo bar'), 4)
+        self.assertEqual(parser.get_list_indentation_number(u'    foo bar'), 4)
+        self.assertEqual(parser.get_list_indentation_number(u'  * foo bar'), 4)
+        self.assertEqual(parser.get_list_indentation_number(u'  42) foo bar'), 6)
+        self.assertEqual(parser.get_list_indentation_number(u'  23. foo bar'), 6)
 
     def test_simple_org_to_blogdata(self):
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-15 15:28:40 vk>
+# Time-stamp: <2015-05-18 12:21:45 karl.voit>
 
 import config
 import argparse  ## command line arguments
@@ -237,19 +237,9 @@ class TestLazyblorg(unittest.TestCase):
             print "length of produced data (" + str(len(contentarray_from_file)) + ") differs from comparison data (" + str(len(comparison_string_array)) + ")"
 
         ## a more fine-grained diff (only) on the first element in blog_data:
-        Utils.diff_two_lists(contentarray_from_file, comparison_string_array)
-        #OLD# for line in range(len(comparison_string_array)):
-        #OLD#     if contentarray_from_file[line].rstrip() != comparison_string_array[line].rstrip():
-        #OLD#         print "=================  first difference  ===================== in line " + str(line)
-        #OLD#         print "       [" + contentarray_from_file[line-1].rstrip() + "]"
-        #OLD#         print "found  [" + contentarray_from_file[line].rstrip() + "]"
-        #OLD#         print "       [" + contentarray_from_file[line+1].rstrip() + "]"
-        #OLD#         print "    ---------------  comparison data:  --------------------"
-        #OLD#         print "       [" + comparison_string_array[line-1].rstrip() + "]"
-        #OLD#         print "should [" + comparison_string_array[line].rstrip() + "]"
-        #OLD#         print "       [" + comparison_string_array[line+1].rstrip() + "]"
-        #OLD#         print "=================                    ====================="
-        #OLD#         self.assertTrue(contentarray_from_file[line].rstrip() == comparison_string_array[line].rstrip())
+        self.assertTrue(Utils.diff_two_lists(contentarray_from_file, 
+                                             comparison_string_array, 
+                                             normalize_lineendings=True))
 
         if os.path.isfile(metadata_output):
             os.remove(metadata_output)

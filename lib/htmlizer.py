@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-15 15:14:46 vk>
+# Time-stamp: <2015-05-20 18:56:50 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -685,9 +685,9 @@ class Htmlizer(object):
                 else:
                     result += self.template_definition_by_name('src-end')
 
-            elif entry['content'][index][0] == 'table':
+            elif entry['content'][index][0] == 'mytable':
 
-                ## example:
+                ## entry['content'][index][0] == 'mytable':
                 ##  ['table', u'Table-name', [u'| My  | table |     |',
                 ##                            u'|-----+-------+-----|',
                 ##                            u'| 23  | 42    |  65 |',
@@ -697,18 +697,44 @@ class Htmlizer(object):
 
                 ## FIXXME: table name is ignored so far; probably don't separate it in orgparser?
 
-                sanitized_tablerows = []
+                sanitized_lines = []
                 for tablerow in entry['content'][index][2]:
-                    sanitized_tablerows.append(
+                    sanitized_lines.append(
                             self.sanitize_internal_links(entry['category'], tablerow, keep_orgmode_format=True))
-                result = pypandoc.convert('\n'.join(sanitized_tablerows),
+                result = pypandoc.convert('\n'.join(sanitized_lines),
                                           'html5', format='org')
 
-            else:
-                message = "htmlizer.py/sanitize_and_htmlize_blog_content(): content element [" + str(entry['content'][index][0]) + \
-                    "] of ID " + str(entry['id']) + " is not recognized (yet?)."
-                self.logging.critical(message)
-                raise HtmlizerException(message)
+            else:  # fall-back for all content elements which do not require special treatment:
+
+                ## entry['content'][index][0] == 'mylist':
+                ##  ['table', [u'- an example',
+                ##             u'  - list subitem',
+                ##             u'- another line',
+                ##             u'  with additional line']]
+                ## entry['content'][index][1] -> list of lines
+
+                list_with_element_data = []
+
+                ## assumption: content is stored in a list either on index 1 or 2:
+                if type(entry['content'][index][1]) == list:
+                    list_with_element_data = entry['content'][index][1]
+                elif type(entry['content'][index][2]) == list:
+                    list_with_element_data = entry['content'][index][2]
+                else:
+                    ## no content list is found:
+                    message = "htmlizer.py/sanitize_and_htmlize_blog_content(): content element [" + str(entry['content'][index][0]) + \
+                              "] of ID " + str(entry['id']) + " is not recognized (yet?)."
+                    self.logging.critical(message)
+                    raise HtmlizerException(message)
+
+                ## sanitize internal links and send to pypandoc:
+                sanitized_lines = []
+                for list_item in list_with_element_data:
+                    sanitized_lines.append(
+                            self.sanitize_internal_links(entry['category'], list_item, keep_orgmode_format=True))
+                result = pypandoc.convert('\n'.join(sanitized_lines),
+                                          'html5', format='org')
+
 
             ## replace element in entry with the result string:
             entry['content'][index] = result
@@ -832,7 +858,7 @@ class Htmlizer(object):
         @param return: sanitized string
         """
 
-        assert(type(content) == unicode)
+        assert(type(content) in [unicode, str])
 
         allmatches = re.findall(self.ID_SIMPLE_LINK_REGEX, content)
         if allmatches != []:

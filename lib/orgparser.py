@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-14 20:05:50 vk>
+# Time-stamp: <2015-05-20 18:49:11 vk>
 
 import config
 import re
@@ -8,7 +8,6 @@ import codecs  # open, close with Unicode
 import logging
 from orgformat import *
 
-## debugging:   for setting a breakpoint:  pdb.set_trace()
 ## NOTE: pdb hides private variables as well. Please use:   data = self._OrgParser__entry_data ; data['content']
 
 
@@ -64,6 +63,21 @@ class OrgParser(object):
 
     ## matching five dashes (or more) which resembles an horizontal rule: http://orgmode.org/org.html#Horizontal-rules
     HR_REGEX = re.compile('^-{5,}\s*$')
+
+    ## matching list items
+    LIST_ITEM_REGEX = re.compile('^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.+)$', re.IGNORECASE)
+    ## >>> re.match(r'^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.+)$', u"  - [-] foo bar").groups()
+    ## (u'  ', u'-', None, u'[-]', u' foo bar')
+    ## >>> re.match(r'^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.+)$', u"  - [ ] foo bar").groups()
+    ## (u'  ', u'-', None, u'[ ]', u' foo bar')
+    ## >>> re.match(r'^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.+)$', u"  + [X] foo bar").groups()
+    ## (u'  ', u'+', None, u'[X]', u' foo bar')
+    ## >>> re.match(r'^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.+)$', u"  * foo bar").groups()
+    ## (u'  ', u'*', None, None, u'foo bar')
+    ## >>> re.match(r'^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.+)$', u"  23. [-] foo bar").groups()
+    ## (u'  ', u'23.', u'23.', u'[-]', u' foo bar')
+    ## >>> re.match(r'^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.+)$', u"  42) foo bar").groups()
+    ## (u'  ', u'42)', u'42)', None, u'foo bar')
 
     __filename = u''
 
@@ -260,6 +274,25 @@ class OrgParser(object):
         else:
             return self.SEARCHING_BLOG_HEADER
 
+    def get_list_indentation_number(self, list_item):
+        """
+        Returns the number of characters of the indentation of a list item.
+
+        @param list_item: string holding the list item to check
+        @param return: integer holding the indentation level. 0 means no list.
+        """
+
+        assert(type(list_item) in [str, unicode])
+
+        list_item_components = self.LIST_ITEM_REGEX.match(list_item)
+        if list_item_components:
+            ## return length of leading spaces, length of bullet length, plus 1 for space at end:
+            return len(list_item_components.group(1)) + len(list_item_components.group(2)) + 1
+        else:
+            ## list_item has no bullet point - might be follow-up line of an item:
+            ## return number of leading spaces:
+            return len(list_item) - len(list_item.lstrip(' '))
+
     def parse_orgmode_file(self):
         """
         Parses the Org-mode file.
@@ -308,6 +341,8 @@ class OrgParser(object):
             self.logging.debug("OrgParser: ------------------------------- %s" % state)
             self.logging.debug("OrgParser: %s ###### line: \"%s\"" % (state, line))
             stats_parsed_org_lines += 1  # increment statistical counter variable
+
+            list_item_components = self.LIST_ITEM_REGEX.match(line)
 
             if state == self.SKIPPING_NOEXPORT_HEADING:
 
@@ -497,6 +532,19 @@ class OrgParser(object):
                         self.__entry_data['content'].append(['heading',
                                                              {'level': level, 'title': title}])
 
+                elif list_item_components:
+
+                    self.logging.debug("OrgParser: found LIST_ITEM")
+                    state = self.LIST
+                    if self.__entry_data['content'][-1][0] == 'list':
+                        ## append to the previous list:
+                        self.__entry_data['content'][-1][-1].append('\n')  # previous line was empty
+                        self.__entry_data['content'][-1][-1].append(line)
+                    else:
+                        ## create a new list:
+                        self.__entry_data['content'].append(['list', [line]])
+                    previous_line = line
+
                 ## FIXXME: add more elif line == ELEMENT
 
                 else:
@@ -601,8 +649,26 @@ class OrgParser(object):
 
                 ## parses simple lists and return to ENTRY_CONTENT
 
-                ## FIXXME
-                pass
+                ## >>> re.match(r'^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.+)$', u"  - [-] foo bar").groups()
+                ## (u'  ', u'-', None, u'[-]', u' foo bar')
+
+                if line == u'':
+                    ## list is over now: (if it is only an empty line in between two list items, catch this in entry content state)
+                    state = self.ENTRY_CONTENT
+                    previous_line = line
+                    continue
+                elif list_item_components:
+                    ## append to the last element of content (which is a list from the current block) to
+                    ## its last element (which contains the list of the block content):
+                    self.__entry_data['content'][-1][-1].append(line)
+                elif self.get_list_indentation_number(line) == self.get_list_indentation_number(previous_line):
+                    self.__entry_data['content'][-1][-1].append(line)
+                else:
+                    import pdb; pdb.set_trace()
+                    raise OrgParserException('In state LIST, current line \"' + str(line) +
+                                             '\" did not look like list item.\n' +
+                                             'So far, a list has to be ended with an empty line.' +
+                                             ' Please do not confuse me and fix it.')
 
             elif state == self.TABLE:
 

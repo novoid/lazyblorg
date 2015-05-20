@@ -1,4 +1,4 @@
-# Time-stamp: <2015-05-14 20:17:25 vk>
+# Time-stamp: <2015-05-18 13:42:44 karl.voit>
 # -*- coding: utf-8 -*-
 
 * Heading of no interest
@@ -46,8 +46,8 @@ which is then processed by this lovely tool. The resulting web blog
 might win the Pulitzer Prize some day!
 
 - this list
-- gives a great overview
-- about something
+  - gives a great overview
+    - about something
 
 internal link: [[id:2013-02-12-lazyblorg-example-entry]]
 

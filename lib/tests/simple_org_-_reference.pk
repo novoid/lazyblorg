@@ -54,227 +54,233 @@ g22
 aVThis is a dummy text whose only purpose is to generate some content which is then processed by this lovely tool. The resulting web blog might win the Pulitzer Prize some day!
 p29
 aa(lp30
-g22
-aV- this list - gives a great overview - about something
+S'list'
 p31
-aa(lp32
+a(lp32
+V- this list
+p33
+aV  - gives a great overview
+p34
+aV    - about something
+p35
+aaa(lp36
 g22
 aVinternal link: [[id:2013-02-12-lazyblorg-example-entry]]
-p33
-aa(lp34
+p37
+aa(lp38
 g22
 aVinternal link with link description: [[id:2013-02-12-lazyblorg-example-entry][this is the description with *bold* as well]]
-p35
-aa(lp36
+p39
+aa(lp40
 g25
-a(dp37
+a(dp41
 g14
 VSub-sub heading about something
-p38
+p42
 sg4
 I4
-saa(lp39
+saa(lp43
 g22
 aVThis is a dummy text whose only purpose is to generate some content which is then processed by this lovely tool. The resulting web blog might win the Pulitzer Prize some day!
-p40
-aa(lp41
-S'verse-block'
-p42
-aI00
-a(lp43
-VWell, in here, I want to write verbatim text.
 p44
-aVLine breaks should be exactly the same.
-p45
-aV
+aa(lp45
+S'verse-block'
 p46
-aVThis is a
-p47
-aVdummy text whose only purpose is to generate
+aI00
+a(lp47
+VWell, in here, I want to write verbatim text.
 p48
-aVsome content
+aVLine breaks should be exactly the same.
 p49
-aVwhich is then processed by this lovely tool.
+aV
 p50
-aVThe resulting web blog
+aVThis is a
 p51
-aVmight win the Pulitzer Prize some day!
+aVdummy text whose only purpose is to generate
 p52
-ag46
-aaa(lp53
+aVsome content
+p53
+aVwhich is then processed by this lovely tool.
+p54
+aVThe resulting web blog
+p55
+aVmight win the Pulitzer Prize some day!
+p56
+ag50
+aaa(lp57
 g25
-a(dp54
+a(dp58
 g14
 VSub-sub heading with tables and stuff
-p55
+p59
 sg4
 I4
-saa(lp56
+saa(lp60
 S'table'
-p57
-aI00
-a(lp58
-V| Table header  | foo | Bar |
-p59
-aV|---------------+-----+-----|
-p60
-aV| Table content | baz | 42  |
 p61
-aaa(lp62
-g57
-aVExample-table-name
+aI00
+a(lp62
+V| Table header  | foo | Bar |
 p63
-a(lp64
-V| Table  | with | name |
+aV|---------------+-----+-----|
+p64
+aV| Table content | baz | 42  |
 p65
 aaa(lp66
-g57
-ag63
-a(lp67
-V| Table | with | formula |
-p68
-aV|    42 |   23 |      65 |
+g61
+aVExample-table-name
+p67
+a(lp68
+V| Table  | with | name |
 p69
 aaa(lp70
-g57
-aVExample-table-name-including-formula
-p71
-a(lp72
-V| Table | with | formula | and name |
+g61
+ag67
+a(lp71
+V| Table | with | formula |
+p72
+aV|    42 |   23 |      65 |
 p73
-aV|-------+------+---------+----------|
-p74
-aV|    42 |   23 |         |       65 |
+aaa(lp74
+g61
+aVExample-table-name-including-formula
 p75
-aaa(lp76
+a(lp76
+V| Table | with | formula | and name |
+p77
+aV|-------+------+---------+----------|
+p78
+aV|    42 |   23 |         |       65 |
+p79
+aaa(lp80
 g25
-a(dp77
+a(dp81
 g14
 VSub-heading bar
-p78
+p82
 sg4
 I3
-saa(lp79
+saa(lp83
 g22
 aVThis is a dummy text whose only purpose is to generate some content which is then processed by this lovely tool. The resulting web blog might win the Pulitzer Prize some day!
-p80
+p84
 aasS'created'
-p81
+p85
 g6
 (S'\x07\xdd\x02\x0c\n:\x00\x00\x00\x00'
-p82
-tp83
-Rp84
-sS'rawcontent'
-p85
-V** DONE This is an example blog entry              :blog:mytest:programming:\u000aCLOSED: [2013-02-14 Thu 19:02]\u000a:LOGBOOK:\u000a- State "DONE"       from ""           [2013-02-14 Thu 19:02]\u000a:END:\u000a:PROPERTIES:\u000a:CREATED:  [2013-02-12 Tue 10:58]\u000a:ID: 2013-02-12-lazyblorg-example-entry\u000a:END:\u000a\u000aThis is an introduction text which describes the blog entry with some\u000acatchy information. Readers should be convinced to read this\u000ainteresting text. [[https://github.com/novoid/Memacs][Memacs]] is an external link to Memacs.\u000a\u000a*** Sub-heading foo\u000a:PROPERTIES:\u000a:END:\u000a\u000aThis is a dummy text whose only purpose is to generate some content\u000awhich is then processed by this lovely tool. The resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a- this list\u000a- gives a great overview\u000a- about something\u000a\u000ainternal link: [[id:2013-02-12-lazyblorg-example-entry]]\u000a\u000ainternal link with link description: [[id:2013-02-12-lazyblorg-example-entry][this is the description with *bold* as well]]\u000a\u000a**** Sub-sub heading about something\u000a:PROPERTIES:\u000a:END:\u000a\u000aThis is a dummy text whose only purpose is to generate some content\u000awhich is then processed by this lovely tool. The resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a#+BEGIN_VERSE\u000aWell, in here, I want to write verbatim text.\u000aLine breaks should be exactly the same.\u000a\u000aThis is a\u000adummy text whose only purpose is to generate\u000asome content\u000awhich is then processed by this lovely tool.\u000aThe resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a#+END_VERSE\u000a\u000a**** Sub-sub heading with tables and stuff\u000a:PROPERTIES:\u000a:END:\u000a\u000a| Table header  | foo | Bar |\u000a|---------------+-----+-----|\u000a| Table content | baz | 42  |\u000a\u000a#+NAME: Example-table-name\u000a| Table  | with | name |\u000a\u000a| Table | with | formula |\u000a|    42 |   23 |      65 |\u000a#+TBLFM: @2$3=$1+$2\u000a\u000a#+NAME: Example-table-name-including-formula\u000a| Table | with | formula | and name |\u000a|-------+------+---------+----------|\u000a|    42 |   23 |         |       65 |\u000a#+TBLFM: @2$4=$1+$2\u000a\u000a*** Sub-heading bar\u000a:PROPERTIES:\u000a:END:\u000a\u000aThis is a dummy text whose only purpose is to generate some content\u000awhich is then processed by this lovely tool. The resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a
 p86
+tp87
+Rp88
+sS'rawcontent'
+p89
+V** DONE This is an example blog entry              :blog:mytest:programming:\u000aCLOSED: [2013-02-14 Thu 19:02]\u000a:LOGBOOK:\u000a- State "DONE"       from ""           [2013-02-14 Thu 19:02]\u000a:END:\u000a:PROPERTIES:\u000a:CREATED:  [2013-02-12 Tue 10:58]\u000a:ID: 2013-02-12-lazyblorg-example-entry\u000a:END:\u000a\u000aThis is an introduction text which describes the blog entry with some\u000acatchy information. Readers should be convinced to read this\u000ainteresting text. [[https://github.com/novoid/Memacs][Memacs]] is an external link to Memacs.\u000a\u000a*** Sub-heading foo\u000a:PROPERTIES:\u000a:END:\u000a\u000aThis is a dummy text whose only purpose is to generate some content\u000awhich is then processed by this lovely tool. The resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a- this list\u000a  - gives a great overview\u000a    - about something\u000a\u000ainternal link: [[id:2013-02-12-lazyblorg-example-entry]]\u000a\u000ainternal link with link description: [[id:2013-02-12-lazyblorg-example-entry][this is the description with *bold* as well]]\u000a\u000a**** Sub-sub heading about something\u000a:PROPERTIES:\u000a:END:\u000a\u000aThis is a dummy text whose only purpose is to generate some content\u000awhich is then processed by this lovely tool. The resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a#+BEGIN_VERSE\u000aWell, in here, I want to write verbatim text.\u000aLine breaks should be exactly the same.\u000a\u000aThis is a\u000adummy text whose only purpose is to generate\u000asome content\u000awhich is then processed by this lovely tool.\u000aThe resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a#+END_VERSE\u000a\u000a**** Sub-sub heading with tables and stuff\u000a:PROPERTIES:\u000a:END:\u000a\u000a| Table header  | foo | Bar |\u000a|---------------+-----+-----|\u000a| Table content | baz | 42  |\u000a\u000a#+NAME: Example-table-name\u000a| Table  | with | name |\u000a\u000a| Table | with | formula |\u000a|    42 |   23 |      65 |\u000a#+TBLFM: @2$3=$1+$2\u000a\u000a#+NAME: Example-table-name-including-formula\u000a| Table | with | formula | and name |\u000a|-------+------+---------+----------|\u000a|    42 |   23 |         |       65 |\u000a#+TBLFM: @2$4=$1+$2\u000a\u000a*** Sub-heading bar\u000a:PROPERTIES:\u000a:END:\u000a\u000aThis is a dummy text whose only purpose is to generate some content\u000awhich is then processed by this lovely tool. The resulting web blog\u000amight win the Pulitzer Prize some day!\u000a\u000a
+p90
 sS'finished-timestamp-history'
-p87
-(lp88
+p91
+(lp92
 g9
 asS'id'
-p89
+p93
 V2013-02-12-lazyblorg-example-entry
-p90
-sa(dp91
+p94
+sa(dp95
 g2
 S'PERSISTENT'
-p92
+p96
 sg4
 I2
 sg5
 g6
 (S'\x07\xde\x03\x08\x13 \x00\x00\x00\x00'
-p93
-tp94
-Rp95
-sg10
-(lp96
-Vprogramming
 p97
+tp98
+Rp99
+sg10
+(lp100
+Vprogramming
+p101
 aVmytest
-p98
+p102
 asg14
 VThis is an persistent blog article
-p99
+p103
 sg16
-(lp100
-Vlb_persistent
-p101
-aVblog
-p102
-asg19
-(lp103
 (lp104
+Vlb_persistent
+p105
+aVblog
+p106
+asg19
+(lp107
+(lp108
 g22
 aVThis blog article is not a temporal nor a tag entry - it's a persistent blog page.
-p105
-aa(lp106
+p109
+aa(lp110
 g22
 aVYou should expect me to be updated occasionally.
-p107
-aasg81
+p111
+aasg85
 g6
 (S'\x07\xde\x03\x08\x13\x1e\x00\x00\x00\x00'
-p108
-tp109
-Rp110
-sg85
+p112
+tp113
+Rp114
+sg89
 V** DONE This is an persistent blog article :programming:mytest:lb_persistent:blog:\u000aCLOSED: [2014-03-08 Sat 19:32]\u000a:LOGBOOK:\u000a- State "DONE"       from "NEXT"       [2014-03-08 Sat 19:32]\u000a:END:\u000a:PROPERTIES:\u000a:CREATED:  [2014-03-08 Sat 19:30]\u000a:ID: peristent-example-entry\u000a:END:\u000a\u000aThis blog article is not a temporal nor a tag entry - it's a\u000apersistent blog page.\u000a\u000aYou should expect me to be updated occasionally.\u000a\u000a
-p111
-sg87
-(lp112
-g95
-asg89
+p115
+sg91
+(lp116
+g99
+asg93
 Vperistent-example-entry
-p113
-sa(dp114
+p117
+sa(dp118
 g2
 S'TAGS'
-p115
+p119
 sg4
 I2
 sg5
 g6
 (S'\x07\xde\x03\x08\x13#\x00\x00\x00\x00'
-p116
-tp117
-Rp118
-sg10
-(lp119
-Vmytest
 p120
+tp121
+Rp122
+sg10
+(lp123
+Vmytest
+p124
 aVprogramming
-p121
+p125
 asg14
 Vtag-test
-p122
+p126
 sg16
-(lp123
-Vlb_tags
-p124
-aVblog
-p125
-asg19
-(lp126
 (lp127
+Vlb_tags
+p128
+aVblog
+p129
+asg19
+(lp130
+(lp131
 g22
 aVHere, you can read about the test-tag "tag-test".
-p128
-aasg81
+p132
+aasg85
 g6
 (S'\x07\xde\x03\x08\x13!\x00\x00\x00\x00'
-p129
-tp130
-Rp131
-sg85
+p133
+tp134
+Rp135
+sg89
 VCLOSED: [2014-03-08 Sat 19:35]\u000a:LOGBOOK:\u000a- State "DONE"       from "NEXT"       [2014-03-08 Sat 19:35]\u000a:END:\u000a:PROPERTIES:\u000a:CREATED:  [2014-03-08 Sat 19:33]\u000a:ID: 2014-03-08-tag-test-entry\u000a:END:\u000a\u000aHere, you can read about the test-tag "tag-test".\u000a\u000a
-p132
-sg87
-(lp133
-g118
-asg89
+p136
+sg91
+(lp137
+g122
+asg93
 V2014-03-08-tag-test-entry
-p134
+p138
 sa.

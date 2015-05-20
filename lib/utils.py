@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-15 14:19:19 vk>
+# Time-stamp: <2015-05-18 13:40:50 karl.voit>
 
 import config
 from sys import stdout, exit
@@ -461,7 +461,7 @@ class Utils(object):
         return mystring.replace('\r\n', '\n').replace('\r', '\n')
 
     @staticmethod
-    def diff_two_lists(list1, list2):
+    def diff_two_lists(list1, list2, normalize_lineendings=False):
         """
         Compares two lists, visually printing first difference.
         Returns True, if lists are same; False otherwise.
@@ -471,20 +471,30 @@ class Utils(object):
             return True
 
         for currentitem in range(len(list1)):
-            if list1[currentitem] != list2[currentitem]:
+            if normalize_lineendings:
+                string1 = Utils.normalize_lineendings(list1[currentitem])
+                string2 = Utils.normalize_lineendings(list2[currentitem])
+            else:
+                string1 = list1[currentitem]
+                string2 = list2[currentitem]
+            if string1 != string2:
                 print "=================  first difference  ===================== in line " + str(currentitem)
-                print "       [" + list1[currentitem - 1].rstrip() + "]"
-                print "found  [" + list1[currentitem].rstrip() + "]"
-                print "       [" + list1[currentitem + 1].rstrip() + "]"
+                print "       [" + str(list1[currentitem - 1]).rstrip() + "]"
+                print "found  [" + str(list1[currentitem]).rstrip() + "]"
+                print "       [" + str(list1[currentitem + 1]).rstrip() + "]"
                 print "    ---------------  comparison data:  --------------------"
-                print "       [" + list2[currentitem - 1].rstrip() + "]"
-                print "should [" + list2[currentitem].rstrip() + "]"
-                print "       [" + list2[currentitem + 1].rstrip() + "]"
+                print "       [" + str(list2[currentitem - 1]).rstrip() + "]"
+                print "should [" + str(list2[currentitem]).rstrip() + "]"
+                print "       [" + str(list2[currentitem + 1]).rstrip() + "]"
                 print "=================                    ====================="
                 return False
 
         logger = logging.getLogger('lazyblorg.Utils.diff_two_lists')
-        logger.error("Internal error: The two lists are not equal but I can't find the difference..")
+        if normalize_lineendings:
+            logger.info("Internal error: The two lists are not equal but I can't find the difference. They might differ in line ending format.")
+            return True
+        else:
+            logger.error("Internal error: The two lists are not equal but I can't find the difference.")
 
 
 

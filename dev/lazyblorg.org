@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2015-05-15 15:48:16 vk>
+# Time-stamp: <2015-05-18 14:30:26 karl.voit>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -263,21 +263,22 @@ CLOSED: [2014-03-01 Sat 20:10]
        insider-information on the blocks in order to do all the magic
   7. [X] implement exception handling when pypandoc is not found/installed
   8. [X] implement pypandoc_test.py testcase with all used Org-mode syntax elements
-  9. [X] implement tables using pypandoc
+  9. [-] implement tables using pypandoc
      - in order to get experience of the possibilities
      - don't forget sanitizing
      - [X] write parser
      - [X] write parser tests
      - [X] write htmlizer
      - [X] write htmlizer tests
-  10. [ ] add CSS for tables
-  11. [ ] implement lists using pypandoc
+     - [ ] add CSS for tables
+  10. [-] implement lists using pypandoc
       - don't forget sanitizing
-      - [ ] write parser
+      - [X] write parser
       - [ ] write parser tests
-      - [ ] write htmlizer
-      - [ ] write htmlizer tests
+      - [X] write htmlizer
+      - [ ] write htmlizer tests with complicated lists
       - [ ] add CSS for lists
+  11. [X] pypandoc as fall-back for any content which has no special treatment
   12. lazyblorg.py
       - [ ] generate_output()
         - using a different output module!
