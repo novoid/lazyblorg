@@ -149,6 +149,8 @@ blockquote {
     vertical-align: middle;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif; }
+  blockquote br {
+    margin-bottom: 10px; }
 
 .example_code {
   width: auto;

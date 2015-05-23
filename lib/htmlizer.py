@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-20 18:56:50 vk>
+# Time-stamp: <2015-05-23 12:30:41 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -659,7 +659,7 @@ class Htmlizer(object):
                 self.logging.debug("result [%s]" % repr(result))
                 self.logging.debug("mycontent [%s]" % repr(mycontent))
                 result += self.htmlize_simple_text_formatting(self.sanitize_external_links(self.sanitize_html_characters(mycontent)))
-                result = self.sanitize_internal_links(entry['category'], result)
+                result = self.sanitize_internal_links(entry['category'], result).replace(u'\n\n', u'<br />\n')
                 result += self.template_definition_by_name('blockquote-end')
 
             elif entry['content'][index][0] == 'src-block':
