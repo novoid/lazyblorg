@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-20 18:49:11 vk>
+# Time-stamp: <2015-05-25 13:55:37 vk>
 
 import config
 import re
@@ -493,6 +493,12 @@ class OrgParser(object):
                     state = self.COLON_BLOCK
                     self.__entry_data['content'].append(['colon-block', False, [line]])
                     previous_line = line
+
+                elif line.startswith('# '):
+
+                    ## http://orgmode.org/manual/Comment-lines.html
+                    self.logging.debug("OrgParser: found comment line, ignoring it")
+                    continue
 
                 elif line.startswith('|'):
 
