@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-06-14 17:20:50 vk>
+# Time-stamp: <2015-06-14 17:27:52 vk>
 
 import config
 import re

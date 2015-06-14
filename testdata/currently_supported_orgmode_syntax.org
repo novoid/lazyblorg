@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; ispell-local-dictionary: "german8"; -*-
-# Time-stamp: <2015-06-14 17:16:11 vk>
+# Time-stamp: <2015-06-14 17:27:22 vk>
 
 * DONE lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer :hidden:publicvoit:lazyblorg:MixedCaseTag:blog:
 CLOSED: [2014-01-30 Thu 13:01]
@@ -349,38 +349,6 @@ This is an UPPER case \LaTeX{} block without a name.
 #+begin_latex
 This is a lower case \LaTeX{} block without a name.
 #+end_latex
-
-** VERBATIM-blocks                                                :noexport:
-:PROPERTIES:
-:CREATED:  [2014-02-02 Sun 16:47]
-:END:
-
-#+BEGIN_VERBATIM
-UPPER-case verbatim without name
-  indented line
-     another indented line
-This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg and such.
-
-  Last line.
-
-This is a multi-line paragraph to demonstrate the behavior of line
-break and so on. As you can see, the line breaks are now different
-from Org-mode source or not.
-#+END_VERBATIM
-
-#+begin_verbatim
-lower-case verbatim without name
-#+end_verbatim
-
-#+NAME: a name
-#+BEGIN_VERBATIM
-UPPER-case verbatim with name
-#+END_VERBATIM
-
-#+NAME: Another name
-#+begin_verbatim
-lower-case verbatim with name
-#+end_verbatim
 
 ** noexport-tags in headings
 
