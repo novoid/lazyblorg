@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2015-05-18 14:30:26 karl.voit>
+# Time-stamp: <2015-06-14 16:24:38 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -332,7 +332,7 @@ destination folder for new digicam files: </code>$HOME/tmp/digicam/tmp/~.
 
 ... which is wrong
 
-** NEXT Atom-feed mit CDATA                                   :architecture:
+** NEXT Atom-feed with CDATA for body                                                  :architecture:
 :PROPERTIES:
 :CREATED:  [2014-06-08 Sun 22:07]
 :END:
@@ -357,53 +357,18 @@ destination folder for new digicam files: </code>$HOME/tmp/digicam/tmp/~.
   - for each entry in entries
     - get oldest entry of entry['finished-timestamp-history']
     - store to a sorted list (newest first or last)
-** NEXT parse/htmlize: lists                                     :userstory:
-:PROPERTIES:
-:CREATED:  [2014-02-01 Sat 15:25]
-:ID: 2014-08-10-lb-lists-implementation
-:END:
-:LOGBOOK:
-- Not scheduled, was "2014-05-18 Sun" on [2014-05-18 Sun 09:56]
-- Rescheduled from "2014-05-16 Fri" on [2014-05-17 Sat 11:34]
-- Rescheduled from "2014-05-10 Sat" on [2014-05-11 Sun 17:53]
-- Rescheduled from "2014-05-06 Tue" on [2014-05-07 Wed 17:32]
-- Rescheduled from "2014-04-28 Mon" on [2014-04-27 Sun 22:07]
-:END:
-
-- http://orgmode.org/worg/dev/org-syntax.html#Plain_Lists_and_Items
-
-A starting line which is not part of the list:
-- example list
-- second line
-  - sub-items
-  - another one
-    - yet another level
-    - This one also with a very long line that gets wrapped to a
-      second line you should also take into account
-  - second again
-- first again
-Not a list any more.
-
 ** NEXT add: --include-archived-entries                                                  :userstory:
 :PROPERTIES:
 :CREATED:  [2014-10-19 So 12:01]
 :END:
 
+- [ ] define, what "archived entries" is
+  - tag :ARCHIVE:
+  - file.org_archive
+  - FIXXME
 - [ ] check if archived tag gets removed
 - [ ] add command line parameter for adding archived entries
   - by default, archived entries do *not* get added to the blog
-
-** NEXT fix lists in my current blog entries                     :userstory:
-SCHEDULED: <2014-08-10 Sun>
-:PROPERTIES:
-:CREATED:  [2014-08-10 Sun 10:38]
-:BLOCKER: 2014-08-10-lb-lists-implementation
-:END:
-
-- id:apps-I-am-using
-- id:2012-04-15-mobile-usage-pattern
-- id:2012-12-23-todo-with-orgmode
-- id:2014-08-10-other-peoples-IT-setup
 
 ** NEXT fix tilde in URL                                               :bug:
 :PROPERTIES:
@@ -554,6 +519,13 @@ SCHEDULED: <2014-08-10 Sun>
 :END:
 
 - id:2014-08-10-other-peoples-IT-setup
+
+** NEXT fix issue where an article can't end with a list item                                  :bug:
+:PROPERTIES:
+:CREATED:  [2015-05-25 Mon 14:20]
+:END:
+
+example: id:2015-05-24-browser-keywords
 
 ** NEXT embed images that are defined by tsfile-statements       :userstory:
 :PROPERTIES:
