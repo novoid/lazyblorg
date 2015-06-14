@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-25 13:55:37 vk>
+# Time-stamp: <2015-06-14 17:20:50 vk>
 
 import config
 import re
@@ -474,6 +474,7 @@ class OrgParser(object):
                     if block_type == 'SRC' or block_type == 'HTML' or block_type == 'VERSE' or \
                             block_type == 'QUOTE' or block_type == 'CENTER' or block_type == 'ASCII' or \
                             block_type == 'LATEX' or block_type == 'EXAMPLE':
+
                         if previous_name == u'':
                             self.__entry_data['content'].append([block_type.lower() + '-block', False, []])
                         else:
@@ -636,6 +637,7 @@ class OrgParser(object):
                     raise OrgParserException('I was in state \"BLOCK\" with no block_type. Not good, I\'m confused!')
 
                 if line.upper() == '#+END_' + block_type:
+
                     state = self.ENTRY_CONTENT
                     previous_line = line
                     continue

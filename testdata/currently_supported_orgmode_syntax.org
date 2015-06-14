@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; ispell-local-dictionary: "german8"; -*-
-# Time-stamp: <2015-05-25 13:57:43 vk>
+# Time-stamp: <2015-06-14 17:16:11 vk>
 
 * DONE lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer :hidden:publicvoit:lazyblorg:MixedCaseTag:blog:
 CLOSED: [2014-01-30 Thu 13:01]
@@ -281,7 +281,7 @@ if test == 42:
 else:
     print "there is something phishy around here."
 #+END_SRC
-** LATEX-blocks                                                   :noexport:
+** LATEX-blocks
 :PROPERTIES:
 :CREATED:  [2014-02-02 Sun 14:28]
 :END:
@@ -292,7 +292,54 @@ This is a mixed case \LaTeX{} block without a name.
 
 Another paragraph.
 
-$42 * 7 = \frac{c}{45x}$
+Mathematical expression: $42 * 7 = \frac{c}{45x}$
+
+\begin{table}
+  \centering
+  \begin{tabular}{lcr}
+    This is the first column & This is the second & This is the third \\
+    foo & bar & baz \\
+    1 & 2 & 3
+  \end{tabular}
+  \caption{This is the caption}
+  \label{tab:mylatextable}
+\end{table}
+
+\begin{itemize}
+\item First item
+\item Second item
+  \begin{enumerate}
+  \item First enumerate
+  \item Second enumerate
+  \end{enumerate}
+\item Last
+\end{itemize}
+
+\begin{verbatim}
+This is verbatim.
+   Second line.
+
+   Third line.
+\end{verbatim}
+
+\begin{verse}
+  This is verse.
+   Second line.
+
+   Third line.
+\end{verse}
+
+\begin{quote}
+  This is qote.
+   Second line.
+
+   Third line.
+\end{quote}
+
+\begin{eqnarray}
+  \label{eq:my-eqn-array}
+  x^2_\text{eff} = \frac{\text{result}}{42*23/7}
+\end{eqnarray}
 #+END_LaTeX
 
 #+BEGIN_LATEX
@@ -375,7 +422,7 @@ Between this and the previous paragraph, there is no horizontal rule.
 
 Between this and the previous paragraph, there was an horizontal rule.
 
-** Lists                                                          :noexport:
+** Lists
 :PROPERTIES:
 :CREATED:  [2014-01-30 Thu 16:20]
 :END:
@@ -390,11 +437,13 @@ Simple lists:
     - bah!
 - back to first list
 
-Ordered lists:
+Ordered lists with multi-line items:
 
 1. first line
 2. second line
-   1. another list in a list
+   1. another list in a list with very long lines that are too long
+      for one line; in fact, [[http://example.org/testlink][this list item]] spans over a couple of
+      lines - more than even two of them
    2. don't get confused
       1. even more lists
       2. bah!

@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-23 12:30:41 vk>
+# Time-stamp: <2015-06-14 17:18:56 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -732,8 +732,14 @@ class Htmlizer(object):
                 for list_item in list_with_element_data:
                     sanitized_lines.append(
                             self.sanitize_internal_links(entry['category'], list_item, keep_orgmode_format=True))
-                result = pypandoc.convert('\n'.join(sanitized_lines),
-                                          'html5', format='org')
+                if entry['content'][index][0] == 'latex-block':
+                    result = pypandoc.convert('\n'.join(sanitized_lines), 'html5', format='latex')
+                else:
+                    result = pypandoc.convert('\n'.join(sanitized_lines), 'html5', format='org')
+                if result == '\n':
+                    self.logging.warning(u'Block of type %s could not converted into html5 via pypandoc (or it is empty): %s' %
+                                         {str(entry['content'][index][0])}, '\n'.join(sanitized_lines))
+                #import pdb; pdb.set_trace()
 
 
             ## replace element in entry with the result string:

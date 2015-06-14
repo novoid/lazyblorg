@@ -336,6 +336,57 @@ else:
     print "there is something phishy around here."	  </pre>
     </div>
 
+	  <header><h2 class="section-title">LATEX-blocks</h2></header>
+<p>This is a mixed case LaTeX block without a name. Indented line.</p>
+<p>Another paragraph.</p>
+<p>Mathematical expression: <span class="math">$42 * 7 = \frac{c}{45x}$</span></p>
+<table>
+<caption>This is the caption<span data-label="tab:mylatextable"></span></caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">This is the first column</td>
+<td style="text-align: center;">This is the second</td>
+<td style="text-align: right;">This is the third</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">foo</td>
+<td style="text-align: center;">bar</td>
+<td style="text-align: right;">baz</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>First item</p></li>
+<li><p>Second item</p>
+<ol>
+<li><p>First enumerate</p></li>
+<li><p>Second enumerate</p></li>
+</ol></li>
+<li><p>Last</p></li>
+</ul>
+<pre><code>This is verbatim.
+   Second line.
+
+   Third line.</code></pre>
+<blockquote>
+<p>This is verse. Second line.</p>
+<p>Third line.</p>
+</blockquote>
+<blockquote>
+<p>This is qote. Second line.</p>
+<p>Third line.</p>
+</blockquote>
+<p><br /><span class="math">$$\begin{aligned}
+  \label{eq:my-eqn-array}
+  x^2_\text{eff} = \frac{\text{result}}{42*23/7}\end{aligned}$$</span><br /></p>
+<p>This is an UPPER case LaTeX block without a name.</p>
+<p>This is a lower case LaTeX block without a name.</p>
+
 	  <header><h2 class="section-title">noexport-tags in headings</h2></header>
 
 	  <header><h3 class="section-title">not ignored because it got no :noexport: tag set</h3></header>
@@ -381,6 +432,65 @@ Between this and the previous paragraph, there is no horizontal rule.
 Between this and the previous paragraph, there was an horizontal rule.
 
 </p>
+
+	  <header><h2 class="section-title">Lists</h2></header>
+
+<p>
+
+Simple lists:
+
+</p>
+<ul>
+<li>first line</li>
+<li>second line
+<ul>
+<li>another list in a list</li>
+<li>don't get confused
+<ul>
+<li>even more lists</li>
+<li>bah!</li>
+</ul></li>
+</ul></li>
+<li>back to first list</li>
+</ul>
+
+<p>
+
+Ordered lists with multi-line items:
+
+</p>
+<ol>
+<li>first line</li>
+<li>second line
+<ol>
+<li>another list in a list with very long lines that are too long for one line; in fact, <a href="http://example.org/testlink">this list item</a> spans over a couple of lines - more than even two of them</li>
+<li>don't get confused
+<ol>
+<li>even more lists</li>
+<li>bah!</li>
+</ol></li>
+</ol></li>
+<li>back to first list</li>
+</ol>
+
+<p>
+
+Mixed lists:
+
+</p>
+<ol>
+<li>first line</li>
+<li>second line
+<ul>
+<li>another list in a list</li>
+<li>don't get confused
+<ol>
+<li>even more lists</li>
+<li>bah!</li>
+</ol></li>
+</ul></li>
+<li>back to first list</li>
+</ol>
 
 	  <header><h2 class="section-title">Tables</h2></header>
 
