@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-18 12:21:45 karl.voit>
+# Time-stamp: <2015-06-14 16:27:37 vk>
 
 import config
-import argparse  ## command line arguments
+import argparse  # command line arguments
 import unittest
 from lazyblorg import Lazyblorg
 from lib.utils import *
 from lib.orgparser import *
 from lib.htmlizer import *
-import pickle ## for serializing and storing objects into files
+#import pickle  # for serializing and storing objects into files
 import os
 
 
@@ -107,7 +107,7 @@ class TestLazyblorg(unittest.TestCase):
         myoptions = "--orgfiles " + org_testfile_secondrun + " " + template_file + \
             " --targetdir ../testdata/basic_blog_update_test/2del-results/ --previous-metadata " + \
             metadata_firstrun_output + \
-            " --new-metadata " + metadata_secondrun_output + " --logfile " + log_firstrun# + " --verbose"
+            " --new-metadata " + metadata_secondrun_output + " --logfile " + log_firstrun  # + " --verbose"
 
         options = second_parser.parse_args(myoptions.split())
 
@@ -173,7 +173,7 @@ class TestLazyblorg(unittest.TestCase):
         myoptions = "--orgfiles " + org_testfile + " " + template_file + " " + additional_org_file + \
             " --targetdir " + target_dir + " --previous-metadata " + metadata_input + " --new-metadata " + \
             metadata_output + \
-            " --logfile " + log_firstrun# + " --verbose"
+            " --logfile " + log_firstrun  # + " --verbose"
 
         options = first_parser.parse_args(myoptions.split())
 
@@ -237,8 +237,8 @@ class TestLazyblorg(unittest.TestCase):
             print "length of produced data (" + str(len(contentarray_from_file)) + ") differs from comparison data (" + str(len(comparison_string_array)) + ")"
 
         ## a more fine-grained diff (only) on the first element in blog_data:
-        self.assertTrue(Utils.diff_two_lists(contentarray_from_file, 
-                                             comparison_string_array, 
+        self.assertTrue(Utils.diff_two_lists(contentarray_from_file,
+                                             comparison_string_array,
                                              normalize_lineendings=True))
 
         if os.path.isfile(metadata_output):
