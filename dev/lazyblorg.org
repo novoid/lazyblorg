@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2015-06-14 16:24:38 vk>
+# Time-stamp: <2015-06-27 13:43:20 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -230,6 +230,140 @@ CLOSED: [2014-03-01 Sat 20:10]
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
 
+** NEXT document: what elements are rendered/converted via pypandoc?
+:PROPERTIES:
+:CREATED:  [2015-06-23 Tue 12:13]
+:END:
+** NEXT analyze and steal CSS for columns from [[http://endlessparentheses.com/how-i-blog-one-year-of-posts-in-a-single-org-file.html][URL]]                                    :architecture:
+SCHEDULED: <2015-06-27 Sat>
+:PROPERTIES:
+:CREATED:  [2015-06-27 Sat 12:20]
+:END:
+
+- http://endlessparentheses.com/endless.css
+  - interesting part is marked with ~/* Responsiveness */~
+    - reponsive design: different settings with different height/width:
+      #+BEGIN_EXAMPLE
+      /* Responsiveness */
+      @media (max-height: 34rem) {
+          .left-sidebar-ad {display:none;}
+          .se-flair {display:none;}
+      }
+      @media (min-height: 34.1rem) {
+          .left-sidebar-ad {display:initial;}
+          .se-flair {display:initial;}
+      }
+      
+      @media (max-width: 62.2rem) {
+          .post-ad-mobile {
+              display: initial;
+              width: 320px;
+              height: 100px;
+              margin-left: auto;
+              margin-right: auto;
+          }
+      
+          .post-ad {display: none;}
+          .left-sidebar-ad {display:none;}
+      
+          .masthead-links {
+              margin-top: .3rem;
+              margin-left: 0;
+              margin-right: 0;
+          }
+          .masthead-links li {
+              margin:0;
+              margin-bottom:.3rem;
+              text-align: center;
+              font-size:100%;
+              width:32%;
+              display:none;
+          }
+          /* Only 3 links fit in mobile. */
+          .masthead-links li:nth-child(1),
+          .masthead-links li:nth-child(2),
+          .masthead-links li:nth-child(3) {
+              display:inline-block;
+          }
+      
+          .pagination {
+              width: 99%;
+          }
+      }
+      @media (min-width: 62.3rem) {
+      
+          .container {
+              /* overflow:hidden; */
+              max-width: 52rem;
+              /* width:34rem; */
+              margin-left:  auto;
+              margin-right: auto;
+              /* background-color:red; */
+          }
+          
+          .masthead {
+              margin-top:2rem;
+              margin-right:11rem;
+              margin-bottom: 0;
+              /* text-align:right; */
+              position:fixed;
+              top:0;
+              right:50%;
+              display:block;
+              width:13rem;
+              height:100%;
+          }
+          .post-with-comments {
+              /* float:left; */
+              margin-left:20rem;
+              /* width:34rem; */
+              display:inline-block;
+              /* overflow:scroll; */
+          }
+          
+          .post-ad-mobile {display: none;}
+      }
+      
+      @media (min-width: 76.3rem) {
+          .container {
+              /* overflow:hidden; */
+              max-width: 31rem;
+              /* width:34rem; */
+              margin-left:  auto;
+              margin-right: auto;
+              /* background-color:red; */
+          }
+          
+          .post-with-comments {
+              margin-left: 0;
+              margin-right: 0;
+          }
+      
+          .right-sidebar {
+              font-family: "Droid Serif", serif;
+              padding-bottom: 0;
+              margin-right: 0rem;
+              margin-top:1.3rem;
+              margin-left:20rem;
+              margin-bottom: 0;
+              /* text-align:right; */
+              position:fixed;
+              top:0;
+              left:50%;
+              display:inline-block;
+              width:15rem;
+              height:100%;
+              /* background-color:blue; */
+          }
+      
+          .masthead {
+              /* background-color:blue; */
+              margin-right:20rem;
+              /* text-align:right; */
+          }
+      }
+      #+END_EXAMPLE
+      
 ** STARTED [#A] branch: replace htmlizer with pypandoc                                :architecture:
 :PROPERTIES:
 :CREATED:  [2015-01-27 Tue 12:22]
@@ -276,7 +410,7 @@ CLOSED: [2014-03-01 Sat 20:10]
       - [X] write parser
       - [ ] write parser tests
       - [X] write htmlizer
-      - [ ] write htmlizer tests with complicated lists
+      - [X] write htmlizer tests with complicated lists
       - [ ] add CSS for lists
   11. [X] pypandoc as fall-back for any content which has no special treatment
   12. lazyblorg.py
@@ -1291,7 +1425,6 @@ CLOSED: [2015-05-09 Sat 18:47] SCHEDULED: <2015-05-09 Sat>
 
 - Example: if "What The World Needs"|"WTWN:" is found, link to a page
   where WTWN-series is described in general.
-
 ** TODO add tree of headings on each article with sub-headings   :userstory:
 :PROPERTIES:
 :CREATED:  [2014-02-08 Sat 11:06]
@@ -1366,6 +1499,25 @@ display: block;
   - link to a list of blog entries for this tag
 
 - see also id:2012-11-11-autotags
+
+** SOMEDAY include bookmarks to lazyblorg                                                     :wish:
+:PROPERTIES:
+:CREATED:  [2015-06-21 Sun 11:37]
+:END:
+:LOGBOOK:
+- State "SOMEDAY"    from "NEXT"       [2015-06-21 Sun 11:39]
+:END:
+
+- I store bookmarks according to [[http://karl-voit.at/2014/08/10/bookmarks-with-orgmode/][Managing web bookmarks with Org-mode]]
+- Idea: create short (minimal) pages per bookmark
+
+** SOMEDAY show (small) links to tag-matching bookmarks on articles and tag-pages             :wish:
+:PROPERTIES:
+:CREATED:  [2015-06-21 Sun 11:37]
+:END:
+:LOGBOOK:
+- State "SOMEDAY"    from "NEXT"       [2015-06-21 Sun 11:40]
+:END:
 ** SOMEDAY add diff to previous version in case of update        :userstory:
 :PROPERTIES:
 :CREATED:  [2014-02-28 Fr 09:27]
@@ -1531,7 +1683,7 @@ For optimizing performance and RAM usage: use *two parsing processes*:
 - State "SOMEDAY"    from ""           [2014-01-20 Mon 19:33]
 :END:
 
-- [ ] handle public/private tags accordingly
+- [ ] handle public/private tags accordingly (or: noexport?)
 - [ ] migrate delicious private field to private tag
 
 * Notes                                                               :notes:
