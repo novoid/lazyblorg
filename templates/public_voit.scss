@@ -1,4 +1,4 @@
-/*  ------------------------------------------
+ /*  ------------------------------------------
  *  Generic stuff
  *  ------------------------------------------ */
 
@@ -34,16 +34,118 @@ a {
 }
 
 
-.middle_section_narrow {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 40em;
+@mixin narrow-maincolumns-30em-45em {
+    .middle_section_narrow {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 30em;
+	padding-left: 1em;
+	padding-right: 1em;
+    }
+    .middle_section_wide {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 45em;
+    }
 }
 
-.middle_section_wide {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 60em;
+@mixin narrow-maincolumns-40em-60em {
+    .middle_section_narrow {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 40em;
+    }
+    .middle_section_wide {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 60em;
+    }
+}
+
+@mixin narrow-sidebar-10em {
+    .sidebar {
+	max-width: 10em;
+	display: initial;
+	line-height: 24px;
+	position: relative;
+	font-size: 13px;
+	#search_form_homepage {
+	    width: 150px; /* original: 198px */
+	}
+	#search_wrapper_homepage {
+	    width: 30px;
+	}
+    }
+}
+
+@mixin narrow-sidebar-15em {
+    .sidebar {
+	max-width: 15em;
+	display: initial;
+	line-height: 24px;
+	position: relative;
+	font-size: 13px;
+	#search_wrapper_homepage {
+	    width: 30px;
+	}
+    }
+}
+
+@mixin horizontal-sidebar {
+
+    /* idea: show sidebar ul/li horizontal above content when page is too narrow:    */
+    .sidebar {
+	float: left;
+	max-width: 40em;
+	padding: 1em 0em 1em 0em; /* top right bottom left */
+	line-height: 24px;
+	font-size: 13px;
+	ul {
+	    list-style: outside none none;
+	    float:right;
+	}
+	li {
+	    float:left;
+	    position: relative;
+	}
+	#search_wrapper_homepage {
+	    width: 30px;
+	}
+    }
+}
+
+@media (max-width: 50em) {  /* narrow maincolumn; suppress sidebar */
+    @include narrow-maincolumns-30em-45em;
+    @include horizontal-sidebar;
+/*    .sidebar {
+	display: none;
+    }*/
+}
+
+@media (min-width: 50em) {  /* narrow maincolumn; narrow sidebar */
+    @include narrow-maincolumns-30em-45em;
+    @include narrow-sidebar-10em;
+}
+
+@media (min-width: 57em) {  /* narrow maincolumn; middle sidebar */
+    @include narrow-maincolumns-30em-45em;
+    @include narrow-sidebar-15em;
+}
+
+@media (min-width: 60em) {  /* max maincolumn; narrow sidebar */
+    @include narrow-maincolumns-40em-60em;
+    @include narrow-sidebar-10em;
+}
+
+@media (min-width: 74em) {  /* wide enough: original design without @media */
+    @include narrow-maincolumns-40em-60em;
+    .sidebar {
+	max-width: initial;
+	display: initial;
+	line-height: initial;
+	position: initial;
+	font-size: initial;
+    }
 }
 
 .common-header-nav {
@@ -68,7 +170,7 @@ a {
 
 
 .common-tags {
-    /* happily stolen from http://cssglobe.com/pure-css3-post-tags/ */
+    /* tags CSS originally and happily stolen from http://cssglobe.com/pure-css3-post-tags/ */
     @extend .middle_section_narrow;
     margin-right: 20%;  /* FIXXME: workaround until format of middle-section-narrow works */
 
@@ -77,7 +179,12 @@ a {
     margin-top: 1em;
     margin-right: -2em;*/
     float: right;
-    list-style: none;
+    list-style: none outside none;
+    /* definition: http://www.w3schools.com/cssref/pr_list-style.asp
+          list-style: list-style-type list-style-position list-style-image|initial|inherit;
+       "none" was original copied value from source
+       default is: "disc outside none"
+       because of displaying black bullet in different browsers I try "none outside none" */
     li {
 	float: left;
 	height: 30px;
@@ -346,20 +453,33 @@ footer {
  *  Sidebars
  *  ------------------------------------------ */
 
-
+/* idea: show sidebar ul/li horizontal above content when page is too narrow:
+    float: right;
+    list-style: none outside none;
+    tags-li-example-from-above-with-horizontal-li {
+	float: left;         difference!
+	height: 30px;
+	line-height: 24px;
+	position: relative;  difference!
+	font-size: 13px;
+    }    */
 
 .sidebar {
     float: right;
     width: 15em;
-    padding: 1em 0px 0px 0px;
+    padding: 1em 0em 0em 1em; /* top right bottom left */
 
     ul li {
+    /* definition: http://www.w3schools.com/cssref/pr_list-style.asp
+          list-style: list-style-type list-style-position list-style-image|initial|inherit;
+        */
 	list-style-type: none;
 	list-style-image: none;
+	list-style-position: outside;
 	margin-left: -2em;
 	padding: 10px 0px 5px 0px;
     }
-    
+
     iframe {  /* DuckDuckGo search bar */
 	/* FIXXME: this does not have any effect */
 	overflow:hidden;
@@ -371,4 +491,3 @@ footer {
 	padding-bottom: 0px;
         }
 }
-

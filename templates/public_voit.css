@@ -1,6 +1,6 @@
 /*  ------------------------------------------
- *  Generic stuff
- *  ------------------------------------------ */
+*  Generic stuff
+*  ------------------------------------------ */
 /* http://html-color-codes.info/ */
 /* replacing #555 */
 body {
@@ -13,16 +13,128 @@ body {
 a {
   text-decoration: none; }
 
-.middle_section_narrow, .common-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, .common-article-header-title, blockquote, .example_code, .email-comment, #disqus_thread, .entry-page-greetings {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 40em; }
+@media (max-width: 50em) {
+  /* narrow maincolumn; suppress sidebar */
+  .middle_section_narrow, .common-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, .common-article-header-title, blockquote, .example_code, .email-comment, #disqus_thread, .entry-page-greetings {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 30em;
+    padding-left: 1em;
+    padding-right: 1em; }
 
-.middle_section_wide, header, .published-on, footer, .temporal-article-header-nav, .month-overview-header-nav, .entrypage-article-header-nav, .persistent-article-header-nav {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 60em; }
+  .middle_section_wide, header, .published-on, footer, .temporal-article-header-nav, .month-overview-header-nav, .entrypage-article-header-nav, .persistent-article-header-nav {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 45em; }
 
+  /* idea: show sidebar ul/li horizontal above content when page is too narrow:    */
+  .sidebar {
+    float: left;
+    max-width: 40em;
+    padding: 1em 0em 1em 0em;
+    /* top right bottom left */
+    line-height: 24px;
+    font-size: 13px; }
+    .sidebar ul {
+      list-style: outside none none;
+      float: right; }
+    .sidebar li {
+      float: left;
+      position: relative; }
+    .sidebar #search_wrapper_homepage {
+      width: 30px; }
+
+  /*    .sidebar {
+  	display: none;
+      }*/ }
+@media (min-width: 50em) {
+  /* narrow maincolumn; narrow sidebar */
+  .middle_section_narrow, .common-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, .common-article-header-title, blockquote, .example_code, .email-comment, #disqus_thread, .entry-page-greetings {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 30em;
+    padding-left: 1em;
+    padding-right: 1em; }
+
+  .middle_section_wide, header, .published-on, footer, .temporal-article-header-nav, .month-overview-header-nav, .entrypage-article-header-nav, .persistent-article-header-nav {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 45em; }
+
+  .sidebar {
+    max-width: 10em;
+    display: initial;
+    line-height: 24px;
+    position: relative;
+    font-size: 13px; }
+    .sidebar #search_form_homepage {
+      width: 150px;
+      /* original: 198px */ }
+    .sidebar #search_wrapper_homepage {
+      width: 30px; } }
+@media (min-width: 57em) {
+  /* narrow maincolumn; middle sidebar */
+  .middle_section_narrow, .common-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, .common-article-header-title, blockquote, .example_code, .email-comment, #disqus_thread, .entry-page-greetings {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 30em;
+    padding-left: 1em;
+    padding-right: 1em; }
+
+  .middle_section_wide, header, .published-on, footer, .temporal-article-header-nav, .month-overview-header-nav, .entrypage-article-header-nav, .persistent-article-header-nav {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 45em; }
+
+  .sidebar {
+    max-width: 15em;
+    display: initial;
+    line-height: 24px;
+    position: relative;
+    font-size: 13px; }
+    .sidebar #search_wrapper_homepage {
+      width: 30px; } }
+@media (min-width: 60em) {
+  /* max maincolumn; narrow sidebar */
+  .middle_section_narrow, .common-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, .common-article-header-title, blockquote, .example_code, .email-comment, #disqus_thread, .entry-page-greetings {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 40em; }
+
+  .middle_section_wide, header, .published-on, footer, .temporal-article-header-nav, .month-overview-header-nav, .entrypage-article-header-nav, .persistent-article-header-nav {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 60em; }
+
+  .sidebar {
+    max-width: 10em;
+    display: initial;
+    line-height: 24px;
+    position: relative;
+    font-size: 13px; }
+    .sidebar #search_form_homepage {
+      width: 150px;
+      /* original: 198px */ }
+    .sidebar #search_wrapper_homepage {
+      width: 30px; } }
+@media (min-width: 74em) {
+  /* wide enough: original design without @media */
+  .middle_section_narrow, .common-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, .common-article-header-title, blockquote, .example_code, .email-comment, #disqus_thread, .entry-page-greetings {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 40em; }
+
+  .middle_section_wide, header, .published-on, footer, .temporal-article-header-nav, .month-overview-header-nav, .entrypage-article-header-nav, .persistent-article-header-nav {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 60em; }
+
+  .sidebar {
+    max-width: initial;
+    display: initial;
+    line-height: initial;
+    position: initial;
+    font-size: initial; } }
 .common-header-nav, .temporal-article-header-nav, .month-overview-header-nav, .entrypage-article-header-nav, .persistent-article-header-nav {
   padding: 1em;
   /*    padding-left: 13em;
@@ -41,7 +153,7 @@ a {
   font-family: Verdana, Geneva, sans-serif; }
 
 .common-tags, .entry-page-article .entry-page-article-tags {
-  /* happily stolen from http://cssglobe.com/pure-css3-post-tags/ */
+  /* tags CSS originally and happily stolen from http://cssglobe.com/pure-css3-post-tags/ */
   margin-right: 20%;
   /* FIXXME: workaround until format of middle-section-narrow works */
   /*margin: 0;*/
@@ -49,7 +161,12 @@ a {
   margin-top: 1em;
   margin-right: -2em;*/
   float: right;
-  list-style: none; }
+  list-style: none outside none;
+  /* definition: http://www.w3schools.com/cssref/pr_list-style.asp
+        list-style: list-style-type list-style-position list-style-image|initial|inherit;
+     "none" was original copied value from source
+     default is: "disc outside none"
+     because of displaying black bullet in different browsers I try "none outside none" */ }
   .common-tags li, .entry-page-article .entry-page-article-tags li {
     float: left;
     height: 30px;
@@ -237,13 +354,28 @@ footer {
 /*  ------------------------------------------
  *  Sidebars
  *  ------------------------------------------ */
+/* idea: show sidebar ul/li horizontal above content when page is too narrow:
+    float: right;
+    list-style: none outside none;
+    tags-li-example-from-above-with-horizontal-li {
+	float: left;         difference!
+	height: 30px;
+	line-height: 24px;
+	position: relative;  difference!
+	font-size: 13px;
+    }    */
 .sidebar {
   float: right;
   width: 15em;
-  padding: 1em 0px 0px 0px; }
+  padding: 1em 0em 0em 1em;
+  /* top right bottom left */ }
   .sidebar ul li {
+    /* definition: http://www.w3schools.com/cssref/pr_list-style.asp
+          list-style: list-style-type list-style-position list-style-image|initial|inherit;
+        */
     list-style-type: none;
     list-style-image: none;
+    list-style-position: outside;
     margin-left: -2em;
     padding: 10px 0px 5px 0px; }
   .sidebar iframe {
