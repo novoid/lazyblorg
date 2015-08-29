@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2015-06-27 13:43:20 vk>
+# Time-stamp: <2015-08-29 19:13:45 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -234,10 +234,13 @@ CLOSED: [2014-03-01 Sat 20:10]
 :PROPERTIES:
 :CREATED:  [2015-06-23 Tue 12:13]
 :END:
-** NEXT analyze and steal CSS for columns from [[http://endlessparentheses.com/how-i-blog-one-year-of-posts-in-a-single-org-file.html][URL]]                                    :architecture:
-SCHEDULED: <2015-06-27 Sat>
+** DONE analyze and steal CSS for columns from [[http://endlessparentheses.com/how-i-blog-one-year-of-posts-in-a-single-org-file.html][URL]]                                    :architecture:
+CLOSED: [2015-06-27 Sat 19:06] SCHEDULED: <2015-06-27 Sat>
 :PROPERTIES:
 :CREATED:  [2015-06-27 Sat 12:20]
+:END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2015-06-27 Sat 19:06]
 :END:
 
 - http://endlessparentheses.com/endless.css
@@ -363,7 +366,28 @@ SCHEDULED: <2015-06-27 Sat>
           }
       }
       #+END_EXAMPLE
-      
+
+** NEXT enhanced publicvoit generation wrapper script 
+[2015-08-26 Mi. 07:46]
+
+- stop script if last_error.log is found
+  - prevent multiple runs as long as there is an issue
+  - manually removing last_error.log before re-activating process
+- store stderr to last_error.log
+- delete one line changes of atom
+- delete last_error.log if successfully generated
+
+** NEXT make show-sidebar-text work: show sidebar on small displays                      :userstory:
+SCHEDULED: <2015-09-25 Fri>
+:PROPERTIES:
+:CREATED:  [2015-06-27 Sat 19:06]
+:END:
+:LOGBOOK:
+- Rescheduled from "[2015-07-25 Sat]" on [2015-07-25 Sat 18:37]
+- Rescheduled from "<2015-07-19 Sun>" on [2015-07-20 Mon 19:19]
+- Rescheduled from "<2015-07-17 Fri>" on [2015-07-17 Fri 18:57]
+- Rescheduled from "<2015-06-28 Sun>" on [2015-07-11 Sat 11:51]
+:END:
 ** STARTED [#A] branch: replace htmlizer with pypandoc                                :architecture:
 :PROPERTIES:
 :CREATED:  [2015-01-27 Tue 12:22]
@@ -441,6 +465,31 @@ SCHEDULED: <2015-06-27 Sat>
 :PROPERTIES:
 :CREATED:  [2014-08-10 Sun 18:32]
 :END:
+** SOMEDAY switch to Bootstrap CSS/HTML framework                                     :architecture:
+:PROPERTIES:
+:CREATED:  [2015-07-14 Tue 17:22]
+:END:
+:LOGBOOK:
+- State "SOMEDAY"    from ""           [2015-07-14 Tue 17:22]
+:END:
+
+- Bootstrap: outsourcing my poor CSS knowledge to experts
+  - https://en.wikipedia.org/wiki/Bootstrap_%28front-end_framework%29
+    - http://getbootstrap.com/
+      - http://getbootstrap.com/examples/blog/
+  - http://prideparrot.com/blog/archive/2014/4/blog_template_using_twitter_bootstrap3_part1
+    - verbose how-to from ground up!
+      - almost too verbose :-(
+    - looks great!
+  - http://erjjones.github.io/blog/How-I-built-my-blog-in-one-day/
+    - with Jekyll
+
+downsides:
+- add an external dependency
+- add complexity (I may not need?)
+- current HTML has to be re-designed to fit Bootstrap
+- I still need to understand something in order to adapt it to my needs
+
 ** NEXT fix: ~-escaping                                                :bug:
 :PROPERTIES:
 :CREATED:  [2014-06-22 Sun 18:32]
@@ -1686,6 +1735,7 @@ For optimizing performance and RAM usage: use *two parsing processes*:
 - [ ] handle public/private tags accordingly (or: noexport?)
 - [ ] migrate delicious private field to private tag
 
+
 * Notes                                                               :notes:
 
 ** Naming this project
@@ -2284,6 +2334,9 @@ Some notes of stuff I was looking into as well:
 
 - https://github.com/kelvinh/org-page
   - example set-up: http://cmacr.ae/blog/2015/01/18/org-page-blogging/
+
+- https://github.com/renard/o-blog
+  - using pandoc to convert markdown and Org-mode to HTML
 
 * Local Variables                                                  :noexport:
 # Local Variables:
