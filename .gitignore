@@ -12,5 +12,5 @@ lib/tests/simple_org_-_lastrun.pk
 lazyblorg_dump_of_blogdata_from_last_verbose_run.pk
 parse_template.sh
 regenerate_public_voit.sh
-make_and_publish_public_voit.sh
 templates/.sass-cache/
+public-voit_-_make_and_publish.sh
