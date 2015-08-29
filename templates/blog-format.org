@@ -1,4 +1,4 @@
-## Time-stamp: <2015-05-23 17:44:43 vk>
+## Time-stamp: <2015-06-27 18:41:44 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -69,9 +69,12 @@ Have fun with modifying lazyblorg to your requirements!
 #+NAME: common-sidebar
 #+BEGIN_HTML
 
-  <div class="sidebar">
+  <a id="show-sidebar-text" href="#show-sidebar">Show Sidebar</a>
+  <div class="sidebar toggle-sidebar">
      <div class="search">
-       <iframe src="http://duckduckgo.com/search.html?width=140&site=karl-voit.at&prefill=Search blog" frameborder="0"></iframe><br/>
+       <iframe id="search-big" src="http://duckduckgo.com/search.html?width=140&site=karl-voit.at&prefill=Search blog" frameborder="0"></iframe>
+       <iframe id="search-narrow" src="http://duckduckgo.com/search.html?width=70&k1=-1&k2=s&site=karl-voit.at&prefill=Search" frameborder="0"></iframe>
+       <br/>
      </div>
      <ul>
      <li>TBD: Archive</li>

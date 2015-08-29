@@ -33,6 +33,33 @@ a {
     text-decoration: none;
 }
 
+#show-sidebar-text {
+    /* show/hide sidebar stolen from: https://css-tricks.com/off-canvas-menu-with-css-target/
+       .show-sidebar-text is only visible with horizontal-sidebar */
+    display: none;
+    float: right;
+}
+
+@mixin show-big-search {
+    #search-big {
+	visibility: visible;
+	height: 6em;
+    }
+    #search-narrow {
+	visibility: hidden;
+	height: 0px;
+    }
+}
+@mixin show-narrow-search {
+    #search-big {
+	visibility: hidden;
+	height: 0px;
+    }
+    #search-narrow {
+	visibility: visible;
+	height: 6em;
+    }
+}
 
 @mixin narrow-maincolumns-30em-45em {
     .middle_section_narrow {
@@ -69,12 +96,12 @@ a {
 	line-height: 24px;
 	position: relative;
 	font-size: 13px;
-	#search_form_homepage {
-	    width: 150px; /* original: 198px */
-	}
-	#search_wrapper_homepage {
-	    width: 30px;
-	}
+	/* #search_form_homepage { */
+	/*     width: 115px; /\* original: 198px *\/ */
+	/* } */
+	/* #search_wrapper_homepage { */
+	/*     width: 30px; */
+	/* } */
     }
 }
 
@@ -85,16 +112,26 @@ a {
 	line-height: 24px;
 	position: relative;
 	font-size: 13px;
-	#search_wrapper_homepage {
-	    width: 30px;
-	}
+	/* #search_form_homepage { */
+	/*     width: 115px; /\* original: 198px *\/ */
+	/* } */
+	/* #search_wrapper_homepage { */
+	/*     width: 30px; */
+	/* } */
     }
 }
 
 @mixin horizontal-sidebar {
 
+    /* show/hide sidebar stolen from: https://css-tricks.com/off-canvas-menu-with-css-target/
+       .show-sidebar-text is only visible with horizontal-sidebar */
+    /* #show-sidebar-text { */
+    /* 	display: inline; */
+    /* } */
+
     /* idea: show sidebar ul/li horizontal above content when page is too narrow:    */
     .sidebar {
+
 	float: left;
 	max-width: 40em;
 	padding: 1em 0em 1em 0em; /* top right bottom left */
@@ -111,32 +148,56 @@ a {
 	#search_wrapper_homepage {
 	    width: 30px;
 	}
+
+	/* show/hide sidebar stolen from: https://css-tricks.com/off-canvas-menu-with-css-target/ */
+	/* Collapsed */
+	/* width: 0;  */
+	/* overflow: hidden; */
+	/* position: fixed; */
+	/* top: 0; */
+	/* left: 0; */
+	/* height: 100%; */
+	/* z-index: 1; /\* float above rest *\/ */
+	
     }
+
+    /* show/hide sidebar stolen from: https://css-tricks.com/off-canvas-menu-with-css-target/ */
+    /* .toggle-sidebar { */
+    /* 	transition: width 0.3s ease; */
+    /* } */
+    /* #show-sidebar:target { */
+    /* 	width: 20%; */
+    /* } */
+
 }
+
+/* ======================== */
+/*    Responsive Design     */
+/* ======================== */
 
 @media (max-width: 50em) {  /* narrow maincolumn; suppress sidebar */
     @include narrow-maincolumns-30em-45em;
     @include horizontal-sidebar;
-/*    .sidebar {
+    @include show-narrow-search;
+    .sidebar {
 	display: none;
-    }*/
+    }
 }
-
 @media (min-width: 50em) {  /* narrow maincolumn; narrow sidebar */
     @include narrow-maincolumns-30em-45em;
     @include narrow-sidebar-10em;
+    @include show-narrow-search;
 }
-
 @media (min-width: 57em) {  /* narrow maincolumn; middle sidebar */
     @include narrow-maincolumns-30em-45em;
     @include narrow-sidebar-15em;
+    @include show-narrow-search;
 }
-
 @media (min-width: 60em) {  /* max maincolumn; narrow sidebar */
     @include narrow-maincolumns-40em-60em;
     @include narrow-sidebar-10em;
+    @include show-narrow-search;
 }
-
 @media (min-width: 74em) {  /* wide enough: original design without @media */
     @include narrow-maincolumns-40em-60em;
     .sidebar {
@@ -146,7 +207,9 @@ a {
 	position: initial;
 	font-size: initial;
     }
+    @include show-big-search;
 }
+
 
 .common-header-nav {
     padding: 1em;
@@ -453,21 +516,11 @@ footer {
  *  Sidebars
  *  ------------------------------------------ */
 
-/* idea: show sidebar ul/li horizontal above content when page is too narrow:
-    float: right;
-    list-style: none outside none;
-    tags-li-example-from-above-with-horizontal-li {
-	float: left;         difference!
-	height: 30px;
-	line-height: 24px;
-	position: relative;  difference!
-	font-size: 13px;
-    }    */
-
 .sidebar {
     float: right;
     width: 15em;
     padding: 1em 0em 0em 1em; /* top right bottom left */
+    z-index: -1; /* bwhind above rest */
 
     ul li {
     /* definition: http://www.w3schools.com/cssref/pr_list-style.asp
@@ -485,9 +538,16 @@ footer {
 	overflow:hidden;
 	margin:0;
 	padding:0;
-	width:198px;
+	/*width:198px;*/
 	height:40px;
     	font-size: .5em;
 	padding-bottom: 0px;
-        }
+    }
+    /* #search-big { */
+    /* 	visibility: visible; */
+    /* } */
+    /* #search-narrow { */
+    /* 	visibility: hidden; */
+    /* } */
+
 }

@@ -13,6 +13,15 @@ body {
 a {
   text-decoration: none; }
 
+#show-sidebar-text {
+  /* show/hide sidebar stolen from: https://css-tricks.com/off-canvas-menu-with-css-target/
+     .show-sidebar-text is only visible with horizontal-sidebar */
+  display: none;
+  float: right; }
+
+/* ======================== */
+/*    Responsive Design     */
+/* ======================== */
 @media (max-width: 50em) {
   /* narrow maincolumn; suppress sidebar */
   .middle_section_narrow, .common-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, .common-article-header-title, blockquote, .example_code, .email-comment, #disqus_thread, .entry-page-greetings {
@@ -27,6 +36,11 @@ a {
     margin-right: auto;
     max-width: 45em; }
 
+  /* show/hide sidebar stolen from: https://css-tricks.com/off-canvas-menu-with-css-target/
+     .show-sidebar-text is only visible with horizontal-sidebar */
+  /* #show-sidebar-text { */
+  /* 	display: inline; */
+  /* } */
   /* idea: show sidebar ul/li horizontal above content when page is too narrow:    */
   .sidebar {
     float: left;
@@ -34,7 +48,16 @@ a {
     padding: 1em 0em 1em 0em;
     /* top right bottom left */
     line-height: 24px;
-    font-size: 13px; }
+    font-size: 13px;
+    /* show/hide sidebar stolen from: https://css-tricks.com/off-canvas-menu-with-css-target/ */
+    /* Collapsed */
+    /* width: 0;  */
+    /* overflow: hidden; */
+    /* position: fixed; */
+    /* top: 0; */
+    /* left: 0; */
+    /* height: 100%; */
+    /* z-index: 1; /\* float above rest *\/ */ }
     .sidebar ul {
       list-style: outside none none;
       float: right; }
@@ -44,9 +67,23 @@ a {
     .sidebar #search_wrapper_homepage {
       width: 30px; }
 
-  /*    .sidebar {
-  	display: none;
-      }*/ }
+  /* show/hide sidebar stolen from: https://css-tricks.com/off-canvas-menu-with-css-target/ */
+  /* .toggle-sidebar { */
+  /* 	transition: width 0.3s ease; */
+  /* } */
+  /* #show-sidebar:target { */
+  /* 	width: 20%; */
+  /* } */
+  #search-big {
+    visibility: hidden;
+    height: 0px; }
+
+  #search-narrow {
+    visibility: visible;
+    height: 6em; }
+
+  .sidebar {
+    display: none; } }
 @media (min-width: 50em) {
   /* narrow maincolumn; narrow sidebar */
   .middle_section_narrow, .common-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, .common-article-header-title, blockquote, .example_code, .email-comment, #disqus_thread, .entry-page-greetings {
@@ -66,12 +103,21 @@ a {
     display: initial;
     line-height: 24px;
     position: relative;
-    font-size: 13px; }
-    .sidebar #search_form_homepage {
-      width: 150px;
-      /* original: 198px */ }
-    .sidebar #search_wrapper_homepage {
-      width: 30px; } }
+    font-size: 13px;
+    /* #search_form_homepage { */
+    /*     width: 115px; /\* original: 198px *\/ */
+    /* } */
+    /* #search_wrapper_homepage { */
+    /*     width: 30px; */
+    /* } */ }
+
+  #search-big {
+    visibility: hidden;
+    height: 0px; }
+
+  #search-narrow {
+    visibility: visible;
+    height: 6em; } }
 @media (min-width: 57em) {
   /* narrow maincolumn; middle sidebar */
   .middle_section_narrow, .common-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, .common-article-header-title, blockquote, .example_code, .email-comment, #disqus_thread, .entry-page-greetings {
@@ -91,9 +137,21 @@ a {
     display: initial;
     line-height: 24px;
     position: relative;
-    font-size: 13px; }
-    .sidebar #search_wrapper_homepage {
-      width: 30px; } }
+    font-size: 13px;
+    /* #search_form_homepage { */
+    /*     width: 115px; /\* original: 198px *\/ */
+    /* } */
+    /* #search_wrapper_homepage { */
+    /*     width: 30px; */
+    /* } */ }
+
+  #search-big {
+    visibility: hidden;
+    height: 0px; }
+
+  #search-narrow {
+    visibility: visible;
+    height: 6em; } }
 @media (min-width: 60em) {
   /* max maincolumn; narrow sidebar */
   .middle_section_narrow, .common-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, .common-article-header-title, blockquote, .example_code, .email-comment, #disqus_thread, .entry-page-greetings {
@@ -111,12 +169,21 @@ a {
     display: initial;
     line-height: 24px;
     position: relative;
-    font-size: 13px; }
-    .sidebar #search_form_homepage {
-      width: 150px;
-      /* original: 198px */ }
-    .sidebar #search_wrapper_homepage {
-      width: 30px; } }
+    font-size: 13px;
+    /* #search_form_homepage { */
+    /*     width: 115px; /\* original: 198px *\/ */
+    /* } */
+    /* #search_wrapper_homepage { */
+    /*     width: 30px; */
+    /* } */ }
+
+  #search-big {
+    visibility: hidden;
+    height: 0px; }
+
+  #search-narrow {
+    visibility: visible;
+    height: 6em; } }
 @media (min-width: 74em) {
   /* wide enough: original design without @media */
   .middle_section_narrow, .common-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, .common-article-header-title, blockquote, .example_code, .email-comment, #disqus_thread, .entry-page-greetings {
@@ -134,7 +201,15 @@ a {
     display: initial;
     line-height: initial;
     position: initial;
-    font-size: initial; } }
+    font-size: initial; }
+
+  #search-big {
+    visibility: visible;
+    height: 6em; }
+
+  #search-narrow {
+    visibility: hidden;
+    height: 0px; } }
 .common-header-nav, .temporal-article-header-nav, .month-overview-header-nav, .entrypage-article-header-nav, .persistent-article-header-nav {
   padding: 1em;
   /*    padding-left: 13em;
@@ -354,21 +429,19 @@ footer {
 /*  ------------------------------------------
  *  Sidebars
  *  ------------------------------------------ */
-/* idea: show sidebar ul/li horizontal above content when page is too narrow:
-    float: right;
-    list-style: none outside none;
-    tags-li-example-from-above-with-horizontal-li {
-	float: left;         difference!
-	height: 30px;
-	line-height: 24px;
-	position: relative;  difference!
-	font-size: 13px;
-    }    */
 .sidebar {
   float: right;
   width: 15em;
   padding: 1em 0em 0em 1em;
-  /* top right bottom left */ }
+  /* top right bottom left */
+  z-index: -1;
+  /* bwhind above rest */
+  /* #search-big { */
+  /* 	visibility: visible; */
+  /* } */
+  /* #search-narrow { */
+  /* 	visibility: hidden; */
+  /* } */ }
   .sidebar ul li {
     /* definition: http://www.w3schools.com/cssref/pr_list-style.asp
           list-style: list-style-type list-style-position list-style-image|initial|inherit;
@@ -384,7 +457,7 @@ footer {
     overflow: hidden;
     margin: 0;
     padding: 0;
-    width: 198px;
+    /*width:198px;*/
     height: 40px;
     font-size: .5em;
     padding-bottom: 0px; }
