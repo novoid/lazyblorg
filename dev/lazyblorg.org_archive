@@ -2332,3 +2332,32 @@ CLOSED: [2015-06-14 Sun 16:20] SCHEDULED: <2014-08-10 Sun>
 - [X] id:2012-12-23-todo-with-orgmode
 - [X] id:2014-08-10-other-peoples-IT-setup
 
+** DONE enhanced publicvoit generation wrapper script
+CLOSED: [2015-08-29 Sat 20:07]
+:PROPERTIES:
+:CREATED:  [2015-08-29 Sat 20:07]
+:ARCHIVE_TIME: 2015-08-29 Sat 20:07
+:ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: issues
+:END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2015-08-29 Sat 20:07]
+:END:
+[2015-08-26 Mi. 07:46]
+
+Script: public-voit_-_make_and_publish_-_omit_single_line_changes_to_feeds_-_stop_if_lasterror.sh
+with: public-voit_-_make_and_publish_-_omit_single_line_changes_to_feeds.sh
+
+- stop script if last_error.log is found
+  - prevent multiple runs as long as there is an issue
+  - manually removing last_error.log before re-activating process
+- save old feed xml files
+- redirect stderr to last_error.log
+- delete one line changes of atom
+  - if diff|wc <= 4, then overwrite new xml with old ones
+  - if not: delete old ones
+- delete last_error.log if successfully generated
+

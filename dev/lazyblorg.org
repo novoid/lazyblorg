@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2015-08-29 19:13:45 vk>
+# Time-stamp: <2015-08-29 20:07:47 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -366,16 +366,6 @@ CLOSED: [2015-06-27 Sat 19:06] SCHEDULED: <2015-06-27 Sat>
           }
       }
       #+END_EXAMPLE
-
-** NEXT enhanced publicvoit generation wrapper script 
-[2015-08-26 Mi. 07:46]
-
-- stop script if last_error.log is found
-  - prevent multiple runs as long as there is an issue
-  - manually removing last_error.log before re-activating process
-- store stderr to last_error.log
-- delete one line changes of atom
-- delete last_error.log if successfully generated
 
 ** NEXT make show-sidebar-text work: show sidebar on small displays                      :userstory:
 SCHEDULED: <2015-09-25 Fri>
