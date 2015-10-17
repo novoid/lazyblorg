@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2015-05-10 19:19:41 vk>
+## Time-stamp: <2015-10-17 13:10:50 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -336,6 +336,11 @@ This is a list of the most important dependencies:
     its Python binding [[https://github.com/bebraw/pypandoc][pypandoc]]
   - you can get it via ~sudo apt-get install pandoc~ and ~sudo pip
     install pypandoc~
+  - *Note:* Debian GNU/Linux 8 (Jessie) comes with a Pandoc version
+    [[https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=800701][which is has bugs]]. Please install a more recent version which also
+    required some minor changes. I upgraded to
+    ~pandoc-1.15.1-1-amd64.deb~ from:
+    http://pandoc.org/installing.html
 
 All other libraries should be part of a standard Python distribution.
 
