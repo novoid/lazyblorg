@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-06-14 17:27:52 vk>
+# Time-stamp: <2015-10-04 11:40:29 vk>
 
 import config
 import re
@@ -672,7 +672,6 @@ class OrgParser(object):
                 elif self.get_list_indentation_number(line) == self.get_list_indentation_number(previous_line):
                     self.__entry_data['content'][-1][-1].append(line)
                 else:
-                    import pdb; pdb.set_trace()
                     raise OrgParserException('In state LIST, current line \"' + str(line) +
                                              '\" did not look like list item.\n' +
                                              'So far, a list has to be ended with an empty line.' +
