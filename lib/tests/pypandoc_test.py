@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-15 13:58:10 vk>
+# Time-stamp: <2015-10-17 12:28:16 vk>
 
 import unittest
 import sys
@@ -98,7 +98,7 @@ comment
   - [[http://orgmode.org][*orgmode* /Homepage/]]
 '''
 
-        expected_html5_result = u'''<h1>Basic tests</h1>
+        expected_html5_result = u'''<h1 id="basic-tests">Basic tests</h1>
 <ul>
 <li><strong>bold</strong></li>
 <li><em>italic</em></li>

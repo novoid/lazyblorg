@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2015-08-29 20:07:47 vk>
+# Time-stamp: <2015-09-24 19:58:59 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -368,11 +368,12 @@ CLOSED: [2015-06-27 Sat 19:06] SCHEDULED: <2015-06-27 Sat>
       #+END_EXAMPLE
 
 ** NEXT make show-sidebar-text work: show sidebar on small displays                      :userstory:
-SCHEDULED: <2015-09-25 Fri>
+SCHEDULED: <2015-10-24 Sat>
 :PROPERTIES:
 :CREATED:  [2015-06-27 Sat 19:06]
 :END:
 :LOGBOOK:
+- Rescheduled from "[2015-09-25 Fri]" on [2015-09-24 Thu 19:58]
 - Rescheduled from "[2015-07-25 Sat]" on [2015-07-25 Sat 18:37]
 - Rescheduled from "<2015-07-19 Sun>" on [2015-07-20 Mon 19:19]
 - Rescheduled from "<2015-07-17 Fri>" on [2015-07-17 Fri 18:57]
@@ -685,10 +686,13 @@ like monthly overview but only for the day
 - [ ] update test_sanitize_internal_links() in htmlizer_test.py
 
 ** NEXT fix links to tags in my current blog entries             :userstory:
-SCHEDULED: <2014-08-10 Sun>
+SCHEDULED: <2015-10-06 Tue>
 :PROPERTIES:
 :CREATED:  [2014-08-10 Sun 12:57]
 :BLOCKER: 2013-10-19-lb-tag-pages
+:END:
+:LOGBOOK:
+- Rescheduled from "[2014-08-10 Sun]" on [2015-09-06 Sun 09:55]
 :END:
 
 - id:2014-08-10-other-peoples-IT-setup
@@ -775,10 +779,13 @@ example: id:2015-05-24-browser-keywords
 - http://orgmode.org/worg/dev/org-syntax.html#Tables
 
 ** NEXT fix tables in my current blog entries                     :userstory:
-SCHEDULED: <2014-08-10 Sun>
+SCHEDULED: <2015-10-06 Tue>
 :PROPERTIES:
 :CREATED:  [2014-08-10 Sun 10:37]
 :BLOCKER: 2014-08-10-implement-lb-tables
+:END:
+:LOGBOOK:
+- Rescheduled from "[2014-08-10 Sun]" on [2015-09-06 Sun 09:55]
 :END:
 
 - id:2014-05-09-managing-digital-photographs
