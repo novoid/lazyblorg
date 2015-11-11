@@ -434,7 +434,6 @@ footer {
   width: 15em;
   padding: 1em 0em 0em 1em;
   /* top right bottom left */
-  z-index: -1;
   /* bwhind above rest */
   /* #search-big { */
   /* 	visibility: visible; */
