@@ -6,9 +6,6 @@ Archived entries from file /home/vk/src/lazyblorg/dev/lazyblorg.org
 
 ** DONE move id:2012blogwishlist-copy ideas to unique issues     :userstory:
 CLOSED: [2013-02-12 Tue 10:40]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2013-02-12 Tue 10:40]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 10:39]
 :ARCHIVE_TIME: 2013-02-12 Tue 10:40
@@ -18,13 +15,13 @@ CLOSED: [2013-02-12 Tue 10:40]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-02-12 Tue 10:40]
+:END:
+
 
 ** CANCELLED Configuration file = Orgmode format     :architecture:CANCELLED:
 CLOSED: [2013-01-08 Tue 14:47]
-:LOGBOOK:
-- State "CANCELLED"  from "STARTED"    [2013-01-08 Tue 14:47] \\
-  INI is probably a better format for configuration files
-:END:
 :PROPERTIES:
 :CREATED:  [2012-12-26 Wed 11:36]
 :ARCHIVE_TIME: 2013-02-12 Tue 11:08
@@ -34,18 +31,24 @@ CLOSED: [2013-01-08 Tue 14:47]
 :ARCHIVE_TODO: CANCELLED
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "CANCELLED"  from "STARTED"    [2013-01-08 Tue 14:47] \\
+  INI is probably a better format for configuration files
+:END:
+
 
 - asked the Org ML
 - INI file format probably a better solution
 
 *** DONE determine best way of storing configuration :reward:Kommunikation:
 CLOSED: [2013-01-02 Wed 17:22] SCHEDULED: <2012-12-30 Sun>
-:LOGBOOK:
-- State "DONE"       from "STARTED"    [2013-01-02 Wed 17:22]
-:END:
 :PROPERTIES:
 :CREATED:  [2012-12-30 Sun 18:32]
 :END:
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2013-01-02 Wed 17:22]
+:END:
+
 
 - Possible methods to store configuration/settings of a weblog system
   that scans Org-mode files to generate HTML:
@@ -138,9 +141,6 @@ processed (resizing, ...).
 
 ** DONE CSS: format breadcrumbs                               :architecture:
 CLOSED: [2013-02-12 Tue 19:36]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2013-02-12 Tue 19:36]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 15:32]
 :ARCHIVE_TIME: 2013-02-14 Thu 16:45
@@ -150,15 +150,15 @@ CLOSED: [2013-02-12 Tue 19:36]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-02-12 Tue 19:36]
+:END:
+
 
 - example: http://www.hongkiat.com/blog/breadcrumb-menu-css3/
 
 ** CANCELLED spike: calling Org-mode elisp HTML exporter from command line :architecture:ARCHIVE:
 CLOSED: [2013-03-01 Fri 13:27]
-:LOGBOOK:
-- State "CANCELLED"  from "STARTED"    [2013-03-01 Fri 13:27] \\
-  could not make it run; idea dismissed also because of other arguments
-:END:
 :PROPERTIES:
 :CREATED:  [2013-02-27 Wed 09:54]
 :ARCHIVE_TIME: 2013-03-01 Fri 13:28
@@ -168,6 +168,11 @@ CLOSED: [2013-03-01 Fri 13:27]
 :ARCHIVE_TODO: CANCELLED
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "CANCELLED"  from "STARTED"    [2013-03-01 Fri 13:27] \\
+  could not make it run; idea dismissed also because of other arguments
+:END:
+
 
 Idea: put (partly sanitized/modified) Org-mode paragraph(s) into text
 file and using Org HTML exporter to generate HTML out of it.
@@ -184,12 +189,13 @@ Weird, but it would get lazyblorg to support way more HTML entities.
 
 *** DONE Calling simple ELISP from shell
 CLOSED: [2013-02-27 Wed 11:04]
-:LOGBOOK:
-- State "DONE"       from ""           [2013-02-27 Wed 11:04]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-02-27 Wed 11:04]
 :END:
+:LOGBOOK:
+- State "DONE"       from ""           [2013-02-27 Wed 11:04]
+:END:
+
 
 calling simple elisp as a shell script:
 
@@ -214,6 +220,10 @@ echo "(print (+ 2 2))" >test.el | emacs -Q --script test.el ; rm test.el
 
 *** DONE Calling Org-HTML-export in ELISP
 CLOSED: [2013-03-01 Fri 13:09] SCHEDULED: <2013-03-01 Fri>
+:PROPERTIES:
+:CREATED:  [2013-02-27 Wed 11:04]
+:ID: 2013-02-27-org-to-html
+:END:
 :LOGBOOK:
 - State "DONE"       from "STARTED"    [2013-03-01 Fri 13:09]
 - State "STARTED"    from "WAITING"    [2013-03-01 Fri 12:30]
@@ -222,10 +232,7 @@ CLOSED: [2013-03-01 Fri 13:09] SCHEDULED: <2013-03-01 Fri>
 - State "STARTED"    from "DONE"       [2013-02-27 Wed 11:09]
 - State "DONE"       from ""           [2013-02-27 Wed 11:04]
 :END:
-:PROPERTIES:
-:CREATED:  [2013-02-27 Wed 11:04]
-:ID: 2013-02-27-org-to-html
-:END:
+
 
 1. export current Org-mode buffer as HTML in temp buffer
 2. write temp buffer to file
@@ -554,9 +561,6 @@ Wrong number of arguments: #[(arg) �W�� �����o��W�@o�:�
 
 ** CANCELLED idea: generate article body using Org-exporter :architecture:ARCHIVE:
 CLOSED: [2013-02-14 Thu 17:21]
-:LOGBOOK:
-- State "CANCELLED"  from "NEXT"       [2013-02-14 Thu 17:21]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-02-14 Thu 17:17]
 :ARCHIVE_TIME: 2013-05-21 Tue 21:36
@@ -566,6 +570,10 @@ CLOSED: [2013-02-14 Thu 17:21]
 :ARCHIVE_TODO: CANCELLED
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "CANCELLED"  from "NEXT"       [2013-02-14 Thu 17:21]
+:END:
+
 
 - header, title, footer: generate using Python
 - main body: generate using Org-mode and temp-buffer using for
@@ -590,10 +598,6 @@ CLOSED: [2013-02-14 Thu 17:21]
 
 ** CANCELLED create Module for constants              :architecture:ARCHIVE:
 CLOSED: [2013-05-21 Tue 20:54]
-:LOGBOOK:
-- State "CANCELLED"  from "TODO"       [2013-05-21 Tue 20:54] \\
-  I used class constants (so far)
-:END:
 :PROPERTIES:
 :CREATED:  [2013-02-17 Sun 13:10]
 :ARCHIVE_TIME: 2013-05-21 Tue 21:37
@@ -603,14 +607,16 @@ CLOSED: [2013-05-21 Tue 20:54]
 :ARCHIVE_TODO: CANCELLED
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "CANCELLED"  from "TODO"       [2013-05-21 Tue 20:54] \\
+  I used class constants (so far)
+:END:
+
 
 - for defining/customizing HTML snippets, basic structure and so on
 
 ** DONE tools: parse timestamps                               :architecture:
 CLOSED: [2013-05-21 Tue 20:55]
-:LOGBOOK:
-- State "DONE"       from "TODO"       [2013-05-21 Tue 20:55]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-02-14 Thu 17:30]
 :ARCHIVE_TIME: 2013-05-21 Tue 21:37
@@ -620,15 +626,16 @@ CLOSED: [2013-05-21 Tue 20:55]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2013-05-21 Tue 20:55]
+:END:
+
 
 - example: parse_datetime() in https://github.com/bjonnh/PyOrgMode/blob/master/PyOrgMode.py
 - I used orgformat.py from Memacs
 
 ** DONE spike: parsing Org-mode files in Python               :architecture:
 CLOSED: [2013-05-21 Tue 20:54]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2013-05-21 Tue 20:54]
-:END:
 :PROPERTIES:
 :CREATED: [2012-07-22 Sun 18:08]
 :ARCHIVE_TIME: 2013-05-21 Tue 21:37
@@ -638,6 +645,10 @@ CLOSED: [2013-05-21 Tue 20:54]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-05-21 Tue 20:54]
+:END:
+
 
 - https://github.com/bjonnh/PyOrgMode
 - list of several Python parsers: https://github.com/julian-gehring/worg/blob/master/org-tools/index.org
@@ -660,9 +671,6 @@ CLOSED: [2013-05-21 Tue 20:54]
 
 ** DONE create Module for tool methods                        :architecture:
 CLOSED: [2013-05-21 Tue 20:54]
-:LOGBOOK:
-- State "DONE"       from "TODO"       [2013-05-21 Tue 20:54]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-02-17 Sun 13:07]
 :ARCHIVE_TIME: 2013-05-21 Tue 21:37
@@ -672,15 +680,16 @@ CLOSED: [2013-05-21 Tue 20:54]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2013-05-21 Tue 20:54]
+:END:
+
 
 - http://docs.python.org/2/tutorial/modules.html
 - tools.OrgParserTools (?)
 
 ** DONE find Python checksum algorithm                        :architecture:
 CLOSED: [2013-02-15 Fri 20:06]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2013-02-15 Fri 20:06]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-02-15 Fri 20:03]
 :ID: 2013-02-15-checksum
@@ -691,6 +700,10 @@ CLOSED: [2013-02-15 Fri 20:06]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-02-15 Fri 20:06]
+:END:
+
 
 - http://docs.python.org/2/library/hashlib.html#module-hashlib
 - http://code.wikia.com/wiki/SHA_checksum#Python
@@ -712,9 +725,6 @@ converted = hashlib.sha1("My text").hexdigest()
 
 ** DONE spike: storing data objects in Python                 :architecture:
 CLOSED: [2013-08-20 Tue 13:40]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2013-08-20 Tue 13:40]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-08-20 Tue 11:10]
 :ARCHIVE_TIME: 2013-08-22 Thu 11:43
@@ -724,6 +734,10 @@ CLOSED: [2013-08-20 Tue 13:40]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-08-20 Tue 13:40]
+:END:
+
 
 - http://docs.python.org/2/library/pickle.html
   - serialization, storing to disk
@@ -780,9 +794,6 @@ with open('company_data.pk', 'rb') as input:
 
 ** DONE create template file(s) for HTML snippets             :architecture:
 CLOSED: [2013-08-20 Tue 18:58]
-:LOGBOOK:
-- State "DONE"       from "STARTED"    [2013-08-20 Tue 18:58]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-03-13 Wed 10:21]
 :ID: 2013-03-13-HTML-template-file
@@ -793,6 +804,10 @@ CLOSED: [2013-08-20 Tue 18:58]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2013-08-20 Tue 18:58]
+:END:
+
 
 - lazyblorg/templates/blog-format.org
   - article
@@ -829,9 +844,6 @@ Example:
 
 ** DONE parse format template file                            :architecture:
 CLOSED: [2013-08-22 Thu 11:39]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2013-08-22 Thu 11:39]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-08-20 Tue 19:04]
 :ARCHIVE_TIME: 2013-08-22 Thu 11:44
@@ -841,14 +853,15 @@ CLOSED: [2013-08-22 Thu 11:39]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-08-22 Thu 11:39]
+:END:
+
 
 - history/idea: see id:2013-03-13-HTML-template-file
 
 ** DONE logs: lazyblorg-log.org                               :architecture:
 CLOSED: [2013-08-22 Thu 11:43]
-:LOGBOOK:
-- State "DONE"       from "TODO"       [2013-08-22 Thu 11:43]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-01-12 Sat 13:43]
 :ARCHIVE_TIME: 2013-08-22 Thu 11:44
@@ -858,6 +871,10 @@ CLOSED: [2013-08-22 Thu 11:43]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2013-08-22 Thu 11:43]
+:END:
+
 
 format example:
 : * lazyblorg logs                                         :lazyblorg:BLOGNAME:
@@ -869,9 +886,6 @@ format example:
 
 ** DONE [#A] test compare_blog_metadata()                            :tests:
 CLOSED: [2013-08-27 Tue 20:54]
-:LOGBOOK:
-- State "DONE"       from "STARTED"    [2013-08-27 Tue 20:54]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-08-22 Thu 23:38]
 :ARCHIVE_TIME: 2013-08-27 Tue 20:55
@@ -881,6 +895,10 @@ CLOSED: [2013-08-27 Tue 20:54]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2013-08-27 Tue 20:54]
+:END:
+
 
 - [X] test-Org-mode
   - all eight cases:
@@ -911,9 +929,6 @@ CLOSED: [2013-08-27 Tue 20:54]
 
 ** DONE create a new module lib/htmlizer.py                   :architecture:
 CLOSED: [2013-08-27 Tue 21:12]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2013-08-27 Tue 21:12]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-08-22 Thu 21:15]
 :ARCHIVE_TIME: 2013-08-27 Tue 21:12
@@ -923,14 +938,15 @@ CLOSED: [2013-08-27 Tue 21:12]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-08-27 Tue 21:12]
+:END:
+
 
 - holds everything which is needed for generating HTML/CSS output files
 
 ** DONE Idea: do paragraph parsing                            :architecture:
 CLOSED: [2013-08-30 Fri 14:58]
-:LOGBOOK:
-- State "DONE"       from "TODO"       [2013-08-30 Fri 14:58]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-02-27 Wed 16:48]
 :ARCHIVE_TIME: 2013-08-30 Fri 14:58
@@ -940,6 +956,10 @@ CLOSED: [2013-08-30 Fri 14:58]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2013-08-30 Fri 14:58]
+:END:
+
 
 - paragraphs are separated by at least one empty line OR they end
   with a line starting with:
@@ -968,9 +988,6 @@ Documentation:
 
 ** DONE [#A] define (link) structure of blog entries                 :tests:
 CLOSED: [2013-02-12 Tue 14:11]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2013-02-12 Tue 14:11]
-:END:
 :PROPERTIES:
 :CREATED: [2012-07-22 Sun 17:29]
 :ARCHIVE_TIME: 2013-08-30 Fri 15:00
@@ -980,6 +997,10 @@ CLOSED: [2013-02-12 Tue 14:11]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-02-12 Tue 14:11]
+:END:
+
 
 - http://karl-voit.at/2012/07/22/example-entry/
 with:
@@ -1002,9 +1023,6 @@ with:
 
 ** DONE sketch ArticleOrgEntry                                :architecture:
 CLOSED: [2013-02-15 Fri 20:00]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2013-02-15 Fri 20:00]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-02-15 Fri 19:58]
 :ARCHIVE_TIME: 2013-08-30 Fri 15:00
@@ -1014,6 +1032,10 @@ CLOSED: [2013-02-15 Fri 20:00]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-02-15 Fri 20:00]
+:END:
+
 
 - holds current articles parsed from Org-mode files
 
@@ -1029,9 +1051,6 @@ CLOSED: [2013-02-15 Fri 20:00]
 
 ** DONE sketch ArticleDBEntry                                 :architecture:
 CLOSED: [2013-02-15 Fri 20:00]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2013-02-15 Fri 20:00]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-02-15 Fri 19:59]
 :ARCHIVE_TIME: 2013-08-30 Fri 15:00
@@ -1041,6 +1060,10 @@ CLOSED: [2013-02-15 Fri 20:00]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-02-15 Fri 20:00]
+:END:
+
 
 - holds list of article metadata from previous run(s)
 
@@ -1056,9 +1079,6 @@ CLOSED: [2013-02-15 Fri 20:00]
 
 ** DONE separate blogdata structures via tags                 :architecture:
 CLOSED: [2013-10-19 Sat 18:52]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2013-10-19 Sat 18:52]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-09-15 Sun 19:38]
 :ARCHIVE_TIME: 2013-10-19 Sat 18:52
@@ -1068,6 +1088,10 @@ CLOSED: [2013-10-19 Sat 18:52]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-10-19 Sat 18:52]
+:END:
+
 
 - all articles got :blog:
   - :lb_tag: -> create example.com/blog/tags/<tagname=article name>
@@ -1089,9 +1113,6 @@ CLOSED: [2013-10-19 Sat 18:52]
 
 ** DONE make sure that tags are irrelevant for updates           :userstory:
 CLOSED: [2014-01-29 Wed 17:51]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2014-01-29 Wed 17:51]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-12-12 Do 10:53]
 :ARCHIVE_TIME: 2014-01-29 Wed 17:51
@@ -1101,15 +1122,16 @@ CLOSED: [2014-01-29 Wed 17:51]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-01-29 Wed 17:51]
+:END:
+
 
 - when I change lots of tags (only), their articles should not be
   listed as updated (in feed and such)
 
 ** DONE parse URLs to href                                       :userstory:
 CLOSED: [2014-01-30 Thu 15:12] SCHEDULED: <2014-01-30 Thu>
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2014-01-30 Thu 15:12]
-:END:
 :PROPERTIES:
 :CREATED:  [2014-01-30 Thu 13:48]
 :ARCHIVE_TIME: 2014-01-30 Thu 15:12
@@ -1119,6 +1141,10 @@ CLOSED: [2014-01-30 Thu 15:12] SCHEDULED: <2014-01-30 Thu>
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-01-30 Thu 15:12]
+:END:
+
 
 : http://heise.de
 : [[http://heise.de]]
@@ -1126,9 +1152,6 @@ CLOSED: [2014-01-30 Thu 15:12] SCHEDULED: <2014-01-30 Thu>
 
 ** DONE make alpha version of blog available on my domain            :tests:
 CLOSED: [2014-01-31 Fr 11:01]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2014-01-31 Fr 11:01]
-:END:
 :PROPERTIES:
 :CREATED:  [2014-01-29 Wed 22:40]
 :ARCHIVE_TIME: 2014-01-31 Fr 11:01
@@ -1138,6 +1161,10 @@ CLOSED: [2014-01-31 Fr 11:01]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-01-31 Fr 11:01]
+:END:
+
 
 - why
   - get feedback from real-world data
@@ -1150,9 +1177,6 @@ CLOSED: [2014-01-31 Fr 11:01]
 
 ** DONE nicely draw tags around tags                             :userstory:
 CLOSED: [2014-01-31 Fri 18:17] SCHEDULED: <2014-01-31 Fr>
-:LOGBOOK:
-- State "DONE"       from "STARTED"    [2014-01-31 Fri 18:17]
-:END:
 :PROPERTIES:
 :CREATED:  [2014-01-31 Fr 11:01]
 :ARCHIVE_TIME: 2014-01-31 Fri 18:17
@@ -1162,14 +1186,15 @@ CLOSED: [2014-01-31 Fri 18:17] SCHEDULED: <2014-01-31 Fr>
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2014-01-31 Fri 18:17]
+:END:
+
 
 - http://cssglobe.com/pure-css3-post-tags/
 
 ** DONE adopt CSS from http://cssglobe.com/lab/css3_tags/01.html :architecture:
 CLOSED: [2014-01-31 Fri 18:17] SCHEDULED: <2014-01-31 Fr>
-:LOGBOOK:
-- State "DONE"       from "STARTED"    [2014-01-31 Fri 18:17]
-:END:
 :PROPERTIES:
 :CREATED:  [2014-01-31 Fr 11:08]
 :ARCHIVE_TIME: 2014-01-31 Fri 18:17
@@ -1179,15 +1204,16 @@ CLOSED: [2014-01-31 Fri 18:17] SCHEDULED: <2014-01-31 Fr>
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2014-01-31 Fri 18:17]
+:END:
+
 
 - rounded corners
 - CSS style information tag
 
 ** DONE setting up test entry and resulting data                     :tests:
 CLOSED: [2013-02-12 Tue 14:13] SCHEDULED: <2013-02-12 Tue>
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2013-02-12 Tue 14:13]
-:END:
 :PROPERTIES:
 :CREATED: [2012-04-17 Tue 14:08]
 :ARCHIVE_TIME: 2014-02-01 Sat 14:49
@@ -1197,6 +1223,10 @@ CLOSED: [2013-02-12 Tue 14:13] SCHEDULED: <2013-02-12 Tue>
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-02-12 Tue 14:13]
+:END:
+
 
 - my local copy:
   - file:///home/vk/src/lazyblorg/testdata/full_test/blog/2013/02/12/lazyblorg-example-entry/index.html
@@ -1239,9 +1269,6 @@ CLOSED: [2013-02-12 Tue 14:13] SCHEDULED: <2013-02-12 Tue>
 
 ** DONE sketch article layout                                    :userstory:
 CLOSED: [2013-02-14 Thu 16:44]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2013-02-14 Thu 16:44]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-02-14 Thu 16:39]
 :ARCHIVE_TIME: 2014-02-01 Sat 14:49
@@ -1251,6 +1278,10 @@ CLOSED: [2013-02-14 Thu 16:44]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2013-02-14 Thu 16:44]
+:END:
+
 
 #+BEGIN_VERSE
 
@@ -1278,9 +1309,6 @@ About this Blog                                                      check HTML/
 
 ** DONE implement basic work-flow *stub*                      :architecture:
 CLOSED: [2014-02-01 Sat 13:53]
-:LOGBOOK:
-- State "DONE"       from "STARTED"    [2014-02-01 Sat 13:53]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 10:37]
 :ARCHIVE_TIME: 2014-02-01 Sat 14:55
@@ -1290,6 +1318,10 @@ CLOSED: [2014-02-01 Sat 13:53]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2014-02-01 Sat 13:53]
+:END:
+
 
 - *no working version, only work-flow stub*, which will be filled with
   the actual code later on
@@ -1357,9 +1389,6 @@ vk@gary ~/src/lazyblorg (git)-[master] %
 
 ** DONE CSS: manually create CSS for an entry                 :architecture:
 CLOSED: [2014-02-01 Sat 15:26]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2014-02-01 Sat 15:26]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 14:14]
 :ARCHIVE_TIME: 2014-02-01 Sat 15:26
@@ -1369,12 +1398,13 @@ CLOSED: [2014-02-01 Sat 15:26]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-02-01 Sat 15:26]
+:END:
+
 
 ** DONE move all inline CSS from blog-format.org into CSS file :architecture:
 CLOSED: [2014-02-01 Sat 15:29]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2014-02-01 Sat 15:29]
-:END:
 :PROPERTIES:
 :CREATED:  [2014-01-30 Thu 15:52]
 :ARCHIVE_TIME: 2014-02-01 Sat 15:29
@@ -1384,12 +1414,13 @@ CLOSED: [2014-02-01 Sat 15:29]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-02-01 Sat 15:29]
+:END:
+
 
 ** DONE CSS: add slightly yellowish background                   :userstory:
 CLOSED: [2014-02-01 Sat 15:30]
-:LOGBOOK:
-- State "DONE"       from "TODO"       [2014-02-01 Sat 15:30]
-:END:
 :PROPERTIES:
 :CREATED: [2012-05-11 Fri 09:36]
 :ARCHIVE_TIME: 2014-02-01 Sat 15:30
@@ -1399,14 +1430,15 @@ CLOSED: [2014-02-01 Sat 15:30]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2014-02-01 Sat 15:30]
+:END:
+
 
 - if possible: very smooth color gradient from top to bottom
 
 ** DONE [#C] Inline HTML                                         :userstory:
 CLOSED: [2014-02-01 Sat 15:35]
-:LOGBOOK:
-- State "DONE"       from "TODO"       [2014-02-01 Sat 15:35]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 10:32]
 :ARCHIVE_TIME: 2014-02-01 Sat 15:35
@@ -1416,16 +1448,16 @@ CLOSED: [2014-02-01 Sat 15:35]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2014-02-01 Sat 15:35]
+:END:
+
 
 - writing HTML tags directly (not within any SRC-blocks)
 - makes it easier to port old blog content
 
 ** CANCELLED [#C] content of help pages from Org heading :userstory:ARCHIVE:
 CLOSED: [2014-02-01 Sat 15:36]
-:LOGBOOK:
-- State "CANCELLED"  from "TODO"       [2014-02-01 Sat 15:36] \\
-  not a good idea any more
-:END:
 :PROPERTIES:
 :CREATED:  [2013-02-27 Wed 16:37]
 :ARCHIVE_TIME: 2014-02-01 Sat 15:36
@@ -1435,6 +1467,11 @@ CLOSED: [2014-02-01 Sat 15:36]
 :ARCHIVE_TODO: CANCELLED
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "CANCELLED"  from "TODO"       [2014-02-01 Sat 15:36] \\
+  not a good idea any more
+:END:
+
 
 Somewhere in my Org files, I do have a heading «$BLOGNAME». Within
 its sub-heading «Help» there is the text for the main help
@@ -1442,9 +1479,6 @@ page. Further headings contain more content for other pages.
 
 ** DONE [#A] find out about usage of what time-stamp          :architecture:
 CLOSED: [2014-02-01 Sat 20:06]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2014-02-01 Sat 20:06]
-:END:
 :PROPERTIES:
 :CREATED:  [2014-02-01 Sat 14:20]
 :ARCHIVE_TIME: 2014-02-01 Sat 20:06
@@ -1454,6 +1488,10 @@ CLOSED: [2014-02-01 Sat 20:06]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-02-01 Sat 20:06]
+:END:
+
 
 - meta-data file
 - to determine the time of publishing
@@ -1463,9 +1501,6 @@ CLOSED: [2014-02-01 Sat 20:06]
 
 ** DONE [#A] compare status with published version of meta-data :architecture:
 CLOSED: [2014-02-01 Sat 21:02]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2014-02-01 Sat 21:02]
-:END:
 :PROPERTIES:
 :CREATED:  [2014-02-01 Sat 14:15]
 :ARCHIVE_TIME: 2014-02-01 Sat 21:02
@@ -1475,6 +1510,10 @@ CLOSED: [2014-02-01 Sat 21:02]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-02-01 Sat 21:02]
+:END:
+
 
 - up to now:
   - lazyblorg generates meta-data from the parsed Org-mode data and
@@ -1500,9 +1539,6 @@ CLOSED: [2014-02-01 Sat 21:02]
 
 ** DONE htmlizer: return string of file, not writing directly :architecture:
 CLOSED: [2014-02-02 Sun 12:26]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2014-02-02 Sun 12:26]
-:END:
 :PROPERTIES:
 :CREATED:  [2014-02-02 Sun 11:57]
 :ARCHIVE_TIME: 2014-02-02 Sun 12:26
@@ -1512,13 +1548,13 @@ CLOSED: [2014-02-02 Sun 12:26]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-02-02 Sun 12:26]
+:END:
+
 
 ** DONE handle :noexport: tag
 CLOSED: [2014-02-02 Sun 13:46] SCHEDULED: <2014-02-02 Sun>
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2014-02-02 Sun 13:46]
-- State "SOMEDAY"    from ""           [2013-08-22 Thu 11:45]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-08-22 Thu 11:45]
 :ARCHIVE_TIME: 2014-02-02 Sun 13:46
@@ -1528,15 +1564,17 @@ CLOSED: [2014-02-02 Sun 13:46] SCHEDULED: <2014-02-02 Sun>
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-02-02 Sun 13:46]
+- State "SOMEDAY"    from ""           [2013-08-22 Thu 11:45]
+:END:
+
 
 - see http://orgmode.org/manual/Selective-export.html
 - is handy for ignoring non-supported headings in syntax test file :-)
 
 ** DONE unit-testing Org-file to HTML snippet                        :tests:
 CLOSED: [2014-02-02 Sun 19:22] SCHEDULED: <2014-02-02 Sun>
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2014-02-02 Sun 19:22]
-:END:
 :PROPERTIES:
 :CREATED:  [2014-02-02 Sun 11:56]
 :ARCHIVE_TIME: 2014-02-02 Sun 19:22
@@ -1546,6 +1584,10 @@ CLOSED: [2014-02-02 Sun 19:22] SCHEDULED: <2014-02-02 Sun>
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-02-02 Sun 19:22]
+:END:
+
 
 - parsing a test file -> parse_orgmode_file()
   - probably: taking only one specific ID from it?
@@ -1557,11 +1599,6 @@ CLOSED: [2014-02-02 Sun 19:22] SCHEDULED: <2014-02-02 Sun>
 
 ** DONE fix htmlizer-bug (see deactivated tests)                       :bug:
 CLOSED: [2014-02-25 Tue 19:37] SCHEDULED: <2014-02-28 Fri>
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2014-02-25 Tue 19:37]
-- Rescheduled from "2014-02-23 Sun" on [2014-02-24 Mon 20:15]
-- Rescheduled from "2014-02-15 Sa" on [2014-02-19 Wed 22:01]
-:END:
 :PROPERTIES:
 :CREATED:  [2014-02-14 Fr 09:30]
 :ARCHIVE_TIME: 2014-02-25 Tue 19:37
@@ -1571,12 +1608,15 @@ CLOSED: [2014-02-25 Tue 19:37] SCHEDULED: <2014-02-28 Fri>
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-02-25 Tue 19:37]
+- Rescheduled from "2014-02-23 Sun" on [2014-02-24 Mon 20:15]
+- Rescheduled from "2014-02-15 Sa" on [2014-02-19 Wed 22:01]
+:END:
+
 
 ** DONE test generate_output (comparing HTML/CSS output files)       :tests:
 CLOSED: [2014-02-27 Thu 22:21]
-:LOGBOOK:
-- State "DONE"       from "STARTED"    [2014-02-27 Thu 22:21]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-02-14 Thu 17:28]
 :ARCHIVE_TIME: 2014-02-27 Thu 22:21
@@ -1586,6 +1626,10 @@ CLOSED: [2014-02-27 Thu 22:21]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2014-02-27 Thu 22:21]
+:END:
+
 
 - Python: comparing files/directories: http://docs.python.org/2/library/filecmp.html
 
@@ -1605,9 +1649,6 @@ A sub-heading «result» contains the results which is expected.
 
 ** DONE collect Org-mode data & provide download link on each page :userstory:
 CLOSED: [2014-02-27 Thu 22:21]
-:LOGBOOK:
-- State "DONE"       from "TODO"       [2014-02-27 Thu 22:21]
-:END:
 :PROPERTIES:
 :CREATED:  [2014-02-20 Do 15:48]
 :ARCHIVE_TIME: 2014-02-27 Thu 22:21
@@ -1617,15 +1658,16 @@ CLOSED: [2014-02-27 Thu 22:21]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2014-02-27 Thu 22:21]
+:END:
+
 
 - collect data
   - omit :noexport: headings
 
 ** DONE delete prefix in path                                 :architecture:
 CLOSED: [2014-03-02 Sun 12:59] SCHEDULED: <2014-03-02 Sun>
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2014-03-02 Sun 12:59]
-:END:
 :PROPERTIES:
 :CREATED:  [2014-03-02 Sun 11:11]
 :ARCHIVE_TIME: 2014-03-02 Sun 12:59
@@ -1635,13 +1677,13 @@ CLOSED: [2014-03-02 Sun 12:59] SCHEDULED: <2014-03-02 Sun>
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-03-02 Sun 12:59]
+:END:
+
 
 ** DONE HTML: manually create main jumping page               :architecture:
 CLOSED: [2014-03-02 Sun 18:00] SCHEDULED: <2014-03-02 Sun>
-:LOGBOOK:
-- State "DONE"       from "STARTED"    [2014-03-02 Sun 18:00]
-- Rescheduled from "2014-03-01 Sat" on [2014-03-01 Sat 23:08]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 12:24]
 :ARCHIVE_TIME: 2014-03-02 Sun 18:00
@@ -1651,14 +1693,16 @@ CLOSED: [2014-03-02 Sun 18:00] SCHEDULED: <2014-03-02 Sun>
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2014-03-02 Sun 18:00]
+- Rescheduled from "2014-03-01 Sat" on [2014-03-01 Sat 23:08]
+:END:
+
 
 - HTML5-example: see Kröner2011 p.123ff
 
 ** DONE parse/htmlize: internal links                            :userstory:
 CLOSED: [2014-03-03 Mon 20:50] SCHEDULED: <2014-03-03 Mon>
-:LOGBOOK:
-- State "DONE"       from "STARTED"    [2014-03-03 Mon 20:50]
-:END:
 :PROPERTIES:
 :CREATED:  [2014-02-01 Sat 15:25]
 :ARCHIVE_TIME: 2014-03-03 Mon 20:50
@@ -1668,6 +1712,10 @@ CLOSED: [2014-03-03 Mon 20:50] SCHEDULED: <2014-03-03 Mon>
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2014-03-03 Mon 20:50]
+:END:
+
 
 - to other blog articles, persistent pages, tag pages
 - by ID
@@ -1684,9 +1732,6 @@ CLOSED: [2014-03-03 Mon 20:50] SCHEDULED: <2014-03-03 Mon>
 
 ** DONE INFO: stats on files, headings and entries processed          :wish:
 CLOSED: [2014-03-08 Sat 20:36] SCHEDULED: <2014-03-08 Sat>
-:LOGBOOK:
-- State "DONE"       from "STARTED"    [2014-03-08 Sat 20:36]
-:END:
 :PROPERTIES:
 :CREATED:  [2014-02-09 Sun 10:31]
 :ARCHIVE_TIME: 2014-03-08 Sat 20:36
@@ -1696,6 +1741,10 @@ CLOSED: [2014-03-08 Sat 20:36] SCHEDULED: <2014-03-08 Sat>
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2014-03-08 Sat 20:36]
+:END:
+
 
 Example:
 : Parsed:    16 Org-mode files with 422933 lines
@@ -1712,11 +1761,6 @@ Example:
 
 ** DONE implement: creating PERSISTENT pages                     :userstory:
 CLOSED: [2014-03-08 Sat 22:35] SCHEDULED: <2014-03-08 Sat>
-:LOGBOOK:
-- State "DONE"       from "STARTED"    [2014-03-08 Sat 22:35]
-- Not scheduled, was "2014-03-03 Mon" on [2014-03-02 Sun 19:26]
-- Rescheduled from "2014-03-01 Sat" on [2014-03-01 Sat 23:08]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-10-19 Sat 18:50]
 :ID: 2013-10-19-persistent-pages
@@ -1727,6 +1771,12 @@ CLOSED: [2014-03-08 Sat 22:35] SCHEDULED: <2014-03-08 Sat>
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2014-03-08 Sat 22:35]
+- Not scheduled, was "2014-03-03 Mon" on [2014-03-02 Sun 19:26]
+- Rescheduled from "2014-03-01 Sat" on [2014-03-01 Sat 23:08]
+:END:
+
 
 1. [X] define tag to mark persistent pages
    - tag: ~persistent~
@@ -1737,9 +1787,6 @@ CLOSED: [2014-03-08 Sat 22:35] SCHEDULED: <2014-03-08 Sat>
 
 ** DONE documentation: describe tags for templates, persistent, tag, and normal :userstory:
 CLOSED: [2014-03-08 Sat 22:41]
-:LOGBOOK:
-- State "DONE"       from "TODO"       [2014-03-08 Sat 22:41]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-10-19 Sat 18:01]
 :ARCHIVE_TIME: 2014-03-08 Sat 22:41
@@ -1749,15 +1796,15 @@ CLOSED: [2014-03-08 Sat 22:41]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2014-03-08 Sat 22:41]
+:END:
+
 
 - emphasize that templates, persistent, tag are mutual exclusive tags!
 
 ** DONE blog comments                                            :userstory:
 CLOSED: [2014-03-09 Sun 16:21]
-:LOGBOOK:
-- State "DONE"       from "SOMEDAY"    [2014-03-09 Sun 16:21]
-- State "SOMEDAY"    from ""           [2013-02-12 Tue 10:35]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-02-12 Tue 10:35]
 :ARCHIVE_TIME: 2014-03-09 Sun 16:21
@@ -1767,6 +1814,11 @@ CLOSED: [2014-03-09 Sun 16:21]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "SOMEDAY"    [2014-03-09 Sun 16:21]
+- State "SOMEDAY"    from ""           [2013-02-12 Tue 10:35]
+:END:
+
 
 - simplest form: generate unique Email link and add at bottom
   - very easy to be done for catch-all MTAs
@@ -1782,9 +1834,6 @@ CLOSED: [2014-03-09 Sun 16:21]
 
 ** DONE add performance-statistics of parsing and htmlizing      :userstory:
 CLOSED: [2014-03-09 Sun 19:56]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2014-03-09 Sun 19:56]
-:END:
 :PROPERTIES:
 :CREATED:  [2014-03-09 Sun 19:38]
 :ARCHIVE_TIME: 2014-03-09 Sun 19:56
@@ -1794,14 +1843,15 @@ CLOSED: [2014-03-09 Sun 19:56]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-03-09 Sun 19:56]
+:END:
+
 
 - not only lines processed but also duration
 
 ** DONE [#A] provide feed(s)                                      :userstory:
 CLOSED: [2014-03-16 Sun 20:33]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2014-03-16 Sun 20:33]
-:END:
 :PROPERTIES:
 :CREATED:  [2012-11-05 Mon 10:57]
 :ID: 2012-11-05-lb-rss
@@ -1812,6 +1862,10 @@ CLOSED: [2014-03-16 Sun 20:33]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-03-16 Sun 20:33]
+:END:
+
 
 - sorted by last date within LOGBOOK or PROPERTIES drawers
 - one general feed
@@ -1915,9 +1969,6 @@ feed.format_atom_file("example_feed_atom.xml")
 
 ** DONE separate list of tags to: lbtags, autotags, and usertags :architecture:
 CLOSED: [2014-03-26 Wed 19:44] SCHEDULED: <2014-03-26 Wed>
-:LOGBOOK:
-- State "DONE"       from "STARTED"    [2014-03-26 Wed 19:44]
-:END:
 :PROPERTIES:
 :CREATED:  [2014-03-26 Mi 10:50]
 :ARCHIVE_TIME: 2014-03-26 Wed 19:44
@@ -1927,6 +1978,10 @@ CLOSED: [2014-03-26 Wed 19:44] SCHEDULED: <2014-03-26 Wed>
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2014-03-26 Wed 19:44]
+:END:
+
 
 - [X] refactor code: parser
 - [X] refactor code: htmlizer
@@ -1934,9 +1989,6 @@ CLOSED: [2014-03-26 Wed 19:44] SCHEDULED: <2014-03-26 Wed>
 
 ** DONE [#A] introduce a hidden tag                              :userstory:
 CLOSED: [2014-04-18 Fri 16:52]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2014-04-18 Fri 16:52]
-:END:
 :PROPERTIES:
 :CREATED:  [2014-03-12 Mi 17:54]
 :ARCHIVE_TIME: 2014-04-18 Fri 16:52
@@ -1946,6 +1998,10 @@ CLOSED: [2014-04-18 Fri 16:52]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-04-18 Fri 16:52]
+:END:
+
 
 - articles tagged with the hidden tag don't show up in the feed or
   the overview pages
@@ -1955,9 +2011,6 @@ CLOSED: [2014-04-18 Fri 16:52]
 
 ** DONE fix hidden tag causing less entries than MAXNUMBER issue       :bug:
 CLOSED: [2014-04-20 Sun 20:18] SCHEDULED: <2014-04-20 Sun>
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2014-04-20 Sun 20:18]
-:END:
 :PROPERTIES:
 :CREATED:  [2014-04-18 Fri 16:51]
 :ARCHIVE_TIME: 2014-04-20 Sun 20:18
@@ -1967,6 +2020,10 @@ CLOSED: [2014-04-20 Sun 20:18] SCHEDULED: <2014-04-20 Sun>
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-04-20 Sun 20:18]
+:END:
+
 
 - new method for generating feed
   - until found feed < MAXNUMBER or END-of-list:
@@ -1975,9 +2032,6 @@ CLOSED: [2014-04-20 Sun 20:18] SCHEDULED: <2014-04-20 Sun>
 
 ** DONE create config.py as module                            :architecture:
 CLOSED: [2014-04-20 Sun 22:04]
-:LOGBOOK:
-- State "DONE"       from "STARTED"    [2014-04-20 Sun 22:04]
-:END:
 :PROPERTIES:
 :CREATED:  [2013-10-01 Tue 21:05]
 :ARCHIVE_TIME: 2014-04-20 Sun 22:04
@@ -1987,6 +2041,10 @@ CLOSED: [2014-04-20 Sun 22:04]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2014-04-20 Sun 22:04]
+:END:
+
 
 - handle configuration and run-time variables using this module
 - ? parse config variables from Org-mode heading?
@@ -2004,9 +2062,6 @@ CLOSED: [2014-04-20 Sun 22:04]
 
 ** DONE add sanitizing of URLs and such to VERSE blocks               :wish:
 CLOSED: [2014-08-09 Sat 15:28] SCHEDULED: <2014-08-09 Sat>
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2014-08-09 Sat 15:28]
-:END:
 :PROPERTIES:
 :CREATED:  [2014-08-09 Sat 12:11]
 :ARCHIVE_TIME: 2014-08-09 Sat 15:28
@@ -2016,12 +2071,13 @@ CLOSED: [2014-08-09 Sat 15:28] SCHEDULED: <2014-08-09 Sat>
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-08-09 Sat 15:28]
+:END:
+
 
 ** DONE parse/htmlize: colon-blocks                              :userstory:
 CLOSED: [2014-08-10 Sun 18:17]
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2014-08-10 Sun 18:17]
-:END:
 :PROPERTIES:
 :CREATED:  [2014-08-10 Sun 18:17]
 :ARCHIVE_TIME: 2014-08-10 Sun 18:17
@@ -2031,6 +2087,10 @@ CLOSED: [2014-08-10 Sun 18:17]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-08-10 Sun 18:17]
+:END:
+
 
 ** DONE [#C] take a look at SASS -> CSS                                               :architecture:
 CLOSED: [2014-11-10 Mon 15:21]
@@ -2043,13 +2103,14 @@ CLOSED: [2014-11-10 Mon 15:21]
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:PROPERTIES:
+:CREATED: [2013-09-13 Fri 14:06]
+:END:
 :LOGBOOK:
 - State "DONE"       from "NEXT"       [2014-11-10 Mon 15:21]
 - Not scheduled, was "2013-09-16 Mon" on [2013-09-23 Mon 18:37]
 :END:
-:PROPERTIES:
-:CREATED: [2013-09-13 Fri 14:06]
-:END:
+
 
 ** DONE add tags to front page                                                           :userstory:
 CLOSED: [2014-12-26 Fri 23:16] SCHEDULED: <2014-12-26 Fri>
@@ -2099,6 +2160,9 @@ CLOSED: [2014-12-27 Sat 18:03] SCHEDULED: <2014-12-27 Sat>
 :ARCHIVE_TODO: DONE
 :ARCHIVE_ITAGS: issues
 :END:
+:PROPERTIES:
+:CREATED:  [2014-09-21 Sun 12:32]
+:END:
 :LOGBOOK:
 - State "DONE"       from "NEXT"       [2014-12-27 Sat 18:03]
 - Rescheduled from "<2014-11-30 Sun>" on [2014-12-01 Mon 22:03]
@@ -2106,9 +2170,7 @@ CLOSED: [2014-12-27 Sat 18:03] SCHEDULED: <2014-12-27 Sat>
 - Rescheduled from "<2014-10-31 Fri>" on [2014-11-01 Sat 11:53]
 - Rescheduled from "2014-09-23 Tue" on [2014-10-24 Fri 15:24]
 :END:
-:PROPERTIES:
-:CREATED:  [2014-09-21 Sun 12:32]
-:END:
+
 
 - examples:
   - http://blog.coderscabal.org/
