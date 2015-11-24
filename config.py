@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-04-29 21:37:48 vk>
+# Time-stamp: <2015-11-24 16:08:52 vk>
 
 
 ## ===================================================================== ##
@@ -17,7 +17,7 @@
 
 ## strings: put your URL and your name below:
 ## (not only?) for feed meta-data: FIXXME: move to CLI parameters?
-BASE_URL = u'http://Karl-Voit.at'
+BASE_URL = u'//Karl-Voit.at'
 AUTHOR_NAME = u"Karl Voit"
 
 ## integer: show this many article teasers on entry page
@@ -47,8 +47,7 @@ TIME_ZONE_ADDON = u'+01:00'
 ## please do NOT change them unless you are ABSOLUTELY sure what this means for the rest of lazyblorg!
 
 assert(type(BASE_URL) == unicode)
-assert(u'http' in BASE_URL)
-assert(u'://' in BASE_URL)
+assert(BASE_URL.startswith(u'//'))
 assert(type(AUTHOR_NAME) == unicode)
 
 assert(type(NUMBER_OF_TEASER_ARTICLES) == int)
