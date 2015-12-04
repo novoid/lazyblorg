@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-06-14 17:18:56 vk>
+# Time-stamp: <2015-12-04 13:50:36 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -759,7 +759,7 @@ class Htmlizer(object):
                 entry['autotags']['language'] = autotag
             else:
                 ## language could not be determined clearly:
-                self.logging.warning(u"language of ID " + str(entry['id']) + " is not recognized clearly")
+                self.logging.warning(u"language of ID " + str(entry['id']) + " is not recognized clearly; using autotag \"unsure\"")
                 entry['autotags']['language'] = u'unsure'
 
         return entry
