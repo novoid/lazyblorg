@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-10-04 11:40:29 vk>
+# Time-stamp: <2015-12-04 13:24:40 vk>
 
 import config
 import re
@@ -590,10 +590,15 @@ class OrgParser(object):
                     self.__entry_data['id'] = line[4:].strip().replace(u' ', '')
 
                 if line.upper().startswith(':CREATED:'):
-                    datetimestamp = OrgFormat.orgmode_timestamp_to_datetime(
-                        self.CREATED_REGEX.match(line).group(self.CREATED_TIMESTAMP_IDX)
-                    )
-                    self.__entry_data['created'] = datetimestamp
+                    try:
+                        datetimestamp = OrgFormat.orgmode_timestamp_to_datetime(
+                            self.CREATED_REGEX.match(line).group(self.CREATED_TIMESTAMP_IDX)
+                        )
+                        self.__entry_data['created'] = datetimestamp
+                    except Exception as inst:
+                        self.logging.error("%s ... in line \"%s\"" % (str(inst), line))
+                        self.logging.error("Probably malformed time-stamp entry.")
+                        raise
 
                 else:
                     previous_line = line

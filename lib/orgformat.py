@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2014-02-02 19:31:06 vk>
+# Time-stamp: <2015-12-04 13:28:52 vk>
 
 ## This file is originally from Memacs
 ## https://github.com/novoid/Memacs
@@ -421,7 +421,10 @@ class OrgFormat(object):
 
         components = re.match(OrgFormat.ORGMODE_TIMESTAMP_REGEX, orgtime)
 
-        assert components
+        if not components:
+            logging.error("string could not be parsed as time-stamp of format \"<YYYY-MM-DD Sun HH:MM>\": \"%s\"",
+                          orgtime)
+
 
         ## components: <1980-12-31 Wed 23:59>
         ## components.groups(1) -> ('1980', '12', '31', 'Wed', '23', 1, '23', '59')
