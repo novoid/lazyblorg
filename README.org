@@ -562,6 +562,73 @@ unlikely to fit yours (directory paths mostly).
 Bang! Another damn cool feature of lazyblorg. This is going better and
 better. :-)
 
+** BONUS: Jump From URL to Blog Article
+
+Imagine, you're looking at a blog article of your nice
+lazyblorg-generated blog. Now you want to go to the corresponding
+Org-mode source to fix a typo.
+
+The issue here is, that you have to either know, where your heading is
+located or you have to go to the HTML page source, extract the ID, and
+jump to this ID.
+
+I've got a better method: put the URL of your blog article into your
+clipboard (via ~C-l C-c~), press a magic shortcut in Emacs, and BAAAM!
+you're right on spot.
+
+How's that magic happening?
+
+Just use the following Emacs lisp code snippet, adapt the ~domain~
+string, and assign a keyboard shortcut:
+
+#+begin_src elisp
+  (defun my-jump-to-lazyblorg-heading-according-to-URL-in-clipboard ()
+    "Retrieves an URL from the clipboard, gets its Org-mode source,
+     extracts the ID of the article and jumps to its Org-mode heading"
+    (interactive)
+    (let (
+          ;; Getting URL from the clipboard. Since it may contain
+          ;; some text properties we are using substring-no-properties
+          ;; function
+          (url (substring-no-properties (current-kill 0)))
+          ;; This is a check string: if the URL in the clipboard
+          ;; doesn't start with this, an error message is shown
+          (domain "http://karl-voit.at")
+    )
+      ;; Check if URL string is from my domain (all other strings do
+      ;; not make any sense here)
+      (if (string-prefix-p (upcase domain) (upcase url))
+      ;; Retrieving content by URL into new buffer asynchronously
+      (url-retrieve url 
+                        ;; call this lambda function when URL content is retrieved
+            (lambda (status)
+               ;; Extrating and preparing the ID
+               (let* (
+                                  ;; Limit the ID search to the top 1000 characters of the buffer
+                  (pageheader (buffer-substring 1 1000))
+                  ;; Start index of the id
+                                  (start (string-match "<meta name=\"orgmode-id\" content=\"" pageheader))
+                                  ;; End index of the id
+                                  (end (string-match "\" />" pageheader start))
+                                  ;; Amount of characters to skip for the openning tag
+                                  (chars-to-skip (length "<meta name=\"orgmode-id\" content=\""))
+                                  ;; Extract ID
+                                  (lazyblorg-id (if (and start end (< start end))
+                                                    ;; ... extract it and return.
+                                                    (substring pageheader (+ start chars-to-skip) end)
+                                                  nil))
+                                  )
+                 (message (concat "Looking for id:" lazyblorg-id " ..."))
+                 (org-open-link-from-string (concat "id:" lazyblorg-id))
+                 )
+               )
+            )
+    (message (concat "Sorry: the URL \"" (substring url 0 (length domain)) "...\" doesn't start with \"" domain "\". Aborting."))
+    )
+      )
+    )
+#+end_src
+
 * Contribute!
 
 I am looking for your ideas:
