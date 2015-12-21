@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2015-11-23 19:08:13 vk>
+# Time-stamp: <2015-11-24 19:31:14 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -367,11 +367,6 @@ CLOSED: [2015-06-27 Sat 19:06] SCHEDULED: <2015-06-27 Sat>
       }
       #+END_EXAMPLE
 
-** NEXT replace http://karl-voit.at references with //karl-voit.at references
-SCHEDULED: <2015-11-24 Tue>
-:PROPERTIES:
-:CREATED:  [2015-11-11 Wed 07:34]
-:END:
 ** NEXT make show-sidebar-text work: show sidebar on small displays                      :userstory:
 SCHEDULED: <2015-10-24 Sat>
 :PROPERTIES:
