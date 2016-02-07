@@ -34,28 +34,28 @@ class TestOrgParser(unittest.TestCase):
         parser = OrgParser(testfile_org)
 
         try:
-            self.assertEqual(parser.get_list_indentation_number(42), 0)
+            self.assertEqual(parser._get_list_indentation_number(42), 0)
         except AssertionError:
             pass  # this *should* be cause an AssertionError
         try:
-            self.assertEqual(parser.get_list_indentation_number(True), 0)
+            self.assertEqual(parser._get_list_indentation_number(True), 0)
         except AssertionError:
             pass  # this *should* be cause an AssertionError
         try:
-            self.assertEqual(parser.get_list_indentation_number([u'x']), 0)
+            self.assertEqual(parser._get_list_indentation_number([u'x']), 0)
         except AssertionError:
             pass  # this *should* be cause an AssertionError
 
-        self.assertEqual(parser.get_list_indentation_number(u''), 0)
-        self.assertEqual(parser.get_list_indentation_number('x'), 0)
-        self.assertEqual(parser.get_list_indentation_number(u'x'), 0)
-        self.assertEqual(parser.get_list_indentation_number(u'-'), 0)
-        self.assertEqual(parser.get_list_indentation_number('  - foo bar'), 4)
-        self.assertEqual(parser.get_list_indentation_number(u'  - foo bar'), 4)
-        self.assertEqual(parser.get_list_indentation_number(u'    foo bar'), 4)
-        self.assertEqual(parser.get_list_indentation_number(u'  * foo bar'), 4)
-        self.assertEqual(parser.get_list_indentation_number(u'  42) foo bar'), 6)
-        self.assertEqual(parser.get_list_indentation_number(u'  23. foo bar'), 6)
+        self.assertEqual(parser._get_list_indentation_number(u''), 0)
+        self.assertEqual(parser._get_list_indentation_number('x'), 0)
+        self.assertEqual(parser._get_list_indentation_number(u'x'), 0)
+        self.assertEqual(parser._get_list_indentation_number(u'-'), 0)
+        self.assertEqual(parser._get_list_indentation_number('  - foo bar'), 4)
+        self.assertEqual(parser._get_list_indentation_number(u'  - foo bar'), 4)
+        self.assertEqual(parser._get_list_indentation_number(u'    foo bar'), 4)
+        self.assertEqual(parser._get_list_indentation_number(u'  * foo bar'), 4)
+        self.assertEqual(parser._get_list_indentation_number(u'  42) foo bar'), 6)
+        self.assertEqual(parser._get_list_indentation_number(u'  23. foo bar'), 6)
 
     def test_simple_org_to_blogdata(self):
 

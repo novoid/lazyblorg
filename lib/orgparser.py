@@ -274,7 +274,7 @@ class OrgParser(object):
         else:
             return self.SEARCHING_BLOG_HEADER
 
-    def get_list_indentation_number(self, list_item):
+    def _get_list_indentation_number(self, list_item):
         """
         Returns the number of characters of the indentation of a list item.
 
@@ -298,6 +298,7 @@ class OrgParser(object):
         Parses the Org-mode file.
 
         @param return: array containing parsed Org-mode data
+        @param return: integer with number of lines parsed
         """
 
         self.logging.debug("OrgParser: doing file \"%s\" ..." % self.__filename)
@@ -674,7 +675,7 @@ class OrgParser(object):
                     ## append to the last element of content (which is a list from the current block) to
                     ## its last element (which contains the list of the block content):
                     self.__entry_data['content'][-1][-1].append(line)
-                elif self.get_list_indentation_number(line) == self.get_list_indentation_number(previous_line):
+                elif self._get_list_indentation_number(line) == self._get_list_indentation_number(previous_line):
                     self.__entry_data['content'][-1][-1].append(line)
                 else:
                     raise OrgParserException('In state LIST, current line \"' + str(line) +
