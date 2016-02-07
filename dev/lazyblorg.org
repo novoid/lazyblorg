@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-10-31 12:40:18 vk>
+# Time-stamp: <2016-10-17 15:42:50 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -284,11 +284,14 @@ SCHEDULED: <2016-02-07 Sun>
 :CREATED:  [2016-02-07 Sun 10:41]
 :END:
 
+[[file:~/src/lazyblorg/lib/utils.py]] > generate_metadata_from_blogdata(blogdata)
+
 *** NEXT implement: get_year_of_first_entry(entries_timeline_by_published) + get_year_of_last_entry(entries_timeline_by_published)
 SCHEDULED: <2016-02-07 Sun>
 :PROPERTIES:
 :CREATED:  [2016-02-07 Sun 10:06]
 :END:
+
 *** NEXT implement: add_entry_to_entries_timeline_by_published(entries_timeline_by_published, id)
 SCHEDULED: <2016-02-07 Sun>
 :PROPERTIES:
@@ -631,6 +634,8 @@ destination folder for new digicam files: </code>$HOME/tmp/digicam/tmp/~.
 #+END_HTML
 
 ... which is wrong
+
+
 
 ** STARTED get ordered lists of blog entries                  :architecture:
 :PROPERTIES:
@@ -989,10 +994,6 @@ example: id:2015-05-24-browser-keywords
 :END:
 [2014-10-25 Sa. 09:22]
 
-** NEXT Include [[https://dev.twitter.com/cards/types/summary-large-image][Twitter Card]] Metadata for better Tweets                                   :userstory:
-:PROPERTIES:
-:CREATED:  [2016-08-26 Fri 23:19]
-:END:
 ** TODO ID of sub-headings get stored and processed to anchors   :userstory:
 :PROPERTIES:
 :CREATED:  [2014-02-09 Sun 10:28]
@@ -2114,7 +2115,7 @@ id:implemented-org-elements (above)
      'id': u'lazyblorg-example-entry',                          ## ID from PROPERTIES-drawer
      'finished-timestamp-history': [datetime1, datetime2, datetime3],
      'timestamp': datetime,                                    ## most current time-stamp
-     'created: datetime,
+     'created': datetime,
      'content': [ ['par', u'This is the Org-mode content'],    ## 'par: paragraph containing anything that is not defined like tables, ...
                   '\n',    ## change of paragraph
                   ['heading', {'level': 3, 'title': u'Another aspect'}],
@@ -2146,6 +2147,7 @@ blog_data[0]['content']  ## -> list of elements of content
 #  ['table', u'FIXXME: followed by this table data'],
 #  ['image', u'FIXXME: followed by this image']]
 #+END_SRC
+
 ** Internal format of meta-data
 :PROPERTIES:
 :CREATED:  [2013-08-22 Thu 21:08]
@@ -2173,6 +2175,7 @@ One entry with key=ID holds a dict with following entries:
 - 'created': datetime.datetime(2013, 8, 22, 21, 6)
   - datetime object of the CREATED property from the PROPERTY drawer
   - [ ] FIXXME: why not the first CLOSED time-stamp?
+
 ** Time-stamps
 :PROPERTIES:
 :CREATED:  [2014-02-01 Sat 20:04]
@@ -2212,7 +2215,7 @@ After parsing entry from above:
 - entry['finished-timestamp-history'] = [2014-02-01 Sat 18:42] and
   [2014-01-30 Thu 14:02]
 
-Oldest entry of entry['finished-timestamp-history'] is the publication time-stamp!
+Oldest entry of entry['finished-timestamp-history'] is the *publication time-stamp*!
 
 
 ** Development Schedule
