@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2015-11-24 19:31:14 vk>
+# Time-stamp: <2016-02-07 18:07:31 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -230,10 +230,101 @@ CLOSED: [2014-03-01 Sat 20:10]
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
 
-** NEXT document: what elements are rendered/converted via pypandoc?
+** NEXT [#A] document: what elements are rendered/converted via pypandoc?
+SCHEDULED: <2016-02-08 Mon>
 :PROPERTIES:
 :CREATED:  [2015-06-23 Tue 12:13]
 :END:
+
+- id:implemented-org-elements
+
+** NEXT Parser: generate data structure and methods for time-sorted archive [0/6]
+:PROPERTIES:
+:CREATED:  [2016-02-07 Sun 09:04]
+:END:
+
+complete data is dict of year:[list of 12 months]
+#+BEGIN_EXAMPLE
+	{
+	  2008:  [[1:Jan], [2:Feb], [3:Mar], [], [], [], [], [], [], [], [], [12:Dec]]
+	  2009:  [[],   [], [], [], [], [], [], [], [], [], [], []]
+	  2010:  [[],   [], [], [], [], [], [], [], [], [], [], []]
+	  2011:  [[],   [], [], [], [], [], [], [], [], [], [], []]
+	  2012:  [[],   [], [], [], [], [], [], [], [], [], [], []]
+      [...]
+	}
+#+END_EXAMPLE
+
+month/[1:Jan] is [list of list of 28-31 days]:
+
+#+BEGIN_EXAMPLE
+	[ [day1], [day2], [day3], ... , [day31]
+	]
+#+END_EXAMPLE
+
+[day1] is [list of IDs]:
+
+:  [id:2008-01-01-happy-new-year-blogpost, id:2008-01-01-this-was-2007, ...]
+
+Example parsing of complete data-set:
+: for year in sorted(entries_timeline_by_published.keys()):
+:     print year  ## 2008 = year
+:     for month in enumerate(entries_timeline_by_published[year], start=1):
+:         ## month = tuple(index, list of days)
+:         print month[0]  ## 1 = Jan
+:         for day in enumerate(month[1], start=1):
+:             ## day = tuple(index, list of IDs)
+:             print day[0]  ## 1 = Jan 1st
+:             for blogentry in day[1]:
+:                 print blogentry  ## id:2008-01-01-happy-new-year-entry, ...
+
+*** NEXT [#A] implement: parsing of entries_timeline_by_published in orgparser
+SCHEDULED: <2016-02-07 Sun>
+:PROPERTIES:
+:CREATED:  [2016-02-07 Sun 10:41]
+:END:
+
+*** NEXT implement: get_year_of_first_entry(entries_timeline_by_published) + get_year_of_last_entry(entries_timeline_by_published)
+SCHEDULED: <2016-02-07 Sun>
+:PROPERTIES:
+:CREATED:  [2016-02-07 Sun 10:06]
+:END:
+*** NEXT implement: add_entry_to_entries_timeline_by_published(entries_timeline_by_published, id)
+SCHEDULED: <2016-02-07 Sun>
+:PROPERTIES:
+:CREATED:  [2016-02-07 Sun 09:45]
+:END:
+
+- [X] how to determine the number of days of a month?
+  - calendar.monthrange(year, month) -> 0-6 mon-sun + 28-31
+*** NEXT implement: get_number_of_entries(entries_timeline_by_published, OPTIONAL: year=False, month=False, day=False)
+SCHEDULED: <2016-02-07 Sun>
+:PROPERTIES:
+:CREATED:  [2016-02-07 Sun 10:02]
+:END:
+
+: get_number_of_entries(entries_timeline_by_published, )             ## 314
+: get_number_of_entries(entries_timeline_by_published, 2008)         ## 19
+: get_number_of_entries(entries_timeline_by_published, 4444)         ## 0
+: get_number_of_entries(entries_timeline_by_published, 2008, 8)      ## 7
+: get_number_of_entries(entries_timeline_by_published, 2008, 8, 13)  ## 1
+
+*** NEXT implement: get_entries_of_month(entries_timeline_by_published, year, month)
+SCHEDULED: <2016-02-07 Sun>
+:PROPERTIES:
+:CREATED:  [2016-02-07 Sun 10:16]
+:END:
+
+- returns list of days containing list of IDs
+
+*** NEXT implement: get_entries_of_day(entries_timeline_by_published, year, month, day)
+SCHEDULED: <2016-02-07 Sun>
+:PROPERTIES:
+:CREATED:  [2016-02-07 Sun 10:16]
+:END:
+
+- returns list of IDs
+
 ** DONE analyze and steal CSS for columns from [[http://endlessparentheses.com/how-i-blog-one-year-of-posts-in-a-single-org-file.html][URL]]                                    :architecture:
 CLOSED: [2015-06-27 Sat 19:06] SCHEDULED: <2015-06-27 Sat>
 :PROPERTIES:
@@ -256,7 +347,7 @@ CLOSED: [2015-06-27 Sat 19:06] SCHEDULED: <2015-06-27 Sat>
           .left-sidebar-ad {display:initial;}
           .se-flair {display:initial;}
       }
-      
+
       @media (max-width: 62.2rem) {
           .post-ad-mobile {
               display: initial;
@@ -265,10 +356,10 @@ CLOSED: [2015-06-27 Sat 19:06] SCHEDULED: <2015-06-27 Sat>
               margin-left: auto;
               margin-right: auto;
           }
-      
+
           .post-ad {display: none;}
           .left-sidebar-ad {display:none;}
-      
+
           .masthead-links {
               margin-top: .3rem;
               margin-left: 0;
@@ -288,13 +379,13 @@ CLOSED: [2015-06-27 Sat 19:06] SCHEDULED: <2015-06-27 Sat>
           .masthead-links li:nth-child(3) {
               display:inline-block;
           }
-      
+
           .pagination {
               width: 99%;
           }
       }
       @media (min-width: 62.3rem) {
-      
+
           .container {
               /* overflow:hidden; */
               max-width: 52rem;
@@ -303,7 +394,7 @@ CLOSED: [2015-06-27 Sat 19:06] SCHEDULED: <2015-06-27 Sat>
               margin-right: auto;
               /* background-color:red; */
           }
-          
+
           .masthead {
               margin-top:2rem;
               margin-right:11rem;
@@ -323,10 +414,10 @@ CLOSED: [2015-06-27 Sat 19:06] SCHEDULED: <2015-06-27 Sat>
               display:inline-block;
               /* overflow:scroll; */
           }
-          
+
           .post-ad-mobile {display: none;}
       }
-      
+
       @media (min-width: 76.3rem) {
           .container {
               /* overflow:hidden; */
@@ -336,12 +427,12 @@ CLOSED: [2015-06-27 Sat 19:06] SCHEDULED: <2015-06-27 Sat>
               margin-right: auto;
               /* background-color:red; */
           }
-          
+
           .post-with-comments {
               margin-left: 0;
               margin-right: 0;
           }
-      
+
           .right-sidebar {
               font-family: "Droid Serif", serif;
               padding-bottom: 0;
@@ -358,7 +449,7 @@ CLOSED: [2015-06-27 Sat 19:06] SCHEDULED: <2015-06-27 Sat>
               height:100%;
               /* background-color:blue; */
           }
-      
+
           .masthead {
               /* background-color:blue; */
               margin-right:20rem;
@@ -590,33 +681,42 @@ on https://karl-voit.at/2014/03/25/xdu
 - [ ] [[http://feedproxy.google.com/~r/sachac/~3/10kxZuusetQ/][Help your readers discover more posts by organizing your content with a reverse outline]]
   - hand-selected links to most important articles of that category
 
-** NEXT move blog-tag(s) to CLI parameter                        :userstory:
-:PROPERTIES:
-:CREATED:  [2014-03-08 Sat 18:51]
-:END:
+** NEXT HTML: manually create archive overview page         :architecture:
 
-- filter Org-mode articles with parameter of one or more tags
-- allows for generating different blogs (or sub-blogs) just with
-  different commands
-
-** STARTED HTML: manually create month overview page          :architecture:
-:PROPERTIES:
-:CREATED:  [2013-02-12 Tue 14:12]
-:END:
-:LOGBOOK:
-- Not scheduled, was "2014-03-01 Sat" on [2014-03-01 Sat 21:01]
-:END:
 
 #+BEGIN_EXAMPLE
-[[Public Voit]] > [[2014]] - 01
+[[Public Voit]] > Archive
 
-- 2014-01-17: Title of the blog article
-- 2014-01-21: Another title
+[from year of oldest entry to year of newest entry]
+
+|     | 2009 | 2010 | 2011 | 2012 | 2013 | 2014 |
+| Jan |      |      |      |      |      |      |
+| Feb |      |      |      |      |      |      |
+| Mar |[[1]] |      |      |      |      |      |
+| Apr |      |      |      |      |      |      |
+| May |[[5]] |      |      |      |      |      |
+| Jun |      |      |      |      |      |      |
+| Jul |      |      |      |      |      |      |
+| Aug |[[2]] |      |      |      |      |      |
+| Sep |      |      |      |      |      |      |
+| Oct |      |      |      |      |      |      |
+| Nov |      |      |      |      |      |      |
+| Dec |      |      |      |      |      |      |
+
+
+
+|      | Jan | Feb | Mar | Apr | May | Jun | Jul | Aug | Sep | Oct | Nov | Dec |
+| 2009 |     |     |[[1]]|     |[[5]]|     |     |[[2]]|     |     |     |     |
+| 2010 |     |     |     |     |     |     |     |     |     |     |     |     |
+| 2011 |     |     |     |     |     |     |     |     |     |     |     |     |
+| 2012 |     |     |     |     |     |     |     |     |     |     |     |     |
+| 2013 |     |     |     |     |     |     |     |     |     |     |     |     |
+| 2014 |     |     |     |     |     |     |     |     |     |     |     |     |
 
 #+END_EXAMPLE
 
 - tasks
-  - [X] create blog-format.org entries with HTML source and
+  - [ ] create blog-format.org entries with HTML source and
     replacement entities
   - [ ] implement in Python
 
@@ -640,25 +740,24 @@ March: 4
     replacement entities
   - [ ] implement in Python
 
-** NEXT HTML: manually create archive overview page         :architecture:
+** STARTED HTML: manually create month overview page          :architecture:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 14:12]
+:END:
+:LOGBOOK:
+- Not scheduled, was "2014-03-01 Sat" on [2014-03-01 Sat 21:01]
+:END:
 
 #+BEGIN_EXAMPLE
-[[Public Voit]] > Archive
+[[Public Voit]] > [[2014]] - 01
 
-[from year of oldest entry to year of newest entry]
-
-|      | Jan | Feb | Mar | Apr | May | Jun | Jul | Aug | Sep | Oct | Nov | Dec |
-| 2009 |     |     | [[1]]   |     | [[5]]   |     |     | [[2]]   |     |     |     |     |
-| 2010 |     |     |     |     |     |     |     |     |     |     |     |     |
-| 2011 |     |     |     |     |     |     |     |     |     |     |     |     |
-| 2012 |     |     |     |     |     |     |     |     |     |     |     |     |
-| 2013 |     |     |     |     |     |     |     |     |     |     |     |     |
-| 2014 |     |     |     |     |     |     |     |     |     |     |     |     |
+- 2014-01-17: Title of the blog article
+- 2014-01-21: Another title
 
 #+END_EXAMPLE
 
 - tasks
-  - [ ] create blog-format.org entries with HTML source and
+  - [X] create blog-format.org entries with HTML source and
     replacement entities
   - [ ] implement in Python
 
@@ -676,6 +775,9 @@ like monthly overview but only for the day
   - [ ] create blog-format.org entries with HTML source and
     replacement entities
   - [ ] implement in Python
+
+- https://docs.python.org/2/library/calendar.html
+
 ** NEXT implement: creating TAG pages                             :userstory:
 :PROPERTIES:
 :CREATED:  [2013-10-19 Sat 18:50]
@@ -770,27 +872,6 @@ example: id:2015-05-24-browser-keywords
 :CREATED:  [2013-10-14 Mon 12:35]
 :END:
 
-** NEXT parse/htmlize: tables                                    :userstory:
-:PROPERTIES:
-:CREATED:  [2014-02-01 Sat 15:25]
-:ID: 2014-08-10-implement-lb-tables
-:END:
-
-- http://orgmode.org/worg/dev/org-syntax.html#Tables
-
-** NEXT fix tables in my current blog entries                     :userstory:
-SCHEDULED: <2015-10-06 Tue>
-:PROPERTIES:
-:CREATED:  [2014-08-10 Sun 10:37]
-:BLOCKER: 2014-08-10-implement-lb-tables
-:END:
-:LOGBOOK:
-- Rescheduled from "[2014-08-10 Sun]" on [2015-09-06 Sun 09:55]
-:END:
-
-- id:2014-05-09-managing-digital-photographs
-- id:apps-I-am-using
-
 ** NEXT htmlizer: generate more Org-mode elements             :architecture:
 :PROPERTIES:
 :CREATED:  [2013-10-19 Sat 19:19]
@@ -824,6 +905,14 @@ SCHEDULED: <2015-10-06 Tue>
 
 1. just link a file, do not show image
 2. show the linked image directly
+** NEXT [#C] move blog-tag(s) to CLI parameter                                           :userstory:
+:PROPERTIES:
+:CREATED:  [2014-03-08 Sat 18:51]
+:END:
+
+- filter Org-mode articles with parameter of one or more tags
+- allows for generating different blogs (or sub-blogs) just with
+  different commands
 ** NEXT [#C] CSS: if page is less than one page, place footer at bottom :userstory:
 :PROPERTIES:
 :CREATED:  [2014-01-31 Fri 23:56]
@@ -986,7 +1075,7 @@ Installing collected packages: nltk
     warning: no previously-included files matching '*~' found anywhere in distribution
 Successfully installed nltk
 Cleaning up...
-root@gary ~ # 
+root@gary ~ #
 #+END_EXAMPLE
 
 installing nltk.corpus > stopwords:
@@ -1838,7 +1927,7 @@ Org elements: from ox-ascii.el (Org-mode)
 | strike-through        |                | x            |                   |                                                                    |                                                          |
 | subscript             |                | x            |                   |                                                                    |                                                          |
 | superscript           |                | x            |                   |                                                                    |                                                          |
-| table                 | x              |              |                   |                                                                    |                                                          |
+| table                 | x              |              |                   | [fn:pypandoc]                                                      |                                                          |
 | table-cell            | x              |              |                   |                                                                    |                                                          |
 | table-row             | x              |              |                   |                                                                    |                                                          |
 | target                |                |              |                   |                                                                    |                                                          |
@@ -1856,6 +1945,9 @@ something else.
 
 [fn:lowprio] This feature is low on my personal development list (way
 take some time or might never get implemented)
+
+[fn:pypandoc] This element gets converted using pypndoc (and
+additional sanitizing)
 
 [fn:internalrepresentation] usually in list: ~blog_data['id-of-entry']['content']~
 
