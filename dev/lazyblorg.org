@@ -230,10 +230,13 @@ CLOSED: [2014-03-01 Sat 20:10]
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
 
-** NEXT document: what elements are rendered/converted via pypandoc?
-SCHEDULED: <2016-02-08 Mon>
+** NEXT [#A] document: what elements are rendered/converted via pypandoc?
+SCHEDULED: <2016-08-06 Sat>
 :PROPERTIES:
 :CREATED:  [2015-06-23 Tue 12:13]
+:END:
+:LOGBOOK:
+- Rescheduled from "[2016-02-08 Mon]" on [2016-07-23 Sat 12:20]
 :END:
 
 - id:implemented-org-elements
@@ -279,23 +282,32 @@ Example parsing of complete data-set:
 :                 print blogentry  ## id:2008-01-01-happy-new-year-entry, ...
 
 *** NEXT [#A] implement: parsing of entries_timeline_by_published in orgparser
-SCHEDULED: <2016-02-07 Sun>
+SCHEDULED: <2016-08-06 Sat>
 :PROPERTIES:
 :CREATED:  [2016-02-07 Sun 10:41]
+:END:
+:LOGBOOK:
+- Rescheduled from "[2016-02-07 Sun]" on [2016-07-23 Sat 12:19]
 :END:
 
 [[file:~/src/lazyblorg/lib/utils.py]] > generate_metadata_from_blogdata(blogdata)
 
+
 *** NEXT implement: get_year_of_first_entry(entries_timeline_by_published) + get_year_of_last_entry(entries_timeline_by_published)
-SCHEDULED: <2016-02-07 Sun>
+SCHEDULED: <2016-08-06 Sat>
 :PROPERTIES:
 :CREATED:  [2016-02-07 Sun 10:06]
 :END:
-
+:LOGBOOK:
+- Rescheduled from "[2016-02-07 Sun]" on [2016-07-23 Sat 12:19]
+:END:
 *** NEXT implement: add_entry_to_entries_timeline_by_published(entries_timeline_by_published, id)
-SCHEDULED: <2016-02-07 Sun>
+SCHEDULED: <2016-08-06 Sat>
 :PROPERTIES:
 :CREATED:  [2016-02-07 Sun 09:45]
+:END:
+:LOGBOOK:
+- Rescheduled from "[2016-02-07 Sun]" on [2016-07-23 Sat 12:19]
 :END:
 
 - [X] how to determine the number of days of a month?
@@ -313,17 +325,23 @@ SCHEDULED: <2016-02-07 Sun>
 : get_number_of_entries(entries_timeline_by_published, 2008, 8, 13)  ## 1
 
 *** NEXT implement: get_entries_of_month(entries_timeline_by_published, year, month)
-SCHEDULED: <2016-02-07 Sun>
+SCHEDULED: <2016-08-06 Sat>
 :PROPERTIES:
 :CREATED:  [2016-02-07 Sun 10:16]
+:END:
+:LOGBOOK:
+- Rescheduled from "[2016-02-07 Sun]" on [2016-07-23 Sat 12:19]
 :END:
 
 - returns list of days containing list of IDs
 
 *** NEXT implement: get_entries_of_day(entries_timeline_by_published, year, month, day)
-SCHEDULED: <2016-02-07 Sun>
+SCHEDULED: <2016-08-06 Sat>
 :PROPERTIES:
 :CREATED:  [2016-02-07 Sun 10:16]
+:END:
+:LOGBOOK:
+- Rescheduled from "[2016-02-07 Sun]" on [2016-07-23 Sat 12:19]
 :END:
 
 - returns list of IDs
@@ -549,29 +567,6 @@ SCHEDULED: <2015-10-24 Sat>
       - [ ] sanitize_html_characters() -> completely obsolete?
       - [ ] _generate_temporal_article()
       - [ ] _generate_persistent_article()
-
-
-** NEXT move to pip: lazyblorg
-:PROPERTIES:
-:CREATED:  [2016-08-23 Tue 17:16]
-:END:
-:LOGBOOK:
-- Not scheduled, was "[2016-09-11 Sun]" on [2016-09-11 Sun 18:07]
-- Rescheduled from "[2016-09-07 Wed]" on [2016-09-07 Wed 17:36]
-- Rescheduled from "[2016-08-03 Wed]" on [2016-08-26 Fri 09:23]
-- Rescheduled from "[2016-08-26 Fri]" on [2016-08-26 Fri 09:23]
-:END:
-
-follow: id:notes-distribute-PIP
-
-- [ ] check name with ~pip search vkl~
-- [ ] create setup.py
-- [ ] add dependencies to setup.py
-- [ ] document pip in README
-- [ ] ~python setup.py register~
-- [ ] ~python setup.py sdist upload~
-- [ ] tweet
-- [ ] add tweet to README/changelog
 
 ** NEXT add? [[http://www.heise.de/newsticker/meldung/c-t-entwickelt-datenschutzfreundliche-Social-Media-Buttons-weiter-2466687.html][Shariff: c't entwickelt datenschutzfreundliche Social-Media-Buttons weiter]]   :userstory:
 :PROPERTIES:
