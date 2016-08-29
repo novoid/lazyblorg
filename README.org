@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2015-10-31 10:13:10 vk>
+## Time-stamp: <2016-08-29 18:13:29 karl.voit>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -15,6 +15,16 @@ This is a web log (blog) environment for [[http://en.wikipedia.org/wiki/Emacs][G
 which generates static HTML5 web pages. It is much more superior to
 any other Org-mode-to-blog-solution I have seen so far!
 
+#+BEGIN_VERSE
+<(All?) your Org-mode files>  --lazyblorg-->  static HTML pages
+                                                      |
+                                                      v
+                                 optional upload (shell) script
+                                                      |
+                                                      v
+                                                 your web space
+#+END_VERSE
+
 If you don't believe me right away, there is a list of
 similar/alternative projects on
 http://orgmode.org/worg/org-blog-wiki.html which seem really tedious to
@@ -26,6 +36,7 @@ started in 2011.
 This awesome piece of software is a sheer beauty with regard to:
 - simplicity of creating a new blog entry
   - *I mean it*: there is no step which can be skipped!
+    - add heading+content anywhere, add ID, tag, invoke lazyblorg
 - integration into my personal workflows
   - here, you have to either adapt my totally awesome workflows or you
     have to find alternative ways of doing following things:
@@ -172,7 +183,7 @@ more.
 
 #+BEGIN_QUOTE
 «Technology develops from the primitive via the complex to the
-simple.» 
+simple.»
 #+END_QUOTE
 ([[https://en.wikipedia.org/wiki/Antoine_de_Saint-Exup%25C3%25A9ry][Antoine de Saint-Exupéry]]; note: lazyblorg is currently "primitive"
 but with a great outlook up to the status of being simple)
@@ -210,7 +221,7 @@ An Org-mode test-file (for unit testing) containing all implemented
 Org-mode syntax elements can be found at:
 [[https://github.com/novoid/lazyblorg/blob/master/testdata/currently_supported_orgmode_syntax.org][testdata/currently_supported_orgmode_syntax.org]]
 
-This test-file produces an example HTML entry that can be found at: 
+This test-file produces an example HTML entry that can be found at:
 [[https://github.com/novoid/lazyblorg/blob/master/testdata/currently_supported_orgmode_syntax.html][testdata/currently_supported_orgmode_syntax.html]]
 
 *** Where can I find support for lazyblorg?
@@ -229,7 +240,7 @@ This section was updated on 2014-03-14:
 
 Currently: yes (heavy) :-)
 
-My general plan: 
+My general plan:
 - Add features to lazyblorg as long as I feel the urge to.
 - Be open to enhancements done by others on github.
 - If lazyblorg reaches a state, where I do not need anything
@@ -283,7 +294,7 @@ summary output:
 : Parsed 27 Org-mode files with 323327 lines (in 5.99 seconds)
 : Generated 61 articles: 8 persistent, 52 temporal, 0 tag, 1 entry page (in 0.30 seconds)
 
-*** Can I use the Org-mode parser (in Python) for other purposes as well? 
+*** Can I use the Org-mode parser (in Python) for other purposes as well?
 
 Yes, please do read [[https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org][dev/lazyblorg.org]] and [[https://github.com/novoid/lazyblorg/blob/master/lib/orgparser.py][lib/orgparser.py]].
 
@@ -599,7 +610,7 @@ string, and assign a keyboard shortcut:
       ;; not make any sense here)
       (if (string-prefix-p (upcase domain) (upcase url))
       ;; Retrieving content by URL into new buffer asynchronously
-      (url-retrieve url 
+      (url-retrieve url
                         ;; call this lambda function when URL content is retrieved
             (lambda (status)
                ;; Extrating and preparing the ID
@@ -629,9 +640,16 @@ string, and assign a keyboard shortcut:
     )
 #+end_src
 
-* Contribute!
+* How to Thank Me
 
-I am looking for your ideas:
+I'm glad you like my tools. If you want to support me:
+
+- Send old-fashioned *postcard* per snailmail - I love personal feedback!
+  - see [[http://tinyurl.com/j6w8hyo][my address]]
+- Send feature wishes or improvements as an issue on GitHub
+- Create issues on GitHub for bugs
+- Contribute merge requests for bug fixes
+- Check out my other cool [[https://github.com/novoid][projects on GitHub]]
 
 If you want to contribute to this cool project, please fork and
 contribute!
