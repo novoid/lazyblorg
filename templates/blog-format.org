@@ -1,4 +1,4 @@
-## Time-stamp: <2016-09-17 12:50:38 vk>
+## Time-stamp: <2016-09-17 13:54:36 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -559,7 +559,7 @@ With name/label:
   <meta name="twitter:site" content="@n0v0id" />
   <meta name="twitter:creator" content="@n0v0id" />
   <meta name="og:title" content="Public Voit" />
-  <meta name="og:description" content="##ARTICLE-TITLE##" />
+  <meta name="og:description" content="#ARTICLE-TITLE#" />
   <meta name="og:image" content="http://karl-voit.at/images/public-voit_logo.svg" /> <!-- OPTIONAL -->
   <!-- END Twitter cards -->
   <link rel="stylesheet" title="public voit Standard CSS Style"
