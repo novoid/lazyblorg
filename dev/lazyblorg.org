@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-02-07 18:07:31 vk>
+# Time-stamp: <2016-09-17 13:15:58 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -230,7 +230,117 @@ CLOSED: [2014-03-01 Sat 20:10]
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
 
-** NEXT [#A] document: what elements are rendered/converted via pypandoc?
+** DONE lazyblorg: support Twitter Cards in header
+CLOSED: [2016-09-17 Sat 12:46] SCHEDULED: <2016-09-17 Sat>
+:PROPERTIES:
+:CREATED:  [2016-09-15 Thu 20:10]
+:END:
+:LOGBOOK:
+- State "DONE"       from "STARTED"    [2016-09-17 Sat 12:46]
+:END:
+
+- inquery
+  - https://dev.twitter.com/cards/getting-started
+
+#+BEGIN_EXAMPLE
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@nytimesbits" />
+<meta name="twitter:creator" content="@nickbilton" />
+<meta property="og:url" content="http://bits.blogs.nytimes.com/2011/12/08/a-twitter-for-my-sister/" />
+<meta property="og:title" content="A Twitter for My Sister" />
+<meta property="og:description" content="In the early days, Twitter grew so quickly that it was almost impossible to add new features because engineers spent their time trying to keep the rocket ship from stalling." />
+<meta property="og:image" content="http://graphics8.nytimes.com/images/2011/12/08/technology/bits-newtwitter/bits-newtwitter-tmagArticle.jpg" />
+#+END_EXAMPLE
+
+- getting started
+  1. Choose a [[https://dev.twitter.com/cards/types][card type]] you want to implement.
+
+  2. Add the pertinent [[https://dev.twitter.com/cards/markup][meta tags]] to your page.
+     - twitter:card :: Used with all cards
+     - twitter:site :: @username of website. Either twitter:site or twitter:site:id is required.
+       - Used with summary, summary_large_image, app, player cards
+     - twitter:creator :: @username of content creator
+       - Used with summary_large_image cards
+     - og:title :: Title of content (max 70 characters)
+       - Used with summary, summary_large_image, player cards
+     - og:description :: Description of content (maximum 200 characters)
+       - Used with summary, summary_large_image, player cards
+     - og:image :: URL of image to use in the card. Image must be less than 1MB in size
+       - Used with summary, summary_large_image, player cards
+
+  3. Run your URL against the [[https://cards-dev.twitter.com/validator][validator tool]] to test. If you are
+     working with a Player Card, request approval for whitelisting.
+     All other Cards do not need whitelisting.
+
+  4. After testing in the validator or approval of your Player Card,
+     Tweet the URL and see the Card appear below your tweet in the
+     details view.
+
+  5. Use [[https://dev.twitter.com/cards/analytics][Twitter Card analytics]] to measure your results.
+
+------------
+
+[[https://dev.twitter.com/cards/types/summary][Summary Card]]:
+
+#+BEGIN_EXAMPLE
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@flickr" />
+<meta name="og:title" content="Small Island Developing States Photo Submission" />
+<meta name="og:description" content="View the album on Flickr." />
+<meta name="og:image" content="https://farm6.staticflickr.com/5510/14338202952_93595258ff_z.jpg" /> <!-- OPTIONAL -->
+#+END_EXAMPLE
+
+For [[http://karl-voit.at/2016/08/06/new-mail-setup-ideas/][one of my blog entries]], this would look like:
+
+#+BEGIN_EXAMPLE
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@n0v0id" />
+<meta name="og:title" content="Thinking About a notmuch-based Email Setup" />
+<meta name="og:description" content="I just finished watching a video from the early stage of notmuch which made me think of changing my mutt email setup which I am using for many[...]" />
+<meta name="og:image" content="http://karl-voit.at/images/public-voit_logo.svg" /> <!-- OPTIONAL -->
+#+END_EXAMPLE
+
+og:description: it's hard to get the first paragraphs into the header.
+Further more, the text most likely exceeds the maximum length.
+Therefor, I will use a more basic version:
+
+#+BEGIN_EXAMPLE
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@n0v0id" />
+<meta name="og:title" content="Public Voit" />
+<meta name="og:description" content="Thinking About a notmuch-based Email Setup" />
+<meta name="og:image" content="http://karl-voit.at/images/public-voit_logo.svg" /> <!-- OPTIONAL -->
+#+END_EXAMPLE
+
+** DONE support Twitter cards rendering in lazyblorg
+CLOSED: [2016-09-17 Sat 13:15] SCHEDULED: <2016-09-17 Sat>
+:PROPERTIES:
+:CREATED:  [2016-09-17 Sat 12:46]
+:END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2016-09-17 Sat 13:15]
+:END:
+
+- my idea
+  - If a paragraph consists only of a tweet, include a tweet preview.
+
+- inquiry
+  - https://dev.twitter.com/web/embedded-tweets
+  - https://dev.twitter.com/rest/reference/get/statuses/oembed
+
+OK, there is no need to develop something specific. Just follow
+following procedure:
+
+1. insert an HTML block into your Org blog article
+2. go to the tweet you would like to embed
+   - select the three dots
+   - select "Embed this Tweet"
+   - copy resulting snippet
+3. paste snippet into HTML block
+
+Added HowTo to README.org
+
+** NEXT document: what elements are rendered/converted via pypandoc?
 SCHEDULED: <2016-02-08 Mon>
 :PROPERTIES:
 :CREATED:  [2015-06-23 Tue 12:13]
@@ -534,6 +644,29 @@ SCHEDULED: <2015-10-24 Sat>
       - [ ] sanitize_html_characters() -> completely obsolete?
       - [ ] _generate_temporal_article()
       - [ ] _generate_persistent_article()
+
+
+** NEXT move to pip: lazyblorg
+:PROPERTIES:
+:CREATED:  [2016-08-23 Tue 17:16]
+:END:
+:LOGBOOK:
+- Not scheduled, was "[2016-09-11 Sun]" on [2016-09-11 Sun 18:07]
+- Rescheduled from "[2016-09-07 Wed]" on [2016-09-07 Wed 17:36]
+- Rescheduled from "[2016-08-03 Wed]" on [2016-08-26 Fri 09:23]
+- Rescheduled from "[2016-08-26 Fri]" on [2016-08-26 Fri 09:23]
+:END:
+
+follow: id:notes-distribute-PIP
+
+- [ ] check name with ~pip search vkl~
+- [ ] create setup.py
+- [ ] add dependencies to setup.py
+- [ ] document pip in README
+- [ ] ~python setup.py register~
+- [ ] ~python setup.py sdist upload~
+- [ ] tweet
+- [ ] add tweet to README/changelog
 
 ** NEXT add? [[http://www.heise.de/newsticker/meldung/c-t-entwickelt-datenschutzfreundliche-Social-Media-Buttons-weiter-2466687.html][Shariff: c't entwickelt datenschutzfreundliche Social-Media-Buttons weiter]]   :userstory:
 :PROPERTIES:
@@ -932,6 +1065,11 @@ example: id:2015-05-24-browser-keywords
 :CREATED:  [2014-10-25 Sat 21:56]
 :END:
 [2014-10-25 Sa. 09:22]
+
+** NEXT Include [[https://dev.twitter.com/cards/types/summary-large-image][Twitter Card]] Metadata for better Tweets                                   :userstory:
+:PROPERTIES:
+:CREATED:  [2016-08-26 Fri 23:19]
+:END:
 ** TODO ID of sub-headings get stored and processed to anchors   :userstory:
 :PROPERTIES:
 :CREATED:  [2014-02-09 Sun 10:28]
@@ -1820,7 +1958,6 @@ For optimizing performance and RAM usage: use *two parsing processes*:
 
 - [ ] handle public/private tags accordingly (or: noexport?)
 - [ ] migrate delicious private field to private tag
-
 
 * Notes                                                               :notes:
 

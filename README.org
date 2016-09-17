@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2016-08-29 18:13:29 karl.voit>
+## Time-stamp: <2016-09-17 13:15:24 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -639,6 +639,42 @@ string, and assign a keyboard shortcut:
       )
     )
 #+end_src
+
+** BONUS: Embed Tweets into Your Blog Article
+
+There was [[https://dev.twitter.com/rest/reference/get/statuses/oembed][no need to develop]] something specific. Just follow following
+procedure:
+
+1. insert an HTML block into your Org blog article
+   - Easily done via entering "<h" + =TAB=
+2. go to the tweet you would like to embed in your browser
+   - select the three dots below the Tweet
+   - select "Embed Tweet"
+   - copy resulting snippet
+3. paste snippet into HTML block
+
+Simple as that.
+
+Example:
+
+: #+BEGIN_HTML
+: <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">You gotta love <a href="https://twitter.com/slydigsband">@slydigsband</a> - tune into <a href="https://t.co/7yylPwDKvi">https://t.co/7yylPwDKvi</a><br>I just bought the album. Guys, you really rock! Thanks for your Vienna gig!</p>&mdash; Karl Voit (@n0v0id) <a href="https://twitter.com/n0v0id/status/776735121823174656">September 16, 2016</a></blockquote>
+: <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+: #+END_HTML
+
+** BONUS: Embed YouTube Videos
+
+1. insert an HTML block into your Org blog article
+   - Easily done via entering "<h" + =TAB=
+2. retrieve the YouTube URL of your video
+3. replace (only!) =HTVgPw7TR_k= in the snippet example below with the ID of your video
+
+Example:
+
+: #+BEGIN_HTML
+: <iframe width="560" height="315" src="http://www.youtube.com/embed/HTVgPw7TR_k?rel=0" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+: #+END_HTML
+
 
 * How to Thank Me
 
