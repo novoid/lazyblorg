@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-12-04 13:24:40 vk>
+# Time-stamp: <2016-09-18 13:56:41 vk>
 
 import config
 import re
@@ -54,8 +54,8 @@ class OrgParser(object):
     CREATED_REGEX = re.compile('^:CREATED:\s+' + OrgFormat.SINGLE_ORGMODE_TIMESTAMP, re.IGNORECASE)
     CREATED_TIMESTAMP_IDX = 1
 
-    LOG_REGEX = re.compile('^- State\s+"' + config.BLOG_FINISHED_STATE + '"\s+from\s+"\S*"\s+([\[{].*[\]}])$', re.IGNORECASE)
-    LOG_TIMESTAMP_IDX = 1
+    LOG_REGEX = re.compile('^- State\s+"' + config.BLOG_FINISHED_STATE + '"\s+from\s+("\S*"\s+)?([\[{].*[\]}])$', re.IGNORECASE)
+    LOG_TIMESTAMP_IDX = 2
 
     BLOCK_REGEX = re.compile('^#\+BEGIN_(SRC|EXAMPLE|VERSE|QUOTE|CENTER|HTML|ASCII|LATEX)(\s+(.*))?$', re.IGNORECASE)
     BLOCK_TYPE_IDX = 1

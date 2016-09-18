@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-06-14 16:27:37 vk>
+# Time-stamp: <2016-09-18 13:54:11 vk>
 
 import config
 import argparse  # command line arguments
@@ -134,12 +134,27 @@ class TestLazyblorg(unittest.TestCase):
 
         return
 
-    def test_example_entry_with_all_implemented_orgmode_elements(self):
+    def test_example_entry_with_all_implemented_orgmode_elements_from_org_to_html(self):
+
+        testnames = ["currently_supported_orgmode_syntax", "test_case_from_nothing_to_DONE"]
+
+        for testname in testnames:
+
+            ## manually written Org-mode file; has to be placed in "../testdata/"
+            generate_sorted, blog_data, increment_version, mylazyblorg, generate, metadata_output = self.generate_parser_data_from_orgmode_file(testname)
+
+            if testname == "currently_supported_orgmode_syntax":
+                self.assertTrue(generate_sorted == [u'2014-01-27-full-syntax-test', u'2014-03-09-about',
+                                                    u'lazyblorg-templates'])
+
+            htmloutputname = self.htmlize_parser_data_to_html_files(testname, blog_data, increment_version, mylazyblorg, generate)
+            self.compare_generated_html_content_to_comparison_html_file(testname, htmloutputname, metadata_output)
+
+    def generate_parser_data_from_orgmode_file(self, testname):
 
         ## Checks on the situation before first iteration:
 
         ## manually written Org-mode file; has to be placed in "../testdata/basic_blog_update_test/"
-        testname = "currently_supported_orgmode_syntax"
         template_file = "../templates/blog-format.org"
         org_testfile = "../testdata/" + testname + ".org"
         additional_org_file = "../testdata/about-placeholder.org"
@@ -147,7 +162,6 @@ class TestLazyblorg(unittest.TestCase):
         metadata_input = "../testdata/nonexisting.pk"
         log_firstrun = "../testdata/" + testname + ".log"
         target_dir = "../testdata/"
-        autotag_language = True
 
         ## might be left over from a failed previous run:
         if os.path.isfile(metadata_output):
@@ -189,13 +203,20 @@ class TestLazyblorg(unittest.TestCase):
 
         self.assertTrue(increment_version == [])
         self.assertTrue(generate_sorted == marked_for_feed_sorted)
-        self.assertTrue(generate_sorted == [u'2014-01-27-full-syntax-test', u'2014-03-09-about', u'lazyblorg-templates'])
 
         blog_data, stats_parsed_org_lines = mylazyblorg._parse_orgmode_file(org_testfile)
         template_blog_data, template_stats_parsed_org_lines = mylazyblorg._parse_orgmode_file(template_file)
         additional_blog_data, additional_stats_parsed_org_lines = mylazyblorg._parse_orgmode_file(additional_org_file)
         blog_data += template_blog_data
         blog_data += additional_blog_data
+
+        return generate_sorted, blog_data, increment_version, mylazyblorg, generate, metadata_output
+
+
+    def htmlize_parser_data_to_html_files(self, testname, blog_data, increment_version, mylazyblorg, generate):
+
+        target_dir = "../testdata/"
+        autotag_language = True
 
         ## extract HTML templates and store in class var
         template_definitions = mylazyblorg._generate_template_definitions_from_template_data()
@@ -216,11 +237,17 @@ class TestLazyblorg(unittest.TestCase):
 
         htmloutputname = "../testdata/" + testname + ".html"
 
+        assert(htmlcontent) ## make sure that /some/ HTML content was generated
+
         ## generating HTML output in order to manually check in browser as well:
         with codecs.open(htmloutputname, 'wb', encoding='utf-8') as output:
             output.write(htmlcontent)
 
         self.assertTrue(os.path.isfile(htmloutputname))
+
+        return htmloutputname
+
+    def compare_generated_html_content_to_comparison_html_file(self, testname, htmloutputname, metadata_output):
 
         ## read in generated data from file:
         contentarray_from_file = []

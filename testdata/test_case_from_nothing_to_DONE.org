@@ -1,0 +1,16 @@
+* MISC Test Case
+:PROPERTIES:
+:CREATED:  [2016-09-18 Sun 13:18]
+:END:
+
+** DONE from nothing to DONE                                                         :blog:testtag1:
+CLOSED: [2016-09-18 Sun 13:19]
+:PROPERTIES:
+:ID: 2016-09-18-from-nothing-to-done
+:CREATED:  [2016-09-18 Sun 13:19]
+:END:
+:LOGBOOK:
+- State "DONE"       from              [2016-09-18 Sun 13:19]
+:END:
+
+This is an example blog entry with no special content.
