@@ -18,7 +18,7 @@ EOF
     }
 
 ## check for host name and show warning when not my own host:
-[ "x${HOSTNAME}" = "xgary" ] || warn_and_exit
+[ "x${HOSTNAME}" = "xsherri" ] || warn_and_exit
 
 
 
@@ -67,5 +67,5 @@ PYTHONPATH="~/src/lazyblorg:" ./lazyblorg.py \
     --orgfiles ./testdata/about-placeholder.org ./templates/blog-format.org \
     /tmp/lazyblorg-preview.org && \
 find testdata/2del -name '*.html' -exec xdg-open "{}" \;
-               
+
 #end
