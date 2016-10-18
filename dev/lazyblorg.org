@@ -1,5 +1,6 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-02-07 18:07:31 vk>
+# Time-stamp: <2016-10-18 16:18:35 vk>
+
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -230,6 +231,7 @@ CLOSED: [2014-03-01 Sat 20:10]
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
 
+
 ** NEXT [#A] document: what elements are rendered/converted via pypandoc?
 SCHEDULED: <2016-08-06 Sat>
 :PROPERTIES:
@@ -241,7 +243,7 @@ SCHEDULED: <2016-08-06 Sat>
 
 - id:implemented-org-elements
 
-** NEXT Parser: generate data structure and methods for time-sorted archive [0/6]
+** NEXT Parser: generate data structure and methods for time-sorted archive [0/8]
 :PROPERTIES:
 :CREATED:  [2016-02-07 Sun 09:04]
 :END:
@@ -282,24 +284,25 @@ Example parsing of complete data-set:
 :                 print blogentry  ## id:2008-01-01-happy-new-year-entry, ...
 
 
-*** STARTED [#A] implement: parsing of entries_timeline_by_published in orgparser
-SCHEDULED: <2016-08-06 Sat>
+*** DONE [#A] implement: parsing of entries_timeline_by_published in orgparser
+CLOSED: [2016-10-18 Tue 18:06] SCHEDULED: <2016-08-06 Sat>
 :PROPERTIES:
 :CREATED:  [2016-02-07 Sun 10:41]
 :END:
 :LOGBOOK:
+- State "DONE"       from "STARTED"    [2016-10-18 Tue 18:06]
 - Rescheduled from "[2016-02-07 Sun]" on [2016-07-23 Sat 12:19]
 :END:
 
 [[file:~/src/lazyblorg/lib/utils.py]] > generate_metadata_from_blogdata(blogdata)
 
-
-*** NEXT implement: get_year_of_first_entry(entries_timeline_by_published) + get_year_of_last_entry(entries_timeline_by_published)
-SCHEDULED: <2016-08-06 Sat>
+*** DONE implement: get_year_of_first_entry(entries_timeline_by_published) + get_year_of_last_entry(entries_timeline_by_published)
+CLOSED: [2016-10-18 Tue 18:24] SCHEDULED: <2016-08-06 Sat>
 :PROPERTIES:
 :CREATED:  [2016-02-07 Sun 10:06]
 :END:
 :LOGBOOK:
+- State "DONE"       from "NEXT"       [2016-10-18 Tue 18:24]
 - Rescheduled from "[2016-02-07 Sun]" on [2016-07-23 Sat 12:19]
 :END:
 
@@ -332,8 +335,13 @@ SCHEDULED: <2016-08-06 Sat>
 
 - [X] how to determine the number of days of a month?
   - calendar.monthrange(year, month) -> 0-6 mon-sun + 28-31
+
+*** NEXT implement: get_year_of_first_entry(entries_timeline_by_published) + get_year_of_last_entry(entries_timeline_by_published)
+:PROPERTIES:
+:CREATED:  [2016-02-07 Sun 10:06]
+:END:
+
 *** NEXT implement: get_number_of_entries(entries_timeline_by_published, OPTIONAL: year=False, month=False, day=False)
-SCHEDULED: <2016-02-07 Sun>
 :PROPERTIES:
 :CREATED:  [2016-02-07 Sun 10:02]
 :END:
@@ -552,7 +560,6 @@ CLOSED: [2015-06-27 Sat 19:06] SCHEDULED: <2015-06-27 Sat>
 - it was replaced by pypandoc
 
 ** NEXT make show-sidebar-text work: show sidebar on small displays                      :userstory:
-SCHEDULED: <2015-10-24 Sat>
 :PROPERTIES:
 :CREATED:  [2015-06-27 Sat 19:06]
 :END:
@@ -679,7 +686,7 @@ downsides:
 - current HTML has to be re-designed to fit Bootstrap
 - I still need to understand something in order to adapt it to my needs
 
-** NEXT fix: ~-escaping                                                :bug:
+** NEXT fix: ~-escaping                                                                        :bug:
 :PROPERTIES:
 :CREATED:  [2014-06-22 Sun 18:32]
 :END:
@@ -706,7 +713,7 @@ destination folder for new digicam files: </code>$HOME/tmp/digicam/tmp/~.
 
 ... which is wrong
 
-** NEXT Atom-feed with CDATA for body                                                  :architecture:
+** NEXT fix Atom-feed (with CDATA for body?)                                           :architecture:
 :PROPERTIES:
 :CREATED:  [2014-06-08 Sun 22:07]
 :END:
@@ -770,7 +777,7 @@ Standard-Informationen erwarten und nicht bekommen..
 - [ ] add command line parameter for adding archived entries
   - by default, archived entries do *not* get added to the blog
 
-** NEXT fix tilde in URL                                               :bug:
+** NEXT fix tilde in URL                                                                       :bug:
 :PROPERTIES:
 :CREATED:  [2014-03-30 Sun 14:55]
 :END:
@@ -786,7 +793,7 @@ on https://karl-voit.at/2014/03/25/xdu
 - [ ] fix bug
 - [ ] test
 
-** NEXT escape <> in blocks                                            :bug:
+** NEXT escape <> in blocks                                                                    :bug:
 :PROPERTIES:
 :CREATED:  [2014-04-12 Sat 18:03]
 :END:
@@ -1914,16 +1921,6 @@ display: block;
     - www.example.com/s/#ID
     - *shorter!*
 
-** SOMEDAY Auto-tag: guessing language of entry                   :userstory:
-:PROPERTIES:
-:CREATED:  [2012-11-11 Sun 10:53]
-:END:
-:LOGBOOK:
-- State "SOMEDAY"    from ""           [2013-01-08 Tue 14:36]
-:END:
-
-- https://github.com/dsc/guess-language
-
 ** SOMEDAY fixed entries by using a tag                          :userstory:
 :PROPERTIES:
 :CREATED:  [2012-12-21 Fri 09:48]
@@ -2251,7 +2248,8 @@ current version.
 
 
 
-** Representation of blog data
+** Data Structures
+*** Representation of blog data
 CLOSED: [2013-08-20 Tue 18:15]
 :PROPERTIES:
 :CREATED:  [2013-05-21 Tue 15:26]
@@ -2312,7 +2310,7 @@ blog_data[0]['content']  ## -> list of elements of content
 #  ['image', u'FIXXME: followed by this image']]
 #+END_SRC
 
-** Internal format of meta-data
+*** Internal format of meta-data
 :PROPERTIES:
 :CREATED:  [2013-08-22 Thu 21:08]
 :END:
@@ -2340,7 +2338,7 @@ One entry with key=ID holds a dict with following entries:
   - datetime object of the CREATED property from the PROPERTY drawer
   - [ ] FIXXME: why not the first CLOSED time-stamp?
 
-** Time-stamps
+*** Time-stamps
 :PROPERTIES:
 :CREATED:  [2014-02-01 Sat 20:04]
 :ID: 2014-02-01-time-stamps
@@ -2381,6 +2379,26 @@ After parsing entry from above:
 
 Oldest entry of entry['finished-timestamp-history'] is the *publication time-stamp*!
 
+
+*** entries_timeline_by_published
+
+The dict format is:
+- dict with year (int) as key, value = list of 12 MONTH
+- MONTH: list of 28-31 DAY
+- DAY: list of 0 to many entry-IDs
+
+: for year in sorted(entries_timeline_by_published.keys()):
+:     print year  ## 2008 = year
+:     for month in enumerate(entries_timeline_by_published[year], start=1):
+:         ## month = tuple(index, list of days)
+:         print month[0]  ## 1 = Jan
+:         for day in enumerate(month[1], start=1):
+:             ## day = tuple(index, list of IDs)
+:             print day[0]  ## 1 = Jan 1st
+:             for blogentry in day[1]:
+:                 print blogentry  ## id:2008-01-01-happy-new-year-entry, ...
+
+see Utils.__add_entry_to_entries_timeline_by_published() how it is populated
 
 ** Development Schedule
 :PROPERTIES:

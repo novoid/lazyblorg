@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-18 18:09:48 vk>
+# Time-stamp: <2016-10-18 18:23:46 vk>
 
 import config
 from sys import stdout, exit
@@ -258,6 +258,37 @@ class Utils(object):
 
         return entries_timeline_by_published
 
+    @staticmethod
+    def get_year_of_first_entry(entries_timeline_by_published):
+        """
+        Returns int of year of first published non-hidden blog entry.
+
+        @param entries_timeline_by_published: dict as described in documentation
+        @param return: int of year of None
+        """
+
+        assert type(entries_timeline_by_published) == dict
+
+        if entries_timeline_by_published:
+            return sorted(entries_timeline_by_published.keys())[0]
+        else:
+            return None
+
+    @staticmethod
+    def get_year_of_last_entry(entries_timeline_by_published):
+        """
+        Returns int of year of last published non-hidden blog entry.
+
+        @param entries_timeline_by_published: dict as described in documentation
+        @param return: int of year of None
+        """
+
+        assert type(entries_timeline_by_published) == dict
+
+        if entries_timeline_by_published:
+            return sorted(entries_timeline_by_published.keys())[-1]
+        else:
+            return None
 
     @staticmethod
     def generate_metadata_from_blogdata(blogdata):

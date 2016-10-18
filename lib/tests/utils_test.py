@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-09 12:11:57 vk>
+# Time-stamp: <2016-10-18 18:19:41 vk>
 
 #import config  ## lazyblorg-global settings
 import unittest
@@ -197,6 +197,12 @@ class TestUtils(unittest.TestCase):
         assert(Utils.guess_language_from_stopword_percentages(EXAMPLE_TEXTS_GERMAN) == 'deutsch')
         assert(Utils.guess_language_from_stopword_percentages(EXAMPLE_TEXTS_ENGLISH + 2 * EXAMPLE_TEXTS_GERMAN) is False)
 
+    def test_get_year_of_first_and_last_entry(entries_timeline_by_published):
+
+        entries_timeline_by_published = {2014: [], 1975: [], 1983: [], 2099: [], 2042: []}
+
+        assert(Utils.get_year_of_first_entry(entries_timeline_by_published) == 1975)
+        assert(Utils.get_year_of_last_entry(entries_timeline_by_published) == 2099)
 
 # Local Variables:
 # mode: flyspell
