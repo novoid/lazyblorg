@@ -2476,11 +2476,19 @@ CLOSED: [2016-02-07 Sun 08:59] SCHEDULED: <2015-10-06 Tue>
 - [X] id:2014-05-09-managing-digital-photographs
 - [X] id:apps-I-am-using
 
+<<<<<<< Updated upstream
 ** DONE lazyblorg: support Twitter Cards in header
 CLOSED: [2016-09-17 Sat 12:46] SCHEDULED: <2016-09-17 Sat>
 :PROPERTIES:
 :CREATED:  [2016-09-15 Thu 20:10]
 :ARCHIVE_TIME: 2016-09-17 Sat 14:03
+=======
+** DONE [#A] document: what elements are rendered/converted via pypandoc?
+CLOSED: [2016-02-13 Sat 11:35] SCHEDULED: <2016-02-13 Sat>
+:PROPERTIES:
+:CREATED:  [2015-06-23 Tue 12:13]
+:ARCHIVE_TIME: 2016-02-13 Sat 11:35
+>>>>>>> Stashed changes
 :ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
 :ARCHIVE_OLPATH: Issue Tracking
 :ARCHIVE_CATEGORY: lazyblorg
@@ -2488,6 +2496,7 @@ CLOSED: [2016-09-17 Sat 12:46] SCHEDULED: <2016-09-17 Sat>
 :ARCHIVE_ITAGS: issues
 :END:
 :LOGBOOK:
+<<<<<<< Updated upstream
 - State "DONE"       from "STARTED"    [2016-09-17 Sat 12:46]
 :END:
 
@@ -2620,6 +2629,7 @@ vs.
 
 is recognized:
 : - State "DONE"       from "NEXT"       [2016-09-18 Sun 11:59]
+<<<<<<< HEAD
 
 ** DONE Atom-feed with CDATA for body                                                 :architecture:
 CLOSED: [2016-10-23 Sun 20:55] SCHEDULED: <2016-10-22 Sat>
@@ -2660,3 +2670,11 @@ CLOSED: [2016-10-31 Mon 12:40]
 
 - [X] https://validator.w3.org/nu/?doc=http%3A%2F%2Fwww.karl-voit.at%2F2016%2F01%2F21%2Fkeeping-unaccepted-outlook-appointments%2F
 - [X] https://validator.w3.org/nu/?showsource=yes&useragent=Validator.nu%2FLV+http%3A%2F%2Fvalidator.w3.org%2Fservices&doc=http%3A%2F%2Fwww.karl-voit.at%2F2016%2F10%2F06%2Foutlook-preparation-appointment%2F
+=======
+=======
+- State "DONE"       from "NEXT"       [2016-02-13 Sat 11:35]
+:END:
+
+- id:implemented-org-elements
+>>>>>>> Stashed changes
+>>>>>>> lazyblorg.org: misc stashing merges
