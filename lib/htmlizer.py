@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-18 18:02:25 vk>
+# Time-stamp: <2016-10-18 20:04:20 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -126,7 +126,27 @@ class Htmlizer(object):
         @param: return: stats_generated_tags: tag articles generated
         """
 
-        stats_generated_total, stats_generated_temporal, stats_generated_persistent, stats_generated_tags = 0, 0, 0, 0
+        entry_list_by_newest_timestamp, stats_generated_total, stats_generated_temporal, \
+            stats_generated_persistent, stats_generated_tags = self._generate_pages_for_tags_persistent_temporal()
+
+        self._generate_feeds(entry_list_by_newest_timestamp)
+
+        return stats_generated_total, stats_generated_temporal, stats_generated_persistent, stats_generated_tags
+
+    def _generate_pages_for_tags_persistent_temporal(self):
+        """
+        Method that creates the pages for tag-pages, persistent pages, and temporal pages.
+
+        @param: return: stats_generated_total: total articles generated
+        @param: return: stats_generated_temporal: temporal articles generated
+        @param: return: stats_generated_persistent: persistent articles generated
+        @param: return: stats_generated_tags: tag articles generated
+        """
+
+        stats_generated_total, \
+            stats_generated_temporal, \
+            stats_generated_persistent, \
+            stats_generated_tags = 0, 0, 0, 0
 
         for entry in self.blog_data:
 
@@ -181,20 +201,28 @@ class Htmlizer(object):
         self.generate_entry_page(entry_list_by_newest_timestamp)
         stats_generated_total += 1
 
-        ## generate feeds:
+        return entry_list_by_newest_timestamp, stats_generated_total, stats_generated_temporal, \
+            stats_generated_persistent, stats_generated_tags
+
+    def _generate_feeds(self, entry_list_by_newest_timestamp):
+        """
+        Method that creates the feed files.
+        """
+
         feed_folder = os.path.join(self.targetdir, config.FEEDDIR)
         if not os.path.isdir(feed_folder):
             try:
                 self.logging.debug("creating path for feeds: \"%s\"" % feed_folder)
                 os.makedirs(feed_folder)
             except OSError:
-                ## thrown, if it exists (no problem) or can not be created -> check!
+                # thrown, if it exists (no problem) or can not be created -> check!
                 if os.path.isdir(feed_folder):
                     self.logging.debug("feed path [%s] already existed" % feed_folder)
                 else:
                     message = "feed path [" + feed_folder + "] could not be created. Please check and fix before next run."
                     self.logging.critical(message)
                     raise HtmlizerException(message)
+
         self.__generate_feeds_for_everything(entry_list_by_newest_timestamp)
 
         return stats_generated_total, stats_generated_temporal, stats_generated_persistent, stats_generated_tags
