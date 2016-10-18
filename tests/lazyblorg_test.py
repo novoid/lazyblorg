@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-18 16:58:46 vk>
+# Time-stamp: <2016-10-18 20:02:09 vk>
 
 import config
 import argparse  # command line arguments
@@ -217,12 +217,14 @@ class TestLazyblorg(unittest.TestCase):
 
         target_dir = "../testdata/"
         autotag_language = True
+        entries_timeline_by_published = {}
 
         ## extract HTML templates and store in class var
         template_definitions = mylazyblorg._generate_template_definitions_from_template_data()
 
         htmlizer = Htmlizer(template_definitions, testname, "blog", "about this blog",
-                            target_dir, blog_data, generate, increment_version, autotag_language)
+                            target_dir, blog_data, entries_timeline_by_published, generate,
+                            increment_version, autotag_language)
 
         htmlcontent = None
         for entry in blog_data:

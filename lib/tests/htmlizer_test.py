@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-18 17:12:15 vk>
+# Time-stamp: <2016-10-18 20:01:23 vk>
 
 import config
 import unittest
@@ -34,22 +34,24 @@ class TestHtmlizer(unittest.TestCase):
         generate = u'foo'
         increment_version = u'foo'
         autotag_language = False
+        entries_timeline_by_published = {}
 
         template_definitions = [
             ['html-block', u'paragraph', [u'<p>#PAR-CONTENT#</p>']],
             ['html-block', u'section-begin', [u'<header>#SECTION-TITLE#</header>']]
         ]
 
-        ## entry['content'][index][0] == 'hr': -> ohne template_definition
-        ##
-        ## entry['content'][index][0] == 'par': template_definition[9]
-        ## ['html-block', u'paragraph', [u'', u'<p>', u'', u'#PAR-CONTENT#', u'', u'</p>', u'']]
-        ##
-        ## entry['content'][index][0] == 'heading': template_definition[8]
-        ## ['html-block', u'section-begin', [u'', u'\t  <header><h#SECTION-LEVEL# class="section-title">#SECTION-TITLE#</h#SECTION-LEVEL#></header>', u'']]
+        # entry['content'][index][0] == 'hr': -> ohne template_definition
+        #
+        # entry['content'][index][0] == 'par': template_definition[9]
+        # ['html-block', u'paragraph', [u'', u'<p>', u'', u'#PAR-CONTENT#', u'', u'</p>', u'']]
+        #
+        # entry['content'][index][0] == 'heading': template_definition[8]
+        # ['html-block', u'section-begin', [u'', u'\t  <header><h#SECTION-LEVEL# class="section-title">#SECTION-TITLE#</h#SECTION-LEVEL#></header>', u'']]
 
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
-                            blog_data, generate, increment_version, autotag_language)
+                            blog_data, entries_timeline_by_published, generate, increment_version,
+                            autotag_language)
 
         entry = {'content': [
             ['par', u'First paragraph'],
@@ -98,6 +100,7 @@ class TestHtmlizer(unittest.TestCase):
         generate = u'foo'
         increment_version = u'foo'
         autotag_language = False
+        entries_timeline_by_published = {}
 
         template_definitions = [
             ['html-block', u'paragraph', [u'<p>#PAR-CONTENT#</p>']],
@@ -105,7 +108,8 @@ class TestHtmlizer(unittest.TestCase):
         ]
 
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
-                            blog_data, generate, increment_version, autotag_language)
+                            blog_data, entries_timeline_by_published, generate, increment_version,
+                            autotag_language)
 
         entry = {'content': [
             ['par', u'First paragraph'],
@@ -164,6 +168,7 @@ class TestHtmlizer(unittest.TestCase):
         generate = u'foo'
         increment_version = u'foo'
         autotag_language = False
+        entries_timeline_by_published = {}
 
         blog_data = [{'id': '2014-03-02-my-persistent',
                       'category': config.PERSISTENT,
@@ -192,7 +197,8 @@ class TestHtmlizer(unittest.TestCase):
         ]
 
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
-                            blog_data, generate, increment_version, autotag_language)
+                            blog_data, entries_timeline_by_published, generate, increment_version,
+                            autotag_language)
 
         entry = {'content': [
             ['par', u'First paragraph'],
@@ -262,9 +268,11 @@ class TestHtmlizer(unittest.TestCase):
         generate = u'foo'
         increment_version = u'foo'
         autotag_language = False
+        entries_timeline_by_published = {}
 
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
-                            blog_data, generate, increment_version, autotag_language)
+                            blog_data, entries_timeline_by_published, generate, increment_version,
+                            autotag_language)
 
         entry = {'finished-timestamp-history': [datetime.datetime(2011, 12, 29, 19, 40),
                                                 datetime.datetime(2008, 1, 29, 19, 40),
@@ -287,9 +295,7 @@ class TestHtmlizer(unittest.TestCase):
         generate = u'foo'
         increment_version = u'foo'
         autotag_language = False
-
-        tmphtmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
-                            blog_data, generate, increment_version, autotag_language)
+        entries_timeline_by_published = {}
 
         blog_data = [{'id': 'a_entry_from_2008',
                       'category': config.PERSISTENT,
@@ -308,7 +314,8 @@ class TestHtmlizer(unittest.TestCase):
                                                      datetime.datetime(2011, 11, 29, 19, 40)]}]
 
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
-                            blog_data, generate, increment_version, autotag_language)
+                            blog_data, entries_timeline_by_published, generate, increment_version,
+                            autotag_language)
 
         entrylist = htmlizer.generate_entry_list_by_newest_timestamp()
 
@@ -325,16 +332,18 @@ class TestHtmlizer(unittest.TestCase):
         generate = u'foo'
         increment_version = u'foo'
         autotag_language = False
+        entries_timeline_by_published = {}
 
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
-                            blog_data, generate, increment_version, autotag_language)
+                            blog_data, entries_timeline_by_published, generate, increment_version,
+                            autotag_language)
 
         self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"This is *bold face* and ~teletype style~.") ==
                         u"This is <b>bold face</b> and <code>teletype style</code>.")
 
-        ## real-world examples:
+        # real-world examples:
 
-        ## testing bold at begin and end of line:
+        # testing bold at begin and end of line:
         self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"Das ist *ohne Umlaut und so weiter*.") ==
                         u"Das ist <b>ohne Umlaut und so weiter</b>.")
         self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"Das ist *ohne Umlaut und Ende*") ==
@@ -342,7 +351,7 @@ class TestHtmlizer(unittest.TestCase):
         self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"*ohne Umlaut und Anfang und Ende*") ==
                         u"<b>ohne Umlaut und Anfang und Ende</b>")
 
-        ## testing bold at begin and end of line with german umlauts:
+        # testing bold at begin and end of line with german umlauts:
         self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"Das ist *mit Umlaut Öäß und so weiter*.") ==
                         u"Das ist <b>mit Umlaut Öäß und so weiter</b>.")
         self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"Das ist *mit Umlaut Öäß und Ende*") ==
@@ -350,7 +359,7 @@ class TestHtmlizer(unittest.TestCase):
         self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"*mit Umlaut Öäß und Anfang und Ende*") ==
                         u"<b>mit Umlaut Öäß und Anfang und Ende</b>")
 
-        ## testing teletype at begin and end of line with german umlauts:
+        # testing teletype at begin and end of line with german umlauts:
         self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"Das ist ~mit Umlaut Öäß und so weiter~.") ==
                         u"Das ist <code>mit Umlaut Öäß und so weiter</code>.")
         self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"Das ist ~mit Umlaut Öäß und Ende~") ==
@@ -367,9 +376,11 @@ class TestHtmlizer(unittest.TestCase):
         generate = 'foo'
         increment_version = 'foo'
         autotag_language = False
+        entries_timeline_by_published = {}
 
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
-                            blog_data, generate, increment_version, autotag_language)
+                            blog_data, entries_timeline_by_published, generate, increment_version,
+                            autotag_language)
 
         self.assertTrue(htmlizer.sanitize_html_characters(u"An & and <this> will be ampersand and <similar>.") ==
                         u"An &amp; and &lt;this&gt; will be ampersand and &lt;similar&gt;.")
@@ -383,9 +394,7 @@ class TestHtmlizer(unittest.TestCase):
         generate = u'foo'
         increment_version = u'foo'
         autotag_language = False
-
-        tmphtmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
-                            blog_data, generate, increment_version, autotag_language)
+        entries_timeline_by_published = {}
 
         blog_data = [{'id': '2014-03-02-my-persistent',
                       'category': config.PERSISTENT,
@@ -409,14 +418,15 @@ class TestHtmlizer(unittest.TestCase):
                                                      datetime.datetime(2011, 11, 29, 19, 40)]}]
 
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
-                            blog_data, generate, increment_version, autotag_language)
+                            blog_data, entries_timeline_by_published, generate, increment_version,
+                            autotag_language)
 
-        ## Org-mode links of style [[id:foo][bar]] or [[id:foo]]:
+        # Org-mode links of style [[id:foo][bar]] or [[id:foo]]:
 
-        ## negative case:
+        # negative case:
         self.assertTrue(htmlizer.sanitize_internal_links(config.TEMPORAL, u"no link here to find") == u"no link here to find")
 
-        ## simple links:
+        # simple links:
         self.assertTrue(htmlizer.sanitize_internal_links(config.TEMPORAL, u"[[id:2014-03-02-my-persistent]]") ==
                         u"<a href=\"../../../../my-persistent\">2014-03-02-my-persistent</a>")
         self.assertTrue(htmlizer.sanitize_internal_links(config.TEMPORAL, u"[[id:2014-03-02-my-temporal]]") ==
@@ -426,7 +436,7 @@ class TestHtmlizer(unittest.TestCase):
         self.assertTrue(htmlizer.sanitize_internal_links(config.TEMPORAL, u"[[id:my-tag]]", keep_orgmode_format=True) ==
                         u"[[../../../../tags/my-tag][my-tag]]")
 
-        ## links with description:
+        # links with description:
         self.assertTrue(htmlizer.sanitize_internal_links(config.TEMPORAL, u"[[id:2014-03-02-my-persistent][my description text]]") ==
                         u"<a href=\"../../../../my-persistent\">my description text</a>")
         self.assertTrue(htmlizer.sanitize_internal_links(config.TEMPORAL, u"[[id:2014-03-02-my-temporal][another description text]]") ==
@@ -511,11 +521,13 @@ class TestHtmlizer(unittest.TestCase):
         generate = 'foo'
         increment_version = 'foo'
         autotag_language = False
+        entries_timeline_by_published = {}
 
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
-                            blog_data, generate, increment_version, autotag_language)
+                            blog_data, entries_timeline_by_published, generate, increment_version,
+                            autotag_language)
 
-        ## Org-mode links of style [[foo][bar]]:
+        # Org-mode links of style [[foo][bar]]:
 
         self.assertTrue(htmlizer.sanitize_external_links("[[http://foo][bar]]") == "<a href=\"http://foo\">bar</a>")
 
@@ -534,7 +546,7 @@ class TestHtmlizer(unittest.TestCase):
                         "and a <a href=\"https://example.com/page" +
                         ".shtml$%^&*\">second</a> one as well.")
 
-        ## URL links of style http(s)://example.org
+        # URL links of style http(s)://example.org
 
         self.assertTrue(htmlizer.sanitize_external_links("foo http://example.org bar") ==
                         "foo <a href=\"http://example.org\">http://example.org</a> bar")
@@ -542,7 +554,7 @@ class TestHtmlizer(unittest.TestCase):
         self.assertTrue(htmlizer.sanitize_external_links("foo https://example.org bar") ==
                         "foo <a href=\"https://example.org\">https://example.org</a> bar")
 
-        ## combining both URL styles:
+        # combining both URL styles:
 
         orgstring = "The URL of http://example.org/index.html?id=435#target will be mixed with " + \
             "[[https://www.example.org/path/index.html?id=435#target][some fancy URL]] in different mode."
@@ -555,7 +567,7 @@ class TestHtmlizer(unittest.TestCase):
         htmlstring = "Multiple URLs in one line: <a href=\"http://heise.de\">http://heise.de</a> <a href=\"http://heise.de\">http://heise.de</a> <a href=\"http://heise.de\">heise</a>"
         self.assertTrue(htmlizer.sanitize_external_links(orgstring) == htmlstring)
 
-        ## edge cases
+        # edge cases
 
         orgstring = "URLs with special characters: [[https://de.wikipedia.org/wiki/Partition_%28Datentr%C3%A4ger%29]] [[https://de.wikipedia.org/wiki/Partition_%28Datentr%C3%A4ger%29][description]] foobar"
         htmlstring = "URLs with special characters: <a href=\"https://de.wikipedia.org/wiki/Partition_%28Datentr%C3%A4ger%29\">https://de.wikipedia.org/wiki/Partition_%28Datentr%C3%A4ger%29</a> <a href=\"https://de.wikipedia.org/wiki/Partition_%28Datentr%C3%A4ger%29\">description</a> foobar"
@@ -570,9 +582,11 @@ class TestHtmlizer(unittest.TestCase):
         generate = 'foo'
         increment_version = 'foo'
         autotag_language = False
+        entries_timeline_by_published = {}
 
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
-                            blog_data, generate, increment_version, autotag_language)
+                            blog_data, entries_timeline_by_published, generate, increment_version,
+                            autotag_language)
 
         self.assertTrue(htmlizer.fix_ampersands_in_url('href="http://www.example.com/index.html&amp;s=foo" bar') ==
                         'href="http://www.example.com/index.html&s=foo" bar')
@@ -580,7 +594,7 @@ class TestHtmlizer(unittest.TestCase):
         # does not work #self.assertTrue(htmlizer.fix_ampersands_in_url('href="http://www.exa&amp;mple.com/" + \
         # does not work #    "index.html&amp;s=fo&amp;o" bar') == \
         # does not work #                    'href="http://www.exa&mple.com/index.html&s=fo&o" bar')
-        ## ... does not work (yet). However, the use-case of several ampersands in one URL is very rare.
+        # ... does not work (yet). However, the use-case of several ampersands in one URL is very rare.
 
         mystring = "The URL of <a href=\"http://example.org/index.html&amp;id=435#target\">http://example.org/" + \
             "index.html?id=435#target</a> will be mixed with " + \

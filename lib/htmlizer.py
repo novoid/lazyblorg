@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-18 17:02:55 vk>
+# Time-stamp: <2016-10-18 18:02:25 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -68,20 +68,20 @@ class Htmlizer(object):
     ## find external links such as http(s)://foo.bar
     EXT_URL_LINK_REGEX = re.compile(u'([^"<>\[])(http(s)?:\/\/\S+)', flags=re.U)
 
-    ## find '&amp;' in an active URL and fix it to '&':
+    # find '&amp;' in an active URL and fix it to '&':
     FIX_AMPERSAND_URL_REGEX = re.compile(u'(href="http(s)?://\S+?)&amp;(\S+?")', flags=re.U)
 
-    ## find *bold text*:
+    # find *bold text*:
     BOLD_REGEX = re.compile(u'\*([^*]+)\*', flags=re.U)
 
-    ## find ~teletype or source text~:
+    # find ~teletype or source text~:
     TELETYPE_REGEX = re.compile(u'~([^~]+)~', flags=re.U)
 
-    ## any ISO date-stamp of format YYYY-MM-DD:
+    # any ISO date-stamp of format YYYY-MM-DD:
     DATESTAMP_REGEX = re.compile('([12]\d\d\d)-([012345]\d)-([012345]\d)', flags=re.U)
 
     def __init__(self, template_definitions, blogname, blog_tag, about_blog, targetdir, blog_data,
-                 generate, increment_version, autotag_language):
+                 entries_timeline_by_published, generate, increment_version, autotag_language):
         """
         This function initializes the class instance with the class variables.
 
@@ -91,12 +91,13 @@ class Htmlizer(object):
         @param about_blog: string containing a short description of the blog
         @param targetdir: string of the base directory of the blog
         @param blog_data: internal representation of the complete blog content
+        @param entries_timeline_by_published: dict(year) of list(month) of list(day) of lists(entries) of IDs
         @param generate: list of IDs which blog entries should be generated
         @param increment_version: list of IDs which blog entries gets an update
         @param autotag_language: true, if guessing of language + its auto-tag should be done
         """
 
-        ## initialize class variables
+        # initialize class variables
         self.template_definitions = template_definitions
         self.blogname = blogname
         self.blog_tag = blog_tag
@@ -106,8 +107,9 @@ class Htmlizer(object):
         self.generate = generate
         self.increment_version = increment_version
         self.autotag_language = autotag_language
+        self.entries_timeline_by_published = entries_timeline_by_published
 
-         ## create logger (see http://docs.python.org/2/howto/logging-cookbook.html)
+        # create logger (see http://docs.python.org/2/howto/logging-cookbook.html)
         self.logging = logging.getLogger('lazyblorg.htmlizer')
 
         # self.logging.debug("Htmlizer initiated with %s templ.def., %s blog_data, %s generate, %s increment" %
@@ -128,18 +130,18 @@ class Htmlizer(object):
 
         for entry in self.blog_data:
 
-            ## example entry:
-            ## {'level': 2,
-            ## 'timestamp': datetime(2013, 2, 14, 19, 2),
-            ## 'usertags': [u'mytest', u'programming'],
-            ## 'autotags': [u'german', u'short'],
-            ## 'lbtags': [u'blog'],
-            ## 'created': datetime(2013, 2, 12, 10, 58),
-            ## 'finished-timestamp-history': [datetime(2013, 2, 14, 19, 2)],
-            ## 'title': u'This is an example blog entry',
-            ## 'id': u'2013-02-12-lazyblorg-example-entry',
-            ## 'content': [['par', u'foo...'], [...]]
-            ##  }
+            # example entry:
+            # {'level': 2,
+            # 'timestamp': datetime(2013, 2, 14, 19, 2),
+            # 'usertags': [u'mytest', u'programming'],
+            # 'autotags': [u'german', u'short'],
+            # 'lbtags': [u'blog'],
+            # 'created': datetime(2013, 2, 12, 10, 58),
+            # 'finished-timestamp-history': [datetime(2013, 2, 14, 19, 2)],
+            # 'title': u'This is an example blog entry',
+            # 'id': u'2013-02-12-lazyblorg-example-entry',
+            # 'content': [['par', u'foo...'], [...]]
+            #  }
 
             entry = self.sanitize_and_htmlize_blog_content(entry)
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-18 17:15:28 vk>
+# Time-stamp: <2016-10-18 20:02:22 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -49,6 +49,7 @@ class Lazyblorg(object):
     metadata = []  # meta-data of the current run of lazyblorg
     previous_metadata = None  # meta-data of the previous run of lazyblorg
     template_definitions = None  # list of definitions of templates
+    entries_timeline_by_published = None  # dict(year) of list(month) of list(day) of lists(entries) of IDs
 
     def __init__(self, options, logging):
 
@@ -99,8 +100,7 @@ class Lazyblorg(object):
 
         ## generate persistent data which is used to compare this status
         ## with the status of the next invocation:
-        # FIXXME: entries_timeline_by_published added blindly; integrate accordingly!
-        self.metadata, entries_timeline_by_published = Utils.generate_metadata_from_blogdata(self.blog_data)
+        self.metadata, self.entries_timeline_by_published = Utils.generate_metadata_from_blogdata(self.blog_data)
 
         ## create path to new metadatafile if it does not exist:
         if not os.path.isdir(os.path.dirname(options.new_metadatafilename)):
@@ -109,13 +109,13 @@ class Lazyblorg(object):
 
         ## write this status to the persistent data file:
         with open(options.new_metadatafilename, 'wb') as output:
-            pickle.dump(self.metadata, output, config.PICKLE_FORMAT)
+            pickle.dump([self.metadata, self.entries_timeline_by_published], output, config.PICKLE_FORMAT)
 
         ## load old metadata from file
         if os.path.isfile(options.previous_metadatafilename):
             logging.debug("reading old \"" + options.previous_metadatafilename + "\" ...")
             with open(options.previous_metadatafilename, 'rb') as input:
-                self.previous_metadata = pickle.load(input)
+                [self.previous_metadata, self.entries_timeline_by_published] = pickle.load(input)
 
         ## extract HTML templates and store in class var
         self.template_definitions = self._generate_template_definitions_from_template_data()
@@ -153,7 +153,8 @@ class Lazyblorg(object):
         """
 
         htmlizer = Htmlizer(self.template_definitions, self.options.blogname, config.TAG_FOR_BLOG_ENTRY,
-                            self.options.aboutblog, self.options.targetdir, self.blog_data, generate,
+                            self.options.aboutblog, self.options.targetdir, self.blog_data,
+                            self.entries_timeline_by_published, generate,
                             increment_version, self.options.autotag_language)
 
         ## FIXXME: try except HtmlizerException?
