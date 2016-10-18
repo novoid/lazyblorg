@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-09-18 13:57:08 vk>
+# Time-stamp: <2016-10-17 15:42:50 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -470,6 +470,18 @@ SCHEDULED: <2015-10-24 Sat>
 - Rescheduled from "<2015-07-17 Fri>" on [2015-07-17 Fri 18:57]
 - Rescheduled from "<2015-06-28 Sun>" on [2015-07-11 Sat 11:51]
 :END:
+
+** NEXT DOI for blog entries?
+:PROPERTIES:
+:CREATED:  [2016-10-07 Fri 14:50]
+:END:
+
+- http://www.doi.org/faq.html
+  - «register via a DOI Registration Agency (RA)»
+  - annual fees: [[http://www.crossref.org/02publishers/20pub_fees.html][example by crossref]]
+    - no free service
+- [[https://thewinnower.com/posts/archiving-and-aggregating-alternative-scholarly-content-dois-for-blogs][Wordpress-plugin which provides DOIs]]
+
 ** STARTED [#A] branch: replace htmlizer with pypandoc                                :architecture:
 :PROPERTIES:
 :CREATED:  [2015-01-27 Tue 12:22]
@@ -809,6 +821,35 @@ like monthly overview but only for the day
 
 - [ ] htmlizer
 - [ ] update test_sanitize_internal_links() in htmlizer_test.py
+
+** NEXT redirection to other ID
+
+- why?
+  - to re-direct an old ID/entry when there is a new one
+  - to enable short jump-pages like id:aproject-about -> id:2016-10-04-foo-bar-project-about-page
+
+- idea
+  - entry with title «redirect: id:foo-bar» results in a simple (minimal) redirect page
+
+- [X] how to generate a simple redirect page?
+  - http://stackoverflow.com/questions/5411538/redirect-from-an-html-page
+  - http://karl-voit.at/test.html
+#+BEGIN_HTML
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="refresh" content="0; url=http://karl-voit.at/2016/10/02/Ehrenhausen-1/" />
+    <title>title</title>
+  </head>
+  <body>
+    <p><a href="http://karl-voit.at/2016/10/02/Ehrenhausen-1/">Redirect</a></p>
+  </body>
+</html>
+#+END_HTML
+
+- [ ] implement in lazyblorg
 
 ** NEXT fix links to tags in my current blog entries             :userstory:
 SCHEDULED: <2015-10-06 Tue>
