@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-18 18:23:46 vk>
+# Time-stamp: <2016-10-18 18:46:59 vk>
 
 import config
 from sys import stdout, exit
@@ -193,7 +193,7 @@ class Utils(object):
         return md5(str([title, content])).hexdigest()
 
     @staticmethod
-    def __add_entry_to_entries_timeline_by_published(entries_timeline_by_published, entry):
+    def _add_entry_to_entries_timeline_by_published(entries_timeline_by_published, entry):
         """
         Adds entry metadata to dict entries_timeline_by_published.
 
@@ -241,18 +241,19 @@ class Utils(object):
         if year not in entries_timeline_by_published.keys():
             # initialize a new year when its first entry is found:
             entries_timeline_by_published[year] = [
-                [[] for i in range(31)],  # January
-                [[] for i in range(29)],  # February
-                [[] for i in range(31)],  # March
-                [[] for i in range(30)],  # April
-                [[] for i in range(31)],  # May
-                [[] for i in range(30)],  # June
-                [[] for i in range(31)],  # July
-                [[] for i in range(31)],  # August
-                [[] for i in range(30)],  # September
-                [[] for i in range(31)],  # October
-                [[] for i in range(30)],  # November
-                [[] for i in range(31)]]  # December
+                [],  # ignore month 0
+                [[] for i in range(32)],  # January - with an additional day to ignore day 0 each month
+                [[] for i in range(30)],  # February
+                [[] for i in range(32)],  # March
+                [[] for i in range(31)],  # April
+                [[] for i in range(32)],  # May
+                [[] for i in range(31)],  # June
+                [[] for i in range(32)],  # July
+                [[] for i in range(32)],  # August
+                [[] for i in range(31)],  # September
+                [[] for i in range(32)],  # October
+                [[] for i in range(31)],  # November
+                [[] for i in range(32)]]  # December
 
         entries_timeline_by_published[year][month][day].append(entry['id'])
 
@@ -345,7 +346,7 @@ class Utils(object):
                                          'checksum': checksum,
                                          'category': entry['category']}
                 if config.TAG_FOR_HIDDEN not in entry['usertags']:
-                    entries_timeline_by_published = Utils.__add_entry_to_entries_timeline_by_published(entries_timeline_by_published, entry)
+                    entries_timeline_by_published = Utils._add_entry_to_entries_timeline_by_published(entries_timeline_by_published, entry)
                     logging.debug('added entry to entries_timeline_by_published')
                 else:
                     logging.debug('found hidden entry ' + entry['id'] + ', not adding to entries_timeline_by_published')

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-18 18:19:41 vk>
+# Time-stamp: <2016-10-18 18:54:56 vk>
 
 #import config  ## lazyblorg-global settings
 import unittest
@@ -197,12 +197,55 @@ class TestUtils(unittest.TestCase):
         assert(Utils.guess_language_from_stopword_percentages(EXAMPLE_TEXTS_GERMAN) == 'deutsch')
         assert(Utils.guess_language_from_stopword_percentages(EXAMPLE_TEXTS_ENGLISH + 2 * EXAMPLE_TEXTS_GERMAN) is False)
 
-    def test_get_year_of_first_and_last_entry(entries_timeline_by_published):
+    def test_entries_timeline_by_published_functions(entries_timeline_by_published):
+
+        # simple tests using only a faked dict of years:
 
         entries_timeline_by_published = {2014: [], 1975: [], 1983: [], 2099: [], 2042: []}
 
         assert(Utils.get_year_of_first_entry(entries_timeline_by_published) == 1975)
         assert(Utils.get_year_of_last_entry(entries_timeline_by_published) == 2099)
+
+
+        # tests using partly filled entries:
+
+        entry = {'finished-timestamp-history': [datetime.datetime(2011, 12, 29, 19, 40),
+                                                datetime.datetime(2008, 1, 29, 19, 40),
+                                                datetime.datetime(2013, 1, 29, 19, 40)],
+                 'category': 'TEMPORAL',
+                 'id': 'id:2008-01-29-foo'}
+
+        entries_timeline_by_published = Utils._add_entry_to_entries_timeline_by_published({}, entry)
+
+        entry = {'finished-timestamp-history': [datetime.datetime(1991, 12, 29, 19, 40),
+                                                datetime.datetime(1990, 12, 31, 23, 59),
+                                                datetime.datetime(1993, 1, 29, 19, 40)],
+                 'category': 'TEMPORAL',
+                 'id': 'id:1990-12-31-foo'}
+
+        entries_timeline_by_published = Utils._add_entry_to_entries_timeline_by_published(entries_timeline_by_published, entry)
+
+        entry = {'finished-timestamp-history': [datetime.datetime(1991, 12, 29, 19, 40),
+                                                datetime.datetime(1990, 12, 31, 23, 59),
+                                                datetime.datetime(1993, 1, 29, 19, 40)],
+                 'category': 'TEMPORAL',
+                 'id': 'id:1990-12-31-bar'}
+
+        entries_timeline_by_published = Utils._add_entry_to_entries_timeline_by_published(entries_timeline_by_published, entry)
+
+        assert(Utils.get_year_of_first_entry(entries_timeline_by_published) == 1990)
+        assert(Utils.get_year_of_last_entry(entries_timeline_by_published) == 2008)
+
+        print '\nBEGIN debug output of entries_timeline_by_published: ' + '=' * 20
+        for year in sorted(entries_timeline_by_published.keys()):
+            for month in enumerate(entries_timeline_by_published[year], start=0):
+                # month = tuple(index, list of days)
+                for day in enumerate(month[1], start=0):
+                    # day = tuple(index, list of IDs)
+                    for blogentry in day[1]:
+                        print str(year) + '-' + str(month[0]) + '-' + str(day[0]) + " has entry: " + str(blogentry)
+        print 'END debug output of entries_timeline_by_published: ' + '=' * 20
+
 
 # Local Variables:
 # mode: flyspell

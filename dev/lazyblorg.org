@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-10-18 16:18:35 vk>
+# Time-stamp: <2016-10-18 18:25:06 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -243,7 +243,7 @@ SCHEDULED: <2016-08-06 Sat>
 
 - id:implemented-org-elements
 
-** NEXT Parser: generate data structure and methods for time-sorted archive [0/8]
+** NEXT Parser: generate data structure and methods for time-sorted archive [2/8]
 :PROPERTIES:
 :CREATED:  [2016-02-07 Sun 09:04]
 :END:
@@ -325,14 +325,6 @@ SCHEDULED: <2016-08-06 Sat>
 - [[file:~/src/lazyblorg/lib/utils.py]] > generate_metadata_from_blogdata(blogdata)
 - see FIXXMEmd
 
-*** NEXT implement: add_entry_to_entries_timeline_by_published(entries_timeline_by_published, id)
-:PROPERTIES:
-:CREATED:  [2016-02-07 Sun 09:45]
-:END:
-:LOGBOOK:
-- Rescheduled from "[2016-02-07 Sun]" on [2016-07-23 Sat 12:19]
-:END:
-
 - [X] how to determine the number of days of a month?
   - calendar.monthrange(year, month) -> 0-6 mon-sun + 28-31
 
@@ -373,6 +365,33 @@ SCHEDULED: <2016-08-06 Sat>
 :END:
 
 - returns list of IDs
+
+*** NEXT implement: add_entry_to_entries_timeline_by_published(entries_timeline_by_published, id)
+:PROPERTIES:
+:CREATED:  [2016-10-18 Tue 18:26]
+:END:
+:LOGBOOK:
+- Not scheduled, was "[2016-08-06 Sat]" on [2016-10-18 Tue 18:26]
+:END:
+:PROPERTIES:
+- Rescheduled from "[2016-05-15 Sun]" on [2016-07-10 Sun 20:39]
+- Rescheduled from "[2016-05-04 Wed]" on [2016-05-09 Mon 23:34]
+- Rescheduled from "[2016-04-16 Sat]" on [2016-04-28 Thu 22:11]
+- Rescheduled from "[2016-04-10 Sun]" on [2016-04-10 Sun 20:49]
+- Rescheduled from "[2016-04-01 Fri]" on [2016-04-01 Fri 21:37]
+- Rescheduled from "[2016-03-25 Fri]" on [2016-03-25 Fri 15:17]
+- Rescheduled from "[2016-03-18 Fri]" on [2016-03-20 Sun 09:04]
+- Rescheduled from "[2016-03-11 Fri]" on [2016-03-13 Sun 15:02]
+- Rescheduled from "[2016-02-27 Sat]" on [2016-02-28 Sun 16:51]
+- Rescheduled from "[2016-02-13 Sat]" on [2016-02-13 Sat 18:18]
+- Rescheduled from "[2016-02-07 Sun]" on [2016-02-07 Sun 19:49]
+:END:
+
+- [[file:~/src/lazyblorg/lib/utils.py]] > generate_metadata_from_blogdata(blogdata)
+- see FIXXMEmd
+
+- [X] how to determine the number of days of a month?
+  - calendar.monthrange(year, month) -> 0-6 mon-sun + 28-31
 
 ** DONE analyze and steal CSS for columns from [[http://endlessparentheses.com/how-i-blog-one-year-of-posts-in-a-single-org-file.html][URL]]                                    :architecture:
 CLOSED: [2015-06-27 Sat 19:06] SCHEDULED: <2015-06-27 Sat>
@@ -2387,18 +2406,19 @@ The dict format is:
 - MONTH: list of 28-31 DAY
 - DAY: list of 0 to many entry-IDs
 
-: for year in sorted(entries_timeline_by_published.keys()):
-:     print year  ## 2008 = year
-:     for month in enumerate(entries_timeline_by_published[year], start=1):
-:         ## month = tuple(index, list of days)
-:         print month[0]  ## 1 = Jan
-:         for day in enumerate(month[1], start=1):
-:             ## day = tuple(index, list of IDs)
-:             print day[0]  ## 1 = Jan 1st
-:             for blogentry in day[1]:
-:                 print blogentry  ## id:2008-01-01-happy-new-year-entry, ...
+#+BEGIN_SRC python
+for year in sorted(entries_timeline_by_published.keys()):
+    for month in enumerate(entries_timeline_by_published[year], start=0):
+        # month = tuple(index, list of days)
+        for day in enumerate(month[1], start=0):
+            # day = tuple(index, list of IDs)
+            for blogentry in day[1]:
+                print str(year) + '-' + str(month[0]) + '-' + str(day[0]) + " has entry: " + str(blogentry)
+#+END_SRC
 
 see Utils.__add_entry_to_entries_timeline_by_published() how it is populated
+
+see utils_test.py > test_entries_timeline_by_published_functions() how it's tested
 
 ** Development Schedule
 :PROPERTIES:
