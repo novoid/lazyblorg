@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-10-18 18:55:31 vk>
+# Time-stamp: <2016-10-18 19:48:35 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -231,8 +231,16 @@ CLOSED: [2014-03-01 Sat 20:10]
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
 
+** NEXT implement: creating TAG pages                             :userstory:
+:PROPERTIES:
+:CREATED:  [2013-10-19 Sat 18:50]
+:ID: 2013-10-19-lb-tag-pages
+:END:
 
-** NEXT [#A] document: what elements are rendered/converted via pypandoc?
+- [ ] htmlizer
+- [ ] update test_sanitize_internal_links() in htmlizer_test.py
+
+** NEXT document: what elements are rendered/converted via pypandoc?
 SCHEDULED: <2016-08-06 Sat>
 :PROPERTIES:
 :CREATED:  [2015-06-23 Tue 12:13]
@@ -243,7 +251,7 @@ SCHEDULED: <2016-08-06 Sat>
 
 - id:implemented-org-elements
 
-** NEXT Parser: generate data structure and methods for time-sorted archive [2/8]
+** NEXT Parser: generate data structure and methods for time-sorted archive [6/6]
 :PROPERTIES:
 :CREATED:  [2016-02-07 Sun 09:04]
 :END:
