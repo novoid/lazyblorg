@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-18 18:46:59 vk>
+# Time-stamp: <2016-10-18 19:44:10 vk>
 
 import config
 from sys import stdout, exit
@@ -290,6 +290,36 @@ class Utils(object):
             return sorted(entries_timeline_by_published.keys())[-1]
         else:
             return None
+
+    @staticmethod
+    def get_entries_of_published_date(entries_timeline_by_published, year=False, month=False, day=False):
+        """
+        Returns a list of non-hidden entries that were published. Optionally filtered by year, month, day.
+
+        @param entries_timeline_by_published: dict as described in documentation
+        @param return: list of ids
+        """
+
+        assert type(entries_timeline_by_published) == dict
+
+        if not entries_timeline_by_published:
+            return []
+        else:
+            if day:
+                assert(month)
+                assert(year)
+                return sorted(entries_timeline_by_published[year][month][day])
+            elif month:
+                assert(year)
+                return sorted([item for monthlist in entries_timeline_by_published[year][month] for item in monthlist])
+            elif year:
+                return sorted([item for yearlist in [item for monthlist in entries_timeline_by_published[year] for item in monthlist] for item in yearlist])
+            else:
+                # this is really getting nasty here. Could not make it work using another layer of [item for...]
+                all_entries = []
+                for year in entries_timeline_by_published.keys():
+                    all_entries.extend(Utils.get_entries_of_published_date(entries_timeline_by_published, year))
+                return sorted(all_entries)
 
     @staticmethod
     def generate_metadata_from_blogdata(blogdata):

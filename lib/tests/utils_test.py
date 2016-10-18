@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-18 18:54:56 vk>
+# Time-stamp: <2016-10-18 19:46:35 vk>
 
 #import config  ## lazyblorg-global settings
 import unittest
@@ -209,21 +209,13 @@ class TestUtils(unittest.TestCase):
 
         # tests using partly filled entries:
 
-        entry = {'finished-timestamp-history': [datetime.datetime(2011, 12, 29, 19, 40),
-                                                datetime.datetime(2008, 1, 29, 19, 40),
-                                                datetime.datetime(2013, 1, 29, 19, 40)],
-                 'category': 'TEMPORAL',
-                 'id': 'id:2008-01-29-foo'}
-
-        entries_timeline_by_published = Utils._add_entry_to_entries_timeline_by_published({}, entry)
-
         entry = {'finished-timestamp-history': [datetime.datetime(1991, 12, 29, 19, 40),
                                                 datetime.datetime(1990, 12, 31, 23, 59),
                                                 datetime.datetime(1993, 1, 29, 19, 40)],
                  'category': 'TEMPORAL',
                  'id': 'id:1990-12-31-foo'}
 
-        entries_timeline_by_published = Utils._add_entry_to_entries_timeline_by_published(entries_timeline_by_published, entry)
+        entries_timeline_by_published = Utils._add_entry_to_entries_timeline_by_published({}, entry)
 
         entry = {'finished-timestamp-history': [datetime.datetime(1991, 12, 29, 19, 40),
                                                 datetime.datetime(1990, 12, 31, 23, 59),
@@ -233,8 +225,59 @@ class TestUtils(unittest.TestCase):
 
         entries_timeline_by_published = Utils._add_entry_to_entries_timeline_by_published(entries_timeline_by_published, entry)
 
+        entry = {'finished-timestamp-history': [datetime.datetime(2011, 12, 29, 19, 40),
+                                                datetime.datetime(2008, 1, 20, 19, 40),
+                                                datetime.datetime(2013, 1, 29, 19, 40)],
+                 'category': 'TEMPORAL',
+                 'id': 'id:2008-01-20-foo'}
+
+        entries_timeline_by_published = Utils._add_entry_to_entries_timeline_by_published(entries_timeline_by_published, entry)
+
+        entry = {'finished-timestamp-history': [datetime.datetime(2011, 12, 29, 19, 40),
+                                                datetime.datetime(2008, 5, 17, 19, 40),
+                                                datetime.datetime(2013, 1, 29, 19, 40)],
+                 'category': 'TEMPORAL',
+                 'id': 'id:2008-05-17-foo'}
+
+        entries_timeline_by_published = Utils._add_entry_to_entries_timeline_by_published(entries_timeline_by_published, entry)
+
+        entry = {'finished-timestamp-history': [datetime.datetime(2011, 12, 29, 19, 40),
+                                                datetime.datetime(2008, 1, 29, 19, 40),
+                                                datetime.datetime(2013, 1, 29, 19, 40)],
+                 'category': 'TEMPORAL',
+                 'id': 'id:2008-01-29-foo'}
+
+        entries_timeline_by_published = Utils._add_entry_to_entries_timeline_by_published(entries_timeline_by_published, entry)
+
         assert(Utils.get_year_of_first_entry(entries_timeline_by_published) == 1990)
         assert(Utils.get_year_of_last_entry(entries_timeline_by_published) == 2008)
+
+        assert(Utils.get_entries_of_published_date(entries_timeline_by_published, year=2008, month=01, day=29) == ['id:2008-01-29-foo'])
+
+        assert(Utils.get_entries_of_published_date(entries_timeline_by_published,
+                                                   year=1990,
+                                                   month=12,
+                                                   day=31) == ['id:1990-12-31-bar', 'id:1990-12-31-foo'])
+
+        assert(Utils.get_entries_of_published_date(entries_timeline_by_published,
+                                                   year=2008,
+                                                   month=01,
+                                                   day=29) == ['id:2008-01-29-foo'])
+
+        assert(Utils.get_entries_of_published_date(entries_timeline_by_published,
+                                                   year=2008,
+                                                   month=01) == ['id:2008-01-20-foo', 'id:2008-01-29-foo'])
+
+        assert(Utils.get_entries_of_published_date(entries_timeline_by_published,
+                                                   year=2008) == ['id:2008-01-20-foo',
+                                                                  'id:2008-01-29-foo',
+                                                                  'id:2008-05-17-foo'])
+
+        assert(Utils.get_entries_of_published_date(entries_timeline_by_published) == ['id:1990-12-31-bar',
+                                                                                      'id:1990-12-31-foo',
+                                                                                      'id:2008-01-20-foo',
+                                                                                      'id:2008-01-29-foo',
+                                                                                      'id:2008-05-17-foo'])
 
         print '\nBEGIN debug output of entries_timeline_by_published: ' + '=' * 20
         for year in sorted(entries_timeline_by_published.keys()):

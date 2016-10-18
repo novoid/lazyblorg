@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-10-18 18:25:06 vk>
+# Time-stamp: <2016-10-18 18:55:31 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -306,36 +306,13 @@ CLOSED: [2016-10-18 Tue 18:24] SCHEDULED: <2016-08-06 Sat>
 - Rescheduled from "[2016-02-07 Sun]" on [2016-07-23 Sat 12:19]
 :END:
 
-*** NEXT implement: add_entry_to_entries_timeline_by_published(entries_timeline_by_published, id)
-SCHEDULED: <2016-08-06 Sat>
-:PROPERTIES:
-- Rescheduled from "[2016-05-15 Sun]" on [2016-07-10 Sun 20:39]
-- Rescheduled from "[2016-05-04 Wed]" on [2016-05-09 Mon 23:34]
-- Rescheduled from "[2016-04-16 Sat]" on [2016-04-28 Thu 22:11]
-- Rescheduled from "[2016-04-10 Sun]" on [2016-04-10 Sun 20:49]
-- Rescheduled from "[2016-04-01 Fri]" on [2016-04-01 Fri 21:37]
-- Rescheduled from "[2016-03-25 Fri]" on [2016-03-25 Fri 15:17]
-- Rescheduled from "[2016-03-18 Fri]" on [2016-03-20 Sun 09:04]
-- Rescheduled from "[2016-03-11 Fri]" on [2016-03-13 Sun 15:02]
-- Rescheduled from "[2016-02-27 Sat]" on [2016-02-28 Sun 16:51]
-- Rescheduled from "[2016-02-13 Sat]" on [2016-02-13 Sat 18:18]
-- Rescheduled from "[2016-02-07 Sun]" on [2016-02-07 Sun 19:49]
-:END:
-
-- [[file:~/src/lazyblorg/lib/utils.py]] > generate_metadata_from_blogdata(blogdata)
-- see FIXXMEmd
-
-- [X] how to determine the number of days of a month?
-  - calendar.monthrange(year, month) -> 0-6 mon-sun + 28-31
-
-*** NEXT implement: get_year_of_first_entry(entries_timeline_by_published) + get_year_of_last_entry(entries_timeline_by_published)
-:PROPERTIES:
-:CREATED:  [2016-02-07 Sun 10:06]
-:END:
-
-*** NEXT implement: get_number_of_entries(entries_timeline_by_published, OPTIONAL: year=False, month=False, day=False)
+*** DONE implement: get_number_of_entries(entries_timeline_by_published, OPTIONAL: year=False, month=False, day=False)
+CLOSED: [2016-10-18 Tue 19:48]
 :PROPERTIES:
 :CREATED:  [2016-02-07 Sun 10:02]
+:END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2016-10-18 Tue 19:48]
 :END:
 
 : get_number_of_entries(entries_timeline_by_published, )             ## 314
@@ -344,33 +321,52 @@ SCHEDULED: <2016-08-06 Sat>
 : get_number_of_entries(entries_timeline_by_published, 2008, 8)      ## 7
 : get_number_of_entries(entries_timeline_by_published, 2008, 8, 13)  ## 1
 
-*** NEXT implement: get_entries_of_month(entries_timeline_by_published, year, month)
-SCHEDULED: <2016-08-06 Sat>
+I changed my mind and wrote Utils.get_entries_of_published_date()
+which is able to return the *list* of blog entries.
+
+If you want the *number*, do a len() yourself ;-)
+
+*** DONE implement: get_entries_of_month(entries_timeline_by_published, year, month)
+CLOSED: [2016-10-18 Tue 19:48] SCHEDULED: <2016-08-06 Sat>
 :PROPERTIES:
 :CREATED:  [2016-02-07 Sun 10:16]
 :END:
 :LOGBOOK:
+- State "DONE"       from "NEXT"       [2016-10-18 Tue 19:48]
 - Rescheduled from "[2016-02-07 Sun]" on [2016-07-23 Sat 12:19]
 :END:
 
 - returns list of days containing list of IDs
 
-*** NEXT implement: get_entries_of_day(entries_timeline_by_published, year, month, day)
-SCHEDULED: <2016-08-06 Sat>
+I changed my mind and wrote Utils.get_entries_of_published_date()
+which is able to return the *list* of blog entries.
+
+If you want the *number*, do a len() yourself ;-)
+
+*** DONE implement: get_entries_of_day(entries_timeline_by_published, year, month, day)
+CLOSED: [2016-10-18 Tue 19:48] SCHEDULED: <2016-08-06 Sat>
 :PROPERTIES:
 :CREATED:  [2016-02-07 Sun 10:16]
 :END:
 :LOGBOOK:
+- State "DONE"       from "NEXT"       [2016-10-18 Tue 19:48]
 - Rescheduled from "[2016-02-07 Sun]" on [2016-07-23 Sat 12:19]
 :END:
 
 - returns list of IDs
 
-*** NEXT implement: add_entry_to_entries_timeline_by_published(entries_timeline_by_published, id)
+I changed my mind and wrote Utils.get_entries_of_published_date()
+which is able to return the *list* of blog entries.
+
+If you want the *number*, do a len() yourself ;-)
+
+*** DONE implement: add_entry_to_entries_timeline_by_published(entries_timeline_by_published, id)
+CLOSED: [2016-10-18 Tue 19:48]
 :PROPERTIES:
 :CREATED:  [2016-10-18 Tue 18:26]
 :END:
 :LOGBOOK:
+- State "DONE"       from "NEXT"       [2016-10-18 Tue 19:48]
 - Not scheduled, was "[2016-08-06 Sat]" on [2016-10-18 Tue 18:26]
 :END:
 :PROPERTIES:
