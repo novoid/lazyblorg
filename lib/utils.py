@@ -79,6 +79,7 @@ class Utils(object):
                               u'wollte', u'würde', u'wüden', u'zu', u'zum', u'zur',
                               u'zwar', u'zwischen'])]
 
+
     def __init__(self):
 
         pass
@@ -155,7 +156,7 @@ class Utils(object):
         ## logger.error("error message")
         ## logger.critical("critical message")
 
-        logger.debug("logging initialized")
+        # logger.debug("logging initialized")
 
         return logger
 

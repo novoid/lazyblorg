@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-12-04 13:50:36 vk>
+# Time-stamp: <2016-10-18 17:02:55 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -110,9 +110,9 @@ class Htmlizer(object):
          ## create logger (see http://docs.python.org/2/howto/logging-cookbook.html)
         self.logging = logging.getLogger('lazyblorg.htmlizer')
 
-        self.logging.debug("Htmlizer initiated with %s templ.def., %s blog_data, %s generate, %s increment" %
-                           (str(len(template_definitions)), str(len(blog_data)), str(len(generate)),
-                            str(len(increment_version))))
+        # self.logging.debug("Htmlizer initiated with %s templ.def., %s blog_data, %s generate, %s increment" %
+        #                    (str(len(template_definitions)), str(len(blog_data)), str(len(generate)),
+        #                     str(len(increment_version))))
 
     def run(self):
         """
