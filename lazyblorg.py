@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-15 15:32:01 vk>
+# Time-stamp: <2016-10-18 17:15:28 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -99,7 +99,8 @@ class Lazyblorg(object):
 
         ## generate persistent data which is used to compare this status
         ## with the status of the next invocation:
-        self.metadata = Utils.generate_metadata_from_blogdata(self.blog_data)
+        # FIXXME: entries_timeline_by_published added blindly; integrate accordingly!
+        self.metadata, entries_timeline_by_published = Utils.generate_metadata_from_blogdata(self.blog_data)
 
         ## create path to new metadatafile if it does not exist:
         if not os.path.isdir(os.path.dirname(options.new_metadatafilename)):
@@ -292,9 +293,12 @@ class Lazyblorg(object):
         for entry in metadata:  # ignore blog entries that have been gone since last run
 
             ## debug output current entry and its meta-data:
-            self.logging.debug(" processing entry [" + str(repr(entry)) +
-                               "]   <--------------\nwith [checksum, created, timestamp]:\n  md " +
-                               str([x[1] for x in sorted(metadata[entry].items(), key=lambda t: t[0])]))
+            # FIXXME: had to disable the following lines because of:
+            #   str([x[1] for x in sorted(entry.items(), key=lambda t: t[0])]))
+            #     AttributeError: 'unicode' object has no attribute 'items'
+            #self.logging.debug(" processing entry [" + str(repr(entry)) +
+            #                   "]   <--------------\nwith [checksum, created, timestamp]:\n  md " +
+            #                   str([x[1] for x in sorted(entry.items(), key=lambda t: t[0])]))
             if previous_metadata is not None:
                 if entry in previous_metadata.keys():
                     self.logging.debug("\nprev " +

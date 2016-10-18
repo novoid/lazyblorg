@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-18 17:13:27 vk>
+# Time-stamp: <2016-10-18 18:09:48 vk>
 
 import config
 from sys import stdout, exit
@@ -193,6 +193,73 @@ class Utils(object):
         return md5(str([title, content])).hexdigest()
 
     @staticmethod
+    def __add_entry_to_entries_timeline_by_published(entries_timeline_by_published, entry):
+        """
+        Adds entry metadata to dict entries_timeline_by_published.
+
+        The dict format is:
+        - dict with year (int) as key, value = list of 12 MONTH
+        - MONTH: list of 28-31 DAY
+        - DAY: list of 0 to many entry-IDs
+
+        : for year in sorted(entries_timeline_by_published.keys()):
+        :     print year  ## 2008 = year
+        :     for month in enumerate(entries_timeline_by_published[year], start=1):
+        :         ## month = tuple(index, list of days)
+        :         print month[0]  ## 1 = Jan
+        :         for day in enumerate(month[1], start=1):
+        :             ## day = tuple(index, list of IDs)
+        :             print day[0]  ## 1 = Jan 1st
+        :             for blogentry in day[1]:
+        :                 print blogentry  ## id:2008-01-01-happy-new-year-entry, ...
+
+        @param entries_timeline_by_published: dict as described above, status before adding new entry
+        @param entry: data of a blog entry
+        @param return dict as described above, status after adding new entry
+        """
+
+        # entry example:
+        # {'category': 'TEMPORAL',
+        #  'level': 2,
+        #  'timestamp': datetime.datetime(2013, 8, 24, 22, 49),
+        #  'usertags': [],
+        #  'title': u'Case5: not changed since 1st generation',
+        #  'lbtags': [u'blog'],
+        #  'content': [['par', u'known and matching previous run: ID, CREATED, checksum; differs: timestamp -> generate']],
+        #  'created': datetime.datetime(2013, 8, 24, 22, 42),
+        #  'rawcontent': u'CLOSED: [2013-08-24 Sat 22:49]\n:LOGBOOK:\n- State "DONE"       from ""           [2013-08-24 Sat 22:49]\n:END:\n:PROPERTY [...]\n\n',
+        #  'finished-timestamp-history': [datetime.datetime(2013, 8, 24, 22, 49)],
+        #  'id': u'case5'}
+
+        # get oldest time-stamp out of finished_timestamp_history
+        published = Utils.get_oldest_timestamp_for_entry(entry)
+        # extract year, month, day
+        year = published[0].year
+        month = published[0].month
+        day = published[0].day
+
+        if year not in entries_timeline_by_published.keys():
+            # initialize a new year when its first entry is found:
+            entries_timeline_by_published[year] = [
+                [[] for i in range(31)],  # January
+                [[] for i in range(29)],  # February
+                [[] for i in range(31)],  # March
+                [[] for i in range(30)],  # April
+                [[] for i in range(31)],  # May
+                [[] for i in range(30)],  # June
+                [[] for i in range(31)],  # July
+                [[] for i in range(31)],  # August
+                [[] for i in range(30)],  # September
+                [[] for i in range(31)],  # October
+                [[] for i in range(30)],  # November
+                [[] for i in range(31)]]  # December
+
+        entries_timeline_by_published[year][month][day].append(entry['id'])
+
+        return entries_timeline_by_published
+
+
+    @staticmethod
     def generate_metadata_from_blogdata(blogdata):
         """
         Parses blogdata list and extracts ID, CREATED time-stamp, most
@@ -205,14 +272,31 @@ class Utils(object):
         <ID>: {created: <timestamp>, timestamp: <timestamp>, checksum:
         <checksum>}, ...}
 
-        @param metadata: metadata content so far
         @param blogdata: content of the blog data
-        @param @category: string which determines the entry type (TAGS, PERSISTENT, ...)
-        """
+        @param return metadata: metadata content so far
+        @param entries_timeline_by_published: dict of years with list of lists for each day with IDs to entries        """
 
+        # metadata example:
+        # {u'case5': {'category': 'TEMPORAL', 'timestamp': datetime.datetime(2013, 8, 24, 22, 49), 'checksum': '511251b0827', 'created': datetime.datetime(2013, 8, 24, 22, 42)},
+        #  u'case4': {'category': 'TEMPORAL', 'timestamp': datetime.datetime(2013, 8, 24, 22, 49), 'checksum': '0b178606638', 'created': datetime.datetime(2013, 8, 24, 22, 42)}}
         metadata = {}
 
         for entry in blogdata:
+
+            # entry example:
+            #{'category': 'TEMPORAL',
+            # 'level': 2,
+            # 'timestamp': datetime.datetime(2013, 8, 24, 22, 49),
+            # 'usertags': [],
+            # 'title': u'Case5: not changed since 1st generation',
+            # 'lbtags': [u'blog'],
+            # 'content': [['par', u'known and matching previous run: ID, CREATED, checksum; differs: timestamp -> generate']],
+            # 'created': datetime.datetime(2013, 8, 24, 22, 42),
+            # 'rawcontent': u'CLOSED: [2013-08-24 Sat 22:49]\n:LOGBOOK:\n- State "DONE"       from ""           [2013-08-24 Sat 22:49]\n:END:\n:PROPERTY [...]\n\n',
+            # 'finished-timestamp-history': [datetime.datetime(2013, 8, 24, 22, 49)],
+            # 'id': u'case5'}
+
+            entries_timeline_by_published = {}
 
             checksum = Utils.__generate_checksum_for_blog_entry(entry['title'],
                                                                 entry['content'])
@@ -220,7 +304,7 @@ class Utils(object):
             if entry['id'] in metadata.keys():
                 logging.error("We got a duplicate ID in blogdata: \"" +
                               str(entry['id']) + "\". Please correct it and re-run this tool.")
-                ##   [x['id'] for x in blogdata]
+                #   [x['id'] for x in blogdata]
                 Utils.error_exit(30)
             else:
                 assert('created' in entry.keys())
@@ -229,8 +313,13 @@ class Utils(object):
                                          'timestamp': entry['timestamp'],
                                          'checksum': checksum,
                                          'category': entry['category']}
+                if config.TAG_FOR_HIDDEN not in entry['usertags']:
+                    entries_timeline_by_published = Utils.__add_entry_to_entries_timeline_by_published(entries_timeline_by_published, entry)
+                    logging.debug('added entry to entries_timeline_by_published')
+                else:
+                    logging.debug('found hidden entry ' + entry['id'] + ', not adding to entries_timeline_by_published')
 
-        return metadata
+        return metadata, entries_timeline_by_published
 
     @staticmethod
     def OLDgenerate_metadata_from_blogdata(blogdata):
@@ -247,7 +336,7 @@ class Utils(object):
         <checksum>}, ...}
         """
 
-        metadata = {} # FIXXME: ??? separate metadata according to TEMPORAL, ...
+        metadata = {}  # FIXXME: ??? separate metadata according to TEMPORAL, ...
 
         for entry in blogdata[config.TEMPORAL]:
             metadata.update(Utils.__generate_metadata_from_blogdata_core(metadata, entry, config.TEMPORAL))
