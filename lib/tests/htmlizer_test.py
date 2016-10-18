@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-15 15:25:20 vk>
+# Time-stamp: <2016-10-18 17:12:15 vk>
 
 import config
 import unittest
@@ -271,10 +271,10 @@ class TestHtmlizer(unittest.TestCase):
                                                 datetime.datetime(2013, 1, 29, 19, 40)],
                  'category': 'TEMPORAL'}
 
-        self.assertTrue(htmlizer._get_newest_timestamp_for_entry(entry) == (datetime.datetime(2013, 1, 29, 19, 40),
+        self.assertTrue(Utils.get_newest_timestamp_for_entry(entry) == (datetime.datetime(2013, 1, 29, 19, 40),
                                                                             "2013", "01", "29",
                                                                             "19", "40"))
-        self.assertTrue(htmlizer._get_oldest_timestamp_for_entry(entry) == (datetime.datetime(2008, 1, 29, 19, 40),
+        self.assertTrue(Utils.get_oldest_timestamp_for_entry(entry) == (datetime.datetime(2008, 1, 29, 19, 40),
                                                                             "2008", "01", "29",
                                                                             "19", "40"))
 

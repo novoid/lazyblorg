@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-23 20:53:52 vk>
+# Time-stamp: <2015-12-04 13:50:36 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -279,8 +279,8 @@ class Htmlizer(object):
             feedentry = u"""<entry>
     <title type="text">""" + blog_data_entry['title'] + """</title>
     <link href='""" + config.BASE_URL + "/" + listentry['url'] + """' />
-    <published>""" + self._get_oldest_timestamp_for_entry(blog_data_entry)[0].strftime('%Y-%m-%dT%H:%M:%S' + config.TIME_ZONE_ADDON) + """</published>
-    <updated>""" + self._get_newest_timestamp_for_entry(blog_data_entry)[0].strftime('%Y-%m-%dT%H:%M:%S' + config.TIME_ZONE_ADDON) + "</updated>\n"
+    <published>""" + Utils.get_oldest_timestamp_for_entry(blog_data_entry)[0].strftime('%Y-%m-%dT%H:%M:%S' + config.TIME_ZONE_ADDON) + """</published>
+    <updated>""" + Utils.get_newest_timestamp_for_entry(blog_data_entry)[0].strftime('%Y-%m-%dT%H:%M:%S' + config.TIME_ZONE_ADDON) + "</updated>\n"
 
             ## adding all tags:
             for tag in blog_data_entry['usertags']:
@@ -339,10 +339,10 @@ class Htmlizer(object):
 
         for entry in self.blog_data:
             entrylist.append({
-                'id':entry['id'],
-                'timestamp':self._get_newest_timestamp_for_entry(entry)[0],
-                'url':self._target_path_for_id_without_targetdir(entry['id']),
-                'category':entry['category']
+                'id': entry['id'],
+                'timestamp': Utils.get_newest_timestamp_for_entry(entry)[0],
+                'url': self._target_path_for_id_without_targetdir(entry['id']),
+                'category': entry['category']
             })
 
         return sorted(entrylist, key=lambda entry: entry['timestamp'], reverse=True)
@@ -1074,7 +1074,7 @@ class Htmlizer(object):
         content = content.replace('#ABOUT-BLOG#', self.sanitize_external_links(self.sanitize_html_characters(self.about_blog)))
         content = content.replace('#BLOGNAME#', self.sanitize_external_links(self.sanitize_html_characters(self.blogname)))
 
-        oldesttimestamp, year, month, day, hours, minutes = self._get_oldest_timestamp_for_entry(entry)
+        oldesttimestamp, year, month, day, hours, minutes = Utils.get_oldest_timestamp_for_entry(entry)
         iso_timestamp = '-'.join([year, month, day]) + 'T' + hours + ':' + minutes
 
         content = content.replace('#ARTICLE-ID#', entry['id'])
@@ -1139,7 +1139,7 @@ class Htmlizer(object):
         if entry['category'] == config.TEMPORAL:
             ## TEMPORAL: url is like "/2014/03/30/my-id/"
 
-            oldesttimestamp, year, month, day, hours, minutes = self._get_oldest_timestamp_for_entry(entry)
+            oldesttimestamp, year, month, day, hours, minutes = Utils.get_oldest_timestamp_for_entry(entry)
             return os.path.join(year, month, day, folder)
 
     def _get_newest_timestamp_for_entry(self, entry):

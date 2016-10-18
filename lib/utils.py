@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-12-04 13:49:00 vk>
+# Time-stamp: <2016-10-18 17:13:27 vk>
 
 import config
 from sys import stdout, exit
@@ -8,6 +8,7 @@ from hashlib import md5  # generating checksums
 from time import localtime  # for generating Org-mode timestamps
 from orgformat import *
 from operator import itemgetter  # for sorted()
+import datetime
 
 
 class Utils(object):
@@ -497,6 +498,95 @@ class Utils(object):
             return True
         else:
             logger.error("Internal error: The two lists are not equal but I can't find the difference.")
+
+    @staticmethod
+    def get_newest_timestamp_for_entry(entry):
+        """
+        Reads data of entry and returns datetime object of the newest
+        time-stamp of the finished-timestamp-history.
+
+        Example result: datetime(2013, 8, 29, 19, 40)
+
+        Implicit assumptions:
+        - newest: no blog article is from before 1970-01-01
+
+        @param entry: data of a blog entry
+        @param return: datetime object of its oldest time-stamp within finished-timestamp-history
+        @param return: year: four digit year as string
+        @param return: month: two digit month as string
+        @param return: day: two digit day as string
+        @param return: hours: two digit hours as string
+        @param return: minutes: two digit minutes as string
+        """
+
+        return Utils.get_oldest_or_newest_timestamp_for_entry(entry, "NEWEST")
+
+    @staticmethod
+    def get_oldest_timestamp_for_entry(entry):
+        """
+        Reads data of entry and returns datetime object of the oldest
+        time-stamp of the finished-timestamp-history.
+
+        Example result: datetime(2013, 8, 29, 19, 40)
+
+        Implicit assumptions:
+        - no blog article is from the future (comparison to now)
+
+        @param entry: data of a blog entry
+        @param return: datetime object of its oldest time-stamp within finished-timestamp-history
+        @param return: year: four digit year as string
+        @param return: month: two digit month as string
+        @param return: day: two digit day as string
+        @param return: hours: two digit hours as string
+        @param return: minutes: two digit minutes as string
+        """
+
+        return Utils.get_oldest_or_newest_timestamp_for_entry(entry, "OLDEST")
+
+    @staticmethod
+    def get_oldest_or_newest_timestamp_for_entry(entry, search_for):
+        """
+        Reads data of entry and returns datetime object of the oldest or newest
+        time-stamp of the finished-timestamp-history.
+
+        Example result: datetime(2013, 8, 29, 19, 40)
+
+        Implicit assumptions:
+        - oldest: no blog article is from the future (comparison to now)
+        - newest: no blog article is from before 1970-01-01
+
+        @param entry: data of a blog entry
+        @param search_for: string "OLDEST" or "NEWEST"
+        @param return: datetime object of its oldest time-stamp within finished-timestamp-history
+        @param return: year: four digit year as string
+        @param return: month: two digit month as string
+        @param return: day: two digit day as string
+        @param return: hours: two digit hours as string
+        @param return: minutes: two digit minutes as string
+        """
+
+        assert(entry)
+        assert(type(entry) == dict)
+        assert('finished-timestamp-history' in entry.keys())
+        assert(search_for == "OLDEST" or search_for == "NEWEST")
+
+        returntimestamp = False
+        if search_for == "OLDEST":
+            oldesttimestamp = datetime.datetime.now()
+            for timestamp in entry['finished-timestamp-history']:
+                if timestamp < oldesttimestamp:
+                    oldesttimestamp = timestamp
+            returntimestamp = oldesttimestamp
+        elif search_for == "NEWEST":
+            newesttimestamp = datetime.datetime(1970, 1, 1)
+            for timestamp in entry['finished-timestamp-history']:
+                if timestamp > newesttimestamp:
+                    newesttimestamp = timestamp
+            returntimestamp = newesttimestamp
+
+        return returntimestamp, str(returntimestamp.year).zfill(2), str(returntimestamp.month).zfill(2), \
+            str(returntimestamp.day).zfill(2), \
+            str(returntimestamp.hour).zfill(2), str(returntimestamp.minute).zfill(2)
 
 
 
