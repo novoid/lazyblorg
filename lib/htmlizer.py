@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-12-04 13:50:36 vk>
+# Time-stamp: <2016-10-23 20:53:52 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -220,15 +220,15 @@ class Htmlizer(object):
 <feed xmlns='http://www.w3.org/2005/Atom'
       xmlns:thr='http://purl.org/syndication/thread/1.0'
       xml:lang='en-us'>
-  <title>""" + self.blogname + """</title>
+  <title type="text">""" + self.blogname + """</title>
   <id>""" + config.BASE_URL + """</id>
   <link href='""" + config.BASE_URL + """' />
   <icon>/favicon.ico</icon>
   <updated>""" + strftime('%Y-%m-%dT%H:%M:%S' + config.TIME_ZONE_ADDON, localtime()) + """</updated>
   <author>
-    <name>""" + config.AUTHOR_NAME + """</name>
+    <name type="text">""" + config.AUTHOR_NAME + """</name>
   </author>
-  <subtitle>""" + self.about_blog + """</subtitle>
+  <subtitle type="text">""" + self.about_blog + """</subtitle>
   <rights>All content written by """ + config.AUTHOR_NAME + """</rights>
   <generator uri='https://github.com/novoid/lazyblorg'>Generated from Org-mode source code using lazyblorg which is written in Python. Industrial-strength technology, baby.</generator>
 
@@ -277,7 +277,7 @@ class Htmlizer(object):
 
             ## filling feed entry string:
             feedentry = u"""<entry>
-    <title>""" + blog_data_entry['title'] + """</title>
+    <title type="text">""" + blog_data_entry['title'] + """</title>
     <link href='""" + config.BASE_URL + "/" + listentry['url'] + """' />
     <published>""" + self._get_oldest_timestamp_for_entry(blog_data_entry)[0].strftime('%Y-%m-%dT%H:%M:%S' + config.TIME_ZONE_ADDON) + """</published>
     <updated>""" + self._get_newest_timestamp_for_entry(blog_data_entry)[0].strftime('%Y-%m-%dT%H:%M:%S' + config.TIME_ZONE_ADDON) + "</updated>\n"
@@ -293,22 +293,22 @@ class Htmlizer(object):
                     feedentry += "    <category scheme='" + config.BASE_URL + "/" + "autotags" + "/" + autotag + "' term='" + tag + "' />\n"
 
             ## add summary:
-            feedentry += "    <summary type='xhtml'>\n<div xmlns='http://www.w3.org/1999/xhtml'>"
+            feedentry += "    <summary type='xhtml'>\n<![CDATA[<div xmlns='http://www.w3.org/1999/xhtml'>"
             if blog_data_entry['htmlteaser-equals-content']:
                 feedentry += '\n'.join(blog_data_entry['content'])
             else:
                 feedentry += '\n'.join(blog_data_entry['htmlteaser'])
-            feedentry += "</div>\n    </summary>"
+            feedentry += "</div>]]>\n    </summary>"
 
             ## add content to content-feed OR end entry for links-feed:
             links_atom_feed += feedentry + "\n    <id>" + \
                                config.BASE_URL + "/" + listentry['url'] + u"-from-feed-with-links" + \
                                "</id>\n  </entry>\n\n"
-            content_atom_feed += feedentry + """    <content type='xhtml'>
+            content_atom_feed += feedentry + """    <content type='xhtml'><![CDATA[
       <div xmlns='http://www.w3.org/1999/xhtml'>
 	""" + '\n'.join(blog_data_entry['content']) + """
       </div>
-    </content>
+    ]]></content>
     <id>""" + config.BASE_URL + "/" + listentry['url'] + u"-from-feed-with-content" + \
         "</id>\n  </entry>\n"
 

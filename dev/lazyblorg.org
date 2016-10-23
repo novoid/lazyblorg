@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-10-17 15:42:50 vk>
+# Time-stamp: <2016-10-23 20:55:42 vk>
 * header information                                               :noexport:
 :PROPERTIES:
 :CREATED:  [2013-01-08 Tue 14:24]
@@ -631,14 +631,6 @@ destination folder for new digicam files: </code>$HOME/tmp/digicam/tmp/~.
 #+END_HTML
 
 ... which is wrong
-
-** NEXT Atom-feed with CDATA for body                                                  :architecture:
-:PROPERTIES:
-:CREATED:  [2014-06-08 Sun 22:07]
-:END:
-
-- <2014-06-08 Sun> stefan2904 Twitter: can not read feed with tinyTinyRSS
-  - validator wants fixes
 
 ** STARTED get ordered lists of blog entries                  :architecture:
 :PROPERTIES:
