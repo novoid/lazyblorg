@@ -1,0 +1,22 @@
+* Test Case With a Tag Page
+:PROPERTIES:
+:CREATED:  [2016-10-31 Mon 13:30]
+:END:
+
+** DONE programming                                                                    :lb_tags:blog:
+CLOSED: [2014-03-08 Sat 19:35]
+:PROPERTIES:
+:CREATED:  [2016-10-31 Mon 13:30]
+:ID: 2014-03-08-lbtag-programming
+:END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2016-10-31 Mon 13:30]
+:END:
+
+Here, you can read about the test-tag "programming".
+
+[[id:2014-03-08-lbtag-programming][This link]] should be a self-reference.
+
+Glad you like it.
+
+* Out of interest
