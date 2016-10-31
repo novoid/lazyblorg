@@ -1,23 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-18 20:02:09 vk>
+# Time-stamp: <2016-10-31 13:25:20 vk>
 
 import config
 import argparse  # command line arguments
 import unittest
+import codecs
 from lazyblorg import Lazyblorg
-from lib.utils import *
-from lib.orgparser import *
-from lib.htmlizer import *
-#import pickle  # for serializing and storing objects into files
+from lib.utils import Utils
+from lib.htmlizer import Htmlizer
 import os
 
 
 class TestLazyblorg(unittest.TestCase):
 
-    ## FIXXME: (Note) These test are *not* exhaustive unit tests. They only
-    ##         show the usage of the methods. Please add "mean" test cases and
-    ##         borderline cases!
+    # FIXXME: (Note) These test are *not* exhaustive unit tests. They only
+    #         show the usage of the methods. Please add "mean" test cases and
+    #         borderline cases!
 
     logging = None
 
@@ -31,14 +30,14 @@ class TestLazyblorg(unittest.TestCase):
 
     def test_parse_HTML_output_template_and_generate_template_definitions(self):
 
-        ## FIXXME: implement!
+        # FIXXME: implement!
         pass
 
     def test_determine_changes(self):
 
-        ## Checks on the situation before first iteration:
+        # Checks on the situation before first iteration:
 
-        ## manually written Org-mode file; has to be placed in "../testdata/basic_blog_update_test/"
+        # manually written Org-mode file; has to be placed in "../testdata/basic_blog_update_test/"
         template_file = "../templates/blog-format.org"
         org_testfile_firstrun = "../testdata/basic_blog_update_test/basic_blog_update_test_-_first_run.org"
         metadata_firstrun_output = "../testdata/basic_blog_update_test/basic_blog_update_test_-_first_run.pk"
@@ -46,11 +45,11 @@ class TestLazyblorg(unittest.TestCase):
         log_firstrun = "../testdata/basic_blog_update_test/basic_blog_update_test_-_first_run.log"
         org_testfile_secondrun = "../testdata/basic_blog_update_test/basic_blog_update_test_-_second_run.org"
 
-        ## might be left over from a failed previous run:
+        # might be left over from a failed previous run:
         if os.path.isfile(metadata_firstrun_output):
             os.remove(metadata_firstrun_output)
 
-        ## might be left over from a failed previous run:
+        # might be left over from a failed previous run:
         if os.path.isfile(log_firstrun):
             os.remove(log_firstrun)
 
@@ -58,7 +57,7 @@ class TestLazyblorg(unittest.TestCase):
         self.assertTrue(os.path.isfile(org_testfile_firstrun))  # check, if test input file is found
         self.assertTrue(os.path.isfile(org_testfile_secondrun))  # check, if test input file is found
 
-        ## Building the call parameters:
+        # Building the call parameters:
 
         first_parser = argparse.ArgumentParser()
         first_parser.add_argument("--orgfiles", dest="orgfiles", nargs='+')
@@ -71,30 +70,30 @@ class TestLazyblorg(unittest.TestCase):
         myoptions = "--orgfiles " + org_testfile_firstrun + " " + template_file + \
             " --targetdir ../testdata/basic_blog_update_test/2del-results/ --previous-metadata NOTEXISTING.pk --new-metadata " + \
             metadata_firstrun_output + \
-            " --logfile " + log_firstrun# + " --verbose"
+            " --logfile " + log_firstrun  # + " --verbose"
 
         options = first_parser.parse_args(myoptions.split())
 
-        ## Invoking lazyblorg first interation:
+        # Invoking lazyblorg first interation:
 
         first_lazyblorg = Lazyblorg(options, self.logging)
         generate, marked_for_feed, increment_version, stats_parsed_org_files, stats_parsed_org_lines = first_lazyblorg.determine_changes()
 
-        ## Checking results:
+        # Checking results:
 
         generate_sorted = sorted(generate)
         marked_for_feed_sorted = sorted(marked_for_feed)
-        ##increment_version_sorted = sorted(increment_version)
+        # increment_version_sorted = sorted(increment_version)
 
         self.assertTrue(increment_version == [])
         self.assertTrue(generate_sorted == marked_for_feed_sorted)
         self.assertTrue(generate_sorted == [u'case4', u'case5', u'case6', u'case7', u'case8', u'lazyblorg-templates'])
 
-        ## Checks on the situation before second iteration:
+        # Checks on the situation before second iteration:
 
-        ## none
+        # none
 
-        ## Building the call parameters:
+        # Building the call parameters:
 
         second_parser = argparse.ArgumentParser()
         second_parser.add_argument("--orgfiles", dest="orgfiles", nargs='+')
@@ -111,12 +110,12 @@ class TestLazyblorg(unittest.TestCase):
 
         options = second_parser.parse_args(myoptions.split())
 
-        ## Invoking lazyblorg first interation:
+        # Invoking lazyblorg first interation:
 
         second_lazyblorg = Lazyblorg(options, self.logging)
         generate, marked_for_feed, increment_version, stats_parsed_org_files, stats_parsed_org_lines = second_lazyblorg.determine_changes()
 
-        ## Checking results:
+        # Checking results:
 
         generate_sorted = sorted(generate)
         marked_for_feed_sorted = sorted(marked_for_feed)
@@ -140,7 +139,7 @@ class TestLazyblorg(unittest.TestCase):
 
         for testname in testnames:
 
-            ## manually written Org-mode file; has to be placed in "../testdata/"
+            # manually written Org-mode file; has to be placed in "../testdata/"
             generate_sorted, blog_data, increment_version, mylazyblorg, generate, metadata_output = self.generate_parser_data_from_orgmode_file(testname)
 
             if testname == "currently_supported_orgmode_syntax":
@@ -152,9 +151,9 @@ class TestLazyblorg(unittest.TestCase):
 
     def generate_parser_data_from_orgmode_file(self, testname):
 
-        ## Checks on the situation before first iteration:
+        # Checks on the situation before first iteration:
 
-        ## manually written Org-mode file; has to be placed in "../testdata/basic_blog_update_test/"
+        # manually written Org-mode file; has to be placed in "../testdata/basic_blog_update_test/"
         template_file = "../templates/blog-format.org"
         org_testfile = "../testdata/" + testname + ".org"
         additional_org_file = "../testdata/about-placeholder.org"
@@ -163,11 +162,11 @@ class TestLazyblorg(unittest.TestCase):
         log_firstrun = "../testdata/" + testname + ".log"
         target_dir = "../testdata/"
 
-        ## might be left over from a failed previous run:
+        # might be left over from a failed previous run:
         if os.path.isfile(metadata_output):
             os.remove(metadata_output)
 
-        ## might be left over from a failed previous run:
+        # might be left over from a failed previous run:
         if os.path.isfile(log_firstrun):
             os.remove(log_firstrun)
 
@@ -175,7 +174,7 @@ class TestLazyblorg(unittest.TestCase):
         self.assertTrue(os.path.isfile(org_testfile))  # check, if test input file is found
         self.assertTrue(os.path.isfile(additional_org_file))  # check, if test input file is found
 
-        ## Building the call parameters:
+        # Building the call parameters:
         first_parser = argparse.ArgumentParser()
         first_parser.add_argument("--orgfiles", dest="orgfiles", nargs='+')
         first_parser.add_argument("--targetdir", dest="targetdir")
@@ -191,12 +190,12 @@ class TestLazyblorg(unittest.TestCase):
 
         options = first_parser.parse_args(myoptions.split())
 
-        ## Invoking lazyblorg first interation:
+        # Invoking lazyblorg first interation:
 
         mylazyblorg = Lazyblorg(options, self.logging)
         generate, marked_for_feed, increment_version, stats_parsed_org_files, stats_parsed_org_lines = mylazyblorg.determine_changes()
 
-        ## Checking results:
+        # Checking results:
 
         generate_sorted = sorted(generate)
         marked_for_feed_sorted = sorted(marked_for_feed)
@@ -212,14 +211,13 @@ class TestLazyblorg(unittest.TestCase):
 
         return generate_sorted, blog_data, increment_version, mylazyblorg, generate, metadata_output
 
-
     def htmlize_parser_data_to_html_files(self, testname, blog_data, increment_version, mylazyblorg, generate):
 
         target_dir = "../testdata/"
         autotag_language = True
         entries_timeline_by_published = {}
 
-        ## extract HTML templates and store in class var
+        # extract HTML templates and store in class var
         template_definitions = mylazyblorg._generate_template_definitions_from_template_data()
 
         htmlizer = Htmlizer(template_definitions, testname, "blog", "about this blog",
@@ -235,13 +233,13 @@ class TestLazyblorg(unittest.TestCase):
                 filename, orgfilename, htmlcontent = htmlizer._generate_temporal_article(entry)
             elif entry['category'] == config.PERSISTENT:
                 pass  # FIXXME: probably add test for generating about-page as well
-            ## FIXXME: probably add test for generating tags-page as well
+            # FIXXME: probably add test for generating tags-page as well
 
         htmloutputname = "../testdata/" + testname + ".html"
 
-        assert(htmlcontent) ## make sure that /some/ HTML content was generated
+        assert(htmlcontent)  # make sure that /some/ HTML content was generated
 
-        ## generating HTML output in order to manually check in browser as well:
+        # generating HTML output in order to manually check in browser as well:
         with codecs.open(htmloutputname, 'wb', encoding='utf-8') as output:
             output.write(htmlcontent)
 
@@ -251,12 +249,12 @@ class TestLazyblorg(unittest.TestCase):
 
     def compare_generated_html_content_to_comparison_html_file(self, testname, htmloutputname, metadata_output):
 
-        ## read in generated data from file:
+        # read in generated data from file:
         contentarray_from_file = []
         with codecs.open(htmloutputname, 'r', encoding='utf-8') as input:
             contentarray_from_file = input.readlines()
 
-        ## read in comparson data from file:
+        # read in comparson data from file:
         comparisonfilename = "../testdata/" + testname + "_COMPARISON.html"
 
         with codecs.open(comparisonfilename, 'r', encoding='utf-8') as input:
@@ -265,7 +263,7 @@ class TestLazyblorg(unittest.TestCase):
         if len(comparison_string_array) != len(contentarray_from_file):
             print "length of produced data (" + str(len(contentarray_from_file)) + ") differs from comparison data (" + str(len(comparison_string_array)) + ")"
 
-        ## a more fine-grained diff (only) on the first element in blog_data:
+        # a more fine-grained diff (only) on the first element in blog_data:
         self.assertTrue(Utils.diff_two_lists(contentarray_from_file,
                                              comparison_string_array,
                                              normalize_lineendings=True))
@@ -278,7 +276,7 @@ class TestLazyblorg(unittest.TestCase):
             shutil.rmtree("../testdata/" + testname)
 
 
-## END OF FILE #################################################################
+# END OF FILE #################################################################
 # Local Variables:
 # mode: flyspell
 # eval: (ispell-change-dictionary "en_US")
