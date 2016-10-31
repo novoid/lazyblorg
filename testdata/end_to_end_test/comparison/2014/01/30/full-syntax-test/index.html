@@ -1,0 +1,657 @@
+  <!DOCTYPE html>
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+  <meta charset="UTF-8">
+
+  <meta name="author" content="Karl Voit" />
+  <meta name="generator" content="lazyblorg" />
+  <meta name="description" content="lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer" />
+  <meta name="orgmode-id" content="2014-01-27-full-syntax-test" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@n0v0id" />
+  <meta name="twitter:creator" content="@n0v0id" />
+  <meta name="twitter:title" content="public voit" />
+  <meta name="twitter:description" content="lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer" />
+  <meta name="twitter:image" content="http://karl-voit.at/images/public-voit_T_logo_200x200.png" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="public voit" />
+  <meta property="og:description" content="lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer" />
+  <meta property="og:image" content="http://karl-voit.at/images/public-voit_T_logo_200x200.png" />
+  <meta property="og:site_name" content="public voit - Web-page of Karl Voit">
+  <meta property="article:published_time" content="2014-01-30T14:02+01:00" />
+  <meta property="article:author" content="Karl Voit" />
+
+  <link rel="stylesheet" title="public voit Standard CSS Style"
+        href="//Karl-Voit.at/public_voit.css" type="text/css" media="screen"  />
+
+  <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
+
+      <!-- link rel="stylesheet" type="text/css" href="../../../../style.css" / -->
+      <title>lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer</title>
+
+  </head>  <body>
+
+    <div class="common-orgsource"><a href="source.org.txt">&#960;</a></div>
+
+
+	<header>
+
+	  <nav class="temporal-article-header-nav">
+	    <span class="breadcrumbs">
+	      <a href="../../../../"><img src="//karl-voit.at/images/public-voit_logo.svg" alt="public voit logo" width="350" style="vertical-align:middle;"></a><span style="padding-top:1em;">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;
+	      2014&nbsp;&ndash;&nbsp;01&nbsp;&ndash;&nbsp;30</span>
+	      <!-- a href="../../../">2014</a>&nbsp;&ndash;&nbsp;<a href="../../">01</a>&nbsp;&ndash;&nbsp;<a href="../">30</a -->
+	    </span>
+	  </nav>
+	  <aside class="common-tags">
+	    <ul>
+                <li><a class="usertag" href="#">hidden</a></li>
+                <li><a class="usertag" href="#">publicvoit</a></li>
+                <li><a class="usertag" href="#">lazyblorg</a></li>
+                <li><a class="usertag" href="#">MixedCaseTag</a></li>
+                <li><a class="autotag" href="#">language:english</a></li>
+	    </ul>
+	  </aside>
+
+	  <h1 class="common-article-header-title">lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer</h1>
+
+	</header>
+
+  
+  <a id="show-sidebar-text" href="#show-sidebar">Show Sidebar</a>
+  <div class="sidebar toggle-sidebar">
+     <div class="search">
+       <iframe id="search-big" src="//duckduckgo.com/search.html?width=140&site=karl-voit.at&prefill=Search%20blog"></iframe>
+       <iframe id="search-narrow" src="//duckduckgo.com/search.html?width=70&k1=-1&k2=s&site=karl-voit.at&prefill=Search"></iframe>
+       <br/>
+     </div>
+     <ul>
+     <li>TBD: Archive</li>
+     <li><a href="/">Recent articles</a></li>
+     <li><a href="../../../../about">About this blog</a></li>
+     <li>TBD: How to use this blog efficiently</li>
+     <li><a href="//karl-voit.at/feeds/lazyblorg-all.atom_1.0.links-only.xml">Follow/subscribe links</a></li>
+     <li><a href="//karl-voit.at/feeds/lazyblorg-all.atom_1.0.links-and-content.xml">Follow/subscribe content</a></li>
+     <li>TBD: Per Tag Feeds</li>
+     </ul>
+  </div>
+
+
+  <article class="common-article">
+
+<p>
+
+This is a test entry for testing all currently implemented Org-mode syntax elements.
+
+</p>
+
+	  <header><h2 class="section-title">Implicit Org-mode Elements in This File</h2></header>
+<ul>
+<li>headings</li>
+<li>article tags</li>
+<li>paragraphs</li>
+</ul>
+
+	  <header><h2 class="section-title">Drawers and Time-Stamps</h2></header>
+
+<p>
+
+Note: the time-stamps in the LOGBOOK and PROPERTIES drawers above are set to different days so that it is possible to check which time-stamp is used for what blog elements.
+
+</p>
+
+<p>
+
+    A copy of the header
+	  <pre>CLOSED: [2014-01-30 Thu 13:01]
+:LOGBOOK:
+- State "DONE"       from "DONE"       [2014-02-01 Sat 15:03]
+- State "DONE"       from ""           [2014-01-30 Thu 14:02]
+:END:
+:PROPERTIES:
+:CREATED:  [2014-01-28 Tue 12:00]
+:ID: 2014-01-27-full-syntax-test
+:END:	  </pre>
+
+</p>
+	  <header><h2 class="section-title">Basic Text Formatting</h2></header>
+
+<p>
+
+This is <b>bold</b> and <b>bold case</b>. And this is <code>teletype style</code>.
+
+</p>
+
+<p>
+
+Examples with line-breaks in between: <b>This is a bold sentence which has a line break</b>.
+
+</p>
+
+	  <header><h2 class="section-title">Comment Lines Starting With Hashes</h2></header>
+
+<p>
+
+According to <a href="http://orgmode.org/manual/Comment-lines.html">the org-mode manual</a>, lines starting with the character '#' should be ignored.
+
+</p>
+
+<p>
+
+## This is part of the output
+
+</p>
+
+	  <header><h2 class="section-title">URLs</h2></header>
+
+<p>
+
+Without brackets: <a href="http://heise.de">http://heise.de</a>
+
+</p>
+
+<p>
+
+With brackets and no description: <a href="http://heise.de">http://heise.de</a>
+
+</p>
+
+<p>
+
+With brackets and a description: <a href="http://heise.de">heise</a>
+
+</p>
+
+<p>
+
+URLs with line breaks within: this is a very tough example of <a href="https://github.com/novoid/lazyblorg">an url like this which is very long</a>.
+
+</p>
+
+<p>
+
+Multiple URLs in one line: <a href="http://heise.de">http://heise.de</a> <a href="http://heise.de">http://heise.de</a> <a href="http://heise.de">heise</a>
+
+</p>
+
+	  <header><h2 class="section-title">Links to IDs</h2></header>
+
+<p>
+
+simple links: <a href="../../../../2014/01/30/full-syntax-test">2014-01-27-full-syntax-test</a>
+
+</p>
+
+<p>
+
+with description: <a href="../../../../2014/01/30/full-syntax-test">this is the description text</a>
+
+</p>
+
+<p>
+
+with formatted description: <a href="../../../../2014/01/30/full-syntax-test">this is a <b>formatted</b> <code>description</code> text</a>
+
+</p>
+
+	  <header><h2 class="section-title">HTML-blocks</h2></header>
+<p>
+  <!-- a multi
+       line comment -->
+  <b>This is without any title</b>
+</p>
+<p>
+
+    Example HTML snippet<br />:
+	  <div class="example_code">&lt;b&gt;This&nbsp;is&nbsp;with&nbsp;a&nbsp;title&lt;/b&gt;<br />
+&lt;ul&gt;<br />
+&nbsp;&nbsp;&lt;li&gt;example&nbsp;list&nbsp;item&lt;/li&gt;<br />
+&lt;/ul&gt;	  </div>
+
+</p>
+
+	  <header><h2 class="section-title">EXAMPLE-blocks</h2></header>
+
+	  <pre>UPPER-case example without name
+  indented line
+     another indented line
+This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg and such.
+
+  Last line.
+
+This is a multi-line paragraph to demonstrate the behavior of line
+break and so on. As you can see, the line breaks are now different
+from Org-mode source or not.	  </pre>
+
+	  <pre>lower-case example without name	  </pre>
+
+<p>
+
+    a name
+	  <pre>UPPER-case example with name	  </pre>
+
+</p>
+<p>
+
+    Another name
+	  <pre>lower-case example with name	  </pre>
+
+</p>
+	  <header><h2 class="section-title">COLON-blocks</h2></header>
+
+<p>
+
+This is how a colon-block looks like in Org-mode:
+
+</p>
+
+	  <pre>: This is an example colon-block as shown in Org-mode
+:
+: It can consist of multiple lines.
+: This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg and such.
+: explicit URL [[http://Karl-Voit.at]]
+:
+: However, the current parser needs at least one empty line following a colon block.	  </pre>
+
+<p>
+
+This is what lazyblorg does with it:
+
+</p>
+
+	  <pre> This is an example colon-block as shown in Org-mode
+
+ It can consist of multiple lines.
+ This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg and such.
+ explicit URL [[http://Karl-Voit.at]]
+
+ However, the current parser needs at least one empty line following a colon block.	  </pre>
+
+	  <header><h2 class="section-title">QUOTE-blocks</h2></header>
+
+<blockquote>UPPER-case quote without name
+  indented line
+     another indented line
+This is <b>bold</b> and <code>teletype</code> with an URL <a href="https://github.com/novoid/lazyblorg">https://github.com/novoid/lazyblorg</a> and such.<br />
+  Last line.<br />
+This is a multi-line paragraph to demonstrate the behavior of line
+break and so on. As you can see, the line breaks are now different
+from Org-mode source or not.</blockquote>
+
+<blockquote>lower-case quote without name</blockquote>
+
+<blockquote>UPPER-case quote with name</blockquote>
+
+<blockquote>lower-case quote with name</blockquote>
+
+	  <header><h2 class="section-title">VERSE-blocks</h2></header>
+
+	  <pre>UPPER-case verse without name
+  indented line
+     another indented line
+This is <b>bold</b> and <code>teletype</code> with an URL <a href="https://github.com/novoid/lazyblorg">https://github.com/novoid/lazyblorg</a> and such.
+
+  Last line.
+
+This is a multi-line paragraph to demonstrate the behavior of line
+break and so on. As you can see, the line breaks are now different
+from Org-mode source or not.	  </pre>
+
+	  <pre>lower-case verse without name	  </pre>
+
+<p>
+
+    a name
+	  <pre>UPPER-case verse with name	  </pre>
+
+</p>
+<p>
+
+    Another name
+	  <pre>lower-case verse with name	  </pre>
+
+</p>
+	  <header><h2 class="section-title">SRC-blocks</h2></header>
+
+	  <div class="example_code">
+	  <pre>UPPER-case src without name
+  indented line
+     another indented line
+This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg and such.
+
+  Last line.
+
+This is a multi-line paragraph to demonstrate the behavior of line
+break and so on. As you can see, the line breaks are now different
+from Org-mode source or not.	  </pre>
+    </div>
+
+	  <div class="example_code">
+	  <pre>lower-case src without name	  </pre>
+    </div>
+
+<p>
+
+    a name
+	  <div class="example_code">
+	  <pre>UPPER-case src with name	  </pre>
+    </div>
+
+</p>
+<p>
+
+    Another name
+	  <div class="example_code">
+	  <pre>lower-case src with name	  </pre>
+    </div>
+
+</p>
+	  <div class="example_code">
+	  <pre>test = 42;
+print "Hello Python world!"
+if test == 42:
+    print "yes, it is 42"
+else:
+    print "there is something phishy around here."	  </pre>
+    </div>
+
+	  <header><h2 class="section-title">LATEX-blocks</h2></header>
+<p>This is a mixed case LaTeX block without a name. Indented line.</p>
+<p>Another paragraph.</p>
+<p>Mathematical expression: <span class="math inline">$42 * 7 = \frac{c}{45x}$</span></p>
+<table>
+<caption>This is the caption<span data-label="tab:mylatextable"></span></caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">This is the first column</td>
+<td style="text-align: center;">This is the second</td>
+<td style="text-align: right;">This is the third</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">foo</td>
+<td style="text-align: center;">bar</td>
+<td style="text-align: right;">baz</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>First item</p></li>
+<li><p>Second item</p>
+<ol>
+<li><p>First enumerate</p></li>
+<li><p>Second enumerate</p></li>
+</ol></li>
+<li><p>Last</p></li>
+</ul>
+<pre><code>This is verbatim.
+   Second line.
+
+   Third line.</code></pre>
+<blockquote>
+<p>This is verse. Second line.</p>
+<p>Third line.</p>
+</blockquote>
+<blockquote>
+<p>This is qote. Second line.</p>
+<p>Third line.</p>
+</blockquote>
+<p><br /><span class="math display">$$\begin{aligned}
+  \label{eq:my-eqn-array}
+  x^2_\text{eff} = \frac{\text{result}}{42*23/7}\end{aligned}$$</span><br /></p>
+<p>This is an UPPER case LaTeX block without a name.</p>
+<p>This is a lower case LaTeX block without a name.</p>
+
+	  <header><h2 class="section-title">noexport-tags in headings</h2></header>
+
+	  <header><h3 class="section-title">not ignored because it got no :noexport: tag set</h3></header>
+
+<p>
+
+This is somewhat tricky because it contains a tag surrounded by colons.
+
+</p>
+
+	  <header><h3 class="section-title">not ignored because it got no :NOEXPORT: tag set</h3></header>
+
+<p>
+
+This is somewhat tricky because it contains a tag surrounded by colons.
+
+</p>
+
+	  <header><h2 class="section-title">Hidden blog entries</h2></header>
+
+<p>
+
+If you tag an lazyblorg-blog-entry with "hidden" (<code>TAG_FOR_HIDDEN</code>), the blog article will be generated. However, there will be no link in the Atom feeds, no link from the entry page, and no link on the navigation pages.
+
+</p>
+
+	  <header><h2 class="section-title">Horizontal Rule</h2></header>
+
+<p>
+
+Horizontal rules end up only in a wider vertical space.
+
+</p>
+
+<p>
+
+Between this and the previous paragraph, there is no horizontal rule.
+
+</p>
+<div class="orgmode-hr" />
+<p>
+
+Between this and the previous paragraph, there was an horizontal rule.
+
+</p>
+
+	  <header><h2 class="section-title">Lists</h2></header>
+
+<p>
+
+Simple lists:
+
+</p>
+<ul>
+<li>first line</li>
+<li>second line
+<ul>
+<li>another list in a list</li>
+<li>don't get confused
+<ul>
+<li>even more lists</li>
+<li>bah!</li>
+</ul></li>
+</ul></li>
+<li>back to first list</li>
+</ul>
+
+<p>
+
+Ordered lists with multi-line items:
+
+</p>
+<ol>
+<li>first line</li>
+<li>second line
+<ol>
+<li>another list in a list with very long lines that are too long for one line; in fact, <a href="http://example.org/testlink">this list item</a> spans over a couple of lines - more than even two of them</li>
+<li>don't get confused
+<ol>
+<li>even more lists</li>
+<li>bah!</li>
+</ol></li>
+</ol></li>
+<li>back to first list</li>
+</ol>
+
+<p>
+
+Mixed lists:
+
+</p>
+<ol>
+<li>first line</li>
+<li>second line
+<ul>
+<li>another list in a list</li>
+<li>don't get confused
+<ol>
+<li>even more lists</li>
+<li>bah!</li>
+</ol></li>
+</ul></li>
+<li>back to first list</li>
+</ol>
+
+	  <header><h2 class="section-title">Tables</h2></header>
+
+<p>
+
+A basic table:
+
+</p>
+<table>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Season</td>
+<td style="text-align: left;">Sports</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Winter</td>
+<td style="text-align: left;">Skiing</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">Bathing</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Season</th>
+<th style="text-align: left;">Light</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Winter</td>
+<td style="text-align: left;">low</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Summer</td>
+<td style="text-align: left;">much</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Header1</strong></th>
+<th style="text-align: left;"><strong>a wide column is here</strong></th>
+<th style="text-align: left;"><strong>Something else</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">foo bar</td>
+<td style="text-align: left;">This is a really, really, really, extra wide column as well to show how wide tables are done</td>
+<td style="text-align: left;">23</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hänsel</td>
+<td style="text-align: left;">und Gretel</td>
+<td style="text-align: left;">42.77</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">65.77</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+
+Complex table:
+
+</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>What</strong></th>
+<th style="text-align: left;"><strong>€</strong></th>
+<th style="text-align: left;"><strong>Amount</strong></th>
+<th style="text-align: left;"><strong>Sum</strong></th>
+<th style="text-align: left;"><strong>Notes</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a href="https://roses.example.com/myroses.html">My Roses</a></td>
+<td style="text-align: left;">42.23</td>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">506.76</td>
+<td style="text-align: left;"><strong>best</strong> roses <code>evar</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="../../../../2014/01/30/full-syntax-test">internal <strong>link</strong> test</a></td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">20</td>
+<td style="text-align: left;">Umlaut test: öÄß</td>
+</tr>
+</tbody>
+</table>
+
+
+  </article>
+	  <aside class="published-on">
+	    Published on <time datetime="2014-01-30T14:02+01:00">2014-01-30T14:02</time>
+	  </aside>
+
+   <p class="email-comment">
+      <a href="mailto:publicvoit-comment@Karl-Voit.at?subject=2014-01-27-full-syntax-test%20comment:%20&body=Please%20do%20not%20remove%20'2014-01-27-full-syntax-test%20comment:'%20in%20subject%20and%20please%20tell%20me%20whether%20or%20not%20it%20is%20OK%20to%20add%20your%20comment%20and%2For%20your%20email%20address%20to%20the%20blog%20entry!">Comment via email</a> or via <a href="//disqus.com">Disqus</a> comments below:
+   </p>
+
+    <div id="disqus_thread"></div>
+    <div id="disqus_loader" style="text-align: center">
+      <!-- stolen from http://blog.yjl.im/2012/04/let-your-readers-decide-when-to-load.html -->
+      <button onclick="load_disqus()">Load Disqus Comments</button>
+      <script>
+        function load_disqus()
+        {
+          var dsq = document.createElement('script');
+          dsq.type = 'text/javascript';
+          dsq.async = true;
+          dsq.src = "//publicvoit.disqus.com/embed.js";
+          var disqus_identifier = '2014-01-27-full-syntax-test';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          var ldr = document.getElementById('disqus_loader');
+          ldr.parentNode.removeChild(ldr);
+        }
+      </script>
+    </div>
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">Disqus comments.</a></noscript>
+
+    <footer>
+      <p><i><a href="../../../../about">lazyblorg testblog about</a></i> is authored in <a href="//orgmode.org">Org-mode</a> and generated by <a href="https://github.com/novoid/lazyblorg">lazyblorg</a>
+
+	 	&nbsp;&bull;&nbsp; <a href="//validator.w3.org/check/referer">HTML5</a>
+
+	 	&nbsp;&bull;&nbsp; <a href="//jigsaw.w3.org/css-validator/">CSS3</a>
+      </p>
+    </footer>
+
+  </body>
+</html>

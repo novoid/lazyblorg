@@ -1,0 +1,11 @@
+* DONE About                                   :blog:lazyblorg:lb_persistent:
+CLOSED: [2014-03-09 Sun 14:57]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2014-03-09 Sun 14:57]
+:END:
+:PROPERTIES:
+:CREATED:  [2014-03-09 Sun 14:30]
+:ID: 2014-03-09-about
+:END:
+
+This is a placeholder entry in order to be able to test internal

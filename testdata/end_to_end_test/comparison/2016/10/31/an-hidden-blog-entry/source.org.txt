@@ -1,0 +1,13 @@
+CLOSED: [2016-10-31 Mon 16:41]
+:PROPERTIES:
+:ID: 2016-10-31-an-hidden-blog-entry
+:CREATED:  [2016-10-31 Mon 16:40]
+:END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2016-10-31 Mon 16:41]
+:END:
+
+[[id:2016-10-31-my-temporal-article][Link to temporal article]]
+
+Lorem ipsum dolor sit amet, malorum scaevola ut ius, ridens admodum adipisci eam ad. Eu quo ignota appareat, an primis expetendis eum, atqui labitur ceteros quo ad. Id zril partiendo cotidieque nam, nemore legimus has ad. Nec cu regione sensibus volutpat.
+

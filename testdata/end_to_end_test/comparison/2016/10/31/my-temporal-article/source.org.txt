@@ -1,0 +1,19 @@
+CLOSED: [2016-10-31 Mon 16:40]
+:PROPERTIES:
+:ID: 2016-10-31-my-temporal-article
+:CREATED:  [2016-10-31 Mon 16:39]
+:END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2016-10-31 Mon 16:40]
+:END:
+
+[[id:2016-10-31-an-hidden-blog-entry][Link to a hidden entry]]
+
+[[id:2016-10-31-persistent-entry][Link to persistent article]]
+
+[[id:2016-10-31-a-tag-page][Link to tag page]]
+
+Lorem ipsum dolor sit amet, malorum scaevola ut ius, ridens admodum adipisci eam ad. Eu quo ignota appareat, an primis expetendis eum, atqui labitur ceteros quo ad. Id zril partiendo cotidieque nam, nemore legimus has ad. Nec cu regione sensibus volutpat.
+
+Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. Odio disputando ei his, ei est mutat mediocritatem. Harum verterem ex mea, sed saepe viderer scribentur ex. Pri te dictas eligendi praesent.
+

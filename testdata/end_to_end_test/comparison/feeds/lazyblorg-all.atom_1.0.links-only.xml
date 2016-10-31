@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns='http://www.w3.org/2005/Atom'
+      xmlns:thr='http://purl.org/syndication/thread/1.0'
+      xml:lang='en-us'>
+  <title type="text">lazyblorg testblog</title>
+  <id>//Karl-Voit.at</id>
+  <link href='//Karl-Voit.at' />
+  <icon>/favicon.ico</icon>
+  <updated>2016-10-31T17:45:46+01:00</updated>
+  <author>
+    <name type="text">Karl Voit</name>
+  </author>
+  <subtitle type="text">lazyblorg testblog about</subtitle>
+  <rights>All content written by Karl Voit</rights>
+  <generator uri='https://github.com/novoid/lazyblorg'>Generated from Org-mode source code using lazyblorg which is written in Python. Industrial-strength technology, baby.</generator>
+
+        <entry>
+    <title type="text">A Temporal Article With Links</title>
+    <link href='//Karl-Voit.at/2016/10/31/my-temporal-article' />
+    <published>2016-10-31T16:40:00+01:00</published>
+    <updated>2016-10-31T16:40:00+01:00</updated>
+    <category scheme='//Karl-Voit.at/tags/programming' term='programming' />
+    <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<![CDATA[<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+<a href="../../../../2016/10/31/an-hidden-blog-entry">Link to a hidden entry</a>
+
+</p>
+
+
+<p>
+
+<a href="../../../../persistent-entry">Link to persistent article</a>
+
+</p>
+
+
+<p>
+
+<a href="../../../../tags/programming">Link to tag page</a>
+
+</p>
+
+
+<p>
+
+Lorem ipsum dolor sit amet, malorum scaevola ut ius, ridens admodum adipisci eam ad. Eu quo ignota appareat, an primis expetendis eum, atqui labitur ceteros quo ad. Id zril partiendo cotidieque nam, nemore legimus has ad. Nec cu regione sensibus volutpat.
+
+</p>
+
+
+<p>
+
+Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. Odio disputando ei his, ei est mutat mediocritatem. Harum verterem ex mea, sed saepe viderer scribentur ex. Pri te dictas eligendi praesent.
+
+</p>
+</div>]]>
+    </summary>
+    <id>//Karl-Voit.at/2016/10/31/my-temporal-article-from-feed-with-links</id>
+  </entry>
+
+<entry>
+    <title type="text">A Wonderful Persistent Blog Entry</title>
+    <link href='//Karl-Voit.at/persistent-entry' />
+    <published>2016-10-31T16:39:00+01:00</published>
+    <updated>2016-10-31T16:39:00+01:00</updated>
+    <category scheme='//Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='//Karl-Voit.at/tags/programming' term='programming' />
+    <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<![CDATA[<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+Lorem ipsum dolor sit amet, malorum scaevola ut ius, ridens admodum adipisci eam ad. Eu quo ignota appareat, an primis expetendis eum, atqui labitur ceteros quo ad. Id zril partiendo cotidieque nam, nemore legimus has ad. Nec cu regione sensibus volutpat.
+
+</p>
+
+
+<p>
+
+Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. Odio disputando ei his, ei est mutat mediocritatem. Harum verterem ex mea, sed saepe viderer scribentur ex. Pri te dictas eligendi praesent.
+
+</p>
+</div>]]>
+    </summary>
+    <id>//Karl-Voit.at/persistent-entry-from-feed-with-links</id>
+  </entry>
+
+<entry>
+    <title type="text">programming</title>
+    <link href='//Karl-Voit.at/tags/programming' />
+    <published>2016-10-31T16:38:00+01:00</published>
+    <updated>2016-10-31T16:38:00+01:00</updated>
+    <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<![CDATA[<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+This is a page whose content is getting transformed into a tag page.
+
+</p>
+
+
+<p>
+
+I am very curious how this is going to turn out.
+
+</p>
+
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Return Code</strong></th>
+<th style="text-align: left;"><strong>Result</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">I am happy!</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Geez, what happened this time?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">-1</td>
+<td style="text-align: left;">Even more worrying</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+
+Below this, I expect some links to other pages related to the tag "programming":
+
+</p>
+</div>]]>
+    </summary>
+    <id>//Karl-Voit.at/tags/programming-from-feed-with-links</id>
+  </entry>
+
+<entry>
+    <title type="text">About</title>
+    <link href='//Karl-Voit.at/about' />
+    <published>2014-03-09T14:57:00+01:00</published>
+    <updated>2014-03-09T14:57:00+01:00</updated>
+    <category scheme='//Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<![CDATA[<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+This is a placeholder entry in order to be able to test internal links.
+
+</p>
+</div>]]>
+    </summary>
+    <id>//Karl-Voit.at/about-from-feed-with-links</id>
+  </entry>
+
+</feed>
