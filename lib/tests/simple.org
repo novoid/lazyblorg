@@ -1,4 +1,4 @@
-# Time-stamp: <2015-05-18 13:42:44 karl.voit>
+# Time-stamp: <2016-10-31 13:15:43 vk>
 # -*- coding: utf-8 -*-
 
 * Heading of no interest
@@ -66,10 +66,10 @@ might win the Pulitzer Prize some day!
 Well, in here, I want to write verbatim text.
 Line breaks should be exactly the same.
 
-This is a 
-dummy text whose only purpose is to generate 
+This is a
+dummy text whose only purpose is to generate
 some content
-which is then processed by this lovely tool. 
+which is then processed by this lovely tool.
 The resulting web blog
 might win the Pulitzer Prize some day!
 
@@ -138,17 +138,17 @@ persistent blog page.
 
 You should expect me to be updated occasionally.
 
-** DONE tag-test                           :mytest:programming:lb_tags:blog:
+** DONE programming                                                           :lb_tags:blog:
 CLOSED: [2014-03-08 Sat 19:35]
 :LOGBOOK:
 - State "DONE"       from "NEXT"       [2014-03-08 Sat 19:35]
 :END:
 :PROPERTIES:
 :CREATED:  [2014-03-08 Sat 19:33]
-:ID: 2014-03-08-tag-test-entry
+:ID: 2014-03-08-lbtag-programming
 :END:
 
-Here, you can read about the test-tag "tag-test".
+Here, you can read about the test-tag "programming".
 
 * End heading
 :PROPERTIES:

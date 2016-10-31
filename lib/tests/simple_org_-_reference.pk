@@ -249,38 +249,34 @@ tp121
 Rp122
 sg10
 (lp123
-Vmytest
+sg14
+Vprogramming
 p124
-aVprogramming
-p125
-asg14
-Vtag-test
-p126
 sg16
-(lp127
+(lp125
 Vlb_tags
-p128
+p126
 aVblog
-p129
+p127
 asg19
-(lp130
-(lp131
+(lp128
+(lp129
 g22
-aVHere, you can read about the test-tag "tag-test".
-p132
+aVHere, you can read about the test-tag "programming".
+p130
 aasg85
 g6
 (S'\x07\xde\x03\x08\x13!\x00\x00\x00\x00'
-p133
-tp134
-Rp135
+p131
+tp132
+Rp133
 sg89
-VCLOSED: [2014-03-08 Sat 19:35]\u000a:LOGBOOK:\u000a- State "DONE"       from "NEXT"       [2014-03-08 Sat 19:35]\u000a:END:\u000a:PROPERTIES:\u000a:CREATED:  [2014-03-08 Sat 19:33]\u000a:ID: 2014-03-08-tag-test-entry\u000a:END:\u000a\u000aHere, you can read about the test-tag "tag-test".\u000a\u000a
-p136
+VCLOSED: [2014-03-08 Sat 19:35]\u000a:LOGBOOK:\u000a- State "DONE"       from "NEXT"       [2014-03-08 Sat 19:35]\u000a:END:\u000a:PROPERTIES:\u000a:CREATED:  [2014-03-08 Sat 19:33]\u000a:ID: 2014-03-08-lbtag-programming\u000a:END:\u000a\u000aHere, you can read about the test-tag "programming".\u000a\u000a
+p134
 sg91
-(lp137
+(lp135
 g122
 asg93
-V2014-03-08-tag-test-entry
-p138
+V2014-03-08-lbtag-programming
+p136
 sa.
