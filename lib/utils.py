@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-18 19:44:10 vk>
+# Time-stamp: <2016-10-31 17:17:36 vk>
 
 import config
 from sys import stdout, exit
@@ -371,9 +371,11 @@ class Utils(object):
             else:
                 assert('created' in entry.keys())
                 assert('timestamp' in entry.keys())
+                assert('title' in entry.keys())
                 metadata[entry['id']] = {'created': entry['created'],
                                          'timestamp': entry['timestamp'],
                                          'checksum': checksum,
+                                         'title': entry['title'],
                                          'category': entry['category']}
                 if config.TAG_FOR_HIDDEN not in entry['usertags']:
                     entries_timeline_by_published = Utils._add_entry_to_entries_timeline_by_published(entries_timeline_by_published, entry)

@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-10-18 20:19:38 vk>
+# Time-stamp: <2016-10-31 19:20:36 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -230,15 +230,6 @@ CLOSED: [2014-03-01 Sat 20:10]
 
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
-
-** NEXT implement: creating TAG pages                             :userstory:
-:PROPERTIES:
-:CREATED:  [2013-10-19 Sat 18:50]
-:ID: 2013-10-19-lb-tag-pages
-:END:
-
-- [ ] htmlizer
-- [ ] update test_sanitize_internal_links() in htmlizer_test.py
 
 ** NEXT document: what elements are rendered/converted via pypandoc?
 SCHEDULED: <2016-08-06 Sat>
@@ -685,20 +676,20 @@ on https://karl-voit.at/2014/03/25/xdu
 :PROPERTIES:
 :CREATED:  [2014-03-18 Di 09:53]
 :END:
-** NEXT tag pages: content                                       :userstory:
+** STARTED tag pages: content                                                            :userstory:
 :PROPERTIES:
 :CREATED:  [2014-04-20 Sun 11:25]
 :END:
 
 - with:
-  - optional description,
-  - preview of latest x entries, and
-  - headings of all older entries
+  - [X] optional description,
+  - [ ] preview of latest x entries, and
+  - [X] headings of all older entries
   - tag cloud:
-    - 4(?) different font sized normalized
-    - tags are links to tag search result page
-    - title-tag on each tag: number of articles for this tag
-    - tags that have a tag page are *boldface*
+    - [ ] 4(?) different font sized normalized
+    - [ ] tags are links to tag search result page
+    - [ ] title-tag on each tag: number of articles for this tag
+    - [ ] tags that have a tag page are *boldface*
 
 - [ ] [[http://feedproxy.google.com/~r/sachac/~3/10kxZuusetQ/][Help your readers discover more posts by organizing your content with a reverse outline]]
   - hand-selected links to most important articles of that category
@@ -823,15 +814,6 @@ like monthly overview but only for the day
   - [ ] implement in Python
 
 - https://docs.python.org/2/library/calendar.html
-
-** NEXT implement: creating TAG pages                             :userstory:
-:PROPERTIES:
-:CREATED:  [2013-10-19 Sat 18:50]
-:ID: 2013-10-19-lb-tag-pages
-:END:
-
-- [ ] htmlizer
-- [ ] update test_sanitize_internal_links() in htmlizer_test.py
 
 ** NEXT redirection to other ID
 
@@ -2194,7 +2176,7 @@ blog_data[0]['content']  ## -> list of elements of content
 Example:
 #+BEGIN_EXAMPLE
 >>> metadata
-{u'2013-08-22-testid': {'timestamp': datetime.datetime(2013, 8, 22, 21, 6), 'checksum': 'b757f8478bffd6c70a474f213d6520de', 'created': datetime.datetime(2013, 8, 22, 21, 6)},
+{u'2013-08-22-testid': {'title': u"This is the title", 'timestamp': datetime.datetime(2013, 8, 22, 21, 6), 'checksum': 'b757f8478bffd6c70a474f213d6520de', 'created': datetime.datetime(2013, 8, 22, 21, 6)},
  u'2013-02-12-lazyblorg-example-entry': {'timestamp': datetime.datetime(2013, 2, 14, 19, 2), 'checksum': '24af2246a5121e829a0dbbd6e2425c15', 'created': datetime.datetime(2013, 2, 12, 10, 58)}}
 #+END_EXAMPLE
 
@@ -2205,6 +2187,7 @@ Keys of the dict: IDs of the entries:
 #+END_EXAMPLE
 
 One entry with key=ID holds a dict with following entries:
+- 'title': string containing the title of the blog entry
 - 'timestamp': datetime.datetime(2013, 8, 22, 21, 6)
   - most recent time-stamp from the LOGBOOK drawer which marked going
     to a final state

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-18 20:01:23 vk>
+# Time-stamp: <2016-10-31 17:17:09 vk>
 
 import config
 import unittest
@@ -50,7 +50,7 @@ class TestHtmlizer(unittest.TestCase):
         # ['html-block', u'section-begin', [u'', u'\t  <header><h#SECTION-LEVEL# class="section-title">#SECTION-TITLE#</h#SECTION-LEVEL#></header>', u'']]
 
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
-                            blog_data, entries_timeline_by_published, generate, increment_version,
+                            blog_data, None, entries_timeline_by_published, generate, increment_version,
                             autotag_language)
 
         entry = {'content': [
@@ -108,7 +108,7 @@ class TestHtmlizer(unittest.TestCase):
         ]
 
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
-                            blog_data, entries_timeline_by_published, generate, increment_version,
+                            blog_data, None, entries_timeline_by_published, generate, increment_version,
                             autotag_language)
 
         entry = {'content': [
@@ -197,7 +197,7 @@ class TestHtmlizer(unittest.TestCase):
         ]
 
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
-                            blog_data, entries_timeline_by_published, generate, increment_version,
+                            blog_data, None, entries_timeline_by_published, generate, increment_version,
                             autotag_language)
 
         entry = {'content': [
@@ -271,7 +271,7 @@ class TestHtmlizer(unittest.TestCase):
         entries_timeline_by_published = {}
 
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
-                            blog_data, entries_timeline_by_published, generate, increment_version,
+                            blog_data, None, entries_timeline_by_published, generate, increment_version,
                             autotag_language)
 
         entry = {'finished-timestamp-history': [datetime.datetime(2011, 12, 29, 19, 40),
@@ -308,13 +308,14 @@ class TestHtmlizer(unittest.TestCase):
                                                      datetime.datetime(2007, 1, 29, 19, 40),
                                                      datetime.datetime(2007, 11, 29, 19, 40)]},
                      {'id': 'c_entry_from_2011',
+                      'title': 'testtag',
                       'category': config.TAGS,
                       'finished-timestamp-history': [datetime.datetime(2011, 12, 29, 19, 40),
                                                      datetime.datetime(2011, 1, 29, 19, 40),
                                                      datetime.datetime(2011, 11, 29, 19, 40)]}]
 
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
-                            blog_data, entries_timeline_by_published, generate, increment_version,
+                            blog_data, None, entries_timeline_by_published, generate, increment_version,
                             autotag_language)
 
         entrylist = htmlizer.generate_entry_list_by_newest_timestamp()
@@ -322,6 +323,96 @@ class TestHtmlizer(unittest.TestCase):
         self.assertTrue(entrylist[0]['id'] == 'c_entry_from_2011')
         self.assertTrue(entrylist[1]['id'] == 'a_entry_from_2008')
         self.assertTrue(entrylist[2]['id'] == 'b_entry_from_2007')
+
+    def test_generate_tag_page_with_more_than_one_word_in_title(self):
+
+        template_definitions = u'foo'
+        prefix_dir = u'foo'
+        blog_data = u'foo'
+        targetdir = u'foo'
+        generate = u'foo'
+        increment_version = u'foo'
+        autotag_language = False
+        entries_timeline_by_published = {}
+
+        blog_data = [{'id': 'a_entry_from_2008',
+                      'title': 'testtag',
+                      'category': config.TAGS,
+                      'finished-timestamp-history': [datetime.datetime(2008, 12, 29, 19, 40),
+                                                     datetime.datetime(2008, 1, 29, 19, 40),
+                                                     datetime.datetime(2008, 11, 29, 19, 40)]},
+                     {'id': 'c_entry_from_2011',
+                      'title': 'test title with multiple words',
+                      'category': config.TAGS,
+                      'finished-timestamp-history': [datetime.datetime(2011, 12, 29, 19, 40),
+                                                     datetime.datetime(2011, 1, 29, 19, 40),
+                                                     datetime.datetime(2011, 11, 29, 19, 40)]}]
+
+        htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
+                            blog_data, None, entries_timeline_by_published, generate, increment_version,
+                            autotag_language)
+        with self.assertRaises(HtmlizerException):
+            htmlizer.generate_entry_list_by_newest_timestamp()
+
+    def test_populate_dict_of_tags_with_ids(self):
+
+        template_definitions = u'foo'
+        prefix_dir = u'foo'
+        blog_data = u'foo'
+        targetdir = u'foo'
+        generate = u'foo'
+        increment_version = u'foo'
+        autotag_language = False
+        entries_timeline_by_published = {}
+
+        blog_data = [{'id': 'tag-page-entry',
+                      'title': 'testtag',
+                      'category': config.TAGS,
+                      'usertags': []},
+                     {'id': 'temporal-page-1',
+                      'title': 'temporal 1',
+                      'category': config.TEMPORAL,
+                      'usertags': [u'tag1', u'tag2']},
+                     {'id': 'temporal-page-2',
+                      'title': 'temporal 2',
+                      'category': config.TEMPORAL,
+                      'usertags': [u'tag2', u'tag3']},
+                     {'id': 'temporal-page-3',
+                      'title': 'temporal 3',
+                      'category': config.TEMPORAL,
+                      'usertags': [u'tag1', u'tag3']},
+                     {'id': 'temporal-page-4',
+                      'title': 'temporal 4',
+                      'category': config.TEMPORAL,
+                      'usertags': [u'tag4']},
+                     {'id': 'temporal-page-5',
+                      'title': 'temporal 5',
+                      'category': config.TEMPORAL,
+                      'usertags': [u'tag4', u'hidden']},
+                     {'id': 'persistent-page-1',
+                      'title': 'persistent 1',
+                      'category': config.PERSISTENT,
+                      'usertags': [u'tag3']},
+                     {'id': 'persistent-page-2',
+                      'title': 'persistent 2',
+                      'category': config.PERSISTENT,
+                      'usertags': [u'tag3', u'hidden']},
+                     {'id': 'persistent-page-3',
+                      'title': 'persistent 3',
+                      'category': config.PERSISTENT,
+                      'usertags': [u'tag5', u'hidden']}]
+
+        htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
+                            blog_data, None, entries_timeline_by_published, generate, increment_version,
+                            autotag_language)
+
+        dict_of_tags_with_ids = htmlizer._populate_dict_of_tags_with_ids(blog_data)
+
+        self.assertEqual(sorted(dict_of_tags_with_ids.keys()), [u'tag1', u'tag2', u'tag3', u'tag4'])
+        self.assertEqual(sorted(dict_of_tags_with_ids[u'tag1']), ['temporal-page-1', 'temporal-page-3'])
+        self.assertEqual(sorted(dict_of_tags_with_ids[u'tag2']), ['temporal-page-1', 'temporal-page-2'])
+        self.assertEqual(sorted(dict_of_tags_with_ids[u'tag3']), ['persistent-page-1', 'temporal-page-2', 'temporal-page-3'])
+        self.assertEqual(sorted(dict_of_tags_with_ids[u'tag4']), ['temporal-page-4'])
 
     def test_simple_formatting(self):
 
@@ -335,7 +426,7 @@ class TestHtmlizer(unittest.TestCase):
         entries_timeline_by_published = {}
 
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
-                            blog_data, entries_timeline_by_published, generate, increment_version,
+                            blog_data, None, entries_timeline_by_published, generate, increment_version,
                             autotag_language)
 
         self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"This is *bold face* and ~teletype style~.") ==
@@ -379,7 +470,7 @@ class TestHtmlizer(unittest.TestCase):
         entries_timeline_by_published = {}
 
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
-                            blog_data, entries_timeline_by_published, generate, increment_version,
+                            blog_data, None, entries_timeline_by_published, generate, increment_version,
                             autotag_language)
 
         self.assertTrue(htmlizer.sanitize_html_characters(u"An & and <this> will be ampersand and <similar>.") ==
@@ -412,13 +503,14 @@ class TestHtmlizer(unittest.TestCase):
                                                      datetime.datetime(2006, 1, 29, 19, 40),
                                                      datetime.datetime(2006, 11, 29, 19, 40)]},
                      {'id': 'my-tag',
+                      'title': 'testtag',
                       'category': config.TAGS,
                       'finished-timestamp-history': [datetime.datetime(2011, 12, 29, 19, 40),
                                                      datetime.datetime(2011, 1, 29, 19, 40),
                                                      datetime.datetime(2011, 11, 29, 19, 40)]}]
 
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
-                            blog_data, entries_timeline_by_published, generate, increment_version,
+                            blog_data, None, entries_timeline_by_published, generate, increment_version,
                             autotag_language)
 
         # Org-mode links of style [[id:foo][bar]] or [[id:foo]]:
@@ -432,9 +524,9 @@ class TestHtmlizer(unittest.TestCase):
         self.assertTrue(htmlizer.sanitize_internal_links(config.TEMPORAL, u"[[id:2014-03-02-my-temporal]]") ==
                         u"<a href=\"../../../../2007/01/29/my-temporal\">2014-03-02-my-temporal</a>")
         self.assertTrue(htmlizer.sanitize_internal_links(config.TEMPORAL, u"[[id:my-tag]]") ==
-                        u"<a href=\"../../../../tags/my-tag\">my-tag</a>")
+                        u"<a href=\"../../../../tags/testtag\">my-tag</a>")
         self.assertTrue(htmlizer.sanitize_internal_links(config.TEMPORAL, u"[[id:my-tag]]", keep_orgmode_format=True) ==
-                        u"[[../../../../tags/my-tag][my-tag]]")
+                        u"[[../../../../tags/testtag][my-tag]]")
 
         # links with description:
         self.assertTrue(htmlizer.sanitize_internal_links(config.TEMPORAL, u"[[id:2014-03-02-my-persistent][my description text]]") ==
@@ -442,29 +534,29 @@ class TestHtmlizer(unittest.TestCase):
         self.assertTrue(htmlizer.sanitize_internal_links(config.TEMPORAL, u"[[id:2014-03-02-my-temporal][another description text]]") ==
                         u"<a href=\"../../../../2007/01/29/my-temporal\">another description text</a>")
         self.assertTrue(htmlizer.sanitize_internal_links(config.TEMPORAL, u"[[id:my-tag][tag link description text]]") ==
-                        u"<a href=\"../../../../tags/my-tag\">tag link description text</a>")
+                        u"<a href=\"../../../../tags/testtag\">tag link description text</a>")
 
         self.assertTrue(htmlizer.sanitize_internal_links(config.PERSISTENT, u"[[id:2014-03-02-my-persistent][my description text]]") ==
                         u"<a href=\"../my-persistent\">my description text</a>")
         self.assertTrue(htmlizer.sanitize_internal_links(config.PERSISTENT, u"[[id:2014-03-02-my-temporal][another description text]]") ==
                         u"<a href=\"../2007/01/29/my-temporal\">another description text</a>")
         self.assertTrue(htmlizer.sanitize_internal_links(config.PERSISTENT, u"[[id:my-tag][tag link description text]]") ==
-                        u"<a href=\"../tags/my-tag\">tag link description text</a>")
+                        u"<a href=\"../tags/testtag\">tag link description text</a>")
 
         self.assertTrue(htmlizer.sanitize_internal_links(config.TAGS, u"[[id:2014-03-02-my-persistent][my description text]]") ==
                         u"<a href=\"../../my-persistent\">my description text</a>")
         self.assertTrue(htmlizer.sanitize_internal_links(config.TAGS, u"[[id:2014-03-02-my-temporal][another description text]]") ==
                         u"<a href=\"../../2007/01/29/my-temporal\">another description text</a>")
         self.assertTrue(htmlizer.sanitize_internal_links(config.TAGS, u"[[id:my-tag][tag link description text]]") ==
-                        u"<a href=\"../../tags/my-tag\">tag link description text</a>")
+                        u"<a href=\"../../tags/testtag\">tag link description text</a>")
         self.assertTrue(htmlizer.sanitize_internal_links(config.TAGS, u"like [[id:my-tag][text]] used") ==
-                        u"like <a href=\"../../tags/my-tag\">text</a> used")
+                        u"like <a href=\"../../tags/testtag\">text</a> used")
         self.assertTrue(htmlizer.sanitize_internal_links(config.TAGS, u"like [[id:my-tag][this]] and [[id:my-tag][that]] used") ==
-                        u"like <a href=\"../../tags/my-tag\">this</a> and <a href=\"../../tags/my-tag\">that</a> used")
+                        u"like <a href=\"../../tags/testtag\">this</a> and <a href=\"../../tags/testtag\">that</a> used")
         self.assertTrue(htmlizer.sanitize_internal_links(config.TAGS,
                                                          u"like [[id:my-tag][this]] and [[id:my-tag][that]] used",
                                                          keep_orgmode_format=True) ==
-                        u"like [[../../tags/my-tag][this]] and [[../../tags/my-tag][that]] used")
+                        u"like [[../../tags/testtag][this]] and [[../../tags/testtag][that]] used")
 
         ## links with description and formatting:
         self.assertTrue(htmlizer.sanitize_internal_links(config.TEMPORAL, u"[[id:2014-03-02-my-persistent][my *description* text]]") ==
@@ -524,7 +616,7 @@ class TestHtmlizer(unittest.TestCase):
         entries_timeline_by_published = {}
 
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
-                            blog_data, entries_timeline_by_published, generate, increment_version,
+                            blog_data, None, entries_timeline_by_published, generate, increment_version,
                             autotag_language)
 
         # Org-mode links of style [[foo][bar]]:
@@ -585,7 +677,7 @@ class TestHtmlizer(unittest.TestCase):
         entries_timeline_by_published = {}
 
         htmlizer = Htmlizer(template_definitions, prefix_dir, prefix_dir, prefix_dir, targetdir,
-                            blog_data, entries_timeline_by_published, generate, increment_version,
+                            blog_data, None, entries_timeline_by_published, generate, increment_version,
                             autotag_language)
 
         self.assertTrue(htmlizer.fix_ampersands_in_url('href="http://www.example.com/index.html&amp;s=foo" bar') ==

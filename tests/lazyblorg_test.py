@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-31 13:25:20 vk>
+# Time-stamp: <2016-10-31 19:15:33 vk>
 
 import config
 import argparse  # command line arguments
@@ -30,7 +30,7 @@ class TestLazyblorg(unittest.TestCase):
 
     def test_parse_HTML_output_template_and_generate_template_definitions(self):
 
-        # FIXXME: implement!
+        # FIXXME: implement test_parse_HTML_output_template_and_generate_template_definitions()
         pass
 
     def test_determine_changes(self):
@@ -135,18 +135,20 @@ class TestLazyblorg(unittest.TestCase):
 
     def test_example_entry_with_all_implemented_orgmode_elements_from_org_to_html(self):
 
-        testnames = ["currently_supported_orgmode_syntax", "test_case_from_nothing_to_DONE"]
+        testnames = ["currently_supported_orgmode_syntax",
+                     "test_case_from_nothing_to_DONE",
+                     "test_case_with_tag_page"]
 
         for testname in testnames:
 
             # manually written Org-mode file; has to be placed in "../testdata/"
-            generate_sorted, blog_data, increment_version, mylazyblorg, generate, metadata_output = self.generate_parser_data_from_orgmode_file(testname)
+            generate_sorted, blog_data, metadata, increment_version, mylazyblorg, generate, metadata_output = self.generate_parser_data_from_orgmode_file(testname)
 
             if testname == "currently_supported_orgmode_syntax":
                 self.assertTrue(generate_sorted == [u'2014-01-27-full-syntax-test', u'2014-03-09-about',
                                                     u'lazyblorg-templates'])
 
-            htmloutputname = self.htmlize_parser_data_to_html_files(testname, blog_data, increment_version, mylazyblorg, generate)
+            htmloutputname = self.htmlize_parser_data_to_html_files(testname, blog_data, metadata, increment_version, mylazyblorg, generate)
             self.compare_generated_html_content_to_comparison_html_file(testname, htmloutputname, metadata_output)
 
     def generate_parser_data_from_orgmode_file(self, testname):
@@ -209,9 +211,11 @@ class TestLazyblorg(unittest.TestCase):
         blog_data += template_blog_data
         blog_data += additional_blog_data
 
-        return generate_sorted, blog_data, increment_version, mylazyblorg, generate, metadata_output
+        metadata = Utils.generate_metadata_from_blogdata(blog_data)
 
-    def htmlize_parser_data_to_html_files(self, testname, blog_data, increment_version, mylazyblorg, generate):
+        return generate_sorted, blog_data, metadata, increment_version, mylazyblorg, generate, metadata_output
+
+    def htmlize_parser_data_to_html_files(self, testname, blog_data, metadata, increment_version, mylazyblorg, generate):
 
         target_dir = "../testdata/"
         autotag_language = True
@@ -221,7 +225,7 @@ class TestLazyblorg(unittest.TestCase):
         template_definitions = mylazyblorg._generate_template_definitions_from_template_data()
 
         htmlizer = Htmlizer(template_definitions, testname, "blog", "about this blog",
-                            target_dir, blog_data, entries_timeline_by_published, generate,
+                            target_dir, blog_data, metadata, entries_timeline_by_published, generate,
                             increment_version, autotag_language)
 
         htmlcontent = None
@@ -233,7 +237,8 @@ class TestLazyblorg(unittest.TestCase):
                 filename, orgfilename, htmlcontent = htmlizer._generate_temporal_article(entry)
             elif entry['category'] == config.PERSISTENT:
                 pass  # FIXXME: probably add test for generating about-page as well
-            # FIXXME: probably add test for generating tags-page as well
+            elif entry['category'] == config.TAGS:
+                filename, orgfilename, htmlcontent = htmlizer._generate_tag_page(entry)
 
         htmloutputname = "../testdata/" + testname + ".html"
 

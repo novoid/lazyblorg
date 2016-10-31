@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-18 20:02:22 vk>
+# Time-stamp: <2016-10-31 17:15:15 vk>
 
 ## TODO:
 ## * fix parts marked with «FIXXME»
@@ -153,7 +153,7 @@ class Lazyblorg(object):
         """
 
         htmlizer = Htmlizer(self.template_definitions, self.options.blogname, config.TAG_FOR_BLOG_ENTRY,
-                            self.options.aboutblog, self.options.targetdir, self.blog_data,
+                            self.options.aboutblog, self.options.targetdir, self.blog_data, self.metadata,
                             self.entries_timeline_by_published, generate,
                             increment_version, self.options.autotag_language)
 

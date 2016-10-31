@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-31 13:09:22 vk>
+# Time-stamp: <2016-10-31 19:16:00 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -48,12 +48,14 @@ class Htmlizer(object):
     template_definitions = None  # list of lists ['description', 'content'] with content being the HTML templates
     targetdir = None  # string of the base directory of the blog
     blog_data = None  # internal representation of the complete blog content
+    metadata = None  # metadata as described in the documentation
     generate = None  # list of IDs which blog entries should be generated
     increment_version = None  # list of IDs which blog entries gets an update
     blogname = None  # string which is the base directory after targetdirectory
     blog_tag = None  # string that marks blog entries (as Org-mode tag)
     about_blog = None  # string containing a short description of the blog
     autotag_language = False  # boolean, if guessing language + autotag should be done
+    dict_of_tags_with_ids = None  # { 'mytag': [ 'ID1', 'ID2', 'ID2'], 'anothertag': [...] }
 
     # find internal links to Org-mode IDs: [[id:simple]] and [[id:with][a description]]
     ID_SIMPLE_LINK_REGEX = re.compile('(\[\[id:([^\[]+?)\]\])')
@@ -80,7 +82,7 @@ class Htmlizer(object):
     # any ISO date-stamp of format YYYY-MM-DD:
     DATESTAMP_REGEX = re.compile('([12]\d\d\d)-([012345]\d)-([012345]\d)', flags=re.U)
 
-    def __init__(self, template_definitions, blogname, blog_tag, about_blog, targetdir, blog_data,
+    def __init__(self, template_definitions, blogname, blog_tag, about_blog, targetdir, blog_data, metadata,
                  entries_timeline_by_published, generate, increment_version, autotag_language):
         """
         This function initializes the class instance with the class variables.
@@ -91,6 +93,7 @@ class Htmlizer(object):
         @param about_blog: string containing a short description of the blog
         @param targetdir: string of the base directory of the blog
         @param blog_data: internal representation of the complete blog content
+        @param metadata: as described in the documentation
         @param entries_timeline_by_published: dict(year) of list(month) of list(day) of lists(entries) of IDs
         @param generate: list of IDs which blog entries should be generated
         @param increment_version: list of IDs which blog entries gets an update
@@ -104,6 +107,7 @@ class Htmlizer(object):
         self.about_blog = about_blog
         self.targetdir = targetdir
         self.blog_data = blog_data
+        self.metadata = metadata
         self.generate = generate
         self.increment_version = increment_version
         self.autotag_language = autotag_language
@@ -126,12 +130,35 @@ class Htmlizer(object):
         @param: return: stats_generated_tags: tag articles generated
         """
 
+        self.dict_of_tags_with_ids = self._populate_dict_of_tags_with_ids(self.blog_data)
+
         entry_list_by_newest_timestamp, stats_generated_total, stats_generated_temporal, \
             stats_generated_persistent, stats_generated_tags = self._generate_pages_for_tags_persistent_temporal()
 
         self._generate_feeds(entry_list_by_newest_timestamp)
 
         return stats_generated_total, stats_generated_temporal, stats_generated_persistent, stats_generated_tags
+
+    def _populate_dict_of_tags_with_ids(self, blog_data):
+        """
+        Traverses all blog articles and collects them by tags. Resulting data looks
+        like { 'mytag': [ 'ID1', 'ID2', 'ID2'], 'anothertag': [...] }
+
+        @param: blog_data: the usual blog data data structure
+        @param: return: dict of lists of IDs
+        """
+
+        dict_of_tags_with_ids = {}
+
+        for blog_article in blog_data:
+            if config.TAG_FOR_HIDDEN not in blog_article['usertags']:
+                for usertag in blog_article['usertags']:
+                    if usertag in dict_of_tags_with_ids.keys():
+                        dict_of_tags_with_ids[usertag].append(blog_article['id'])
+                    else:
+                        dict_of_tags_with_ids[usertag] = [blog_article['id']]
+
+        return dict_of_tags_with_ids
 
     def _generate_pages_for_tags_persistent_temporal(self):
         """
@@ -169,9 +196,8 @@ class Htmlizer(object):
 
             if entry['category'] == config.TAGS:
                 self.logging.debug("entry \"%s\" is a tag page" % entry['id'])
-                self.logging.warn("generating tag pages not implemented yet")
+                htmlfilename, orgfilename, htmlcontent = self._generate_tag_page(entry)
                 stats_generated_tags += 1
-                # FIXXME: generate tag blog entry
 
             elif entry['category'] == config.PERSISTENT:
                 self.logging.debug("entry \"%s\" is a persistent page" % entry['id'])
@@ -224,8 +250,6 @@ class Htmlizer(object):
                     raise HtmlizerException(message)
 
         self.__generate_feeds_for_everything(entry_list_by_newest_timestamp)
-
-        return stats_generated_total, stats_generated_temporal, stats_generated_persistent, stats_generated_tags
 
     def __generate_feed_filename(self, feedstring):
         """
@@ -379,7 +403,7 @@ class Htmlizer(object):
 
     def generate_entry_page(self, entry_list_by_newest_timestamp):
         """
-        Generates and write the blog entry page with sneak previews of the most recent articles/updates.
+        Generates and writes the blog entry page with sneak previews of the most recent articles/updates.
 
         @param: entry_list_by_newest_timestamp: a sorted list like [ {'id':'a-new-entry', 'timestamp':datetime(), 'url'="<URL>"}, {...}]
         """
@@ -466,7 +490,7 @@ class Htmlizer(object):
                 htmlcontent += content
 
             elif entry['category'] == 'TAGS':
-                pass  # FIXXME: implement!
+                pass  # FIXXME: implement if you want sneak previews of tag pages on entry page
 
         number_of_current_teaser_entries += 1
 
@@ -606,7 +630,7 @@ class Htmlizer(object):
             elif entry['content'][index][0] == 'list-itemize':
 
                 # example:
-                # FIXXME
+                # FIXXME example for list-itemize
 
                 result = self.template_definition_by_name('ul-begin')
                 for listitem in entry['content'][index][1]:
@@ -1026,6 +1050,48 @@ class Htmlizer(object):
 
         return htmlfilename, orgfilename, htmlcontent
 
+    def _generate_tag_page(self, entry):
+        """
+        Creates a blog article for a tag (in contrast to a temporal or persistent blog article).
+
+        @param entry: blog entry data
+        @param return: htmlfilename: string containing the file name of the HTML file
+        @param return: orgfilename: string containing the file name of the Org-mode raw content file
+        @param return: htmlcontent: the HTML content of the entry
+        """
+
+        path = self._create_target_path_for_id_with_targetdir(entry['id'])
+        htmlfilename = os.path.join(path, "index.html")
+        orgfilename = os.path.join(path, "source.org.txt")
+        htmlcontent = u''
+        content = u''
+
+        for articlepart in ['tagpage-header', 'tagpage-header-begin', 'tagpage-tags-begin']:
+            content += self.template_definition_by_name(articlepart)
+        htmlcontent += self._replace_general_article_placeholders(entry, content)
+
+        # handle autotags:
+        if 'autotags' in entry.keys():
+            for autotag in entry['autotags'].keys():
+                htmlcontent += self._replace_tag_placeholders([autotag + ":" + entry['autotags'][autotag]],
+                                                              self.template_definition_by_name('article-autotag'))
+
+        content = u''
+        for articlepart in ['tagpage-tags-end', 'tagpage-header-end']:
+            content += self.template_definition_by_name(articlepart)
+        htmlcontent += self._replace_general_article_placeholders(entry, content)
+
+        htmlcontent += self.__collect_raw_content(entry['content'])
+
+        content = u''
+        for articlepart in ['tagpage-end', 'article-footer']:
+            content += self.template_definition_by_name(articlepart)
+
+        htmlcontent += self._replace_general_article_placeholders(entry, content)
+        htmlcontent = self.sanitize_internal_links(config.TEMPORAL, htmlcontent)
+
+        return htmlfilename, orgfilename, htmlcontent
+
     def __collect_raw_content(self, contentarray):
         """
         Iterates over the contentarray and returns a concatenated string in unicode.
@@ -1087,6 +1153,7 @@ class Htmlizer(object):
         - #ARTICLE-PUBLISHED-HTML-DATETIME#: time-stamp of publishing in HTML date-time format
         - #ARTICLE-PUBLISHED-HUMAN-READABLE#: time-stamp of publishing in
         - #COMMON-SIDEBAR#: the side-bar which is shared on all pages
+        - #TAG-PAGE-LIST#: list of all blog pages using a specific tag
 
         This method replaces all placeholders from above with their
         blog article content.
@@ -1113,7 +1180,38 @@ class Htmlizer(object):
         content = content.replace('#ARTICLE-PUBLISHED-HUMAN-READABLE#', iso_timestamp)
         content = content.replace('#COMMON-SIDEBAR#', self.template_definition_by_name('common-sidebar'))
 
+        if entry['category'] == config.TAGS:
+            # replace #TAG-PAGE-LIST#
+            content = content.replace('#TAG-PAGE-LIST#', self._generate_tag_page_list(entry['title']))
+
         return content
+
+    def _generate_tag_page_list(self, tag):
+        """
+        Generates a HTML snippet which contains the list of pages of a given tag.
+
+        @param tag: a string holding a word which is interpreted as tag
+        @param return: HTML content
+        """
+
+        content = u'\n<ul>\n'
+
+        if not self.dict_of_tags_with_ids:
+            return u'\nNo blog entries with this tag so far.\n'
+
+        for reference in sorted(self.dict_of_tags_with_ids[tag]):
+
+            year = self.metadata[reference]['created'].year
+            month = self.metadata[reference]['created'].month
+            day = self.metadata[reference]['created'].day
+            minutes = self.metadata[reference]['created'].minute
+            hours = self.metadata[reference]['created'].hour
+            iso_timestamp = '-'.join([str(year), str(month), str(day)]) + 'T' + str(hours) + ':' + str(minutes)
+
+            content += self.sanitize_internal_links(config.TAGS, u'  <li> ' + iso_timestamp + ' [[id:' + reference +
+                                                    u'][' + self.metadata[reference]['title'] + ']]</li>\n')
+
+        return content + u'</ul>\n'
 
     def _target_path_for_id_with_targetdir(self, entryid):
         """
@@ -1146,7 +1244,7 @@ class Htmlizer(object):
         """
         Returnes a directory path for a given blog ID such as:
         PERSISTENT: "ID" from the oldest finished time-stamp.
-        TAGS: "tags/ID" from the oldest finished time-stamp.
+        TAGS: "tags/TITLE" if title consists of a single word.
         TEMPORAL: "2013/02/12/ID" from the oldest finished time-stamp.
 
         @param entryid: ID of a blog entry
@@ -1158,7 +1256,16 @@ class Htmlizer(object):
 
         if entry['category'] == config.TAGS:
             # TAGS: url is like "/tags/mytag/"
-            return os.path.join("tags", folder)
+            title = entry['title']
+            if u' ' in title:
+                title = title.split(None, 1)[0]
+                message = u"article with ID " + str(entry['id']) + \
+                          " is marked as tag page by tag \"" + config.TAG_FOR_TAG_ENTRY + \
+                          "\" but its title is not a single word (which is the tag): \"" + \
+                          entry['title'] + "\". Please fix it now by choosing only one word as title."
+                self.logging.error(message)
+                raise HtmlizerException(message)  # FIXXME: maybe an Exception is too harsh here? (error-recovery?)
+            return os.path.join("tags", title)
 
         if entry['category'] == config.PERSISTENT:
             # PERSISTENT: url is like "/my-id/"
@@ -1314,7 +1421,7 @@ class Htmlizer(object):
         @param return: blog_data element
         """
 
-#        try:#FIXXME
+#        try:
         matching_elements = [x for x in self.blog_data if entryid == x['id']]
 #        except TypeError:
 #            import pdb; pdb.set_trace()

@@ -1,4 +1,4 @@
-## Time-stamp: <2016-10-31 12:32:29 vk>
+## Time-stamp: <2016-10-31 16:21:43 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -717,7 +717,141 @@ With name/label:
 
 ** Tags
 
-FIXXME
+*** Header
+
+- #ARTICLE-TITLE#: heading/title of the blog article
+- #ARTICLE-ID#: Org-mode ID property of the blog entry
+
+#+NAME: tagpage-header
+#+BEGIN_HTML
+  <!DOCTYPE html>
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+  <meta charset="UTF-8">
+
+  <meta name="author" content="Karl Voit" />
+  <meta name="generator" content="lazyblorg" />
+  <meta name="description" content="Tag page for tag #ARTICLE-TITLE#" />
+  <meta name="orgmode-id" content="#ARTICLE-ID#" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@n0v0id" />
+  <meta name="twitter:creator" content="@n0v0id" />
+  <meta name="twitter:title" content="public voit" />
+  <meta name="twitter:description" content="Tag page for tag #ARTICLE-TITLE#" />
+  <meta name="twitter:image" content="http://karl-voit.at/images/public-voit_T_logo_200x200.png" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="public voit" />
+  <meta property="og:description" content="Tag page for tag #ARTICLE-TITLE#" />
+  <meta property="og:image" content="http://karl-voit.at/images/public-voit_T_logo_200x200.png" />
+  <meta property="og:site_name" content="public voit - Web-page of Karl Voit">
+  <meta property="article:published_time" content="#ARTICLE-PUBLISHED-HTML-DATETIME#" />
+  <meta property="article:author" content="Karl Voit" />
+
+  <link rel="stylesheet" title="public voit Standard CSS Style"
+        href="//Karl-Voit.at/public_voit.css" type="text/css" media="screen"  />
+
+  <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
+
+      <!-- link rel="stylesheet" type="text/css" href="../../../../style.css" / -->
+      <title>Tag Page for the Tag "#ARTICLE-TITLE#"</title>
+
+  </head>
+#+END_HTML
+
+*** Top of Article
+
+- #BLOGNAME#: short name of the blog
+- #ARTICLE-YEAR#: four digit year of the article (folder path)
+- #ARTICLE-MONTH#: two digit month of the article (folder path)
+- #ARTICLE-DAY#: two digit day of the article (folder path)
+- #ARTICLE-PUBLISHED-HTML-DATETIME#: time-stamp of publishing in HTML
+  date-time format (e.g., 2011-10-30T15:00+02:00)
+- #ARTICLE-PUBLISHED-HUMAN-READABLE#: time-stamp of publishing in
+  human readable format (e.g., 2011-10-30T15:00)
+- #COMMON-SIDEBAR# : the sidebar conentent which is shared on all pages
+
+#+NAME: tagpage-header-begin
+#+BEGIN_HTML
+  <body>
+
+    <div class="common-orgsource"><a href="source.org.txt">&#960;</a></div>
+
+
+	<header>
+
+	  <nav class="temporal-article-header-nav">
+	    <span class="breadcrumbs">
+	      <a href="../../../../"><img src="//karl-voit.at/images/public-voit_logo.svg" alt="public voit logo" width="350" style="vertical-align:middle;"></a><span style="padding-top:1em;">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;
+	      #ARTICLE-YEAR#&nbsp;&ndash;&nbsp;#ARTICLE-MONTH#&nbsp;&ndash;&nbsp;#ARTICLE-DAY#</span>
+	      <!-- a href="../../../">#ARTICLE-YEAR#</a>&nbsp;&ndash;&nbsp;<a href="../../">#ARTICLE-MONTH#</a>&nbsp;&ndash;&nbsp;<a href="../">#ARTICLE-DAY#</a -->
+	    </span>
+	  </nav>
+
+#+END_HTML
+
+
+#+NAME: tagpage-tags-begin
+#+BEGIN_HTML
+	  <aside class="common-tags">
+	    <ul>
+
+#+END_HTML
+
+- #TAGNAME#: string of a tag
+
+#+NAME: tagpage-usertag
+#+BEGIN_HTML
+                <li><a class="usertag" href="#">#ARTICLE_TITLE#</a></li>
+
+#+END_HTML
+
+#+NAME: tagpage-autotag
+#+BEGIN_HTML
+                <li><a class="autotag" href="#">#TAGNAME#</a></li>
+
+#+END_HTML
+
+#+NAME: tagpage-tags-end
+#+BEGIN_HTML
+	    </ul>
+	  </aside>
+
+#+END_HTML
+
+#+NAME: tagpage-header-end
+#+BEGIN_HTML
+
+	  <h1 class="common-article-header-title">Tag Page for the Tag "#ARTICLE-TITLE#"</h1>
+
+	</header>
+
+  #COMMON-SIDEBAR#
+
+  <article class="common-article">
+
+#+END_HTML
+
+#+NAME: tagpage-end
+#+BEGIN_HTML
+
+  <hr />
+
+  <p>
+
+  FIXXME: List of pages using the tag #ARTICLE-TITLE#
+  #TAG-PAGE-LIST#
+
+  </p>
+
+  </article>
+
+#+END_HTML
+
+*** Footer
+
+I'm re-using article-footer.
 
 ** Day Overview
 
@@ -729,7 +863,7 @@ FIXXME
 
 - #BLOGNAME#: short name of the blog
 - #YEAR#: four digit year
-- #MONTH-LONGNAME#: name of the month like "Jannuary" or "February"
+- #MONTH-LONGNAME#: name of the month like "January" or "February"
 - #MONTH-SHORTNAME#: three letter name of the month like "Jan" or "Feb"
 - #MONTH-TWODIGITNUMBER#: number of the month like "01" or "02"
 
@@ -791,7 +925,7 @@ FIXXME
 
 - #BLOGNAME#: short name of the blog
 - #YEAR#: four digit year
-- #MONTH-LONGNAME#: name of the month like "Jannuary" or "February"
+- #MONTH-LONGNAME#: name of the month like "January" or "February"
 - #MONTH-SHORTNAME#: three letter name of the month like "Jan" or "Feb"
 - #MONTH-TWODIGITNUMBER#: number of the month like "01" or "02"
 
