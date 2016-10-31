@@ -1,4 +1,4 @@
-## Time-stamp: <2016-09-18 14:35:15 vk>
+## Time-stamp: <2016-10-31 12:32:29 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -72,8 +72,8 @@ Have fun with modifying lazyblorg to your requirements!
   <a id="show-sidebar-text" href="#show-sidebar">Show Sidebar</a>
   <div class="sidebar toggle-sidebar">
      <div class="search">
-       <iframe id="search-big" src="//duckduckgo.com/search.html?width=140&site=karl-voit.at&prefill=Search blog" frameborder="0"></iframe>
-       <iframe id="search-narrow" src="//duckduckgo.com/search.html?width=70&k1=-1&k2=s&site=karl-voit.at&prefill=Search" frameborder="0"></iframe>
+       <iframe id="search-big" src="//duckduckgo.com/search.html?width=140&site=karl-voit.at&prefill=Search%20blog"></iframe>
+       <iframe id="search-narrow" src="//duckduckgo.com/search.html?width=70&k1=-1&k2=s&site=karl-voit.at&prefill=Search"></iframe>
        <br/>
      </div>
      <ul>
@@ -267,7 +267,8 @@ With name/label:
 #+NAME: entrypage-header
 #+BEGIN_HTML
   <!DOCTYPE html>
-  <html xmlns="//www.w3.org/1999/xhtml">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
   <meta charset="UTF-8">
   <meta name="author" content="Karl Voit" />
   <meta name="generator" content="lazyblorg" />
@@ -277,7 +278,6 @@ With name/label:
 
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
-  <head>
   <title>Public Voit - Homepage of Karl Voit</title>
   </head>
 
@@ -426,7 +426,8 @@ With name/label:
 #+NAME: persistent-header
 #+BEGIN_HTML
   <!DOCTYPE html>
-  <html xmlns="//www.w3.org/1999/xhtml">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
   <meta charset="UTF-8">
   <meta name="author" content="Karl Voit" />
   <meta name="generator" content="lazyblorg" />
@@ -436,10 +437,9 @@ With name/label:
 
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
-    <head>
       <title>#ARTICLE-TITLE#</title>
 
-    </head>
+  </head>
 
 #+END_HTML
 
@@ -502,7 +502,7 @@ With name/label:
 	  </aside>
 
    <p class="email-comment">
-      <a href="mailto:publicvoit-comment@Karl-Voit.at?subject=#ARTICLE-ID# comment: &body=Please do not remove '#ARTICLE-ID# comment:' in subject and please tell me whether or not it is OK to add your comment and/or your email address to the blog entry!">Comment via email</a> or via <a href="//disqus.com">Disqus</a> comments below:
+      <a href="mailto:publicvoit-comment@Karl-Voit.at?subject=#ARTICLE-ID#%20comment:%20&body=Please%20do%20not%20remove%20'#ARTICLE-ID#%20comment:'%20in%20subject%20and%20please%20tell%20me%20whether%20or%20not%20it%20is%20OK%20to%20add%20your%20comment%20and%2For%20your%20email%20address%20to%20the%20blog%20entry!">Comment via email</a> or via <a href="//disqus.com">Disqus</a> comments below:
    </p>
 
     <div id="disqus_thread"></div>
@@ -549,7 +549,8 @@ With name/label:
 #+NAME: article-header
 #+BEGIN_HTML
   <!DOCTYPE html>
-  <html xmlns="//www.w3.org/1999/xhtml">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
   <meta charset="UTF-8">
 
   <meta name="author" content="Karl Voit" />
@@ -577,11 +578,10 @@ With name/label:
 
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
-    <head>
       <!-- link rel="stylesheet" type="text/css" href="../../../../style.css" / -->
       <title>#ARTICLE-TITLE#</title>
 
-    </head>
+  </head>
 #+END_HTML
 
 *** Top of Article
@@ -678,7 +678,7 @@ With name/label:
 	  </aside>
 
    <p class="email-comment">
-      <a href="mailto:publicvoit-comment@Karl-Voit.at?subject=#ARTICLE-ID# comment: &body=Please do not remove '#ARTICLE-ID# comment:' in subject and please tell me whether or not it is OK to add your comment and/or your email address to the blog entry!">Comment via email</a> or via <a href="//disqus.com">Disqus</a> comments below:
+      <a href="mailto:publicvoit-comment@Karl-Voit.at?subject=#ARTICLE-ID#%20comment:%20&body=Please%20do%20not%20remove%20'#ARTICLE-ID#%20comment:'%20in%20subject%20and%20please%20tell%20me%20whether%20or%20not%20it%20is%20OK%20to%20add%20your%20comment%20and%2For%20your%20email%20address%20to%20the%20blog%20entry!">Comment via email</a> or via <a href="//disqus.com">Disqus</a> comments below:
    </p>
 
     <div id="disqus_thread"></div>
@@ -736,7 +736,8 @@ FIXXME
 #+NAME: month-header
 #+BEGIN_HTML
   <!DOCTYPE html>
-  <html xmlns="//www.w3.org/1999/xhtml">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
   <meta charset="UTF-8">
   <meta name="author" content="Karl Voit" />
   <meta name="generator" content="lazyblorg" />
@@ -745,9 +746,8 @@ FIXXME
 
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
-    <head>
-      <title>#BLOGNAME#: #YEAR#-#MONTH-TWODIGITNUMBER#</title>
-    </head>
+  <title>#BLOGNAME#: #YEAR#-#MONTH-TWODIGITNUMBER#</title>
+  </head>
 
   <body>
 
