@@ -1,4 +1,4 @@
-## Time-stamp: <2016-11-01 11:41:01 vk>
+## Time-stamp: <2016-11-01 11:52:56 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -755,7 +755,7 @@ With name/label:
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
       <!-- link rel="stylesheet" type="text/css" href="../../../../style.css" / -->
-      <title>Tag Page for the Tag "#ARTICLE-TITLE#"</title>
+      <title>The Tag «#ARTICLE-TITLE#»</title>
 
   </head>
 #+END_HTML
@@ -840,7 +840,6 @@ With name/label:
 
   <p>
 
-  FIXXME: List of pages using the tag #ARTICLE-TITLE#
   #TAG-PAGE-LIST#
 
   </p>

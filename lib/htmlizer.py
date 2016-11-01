@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-31 19:16:00 vk>
+# Time-stamp: <2016-11-01 11:55:21 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1206,7 +1206,7 @@ class Htmlizer(object):
             day = self.metadata[reference]['created'].day
             minutes = self.metadata[reference]['created'].minute
             hours = self.metadata[reference]['created'].hour
-            iso_timestamp = '-'.join([str(year), str(month), str(day)]) + 'T' + str(hours) + ':' + str(minutes)
+            iso_timestamp = '-'.join([str(year), str(month).zfill(2), str(day).zfill(2)]) + 'T' + str(hours).zfill(2) + ':' + str(minutes).zfill(2)
 
             content += self.sanitize_internal_links(config.TAGS, u'  <li> ' + iso_timestamp + ' [[id:' + reference +
                                                     u'][' + self.metadata[reference]['title'] + ']]</li>\n')

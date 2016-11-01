@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-10-31 19:20:36 vk>
+# Time-stamp: <2016-11-01 11:55:40 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -242,6 +242,26 @@ SCHEDULED: <2016-08-06 Sat>
 
 - id:implemented-org-elements
 
+** NEXT refractor blog data Metadata to single dict
+
+- why
+  - list of data strutures is getting longer and longer
+  - adding a new data structure is getting tedious: unit tests, ...
+  - simplification?
+- data structures to add to single data structure-dict:
+  - blog_data
+  - metadata
+  - FIXXME: more?
+
+** NEXT tag pages: create a tag page for all tags                                        :userstory:
+:PROPERTIES:
+:CREATED:  [2016-11-01 Tue 11:30]
+:END:
+
+** NEXT tag pages: Atom-feed for each tag                                                :userstory:
+:PROPERTIES:
+:CREATED:  [2016-11-01 Tue 11:53]
+:END:
 ** DONE analyze and steal CSS for columns from [[http://endlessparentheses.com/how-i-blog-one-year-of-posts-in-a-single-org-file.html][URL]]                                    :architecture:
 CLOSED: [2015-06-27 Sat 19:06] SCHEDULED: <2015-06-27 Sat>
 :PROPERTIES:
