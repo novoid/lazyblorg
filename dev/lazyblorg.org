@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-11-01 11:42:39 vk>
+# Time-stamp: <2016-10-31 19:20:36 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -230,40 +230,7 @@ CLOSED: [2014-03-01 Sat 20:10]
 
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
-** STARTED [#A] remove frameborder at search iframe                                            :bug:
-SCHEDULED: <2016-11-01 Tue>
-:PROPERTIES:
-:CREATED:  [2016-11-01 Tue 00:39]
-:END:
 
-- 2016-11-01: basically done; re-generate CSS and test it
-
-** NEXT refractor blog data Metadata to single dict
-
-- why
-  - list of data strutures is getting longer and longer
-  - adding a new data structure is getting tedious: unit tests, ...
-  - simplification?
-- data structures to add to single data structure-dict:
-  - blog_data
-  - metadata
-  - FIXXME: more?
-
-** NEXT [#A] tag pages: beautify ISO datestamp in list                                         :bug:
-SCHEDULED: <2016-11-01 Tue>
-:PROPERTIES:
-:CREATED:  [2016-11-01 Tue 00:37]
-:END:
-
-** NEXT [#A] tag pages: refactor text                                                    :userstory:
-SCHEDULED: <2016-11-01 Tue>
-:PROPERTIES:
-:CREATED:  [2016-11-01 Tue 00:38]
-:END:
-** NEXT tag pages: create a tag page for all tags                                        :userstory:
-:PROPERTIES:
-:CREATED:  [2016-11-01 Tue 11:30]
-:END:
 ** NEXT document: what elements are rendered/converted via pypandoc?
 SCHEDULED: <2016-08-06 Sat>
 :PROPERTIES:
