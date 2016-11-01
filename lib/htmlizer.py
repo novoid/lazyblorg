@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-01 12:15:25 vk>
+# Time-stamp: <2016-11-01 16:55:27 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -224,7 +224,7 @@ class Htmlizer(object):
                 self.write_orgcontent_to_file(orgfilename, entry['rawcontent'])
                 stats_generated_total += 1
 
-        self.generate_tag_pages_which_got_no_userdefined_tag_page()
+        #self._generate_tag_pages_which_got_no_userdefined_tag_page()
 
         entry_list_by_newest_timestamp = self.generate_entry_list_by_newest_timestamp()
         self.generate_entry_page(entry_list_by_newest_timestamp)
@@ -233,17 +233,41 @@ class Htmlizer(object):
         return entry_list_by_newest_timestamp, stats_generated_total, stats_generated_temporal, \
             stats_generated_persistent, stats_generated_tags
 
-    def generate_tag_pages_which_got_no_userdefined_tag_page(self):
+    def _generate_tag_pages_which_got_no_userdefined_tag_page(self):
         """
         For all tag pages where the user did not define a tag page entry
         by him/herself, create a tag page with no specific content but
         the list of entries related to the tag.
         """
 
-        pass  # FIXXME: implement generate_tag_pages_which_got_no_userdefined_tag_page()
+        set_of_all_tags = set()
+
         # collect list of all tags (from blog_data)
-        # subtract self.list_of_tag_pages_generated
+        for entry in self.blog_data:
+            set_of_all_tags = set_of_all_tags.union(set(entry['usertags']))
+
+        set_of_tags_with_no_userdefined_tag_page = set_of_all_tags - \
+                                                   set(self.list_of_tag_pages_generated) - \
+                                                   set([config.TAG_FOR_BLOG_ENTRY,
+                                                        config.TAG_FOR_TAG_ENTRY,
+                                                        config.TAG_FOR_PERSISTENT_ENTRY,
+                                                        config.TAG_FOR_TEMPLATES_ENTRY,
+                                                        config.TAG_FOR_HIDDEN])
+
+        entry = { 'content': u'',
+                  'category': config.TAGS,
+                  'finished-timestamp-history': [datetime.now()],
+                  }
+
         # for each: generate pseudo-entry containing the tag and call self._generate_tag_page(entry)
+        for tag in set_of_tags_with_no_userdefined_tag_page:
+            entry['id'] = 'lb_tag-' + tag
+            entry['title'] = tag
+            self.blog_data += entry
+            logging.info('----> Generating tag page for: ' + tag)
+            self._generate_tag_page(entry)
+
+        import pdb; pdb.set_trace()
 
     def _generate_feeds(self, entry_list_by_newest_timestamp):
         """

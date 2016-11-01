@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-31 17:17:09 vk>
+# Time-stamp: <2016-11-01 16:40:55 vk>
 
 import config
 import unittest
@@ -277,7 +277,7 @@ class TestHtmlizer(unittest.TestCase):
         entry = {'finished-timestamp-history': [datetime.datetime(2011, 12, 29, 19, 40),
                                                 datetime.datetime(2008, 1, 29, 19, 40),
                                                 datetime.datetime(2013, 1, 29, 19, 40)],
-                 'category': 'TEMPORAL'}
+                 'category': config.TEMPORAL}
 
         self.assertTrue(Utils.get_newest_timestamp_for_entry(entry) == (datetime.datetime(2013, 1, 29, 19, 40),
                                                                             "2013", "01", "29",
