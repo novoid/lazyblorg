@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-01 11:55:21 vk>
+# Time-stamp: <2016-11-01 12:15:25 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -56,6 +56,7 @@ class Htmlizer(object):
     about_blog = None  # string containing a short description of the blog
     autotag_language = False  # boolean, if guessing language + autotag should be done
     dict_of_tags_with_ids = None  # { 'mytag': [ 'ID1', 'ID2', 'ID2'], 'anothertag': [...] }
+    list_of_tag_pages_generated = []  # holds a list of tags whose tag pages have been generated
 
     # find internal links to Org-mode IDs: [[id:simple]] and [[id:with][a description]]
     ID_SIMPLE_LINK_REGEX = re.compile('(\[\[id:([^\[]+?)\]\])')
@@ -223,12 +224,26 @@ class Htmlizer(object):
                 self.write_orgcontent_to_file(orgfilename, entry['rawcontent'])
                 stats_generated_total += 1
 
+        self.generate_tag_pages_which_got_no_userdefined_tag_page()
+
         entry_list_by_newest_timestamp = self.generate_entry_list_by_newest_timestamp()
         self.generate_entry_page(entry_list_by_newest_timestamp)
         stats_generated_total += 1
 
         return entry_list_by_newest_timestamp, stats_generated_total, stats_generated_temporal, \
             stats_generated_persistent, stats_generated_tags
+
+    def generate_tag_pages_which_got_no_userdefined_tag_page(self):
+        """
+        For all tag pages where the user did not define a tag page entry
+        by him/herself, create a tag page with no specific content but
+        the list of entries related to the tag.
+        """
+
+        pass  # FIXXME: implement generate_tag_pages_which_got_no_userdefined_tag_page()
+        # collect list of all tags (from blog_data)
+        # subtract self.list_of_tag_pages_generated
+        # for each: generate pseudo-entry containing the tag and call self._generate_tag_page(entry)
 
     def _generate_feeds(self, entry_list_by_newest_timestamp):
         """
@@ -1059,6 +1074,9 @@ class Htmlizer(object):
         @param return: orgfilename: string containing the file name of the Org-mode raw content file
         @param return: htmlcontent: the HTML content of the entry
         """
+
+        tag = entry['title']
+        self.list_of_tag_pages_generated.append(tag)
 
         path = self._create_target_path_for_id_with_targetdir(entry['id'])
         htmlfilename = os.path.join(path, "index.html")

@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-11-01 11:55:40 vk>
+# Time-stamp: <2016-11-01 12:16:43 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -231,6 +231,11 @@ CLOSED: [2014-03-01 Sat 20:10]
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
 
+** NEXT implement generate_tag_pages_which_got_no_userdefined_tag_page()
+SCHEDULED: <2016-11-01 Tue>
+:PROPERTIES:
+:CREATED:  [2016-11-01 Tue 12:12]
+:END:
 ** NEXT document: what elements are rendered/converted via pypandoc?
 SCHEDULED: <2016-08-06 Sat>
 :PROPERTIES:
