@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2016-09-17 13:15:24 vk>
+## Time-stamp: <2016-11-01 11:33:46 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -348,9 +348,8 @@ This is a list of the most important dependencies:
   - you can get it via ~sudo apt-get install pandoc~ and ~sudo pip
     install pypandoc~
   - *Note:* Debian GNU/Linux 8 (Jessie) comes with a Pandoc version
-    [[https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=800701][which is has bugs]]. Please install a more recent version which also
-    required some minor changes. I upgraded to
-    ~pandoc-1.15.1-1-amd64.deb~ from:
+    [[https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=800701][which is has bugs]]. Please install a more recent version. I
+    upgraded to ~pandoc-1.15.1-1-amd64.deb~ from:
     http://pandoc.org/installing.html
 - [[http://sass-lang.com/][Sass]] (optional) if you want to generate your CSS from the scss-file
 
@@ -374,7 +373,7 @@ All other libraries should be part of a standard Python distribution.
    - if unsure, ask for help using ~lazyblorg.py --help~
 
 4. get yourself an overview on *what defines a lazyblorg blog post* and
-   write your own blog posts
+   write your own blog posts. A (normal temporal) blog article consists of:
    1. A (direct) tag has to be ~blog~
       - Sorry, no tag inheritance. Every blog entry has to be
         explicitely tagged.
@@ -384,8 +383,10 @@ All other libraries should be part of a standard Python distribution.
       setting the entry to ~DONE~
       - in [[https://github.com/novoid/dot-emacs][my set-up]], this is created automatically
    5. Do not use Org-mode elements that lazyblorg does not understand
-      - you should not get a disaster if you are using new
+      - You should not get a disaster if you are using new
         elements. The result might disappoint you, that's all.
+      - However, many Org-mode elements are automatically converted
+        through pandoc.
 
 5. OPTIONAL: write your own CSS file
    - you can [[http://Karl-Voit.at/public_voit.css][take a look on mine]] if you do not care that I am not
@@ -397,40 +398,45 @@ All other libraries should be part of a standard Python distribution.
    - default template is defined in
      [[https://github.com/novoid/lazyblorg/blob/master/templates/blog-format.org][lazyblorg/templates/blog-format.org]]
 
-7. publish your pages on a web space of your choice
+7. OPTIONAL: create tag pages for your most important tags where you
+   describe how you are using this tag, what are the most important
+   blog entries related to the tag and so forth.
+
+8. publish your pages on a web space of your choice
    - publishing can be done in various ways. This is how I do it using
      ~lazyblorg/make_and_publish_public_voit.sh~ which is an
      adopted version of ~lazyblorg/example_invocation.sh~:
-     1. executing ~testall.sh~
+     1. invoking ~testall.sh~
         - this is for checking whether or not recent code changes did
           something harmful to my (unfortunately very limited) set of
           unit tests
-     2. executing ~lazyblorg~ with my more or less fixed set of
+     2. invoking ~lazyblorg~ with my more or less fixed set of
         command line parameters
-     3. executing ~rsync -av testdata/2del/blog/* $HOME/public_html/~
+     3. invoking ~rsync -av testdata/2del/blog/* $HOME/public_html/~
         - it synchronizes the newly generated blog data to the local
           copy of my web space data
         - this separation makes sense to me because with this, I am
           able to do test drives without overwriting my (local copy of
           my) blog
-     4. executing [[http://www.cis.upenn.edu/~bcpierce/unison/][unison]]
+     4. invoking [[http://www.cis.upenn.edu/~bcpierce/unison/][unison]]
         - in order to transfer my local copy of my web space data to
           my public web space
-   - This method has the advantage that generating (executing
-     ~lazyblorg~) and publishing (executing ~unison~) are separate
+   - This method has the advantage that generating (invoking
+     ~lazyblorg~) and publishing (invoking ~unison~) are separate
      steps. This way, I can locally re-generate the blog (for testing
      purposes) as often I want to. However, as long as I do not sync
      it to my web space, I keep the meta-data (which is in the local
      web space copy) of the published version (and not the meta-data
      of the previous test-run).
 
-8. have fun with a pretty neat method to generate your blog pages
+9. have fun with a pretty neat method to generate your blog pages
 
 Because we are already close friends now, I tell you a *hidden
 feature* of lazyblorg nobody knows yet: whenever you see a π-symbol in
 the upper right corner of a blog entry on [[http://qr.cx/7wKz][my blog]]: this is a link to
 the original Org-mode source of that page. This way, you can compare
 Org-mode-source and HTML-result right away. Isn't that cool? :-)
+
 ** Five categories of page type
 :PROPERTIES:
 :CREATED:  [2014-03-04 Di 08:52]
@@ -492,8 +498,6 @@ URLs are like ~http://example.com/this-is-the-ID/~:
 
 *** tags
 
-NOT IMPLEMENTED YET!
-
 Tag pages are a specialty of lazyblorg. Unlike other systems,
 lazyblorg embraces tags as very important classification
 meta-data. When I am using a tag, I associate a specific context
@@ -505,15 +509,14 @@ automatically linked to (existing) tag pages describing each tag.
 Hence: tag pages are like persistent pages which describe a
 certain tag.
 
-URLs are like ~http://example.com/tags/this-is-the-ID/~
-- if it starts with an ISO date: same truncation as with the
-  temporal IDs
+URLs are like ~http://example.com/tags/mytag/~
 
 - criteria
-  1. ID set
-  2. tag: ~blog~
-  3. tag: ~lb_tags~
-  4. status is DONE
+  1. blog article heading is one single word: the tag
+  2. ID is set
+  3. tag: ~blog~
+  4. tag: ~lb_tags~
+  5. status is DONE
 
 *** entry page
 
