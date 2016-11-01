@@ -1,4 +1,4 @@
-## Time-stamp: <2016-10-31 16:21:43 vk>
+## Time-stamp: <2016-11-01 11:41:01 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -349,13 +349,13 @@ With name/label:
 
 #+NAME: article-preview-usertag
 #+BEGIN_HTML
-                <li><a class="usertag" href="#">#TAGNAME#</a></li>
+                <li><a class="usertag" href="//Karl-Voit/tags/#TAGNAME#/">#TAGNAME#</a></li>
 
 #+END_HTML
 
 #+NAME: article-preview-autotag
 #+BEGIN_HTML
-                <li><a class="autotag" href="#">#TAGNAME#</a></li>
+                <li><a class="autotag" href="//Karl-Voit/tags/#TAGNAME#/">#TAGNAME#</a></li>
 
 #+END_HTML
 
@@ -627,13 +627,13 @@ With name/label:
 
 #+NAME: article-usertag
 #+BEGIN_HTML
-                <li><a class="usertag" href="#">#TAGNAME#</a></li>
+                <li><a class="usertag" href="//Karl-Voit/tags/#TAGNAME#/">#TAGNAME#</a></li>
 
 #+END_HTML
 
 #+NAME: article-autotag
 #+BEGIN_HTML
-                <li><a class="autotag" href="#">#TAGNAME#</a></li>
+                <li><a class="autotag" href="//Karl-Voit/tags/#TAGNAME#/">#TAGNAME#</a></li>
 
 #+END_HTML
 
@@ -803,13 +803,13 @@ With name/label:
 
 #+NAME: tagpage-usertag
 #+BEGIN_HTML
-                <li><a class="usertag" href="#">#ARTICLE_TITLE#</a></li>
+                <li><a class="usertag" href="//Karl-Voit/tags/#TAGNAME#/">#ARTICLE_TITLE#</a></li>
 
 #+END_HTML
 
 #+NAME: tagpage-autotag
 #+BEGIN_HTML
-                <li><a class="autotag" href="#">#TAGNAME#</a></li>
+                <li><a class="autotag" href="//Karl-Voit/tags/#TAGNAME#/">#TAGNAME#</a></li>
 
 #+END_HTML
 
