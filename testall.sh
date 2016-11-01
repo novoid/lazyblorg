@@ -12,6 +12,7 @@ end_to_end_test()
 
     echo "\n====> Runing end-to-end test ...\n"
 
+    cd ~/src/lazyblorg
     rm -rf testdata/end_to_end_test/result
     mkdir -p testdata/end_to_end_test/result
 
@@ -47,7 +48,7 @@ cd lib/tests && \
 cd ../../tests && \
 ./lazyblorg_test.sh && \
 cd .. && \
-echo "\n           All Python unit tests ended successfully :-)\n"
+echo "\n           All Python unit tests ended successfully :-)\n" && \
 end_to_end_test && \
 echo "\n\n           All tests ended successfully! :-)\n\n"
 
