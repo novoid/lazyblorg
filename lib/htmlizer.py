@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-06 17:37:48 vk>
+# Time-stamp: <2016-11-06 18:12:20 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1239,7 +1239,7 @@ class Htmlizer(object):
         @param return: HTML content
         """
 
-        content = u'\n<ul>\n'
+        content = u'\n<ul class=\'tag-pages-link-list\'>\n'
 
         if not self.dict_of_tags_with_ids:
             return u'\nNo blog entries with this tag so far.\n'
@@ -1253,7 +1253,7 @@ class Htmlizer(object):
             hours = self.metadata[reference]['created'].hour
             iso_timestamp = '-'.join([str(year), str(month).zfill(2), str(day).zfill(2)]) + 'T' + str(hours).zfill(2) + ':' + str(minutes).zfill(2)
 
-            content += self.sanitize_internal_links(config.TAGS, u'  <li> ' + iso_timestamp + ' [[id:' + reference +
+            content += self.sanitize_internal_links(config.TAGS, u'  <li> <span class=\'timestamp\'>' + iso_timestamp + '</span> [[id:' + reference +
                                                     u'][' + self.metadata[reference]['title'] + ']]</li>\n')
 
         return content + u'</ul>\n'

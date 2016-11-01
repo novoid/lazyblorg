@@ -1,4 +1,4 @@
-## Time-stamp: <2016-11-06 13:37:17 vk>
+## Time-stamp: <2016-11-06 18:15:18 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -715,7 +715,13 @@ With name/label:
 #+END_EXPORT
 
 
-** Tags
+** Tag Pages
+
+Pages that describe a tag. Corresponding Org-mode entries must have:
+- heading is a single word: the tag itself
+- tags =blog= and =lb_tag= set
+- =ID= set in properties
+- marked as =DONE=
 
 *** Header
 
@@ -839,9 +845,11 @@ With name/label:
   <hr />
 
   <p>
+  All articles tagged with #ARTICLE-TITLE#:
+  </p>
 
+  <p>
   #TAG-PAGE-LIST#
-
   </p>
 
   </article>

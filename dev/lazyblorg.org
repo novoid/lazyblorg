@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-11-06 17:46:14 vk>
+# Time-stamp: <2016-11-06 18:15:33 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -231,12 +231,6 @@ CLOSED: [2014-03-01 Sat 20:10]
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
 
-** NEXT implement populate_tag_dict() + class variable                                :architecture:
-SCHEDULED: <2016-11-06 Sun>
-:PROPERTIES:
-:CREATED:  [2016-11-05 Sat 10:17]
-:END:
-
 ** NEXT create tag overview page + template kva.at/tags/index.html                       :userstory:
 :PROPERTIES:
 :CREATED:  [2016-11-05 Sat 10:18]
@@ -292,10 +286,6 @@ TypeError: string indices must be integers, not str
 
 When I add the entry to blog_data, I get an error as well.
 
-** NEXT tag pages: less contrast for publishing time in list of pages (CSS)              :userstory:
-:PROPERTIES:
-:CREATED:  [2016-11-01 Tue 17:01]
-:END:
 ** NEXT document: what elements are rendered/converted via pypandoc?
 SCHEDULED: <2016-08-06 Sat>
 :PROPERTIES:

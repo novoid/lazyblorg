@@ -1,4 +1,4 @@
- /*  ------------------------------------------
+/*  ------------------------------------------
  *  Generic stuff
  *  ------------------------------------------ */
 
@@ -42,20 +42,24 @@ a {
 
 @mixin show-big-search {
     #search-big {
+	frameborder: 0;
 	visibility: visible;
 	height: 6em;
     }
     #search-narrow {
+	frameborder: 0;
 	visibility: hidden;
 	height: 0px;
     }
 }
 @mixin show-narrow-search {
     #search-big {
+	frameborder: 0;
 	visibility: hidden;
 	height: 0px;
     }
     #search-narrow {
+	frameborder: 0;
 	visibility: visible;
 	height: 6em;
     }
@@ -158,7 +162,7 @@ a {
 	/* left: 0; */
 	/* height: 100%; */
 	/* z-index: 1; /\* float above rest *\/ */
-	
+
     }
 
     /* show/hide sidebar stolen from: https://css-tricks.com/off-canvas-menu-with-css-target/ */
@@ -311,7 +315,6 @@ a {
     }
 }
 
-
 .common-article {
     @extend .middle_section_narrow;
     margin-left: auto;
@@ -399,6 +402,14 @@ blockquote {
     margin-right: auto;
     padding-top: 2em;
 }
+
+.tag-pages-link-list {
+    .timestamp {
+	font-size: 80%;
+	color: gray;
+    }
+}
+
 
 footer {
     @extend .middle_section_wide;
