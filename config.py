@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-11-24 16:08:52 vk>
+# Time-stamp: <2016-11-06 18:28:13 vk>
 
 
 ## ===================================================================== ##
@@ -17,7 +17,8 @@
 
 ## strings: put your URL and your name below:
 ## (not only?) for feed meta-data: FIXXME: move to CLI parameters?
-BASE_URL = u'//Karl-Voit.at'
+DOMAIN = u'Karl-Voit.at'
+BASE_URL = u'//' + DOMAIN
 AUTHOR_NAME = u"Karl Voit"
 
 ## integer: show this many article teasers on entry page

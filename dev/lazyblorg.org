@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-11-06 18:15:33 vk>
+# Time-stamp: <2016-11-06 19:35:51 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -445,7 +445,7 @@ CLOSED: [2015-06-27 Sat 19:06] SCHEDULED: <2015-06-27 Sat>
       }
       #+END_EXAMPLE
 
-** NEXT steal font from https://kungsgeten.github.io/yankpad.html                                                                  :userstory:
+** NEXT steal font from https://kungsgeten.github.io/yankpad.html                         :userstory:
 :PROPERTIES:
 :CREATED:  [2016-07-19 Tue 22:56]
 :END:
@@ -2369,7 +2369,6 @@ After parsing entry from above:
 
 Oldest entry of entry['finished-timestamp-history'] is the *publication time-stamp*!
 
-
 *** entries_timeline_by_published
 
 The dict format is:
@@ -2399,26 +2398,26 @@ see utils_test.py > test_entries_timeline_by_published_functions() how it's test
 this is the plan (from 2012-11):
 
 - manually generate demo prototype
-  - very basic Org-mode example file containing everything from below
-  - HTML5 entry page
-  - CSS2 style
-  - HTML5 blog entry page
-  - Tag description page
-  - feed
-  - HTML5 blog entry page with update
-  - Index overview page (archive)
-  - description of basic work-flow for generating the blog
+  - [X] very basic Org-mode example file containing everything from below
+  - [X] HTML5 entry page
+  - [X] CSS2 style
+  - [X] HTML5 blog entry page
+  - [X] Tag description pages
+  - [X] feed
+  - [X] HTML5 blog entry page with update
+  - [ ] Index overview page (archive)
+  - [X] description of basic work-flow for generating the blog
     - user point of view
     - system point of view
 - refine and test design and features of prototype
   - ask for feedback
   - play around, break things
 - development
-  - define order of Org-mode items (headings, lists, images, ...) implementation priority
-  - define even more basic (Org-mode, HTML) from above
-  - very basic unit-tests from prototype files (Org-mode, HTML)
-  - test and refine work-flow for (re-)generating the blog
-  - implement more and more Org-mode items
+  - [X] define order of Org-mode items (headings, lists, images, ...) implementation priority
+  - [X] define even more basic (Org-mode, HTML) from above
+  - [X] very basic unit-tests from prototype files (Org-mode, HTML)
+  - [X] test and refine work-flow for (re-)generating the blog
+  - [X] implement more and more Org-mode items
 
 ** Wishlist without compromises
 :PROPERTIES:
@@ -2440,12 +2439,12 @@ implemented but moved to a (separate) user-story above.
   - [X] paragraphs (p)
   - [X] headings (h1..n)
   - [X] http-references (a href)
-  - [ ] lists (ul)
+  - [X] lists (ul)
   - [X] quote (verbatim)
   - [ ] images (img)
-  - [ ] tables
+  - [X] tables
   - [X] inline-HTML
-  - [ ] internal links to other entries
+  - [X] internal links to other entries
 
 - advantages
   - a blog entry can be located anywhere in all of my Orgmode files

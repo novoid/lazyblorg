@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-06 18:12:20 vk>
+# Time-stamp: <2016-11-06 19:26:40 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -539,6 +539,8 @@ class Htmlizer(object):
         htmlcontent = htmlcontent.replace('#ABOUT-BLOG#', self.sanitize_external_links(self.sanitize_html_characters(self.about_blog)))
         htmlcontent = htmlcontent.replace('#BLOGNAME#', self.sanitize_external_links(self.sanitize_html_characters(self.blogname)))
         htmlcontent = htmlcontent.replace('#COMMON-SIDEBAR#', self.template_definition_by_name('common-sidebar'))
+        htmlcontent = self._replace_general_article_placeholders(entry, htmlcontent)
+
         htmlcontent = self.sanitize_internal_links(config.ENTRYPAGE, htmlcontent)
         self.write_content_to_file(entry_page_filename, htmlcontent)
 
@@ -1023,17 +1025,20 @@ class Htmlizer(object):
         htmlfilename = os.path.join(path, "index.html")
         orgfilename = os.path.join(path, "source.org.txt")
         htmlcontent = u''
-        content = u''
 
+        content = u''
         for articlepart in ['article-header', 'article-header-begin', 'article-tags-begin']:
             content += self.template_definition_by_name(articlepart)
+        content += self._replace_tag_placeholders(entry['usertags'], self.template_definition_by_name('article-usertag'))
         htmlcontent += self._replace_general_article_placeholders(entry, content)
-        htmlcontent += self._replace_tag_placeholders(entry['usertags'], self.template_definition_by_name('article-usertag'))
+
         # handle autotags:
+        content = u''
         if 'autotags' in entry.keys():
             for autotag in entry['autotags'].keys():
-                htmlcontent += self._replace_tag_placeholders([autotag + ":" + entry['autotags'][autotag]],
+                content += self._replace_tag_placeholders([autotag + ":" + entry['autotags'][autotag]],
                                                               self.template_definition_by_name('article-autotag'))
+        htmlcontent += self._replace_general_article_placeholders(entry, content)
 
         content = u''
         for articlepart in ['article-tags-end', 'article-header-end']:
@@ -1064,18 +1069,21 @@ class Htmlizer(object):
         htmlfilename = os.path.join(path, "index.html")
         orgfilename = os.path.join(path, "source.org.txt")
         htmlcontent = u''
-        content = u''
 
+        content = u''
         for articlepart in ['persistent-header', 'persistent-header-begin', 'article-tags-begin']:
             content += self.template_definition_by_name(articlepart)
-        htmlcontent += self._replace_general_article_placeholders(entry, content)
         # htmlcontent = self.sanitize_internal_links(entry['category'], htmlcontent)
-        htmlcontent += self._replace_tag_placeholders(entry['usertags'], self.template_definition_by_name('article-usertag'))
+        content += self._replace_tag_placeholders(entry['usertags'], self.template_definition_by_name('article-usertag'))
+        htmlcontent += self._replace_general_article_placeholders(entry, content)
+
         # handle autotags:
+        content = u''
         if 'autotags' in entry.keys():
             for autotag in entry['autotags'].keys():
-                htmlcontent += self._replace_tag_placeholders([autotag + ":" + entry['autotags'][autotag]],
+                content += self._replace_tag_placeholders([autotag + ":" + entry['autotags'][autotag]],
                                                               self.template_definition_by_name('article-autotag'))
+        htmlcontent += self._replace_general_article_placeholders(entry, content)
 
         content = u''
         for articlepart in ['article-tags-end', 'persistent-header-end']:
@@ -1109,17 +1117,19 @@ class Htmlizer(object):
         htmlfilename = os.path.join(path, "index.html")
         orgfilename = os.path.join(path, "source.org.txt")
         htmlcontent = u''
-        content = u''
 
+        content = u''
         for articlepart in ['tagpage-header', 'tagpage-header-begin', 'tagpage-tags-begin']:
             content += self.template_definition_by_name(articlepart)
         htmlcontent += self._replace_general_article_placeholders(entry, content)
 
         # handle autotags:
+        content = u''
         if 'autotags' in entry.keys():
             for autotag in entry['autotags'].keys():
-                htmlcontent += self._replace_tag_placeholders([autotag + ":" + entry['autotags'][autotag]],
+                content += self._replace_tag_placeholders([autotag + ":" + entry['autotags'][autotag]],
                                                               self.template_definition_by_name('article-autotag'))
+        htmlcontent += self._replace_general_article_placeholders(entry, content)
 
         content = u''
         for articlepart in ['tagpage-tags-end', 'tagpage-header-end']:
@@ -1190,6 +1200,8 @@ class Htmlizer(object):
         General article placeholders are:
         - #TITLE#
         - #ABOUT-BLOG#
+        - #DOMAIN#: the domain (server) of the blog (without "(http:)//" or paths)
+        - #BASE_URL#: the domain (server) of the blog with "(http:)//"
         - #BLOGNAME#
         - #ARTICLE-ID#: the (manually set) ID from the PROPERTIES drawer
         - #ARTICLE-YEAR#: four digit year of the article (folder path)
@@ -1224,6 +1236,8 @@ class Htmlizer(object):
         content = content.replace('#ARTICLE-PUBLISHED-HTML-DATETIME#', iso_timestamp + config.TIME_ZONE_ADDON)
         content = content.replace('#ARTICLE-PUBLISHED-HUMAN-READABLE#', iso_timestamp)
         content = content.replace('#COMMON-SIDEBAR#', self.template_definition_by_name('common-sidebar'))
+        content = content.replace('#DOMAIN#', config.DOMAIN)
+        content = content.replace('#BASE-URL#', config.BASE_URL)
 
         if entry['category'] == config.TAGS:
             # replace #TAG-PAGE-LIST#

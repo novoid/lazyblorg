@@ -1,4 +1,4 @@
-## Time-stamp: <2016-11-06 18:15:18 vk>
+## Time-stamp: <2016-11-06 19:31:44 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -72,8 +72,8 @@ Have fun with modifying lazyblorg to your requirements!
   <a id="show-sidebar-text" href="#show-sidebar">Show Sidebar</a>
   <div class="sidebar toggle-sidebar">
      <div class="search">
-       <iframe id="search-big" src="//duckduckgo.com/search.html?width=140&site=karl-voit.at&prefill=Search%20blog"></iframe>
-       <iframe id="search-narrow" src="//duckduckgo.com/search.html?width=70&k1=-1&k2=s&site=karl-voit.at&prefill=Search"></iframe>
+       <iframe id="search-big" src="//duckduckgo.com/search.html?width=140&site=#DOMAIN#&prefill=Search%20blog"></iframe>
+       <iframe id="search-narrow" src="//duckduckgo.com/search.html?width=70&k1=-1&k2=s&site=#DOMAIN#&prefill=Search"></iframe>
        <br/>
      </div>
      <ul>
@@ -81,8 +81,8 @@ Have fun with modifying lazyblorg to your requirements!
      <li><a href="/">Recent articles</a></li>
      <li>[[id:2014-03-09-about][About this blog]]</li>
      <li>TBD: How to use this blog efficiently</li>
-     <li><a href="//Karl-Voit.at/feeds/lazyblorg-all.atom_1.0.links-only.xml">Follow/subscribe links</a></li>
-     <li><a href="//Karl-Voit.at/feeds/lazyblorg-all.atom_1.0.links-and-content.xml">Follow/subscribe content</a></li>
+     <li><a href="#BASE-URL#/feeds/lazyblorg-all.atom_1.0.links-only.xml">Follow/subscribe links</a></li>
+     <li><a href="#BASE-URL#/feeds/lazyblorg-all.atom_1.0.links-and-content.xml">Follow/subscribe content</a></li>
      <li>TBD: Per Tag Feeds</li>
      </ul>
   </div>
@@ -274,7 +274,7 @@ With name/label:
   <meta name="generator" content="lazyblorg" />
   <meta name="orgmode-id" content="#ARTICLE-ID#" />
   <link rel="stylesheet" title="public voit Standard CSS Style"
-        href="//Karl-Voit.at/public_voit.css" type="text/css" media="screen"  />
+        href="#BASE-URL#/public_voit.css" type="text/css" media="screen"  />
 
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
@@ -287,7 +287,7 @@ With name/label:
 
       <nav class="entrypage-article-header-nav">
         <span class="breadcrumbs">
-          <img src="//Karl-Voit.at/images/public-voit_logo.svg" alt="public voit logo" width="350" style="vertical-align:middle;"><span style="padding-top:1em;">
+          <img src="#BASE-URL#/images/public-voit_logo.svg" alt="public voit logo" width="350" style="vertical-align:middle;"><span style="padding-top:1em;">
         </span>
       </nav>
 
@@ -349,13 +349,13 @@ With name/label:
 
 #+NAME: article-preview-usertag
 #+BEGIN_EXPORT HTML
-                <li><a class="usertag" href="//Karl-Voit.at/tags/#TAGNAME#/">#TAGNAME#</a></li>
+                <li><a class="usertag" href="#BASE-URL#/tags/#TAGNAME#/">#TAGNAME#</a></li>
 
 #+END_EXPORT
 
 #+NAME: article-preview-autotag
 #+BEGIN_EXPORT HTML
-                <li><a class="autotag" href="//Karl-Voit.at/tags/#TAGNAME#/">#TAGNAME#</a></li>
+                <li><a class="autotag" href="#BASE-URL#/tags/#TAGNAME#/">#TAGNAME#</a></li>
 
 #+END_EXPORT
 
@@ -433,7 +433,7 @@ With name/label:
   <meta name="generator" content="lazyblorg" />
   <meta name="orgmode-id" content="#ARTICLE-ID#" />
   <link rel="stylesheet" title="public voit Standard CSS Style"
-        href="//Karl-Voit.at/public_voit.css" type="text/css" media="screen"  />
+        href="#BASE-URL#/public_voit.css" type="text/css" media="screen"  />
 
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
@@ -465,7 +465,7 @@ With name/label:
 
 	  <nav class="persistent-article-header-nav">
 	    <span class="breadcrumbs">
-	      <a href="../"><img src="//Karl-Voit.at/images/public-voit_logo.svg" alt="public voit logo" width="350" style="vertical-align:middle;"></a>
+	      <a href="../"><img src="#BASE-URL#/images/public-voit_logo.svg" alt="public voit logo" width="350" style="vertical-align:middle;"></a>
 	    </span>
 	  </nav>
 
@@ -574,7 +574,7 @@ With name/label:
   <meta property="article:author" content="Karl Voit" />
 
   <link rel="stylesheet" title="public voit Standard CSS Style"
-        href="//Karl-Voit.at/public_voit.css" type="text/css" media="screen"  />
+        href="#BASE-URL#/public_voit.css" type="text/css" media="screen"  />
 
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
@@ -607,7 +607,7 @@ With name/label:
 
 	  <nav class="temporal-article-header-nav">
 	    <span class="breadcrumbs">
-	      <a href="../../../../"><img src="//karl-voit.at/images/public-voit_logo.svg" alt="public voit logo" width="350" style="vertical-align:middle;"></a><span style="padding-top:1em;">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;
+	      <a href="../../../../"><img src="#BASE-URL#/images/public-voit_logo.svg" alt="public voit logo" width="350" style="vertical-align:middle;"></a><span style="padding-top:1em;">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;
 	      #ARTICLE-YEAR#&nbsp;&ndash;&nbsp;#ARTICLE-MONTH#&nbsp;&ndash;&nbsp;#ARTICLE-DAY#</span>
 	      <!-- a href="../../../">#ARTICLE-YEAR#</a>&nbsp;&ndash;&nbsp;<a href="../../">#ARTICLE-MONTH#</a>&nbsp;&ndash;&nbsp;<a href="../">#ARTICLE-DAY#</a -->
 	    </span>
@@ -627,13 +627,13 @@ With name/label:
 
 #+NAME: article-usertag
 #+BEGIN_EXPORT HTML
-                <li><a class="usertag" href="//Karl-Voit.at/tags/#TAGNAME#/">#TAGNAME#</a></li>
+                <li><a class="usertag" href="#BASE-URL#/tags/#TAGNAME#/">#TAGNAME#</a></li>
 
 #+END_EXPORT
 
 #+NAME: article-autotag
 #+BEGIN_EXPORT HTML
-                <li><a class="autotag" href="//Karl-Voit.at/tags/#TAGNAME#/">#TAGNAME#</a></li>
+                <li><a class="autotag" href="#BASE-URL#/tags/#TAGNAME#/">#TAGNAME#</a></li>
 
 #+END_EXPORT
 
@@ -756,7 +756,7 @@ Pages that describe a tag. Corresponding Org-mode entries must have:
   <meta property="article:author" content="Karl Voit" />
 
   <link rel="stylesheet" title="public voit Standard CSS Style"
-        href="//Karl-Voit.at/public_voit.css" type="text/css" media="screen"  />
+        href="#BASE-URL#/public_voit.css" type="text/css" media="screen"  />
 
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
@@ -789,7 +789,7 @@ Pages that describe a tag. Corresponding Org-mode entries must have:
 
 	  <nav class="temporal-article-header-nav">
 	    <span class="breadcrumbs">
-	      <a href="../../../../"><img src="//karl-voit.at/images/public-voit_logo.svg" alt="public voit logo" width="350" style="vertical-align:middle;"></a><span style="padding-top:1em;">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;
+	      <a href="../../../../"><img src="#BASE-URL#/images/public-voit_logo.svg" alt="public voit logo" width="350" style="vertical-align:middle;"></a><span style="padding-top:1em;">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;
 	      #ARTICLE-YEAR#&nbsp;&ndash;&nbsp;#ARTICLE-MONTH#&nbsp;&ndash;&nbsp;#ARTICLE-DAY#</span>
 	      <!-- a href="../../../">#ARTICLE-YEAR#</a>&nbsp;&ndash;&nbsp;<a href="../../">#ARTICLE-MONTH#</a>&nbsp;&ndash;&nbsp;<a href="../">#ARTICLE-DAY#</a -->
 	    </span>
@@ -809,13 +809,13 @@ Pages that describe a tag. Corresponding Org-mode entries must have:
 
 #+NAME: tagpage-usertag
 #+BEGIN_EXPORT HTML
-                <li><a class="usertag" href="//Karl-Voit.at/tags/#TAGNAME#/">#ARTICLE_TITLE#</a></li>
+                <li><a class="usertag" href="#BASE-URL#/tags/#TAGNAME#/">#ARTICLE_TITLE#</a></li>
 
 #+END_EXPORT
 
 #+NAME: tagpage-autotag
 #+BEGIN_EXPORT HTML
-                <li><a class="autotag" href="//Karl-Voit.at/tags/#TAGNAME#/">#TAGNAME#</a></li>
+                <li><a class="autotag" href="#BASE-URL#/tags/#TAGNAME#/">#TAGNAME#</a></li>
 
 #+END_EXPORT
 
@@ -883,7 +883,7 @@ FIXXME
   <meta name="author" content="Karl Voit" />
   <meta name="generator" content="lazyblorg" />
   <link rel="stylesheet" title="public voit Standard CSS Style"
-        href="//Karl-Voit.at/public_voit.css" type="text/css" media="screen"  />
+        href="#BASE-URL#/public_voit.css" type="text/css" media="screen"  />
 
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
