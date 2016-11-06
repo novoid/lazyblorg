@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-09-18 13:56:41 vk>
+# Time-stamp: <2016-11-06 14:40:38 vk>
 
 import config
 import re
@@ -57,7 +57,13 @@ class OrgParser(object):
     LOG_REGEX = re.compile('^- State\s+"' + config.BLOG_FINISHED_STATE + '"\s+from\s+("\S*"\s+)?([\[{].*[\]}])$', re.IGNORECASE)
     LOG_TIMESTAMP_IDX = 2
 
-    BLOCK_REGEX = re.compile('^#\+BEGIN_(SRC|EXAMPLE|VERSE|QUOTE|CENTER|HTML|ASCII|LATEX)(\s+(.*))?$', re.IGNORECASE)
+    SUPPORTED_BLOCK_TYPES_UPPERCASE = ['SRC', 'EXPORT', 'EXAMPLE', 'VERSE', 'QUOTE', 'CENTER',
+                                       'HTML', 'ASCII', 'LATEX']
+    # Note: for 'EXPORT' look into block_type_export_backend which holds: (HTML|LATEX)
+    SUPPORTED_EXPORT_BLOCK_BACKENDS = ['HTML', 'LATEX']
+
+    BLOCK_REGEX = re.compile('^#\+BEGIN_(' + '|'.join(SUPPORTED_BLOCK_TYPES_UPPERCASE) + ')(\s+(.*))?$',
+                             re.IGNORECASE)
     BLOCK_TYPE_IDX = 1
     BLOCK_LANGUAGE_IDX = 3
 
@@ -311,8 +317,8 @@ class OrgParser(object):
         state = self.SEARCHING_BLOG_HEADER
 
         ## type of last/current block found
-        ## one of: SRC|VERSE|QUOTE|CENTER|HTML|ASCII|LATEX
-        block_type = None
+        block_type = None  # one of: SUPPORTED_BLOCK_TYPES_UPPERCASE
+        block_type_export_backend = None  # one of SUPPORTED_EXPORT_BLOCK_BACKENDS
 
         ## name of the previous element with a name defined like: "#+NAME: foo bar"
         previous_name = u''
@@ -472,17 +478,40 @@ class OrgParser(object):
 
                     self.logging.debug("OrgParser: found block signature for " + block_type)
 
-                    if block_type == 'SRC' or block_type == 'HTML' or block_type == 'VERSE' or \
-                            block_type == 'QUOTE' or block_type == 'CENTER' or block_type == 'ASCII' or \
-                            block_type == 'LATEX' or block_type == 'EXAMPLE':
+                    # NOTE: block_type LATEX and HTML are obsolete with Org-mode v9: "#+BEGIN_(HTML|LATEX)"
+                    #       Got changed to "#+BEGIN_EXPORT (html|latex)"
+                    #       However, I keep handling both of them here for a while.
+                    if block_type in self.SUPPORTED_BLOCK_TYPES_UPPERCASE:
 
-                        if previous_name == u'':
-                            self.__entry_data['content'].append([block_type.lower() + '-block', False, []])
+                        # handling of EXPORT block (new with Org-mode 9: see above)
+                        if block_type == 'EXPORT':
+                            block_type_export_backend = str(block_components.group(self.BLOCK_LANGUAGE_IDX)).upper()
+                            if block_type_export_backend not in self.SUPPORTED_EXPORT_BLOCK_BACKENDS:
+                                raise OrgParserException('I found an EXPORT block \"' + str(line) +
+                                                         '\" which has a non supported backend parameter (currently' +
+                                                         ' supported here: ' +
+                                                         ', '.join(self.SUPPORTED_EXPORT_BLOCK_BACKENDS) +
+                                                         '). Please fix it.')
+                            else:
+                                self.logging.debug("OrgParser: found EXPORT block signature for " +
+                                                   block_type_export_backend)
+                            if previous_name == u'':
+                                self.__entry_data['content'].append([block_type_export_backend.lower() + '-block',
+                                                                     False, []])
+                            else:
+                                self.logging.debug("OrgParser: this block is a named one: [%s]" % previous_name)
+                                self.__entry_data['content'].append([block_type_export_backend.lower() + '-block',
+                                                                     previous_name, []])
                         else:
-                            self.logging.debug("OrgParser: this block is a named one: [%s]" % previous_name)
-                            self.__entry_data['content'].append([block_type.lower() + '-block', previous_name, []])
+                            if previous_name == u'':
+                                self.__entry_data['content'].append([block_type.lower() + '-block',
+                                                                     False, []])
+                            else:
+                                self.logging.debug("OrgParser: this block is a named one: [%s]" % previous_name)
+                                self.__entry_data['content'].append([block_type.lower() + '-block',
+                                                                     previous_name, []])
                     else:
-                        ## if BLOCK_REGEX is in sync with the if-statement above, this should never be reached!
+                        # if BLOCK_REGEX is in sync with the if-statement above, this should never be reached!
                         raise OrgParserException('I found a block type \"' + str(line) +
                                                  '\" that is not known. Please do not confuse me and fix it.')
                     state = self.BLOCK
@@ -646,11 +675,11 @@ class OrgParser(object):
 
                     state = self.ENTRY_CONTENT
                     previous_line = line
+                    block_type = None
+                    block_type_export_backend = None
                     continue
                 else:
-                    if block_type == 'SRC' or block_type == 'HTML' or block_type == 'VERSE' or \
-                            block_type == 'QUOTE' or block_type == 'CENTER' or block_type == 'ASCII' or \
-                            block_type == 'LATEX' or block_type == 'EXAMPLE':
+                    if block_type in self.SUPPORTED_BLOCK_TYPES_UPPERCASE:
                          ## append to the last element of content (which is a list from the current block) to
                          ## its last element (which contains the list of the block content):
                         self.__entry_data['content'][-1][-1].append(line)

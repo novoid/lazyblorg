@@ -824,7 +824,7 @@ CLOSED: [2013-08-20 Tue 18:58]
 Example:
 
 #+NAME: par
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 
 <p>
 
@@ -832,7 +832,7 @@ Example:
 
 </p>
 
-#+END_HTML
+#+END_EXPORT
 
 (if single line, lazyblorg trims the strings)
 
@@ -2143,9 +2143,9 @@ CLOSED: [2014-12-27 Sat 21:55]
 
 - https://duckduckgo.com/search_box
 
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 <iframe src="http://duckduckgo.com/search.html?width=200&site=karl-voit.at&prefill=Search Public Voit" style="overflow:hidden;margin:0;padding:0;width:258px;height:40px;" frameborder="0"></iframe>
-#+END_HTML
+#+END_EXPORT
 
 - http://hardik.org/2013/06/01/stylising-duckduckgo-site-search/
 

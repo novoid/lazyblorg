@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2016-11-01 11:33:46 vk>
+## Time-stamp: <2016-11-06 13:27:09 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -660,10 +660,10 @@ Simple as that.
 
 Example:
 
-: #+BEGIN_HTML
+: #+BEGIN_EXPORT HTML
 : <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">You gotta love <a href="https://twitter.com/slydigsband">@slydigsband</a> - tune into <a href="https://t.co/7yylPwDKvi">https://t.co/7yylPwDKvi</a><br>I just bought the album. Guys, you really rock! Thanks for your Vienna gig!</p>&mdash; Karl Voit (@n0v0id) <a href="https://twitter.com/n0v0id/status/776735121823174656">September 16, 2016</a></blockquote>
 : <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-: #+END_HTML
+: #+END_EXPORT
 
 ** BONUS: Embed YouTube Videos
 
@@ -674,9 +674,9 @@ Example:
 
 Example:
 
-: #+BEGIN_HTML
+: #+BEGIN_EXPORT HTML
 : <iframe width="560" height="315" src="http://www.youtube.com/embed/HTVgPw7TR_k?rel=0" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
-: #+END_HTML
+: #+END_EXPORT
 
 
 * How to Thank Me

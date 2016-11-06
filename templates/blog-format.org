@@ -1,4 +1,4 @@
-## Time-stamp: <2016-11-01 16:50:11 vk>
+## Time-stamp: <2016-11-06 13:37:17 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -67,7 +67,7 @@ Have fun with modifying lazyblorg to your requirements!
 *** Sidebar
 
 #+NAME: common-sidebar
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 
   <a id="show-sidebar-text" href="#show-sidebar">Show Sidebar</a>
   <div class="sidebar toggle-sidebar">
@@ -87,7 +87,7 @@ Have fun with modifying lazyblorg to your requirements!
      </ul>
   </div>
 
-#+END_HTML
+#+END_EXPORT
 
 *** Sections
 
@@ -95,17 +95,17 @@ Have fun with modifying lazyblorg to your requirements!
 - #SECTION-LEVEL#: relative level of the next heading/section
 
 #+NAME: section-begin
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 
 	  <header><h#SECTION-LEVEL# class="section-title">#SECTION-TITLE#</h#SECTION-LEVEL#></header>
 
-#+END_HTML
+#+END_EXPORT
 *** Paragraph
 
 - #PAR-CONTENT#
 
 #+NAME: paragraph
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 
 <p>
 
@@ -113,143 +113,143 @@ Have fun with modifying lazyblorg to your requirements!
 
 </p>
 
-#+END_HTML
+#+END_EXPORT
 
 *** Lists
 
 #+NAME: ul-begin
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 	  <ul>
-#+END_HTML
+#+END_EXPORT
 
 - #CONTENT#: text of the list item
 
 #+NAME: ul-item
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 	    <li>#CONTENT#</li>
-#+END_HTML
+#+END_EXPORT
 
 #+NAME: ul-end
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 	  </ul>
-#+END_HTML
+#+END_EXPORT
 
 *** Pre-formatted text
 
 Without name/label:
 
 #+NAME: pre-begin
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 
 	  <pre>
-#+END_HTML
+#+END_EXPORT
 
 #+NAME: pre-end
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 	  </pre>
 
-#+END_HTML
+#+END_EXPORT
 
 With name/label:
 
 #+NAME: named-pre-begin
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 
 <p>
 
     #NAME#
 	  <pre>
-#+END_HTML
+#+END_EXPORT
 
 #+NAME: named-pre-end
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 	  </pre>
 
 </p>
-#+END_HTML
+#+END_EXPORT
 
 *** SRC blocks (not HTML)
 
 Without name/label:
 
 #+NAME: src-begin
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 
 	  <div class="example_code">
 	  <pre>
-#+END_HTML
+#+END_EXPORT
 
 #+NAME: src-end
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 	  </pre>
     </div>
 
-#+END_HTML
+#+END_EXPORT
 
 With name/label:
 
 #+NAME: named-src-begin
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 
 <p>
 
     #NAME#
 	  <div class="example_code">
 	  <pre>
-#+END_HTML
+#+END_EXPORT
 
 #+NAME: named-src-end
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 	  </pre>
     </div>
 
 </p>
-#+END_HTML
+#+END_EXPORT
 
 *** HTML blocks
 
 - #NAME#: Org-mode name of the block
 
 #+NAME: html-begin
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 
 <p>
 
     #NAME#
 	  <div class="example_code">
-#+END_HTML
+#+END_EXPORT
 
 #+NAME: html-end
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 	  </div>
 
 </p>
 
-#+END_HTML
+#+END_EXPORT
 
 *** QUOTE blocks
 
 #+NAME: blockquote-begin
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 
 <blockquote>
-#+END_HTML
+#+END_EXPORT
 
 #+NAME: blockquote-end
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 </blockquote>
 
-#+END_HTML
+#+END_EXPORT
 
 *** ignore me
 
 #+NAME:
-#+BEGIN_HTML
-#+END_HTML
+#+BEGIN_EXPORT HTML
+#+END_EXPORT
 
 #+NAME:
-#+BEGIN_HTML
-#+END_HTML
+#+BEGIN_EXPORT HTML
+#+END_EXPORT
 
 
 ** Persistent
@@ -265,7 +265,7 @@ With name/label:
 
 
 #+NAME: entrypage-header
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
   <!DOCTYPE html>
   <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -316,7 +316,7 @@ With name/label:
   </p>
   </div>
 
-#+END_HTML
+#+END_EXPORT
 
 **** Article-Preview
 
@@ -332,66 +332,66 @@ With name/label:
 - #ARTICLE-TEASER#: First lines up to the first heading or <hr>-element
 
 #+NAME: article-preview-header
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 
 
 <article class="entry-page-article">
-#+END_HTML
+#+END_EXPORT
 
 #+NAME: article-preview-tags-begin
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 
 	  <aside>
 	    <ul class="entry-page-article-tags">
-#+END_HTML
+#+END_EXPORT
 
 - #TAGNAME#: string of a tag
 
 #+NAME: article-preview-usertag
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
                 <li><a class="usertag" href="//Karl-Voit.at/tags/#TAGNAME#/">#TAGNAME#</a></li>
 
-#+END_HTML
+#+END_EXPORT
 
 #+NAME: article-preview-autotag
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
                 <li><a class="autotag" href="//Karl-Voit.at/tags/#TAGNAME#/">#TAGNAME#</a></li>
 
-#+END_HTML
+#+END_EXPORT
 
 
 #+NAME: article-preview-tags-end
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 
 	    </ul>
 	  </aside>
-#+END_HTML
+#+END_EXPORT
 
 
 #+NAME: article-preview-begin
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 
 <h1><a href="#ARTICLE-URL#">#ARTICLE-YEAR#-#ARTICLE-MONTH#-#ARTICLE-DAY#: #ARTICLE-TITLE#</a></h1>
 
 #ARTICLE-TEASER#
 
-#+END_HTML
+#+END_EXPORT
 
 #+NAME: article-preview-more
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 <p>
 <a href="#ARTICLE-URL#" class="article-preview-more">Read the whole article&nbsp;...</a>
 </p>
-#+END_HTML
+#+END_EXPORT
 
 #+NAME: article-preview-end
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 
 
 </article>
 
 
-#+END_HTML
+#+END_EXPORT
 
 **** Footer
 
@@ -399,7 +399,7 @@ With name/label:
 - #ABOUT-BLOG#: a line of text which describes the blog in general
 
 #+NAME: entrypage-footer
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 
 
     <footer>
@@ -413,7 +413,7 @@ With name/label:
 
   </body>
 </html>
-#+END_HTML
+#+END_EXPORT
 
 
 *** Other Persistent Pages
@@ -424,7 +424,7 @@ With name/label:
 - #ARTICLE-ID#: Org-mode ID property of the blog entry
 
 #+NAME: persistent-header
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
   <!DOCTYPE html>
   <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -441,7 +441,7 @@ With name/label:
 
   </head>
 
-#+END_HTML
+#+END_EXPORT
 
 **** Top of Article
 
@@ -456,7 +456,7 @@ With name/label:
 - #COMMON-SIDEBAR# : the sidebar conentent which is shared on all pages
 
 #+NAME: persistent-header-begin
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
   <body>
 
     <div class="common-orgsource"><a href="source.org.txt">&#960;</a></div>
@@ -469,10 +469,10 @@ With name/label:
 	    </span>
 	  </nav>
 
-#+END_HTML
+#+END_EXPORT
 
 #+NAME: persistent-header-end
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 
 	  <h1 class="common-article-header-title">#ARTICLE-TITLE#</h1>
 
@@ -482,21 +482,21 @@ With name/label:
 
     <article class="common-article">
 
-#+END_HTML
+#+END_EXPORT
 
 #+NAME: persistent-end
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 
     </article>
 
-#+END_HTML
+#+END_EXPORT
 
 **** Footer
 
 - #ABOUT-BLOG#: a line of text which describes the blog in general
 
 #+NAME: persistent-footer
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 	  <aside class="published-on">
 	    Published on <time datetime="#ARTICLE-PUBLISHED-HTML-DATETIME#">#ARTICLE-PUBLISHED-HUMAN-READABLE#</time>
 	  </aside>
@@ -536,7 +536,7 @@ With name/label:
 
   </body>
 </html>
-#+END_HTML
+#+END_EXPORT
 
 
 ** Article
@@ -547,7 +547,7 @@ With name/label:
 - #ARTICLE-ID#: Org-mode ID property of the blog entry
 
 #+NAME: article-header
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
   <!DOCTYPE html>
   <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -582,7 +582,7 @@ With name/label:
       <title>#ARTICLE-TITLE#</title>
 
   </head>
-#+END_HTML
+#+END_EXPORT
 
 *** Top of Article
 
@@ -597,7 +597,7 @@ With name/label:
 - #COMMON-SIDEBAR# : the sidebar conentent which is shared on all pages
 
 #+NAME: article-header-begin
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
   <body>
 
     <div class="common-orgsource"><a href="source.org.txt">&#960;</a></div>
@@ -613,41 +613,41 @@ With name/label:
 	    </span>
 	  </nav>
 
-#+END_HTML
+#+END_EXPORT
 
 
 #+NAME: article-tags-begin
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 	  <aside class="common-tags">
 	    <ul>
 
-#+END_HTML
+#+END_EXPORT
 
 - #TAGNAME#: string of a tag
 
 #+NAME: article-usertag
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
                 <li><a class="usertag" href="//Karl-Voit.at/tags/#TAGNAME#/">#TAGNAME#</a></li>
 
-#+END_HTML
+#+END_EXPORT
 
 #+NAME: article-autotag
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
                 <li><a class="autotag" href="//Karl-Voit.at/tags/#TAGNAME#/">#TAGNAME#</a></li>
 
-#+END_HTML
+#+END_EXPORT
 
 #+NAME: article-tags-end
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 	    </ul>
 	  </aside>
 
-#+END_HTML
+#+END_EXPORT
 
 
 
 #+NAME: article-header-end
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 
 	  <h1 class="common-article-header-title">#ARTICLE-TITLE#</h1>
 
@@ -657,22 +657,22 @@ With name/label:
 
   <article class="common-article">
 
-#+END_HTML
+#+END_EXPORT
 
 #+NAME: article-end
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 
 
   </article>
 
-#+END_HTML
+#+END_EXPORT
 
 *** Footer
 
 - #ABOUT-BLOG#: a line of text which describes the blog in general
 
 #+NAME: article-footer
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 	  <aside class="published-on">
 	    Published on <time datetime="#ARTICLE-PUBLISHED-HTML-DATETIME#">#ARTICLE-PUBLISHED-HUMAN-READABLE#</time>
 	  </aside>
@@ -712,7 +712,7 @@ With name/label:
 
   </body>
 </html>
-#+END_HTML
+#+END_EXPORT
 
 
 ** Tags
@@ -723,7 +723,7 @@ With name/label:
 - #ARTICLE-ID#: Org-mode ID property of the blog entry
 
 #+NAME: tagpage-header
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
   <!DOCTYPE html>
   <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -758,7 +758,7 @@ With name/label:
       <title>The Tag &laquo;#ARTICLE-TITLE#&raquo;</title>
 
   </head>
-#+END_HTML
+#+END_EXPORT
 
 *** Top of Article
 
@@ -773,7 +773,7 @@ With name/label:
 - #COMMON-SIDEBAR# : the sidebar conentent which is shared on all pages
 
 #+NAME: tagpage-header-begin
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
   <body>
 
     <div class="common-orgsource"><a href="source.org.txt">&#960;</a></div>
@@ -789,39 +789,39 @@ With name/label:
 	    </span>
 	  </nav>
 
-#+END_HTML
+#+END_EXPORT
 
 
 #+NAME: tagpage-tags-begin
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 	  <aside class="common-tags">
 	    <ul>
 
-#+END_HTML
+#+END_EXPORT
 
 - #TAGNAME#: string of a tag
 
 #+NAME: tagpage-usertag
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
                 <li><a class="usertag" href="//Karl-Voit.at/tags/#TAGNAME#/">#ARTICLE_TITLE#</a></li>
 
-#+END_HTML
+#+END_EXPORT
 
 #+NAME: tagpage-autotag
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
                 <li><a class="autotag" href="//Karl-Voit.at/tags/#TAGNAME#/">#TAGNAME#</a></li>
 
-#+END_HTML
+#+END_EXPORT
 
 #+NAME: tagpage-tags-end
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 	    </ul>
 	  </aside>
 
-#+END_HTML
+#+END_EXPORT
 
 #+NAME: tagpage-header-end
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 
 	  <h1 class="common-article-header-title">Tag Page for the Tag "#ARTICLE-TITLE#"</h1>
 
@@ -831,10 +831,10 @@ With name/label:
 
   <article class="common-article">
 
-#+END_HTML
+#+END_EXPORT
 
 #+NAME: tagpage-end
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 
   <hr />
 
@@ -846,7 +846,7 @@ With name/label:
 
   </article>
 
-#+END_HTML
+#+END_EXPORT
 
 *** Footer
 
@@ -867,7 +867,7 @@ FIXXME
 - #MONTH-TWODIGITNUMBER#: number of the month like "01" or "02"
 
 #+NAME: month-header
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
   <!DOCTYPE html>
   <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -901,7 +901,7 @@ FIXXME
 
   <p><ul class="month-body">
 
-#+END_HTML
+#+END_EXPORT
 
 *** Article-Link
 
@@ -916,9 +916,9 @@ FIXXME
   human readable format (e.g., 2011-10-30T15:00)
 
 #+NAME: article-list-link
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 <li><a href="#ARTICLE-URL#">#ARTICLE-YEAR#-#ARTICLE-MONTH#-#ARTICLE-DAY#: #ARTICLE-TITLE#</a></li>
-#+END_HTML
+#+END_EXPORT
 
 *** Footer
 
@@ -929,7 +929,7 @@ FIXXME
 - #MONTH-TWODIGITNUMBER#: number of the month like "01" or "02"
 
 #+NAME: month-footer
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 
     </ul></p>
     </article>
@@ -945,7 +945,8 @@ FIXXME
 
   </body>
 </html>
-#+END_HTML
+#+END_EXPORT
+
 ** Year Overview
 
 FIXXME

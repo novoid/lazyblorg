@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-11-01 16:55:24 vk>
+# Time-stamp: <2016-11-06 14:52:31 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -231,7 +231,23 @@ CLOSED: [2014-03-01 Sat 20:10]
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
 
+** NEXT implement populate_tag_dict() + class variable                                :architecture:
+SCHEDULED: <2016-11-06 Sun>
+:PROPERTIES:
+:CREATED:  [2016-11-05 Sat 10:17]
+:END:
+
+** NEXT create tag overview page + template kva.at/tags/index.html                       :userstory:
+:PROPERTIES:
+:CREATED:  [2016-11-05 Sat 10:18]
+:END:
+
+** NEXT README: write «How to upgrade lazyblorg»
+:PROPERTIES:
+:CREATED:  [2016-11-05 Sat 10:18]
+:END:
 ** STARTED tag pages: create a tag page for all tags                                     :userstory:
+SCHEDULED: <2016-11-06 Sun>
 :PROPERTIES:
 :CREATED:  [2016-11-01 Tue 11:30]
 :END:
@@ -276,6 +292,21 @@ TypeError: string indices must be integers, not str
 
 When I add the entry to blog_data, I get an error as well.
 
+** NEXT [#A] newsblur: fix & test kva feed
+SCHEDULED: <2016-11-06 Sun>
+:PROPERTIES:
+:CREATED:  [2016-11-02 Wed 09:44]
+:END:
+:LOGBOOK:
+- Rescheduled from "[2016-11-04 Fri]" on [2016-11-06 Sun 11:12]
+- Rescheduled from "[2016-11-02 Wed]" on [2016-11-02 Wed 09:45]
+:END:
+
+
+** NEXT tag pages: less contrast for publishing time in list of pages (CSS)              :userstory:
+:PROPERTIES:
+:CREATED:  [2016-11-01 Tue 17:01]
+:END:
 ** NEXT document: what elements are rendered/converted via pypandoc?
 SCHEDULED: <2016-08-06 Sat>
 :PROPERTIES:
@@ -630,14 +661,14 @@ downsides:
 
 ... will be transformed into:
 
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 All portrait photographs are rotated using
 <a href="http://www.sentex.net/<code>mwandel/jhead/">jhead</a>. Also with jhead,
 I generate file-name time-stamps from the Exif header time-stamps.
 Using <a href="https://github.com/novoid/date2name">date2name</a> I add time-stamps
 also to the movie files. After processing all those files, they get moved to the
 destination folder for new digicam files: </code>$HOME/tmp/digicam/tmp/~.
-#+END_HTML
+#+END_EXPORT
 
 ... which is wrong
 
@@ -692,6 +723,7 @@ Standard-Informationen erwarten und nicht bekommen..
   - for each entry in entries
     - get oldest entry of entry['finished-timestamp-history']
     - store to a sorted list (newest first or last)
+
 ** NEXT add: --include-archived-entries                                                  :userstory:
 :PROPERTIES:
 :CREATED:  [2014-10-19 So 12:01]
@@ -887,7 +919,7 @@ like monthly overview but only for the day
 - [X] how to generate a simple redirect page?
   - http://stackoverflow.com/questions/5411538/redirect-from-an-html-page
   - http://karl-voit.at/test.html
-#+BEGIN_HTML
+#+BEGIN_EXPORT HTML
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
@@ -900,17 +932,18 @@ like monthly overview but only for the day
     <p><a href="http://karl-voit.at/2016/10/02/Ehrenhausen-1/">Redirect</a></p>
   </body>
 </html>
-#+END_HTML
+#+END_EXPORT
 
 - [ ] implement in lazyblorg
 
 ** NEXT fix links to tags in my current blog entries             :userstory:
-SCHEDULED: <2015-10-06 Tue>
+SCHEDULED: <2016-12-29 Thu>
 :PROPERTIES:
 :CREATED:  [2014-08-10 Sun 12:57]
 :BLOCKER: 2013-10-19-lb-tag-pages
 :END:
 :LOGBOOK:
+- Rescheduled from "[2015-10-06 Tue]" on [2016-11-01 Tue 17:05]
 - Rescheduled from "[2014-08-10 Sun]" on [2015-09-06 Sun 09:55]
 :END:
 
@@ -924,7 +957,7 @@ SCHEDULED: <2015-10-06 Tue>
 - https://github.com/novoid/lazyblorg/issues/4
 - example: id:2015-05-24-browser-keywords
 
-** NEXT embed images that are defined by tsfile-statements       :userstory:
+** NEXT [#A] embed images that are defined by tsfile-statements                          :userstory:
 :PROPERTIES:
 :CREATED:  [2014-01-29 Wed 17:30]
 :END:
@@ -1753,6 +1786,17 @@ display: block;
 
 - see also id:2012-11-11-autotags
 
+** SOMEDAY simplify HTML, omit tags
+:PROPERTIES:
+:CREATED:  [2016-11-02 Wed 16:58]
+:END:
+:LOGBOOK:
+- State "SOMEDAY"    from              [2016-11-02 Wed 16:58]
+:END:
+
+- https://twitter.com/stefan2904/status/793832217940140033
+  - IMPORTANT: https://google.github.io/styleguide/htmlcssguide.xml?showone=Optional_Tags#Optional_Tags
+
 ** SOMEDAY implement: auto-tag for short articles                                        :userstory:
 :PROPERTIES:
 :CREATED:  [2016-02-12 Fri 23:02]
@@ -2092,9 +2136,10 @@ additional sanitizing)
 [fn:internalrepresentation] usually in list: ~blog_data['id-of-entry']['content']~
 
 - Blocks: (beginning with ~BEGIN_~)
+  - EXPORT (new with Org-mode 9)
   - [[http://orgmode.org/org.html#index-g_t_0023_002bBEGIN_005fASCII-1620][ASCII]]
-  - [[http://orgmode.org/org.html#index-g_t_0023_002bBEGIN_005fHTML-1661][HTML]]
-  - [[http://orgmode.org/org.html#index-g_t_0023_002bBEGIN_005fLATEX-1719][LATEX]]
+  - [[http://orgmode.org/org.html#index-g_t_0023_002bBEGIN_005fHTML-1661][HTML]]   (deprecated since Org-mode 9)
+  - [[http://orgmode.org/org.html#index-g_t_0023_002bBEGIN_005fLATEX-1719][LATEX]]  (deprecated since Org-mode 9)
   - [[http://orgmode.org/org.html#index-g_t_0023_002bBEGIN_005fQUOTE-1493][QUOTE]]
   - [[http://orgmode.org/org.html#index-g_t_0023_002bBEGIN_005fSRC-1885][SRC]]
   - [[http://orgmode.org/org.html#index-g_t_0023_002bBEGIN_005fVERSE-1492][VERSE]]

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-31 19:15:33 vk>
+# Time-stamp: <2016-11-06 13:57:21 vk>
 
 import config
 import argparse  # command line arguments
@@ -67,7 +67,7 @@ class TestLazyblorg(unittest.TestCase):
         first_parser.add_argument("--logfile", dest="logfilename")
         first_parser.add_argument("-v", "--verbose", dest="verbose", action="store_true")
 
-        myoptions = "--orgfiles " + org_testfile_firstrun + " " + template_file + \
+        myoptions = "--orgfiles " + template_file + " " + org_testfile_firstrun + \
             " --targetdir ../testdata/basic_blog_update_test/2del-results/ --previous-metadata NOTEXISTING.pk --new-metadata " + \
             metadata_firstrun_output + \
             " --logfile " + log_firstrun  # + " --verbose"
