@@ -42,24 +42,24 @@ a {
 
 @mixin show-big-search {
     #search-big {
-	frameborder: 0;
+	border: 0;
 	visibility: visible;
 	height: 6em;
     }
     #search-narrow {
-	frameborder: 0;
+	border: 0;
 	visibility: hidden;
 	height: 0px;
     }
 }
 @mixin show-narrow-search {
     #search-big {
-	frameborder: 0;
+	border: 0;
 	visibility: hidden;
 	height: 0px;
     }
     #search-narrow {
-	frameborder: 0;
+	border: 0;
 	visibility: visible;
 	height: 6em;
     }
