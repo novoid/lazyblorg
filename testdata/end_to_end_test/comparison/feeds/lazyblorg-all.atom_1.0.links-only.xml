@@ -6,7 +6,7 @@
   <id>//Karl-Voit.at</id>
   <link href='//Karl-Voit.at' />
   <icon>/favicon.ico</icon>
-  <updated>2016-11-06T14:47:40+01:00</updated>
+  <updated>2016-11-06T17:18:36+01:00</updated>
   <author>
     <name type="text">Karl Voit</name>
   </author>
@@ -22,7 +22,7 @@
     <category scheme='//Karl-Voit.at/tags/programming' term='programming' />
     <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='xhtml'>
-<![CDATA[<div xmlns='http://www.w3.org/1999/xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
 <p>
 
 <a href="../../../../2016/10/31/an-hidden-blog-entry">Link to a hidden entry</a>
@@ -56,7 +56,7 @@ Lorem ipsum dolor sit amet, malorum scaevola ut ius, ridens admodum adipisci eam
 Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. Odio disputando ei his, ei est mutat mediocritatem. Harum verterem ex mea, sed saepe viderer scribentur ex. Pri te dictas eligendi praesent.
 
 </p>
-</div>]]>
+</div>
     </summary>
     <id>//Karl-Voit.at/2016/10/31/my-temporal-article-from-feed-with-links</id>
   </entry>
@@ -70,7 +70,7 @@ Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. O
     <category scheme='//Karl-Voit.at/tags/programming' term='programming' />
     <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='xhtml'>
-<![CDATA[<div xmlns='http://www.w3.org/1999/xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
 <p>
 
 Lorem ipsum dolor sit amet, malorum scaevola ut ius, ridens admodum adipisci eam ad. Eu quo ignota appareat, an primis expetendis eum, atqui labitur ceteros quo ad. Id zril partiendo cotidieque nam, nemore legimus has ad. Nec cu regione sensibus volutpat.
@@ -83,7 +83,7 @@ Lorem ipsum dolor sit amet, malorum scaevola ut ius, ridens admodum adipisci eam
 Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. Odio disputando ei his, ei est mutat mediocritatem. Harum verterem ex mea, sed saepe viderer scribentur ex. Pri te dictas eligendi praesent.
 
 </p>
-</div>]]>
+</div>
     </summary>
     <id>//Karl-Voit.at/persistent-entry-from-feed-with-links</id>
   </entry>
@@ -95,7 +95,7 @@ Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. O
     <updated>2016-10-31T16:38:00+01:00</updated>
     <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='xhtml'>
-<![CDATA[<div xmlns='http://www.w3.org/1999/xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
 <p>
 
 This is a page whose content is getting transformed into a tag page.
@@ -138,7 +138,7 @@ I am very curious how this is going to turn out.
 Below this, I expect some links to other pages related to the tag "programming":
 
 </p>
-</div>]]>
+</div>
     </summary>
     <id>//Karl-Voit.at/tags/programming-from-feed-with-links</id>
   </entry>
@@ -151,13 +151,13 @@ Below this, I expect some links to other pages related to the tag "programming":
     <category scheme='//Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
     <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='xhtml'>
-<![CDATA[<div xmlns='http://www.w3.org/1999/xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
 <p>
 
 This is a placeholder entry in order to be able to test internal links.
 
 </p>
-</div>]]>
+</div>
     </summary>
     <id>//Karl-Voit.at/about-from-feed-with-links</id>
   </entry>

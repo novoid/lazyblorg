@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-01 16:55:27 vk>
+# Time-stamp: <2016-11-06 17:17:26 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -386,22 +386,22 @@ class Htmlizer(object):
                     feedentry += "    <category scheme='" + config.BASE_URL + "/" + "autotags" + "/" + autotag + "' term='" + tag + "' />\n"
 
             # add summary:
-            feedentry += "    <summary type='xhtml'>\n<![CDATA[<div xmlns='http://www.w3.org/1999/xhtml'>"
+            feedentry += "    <summary type='xhtml'>\n<div xmlns='http://www.w3.org/1999/xhtml'>"
             if blog_data_entry['htmlteaser-equals-content']:
                 feedentry += '\n'.join(blog_data_entry['content'])
             else:
                 feedentry += '\n'.join(blog_data_entry['htmlteaser'])
-            feedentry += "</div>]]>\n    </summary>"
+            feedentry += "</div>\n    </summary>"
 
             # add content to content-feed OR end entry for links-feed:
             links_atom_feed += feedentry + "\n    <id>" + \
                                config.BASE_URL + "/" + listentry['url'] + u"-from-feed-with-links" + \
                                "</id>\n  </entry>\n\n"
-            content_atom_feed += feedentry + """    <content type='xhtml'><![CDATA[
+            content_atom_feed += feedentry + """    <content type='xhtml'>
       <div xmlns='http://www.w3.org/1999/xhtml'>
 	""" + '\n'.join(blog_data_entry['content']) + """
       </div>
-    ]]></content>
+    </content>
     <id>""" + config.BASE_URL + "/" + listentry['url'] + u"-from-feed-with-content" + \
         "</id>\n  </entry>\n"
 
