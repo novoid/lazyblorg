@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-06 19:26:40 vk>
+# Time-stamp: <2016-11-06 19:43:41 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -641,7 +641,7 @@ class Htmlizer(object):
                     entry['htmlteaser'] = entry['content'][:index]
                     teaser_finished = True
 
-                result = "<div class=\"orgmode-hr\" />"
+                result = "<div class=\"orgmode-hr\" ></div>"
 
             elif entry['content'][index][0] == 'heading':
 

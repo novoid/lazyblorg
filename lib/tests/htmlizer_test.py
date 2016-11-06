@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-01 16:40:55 vk>
+# Time-stamp: <2016-11-06 19:43:27 vk>
 
 import config
 import unittest
@@ -69,7 +69,7 @@ class TestHtmlizer(unittest.TestCase):
             ['hr'],
             ['par', u'Second paragraph']
         ], 'category': 'TEMPORAL'}
-        htmlized_content_expected = [u'<p>First paragraph</p>', '<div class="orgmode-hr" />', u'<p>Second paragraph</p>']
+        htmlized_content_expected = [u'<p>First paragraph</p>', '<div class="orgmode-hr" ></div>', u'<p>Second paragraph</p>']
         htmlized_entry_test = htmlizer.sanitize_and_htmlize_blog_content(entry)
         self.assertTrue(htmlized_entry_test['content'] == htmlized_content_expected)
         self.assertTrue(htmlized_entry_test['htmlteaser'] == [u'<p>First paragraph</p>'])
