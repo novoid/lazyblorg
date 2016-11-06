@@ -6,7 +6,7 @@
   <id>//Karl-Voit.at</id>
   <link href='//Karl-Voit.at' />
   <icon>/favicon.ico</icon>
-  <updated>2016-11-06T17:18:36+01:00</updated>
+  <updated>2016-11-06T17:40:25+01:00</updated>
   <author>
     <name type="text">Karl Voit</name>
   </author>
@@ -15,6 +15,21 @@
   <generator uri='https://github.com/novoid/lazyblorg'>Generated from Org-mode source code using lazyblorg which is written in Python. Industrial-strength technology, baby.</generator>
 
         <entry>
+    <title type="text">Testing Misc Sanitization Issues</title>
+    <link href='//Karl-Voit.at/2016/11/06/sanitization-examples' />
+    <published>2016-11-06T17:40:00+01:00</published>
+    <updated>2016-11-06T17:40:00+01:00</updated>
+    <category scheme='//Karl-Voit.at/tags/programming' term='programming' />
+    <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+	  <pre>This ought to be escaped &amp; &gt;printed&lt; well.	  </pre>
+</div>
+    </summary>
+    <id>//Karl-Voit.at/2016/11/06/sanitization-examples-from-feed-with-links</id>
+  </entry>
+
+<entry>
     <title type="text">A Temporal Article With Links</title>
     <link href='//Karl-Voit.at/2016/10/31/my-temporal-article' />
     <published>2016-10-31T16:40:00+01:00</published>

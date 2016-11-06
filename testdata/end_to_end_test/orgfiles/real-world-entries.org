@@ -57,6 +57,20 @@ Lorem ipsum dolor sit amet, malorum scaevola ut ius, ridens admodum adipisci eam
 
 Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. Odio disputando ei his, ei est mutat mediocritatem. Harum verterem ex mea, sed saepe viderer scribentur ex. Pri te dictas eligendi praesent.
 
+** DONE Testing Misc Sanitization Issues                                          :blog:programming:
+CLOSED: [2016-11-06 Sun 17:40]
+:PROPERTIES:
+:ID: 2016-11-06-sanitization-examples
+:CREATED:  [2016-11-06 Sun 17:38]
+:END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2016-11-06 Sun 17:40]
+:END:
+
+#+BEGIN_EXAMPLE
+This ought to be escaped & >printed< well.
+#+END_EXAMPLE
+
 * DONE A Temporal Article With Links                                               :programming:blog:
 CLOSED: [2016-10-31 Mon 16:40]
 :PROPERTIES:

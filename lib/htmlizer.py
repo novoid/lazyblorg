@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-06 17:17:26 vk>
+# Time-stamp: <2016-11-06 17:37:48 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -731,6 +731,9 @@ class Htmlizer(object):
                         self.sanitize_external_links(
                             self.sanitize_internal_links(entry['category'],
                                                          self.sanitize_html_characters(mycontent))))
+
+                if entry['content'][index][0] == 'example-block':
+                    mycontent = self.sanitize_html_characters(mycontent)
 
                 self.logging.debug("result [%s]" % repr(result))
                 self.logging.debug("mycontent [%s]" % repr(mycontent))

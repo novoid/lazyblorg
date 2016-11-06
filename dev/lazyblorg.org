@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-11-06 17:30:48 vk>
+# Time-stamp: <2016-11-06 17:46:14 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -291,94 +291,6 @@ TypeError: string indices must be integers, not str
 #+END_EXAMPLE
 
 When I add the entry to blog_data, I get an error as well.
-
-** STARTED newsblur: fix & test kva feed
-SCHEDULED: <2016-11-06 Sun>
-:PROPERTIES:
-:CREATED:  [2016-11-02 Wed 09:44]
-:END:
-:LOGBOOK:
-- Rescheduled from "[2016-11-04 Fri]" on [2016-11-06 Sun 11:12]
-- Rescheduled from "[2016-11-02 Wed]" on [2016-11-02 Wed 09:45]
-:END:
-
-- http://stackoverflow.com/questions/6887796/xsltproc-html-documents
-
-- [X] removed CDATA from lazyblorg feeds since it did not work in
-  some(?) aggregators, showing the HTML tags instead of interpreting them
-
-- [ ] test cgi.escape http://stackoverflow.com/questions/1061697/whats-the-easiest-way-to-escape-html-in-python
-  - escapes <, >, and &
-      #+BEGIN_QUOTE
-      [[http://docs.python.org/library/cgi.html#cgi.escape][cgi.escape]] is fine. It escapes:
-
-          < to &lt;
-          > to &gt;
-          & to &amp;
-
-      That is enough for all HTML.
-
-      EDIT: If you have non-ascii chars you also want to escape, for
-      inclusion in another encoded document that uses a different
-      encoding, like Craig says, just use:
-
-      #+BEGIN_SRC python
-      data.encode('ascii', 'xmlcharrefreplace')
-      #+END_SRC
-
-      Don't forget to decode data to unicode first, using whatever
-      encoding it was encoded.
-
-      However in my experience that kind of encoding is useless if you
-      just work with unicode all the time from start. Just encode at the
-      end to the encoding specified in the document header (utf-8 for
-      maximum compatibility).
-
-      Example:
-
-      >>> cgi.escape(u'<a>bá</a>').encode('ascii', 'xmlcharrefreplace')
-      '&lt;a&gt;b&#225;&lt;/a&gt;
-
-      Also worth of note (thanks Greg) is the extra quote parameter
-      cgi.escape takes. With it set to True, cgi.escape also escapes
-      double quote chars (") so you can use the resulting value in a
-      XML/HTML attribute.
-
-      EDIT: Note that cgi.escape has been deprecated in Python 3.2 in
-      favor of [[http://docs.python.org/3/library/html.html#html.escape][html.escape]], which does the same except that quote
-      defaults to True.
-      #+END_QUOTE
-
-- Debian/Python-modules to generate feed altogether (outsourcing feed generation)
-  - python-feedgenerator: https://github.com/dmdm/feedgenerator-py3k
-    - moved to differen repository and has few contributors
-
-  - [ ] check out https://github.com/lkiesow/python-feedgen
-
-#+BEGIN_SRC python
-from feedgen.feed import FeedGenerator
-fg = FeedGenerator()
-fg.id('http://lernfunk.de/media/654321')
-fg.title('Some Testfeed')
-fg.author( {'name':'John Doe','email':'john@example.de'} )
-fg.link( href='http://example.com', rel='alternate' )
-fg.logo('http://ex.com/logo.jpg')
-fg.subtitle('This is a cool feed!')
-fg.link( href='http://larskiesow.de/test.atom', rel='self' )
-fg.language('en')
-
-fe = fg.add_entry()
-fe.id('http://lernfunk.de/media/654321/1')
-fe.title('The First Episode')
-
-atomfeed = fg.atom_str(pretty=True) # Get the ATOM feed as string
-rssfeed  = fg.rss_str(pretty=True) # Get the RSS feed as string
-fg.atom_file('atom.xml') # Write the ATOM feed to a file
-fg.rss_file('rss.xml') # Write the RSS feed to a file
-#+END_SRC
-
-- [ ] test http://stackoverflow.com/questions/174890/how-to-output-cdata-using-elementtree
-- [ ] test http://stackoverflow.com/questions/13694143/parsing-cdata-in-xml-with-python
 
 ** NEXT tag pages: less contrast for publishing time in list of pages (CSS)              :userstory:
 :PROPERTIES:
@@ -748,40 +660,6 @@ destination folder for new digicam files: </code>$HOME/tmp/digicam/tmp/~.
 #+END_EXPORT
 
 ... which is wrong
-
-** NEXT fix Atom-feed (with CDATA for body?)                                           :architecture:
-:PROPERTIES:
-:CREATED:  [2014-06-08 Sun 22:07]
-:END:
-
-- <2014-06-08 Sun> stefan2904 Twitter: can not read feed with tinyTinyRSS
-  - validator wants fixes
-
-*** Issue reported by Tobias Barthel
-
-#+BEGIN_QUOTE
-Ich schaue immer wieder gerne bei dir auf dem Blog vorbei und habe heute
-versucht ihn im RSS-Reader Akregator (unter Linux) einzufügen. Dabei mir
-ist folgendes aufgefallen:
-- der Feed „subscribe content“ ist leer, dafür enthält der andere auch
-den Content
-- Akregator lässt mich einzelne Artikel nicht ansurfen (Funktion „im
-externen Browser öffnen“), wie das bei anderen RSS-Feeds, die ich
-abonniert habe, problemlos funktioniert.
-#+END_QUOTE
-
-#+BEGIN_QUOTE
-Ich meine
-http://karl-voit.at/feeds/lazyblorg-all.atom_1.0.links-only.xml. Der
-andere hat enthält gar keinen Content, wenn ich ihn im Firefox anzeigen
-lasse.
-
-Habe jetzt auch Yarrsr ausprobiert, der lädt beide deiner RSS-Feeds
-nicht einmal. Aber das Tool mag ich auch nicht sonderlich.
-
-Für mich sieht das aus, als ob die Reader irgendwelche
-Standard-Informationen erwarten und nicht bekommen..
-#+END_QUOTE
 
 ** STARTED get ordered lists of blog entries                  :architecture:
 :PROPERTIES:
@@ -2060,6 +1938,87 @@ For optimizing performance and RAM usage: use *two parsing processes*:
 
 - [ ] handle public/private tags accordingly (or: noexport?)
 - [ ] migrate delicious private field to private tag
+
+** SOMEDAY test alternative methods to generate ATOM feeds
+   :PROPERTIES:
+   :CREATED:  [2016-11-06 Sun 17:44]
+   :END:
+   :LOGBOOK:
+   - State "SOMEDAY"    from              [2016-11-06 Sun 17:44]
+   :END:
+
+- [ ] test cgi.escape http://stackoverflow.com/questions/1061697/whats-the-easiest-way-to-escape-html-in-python
+  - escapes <, >, and &
+      #+BEGIN_QUOTE
+      [[http://docs.python.org/library/cgi.html#cgi.escape][cgi.escape]] is fine. It escapes:
+
+          < to &lt;
+          > to &gt;
+          & to &amp;
+
+      That is enough for all HTML.
+
+      EDIT: If you have non-ascii chars you also want to escape, for
+      inclusion in another encoded document that uses a different
+      encoding, like Craig says, just use:
+
+      #+BEGIN_SRC python
+      data.encode('ascii', 'xmlcharrefreplace')
+      #+END_SRC
+
+      Don't forget to decode data to unicode first, using whatever
+      encoding it was encoded.
+
+      However in my experience that kind of encoding is useless if you
+      just work with unicode all the time from start. Just encode at the
+      end to the encoding specified in the document header (utf-8 for
+      maximum compatibility).
+
+      Example:
+
+      >>> cgi.escape(u'<a>bá</a>').encode('ascii', 'xmlcharrefreplace')
+      '&lt;a&gt;b&#225;&lt;/a&gt;
+
+      Also worth of note (thanks Greg) is the extra quote parameter
+      cgi.escape takes. With it set to True, cgi.escape also escapes
+      double quote chars (") so you can use the resulting value in a
+      XML/HTML attribute.
+
+      EDIT: Note that cgi.escape has been deprecated in Python 3.2 in
+      favor of [[http://docs.python.org/3/library/html.html#html.escape][html.escape]], which does the same except that quote
+      defaults to True.
+      #+END_QUOTE
+
+- Debian/Python-modules to generate feed altogether (outsourcing feed generation)
+  - python-feedgenerator: https://github.com/dmdm/feedgenerator-py3k
+    - moved to differen repository and has few contributors
+
+  - [ ] check out https://github.com/lkiesow/python-feedgen
+
+#+BEGIN_SRC python
+from feedgen.feed import FeedGenerator
+fg = FeedGenerator()
+fg.id('http://lernfunk.de/media/654321')
+fg.title('Some Testfeed')
+fg.author( {'name':'John Doe','email':'john@example.de'} )
+fg.link( href='http://example.com', rel='alternate' )
+fg.logo('http://ex.com/logo.jpg')
+fg.subtitle('This is a cool feed!')
+fg.link( href='http://larskiesow.de/test.atom', rel='self' )
+fg.language('en')
+
+fe = fg.add_entry()
+fe.id('http://lernfunk.de/media/654321/1')
+fe.title('The First Episode')
+
+atomfeed = fg.atom_str(pretty=True) # Get the ATOM feed as string
+rssfeed  = fg.rss_str(pretty=True) # Get the RSS feed as string
+fg.atom_file('atom.xml') # Write the ATOM feed to a file
+fg.rss_file('rss.xml') # Write the RSS feed to a file
+#+END_SRC
+
+- [ ] test http://stackoverflow.com/questions/174890/how-to-output-cdata-using-elementtree
+- [ ] test http://stackoverflow.com/questions/13694143/parsing-cdata-in-xml-with-python
 
 
 ** STARTED lazyblorg: omit org.txt in search                                                  :@BWG:
