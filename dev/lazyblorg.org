@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-11-06 19:35:51 vk>
+# Time-stamp: <2016-11-08 18:42:10 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -231,6 +231,13 @@ CLOSED: [2014-03-01 Sat 20:10]
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
 
+** NEXT link autotag pages                                                                :userstory:
+   :PROPERTIES:
+   :CREATED:  [2016-11-06 Sun 19:47]
+   :END:
+
+"language:english" should point to tag page of "language" (and not "language:english")
+
 ** NEXT create tag overview page + template kva.at/tags/index.html                       :userstory:
 :PROPERTIES:
 :CREATED:  [2016-11-05 Sat 10:18]
@@ -241,7 +248,7 @@ CLOSED: [2014-03-01 Sat 20:10]
 :CREATED:  [2016-11-05 Sat 10:18]
 :END:
 ** STARTED tag pages: create a tag page for all tags                                     :userstory:
-SCHEDULED: <2016-11-06 Sun>
+SCHEDULED: <2016-11-09 Wed>
 :PROPERTIES:
 :CREATED:  [2016-11-01 Tue 11:30]
 :END:

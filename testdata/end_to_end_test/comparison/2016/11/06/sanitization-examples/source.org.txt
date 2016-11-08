@@ -1,0 +1,13 @@
+CLOSED: [2016-11-06 Sun 17:40]
+:PROPERTIES:
+:ID: 2016-11-06-sanitization-examples
+:CREATED:  [2016-11-06 Sun 17:38]
+:END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2016-11-06 Sun 17:40]
+:END:
+
+#+BEGIN_EXAMPLE
+This ought to be escaped & >printed< well.
+#+END_EXAMPLE
+

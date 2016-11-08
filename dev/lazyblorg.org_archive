@@ -2969,3 +2969,18 @@ So for now, the current issue should not re-appear
 :LOGBOOK:
 - State "DONE"       from "NEXT"       [2016-11-06 Sun 18:15]
 :END:
+
+** DONE testall.sh: extract end-to-end-test into separate script                          :userstory:
+   CLOSED: [2016-11-08 Tue 18:42] SCHEDULED: <2016-11-08 Tue>
+   :PROPERTIES:
+   :CREATED:  [2016-11-07 Mon 22:36]
+   :ARCHIVE_TIME: 2016-11-08 Tue 18:42
+   :ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+   :ARCHIVE_OLPATH: Issue Tracking
+   :ARCHIVE_CATEGORY: lazyblorg
+   :ARCHIVE_TODO: DONE
+   :ARCHIVE_ITAGS: issues
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "NEXT"       [2016-11-08 Tue 18:42]
+   :END:
