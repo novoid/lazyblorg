@@ -13,9 +13,9 @@ from os.path import isfile
 
 class TestOrgParser(unittest.TestCase):
 
-    ## FIXXME: (Note) These test are *not* exhaustive unit tests. They only
-    ##         show the usage of the methods. Please add "mean" test cases and
-    ##         borderline cases!
+    # FIXXME: (Note) These test are *not* exhaustive unit tests. They only
+    # show the usage of the methods. Please add "mean" test cases and
+    # borderline cases!
 
     logging = None
 
@@ -29,7 +29,8 @@ class TestOrgParser(unittest.TestCase):
 
     def test_get_list_indentation_number(self):
 
-        testfile_org = "simple.org"  # manually written Org-mode file; has to be placed in "lib/tests/"
+        # manually written Org-mode file; has to be placed in "lib/tests/"
+        testfile_org = "simple.org"
         blog_data = []  # initialize the empty list
         parser = OrgParser(testfile_org)
 
@@ -51,57 +52,71 @@ class TestOrgParser(unittest.TestCase):
         self.assertEqual(parser._get_list_indentation_number(u'x'), 0)
         self.assertEqual(parser._get_list_indentation_number(u'-'), 0)
         self.assertEqual(parser._get_list_indentation_number('  - foo bar'), 4)
-        self.assertEqual(parser._get_list_indentation_number(u'  - foo bar'), 4)
-        self.assertEqual(parser._get_list_indentation_number(u'    foo bar'), 4)
-        self.assertEqual(parser._get_list_indentation_number(u'  * foo bar'), 4)
-        self.assertEqual(parser._get_list_indentation_number(u'  42) foo bar'), 6)
-        self.assertEqual(parser._get_list_indentation_number(u'  23. foo bar'), 6)
+        self.assertEqual(
+            parser._get_list_indentation_number(u'  - foo bar'), 4)
+        self.assertEqual(
+            parser._get_list_indentation_number(u'    foo bar'), 4)
+        self.assertEqual(
+            parser._get_list_indentation_number(u'  * foo bar'), 4)
+        self.assertEqual(
+            parser._get_list_indentation_number(u'  42) foo bar'), 6)
+        self.assertEqual(
+            parser._get_list_indentation_number(u'  23. foo bar'), 6)
 
     def test_simple_org_to_blogdata(self):
 
-        testfile_org = "simple.org"  # manually written Org-mode file; has to be placed in "lib/tests/"
+        # manually written Org-mode file; has to be placed in "lib/tests/"
+        testfile_org = "simple.org"
         testfile_temp_output = "simple_org_-_lastrun.pk"
         testfile_temp_reference = "simple_org_-_reference.pk"
 
-        self.assertTrue(isfile(testfile_org))  # check, if test input file is found
+        # check, if test input file is found
+        self.assertTrue(isfile(testfile_org))
 
-        ## make sure that no old output file is found:
+        # make sure that no old output file is found:
         if isfile(testfile_temp_output):
             remove(testfile_temp_output)
 
         blog_data = []  # initialize the empty list
         parser = OrgParser(testfile_org)
 
-        ## parse the example Org-mode file:
+        # parse the example Org-mode file:
         file_blog_data, stats_parsed_org_lines = parser.parse_orgmode_file()
         blog_data.extend(file_blog_data)
 
-        ## write data to dump file:
+        # write data to dump file:
         with open(testfile_temp_output, 'wb') as output:
             pickle.dump(blog_data, output, config.PICKLE_FORMAT)
 
-        ## check, if dump file was created:
+        # check, if dump file was created:
         self.assertTrue(isfile(testfile_temp_output))
 
         reference_blog_data = None
 
-        ## read reference data from file:
+        # read reference data from file:
         with open(testfile_temp_reference, 'r') as fileinput:
             reference_blog_data = pickle.load(fileinput)
 
-        ## a more fine-grained diff (only) on the first element in blog_data:
-        Utils.diff_two_lists(blog_data[0]['content'], reference_blog_data[0]['content'])
-        #OLD# for x in range(len(blog_data[0]['content'])):
-        #OLD#     if blog_data[0]['content'][x] != reference_blog_data[0]['content'][x]:
-        #OLD#         print "   =============== difference ==================="
-        #OLD#         print reference_blog_data[0]['content'][x]
-        #OLD#         print "   -------------------------------"
-        #OLD#         print blog_data[0]['content'][x]
-        #OLD#         print "   ===============            ==================="
+        # a more fine-grained diff (only) on the first element in blog_data:
+        Utils.diff_two_lists(
+            blog_data[0]['content'],
+            reference_blog_data[0]['content'])
+        # OLD# for x in range(len(blog_data[0]['content'])):
+        # OLD#     if blog_data[0]['content'][x] != reference_blog_data[0]['content'][x]:
+        # OLD#         print "   =============== difference ==================="
+        # OLD#         print reference_blog_data[0]['content'][x]
+        # OLD#         print "   -------------------------------"
+        # OLD#         print blog_data[0]['content'][x]
+        # OLD#         print "   ===============
+        # ==================="
 
-        self.assertTrue(Utils.list_of_dicts_are_equal(reference_blog_data, blog_data, ignoreorder=True))
+        self.assertTrue(
+            Utils.list_of_dicts_are_equal(
+                reference_blog_data,
+                blog_data,
+                ignoreorder=True))
 
-## END OF FILE #################################################################
+## END OF FILE ###########################################################
 # Local Variables:
 # mode: flyspell
 # eval: (ispell-change-dictionary "en_US")

@@ -15,20 +15,20 @@ except ImportError:
 
 class TestPypandoc(unittest.TestCase):
 
-    ## FIXXME: (Note) These test are *not* exhaustive unit tests.
+    # FIXXME: (Note) These test are *not* exhaustive unit tests.
 
     logging = None
 
     def setUp(self):
         verbose = False
         quiet = False
-        self.logging = Utils.initialize_logging("lazyblorg.tests", verbose, quiet)
+        self.logging = Utils.initialize_logging(
+            "lazyblorg.tests", verbose, quiet)
 
     def tearDown(self):
         pass
 
     def test_pypandoc_compatibility(self):
-
         """
         This test is testing if org-mode can be converted to html via pypandoc
         """
@@ -42,21 +42,27 @@ class TestPypandoc(unittest.TestCase):
         This test is testing a basic pypandoc function call.
         """
 
-        pypandoc_result = pypandoc.convert('- *foo* bar', 'html5', format='org')
+        pypandoc_result = pypandoc.convert(
+            '- *foo* bar', 'html5', format='org')
         expected_html5_result = u'<ul>\n<li><strong>foo</strong> bar</li>\n</ul>\n'
 
-        self.assertEqual(Utils.normalize_lineendings(pypandoc_result), Utils.normalize_lineendings(expected_html5_result))
+        self.assertEqual(
+            Utils.normalize_lineendings(pypandoc_result),
+            Utils.normalize_lineendings(expected_html5_result))
 
     def test_pypandoc_with_umlauts(self):
         """
         This test is testing umlaut and charset with pypandoc.
         """
 
-        pypandoc_result = pypandoc.convert('This is an umlaut test: öÄß€',
-                                           'html5', format='org', encoding='utf-8')
+        pypandoc_result = pypandoc.convert(
+            'This is an umlaut test: öÄß€',
+            'html5',
+            format='org',
+            encoding='utf-8')
         expected_html5_result = u'<p>This is an umlaut test: öÄß€</p>\n'
 
-        ## FIXXME: Umlaut conversion does habe encoding issues.
+        # FIXXME: Umlaut conversion does habe encoding issues.
         self.assertEqual(Utils.normalize_lineendings(pypandoc_result),
                          Utils.normalize_lineendings(expected_html5_result))
 
@@ -128,7 +134,9 @@ comment
         self.maxDiff = None
         pypandoc_result = pypandoc.convert(org_example, 'html5', format='org')
 
-        self.assertEqual(Utils.normalize_lineendings(pypandoc_result), Utils.normalize_lineendings(expected_html5_result))
+        self.assertEqual(
+            Utils.normalize_lineendings(pypandoc_result),
+            Utils.normalize_lineendings(expected_html5_result))
 
 
 # Local Variables:

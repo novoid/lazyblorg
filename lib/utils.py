@@ -16,10 +16,11 @@ class Utils(object):
     Class for providing misc utility methods.
     """
 
-    ## The stopword lists were obtained from:
-    ##     http://anoncvs.postgresql.org/cvsweb.cgi/pgsql/src/backend/snowball/stopwords/
-    ## You can add as many languages as you wish. There have to be at least two of them.
-    ## Clearly, it helps when you omit stepwords that occur in multiple languages.
+    # The stopword lists were obtained from:
+    # http://anoncvs.postgresql.org/cvsweb.cgi/pgsql/src/backend/snowball/stopwords/
+    # You can add as many languages as you wish. There have to be at least two of them.
+    # Clearly, it helps when you omit stepwords that occur in multiple
+    # languages.
     STOPWORDS = [('english', [u'I', u'me', u'my', u'myself', u'we', u'our', u'ours',
                               u'ourselves', u'you', u'your', u'yours', u'yourself',
                               u'yourselves', u'he', u'him', u'his', u'himself',
@@ -78,7 +79,6 @@ class Utils(object):
                               u'wieder', u'wir', u'wird', u'wirst', u'wo', u'wollen',
                               u'wollte', u'würde', u'wüden', u'zu', u'zum', u'zur',
                               u'zwar', u'zwischen'])]
-
 
     def __init__(self):
 
@@ -146,10 +146,10 @@ class Utils(object):
         # add ch to logger
         logger.addHandler(ch)
 
-        ## omit double output (default handler and my own handler):
+        # omit double output (default handler and my own handler):
         logger.propagate = False
 
-        ## # "application" code
+        # "application" code
         ## logger.debug("debug message")
         ## logger.info("info message")
         ## logger.warn("warn message")
@@ -169,7 +169,7 @@ class Utils(object):
 
         with open(filename, 'a') as outputhandle:
             datetimestamp = OrgFormat.datetime(localtime())
-    ## add daily repeating that user gets it on agenda also on following days:
+    # add daily repeating that user gets it on agenda also on following days:
             datetimestamp = datetimestamp[:-1] + ' +1d>'
 
             outputhandle.write(u"\n** " +
@@ -193,7 +193,8 @@ class Utils(object):
         return md5(str([title, content])).hexdigest()
 
     @staticmethod
-    def _add_entry_to_entries_timeline_by_published(entries_timeline_by_published, entry):
+    def _add_entry_to_entries_timeline_by_published(
+            entries_timeline_by_published, entry):
         """
         Adds entry metadata to dict entries_timeline_by_published.
 
@@ -242,7 +243,8 @@ class Utils(object):
             # initialize a new year when its first entry is found:
             entries_timeline_by_published[year] = [
                 [],  # ignore month 0
-                [[] for i in range(32)],  # January - with an additional day to ignore day 0 each month
+                # January - with an additional day to ignore day 0 each month
+                [[] for i in range(32)],
                 [[] for i in range(30)],  # February
                 [[] for i in range(32)],  # March
                 [[] for i in range(31)],  # April
@@ -268,7 +270,7 @@ class Utils(object):
         @param return: int of year of None
         """
 
-        assert type(entries_timeline_by_published) == dict
+        assert isinstance(entries_timeline_by_published, dict)
 
         if entries_timeline_by_published:
             return sorted(entries_timeline_by_published.keys())[0]
@@ -284,7 +286,7 @@ class Utils(object):
         @param return: int of year of None
         """
 
-        assert type(entries_timeline_by_published) == dict
+        assert isinstance(entries_timeline_by_published, dict)
 
         if entries_timeline_by_published:
             return sorted(entries_timeline_by_published.keys())[-1]
@@ -292,7 +294,11 @@ class Utils(object):
             return None
 
     @staticmethod
-    def get_entries_of_published_date(entries_timeline_by_published, year=False, month=False, day=False):
+    def get_entries_of_published_date(
+            entries_timeline_by_published,
+            year=False,
+            month=False,
+            day=False):
         """
         Returns a list of non-hidden entries that were published. Optionally filtered by year, month, day.
 
@@ -300,7 +306,7 @@ class Utils(object):
         @param return: list of ids
         """
 
-        assert type(entries_timeline_by_published) == dict
+        assert isinstance(entries_timeline_by_published, dict)
 
         if not entries_timeline_by_published:
             return []
@@ -311,14 +317,19 @@ class Utils(object):
                 return sorted(entries_timeline_by_published[year][month][day])
             elif month:
                 assert(year)
-                return sorted([item for monthlist in entries_timeline_by_published[year][month] for item in monthlist])
+                return sorted([item for monthlist in entries_timeline_by_published[
+                              year][month] for item in monthlist])
             elif year:
-                return sorted([item for yearlist in [item for monthlist in entries_timeline_by_published[year] for item in monthlist] for item in yearlist])
+                return sorted([item for yearlist in [item for monthlist in entries_timeline_by_published[
+                              year] for item in monthlist] for item in yearlist])
             else:
-                # this is really getting nasty here. Could not make it work using another layer of [item for...]
+                # this is really getting nasty here. Could not make it work
+                # using another layer of [item for...]
                 all_entries = []
                 for year in entries_timeline_by_published.keys():
-                    all_entries.extend(Utils.get_entries_of_published_date(entries_timeline_by_published, year))
+                    all_entries.extend(
+                        Utils.get_entries_of_published_date(
+                            entries_timeline_by_published, year))
                 return sorted(all_entries)
 
     @staticmethod
@@ -340,7 +351,9 @@ class Utils(object):
 
         # metadata example:
         # {u'case5': {'category': 'TEMPORAL', 'timestamp': datetime.datetime(2013, 8, 24, 22, 49), 'checksum': '511251b0827', 'created': datetime.datetime(2013, 8, 24, 22, 42)},
-        #  u'case4': {'category': 'TEMPORAL', 'timestamp': datetime.datetime(2013, 8, 24, 22, 49), 'checksum': '0b178606638', 'created': datetime.datetime(2013, 8, 24, 22, 42)}}
+        # u'case4': {'category': 'TEMPORAL', 'timestamp':
+        # datetime.datetime(2013, 8, 24, 22, 49), 'checksum': '0b178606638',
+        # 'created': datetime.datetime(2013, 8, 24, 22, 42)}}
         metadata = {}
 
         for entry in blogdata:
@@ -360,12 +373,13 @@ class Utils(object):
 
             entries_timeline_by_published = {}
 
-            checksum = Utils.__generate_checksum_for_blog_entry(entry['title'],
-                                                                entry['content'])
+            checksum = Utils.__generate_checksum_for_blog_entry(
+                entry['title'], entry['content'])
 
             if entry['id'] in metadata.keys():
                 logging.error("We got a duplicate ID in blogdata: \"" +
-                              str(entry['id']) + "\". Please correct it and re-run this tool.")
+                              str(entry['id']) +
+                              "\". Please correct it and re-run this tool.")
                 #   [x['id'] for x in blogdata]
                 Utils.error_exit(30)
             else:
@@ -378,10 +392,15 @@ class Utils(object):
                                          'title': entry['title'],
                                          'category': entry['category']}
                 if config.TAG_FOR_HIDDEN not in entry['usertags']:
-                    entries_timeline_by_published = Utils._add_entry_to_entries_timeline_by_published(entries_timeline_by_published, entry)
-                    logging.debug('added entry to entries_timeline_by_published')
+                    entries_timeline_by_published = Utils._add_entry_to_entries_timeline_by_published(
+                        entries_timeline_by_published, entry)
+                    logging.debug(
+                        'added entry to entries_timeline_by_published')
                 else:
-                    logging.debug('found hidden entry ' + entry['id'] + ', not adding to entries_timeline_by_published')
+                    logging.debug(
+                        'found hidden entry ' +
+                        entry['id'] +
+                        ', not adding to entries_timeline_by_published')
 
         return metadata, entries_timeline_by_published
 
@@ -400,16 +419,22 @@ class Utils(object):
         <checksum>}, ...}
         """
 
-        metadata = {}  # FIXXME: ??? separate metadata according to TEMPORAL, ...
+        # FIXXME: ??? separate metadata according to TEMPORAL, ...
+        metadata = {}
 
         for entry in blogdata[config.TEMPORAL]:
-            metadata.update(Utils.__generate_metadata_from_blogdata_core(metadata, entry, config.TEMPORAL))
+            metadata.update(
+                Utils.__generate_metadata_from_blogdata_core(
+                    metadata, entry, config.TEMPORAL))
         for entry in blogdata[config.TEMPLATES]:
-            metadata += Utils.__generate_metadata_from_blogdata_core(metadata, entry, config.TEMPLATES)
+            metadata += Utils.__generate_metadata_from_blogdata_core(
+                metadata, entry, config.TEMPLATES)
         for entry in blogdata[config.PERSISTENT]:
-            metadata += Utils.__generate_metadata_from_blogdata_core(metadata, entry, config.PERSISTENT)
+            metadata += Utils.__generate_metadata_from_blogdata_core(
+                metadata, entry, config.PERSISTENT)
         for entry in blogdata[config.TAGS]:
-            metadata += Utils.__generate_metadata_from_blogdata_core(metadata, entry, config.TAGS)
+            metadata += Utils.__generate_metadata_from_blogdata_core(
+                metadata, entry, config.TAGS)
 
         return metadata
 
@@ -430,16 +455,16 @@ class Utils(object):
         logger = logging.getLogger('lazyblorg.Utils.list_of_dicts_are_equal')
         logger.debug("list_of_dicts_are_equal called")
 
-        assert type(list1) == list
-        assert type(list2) == list
+        assert isinstance(list1, list)
+        assert isinstance(list2, list)
 
         if len(list1) > 0:
-            assert type(list1[0]) == dict
+            assert isinstance(list1[0], dict)
         if len(list2) > 0:
-            assert type(list2[0]) == dict
+            assert isinstance(list2[0], dict)
 
         if len(list1) != len(list2):
-            ## quick check: if length differs, they are definitely different
+            # quick check: if length differs, they are definitely different
             return False
 
         comparisonlist1 = list1
@@ -449,7 +474,7 @@ class Utils(object):
             comparisonlist2 = sorted(list2)
 
         for entry in range(len(comparisonlist1)):
-            ## do the hard way: comparing content
+            # do the hard way: comparing content
             if not comparisonlist1[entry] == comparisonlist2[entry]:
                 return False
 
@@ -482,40 +507,40 @@ class Utils(object):
             return data1 == data2
 
         if data1 is None or data2 is None:
-            ## both arguments should exist
+            # both arguments should exist
             return False
 
-        elif type(data1) != type(data2):
+        elif not isinstance(data1, type(data2)):
             return False
 
         elif type(data1) in [int, float, long, complex, str, unicode]:
             return data1 == data2
 
-        elif type(data1) == dict:
+        elif isinstance(data1, dict):
 
-            ##return Utils.dicts_are_equal(data1, data2, ignoreorder)
-            ## -> if dicts contain lists, this does not compare the list content!
+            # return Utils.dicts_are_equal(data1, data2, ignoreorder)
+            # -> if dicts contain lists, this does not compare the list content!
 
-            ## check for trivial cases:
+            # check for trivial cases:
             if len(data1.keys()) != len(data2.keys()):
                 return False
             if len(data1.keys()) == 0:
                 return True
 
-            ## FIXXME: sorting the dict might be unnecessary since: {3:4, 'b':2} == {'b':2, 3:4}
-            ## dicts don't keep the order (unless using Ordered....)
+            # FIXXME: sorting the dict might be unnecessary since: {3:4, 'b':2} == {'b':2, 3:4}
+            # dicts don't keep the order (unless using Ordered....)
             sorted1 = sorted(data1.items(), key=lambda t: t[0])
             sorted2 = sorted(data2.items(), key=lambda t: t[0])
             if sorted1 == sorted2:
-                ## if this is true, we do not have to walk through the content
+                # if this is true, we do not have to walk through the content
                 return True
             else:
-                ## sorted1/2 are lists of tuples now. Compare them:
+                # sorted1/2 are lists of tuples now. Compare them:
                 Utils.datastructs_are_equal(sorted1, sorted2, ignoreorder)
 
-        elif type(data1) == list:
+        elif isinstance(data1, list):
 
-            ## check for trivial cases:
+            # check for trivial cases:
             if len(data1) != len(data2):
                 return False
             if len(data1) == 0:
@@ -524,15 +549,18 @@ class Utils(object):
             sorted1 = sorted(data1)
             sorted2 = sorted(data2)
             if sorted1 == sorted2:
-                ## if this is true, we do not have to walk through the content
+                # if this is true, we do not have to walk through the content
                 return True
             else:
                 for element in range(len(sorted1)):
-                    Utils.datastructs_are_equal(sorted1[element], sorted2[element], ignoreorder)
+                    Utils.datastructs_are_equal(
+                        sorted1[element], sorted2[element], ignoreorder)
 
         else:
             logger = logging.getLogger('lazyblorg.Utils.datastructs_are_equal')
-            logger.error("datastructs_are_equal() does not support parameters of type \"%s\" yet." % type(data1))
+            logger.error(
+                "datastructs_are_equal() does not support parameters of type \"%s\" yet." %
+                type(data1))
             return False
 
     @staticmethod
@@ -560,8 +588,9 @@ class Utils(object):
                 for element in source[key]:
                     result[key].append(element)
             else:
-                ## there is a key in source which can not be found in destination (yet).
-                ## create new key in destination containing the list of source[key]:
+                # there is a key in source which can not be found in destination (yet).
+                # create new key in destination containing the list of
+                # source[key]:
                 result[key] = source[key]
 
         return result
@@ -583,30 +612,38 @@ class Utils(object):
 
         """
 
-        assert(len(Utils.STOPWORDS) > 1)  # this does not make sense for only one language
+        # this does not make sense for only one language
+        assert(len(Utils.STOPWORDS) > 1)
         assert(len(Utils.STOPWORDS[0]) == 2)  # just test first language
 
-        ## combine list of strings and split on whitespaces:
+        # combine list of strings and split on whitespaces:
         textlist = " ".join(textlist).split()
 
         result = []  # example result: [['english', 40], ['deutsch', 0]]
 
-        ## determine stopword percentages of all given languages:
+        # determine stopword percentages of all given languages:
         for language in Utils.STOPWORDS:
             languagename = language[0]
             languagestopwords = language[1]
-            stopwordpercentage = 100 * len([word for word in textlist if word in languagestopwords])/ \
-                                 len(textlist)
+            stopwordpercentage = 100 * \
+                len([word for word in textlist if word in languagestopwords]) / len(textlist)
             result.append([languagename, stopwordpercentage])
 
-        sorted_result = sorted(result, key=itemgetter(1), reverse=True)  # sort according to percentage
+        sorted_result = sorted(result, key=itemgetter(
+            1), reverse=True)  # sort according to percentage
 
-        ## dominant language has to have at least twice the stopword percentage from the second one:
+        # dominant language has to have at least twice the stopword percentage
+        # from the second one:
         if sorted_result[0][1] > 2 * sorted_result[1][1]:
             return sorted_result[0][0]
         else:
-            logger = logging.getLogger('lazyblorg.Utils.guess_language_from_stopword_percentages')
-            logger.warning("percentage of stopwords do not differ much: English: %s; German: %s" % (str(sorted_result[0][1]), str(sorted_result[1][1])))
+            logger = logging.getLogger(
+                'lazyblorg.Utils.guess_language_from_stopword_percentages')
+            logger.warning(
+                "percentage of stopwords do not differ much: English: %s; German: %s" %
+                (str(
+                    sorted_result[0][1]), str(
+                    sorted_result[1][1])))
             return False
 
     @staticmethod
@@ -648,10 +685,12 @@ class Utils(object):
 
         logger = logging.getLogger('lazyblorg.Utils.diff_two_lists')
         if normalize_lineendings:
-            logger.info("Internal error: The two lists are not equal but I can't find the difference. They might differ in line ending format.")
+            logger.info(
+                "Internal error: The two lists are not equal but I can't find the difference. They might differ in line ending format.")
             return True
         else:
-            logger.error("Internal error: The two lists are not equal but I can't find the difference.")
+            logger.error(
+                "Internal error: The two lists are not equal but I can't find the difference.")
 
     @staticmethod
     def get_newest_timestamp_for_entry(entry):
@@ -720,7 +759,7 @@ class Utils(object):
         """
 
         assert(entry)
-        assert(type(entry) == dict)
+        assert(isinstance(entry, dict))
         assert('finished-timestamp-history' in entry.keys())
         assert(search_for == "OLDEST" or search_for == "NEWEST")
 
@@ -738,10 +777,12 @@ class Utils(object):
                     newesttimestamp = timestamp
             returntimestamp = newesttimestamp
 
-        return returntimestamp, str(returntimestamp.year).zfill(2), str(returntimestamp.month).zfill(2), \
-            str(returntimestamp.day).zfill(2), \
-            str(returntimestamp.hour).zfill(2), str(returntimestamp.minute).zfill(2)
-
+        return returntimestamp, str(
+            returntimestamp.year).zfill(2), str(
+            returntimestamp.month).zfill(2), str(
+            returntimestamp.day).zfill(2), str(
+                returntimestamp.hour).zfill(2), str(
+                    returntimestamp.minute).zfill(2)
 
 
 # Local Variables:

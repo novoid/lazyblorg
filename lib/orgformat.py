@@ -1,11 +1,12 @@
 # -*- coding: utf-8; mode: python; -*-
 # Time-stamp: <2015-12-04 13:28:52 vk>
 
-## This file is originally from Memacs
-## https://github.com/novoid/Memacs
-## and was written mainly by https://github.com/awieser
-## see: https://github.com/novoid/Memacs/blob/master/memacs/lib/orgformat.py
-## for unit tests, see: https://github.com/novoid/Memacs/blob/master/memacs/lib/tests/orgformat_test.py
+# This file is originally from Memacs
+# https://github.com/novoid/Memacs
+# and was written mainly by https://github.com/awieser
+# see: https://github.com/novoid/Memacs/blob/master/memacs/lib/orgformat.py
+# for unit tests, see:
+# https://github.com/novoid/Memacs/blob/master/memacs/lib/tests/orgformat_test.py
 
 import time
 import datetime
@@ -21,6 +22,7 @@ class TimestampParseException(Exception):
     Own excption should be raised when
     strptime fails
     """
+
     def __init__(self, value):
         self.value = value
 
@@ -39,7 +41,8 @@ class OrgFormat(object):
 
     ORGMODE_TIMESTAMP_REGEX = re.compile(SINGLE_ORGMODE_TIMESTAMP + "$")
 
-    ORGMODE_TIMESTAMP_RANGE_REGEX = re.compile(SINGLE_ORGMODE_TIMESTAMP + "-(-)?" + SINGLE_ORGMODE_TIMESTAMP + "$")
+    ORGMODE_TIMESTAMP_RANGE_REGEX = re.compile(
+        SINGLE_ORGMODE_TIMESTAMP + "-(-)?" + SINGLE_ORGMODE_TIMESTAMP + "$")
 
     @staticmethod
     def struct_time_to_datetime(tuple_date):
@@ -88,9 +91,10 @@ class OrgFormat(object):
                                  datetimestamp.weekday(),
                                  0, 0])
 
-    ## timestamp = time.struct_time([2013,4,3,10,54,0,0,0,0])  ## wday == 0
-    ## OrgFormat.date(timestamp)  ## '<2013-04-03 Mon>' -> Mon is wrong for April 3rd 2013
-    ## OrgFormat.date( OrgFormat.fix_struct_time_wday(timestamp) ) ## '<2013-04-03 Wed>'
+    # timestamp = time.struct_time([2013,4,3,10,54,0,0,0,0])  ## wday == 0
+    # OrgFormat.date(timestamp)  ## '<2013-04-03 Mon>' -> Mon is wrong for April 3rd 2013
+    # OrgFormat.date( OrgFormat.fix_struct_time_wday(timestamp) ) ##
+    # '<2013-04-03 Wed>'
 
     @staticmethod
     def link(link, description=None):
@@ -117,15 +121,16 @@ class OrgFormat(object):
         @param show_time: optional show time also
         """
         # <YYYY-MM-DD hh:mm>
-        assert (tuple_date.__class__ == time.struct_time or tuple_date.__class__ == datetime.datetime)
+        assert (tuple_date.__class__ ==
+                time.struct_time or tuple_date.__class__ == datetime.datetime)
 
         local_structtime = False
 
         if tuple_date.__class__ == time.struct_time:
-            ## fix day of week in struct_time
+            # fix day of week in struct_time
             local_structtime = OrgFormat.fix_struct_time_wday(tuple_date)
         else:
-            ## convert datetime to struc_time
+            # convert datetime to struc_time
             local_structtime = OrgFormat.datetime_to_struct_time(tuple_date)
 
         if show_time:
@@ -146,9 +151,12 @@ class OrgFormat(object):
         assert tuple_date.__class__ == time.struct_time
 
         if show_time:
-            return time.strftime("[%Y-%m-%d %a %H:%M]", OrgFormat.fix_struct_time_wday(tuple_date))
+            return time.strftime(
+                "[%Y-%m-%d %a %H:%M]",
+                OrgFormat.fix_struct_time_wday(tuple_date))
         else:
-            return time.strftime("[%Y-%m-%d %a]", OrgFormat.fix_struct_time_wday(tuple_date))
+            return time.strftime("[%Y-%m-%d %a]",
+                                 OrgFormat.fix_struct_time_wday(tuple_date))
 
     @staticmethod
     def datetime(tuple_datetime):
@@ -177,8 +185,8 @@ class OrgFormat(object):
 
         @param begin,end: has to be a time.struct_time
         """
-        assert type(begin) == time.struct_time
-        assert type(end) == time.struct_time
+        assert isinstance(begin, time.struct_time)
+        assert isinstance(end, time.struct_time)
         return "%s--%s" % (OrgFormat.date(begin, False),
                            OrgFormat.date(end, False))
 
@@ -189,8 +197,8 @@ class OrgFormat(object):
 
         @param begin,end: has to be a time.struct_time
         """
-        assert type(begin) == time.struct_time
-        assert type(end) == time.struct_time
+        assert isinstance(begin, time.struct_time)
+        assert isinstance(end, time.struct_time)
         return "%s--%s" % (OrgFormat.date(begin, True),
                            OrgFormat.date(end, True))
 
@@ -242,7 +250,7 @@ class OrgFormat(object):
             datetime_string.__class__ == unicode
         try:
             tuple_date = time.strptime(datetime_string, "%Y-%m-%d %H:%M")
-        except ValueError, e:
+        except ValueError as e:
             raise TimestampParseException(e)
         return OrgFormat.date(tuple_date, show_time=True)
 
@@ -274,7 +282,7 @@ class OrgFormat(object):
                 return time.strptime(datetime_string, "%Y-%m-%dT%H.%M")
             elif len(datetime_string) == 19:  # YYYY-MM-DDTHH.MM.SS
                 return time.strptime(datetime_string, "%Y-%m-%dT%H.%M.%S")
-        except ValueError, e:
+        except ValueError as e:
             raise TimestampParseException(e)
 
     @staticmethod
@@ -287,7 +295,7 @@ class OrgFormat(object):
             datetime_string.__class__ == unicode
         try:
             return time.strptime(datetime_string, "%Y-%m-%d")
-        except ValueError, e:
+        except ValueError as e:
             raise TimestampParseException(e)
 
     @staticmethod
@@ -304,18 +312,18 @@ class OrgFormat(object):
 
         try:
             if string_length == 16:
-                #YYYYMMDDTHHMMSSZ
+                # YYYYMMDDTHHMMSSZ
                 return time.localtime(
                     calendar.timegm(
                         time.strptime(datetime_string, "%Y%m%dT%H%M%SZ")))
             elif string_length == 15:
-                #YYYYMMDDTHHMMSS
+                # YYYYMMDDTHHMMSS
                 return time.strptime(datetime_string, "%Y%m%dT%H%M%S")
             elif string_length == 8:
-                #YYYYMMDD
+                # YYYYMMDD
                 return time.strptime(datetime_string, "%Y%m%d")
             elif string_length == 27:
-                #2011-11-02T14:48:54.908371Z
+                # 2011-11-02T14:48:54.908371Z
                 datetime_string = datetime_string.split(".")[0] + "Z"
                 return time.localtime(
                     calendar.timegm(
@@ -324,7 +332,7 @@ class OrgFormat(object):
             else:
                 logging.error("string has no correct format: %s",
                               datetime_string)
-        except ValueError, e:
+        except ValueError as e:
             raise TimestampParseException(e)
 
     # @staticmethod
@@ -380,7 +388,8 @@ class OrgFormat(object):
         minutes = (sec / 60) % 60
         hours = (sec / (60 * 60))
 
-        return str(hours) + ":" + str(minutes).zfill(2) + ":" + str(seconds).zfill(2)
+        return str(hours) + ":" + str(minutes).zfill(2) + \
+            ":" + str(seconds).zfill(2)
 
     @staticmethod
     def get_dhms_from_sec(sec):
@@ -405,7 +414,8 @@ class OrgFormat(object):
         else:
             daystring = ''
 
-        return daystring + str(hours) + ":" + str(minutes).zfill(2) + ":" + str(seconds).zfill(2)
+        return daystring + str(hours) + ":" + \
+            str(minutes).zfill(2) + ":" + str(seconds).zfill(2)
 
     @staticmethod
     def orgmode_timestamp_to_datetime(orgtime):
@@ -422,12 +432,13 @@ class OrgFormat(object):
         components = re.match(OrgFormat.ORGMODE_TIMESTAMP_REGEX, orgtime)
 
         if not components:
-            logging.error("string could not be parsed as time-stamp of format \"<YYYY-MM-DD Sun HH:MM>\": \"%s\"",
-                          orgtime)
+            logging.error(
+                "string could not be parsed as time-stamp of format \"<YYYY-MM-DD Sun HH:MM>\": \"%s\"",
+                orgtime)
 
-
-        ## components: <1980-12-31 Wed 23:59>
-        ## components.groups(1) -> ('1980', '12', '31', 'Wed', '23', 1, '23', '59')
+        # components: <1980-12-31 Wed 23:59>
+        # components.groups(1) -> ('1980', '12', '31', 'Wed', '23', 1, '23',
+        # '59')
 
         year = int(components.group(2))
         month = int(components.group(3))
@@ -454,9 +465,10 @@ class OrgFormat(object):
         assert orgtime.__class__ == str or \
             orgtime.__class__ == unicode
 
-        ## first time-stamp: range_components.groups(0)[0]
-        ## second time-stamp: range_components.groups(0)[10]
-        range_components = re.match(OrgFormat.ORGMODE_TIMESTAMP_RANGE_REGEX, orgtime)
+        # first time-stamp: range_components.groups(0)[0]
+        # second time-stamp: range_components.groups(0)[10]
+        range_components = re.match(
+            OrgFormat.ORGMODE_TIMESTAMP_RANGE_REGEX, orgtime)
 
         if range_components:
             return OrgFormat.datetime(
@@ -469,8 +481,8 @@ class OrgFormat(object):
                         range_components.groups(0)[10]) +
                     datetime.timedelta(0, 0, 0, 0, 0, deltahours))
         else:
-            return OrgFormat.datetime(OrgFormat.orgmode_timestamp_to_datetime(orgtime) +
-                                      datetime.timedelta(0, 0, 0, 0, 0, deltahours))
+            return OrgFormat.datetime(OrgFormat.orgmode_timestamp_to_datetime(
+                orgtime) + datetime.timedelta(0, 0, 0, 0, 0, deltahours))
 
 
 # Local Variables:
