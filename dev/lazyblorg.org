@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-11-08 18:42:10 vk>
+# Time-stamp: <2016-11-13 20:10:25 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -247,52 +247,6 @@ CLOSED: [2014-03-01 Sat 20:10]
 :PROPERTIES:
 :CREATED:  [2016-11-05 Sat 10:18]
 :END:
-** STARTED tag pages: create a tag page for all tags                                     :userstory:
-SCHEDULED: <2016-11-09 Wed>
-:PROPERTIES:
-:CREATED:  [2016-11-01 Tue 11:30]
-:END:
-
-- [ ] implement generate_tag_pages_which_got_no_userdefined_tag_page()
-
-Issue when generating tag page:
-
-#+BEGIN_EXAMPLE
-====> Runing end-to-end test ...
-
-WARNING  Blog data file "testdata/end_to_end_test/lazyblorg-e2e-test-previous-metadata.pk" is not found. Assuming first run!
-INFO     Parsing "templates/blog-format.org" ...
-INFO     Parsing "testdata/about-placeholder.org" ...
-INFO     Parsing "testdata/currently_supported_orgmode_syntax.org" ...
-INFO     Parsing "testdata/end_to_end_test/orgfiles/real-world-entries.org" ...
-INFO     no previous metadata found: must be the first run of lazyblorg with this configuration
-Traceback (most recent call last):
-  File "./lazyblorg.py", line 480, in <module>
-    stats_generated_persistent, stats_generated_tags = lazyblorg.generate_output(generate, marked_for_feed, increment_version)
-  File "./lazyblorg.py", line 161, in generate_output
-    return htmlizer.run()  # FIXXME: return value?
-  File "/home/vk/frankie/src/lazyblorg/lib/htmlizer.py", line 137, in run
-    stats_generated_persistent, stats_generated_tags = self._generate_pages_for_tags_persistent_temporal()
-  File "/home/vk/frankie/src/lazyblorg/lib/htmlizer.py", line 227, in _generate_pages_for_tags_persistent_temporal
-    self._generate_tag_pages_which_got_no_userdefined_tag_page()
-  File "/home/vk/frankie/src/lazyblorg/lib/htmlizer.py", line 268, in _generate_tag_pages_which_got_no_userdefined_tag_page
-    self._generate_tag_page(entry)
-  File "/home/vk/frankie/src/lazyblorg/lib/htmlizer.py", line 1105, in _generate_tag_page
-    path = self._create_target_path_for_id_with_targetdir(entry['id'])
-  File "/home/vk/frankie/src/lazyblorg/lib/htmlizer.py", line 1419, in _create_target_path_for_id_with_targetdir
-    idpath = self._target_path_for_id_with_targetdir(entryid)
-  File "/home/vk/frankie/src/lazyblorg/lib/htmlizer.py", line 1269, in _target_path_for_id_with_targetdir
-    return os.path.join(self.targetdir, self._target_path_for_id_without_targetdir(entryid))
-  File "/home/vk/frankie/src/lazyblorg/lib/htmlizer.py", line 1296, in _target_path_for_id_without_targetdir
-    entry = self.blog_data_with_id(entryid)
-  File "/home/vk/frankie/src/lazyblorg/lib/htmlizer.py", line 1467, in blog_data_with_id
-    matching_elements = [x for x in self.blog_data if entryid == x['id']]
-TypeError: string indices must be integers, not str
-1 vk@sherri ~/frankie/src/lazyblorg (git)-[master] %
-#+END_EXAMPLE
-
-When I add the entry to blog_data, I get an error as well.
-
 ** NEXT document: what elements are rendered/converted via pypandoc?
 SCHEDULED: <2016-08-06 Sat>
 :PROPERTIES:

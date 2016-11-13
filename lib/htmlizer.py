@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-06 19:43:41 vk>
+# Time-stamp: <2016-11-13 20:04:38 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -59,8 +59,10 @@ class Htmlizer(object):
     blog_tag = None  # string that marks blog entries (as Org-mode tag)
     about_blog = None  # string containing a short description of the blog
     autotag_language = False  # boolean, if guessing language + autotag should be done
+
     # { 'mytag': [ 'ID1', 'ID2', 'ID2'], 'anothertag': [...] }
     dict_of_tags_with_ids = None
+
     # holds a list of tags whose tag pages have been generated
     list_of_tag_pages_generated = []
 
@@ -94,6 +96,8 @@ class Htmlizer(object):
     # any ISO date-stamp of format YYYY-MM-DD:
     DATESTAMP_REGEX = re.compile(
         '([12]\d\d\d)-([012345]\d)-([012345]\d)', flags=re.U)
+
+    ID_PREFIX_FOR_EMPTY_TAG_PAGES = 'lb_tag-'
 
     def __init__(
             self,
@@ -163,7 +167,10 @@ class Htmlizer(object):
 
         self._generate_feeds(entry_list_by_newest_timestamp)
 
-        return stats_generated_total, stats_generated_temporal, stats_generated_persistent, stats_generated_tags
+        return stats_generated_total, \
+            stats_generated_temporal, \
+            stats_generated_persistent, \
+            stats_generated_tags
 
     def _populate_dict_of_tags_with_ids(self, blog_data):
         """
@@ -179,11 +186,14 @@ class Htmlizer(object):
         for blog_article in blog_data:
             if config.TAG_FOR_HIDDEN not in blog_article['usertags']:
                 for usertag in blog_article['usertags']:
+                    # append usertags to dict:
                     if usertag in dict_of_tags_with_ids.keys():
                         dict_of_tags_with_ids[usertag].append(
                             blog_article['id'])
                     else:
                         dict_of_tags_with_ids[usertag] = [blog_article['id']]
+
+                    # FIXXME: append autotags to dict
 
         return dict_of_tags_with_ids
 
@@ -260,7 +270,10 @@ class Htmlizer(object):
                 self.write_orgcontent_to_file(orgfilename, entry['rawcontent'])
                 stats_generated_total += 1
 
-        # self._generate_tag_pages_which_got_no_userdefined_tag_page()
+        # generate (empty) tag pages for all tags which got no user-defined tag page content:
+        stats_generated_empty_tags = self._generate_tag_pages_which_got_no_userdefined_tag_page()
+        stats_generated_total += stats_generated_empty_tags
+        stats_generated_tags += stats_generated_empty_tags
 
         entry_list_by_newest_timestamp = self.generate_entry_list_by_newest_timestamp()
         self.generate_entry_page(entry_list_by_newest_timestamp)
@@ -269,6 +282,7 @@ class Htmlizer(object):
         return entry_list_by_newest_timestamp, stats_generated_total, stats_generated_temporal, \
             stats_generated_persistent, stats_generated_tags
 
+
     def _generate_tag_pages_which_got_no_userdefined_tag_page(self):
         """
         For all tag pages where the user did not define a tag page entry
@@ -276,11 +290,13 @@ class Htmlizer(object):
         the list of entries related to the tag.
         """
 
+        count = 0
         set_of_all_tags = set()
 
         # collect list of all tags (from blog_data)
         for entry in self.blog_data:
-            set_of_all_tags = set_of_all_tags.union(set(entry['usertags']))
+            if config.TAG_FOR_HIDDEN not in entry['usertags']:
+                set_of_all_tags = set_of_all_tags.union(set(entry['usertags']))
 
         set_of_tags_with_no_userdefined_tag_page = set_of_all_tags - \
             set(self.list_of_tag_pages_generated) - \
@@ -293,19 +309,22 @@ class Htmlizer(object):
         entry = {'content': u'',
                  'category': config.TAGS,
                  'finished-timestamp-history': [datetime.now()],
+                 'type': 'this is an entry stub for an empty tag page'
                  }
 
         # for each: generate pseudo-entry containing the tag and call
         # self._generate_tag_page(entry)
         for tag in set_of_tags_with_no_userdefined_tag_page:
-            entry['id'] = 'lb_tag-' + tag
+            entry['id'] = self.ID_PREFIX_FOR_EMPTY_TAG_PAGES + tag
             entry['title'] = tag
-            self.blog_data += entry
+            self.blog_data.append(entry)
             logging.info('----> Generating tag page for: ' + tag)
-            self._generate_tag_page(entry)
+            htmlfilename, orgfilename, htmlcontent = self._generate_tag_page(entry)
+            self.write_content_to_file(htmlfilename, htmlcontent)
+            # omit writing org file since there is no user-generated org-mode file for it
+            count += 1
 
-        import pdb
-        pdb.set_trace()
+        return count
 
     def _generate_feeds(self, entry_list_by_newest_timestamp):
         """
@@ -395,6 +414,11 @@ class Htmlizer(object):
             # get next element from entry_list
             listentry = entry_list_by_newest_timestamp[listentry_index]
             listentry_index += 1
+
+            # ignore pseudo/empty tag pages without user content:
+            while listentry['id'].startswith(self.ID_PREFIX_FOR_EMPTY_TAG_PAGES):
+                listentry = entry_list_by_newest_timestamp[listentry_index]
+                listentry_index += 1
 
             if listentry['category'] == config.TEMPLATES:
                 continue
@@ -511,6 +535,11 @@ class Htmlizer(object):
             # get next element from entry_list
             listentry = entry_list_by_newest_timestamp[listentry_index]
             listentry_index += 1
+
+            # ignore pseudo/empty tag pages without user content:
+            while listentry['id'].startswith(self.ID_PREFIX_FOR_EMPTY_TAG_PAGES):
+                listentry = entry_list_by_newest_timestamp[listentry_index]
+                listentry_index += 1
 
             entry = self.blog_data_with_id(listentry['id'])
 
@@ -1288,6 +1317,7 @@ class Htmlizer(object):
         @param return: htmlcontent: the HTML content of the entry
         """
 
+        logging.debug('_generate_tag_page(' + str(entry) + ')')
         tag = entry['title']
         self.list_of_tag_pages_generated.append(tag)
 
@@ -1468,7 +1498,7 @@ class Htmlizer(object):
 
         content = u'\n<ul class=\'tag-pages-link-list\'>\n'
 
-        if not self.dict_of_tags_with_ids:
+        if not self.dict_of_tags_with_ids or tag not in self.dict_of_tags_with_ids:
             return u'\nNo blog entries with this tag so far.\n'
 
         for reference in sorted(self.dict_of_tags_with_ids[tag]):
@@ -1533,6 +1563,10 @@ class Htmlizer(object):
         @param entryid: ID of a blog entry
         @param return: the resulting path as os.path string
         """
+
+        if entryid.startswith(self.ID_PREFIX_FOR_EMPTY_TAG_PAGES):
+            # if it is a pseudo entry for an empty tag page, extract the tag name from entryid
+            return os.path.join("tags", entryid[len(self.ID_PREFIX_FOR_EMPTY_TAG_PAGES):])
 
         entry = self.blog_data_with_id(entryid)
         folder = self._get_entry_folder_name_from_entryid(entryid)

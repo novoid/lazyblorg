@@ -29,12 +29,12 @@ end_to_end_test()
 	           testdata/currently_supported_orgmode_syntax.org \
                    testdata/end_to_end_test/orgfiles/*.org  $@ && \
     echo "\n====> Comparing result of end-to-end test ...\n" && \
-    if [ `diff -ar testdata/end_to_end_test/result testdata/end_to_end_test/comparison | wc -l` -gt 10 ]; then
+    if [ `diff -ar testdata/end_to_end_test/result testdata/end_to_end_test/comparison | egrep -vi '(published|updated)' | wc -l` -gt 11 ]; then
         diff -ar testdata/end_to_end_test/result testdata/end_to_end_test/comparison | grep -v '<updated>'
         echo "End-to-end test FAILED!   Check result!"
         exit 1
     else
-	## 10 lines of difference are OK since there are new time-stamps for generation time
+	## a couple of difference are OK since there are new time-stamps for generation time
         echo "End-to-end test: success."
     fi
 
