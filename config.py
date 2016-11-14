@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-06 18:28:13 vk>
+# Time-stamp: <2016-11-14 18:47:19 vk>
 
 
 ## ===================================================================== ##
@@ -22,7 +22,7 @@ BASE_URL = u'//' + DOMAIN
 AUTHOR_NAME = u"Karl Voit"
 
 ## integer: show this many article teasers on entry page
-NUMBER_OF_TEASER_ARTICLES = 9999999
+NUMBER_OF_TEASER_ARTICLES = 15
 
 ## integer: show this many article in Atom feeds:
 NUMBER_OF_FEED_ARTICLES = 10
