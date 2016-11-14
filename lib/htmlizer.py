@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-14 23:26:42 vk>
+# Time-stamp: <2016-11-14 23:36:20 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -632,6 +632,12 @@ class Htmlizer(object):
             elif entry['category'] == 'TAGS':
                 pass  # FIXXME: implement if you want sneak previews of tag pages on entry page
 
+        if number_of_current_teaser_entries < config.NUMBER_OF_TEASER_ARTICLES:
+            logging.debug('number_of_current_teaser_entries == ' +
+                          str(number_of_current_teaser_entries) +
+                          ' and NUMBER_OF_TEASER_ARTICLES == ' +
+                          str(config.NUMBER_OF_TEASER_ARTICLES) +
+                          ' and therefore I got less teaser than configured in NUMBER_OF_TEASER_ARTICLES')
         number_of_current_teaser_entries += 1
 
         # add footer:
