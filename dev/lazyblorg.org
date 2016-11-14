@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-11-13 20:10:25 vk>
+# Time-stamp: <2016-11-13 20:52:37 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -231,6 +231,10 @@ CLOSED: [2014-03-01 Sat 20:10]
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
 
+** NEXT fix generating publishing time for empty tag pages                                      :bug:
+   :PROPERTIES:
+   :CREATED:  [2016-11-13 Sun 20:52]
+   :END:
 ** NEXT link autotag pages                                                                :userstory:
    :PROPERTIES:
    :CREATED:  [2016-11-06 Sun 19:47]
