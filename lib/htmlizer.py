@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-13 20:04:38 vk>
+# Time-stamp: <2016-11-14 23:26:42 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -308,6 +308,7 @@ class Htmlizer(object):
 
         entry = {'content': u'',
                  'category': config.TAGS,
+#                 'finished-timestamp-history': [datetime(1990,1,1,0,0)],
                  'finished-timestamp-history': [datetime.now()],
                  'type': 'this is an entry stub for an empty tag page'
                  }
@@ -530,16 +531,15 @@ class Htmlizer(object):
         number_of_current_teaser_entries = 0
 
         while number_of_current_teaser_entries < config.NUMBER_OF_TEASER_ARTICLES and \
-                len(entry_list_by_newest_timestamp) > listentry_index:
+                listentry_index < len(entry_list_by_newest_timestamp):
 
             # get next element from entry_list
             listentry = entry_list_by_newest_timestamp[listentry_index]
             listentry_index += 1
 
             # ignore pseudo/empty tag pages without user content:
-            while listentry['id'].startswith(self.ID_PREFIX_FOR_EMPTY_TAG_PAGES):
-                listentry = entry_list_by_newest_timestamp[listentry_index]
-                listentry_index += 1
+            if listentry['id'].startswith(self.ID_PREFIX_FOR_EMPTY_TAG_PAGES):
+                continue
 
             entry = self.blog_data_with_id(listentry['id'])
 
