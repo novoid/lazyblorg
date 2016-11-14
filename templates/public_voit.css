@@ -258,6 +258,8 @@ a {
     line-height: 24px;
     position: relative;
     font-size: 13px; }
+  .common-tags ul, .entry-page-article .entry-page-article-tags ul {
+    list-style-type: none; }
   .common-tags a, .entry-page-article .entry-page-article-tags a {
     float: left;
     height: 24px;
