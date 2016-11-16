@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-06 19:43:27 vk>
+# Time-stamp: <2016-11-16 21:25:38 vk>
 
 import config
 import unittest
@@ -51,8 +51,6 @@ class TestHtmlizer(unittest.TestCase):
 
         htmlizer = Htmlizer(
             template_definitions,
-            prefix_dir,
-            prefix_dir,
             prefix_dir,
             targetdir,
             blog_data,
@@ -137,8 +135,6 @@ class TestHtmlizer(unittest.TestCase):
 
         htmlizer = Htmlizer(
             template_definitions,
-            prefix_dir,
-            prefix_dir,
             prefix_dir,
             targetdir,
             blog_data,
@@ -244,8 +240,6 @@ class TestHtmlizer(unittest.TestCase):
         htmlizer = Htmlizer(
             template_definitions,
             prefix_dir,
-            prefix_dir,
-            prefix_dir,
             targetdir,
             blog_data,
             None,
@@ -336,8 +330,6 @@ class TestHtmlizer(unittest.TestCase):
         htmlizer = Htmlizer(
             template_definitions,
             prefix_dir,
-            prefix_dir,
-            prefix_dir,
             targetdir,
             blog_data,
             None,
@@ -411,8 +403,6 @@ class TestHtmlizer(unittest.TestCase):
         htmlizer = Htmlizer(
             template_definitions,
             prefix_dir,
-            prefix_dir,
-            prefix_dir,
             targetdir,
             blog_data,
             None,
@@ -453,8 +443,6 @@ class TestHtmlizer(unittest.TestCase):
 
         htmlizer = Htmlizer(
             template_definitions,
-            prefix_dir,
-            prefix_dir,
             prefix_dir,
             targetdir,
             blog_data,
@@ -517,8 +505,6 @@ class TestHtmlizer(unittest.TestCase):
         htmlizer = Htmlizer(
             template_definitions,
             prefix_dir,
-            prefix_dir,
-            prefix_dir,
             targetdir,
             blog_data,
             None,
@@ -556,8 +542,6 @@ class TestHtmlizer(unittest.TestCase):
 
         htmlizer = Htmlizer(
             template_definitions,
-            prefix_dir,
-            prefix_dir,
             prefix_dir,
             targetdir,
             blog_data,
@@ -610,8 +594,6 @@ class TestHtmlizer(unittest.TestCase):
         htmlizer = Htmlizer(
             template_definitions,
             prefix_dir,
-            prefix_dir,
-            prefix_dir,
             targetdir,
             blog_data,
             None,
@@ -658,8 +640,6 @@ class TestHtmlizer(unittest.TestCase):
 
         htmlizer = Htmlizer(
             template_definitions,
-            prefix_dir,
-            prefix_dir,
             prefix_dir,
             targetdir,
             blog_data,
@@ -790,8 +770,6 @@ class TestHtmlizer(unittest.TestCase):
         htmlizer = Htmlizer(
             template_definitions,
             prefix_dir,
-            prefix_dir,
-            prefix_dir,
             targetdir,
             blog_data,
             None,
@@ -864,8 +842,6 @@ class TestHtmlizer(unittest.TestCase):
 
         htmlizer = Htmlizer(
             template_definitions,
-            prefix_dir,
-            prefix_dir,
             prefix_dir,
             targetdir,
             blog_data,

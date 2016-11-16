@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-06 13:57:21 vk>
+# Time-stamp: <2016-11-16 21:26:37 vk>
 
 import config
 import argparse  # command line arguments
@@ -292,9 +292,7 @@ class TestLazyblorg(unittest.TestCase):
 
         htmlizer = Htmlizer(
             template_definitions,
-            testname,
             "blog",
-            "about this blog",
             target_dir,
             blog_data,
             metadata,

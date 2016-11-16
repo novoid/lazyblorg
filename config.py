@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-14 18:47:19 vk>
+# Time-stamp: <2016-11-16 21:11:08 vk>
 
 
 ## ===================================================================== ##
@@ -19,7 +19,8 @@
 ## (not only?) for feed meta-data: FIXXME: move to CLI parameters?
 DOMAIN = u'Karl-Voit.at'
 BASE_URL = u'//' + DOMAIN
-AUTHOR_NAME = u"Karl Voit"
+AUTHOR_NAME = u'Karl Voit'
+BLOG_NAME = u'public voit'
 
 ## integer: show this many article teasers on entry page
 NUMBER_OF_TEASER_ARTICLES = 15

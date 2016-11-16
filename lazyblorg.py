@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-31 17:15:15 vk>
+# Time-stamp: <2016-11-16 21:21:13 vk>
 
 # TODO:
 # * fix parts marked with «FIXXME»
@@ -171,9 +171,7 @@ class Lazyblorg(object):
 
         htmlizer = Htmlizer(
             self.template_definitions,
-            self.options.blogname,
             config.TAG_FOR_BLOG_ENTRY,
-            self.options.aboutblog,
             self.options.targetdir,
             self.blog_data,
             self.metadata,
@@ -446,22 +444,6 @@ if __name__ == "__main__":
         metavar='ORGFILE',
         required=True,
         help="One or more Org-mode files which contains all blog articles (and possible other stuff).")
-
-    parser.add_argument(
-        "--blogname",
-        dest="blogname",
-        metavar='STRING',
-        required=True,
-        help="The name of the blog. " +
-        "E.g., \"public voit\" in my case.")
-
-    parser.add_argument(
-        "--aboutblog",
-        dest="aboutblog",
-        metavar='STRING',
-        required=True,
-        help="A short description about the blog. " +
-        "E.g., \"... where knowledge is defined!\".")
 
     parser.add_argument(
         "--targetdir",

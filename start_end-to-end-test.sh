@@ -17,8 +17,6 @@ end_to_end_test()
     mkdir -p testdata/end_to_end_test/result
 
     PYTHONPATH="~/src/lazyblorg:" ./lazyblorg.py \
-        --blogname "lazyblorg testblog" \
-        --aboutblog "lazyblorg testblog about" \
         --targetdir testdata/end_to_end_test/result \
         --autotag-language \
         --previous-metadata testdata/end_to_end_test/lazyblorg-e2e-test-previous-metadata.pk \

@@ -2,15 +2,15 @@
 <feed xmlns='http://www.w3.org/2005/Atom'
       xmlns:thr='http://purl.org/syndication/thread/1.0'
       xml:lang='en-us'>
-  <title type="text">lazyblorg testblog</title>
+  <title type="text">public voit</title>
   <id>//Karl-Voit.at</id>
   <link href='//Karl-Voit.at' />
   <icon>/favicon.ico</icon>
-  <updated>2016-11-14T18:47:52+01:00</updated>
+  <updated>2016-11-16T21:29:30+01:00</updated>
   <author>
     <name type="text">Karl Voit</name>
   </author>
-  <subtitle type="text">lazyblorg testblog about</subtitle>
+  <subtitle type="text">public voit</subtitle>
   <rights>All content written by Karl Voit</rights>
   <generator uri='https://github.com/novoid/lazyblorg'>Generated from Org-mode source code using lazyblorg which is written in Python. Industrial-strength technology, baby.</generator>
 

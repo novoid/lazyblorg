@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-14 23:36:20 vk>
+# Time-stamp: <2016-11-16 21:24:12 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -55,9 +55,7 @@ class Htmlizer(object):
     metadata = None  # metadata as described in the documentation
     generate = None  # list of IDs which blog entries should be generated
     increment_version = None  # list of IDs which blog entries gets an update
-    blogname = None  # string which is the base directory after targetdirectory
     blog_tag = None  # string that marks blog entries (as Org-mode tag)
-    about_blog = None  # string containing a short description of the blog
     autotag_language = False  # boolean, if guessing language + autotag should be done
 
     # { 'mytag': [ 'ID1', 'ID2', 'ID2'], 'anothertag': [...] }
@@ -102,9 +100,7 @@ class Htmlizer(object):
     def __init__(
             self,
             template_definitions,
-            blogname,
             blog_tag,
-            about_blog,
             targetdir,
             blog_data,
             metadata,
@@ -116,9 +112,7 @@ class Htmlizer(object):
         This function initializes the class instance with the class variables.
 
         @param template_definitions: list of lists ['description', 'content'] with content being the HTML templates
-        @param blogname: string which is the base directory after targetdirectory
         @param blog_tag: string that marks blog entries (as Org-mode tag)
-        @param about_blog: string containing a short description of the blog
         @param targetdir: string of the base directory of the blog
         @param blog_data: internal representation of the complete blog content
         @param metadata: as described in the documentation
@@ -130,9 +124,7 @@ class Htmlizer(object):
 
         # initialize class variables
         self.template_definitions = template_definitions
-        self.blogname = blogname
         self.blog_tag = blog_tag
-        self.about_blog = about_blog
         self.targetdir = targetdir
         self.blog_data = blog_data
         self.metadata = metadata
@@ -377,7 +369,7 @@ class Htmlizer(object):
 <feed xmlns='http://www.w3.org/2005/Atom'
       xmlns:thr='http://purl.org/syndication/thread/1.0'
       xml:lang='en-us'>
-  <title type="text">""" + self.blogname + """</title>
+  <title type="text">""" + config.BLOG_NAME + """</title>
   <id>""" + config.BASE_URL + """</id>
   <link href='""" + config.BASE_URL + """' />
   <icon>/favicon.ico</icon>
@@ -385,7 +377,7 @@ class Htmlizer(object):
   <author>
     <name type="text">""" + config.AUTHOR_NAME + """</name>
   </author>
-  <subtitle type="text">""" + self.about_blog + """</subtitle>
+  <subtitle type="text">""" + config.BLOG_NAME + """</subtitle>
   <rights>All content written by """ + config.AUTHOR_NAME + """</rights>
   <generator uri='https://github.com/novoid/lazyblorg'>Generated from Org-mode source code using lazyblorg which is written in Python. Industrial-strength technology, baby.</generator>
 
@@ -643,15 +635,6 @@ class Htmlizer(object):
         # add footer:
         htmlcontent += self.template_definition_by_name('entrypage-footer')
 
-        htmlcontent = htmlcontent.replace(
-            '#ABOUT-BLOG#',
-            self.sanitize_external_links(
-                self.sanitize_html_characters(
-                    self.about_blog)))
-        htmlcontent = htmlcontent.replace(
-            '#BLOGNAME#', self.sanitize_external_links(
-                self.sanitize_html_characters(
-                    self.blogname)))
         htmlcontent = htmlcontent.replace(
             '#COMMON-SIDEBAR#',
             self.template_definition_by_name('common-sidebar'))
@@ -1426,10 +1409,8 @@ class Htmlizer(object):
         """
         General article placeholders are:
         - #TITLE#
-        - #ABOUT-BLOG#
         - #DOMAIN#: the domain (server) of the blog (without "(http:)//" or paths)
         - #BASE_URL#: the domain (server) of the blog with "(http:)//"
-        - #BLOGNAME#
         - #ARTICLE-ID#: the (manually set) ID from the PROPERTIES drawer
         - #ARTICLE-YEAR#: four digit year of the article (folder path)
         - #ARTICLE-MONTH#: two digit month of the article (folder path)
@@ -1438,6 +1419,7 @@ class Htmlizer(object):
         - #ARTICLE-PUBLISHED-HUMAN-READABLE#: time-stamp of publishing in
         - #COMMON-SIDEBAR#: the side-bar which is shared on all pages
         - #TAG-PAGE-LIST#: list of all blog pages using a specific tag
+        - and further more
 
         This method replaces all placeholders from above with their
         blog article content.
@@ -1454,15 +1436,6 @@ class Htmlizer(object):
             self.sanitize_external_links(
                 self.sanitize_html_characters(
                     entry['title'])))
-        content = content.replace(
-            '#ABOUT-BLOG#',
-            self.sanitize_external_links(
-                self.sanitize_html_characters(
-                    self.about_blog)))
-        content = content.replace(
-            '#BLOGNAME#', self.sanitize_external_links(
-                self.sanitize_html_characters(
-                    self.blogname)))
 
         oldesttimestamp, year, month, day, hours, minutes = Utils.get_oldest_timestamp_for_entry(
             entry)
@@ -1484,6 +1457,8 @@ class Htmlizer(object):
             self.template_definition_by_name('common-sidebar'))
         content = content.replace('#DOMAIN#', config.DOMAIN)
         content = content.replace('#BASE-URL#', config.BASE_URL)
+        content = content.replace('#AUTHOR-NAME#', config.AUTHOR_NAME)
+        content = content.replace('#BLOG-NAME#', config.BLOG_NAME)
 
         if entry['category'] == config.TAGS:
             # replace #TAG-PAGE-LIST#
