@@ -6,7 +6,7 @@
   <id>//Karl-Voit.at</id>
   <link href='//Karl-Voit.at' />
   <icon>/favicon.ico</icon>
-  <updated>2016-11-16T21:29:30+01:00</updated>
+  <updated>2016-11-16T22:04:18+01:00</updated>
   <author>
     <name type="text">Karl Voit</name>
   </author>
@@ -39,7 +39,7 @@
     <link href='//Karl-Voit.at/2016/10/31/my-temporal-article' />
     <published>2016-10-31T16:40:00+01:00</published>
     <updated>2016-10-31T16:40:00+01:00</updated>
-    <category scheme='//Karl-Voit.at/tags/programming' term='programming' />
+    <category scheme='//Karl-Voit.at/tags/exampletag' term='exampletag' />
     <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='xhtml'>
 <div xmlns='http://www.w3.org/1999/xhtml'>
@@ -59,7 +59,7 @@
 
 <p>
 
-<a href="../../../../tags/programming">Link to tag page</a>
+<a href="../../../../tags/exampletag">Link to tag page</a>
 
 </p>
 
@@ -96,7 +96,7 @@ Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. O
 
 <p>
 
-<a href="../../../../tags/programming">Link to tag page</a>
+<a href="../../../../tags/exampletag">Link to tag page</a>
 
 </p>
 
@@ -125,6 +125,7 @@ Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. O
     <updated>2016-10-31T16:39:00+01:00</updated>
     <category scheme='//Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
     <category scheme='//Karl-Voit.at/tags/programming' term='programming' />
+    <category scheme='//Karl-Voit.at/tags/exampletag' term='exampletag' />
     <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='xhtml'>
 <div xmlns='http://www.w3.org/1999/xhtml'>
@@ -162,8 +163,8 @@ Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. O
     <id>//Karl-Voit.at/persistent-entry-from-feed-with-content</id>
   </entry>
 <entry>
-    <title type="text">programming</title>
-    <link href='//Karl-Voit.at/tags/programming' />
+    <title type="text">exampletag</title>
+    <link href='//Karl-Voit.at/tags/exampletag' />
     <published>2016-10-31T16:38:00+01:00</published>
     <updated>2016-10-31T16:38:00+01:00</updated>
     <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
@@ -208,7 +209,7 @@ I am very curious how this is going to turn out.
 
 <p>
 
-Below this, I expect some links to other pages related to the tag "programming":
+Below this, I expect some links to other pages related to the tag "exampletag":
 
 </p>
 </div>
@@ -254,13 +255,96 @@ I am very curious how this is going to turn out.
 
 <p>
 
-Below this, I expect some links to other pages related to the tag "programming":
+Below this, I expect some links to other pages related to the tag "exampletag":
+
+</p>
+
+      </div>
+    </content>
+    <id>//Karl-Voit.at/tags/exampletag-from-feed-with-content</id>
+  </entry>
+<entry>
+    <title type="text">programming</title>
+    <link href='//Karl-Voit.at/tags/programming' />
+    <published>2016-10-31T13:30:00+01:00</published>
+    <updated>2016-10-31T13:30:00+01:00</updated>
+    <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+Here, you can read about the test-tag "programming".
+
+</p>
+
+
+<p>
+
+<a href="../../tags/programming">This link</a> should be a self-reference.
+
+</p>
+
+
+<p>
+
+Glad you like it.
+
+</p>
+</div>
+    </summary>    <content type='xhtml'>
+      <div xmlns='http://www.w3.org/1999/xhtml'>
+	
+<p>
+
+Here, you can read about the test-tag "programming".
+
+</p>
+
+
+<p>
+
+<a href="../../tags/programming">This link</a> should be a self-reference.
+
+</p>
+
+
+<p>
+
+Glad you like it.
 
 </p>
 
       </div>
     </content>
     <id>//Karl-Voit.at/tags/programming-from-feed-with-content</id>
+  </entry>
+<entry>
+    <title type="text">from nothing to DONE</title>
+    <link href='//Karl-Voit.at/2016/09/18/from-nothing-to-done' />
+    <published>2016-09-18T13:19:00+01:00</published>
+    <updated>2016-09-18T13:19:00+01:00</updated>
+    <category scheme='//Karl-Voit.at/tags/testtag1' term='testtag1' />
+    <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+This is an example blog entry with no special content.
+
+</p>
+</div>
+    </summary>    <content type='xhtml'>
+      <div xmlns='http://www.w3.org/1999/xhtml'>
+	
+<p>
+
+This is an example blog entry with no special content.
+
+</p>
+
+      </div>
+    </content>
+    <id>//Karl-Voit.at/2016/09/18/from-nothing-to-done-from-feed-with-content</id>
   </entry>
 <entry>
     <title type="text">About</title>

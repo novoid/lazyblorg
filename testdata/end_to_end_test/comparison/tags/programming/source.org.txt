@@ -1,23 +1,16 @@
-*** DONE programming                                                                      :lb_tags:blog:
-CLOSED: [2016-10-31 Mon 16:38]
+** DONE programming                                                                    :lb_tags:blog:
+CLOSED: [2014-03-08 Sat 19:35]
 :PROPERTIES:
-:ID: 2016-10-31-a-tag-page
-:CREATED:  [2016-10-31 Mon 16:35]
+:CREATED:  [2016-10-31 Mon 13:30]
+:ID: 2014-03-08-lbtag-programming
 :END:
 :LOGBOOK:
-- State "DONE"       from "NEXT"       [2016-10-31 Mon 16:38]
+- State "DONE"       from "NEXT"       [2016-10-31 Mon 13:30]
 :END:
 
-This is a page whose content is getting transformed into a tag page.
+Here, you can read about the test-tag "programming".
 
-I am very curious how this is going to turn out.
+[[id:2014-03-08-lbtag-programming][This link]] should be a self-reference.
 
-| *Return Code* | *Result*                       |
-|---------------+--------------------------------|
-|             0 | I am happy!                    |
-|             1 | Geez, what happened this time? |
-|            -1 | Even more worrying             |
-
-Below this, I expect some links to other pages related to the tag
-"programming":
+Glad you like it.
 

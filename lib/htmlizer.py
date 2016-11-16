@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-16 21:24:12 vk>
+# Time-stamp: <2016-11-16 22:01:11 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -557,6 +557,7 @@ class Htmlizer(object):
                 # tags of article
                 content += self._replace_tag_placeholders(
                     entry['usertags'], self.template_definition_by_name('article-preview-usertag'))
+
                 # handle autotags
                 if 'autotags' in entry.keys():
                     for autotag in entry['autotags'].keys():

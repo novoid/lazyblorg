@@ -20,7 +20,7 @@ There is the tag "blog" missing. So this should not result in a blog article.
 :CREATED:  [2016-10-31 Mon 16:35]
 :END:
 
-*** DONE programming                                                                      :lb_tags:blog:
+*** DONE exampletag                                                                  :lb_tags:blog:
 CLOSED: [2016-10-31 Mon 16:38]
 :PROPERTIES:
 :ID: 2016-10-31-a-tag-page
@@ -41,9 +41,9 @@ I am very curious how this is going to turn out.
 |            -1 | Even more worrying             |
 
 Below this, I expect some links to other pages related to the tag
-"programming":
+"exampletag":
 
-** DONE A Wonderful Persistent Blog Entry                 :lazyblorg:programming:blog:lb_persistent:
+** DONE A Wonderful Persistent Blog Entry                 :lazyblorg:programming:exampletag:blog:lb_persistent:
 CLOSED: [2016-10-31 Mon 16:39]
 :PROPERTIES:
 :ID: 2016-10-31-persistent-entry
@@ -71,7 +71,7 @@ CLOSED: [2016-11-06 Sun 17:40]
 This ought to be escaped & >printed< well.
 #+END_EXAMPLE
 
-* DONE A Temporal Article With Links                                               :programming:blog:
+* DONE A Temporal Article With Links                                               :exampletag:blog:
 CLOSED: [2016-10-31 Mon 16:40]
 :PROPERTIES:
 :ID: 2016-10-31-my-temporal-article

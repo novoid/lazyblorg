@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-11-16 21:31:32 vk>
+# Time-stamp: <2016-11-16 22:10:35 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -230,14 +230,6 @@ CLOSED: [2014-03-01 Sat 20:10]
 
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
-
-** NEXT link autotag pages to same hidden article (in templates.org)                      :userstory:
-:PROPERTIES:
-:CREATED:  [2016-11-15 Tue 17:45]
-:END:
-
-Until tag pages for autotags are not implemented, link to an hidden Org-mode
-entry which is defined in the template file.
 
 ** NEXT fix RSS/Atom issues                                                                     :bug:
    :PROPERTIES:
@@ -494,6 +486,7 @@ CLOSED: [2015-06-27 Sat 19:06] SCHEDULED: <2015-06-27 Sat>
 
 ** NEXT add "estimated time to read" at top (+ autotag?)
 :PROPERTIES:
+:ID: autotag-estimated-time-to-read
 :CREATED:  [2016-05-25 Wed 12:57]
 :END:
 
@@ -916,7 +909,7 @@ SCHEDULED: <2016-12-29 Thu>
 - Rescheduled from "[2014-08-10 Sun]" on [2015-09-06 Sun 09:55]
 :END:
 
-- id:2014-08-10-other-peoples-IT-setup
+- id:2014-08-10-other-peoples-IT-setup -> tag page for "pim"
 
 ** NEXT fix issue where an article can't end with a list item                                  :bug:
 :PROPERTIES:
@@ -1112,7 +1105,7 @@ see also id:2012-11-06-ago-generating
 - YYYY-MM-DD -> links to Wikipedia-entries of days
   - https://en.wikipedia.org/wiki/Portal:Current_events/2010_August_26
 
-** TODO auto-tag entries                                         :userstory:
+** STARTED auto-tag entries [0/3]                                                         :userstory:
 :PROPERTIES:
 :CREATED:  [2012-11-11 Sun 13:43]
 :ID: 2012-11-11-autotags
@@ -1130,10 +1123,14 @@ see also id:2012-11-06-ago-generating
   - [ ] feeds/lazyblorg-deutsch.*
   - [ ] feeds/lazyblorg-english.*
 
-*** Language                                                                    :autotag_languages:
+*** DONE Language                                                                 :autotag_languages:
+    CLOSED: [2016-11-16 Wed 22:08]
 :PROPERTIES:
 :CREATED:  [2012-11-11 Sun 13:44]
 :ORDERED:  t
+:END:
+:LOGBOOK:
+- State "DONE"       from              [2016-11-16 Wed 22:08]
 :END:
 
 - lang-de, de, en, us, ... ?
@@ -1647,27 +1644,21 @@ CLOSED: [2015-05-09 Sat 18:47] SCHEDULED: <2015-05-09 Sat>
 - State "DONE"       from "NEXT"       [2015-05-09 Sat 18:47]
 :END:
 
-**** STARTED implement: display auto-tags (differently)
-:PROPERTIES:
-:CREATED:  [2015-05-06 Wed 11:27]
-:END:
-:LOGBOOK:
-- Not scheduled, was "<2015-05-09 Sat>" on [2015-05-09 Sat 22:49]
-:END:
-
-- [X] write class information
-- [ ] different CSS format for the two classes
-
 *** Length
 :PROPERTIES:
 :CREATED:  [2012-11-11 Sun 13:44]
 :END:
+
+- e.g., articles whose preview is equal to the whole article (i.e.: no
+  sub-heading, no horizontal line) are marked with autotag-shorty (or similar)
 
 - oneliners
   - below a certain threshold
 - middlesize(sic?)
   - between oneliners and fullsizeentries
 - fullsize(sic?)
+
+compare: id:autotag-estimated-time-to-read
 
 *** Auto-Disclaimer
 :PROPERTIES:
@@ -1680,6 +1671,17 @@ CLOSED: [2015-05-09 Sat 18:47] SCHEDULED: <2015-05-09 Sat>
 
 - Example: if "What The World Needs"|"WTWN:" is found, link to a page
   where WTWN-series is described in general.
+
+*** STARTED implement: display auto-tags (differently)
+    :PROPERTIES:
+    :CREATED:  [2015-05-06 Wed 11:27]
+    :END:
+:LOGBOOK:
+- Not scheduled, was "<2015-05-09 Sat>" on [2015-05-09 Sat 22:49]
+:END:
+
+- [X] write class information
+- [ ] different CSS format for the two classes
 ** TODO add tree of headings on each article with sub-headings   :userstory:
 :PROPERTIES:
 :CREATED:  [2014-02-08 Sat 11:06]
@@ -1765,17 +1767,6 @@ display: block;
 
 - https://twitter.com/stefan2904/status/793832217940140033
   - IMPORTANT: https://google.github.io/styleguide/htmlcssguide.xml?showone=Optional_Tags#Optional_Tags
-
-** SOMEDAY implement: auto-tag for short articles                                        :userstory:
-:PROPERTIES:
-:CREATED:  [2016-02-12 Fri 23:02]
-:END:
-:LOGBOOK:
-- State "SOMEDAY"    from              [2016-02-12 Fri 23:02]
-:END:
-
-- e.g., articles whose preview is equal to the whole article (i.e.: no
-  sub-heading, no horizontal line) are marked with autotag-shorty (or similar)
 
 ** SOMEDAY include bookmarks to lazyblorg                                                     :wish:
 :PROPERTIES:

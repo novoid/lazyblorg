@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-16 21:21:13 vk>
+# Time-stamp: <2016-11-16 21:54:03 vk>
 
 # TODO:
 # * fix parts marked with «FIXXME»
@@ -198,7 +198,7 @@ class Lazyblorg(object):
             return
         elif not os.path.isfile(filename):
             self.logging.warning(
-                "Skipping non-file \"%s\" because this tool only parses files." %
+                "Skipping \"%s\" because this tool only parses existing files. :-)" %
                 filename)
             return
 
