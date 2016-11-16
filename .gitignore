@@ -9,12 +9,13 @@
 dev/2del/
 testdata/2del/*
 lib/tests/simple_org_-_lastrun.pk
-lazyblorg_dump_of_blogdata_from_last_verbose_run.pk
 parse_template.sh
 regenerate_public_voit.sh
 templates/.sass-cache/
 public-voit_-_make_and_publish_-_omit_single_line_changes_to_feeds_-_stop_if_lasterror.sh
 public-voit_-_make_and_publish_-_omit_single_line_changes_to_feeds.sh
-/testdata/end_to_end_test/lazyblorg-e2e-test-logfile.org
-/testdata/end_to_end_test/lazyblorg-e2e-test-new-metadata.pk
+testdata/end_to_end_test/lazyblorg-e2e-test-logfile.org
+testdata/end_to_end_test/lazyblorg-e2e-test-new-metadata.pk
 testdata/end_to_end_test/result/
+public-voit_-_stash_navpages_regenerate_in_master_and_reestablish_status.sh
+2015-01-27-pyandoctests/*

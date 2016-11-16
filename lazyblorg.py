@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-16 21:54:03 vk>
+# Time-stamp: <2016-11-16 23:10:05 vk>
 
 # TODO:
 # * fix parts marked with «FIXXME»
@@ -96,7 +96,7 @@ class Lazyblorg(object):
 
         # dump blogdata for debugging purpose ...
         if options.verbose:
-            with open('lazyblorg_dump_of_blogdata_from_last_verbose_run.pk', 'wb') as output:
+            with open('2del-lazyblorg_dump_of_blogdata_from_previous_verbose_run.pk', 'wb') as output:
                 # always use ASCII format: easier to debug from outside
                 pickle.dump(self.blog_data, output, 0)
 
