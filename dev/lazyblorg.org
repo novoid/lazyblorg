@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-11-16 23:05:36 vk>
+# Time-stamp: <2016-11-16 23:25:28 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -231,6 +231,10 @@ CLOSED: [2014-03-01 Sat 20:10]
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
 
+** NEXT fix paths in preview_blogentry.sh                                                 :userstory:
+   :PROPERTIES:
+   :CREATED:  [2016-11-16 Wed 23:15]
+   :END:
 ** NEXT write 'test_before_push_to_github.sh'                                          :architecture:
    :PROPERTIES:
    :CREATED:  [2016-11-16 Wed 23:00]
@@ -241,9 +245,44 @@ CLOSED: [2014-03-01 Sat 20:10]
 - [ ] xmlint generated feed files
   - xmllint --html --noout ~/public_html/feeds/*links-only.xml
 
+** NEXT example_invocation.sh: move manual_prototype files to e2e-test & remove manual_prototype
+   :PROPERTIES:
+   :CREATED:  [2016-11-16 Wed 23:18]
+   :END:
+
 ** NEXT more comments of parameters in 'example_invocation.sh'                            :userstory:
    :PROPERTIES:
    :CREATED:  [2016-11-16 Wed 23:02]
+   :END:
+
+** NEXT move references to about page to config.py                                        :userstory:
+   :PROPERTIES:
+   :CREATED:  [2016-11-16 Wed 23:20]
+   :END:
+
+** NEXT move twitter handle to config.py                                                  :userstory:
+   :PROPERTIES:
+   :CREATED:  [2016-11-16 Wed 23:21]
+   :END:
+
+** NEXT move twitter:image to config.py                                                   :userstory:
+   :PROPERTIES:
+   :CREATED:  [2016-11-16 Wed 23:22]
+   :END:
+
+** NEXT move "#BASE-URL#/public_voit.css" to its own variable                             :userstory:
+   :PROPERTIES:
+   :CREATED:  [2016-11-16 Wed 23:23]
+   :END:
+
+** NEXT move publicvoit-comment@Karl-Voit.at to config.py                                 :userstory:
+   :PROPERTIES:
+   :CREATED:  [2016-11-16 Wed 23:24]
+   :END:
+
+** NEXT blog-format.org: explain all replacement strings at top                           :userstory:
+   :PROPERTIES:
+   :CREATED:  [2016-11-16 Wed 23:23]
    :END:
 ** NEXT fix RSS/Atom issues                                                                     :bug:
    :PROPERTIES:
