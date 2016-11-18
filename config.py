@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-18 19:33:10 vk>
+# Time-stamp: <2016-11-18 19:37:34 vk>
 
 
 ## ===================================================================== ##
@@ -23,6 +23,9 @@ BLOG_NAME = u'public voit'
 DOMAIN = u'Karl-Voit.at'
 BASE_URL = u'//' + DOMAIN
 CSS_URL = BASE_URL + '/public_voit.css'
+
+## string: Email address to send comments to:
+COMMENT_EMAIL_ADDRESS = 'publicvoit-comment@Karl-Voit.at'
 
 ## integer: Show this many article teasers on entry page
 NUMBER_OF_TEASER_ARTICLES = 15

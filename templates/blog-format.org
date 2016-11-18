@@ -1,4 +1,4 @@
-## Time-stamp: <2016-11-18 19:33:43 vk>
+## Time-stamp: <2016-11-18 19:37:34 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -512,7 +512,7 @@ placeholder article which is defined in this file (below).
 	  </aside>
 
    <p class="email-comment">
-      <a href="mailto:publicvoit-comment@Karl-Voit.at?subject=#ARTICLE-ID#%20comment:%20&body=Please%20do%20not%20remove%20'#ARTICLE-ID#%20comment:'%20in%20subject%20and%20please%20tell%20me%20whether%20or%20not%20it%20is%20OK%20to%20add%20your%20comment%20and%2For%20your%20email%20address%20to%20the%20blog%20entry!">Comment via email</a> or via <a href="//disqus.com">Disqus</a> comments below:
+      <a href="mailto:#COMMENT-EMAIL-ADDRESS#?subject=#ARTICLE-ID#%20comment:%20&body=Please%20do%20not%20remove%20'#ARTICLE-ID#%20comment:'%20in%20subject%20and%20please%20tell%20me%20whether%20or%20not%20it%20is%20OK%20to%20add%20your%20comment%20and%2For%20your%20email%20address%20to%20the%20blog%20entry!">Comment via email</a> or via <a href="//disqus.com">Disqus</a> comments below:
    </p>
 
     <div id="disqus_thread"></div>
@@ -685,7 +685,7 @@ placeholder article which is defined in this file (below).
 	  </aside>
 
    <p class="email-comment">
-      <a href="mailto:publicvoit-comment@Karl-Voit.at?subject=#ARTICLE-ID#%20comment:%20&body=Please%20do%20not%20remove%20'#ARTICLE-ID#%20comment:'%20in%20subject%20and%20please%20tell%20me%20whether%20or%20not%20it%20is%20OK%20to%20add%20your%20comment%20and%2For%20your%20email%20address%20to%20the%20blog%20entry!">Comment via email</a> or via <a href="//disqus.com">Disqus</a> comments below:
+      <a href="mailto:#COMMENT-EMAIL-ADDRESS#?subject=#ARTICLE-ID#%20comment:%20&body=Please%20do%20not%20remove%20'#ARTICLE-ID#%20comment:'%20in%20subject%20and%20please%20tell%20me%20whether%20or%20not%20it%20is%20OK%20to%20add%20your%20comment%20and%2For%20your%20email%20address%20to%20the%20blog%20entry!">Comment via email</a> or via <a href="//disqus.com">Disqus</a> comments below:
    </p>
 
     <div id="disqus_thread"></div>
