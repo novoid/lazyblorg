@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2016-11-18 18:58:50 vk>
+## Time-stamp: <2016-11-18 20:12:02 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -216,7 +216,7 @@ Get it from [[https://github.com/novoid/lazyblorg][github]] and read the install
 *** What Org-mode elements are supported by lazyblorg?
 
 The Python parser implements a sub-set of Org-mode syntax. See section
-"notes" in [[file:dev/lazyblorg.org]] for a plan of supported elements. As
+"notes" in [[file:lazyblorg.org]] for a plan of supported elements. As
 a fall-back for all other Org-mode elements, pandoc is used which
 works quite well.
 
@@ -250,7 +250,7 @@ My general plan:
   additional, let's keep it that way: development stopped because it
   reached sufficient perfection :-)
 
-See also [[https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org][dev/lazyblorg.org]] for the issue tracking with all kind
+See also [[https://github.com/novoid/lazyblorg/blob/master/lazyblorg.org][lazyblorg.org]] for the issue tracking with all kind
 of information about the development (open issues, plans,
 documentation, ...).
 
@@ -270,7 +270,7 @@ Next:
 
 *** Is there any documentation about the internals of lazyblorg?
 
-Yes, please do read [[https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org][dev/lazyblorg.org]] (especially section "notes").
+Yes, please do read [[https://github.com/novoid/lazyblorg/blob/master/lazyblorg.org][lazyblorg.org]] (especially section "notes").
 
 *** Lazyblorg uses what technology?
 
@@ -302,7 +302,7 @@ summary output:
 
 *** Can I use the Org-mode parser (in Python) for other purposes as well?
 
-Yes, please do read [[https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org][dev/lazyblorg.org]] and [[https://github.com/novoid/lazyblorg/blob/master/lib/orgparser.py][lib/orgparser.py]].
+Yes, please do read [[https://github.com/novoid/lazyblorg/blob/master/lazyblorg.org][lazyblorg.org]] and [[https://github.com/novoid/lazyblorg/blob/master/lib/orgparser.py][lib/orgparser.py]].
 
 Although, you have to modify it a bit since I filter out headings that
 meet the criteria of being a blog article. You also have to know that
@@ -313,7 +313,7 @@ downside of this method in terms of capability and probably also
 maintainability.
 
 Please also note that this parser only implements a sub-set of
-Org-mode syntax (see section "notes" in [[https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org][dev/lazyblorg.org]]). For the
+Org-mode syntax (see section "notes" in [[https://github.com/novoid/lazyblorg/blob/master/lazyblorg.org][lazyblorg.org]]). For the
 rest, I am using Pandoc which works quite well.
 
 *** I do have a question but it is not listed here. Where to ask?
@@ -332,7 +332,7 @@ What's working so far:
 - generating HTML5 pages with a sub-set of the sub-set of the Org-mode
   syntax elements
 
-Non-working things are either mentioned in [[https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org][dev/lazyblorg.org]] or marked
+Non-working things are either mentioned in [[https://github.com/novoid/lazyblorg/blob/master/lazyblorg.org][lazyblorg.org]] or marked
 with "FIXXME" in the source code files.
 
 ** External dependencies
@@ -702,7 +702,7 @@ I'm glad you like my tools. If you want to support me:
 If you want to contribute to this cool project, please fork and
 contribute!
 
-Issues, bugs, user-stories, ... are maintained in [[https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org][dev/lazyblorg.org]]
+Issues, bugs, user-stories, ... are maintained in [[https://github.com/novoid/lazyblorg/blob/master/lazyblorg.org][lazyblorg.org]]
 
 I am using [[http://www.python.org/dev/peps/pep-0008/][Python PEP8]] and some ideas from [[http://en.wikipedia.org/wiki/Test-driven_development][Test Driven Development
 (TDD)]].
