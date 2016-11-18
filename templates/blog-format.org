@@ -1,4 +1,4 @@
-## Time-stamp: <2016-11-18 19:37:34 vk>
+## Time-stamp: <2016-11-18 19:43:34 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -285,7 +285,7 @@ With name/label:
 
       <nav class="entrypage-article-header-nav">
         <span class="breadcrumbs">
-          <img src="#BASE-URL#/images/public-voit_logo.svg" alt="#BLOG-NAME# logo" width="350" style="vertical-align:middle;"><span style="padding-top:1em;">
+          <img src="#BLOG-LOGO#" alt="#BLOG-NAME# logo" width="350" style="vertical-align:middle;"><span style="padding-top:1em;">
         </span>
       </nav>
 
@@ -477,7 +477,7 @@ placeholder article which is defined in this file (below).
 
 	  <nav class="persistent-article-header-nav">
 	    <span class="breadcrumbs">
-	      <a href="../"><img src="#BASE-URL#/images/public-voit_logo.svg" alt="#BLOG-NAME# logo" width="350" style="vertical-align:middle;"></a>
+	      <a href="../"><img src="#BLOG-LOGO#" alt="#BLOG-NAME# logo" width="350" style="vertical-align:middle;"></a>
 	    </span>
 	  </nav>
 
@@ -616,7 +616,7 @@ placeholder article which is defined in this file (below).
 
 	  <nav class="temporal-article-header-nav">
 	    <span class="breadcrumbs">
-	      <a href="../../../../"><img src="#BASE-URL#/images/public-voit_logo.svg" alt="#BLOG-NAME# logo" width="350" style="vertical-align:middle;"></a><span style="padding-top:1em;">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;
+	      <a href="../../../../"><img src="#BLOG-LOGO#" alt="#BLOG-NAME# logo" width="350" style="vertical-align:middle;"></a><span style="padding-top:1em;">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;
 	      #ARTICLE-YEAR#&nbsp;&ndash;&nbsp;#ARTICLE-MONTH#&nbsp;&ndash;&nbsp;#ARTICLE-DAY#</span>
 	      <!-- a href="../../../">#ARTICLE-YEAR#</a>&nbsp;&ndash;&nbsp;<a href="../../">#ARTICLE-MONTH#</a>&nbsp;&ndash;&nbsp;<a href="../">#ARTICLE-DAY#</a -->
 	    </span>
@@ -795,7 +795,7 @@ Pages that describe a tag. Corresponding Org-mode entries must have:
 
 	  <nav class="temporal-article-header-nav">
 	    <span class="breadcrumbs">
-	      <a href="../../../../"><img src="#BASE-URL#/images/public-voit_logo.svg" alt="#BLOG-NAME# logo" width="350" style="vertical-align:middle;"></a><span style="padding-top:1em;">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;
+	      <a href="../../../../"><img src="#BLOG-LOGO#" alt="#BLOG-NAME# logo" width="350" style="vertical-align:middle;"></a><span style="padding-top:1em;">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;
 	      #ARTICLE-YEAR#&nbsp;&ndash;&nbsp;#ARTICLE-MONTH#&nbsp;&ndash;&nbsp;#ARTICLE-DAY#</span>
 	      <!-- a href="../../../">#ARTICLE-YEAR#</a>&nbsp;&ndash;&nbsp;<a href="../../">#ARTICLE-MONTH#</a>&nbsp;&ndash;&nbsp;<a href="../">#ARTICLE-DAY#</a -->
 	    </span>
@@ -904,7 +904,7 @@ FIXXME
 
 	  <nav class="month-overview-header-nav">
 	    <span class="breadcrumbs">
-	      <a href="../../"><img src="//karl-voit.at/images/public-voit_logo.svg" alt="#BLOG-NAME# logo" width="350" style="vertical-align:middle;"></a><span style="padding-top:1em;">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;
+	      <a href="../../"><img src="#BLOG-LOGO#" alt="#BLOG-NAME# logo" width="350" style="vertical-align:middle;"></a><span style="padding-top:1em;">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;
 	      #YEAR#&nbsp;&ndash;&nbsp;#MONTH-TWODIGITNUMBER#</span>
 	    </span>
 	  </nav>

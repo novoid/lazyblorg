@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-11-18 19:37:54 vk>
+# Time-stamp: <2016-11-18 19:38:43 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -231,10 +231,6 @@ CLOSED: [2014-03-01 Sat 20:10]
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
 
-** NEXT accept german week days in time-stamps                                            :userstory:
-   :PROPERTIES:
-   :CREATED:  [2016-11-17 Thu 07:20]
-   :END:
 ** NEXT blog-format.org: explain all replacement strings at top                           :userstory:
    :PROPERTIES:
    :CREATED:  [2016-11-16 Wed 23:23]

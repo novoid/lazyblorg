@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-18 19:37:34 vk>
+# Time-stamp: <2016-11-18 19:42:20 vk>
 
 
 ## ===================================================================== ##
@@ -23,6 +23,7 @@ BLOG_NAME = u'public voit'
 DOMAIN = u'Karl-Voit.at'
 BASE_URL = u'//' + DOMAIN
 CSS_URL = BASE_URL + '/public_voit.css'
+BLOG_LOGO = BASE_URL + '/images/public-voit_logo.svg'
 
 ## string: Email address to send comments to:
 COMMENT_EMAIL_ADDRESS = 'publicvoit-comment@Karl-Voit.at'
