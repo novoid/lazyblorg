@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-11-18 18:39:44 vk>
+# Time-stamp: <2016-11-18 19:00:40 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -231,10 +231,6 @@ CLOSED: [2014-03-01 Sat 20:10]
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
 
-** NEXT fix testdata/currently_supported_orgmode_syntax.org links in README                     :bug:
-   :PROPERTIES:
-   :CREATED:  [2016-11-16 Wed 23:31]
-   :END:
 ** NEXT write 'test_before_push_to_github.sh'                                          :architecture:
    :PROPERTIES:
    :CREATED:  [2016-11-16 Wed 23:00]
