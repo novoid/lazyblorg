@@ -58,14 +58,13 @@ mkdir testdata/2del/blog
 
 PYTHONPATH="~/src/lazyblorg:" ./lazyblorg.py \
     --quiet \
-    --blogname "public voit" \
-    --aboutblog "public voit" \
     --targetdir testdata/2del/blog \
-    --previous-metadata nonexisting-preview-metadata.pk \
+    --previous-metadata NONEXISTING-preview-metadata-REPLACE_WITH_YOUR_PREVIOUS_METADATA_FILE.pk \
     --new-metadata testdata/2del/blog/preview-metadata.pk \
     --logfile testdata/2del/errors.org \
-    --orgfiles ./testdata/about-placeholder.org ./templates/blog-format.org \
-    /tmp/lazyblorg-preview.org && \
+    --orgfiles testdata/end_to_end_test/orgfiles/about-placeholder.org \
+               templates/blog-format.org \
+               /tmp/lazyblorg-preview.org && \
 find testdata/2del -name '*.html' -exec xdg-open "{}" \;
 
 #end

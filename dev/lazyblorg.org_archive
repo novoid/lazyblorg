@@ -3034,3 +3034,33 @@ CLOSED: [2016-11-13 Sun 20:10] SCHEDULED: <2016-11-13 Sun>
 
 Until tag pages for autotags are not implemented, link to an hidden Org-mode
 entry which is defined in the template file.
+
+** DONE fix paths in preview_blogentry.sh                                                 :userstory:
+   CLOSED: [2016-11-18 Fri 18:33]
+   :PROPERTIES:
+   :CREATED:  [2016-11-16 Wed 23:15]
+   :ARCHIVE_TIME: 2016-11-18 Fri 18:33
+   :ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+   :ARCHIVE_OLPATH: Issue Tracking
+   :ARCHIVE_CATEGORY: lazyblorg
+   :ARCHIVE_TODO: DONE
+   :ARCHIVE_ITAGS: issues
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "NEXT"       [2016-11-18 Fri 18:33]
+   :END:
+
+** DONE example_invocation.sh: move manual_prototype files to e2e-test & remove manual_prototype
+   CLOSED: [2016-11-18 Fri 18:36]
+   :PROPERTIES:
+   :CREATED:  [2016-11-16 Wed 23:18]
+   :ARCHIVE_TIME: 2016-11-18 Fri 18:36
+   :ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+   :ARCHIVE_OLPATH: Issue Tracking
+   :ARCHIVE_CATEGORY: lazyblorg
+   :ARCHIVE_TODO: DONE
+   :ARCHIVE_ITAGS: issues
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "NEXT"       [2016-11-18 Fri 18:36]
+   :END:

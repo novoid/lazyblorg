@@ -23,10 +23,9 @@ end_to_end_test()
         --new-metadata testdata/end_to_end_test/lazyblorg-e2e-test-new-metadata.pk \
         --logfile testdata/end_to_end_test/lazyblorg-e2e-test-logfile.org \
         --orgfiles templates/blog-format.org \
-	           testdata/about-placeholder.org \
                    testdata/end_to_end_test/orgfiles/*.org  $@ && \
     echo "\n====> Comparing result of end-to-end test ...\n" && \
-    if [ `diff -ar testdata/end_to_end_test/result testdata/end_to_end_test/comparison | egrep -vi '(published|updated)' | wc -l` -gt 16 ]; then
+    if [ `diff -ar testdata/end_to_end_test/result testdata/end_to_end_test/comparison | egrep -vi '(published|updated)' | wc -l` -gt 21 ]; then
         diff -ar testdata/end_to_end_test/result testdata/end_to_end_test/comparison | grep -v '<updated>'
         echo "End-to-end test FAILED!   Check result!"
         exit 1
