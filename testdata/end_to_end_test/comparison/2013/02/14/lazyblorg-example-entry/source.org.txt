@@ -1,0 +1,70 @@
+** DONE This is an example blog entry              :blog:mytest:programming:
+CLOSED: [2013-02-14 Thu 19:02]
+:LOGBOOK:
+- State "DONE"       from ""           [2013-02-14 Thu 19:02]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-02-12 Tue 10:58]
+:ID: 2013-02-12-lazyblorg-example-entry
+:END:
+
+This is an introduction text which describes the blog entry with some
+catchy information. Readers should be convinced to read this
+interesting text. [[https://github.com/novoid/Memacs][Memacs]] is an external link to Memacs.
+
+*** Sub-heading foo
+:PROPERTIES:
+:END:
+
+This is a dummy text whose only purpose is to generate some content
+which is then processed by this lovely tool. The resulting web blog
+might win the Pulitzer Prize some day!
+
+- this list
+- gives a great overview
+- about something
+
+**** Sub-sub heading about something
+:PROPERTIES:
+:END:
+
+This is a dummy text whose only purpose is to generate some content
+which is then processed by this lovely tool. The resulting web blog
+might win the Pulitzer Prize some day!
+
+#+BEGIN_VERSE
+Well, in here, I want to write verbatim text.
+Line breaks should be exactly the same.
+
+This is a
+dummy text whose only purpose is to generate
+some content
+which is then processed by this lovely tool.
+The resulting web blog
+might win the Pulitzer Prize some day!
+
+#+END_VERSE
+
+*** Sub-heading HTML block
+:PROPERTIES:
+:END:
+
+Here comes some HTML:
+
+#+NAME: my-HTML-example name
+#+BEGIN_HTML
+    foo
+bar
+  <foo />
+<a href="bar">baz</a>
+#+END_HTML
+
+*** heading with lists
+:PROPERTIES:
+:END:
+
+- this is a list
+- second line
+- third line
+- last line
+

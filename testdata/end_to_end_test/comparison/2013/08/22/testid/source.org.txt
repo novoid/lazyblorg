@@ -1,0 +1,12 @@
+* DONE Mini blog entry                                                 :blog:
+CLOSED: [2013-08-22 Thu 21:06]
+:LOGBOOK:
+- State "DONE"       from ""           [2013-08-22 Thu 21:06]
+:END:
+:PROPERTIES:
+:CREATED:  [2013-08-22 Thu 21:06]
+:ID: 2013-08-22-testid
+:END:
+
+Just for testing.
+
