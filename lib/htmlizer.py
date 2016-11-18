@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-18 19:27:14 vk>
+# Time-stamp: <2016-11-18 19:34:12 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1458,6 +1458,7 @@ class Htmlizer(object):
             self.template_definition_by_name('common-sidebar'))
         content = content.replace('#DOMAIN#', config.DOMAIN)
         content = content.replace('#BASE-URL#', config.BASE_URL)
+        content = content.replace('#CSS-URL#', config.CSS_URL)
         content = content.replace('#AUTHOR-NAME#', config.AUTHOR_NAME)
         content = content.replace('#BLOG-NAME#', config.BLOG_NAME)
         content = content.replace('#ABOUT-PAGE-ID#', config.ID_OF_ABOUT_PAGE)

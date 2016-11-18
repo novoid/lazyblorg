@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-18 19:28:36 vk>
+# Time-stamp: <2016-11-18 19:33:10 vk>
 
 
 ## ===================================================================== ##
@@ -15,12 +15,14 @@
 ## INTEGRATION: modify variables in this file according to your requirements
 
 
-## strings: Put your URL and your name below:
-## (not only?) for feed meta-data: FIXXME: move to CLI parameters?
-DOMAIN = u'Karl-Voit.at'
-BASE_URL = u'//' + DOMAIN
+# strings: Your personal name and the name of your blog:
 AUTHOR_NAME = u'Karl Voit'
 BLOG_NAME = u'public voit'
+
+## strings: Define your URLs and your name below:
+DOMAIN = u'Karl-Voit.at'
+BASE_URL = u'//' + DOMAIN
+CSS_URL = BASE_URL + '/public_voit.css'
 
 ## integer: Show this many article teasers on entry page
 NUMBER_OF_TEASER_ARTICLES = 15

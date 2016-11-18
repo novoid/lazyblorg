@@ -3166,3 +3166,18 @@ xmllint --html --noout ./testdata/2del/blog/feeds/lazyblorg-all.atom_1.0.links-o
    :LOGBOOK:
    - State "DONE"       from "NEXT"       [2016-11-18 Fri 19:29]
    :END:
+
+** DONE move "#BASE-URL#/public_voit.css" to its own variable                             :userstory:
+   CLOSED: [2016-11-18 Fri 19:34]
+   :PROPERTIES:
+   :CREATED:  [2016-11-16 Wed 23:23]
+   :ARCHIVE_TIME: 2016-11-18 Fri 19:34
+   :ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+   :ARCHIVE_OLPATH: Issue Tracking
+   :ARCHIVE_CATEGORY: lazyblorg
+   :ARCHIVE_TODO: DONE
+   :ARCHIVE_ITAGS: issues
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "NEXT"       [2016-11-18 Fri 19:34]
+   :END:

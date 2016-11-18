@@ -1,4 +1,4 @@
-## Time-stamp: <2016-11-18 19:29:00 vk>
+## Time-stamp: <2016-11-18 19:33:43 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -272,7 +272,7 @@ With name/label:
   <meta name="generator" content="lazyblorg" />
   <meta name="orgmode-id" content="#ARTICLE-ID#" />
   <link rel="stylesheet" title="#BLOG-NAME# Standard CSS Style"
-        href="#BASE-URL#/public_voit.css" type="text/css" media="screen"  />
+        href="#CSS-URL#" type="text/css" media="screen"  />
 
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
@@ -445,7 +445,7 @@ placeholder article which is defined in this file (below).
   <meta name="generator" content="lazyblorg" />
   <meta name="orgmode-id" content="#ARTICLE-ID#" />
   <link rel="stylesheet" title="#BLOG-NAME# Standard CSS Style"
-        href="#BASE-URL#/public_voit.css" type="text/css" media="screen"  />
+        href="#CSS-URL#" type="text/css" media="screen"  />
 
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
@@ -583,7 +583,7 @@ placeholder article which is defined in this file (below).
   <meta property="article:author" content="#AUTHOR-NAME#" />
 
   <link rel="stylesheet" title="#BLOG-NAME# Standard CSS Style"
-        href="#BASE-URL#/public_voit.css" type="text/css" media="screen"  />
+        href="#CSS-URL#" type="text/css" media="screen"  />
 
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
@@ -762,7 +762,7 @@ Pages that describe a tag. Corresponding Org-mode entries must have:
   <meta property="article:author" content="#AUTHOR-NAME#" />
 
   <link rel="stylesheet" title="#BLOG-NAME# Standard CSS Style"
-        href="#BASE-URL#/public_voit.css" type="text/css" media="screen"  />
+        href="#CSS-URL#" type="text/css" media="screen"  />
 
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
@@ -889,7 +889,7 @@ FIXXME
   <meta name="author" content="#AUTHOR-NAME#" />
   <meta name="generator" content="lazyblorg" />
   <link rel="stylesheet" title="#BLOG-NAME# Standard CSS Style"
-        href="#BASE-URL#/public_voit.css" type="text/css" media="screen"  />
+        href="#CSS-URL#" type="text/css" media="screen"  />
 
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 

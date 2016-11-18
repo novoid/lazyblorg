@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-11-18 19:29:56 vk>
+# Time-stamp: <2016-11-18 19:34:50 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -230,11 +230,6 @@ CLOSED: [2014-03-01 Sat 20:10]
 
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
-
-** NEXT move "#BASE-URL#/public_voit.css" to its own variable                             :userstory:
-   :PROPERTIES:
-   :CREATED:  [2016-11-16 Wed 23:23]
-   :END:
 
 ** NEXT move publicvoit-comment@Karl-Voit.at to config.py                                 :userstory:
    :PROPERTIES:
