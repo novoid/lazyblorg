@@ -3079,3 +3079,30 @@ entry which is defined in the template file.
    :LOGBOOK:
    - State "DONE"       from "NEXT"       [2016-11-18 Fri 19:00]
    :END:
+
+** DONE write 'test_before_push_to_github.sh'                                          :architecture:
+   CLOSED: [2016-11-18 Fri 19:08]
+   :PROPERTIES:
+   :CREATED:  [2016-11-16 Wed 23:00]
+   :ARCHIVE_TIME: 2016-11-18 Fri 19:08
+   :ARCHIVE_FILE: ~/src/lazyblorg/dev/lazyblorg.org
+   :ARCHIVE_OLPATH: Issue Tracking
+   :ARCHIVE_CATEGORY: lazyblorg
+   :ARCHIVE_TODO: DONE
+   :ARCHIVE_ITAGS: issues
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "NEXT"       [2016-11-18 Fri 19:08]
+   :END:
+
+- [X] test run with example_invocation.sh
+- [X] testall.sh
+- [ ] xmlint generated feed files
+  - xmllint --html --noout ~/public_html/feeds/*links-only.xml
+
+xmllint --html --noout ./testdata/end_to_end_test/result/feeds/lazyblorg-all.atom_1.0.links-and-content.xml
+xmllint --html --noout ./testdata/end_to_end_test/result/feeds/lazyblorg-all.atom_1.0.links-only.xml
+xmllint --html --noout ./testdata/2del/blog/feeds/lazyblorg-all.atom_1.0.links-and-content.xml
+xmllint --html --noout ./testdata/2del/blog/feeds/lazyblorg-all.atom_1.0.links-only.xml
+
+... finds many (weird) issues. Not activating it now.
