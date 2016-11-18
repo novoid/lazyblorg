@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-16 22:01:11 vk>
+# Time-stamp: <2016-11-18 19:19:44 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1460,6 +1460,7 @@ class Htmlizer(object):
         content = content.replace('#BASE-URL#', config.BASE_URL)
         content = content.replace('#AUTHOR-NAME#', config.AUTHOR_NAME)
         content = content.replace('#BLOG-NAME#', config.BLOG_NAME)
+        content = content.replace('#ABOUT-PAGE-ID#', config.ID_OF_ABOUT_PAGE)
 
         if entry['category'] == config.TAGS:
             # replace #TAG-PAGE-LIST#

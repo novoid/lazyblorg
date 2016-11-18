@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-16 21:11:08 vk>
+# Time-stamp: <2016-11-18 19:18:15 vk>
 
 
 ## ===================================================================== ##
@@ -15,21 +15,26 @@
 ## INTEGRATION: modify variables in this file according to your requirements
 
 
-## strings: put your URL and your name below:
+## strings: Put your URL and your name below:
 ## (not only?) for feed meta-data: FIXXME: move to CLI parameters?
 DOMAIN = u'Karl-Voit.at'
 BASE_URL = u'//' + DOMAIN
 AUTHOR_NAME = u'Karl Voit'
 BLOG_NAME = u'public voit'
 
-## integer: show this many article teasers on entry page
+## integer: Show this many article teasers on entry page
 NUMBER_OF_TEASER_ARTICLES = 15
 
-## integer: show this many article in Atom feeds:
+## integer: Show this many article in Atom feeds:
 NUMBER_OF_FEED_ARTICLES = 10
 
-## string: replace "+01:00" below with your time-zone indicator
-## this gets added to the time in order to describe time zone of the blog:
+## string: This is the Org-mode property :ID: of your blog article which
+##         is used for the about page of your blog.
+## See example in: testdata/end_to_end_test/orgfiles/about-placeholder.org
+ID_OF_ABOUT_PAGE = '2014-03-09-about'
+
+## string: Replace "+01:00" below with your time-zone indicator
+## This gets added to the time in order to describe time zone of the blog:
 TIME_ZONE_ADDON = u'+01:00'
 
 

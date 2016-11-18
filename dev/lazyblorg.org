@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-11-18 19:14:48 vk>
+# Time-stamp: <2016-11-18 19:20:29 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -231,9 +231,13 @@ CLOSED: [2014-03-01 Sat 20:10]
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
 
-** NEXT move references to about page to config.py                                        :userstory:
+** DONE move references to about page to config.py                                        :userstory:
+   CLOSED: [2016-11-18 Fri 19:20]
    :PROPERTIES:
    :CREATED:  [2016-11-16 Wed 23:20]
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "NEXT"       [2016-11-18 Fri 19:20]
    :END:
 
 ** NEXT move twitter handle to config.py                                                  :userstory:
