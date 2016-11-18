@@ -1,4 +1,4 @@
-## Time-stamp: <2016-11-18 19:18:56 vk>
+## Time-stamp: <2016-11-18 19:29:00 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -568,16 +568,16 @@ placeholder article which is defined in this file (below).
   <meta name="orgmode-id" content="#ARTICLE-ID#" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@n0v0id" />
-  <meta name="twitter:creator" content="@n0v0id" />
+  <meta name="twitter:site" content="@#TWITTER-HANDLE#" />
+  <meta name="twitter:creator" content="@#TWITTER-HANDLE#" />
   <meta name="twitter:title" content="#BLOG-NAME#" />
   <meta name="twitter:description" content="#ARTICLE-TITLE#" />
-  <meta name="twitter:image" content="http://Karl-Voit.at/images/public-voit_T_logo_200x200.png" />
+  <meta name="twitter:image" content="#TWITTER-IMAGE#" />
 
   <meta property="og:type" content="article" />
   <meta property="og:title" content="#BLOG-NAME#" />
   <meta property="og:description" content="#ARTICLE-TITLE#" />
-  <meta property="og:image" content="http://karl-voit.at/images/public-voit_T_logo_200x200.png" />
+  <meta property="og:image" content="#TWITTER-IMAGE#" />
   <meta property="og:site_name" content="#BLOG-NAME# - Web-page of #AUTHOR-NAME#">
   <meta property="article:published_time" content="#ARTICLE-PUBLISHED-HTML-DATETIME#" />
   <meta property="article:author" content="#AUTHOR-NAME#" />
@@ -747,16 +747,16 @@ Pages that describe a tag. Corresponding Org-mode entries must have:
   <meta name="orgmode-id" content="#ARTICLE-ID#" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@n0v0id" />
-  <meta name="twitter:creator" content="@n0v0id" />
+  <meta name="twitter:site" content="@#TWITTER-HANDLE#" />
+  <meta name="twitter:creator" content="@#TWITTER-HANDLE#" />
   <meta name="twitter:title" content="#BLOG-NAME#" />
   <meta name="twitter:description" content="Tag page for tag #ARTICLE-TITLE#" />
-  <meta name="twitter:image" content="http://karl-voit.at/images/public-voit_T_logo_200x200.png" />
+  <meta name="twitter:image" content="#TWITTER-IMAGE#" />
 
   <meta property="og:type" content="article" />
   <meta property="og:title" content="#BLOG-NAME#" />
   <meta property="og:description" content="Tag page for tag #ARTICLE-TITLE#" />
-  <meta property="og:image" content="http://karl-voit.at/images/public-voit_T_logo_200x200.png" />
+  <meta property="og:image" content="#TWITTER-IMAGE#" />
   <meta property="og:site_name" content="#BLOG-NAME# - Web-page of #AUTHOR-NAME#">
   <meta property="article:published_time" content="#ARTICLE-PUBLISHED-HTML-DATETIME#" />
   <meta property="article:author" content="#AUTHOR-NAME#" />

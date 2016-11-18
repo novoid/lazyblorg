@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-18 19:18:15 vk>
+# Time-stamp: <2016-11-18 19:28:36 vk>
 
 
 ## ===================================================================== ##
@@ -32,6 +32,15 @@ NUMBER_OF_FEED_ARTICLES = 10
 ##         is used for the about page of your blog.
 ## See example in: testdata/end_to_end_test/orgfiles/about-placeholder.org
 ID_OF_ABOUT_PAGE = '2014-03-09-about'
+
+## string: Your Twitter handle/username which is used in the HTML header
+##         metadata (without the @ character)
+TWITTER_HANDLE = 'n0v0id'
+
+## string: An image which is added to the HTML header metadata and is used
+##         by Twitter in Twitter cards to visualize your blog (also used
+##         as og:image)
+TWITTER_IMAGE = 'http://Karl-Voit.at/images/public-voit_T_logo_200x200.png'
 
 ## string: Replace "+01:00" below with your time-zone indicator
 ## This gets added to the time in order to describe time zone of the blog:
