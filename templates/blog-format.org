@@ -1,4 +1,4 @@
-## Time-stamp: <2016-11-18 19:43:34 vk>
+## Time-stamp: <2016-11-18 19:46:18 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -525,7 +525,7 @@ placeholder article which is defined in this file (below).
           var dsq = document.createElement('script');
           dsq.type = 'text/javascript';
           dsq.async = true;
-          dsq.src = "//publicvoit.disqus.com/embed.js";
+          dsq.src = "//#DISQUS-NAME#.disqus.com/embed.js";
           var disqus_identifier = '#ARTICLE-ID#';
           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
           var ldr = document.getElementById('disqus_loader');
@@ -698,7 +698,7 @@ placeholder article which is defined in this file (below).
           var dsq = document.createElement('script');
           dsq.type = 'text/javascript';
           dsq.async = true;
-          dsq.src = "//publicvoit.disqus.com/embed.js";
+          dsq.src = "//#DISQUS-NAME#.disqus.com/embed.js";
           var disqus_identifier = '#ARTICLE-ID#';
           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
           var ldr = document.getElementById('disqus_loader');

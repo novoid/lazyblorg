@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-18 19:42:20 vk>
+# Time-stamp: <2016-11-18 19:46:58 vk>
 
 
 ## ===================================================================== ##
@@ -24,6 +24,7 @@ DOMAIN = u'Karl-Voit.at'
 BASE_URL = u'//' + DOMAIN
 CSS_URL = BASE_URL + '/public_voit.css'
 BLOG_LOGO = BASE_URL + '/images/public-voit_logo.svg'
+DISQUS_NAME = 'publicvoit'  # gets placed in: '//publicvoit.disqus.com/embed.js'
 
 ## string: Email address to send comments to:
 COMMENT_EMAIL_ADDRESS = 'publicvoit-comment@Karl-Voit.at'
