@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-18 19:46:37 vk>
+# Time-stamp: <2016-11-26 18:58:20 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1490,6 +1490,7 @@ class Htmlizer(object):
         if not self.dict_of_tags_with_ids or tag not in self.dict_of_tags_with_ids:
             return u'\nNo blog entries with this tag so far.\n'
 
+        # FIXXME: change from "sorted according to ID" to "sorted according to publish/update timestamp:
         for reference in sorted(self.dict_of_tags_with_ids[tag]):
 
             year = self.metadata[reference]['created'].year

@@ -1049,6 +1049,12 @@ SCHEDULED: <2016-12-29 Thu>
 :CREATED:  [2014-10-25 Sat 21:56]
 :END:
 [2014-10-25 Sa. 09:22]
+** NEXT tag pages: change order of links from alphabet/ID to timestamp                    :userstory:
+:PROPERTIES:
+:CREATED:  [2016-11-21 Mon 09:56]
+:END:
+
+I looked into it: change from "sorted according to ID" to "sorted according to publish/update timestamp:
 ** TODO ID of sub-headings get stored and processed to anchors   :userstory:
 :PROPERTIES:
 :CREATED:  [2014-02-09 Sun 10:28]
