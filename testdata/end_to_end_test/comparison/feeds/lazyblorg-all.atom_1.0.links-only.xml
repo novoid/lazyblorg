@@ -6,7 +6,7 @@
   <id>//Karl-Voit.at</id>
   <link href='//Karl-Voit.at' />
   <icon>/favicon.ico</icon>
-  <updated>2016-11-27T14:27:54+01:00</updated>
+  <updated>2016-11-27T15:32:49+01:00</updated>
   <author>
     <name type="text">Karl Voit</name>
   </author>
@@ -15,6 +15,51 @@
   <generator uri='https://github.com/novoid/lazyblorg'>Generated from Org-mode source code using lazyblorg which is written in Python. Industrial-strength technology, baby.</generator>
 
         <entry>
+    <title type="text">FIXXME: image test</title>
+    <link href='//Karl-Voit.at/2016/11/27/image-test' />
+    <published>2016-11-27T15:01:00+01:00</published>
+    <updated>2016-11-27T15:01:00+01:00</updated>
+    <category scheme='//Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+This is a place-holder for a future feature: including image files via memacs.
+
+</p>
+</div>
+    </summary>
+    <id>//Karl-Voit.at/2016/11/27/image-test-from-feed-with-links</id>
+  </entry>
+
+<entry>
+    <title type="text">Special Characters</title>
+    <link href='//Karl-Voit.at/2016/11/27/special-characters' />
+    <published>2016-11-27T15:00:00+01:00</published>
+    <updated>2016-11-27T15:00:00+01:00</updated>
+    <category scheme='//Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+This is a «test» with some Umlauts and special characters: öß€x²y³¼½¾.
+
+</p>
+
+
+<p>
+
+Being curious how this is going to work out.
+
+</p>
+</div>
+    </summary>
+    <id>//Karl-Voit.at/2016/11/27/special-characters-from-feed-with-links</id>
+  </entry>
+
+<entry>
     <title type="text">Testing Misc Sanitization Issues</title>
     <link href='//Karl-Voit.at/2016/11/06/sanitization-examples' />
     <published>2016-11-06T17:40:00+01:00</published>
@@ -245,26 +290,6 @@ Just for testing.
 </div>
     </summary>
     <id>//Karl-Voit.at/2013/08/22/testid-from-feed-with-links</id>
-  </entry>
-
-<entry>
-    <title type="text">This is an example blog entry</title>
-    <link href='//Karl-Voit.at/2013/02/14/lazyblorg-example-entry' />
-    <published>2013-02-14T19:02:00+01:00</published>
-    <updated>2013-02-14T19:02:00+01:00</updated>
-    <category scheme='//Karl-Voit.at/tags/mytest' term='mytest' />
-    <category scheme='//Karl-Voit.at/tags/programming' term='programming' />
-    <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
-
-This is an introduction text which describes the blog entry with some catchy information. Readers should be convinced to read this interesting text. <a href="https://github.com/novoid/Memacs">Memacs</a> is an external link to Memacs.
-
-</p>
-</div>
-    </summary>
-    <id>//Karl-Voit.at/2013/02/14/lazyblorg-example-entry-from-feed-with-links</id>
   </entry>
 
 </feed>

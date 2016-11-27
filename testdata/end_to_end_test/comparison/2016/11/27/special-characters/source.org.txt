@@ -1,0 +1,13 @@
+CLOSED: [2016-11-27 Sun 15:00]
+:PROPERTIES:
+:ID: 2016-11-27-special-characters
+:CREATED:  [2016-11-27 Sun 14:58]
+:END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2016-11-27 Sun 15:00]
+:END:
+
+This is a «test» with some Umlauts and special characters: öß€x²y³¼½¾.
+
+Being curious how this is going to work out.
+

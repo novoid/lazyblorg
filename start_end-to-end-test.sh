@@ -25,7 +25,7 @@ end_to_end_test()
         --orgfiles templates/blog-format.org \
                    testdata/end_to_end_test/orgfiles/*.org  $@ && \
     echo "\n====> Comparing result of end-to-end test ...\n" && \
-    if [ `diff -ar testdata/end_to_end_test/result testdata/end_to_end_test/comparison | egrep -vi '(published|updated)' | wc -l` -gt 39 ]; then
+    if [ `diff -ar testdata/end_to_end_test/result testdata/end_to_end_test/comparison | egrep -vi '(published|updated)' | wc -l` -gt 21 ]; then
         diff -ar testdata/end_to_end_test/result testdata/end_to_end_test/comparison | grep -v '<updated>'
         echo "End-to-end test FAILED!   Check result!"
         exit 1
