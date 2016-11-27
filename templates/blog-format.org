@@ -1,4 +1,4 @@
-## Time-stamp: <2016-11-27 14:27:25 vk>
+## Time-stamp: <2016-11-27 15:42:08 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -303,7 +303,7 @@ With name/label:
   <p>
 
     On this page you can see the latest blog updates. For further articles, please use the <b>search bar</b> or <b>navigate through the blue tags</b>.
-    My personal favourites are <a href="tags/pim/">pim</a>, <a href="tags/privacy/">privacy</a>, or <a href="tags/security/">security</a>.
+    My recommendations are <a href="tags/pim/">pim</a>, <a href="tags/privacy/">privacy</a>, or <a href="tags/security/">security</a>.
 
   </p>
 
