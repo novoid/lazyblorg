@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-18 19:46:58 vk>
+# Time-stamp: <2016-11-27 16:38:00 vk>
 
 
 ## ===================================================================== ##
@@ -31,6 +31,12 @@ COMMENT_EMAIL_ADDRESS = 'publicvoit-comment@Karl-Voit.at'
 
 ## integer: Show this many article teasers on entry page
 NUMBER_OF_TEASER_ARTICLES = 15
+
+## integer: Show this many top tags in the sidebar
+NUMBER_OF_TOP_TAGS = 10
+
+## list of strings: tags to ignore when generating top tags list:
+IGNORE_FOR_TOP_TAGS = ['suderei', 'personally']
 
 ## integer: Show this many article in Atom feeds:
 NUMBER_OF_FEED_ARTICLES = 10

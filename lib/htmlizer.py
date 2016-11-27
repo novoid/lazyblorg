@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-27 15:31:00 vk>
+# Time-stamp: <2016-11-27 16:39:11 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1472,6 +1472,7 @@ class Htmlizer(object):
         content = content.replace('#COMMENT-EMAIL-ADDRESS#', config.COMMENT_EMAIL_ADDRESS)
         content = content.replace('#TWITTER-HANDLE#', config.TWITTER_HANDLE)
         content = content.replace('#TWITTER-IMAGE#', config.TWITTER_IMAGE)
+        content = content.replace('#TOP-TAG-LIST#', self._generate_top_tag_list())
 
         if entry['category'] == config.TAGS:
             # replace #TAG-PAGE-LIST#
@@ -1481,6 +1482,36 @@ class Htmlizer(object):
                     entry['title']))
 
         return content
+
+    def _generate_top_tag_list(self):
+        """
+        Generates a HTML snippet which contains the list of the top XX tags (by usage).
+
+        @param return: HTML content
+        """
+
+        # Example: <li><a class="usertag" href="#BASE-URL#/tags/#TAGNAME#/">#TAGNAME#</a></li>
+
+        tag_occurrence_list = []
+
+        for tag in self.dict_of_tags_with_ids:
+            if tag not in config.IGNORE_FOR_TOP_TAGS:
+                tag_occurrence_list.append((tag, len(self.dict_of_tags_with_ids[tag])))
+
+        top_tag_list = sorted(
+            tag_occurrence_list,
+            key=lambda entry: entry[1],
+            reverse=True)[:config.NUMBER_OF_TOP_TAGS]
+        # Example: top_tag_list == [(u'lazyblorg', 4), (u'programming', 3), (u'exampletag', 2),
+        #                           (u'mytest', 1), (u'testtag1', 1)]
+
+        htmlcontent = u''
+        for tag in top_tag_list:
+            htmlcontent += u'\n              <li><a class="usertag" href="' + \
+                           config.BASE_URL + '/tags/' + tag[0] + \
+                           '">' + tag[0] + '</a> (' + str(tag[1]) + ')</li>'
+
+        return htmlcontent
 
     def _generate_tag_page_list(self, tag):
         """

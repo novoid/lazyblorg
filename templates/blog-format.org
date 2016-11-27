@@ -1,4 +1,4 @@
-## Time-stamp: <2016-11-27 15:42:08 vk>
+## Time-stamp: <2016-11-30 12:43:02 karl.voit>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -84,6 +84,10 @@ Have fun with modifying lazyblorg to your requirements!
      <li><a href="#BASE-URL#/feeds/lazyblorg-all.atom_1.0.links-only.xml">Follow/subscribe links</a></li>
      <li><a href="#BASE-URL#/feeds/lazyblorg-all.atom_1.0.links-and-content.xml">Follow/subscribe content</a></li>
      <li>TBD: Per Tag Feeds</li>
+     <li>Top tags:</li>
+         <ul class="top-tags-list">
+              #TOP-TAG-LIST#
+         </ul>
      </ul>
   </div>
 
@@ -316,8 +320,8 @@ With name/label:
   <p>
 
     Please notice: <a href="tags/lazyblorg/">The software building this site</a> is under <a href="2014/01/30/public-voit-beta/">constant development</a>. See
-    <a href="https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org#23-implemented-org-mode-elements">current status of the blogging software</a> and
-    <a href="https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org#1-issue-tracking">the next steps</a>.
+    <a href="https://github.com/novoid/lazyblorg/blob/master/lazyblorg.org#23-implemented-org-mode-elements">current status of the blogging software</a> and
+    <a href="https://github.com/novoid/lazyblorg/blob/master/lazyblorg.org#1-issue-tracking">the next steps</a>.
   </p>
 
   <p>
