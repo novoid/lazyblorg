@@ -1,4 +1,4 @@
-## Time-stamp: <2016-11-27 15:42:08 vk>
+## Time-stamp: <2016-11-27 16:34:05 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -84,6 +84,10 @@ Have fun with modifying lazyblorg to your requirements!
      <li><a href="#BASE-URL#/feeds/lazyblorg-all.atom_1.0.links-only.xml">Follow/subscribe links</a></li>
      <li><a href="#BASE-URL#/feeds/lazyblorg-all.atom_1.0.links-and-content.xml">Follow/subscribe content</a></li>
      <li>TBD: Per Tag Feeds</li>
+     <li>Top tags:</li>
+         <ul class="top-tags-list">
+              #TOP-TAG-LIST#
+         </ul>
      </ul>
   </div>
 
