@@ -1,4 +1,4 @@
-## Time-stamp: <2016-11-18 19:46:18 vk>
+## Time-stamp: <2016-11-27 14:27:25 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -302,26 +302,27 @@ With name/label:
 
   <p>
 
-    On this page you can see the latest blog updates. For further articles, please <b>navigate through the blue tags</b> or use the <b>search bar</b>.
+    On this page you can see the latest blog updates. For further articles, please use the <b>search bar</b> or <b>navigate through the blue tags</b>.
+    My personal favourites are <a href="tags/pim/">pim</a>, <a href="tags/privacy/">privacy</a>, or <a href="tags/security/">security</a>.
 
   </p>
 
   <p>
 
-    I recommend any decent <a href="https://en.wikipedia.org/wiki/RSS">RSS</a>/<a href="https://en.wikipedia.org/wiki/Atom_(standard)">Atom aggregator</a> to follow my blog.
+    I recommend any decent <a href="https://en.wikipedia.org/wiki/RSS">RSS</a>/<a href="https://en.wikipedia.org/wiki/Atom_(standard)">Atom aggregator</a> to get notified on blog updates.
 
   </p>
 
   <p>
 
-    Please notice: <a href="2014/01/30/public-voit-beta/">The software building this site is under constant development</a>. See
+    Please notice: <a href="tags/lazyblorg/">The software building this site</a> is under <a href="2014/01/30/public-voit-beta/">constant development</a>. See
     <a href="https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org#23-implemented-org-mode-elements">current status of the blogging software</a> and
     <a href="https://github.com/novoid/lazyblorg/blob/master/dev/lazyblorg.org#1-issue-tracking">the next steps</a>.
   </p>
 
   <p>
 
-    Recent articles/updates:
+    Most recent articles or updates:
 
   </p>
   </div>
