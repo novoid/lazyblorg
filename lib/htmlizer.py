@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-26 18:58:20 vk>
+# Time-stamp: <2016-11-27 15:31:00 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -494,12 +494,17 @@ class Htmlizer(object):
         entrylist = []
 
         for entry in self.blog_data:
-            entrylist.append({
+            entry_to_add = {
                 'id': entry['id'],
                 'timestamp': Utils.get_newest_timestamp_for_entry(entry)[0],
                 'url': self._target_path_for_id_without_targetdir(entry['id']),
                 'category': entry['category']
-            })
+            }
+            if entry_to_add not in entrylist:
+                entrylist.append(entry_to_add)
+            else:
+                # FIXXME: find out how those entries got into blog_data multiple times in the first place:
+                logging.warning('Trying to add an entry twice: ' + str(entry_to_add))
 
         return sorted(
             entrylist,
@@ -520,10 +525,10 @@ class Htmlizer(object):
 
         listentry = None
         listentry_index = 0
-        number_of_current_teaser_entries = 0
+        number_of_teasers_generated = 0
 
-        while number_of_current_teaser_entries < config.NUMBER_OF_TEASER_ARTICLES and \
-                listentry_index < len(entry_list_by_newest_timestamp):
+        while number_of_teasers_generated < config.NUMBER_OF_TEASER_ARTICLES and \
+              listentry_index < len(entry_list_by_newest_timestamp):
 
             # get next element from entry_list
             listentry = entry_list_by_newest_timestamp[listentry_index]
@@ -621,17 +626,17 @@ class Htmlizer(object):
                             entry['htmlteaser']))
 
                 htmlcontent += content
+                number_of_teasers_generated += 1
 
             elif entry['category'] == 'TAGS':
                 pass  # FIXXME: implement if you want sneak previews of tag pages on entry page
 
-        if number_of_current_teaser_entries < config.NUMBER_OF_TEASER_ARTICLES:
-            logging.debug('number_of_current_teaser_entries == ' +
-                          str(number_of_current_teaser_entries) +
+        if number_of_teasers_generated < config.NUMBER_OF_TEASER_ARTICLES:
+            logging.debug('number_of_teasers_generated == ' +
+                          str(number_of_teasers_generated) +
                           ' and NUMBER_OF_TEASER_ARTICLES == ' +
                           str(config.NUMBER_OF_TEASER_ARTICLES) +
                           ' and therefore I got less teaser than configured in NUMBER_OF_TEASER_ARTICLES')
-        number_of_current_teaser_entries += 1
 
         # add footer:
         htmlcontent += self.template_definition_by_name('entrypage-footer')

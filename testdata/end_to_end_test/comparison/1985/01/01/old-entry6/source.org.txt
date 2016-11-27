@@ -1,0 +1,11 @@
+CLOSED: [2016-11-27 Sun 15:06]
+:PROPERTIES:
+:ID: 1985-01-01-old-entry6
+:CREATED:  [1985-01-01 Tue 15:06]
+:END:
+:LOGBOOK:
+- State "DONE"       from              [1985-01-01 Tue 15:06]
+:END:
+
+Test entry.
+

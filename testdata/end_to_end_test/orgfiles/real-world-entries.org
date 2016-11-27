@@ -3,18 +3,6 @@
 :CREATED:  [2016-10-31 Mon 16:34]
 :END:
 
-** DONE Not of any interest to you                                                     :programming:
-CLOSED: [2016-10-31 Mon 16:35]
-:PROPERTIES:
-:ID: 2016-10-31-not-of-interest
-:CREATED:  [2016-10-31 Mon 16:34]
-:END:
-:LOGBOOK:
-- State "DONE"       from "NEXT"       [2016-10-31 Mon 16:35]
-:END:
-
-There is the tag "blog" missing. So this should not result in a blog article.
-
 ** Here is another sub-level of headings
 :PROPERTIES:
 :CREATED:  [2016-10-31 Mon 16:35]
@@ -71,6 +59,33 @@ CLOSED: [2016-11-06 Sun 17:40]
 This ought to be escaped & >printed< well.
 #+END_EXAMPLE
 
+** DONE Special Characters                                                          :blog:lazyblorg:
+CLOSED: [2016-11-27 Sun 15:00]
+:PROPERTIES:
+:ID: 2016-11-27-special-characters
+:CREATED:  [2016-11-27 Sun 14:58]
+:END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2016-11-27 Sun 15:00]
+:END:
+
+This is a «test» with some Umlauts and special characters: öß€x²y³¼½¾.
+
+Being curious how this is going to work out.
+
+** DONE FIXXME: image test                                                          :blog:lazyblorg:
+CLOSED: [2016-11-27 Sun 15:01]
+:PROPERTIES:
+:ID: 2016-11-27-image-test
+:CREATED:  [2016-11-27 Sun 15:00]
+:END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2016-11-27 Sun 15:01]
+:END:
+
+This is a place-holder for a future feature: including image files via
+memacs.
+
 * DONE A Temporal Article With Links                                               :exampletag:blog:
 CLOSED: [2016-10-31 Mon 16:40]
 :PROPERTIES:
@@ -106,3 +121,33 @@ CLOSED: [2016-10-31 Mon 16:41]
 Lorem ipsum dolor sit amet, malorum scaevola ut ius, ridens admodum adipisci eam ad. Eu quo ignota appareat, an primis expetendis eum, atqui labitur ceteros quo ad. Id zril partiendo cotidieque nam, nemore legimus has ad. Nec cu regione sensibus volutpat.
 
 Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. Odio disputando ei his, ei est mutat mediocritatem. Harum verterem ex mea, sed saepe viderer scribentur ex. Pri te dictas eligendi praesent.
+
+* negative tests
+:PROPERTIES:
+:CREATED:  [2016-11-27 Sun 15:01]
+:END:
+
+
+** DONE Not of any interest to you                                                     :programming:
+CLOSED: [2016-10-31 Mon 16:35]
+:PROPERTIES:
+:ID: 2016-10-31-not-of-interest
+:CREATED:  [2016-10-31 Mon 16:34]
+:END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2016-10-31 Mon 16:35]
+:END:
+
+There is the tag "blog" missing. So this should not result in a blog article.
+
+** DONE hidden but not a blog tag                                                           :hidden:
+CLOSED: [2016-11-27 Sun 15:02]
+:PROPERTIES:
+:ID: 2016-11-27-hidden-but-no-blog-tag
+:CREATED:  [2016-11-27 Sun 15:02]
+:END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2016-11-27 Sun 15:02]
+:END:
+
+Must not lead to an article.
