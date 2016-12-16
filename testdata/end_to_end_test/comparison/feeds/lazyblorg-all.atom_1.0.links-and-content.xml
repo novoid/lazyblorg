@@ -6,7 +6,7 @@
   <id>//Karl-Voit.at</id>
   <link href='//Karl-Voit.at' />
   <icon>/favicon.ico</icon>
-  <updated>2016-11-27T16:35:19+01:00</updated>
+  <updated>2016-12-16T23:28:40+01:00</updated>
   <author>
     <name type="text">Karl Voit</name>
   </author>
@@ -445,16 +445,16 @@ This is a placeholder entry in order to be able to test internal links.
     <id>//Karl-Voit.at/about-from-feed-with-content</id>
   </entry>
 <entry>
-    <title type="text">Mini blog entry</title>
-    <link href='//Karl-Voit.at/2013/08/22/testid' />
-    <published>2013-08-22T21:06:00+01:00</published>
-    <updated>2013-08-22T21:06:00+01:00</updated>
+    <title type="text">Placeholder: 2016-07-02-todo-mgt-paper</title>
+    <link href='//Karl-Voit.at/2014/03/09/todo-mgt-paper' />
+    <published>2014-03-09T14:57:00+01:00</published>
+    <updated>2014-03-09T14:57:00+01:00</updated>
     <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='xhtml'>
 <div xmlns='http://www.w3.org/1999/xhtml'>
 <p>
 
-Just for testing.
+This is a placeholder entry in order to be able to run =preview_blogentry.sh= which does not include all my usual org-mode files. However, the sidebar contains hard-coded links which are required. Therfore, I create placeholder IDs for those links.
 
 </p>
 </div>
@@ -463,12 +463,12 @@ Just for testing.
 	
 <p>
 
-Just for testing.
+This is a placeholder entry in order to be able to run =preview_blogentry.sh= which does not include all my usual org-mode files. However, the sidebar contains hard-coded links which are required. Therfore, I create placeholder IDs for those links.
 
 </p>
 
       </div>
     </content>
-    <id>//Karl-Voit.at/2013/08/22/testid-from-feed-with-content</id>
+    <id>//Karl-Voit.at/2014/03/09/todo-mgt-paper-from-feed-with-content</id>
   </entry>
 </feed>
