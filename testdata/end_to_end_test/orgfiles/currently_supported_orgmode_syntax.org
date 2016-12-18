@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; ispell-local-dictionary: "german8"; -*-
-# Time-stamp: <2016-11-06 14:44:54 vk>
+# Time-stamp: <2016-12-18 12:04:22 vk>
 
 * DONE lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer :hidden:publicvoit:lazyblorg:MixedCaseTag:blog:
 CLOSED: [2014-01-30 Thu 13:01]
@@ -49,6 +49,8 @@ CLOSED: [2014-01-30 Thu 13:01]
 :END:
 
 This is *bold* and *bold case*. And this is ~teletype style~.
+
+=And= this is inline =verbatim= text also on the end of a =line=
 
 Examples with line-breaks in between: *This is a bold sentence which
 has a line break*.

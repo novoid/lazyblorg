@@ -6,7 +6,7 @@
   <id>//Karl-Voit.at</id>
   <link href='//Karl-Voit.at' />
   <icon>/favicon.ico</icon>
-  <updated>2016-12-16T23:28:40+01:00</updated>
+  <updated>2016-12-18T12:04:37+01:00</updated>
   <author>
     <name type="text">Karl Voit</name>
   </author>
@@ -454,7 +454,7 @@ This is a placeholder entry in order to be able to test internal links.
 <div xmlns='http://www.w3.org/1999/xhtml'>
 <p>
 
-This is a placeholder entry in order to be able to run =preview_blogentry.sh= which does not include all my usual org-mode files. However, the sidebar contains hard-coded links which are required. Therfore, I create placeholder IDs for those links.
+This is a placeholder entry in order to be able to run <code>preview_blogentry.sh</code> which does not include all my usual org-mode files. However, the sidebar contains hard-coded links which are required. Therfore, I create placeholder IDs for those links.
 
 </p>
 </div>
@@ -463,7 +463,7 @@ This is a placeholder entry in order to be able to run =preview_blogentry.sh= wh
 	
 <p>
 
-This is a placeholder entry in order to be able to run =preview_blogentry.sh= which does not include all my usual org-mode files. However, the sidebar contains hard-coded links which are required. Therfore, I create placeholder IDs for those links.
+This is a placeholder entry in order to be able to run <code>preview_blogentry.sh</code> which does not include all my usual org-mode files. However, the sidebar contains hard-coded links which are required. Therfore, I create placeholder IDs for those links.
 
 </p>
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-16 21:25:38 vk>
+# Time-stamp: <2016-12-18 11:58:55 vk>
 
 import config
 import unittest
@@ -551,8 +551,14 @@ class TestHtmlizer(unittest.TestCase):
             increment_version,
             autotag_language)
 
-        self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"This is *bold face* and ~teletype style~.") ==
-                        u"This is <b>bold face</b> and <code>teletype style</code>.")
+        self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"*This* is *bold face* and *bold face style*. With *end*") ==
+                        u"<b>This</b> is <b>bold face</b> and <b>bold face style</b>. With <b>end</b>")
+
+        self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"~This~ is ~code~ and ~code style~. With ~end~") ==
+                        u"<code>This</code> is <code>code</code> and <code>code style</code>. With <code>end</code>")
+
+        self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"=This= is =verbatim= and =verbatim style=. With =end=") ==
+                        u"<code>This</code> is <code>verbatim</code> and <code>verbatim style</code>. With <code>end</code>")
 
         # real-world examples:
 

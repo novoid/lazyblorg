@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-27 16:39:11 vk>
+# Time-stamp: <2016-12-18 11:59:14 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -86,10 +86,14 @@ class Htmlizer(object):
         u'(href="http(s)?://\S+?)&amp;(\S+?")', flags=re.U)
 
     # find *bold text*:
-    BOLD_REGEX = re.compile(u'\*([^*]+)\*', flags=re.U)
+    # test with: re.subn(re.compile(u'(\W|\A)\*([^*]+)\*(\W|\Z)', flags=re.U), ur'\1<b>\2</b>\3', '*This* is a *touch* of *bold*.')[0]
+    BOLD_REGEX = re.compile(u'(\W|\A)\*([^*]+)\*(\W|\Z)', flags=re.U)
 
-    # find ~teletype or source text~:
-    TELETYPE_REGEX = re.compile(u'~([^~]+)~', flags=re.U)
+    # find ~code or source text~ (teletype):
+    CODE_REGEX = re.compile(u'(\W|\A)~([^~]+)~(\W|\Z)', flags=re.U)
+
+    # find =verbatim text= (teletype):
+    VERBATIM_REGEX = re.compile(u'(\W|\A)=([^=]+)=(\W|\Z)', flags=re.U)
 
     # any ISO date-stamp of format YYYY-MM-DD:
     DATESTAMP_REGEX = re.compile(
@@ -1057,8 +1061,9 @@ class Htmlizer(object):
 
         assert(isinstance(content, unicode))
 
-        content = re.subn(self.BOLD_REGEX, ur'<b>\1</b>', content)[0]
-        content = re.subn(self.TELETYPE_REGEX, ur'<code>\1</code>', content)[0]
+        content = re.subn(self.BOLD_REGEX, ur'\1<b>\2</b>\3', content)[0]
+        content = re.subn(self.CODE_REGEX, ur'\1<code>\2</code>\3', content)[0]
+        content = re.subn(self.VERBATIM_REGEX, ur'\1<code>\2</code>\3', content)[0]
 
         assert(isinstance(content, unicode))
 
