@@ -1,5 +1,9 @@
 # -*- mode: org; coding: utf-8; -*-
+<<<<<<< HEAD
 # Time-stamp: <2016-11-28 07:57:27 vk>
+=======
+# Time-stamp: <2016-11-27 13:18:25 vk>
+>>>>>>> a0efd7588180009ae7101712a31e0e296dfc16cf
 
 * header information                                               :noexport:
 :PROPERTIES:
