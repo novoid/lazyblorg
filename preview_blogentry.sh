@@ -58,6 +58,7 @@ mkdir testdata/2del/blog
 
 PYTHONPATH="~/src/lazyblorg:" ./lazyblorg.py \
     --quiet \
+    --ignore-missing-ids \
     --targetdir testdata/2del/blog \
     --previous-metadata NONEXISTING-preview-metadata-REPLACE_WITH_YOUR_PREVIOUS_METADATA_FILE.pk \
     --new-metadata testdata/2del/blog/preview-metadata.pk \

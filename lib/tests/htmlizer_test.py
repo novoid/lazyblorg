@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-12-18 11:58:55 vk>
+# Time-stamp: <2016-12-18 12:14:44 vk>
 
 import config
 import unittest
@@ -34,6 +34,7 @@ class TestHtmlizer(unittest.TestCase):
         generate = u'foo'
         increment_version = u'foo'
         autotag_language = False
+        ignore_missing_ids = False
         entries_timeline_by_published = {}
 
         template_definitions = [
@@ -58,7 +59,8 @@ class TestHtmlizer(unittest.TestCase):
             entries_timeline_by_published,
             generate,
             increment_version,
-            autotag_language)
+            autotag_language,
+            ignore_missing_ids)
 
         entry = {'content': [
             ['par', u'First paragraph'],
@@ -126,6 +128,7 @@ class TestHtmlizer(unittest.TestCase):
         generate = u'foo'
         increment_version = u'foo'
         autotag_language = False
+        ignore_missing_ids = False
         entries_timeline_by_published = {}
 
         template_definitions = [
@@ -142,7 +145,8 @@ class TestHtmlizer(unittest.TestCase):
             entries_timeline_by_published,
             generate,
             increment_version,
-            autotag_language)
+            autotag_language,
+            ignore_missing_ids)
 
         entry = {'content': [
             ['par', u'First paragraph'],
@@ -209,6 +213,7 @@ class TestHtmlizer(unittest.TestCase):
         generate = u'foo'
         increment_version = u'foo'
         autotag_language = False
+        ignore_missing_ids = False
         entries_timeline_by_published = {}
 
         blog_data = [{'id': '2014-03-02-my-persistent',
@@ -246,7 +251,8 @@ class TestHtmlizer(unittest.TestCase):
             entries_timeline_by_published,
             generate,
             increment_version,
-            autotag_language)
+            autotag_language,
+            ignore_missing_ids)
 
         entry = {'content': [
             ['par', u'First paragraph'],
@@ -325,6 +331,7 @@ class TestHtmlizer(unittest.TestCase):
         generate = u'foo'
         increment_version = u'foo'
         autotag_language = False
+        ignore_missing_ids = False
         entries_timeline_by_published = {}
 
         htmlizer = Htmlizer(
@@ -336,7 +343,8 @@ class TestHtmlizer(unittest.TestCase):
             entries_timeline_by_published,
             generate,
             increment_version,
-            autotag_language)
+            autotag_language,
+            ignore_missing_ids)
 
         entry = {
             'finished-timestamp-history': [
@@ -381,6 +389,7 @@ class TestHtmlizer(unittest.TestCase):
         generate = u'foo'
         increment_version = u'foo'
         autotag_language = False
+        ignore_missing_ids = False
         entries_timeline_by_published = {}
 
         blog_data = [{'id': 'a_entry_from_2008',
@@ -409,7 +418,8 @@ class TestHtmlizer(unittest.TestCase):
             entries_timeline_by_published,
             generate,
             increment_version,
-            autotag_language)
+            autotag_language,
+            ignore_missing_ids)
 
         entrylist = htmlizer.generate_entry_list_by_newest_timestamp()
 
@@ -426,6 +436,7 @@ class TestHtmlizer(unittest.TestCase):
         generate = u'foo'
         increment_version = u'foo'
         autotag_language = False
+        ignore_missing_ids = False
         entries_timeline_by_published = {}
 
         blog_data = [{'id': 'a_entry_from_2008',
@@ -450,7 +461,8 @@ class TestHtmlizer(unittest.TestCase):
             entries_timeline_by_published,
             generate,
             increment_version,
-            autotag_language)
+            autotag_language,
+            ignore_missing_ids)
         with self.assertRaises(HtmlizerException):
             htmlizer.generate_entry_list_by_newest_timestamp()
 
@@ -463,6 +475,7 @@ class TestHtmlizer(unittest.TestCase):
         generate = u'foo'
         increment_version = u'foo'
         autotag_language = False
+        ignore_missing_ids = False
         entries_timeline_by_published = {}
 
         blog_data = [{'id': 'tag-page-entry',
@@ -511,7 +524,8 @@ class TestHtmlizer(unittest.TestCase):
             entries_timeline_by_published,
             generate,
             increment_version,
-            autotag_language)
+            autotag_language,
+            ignore_missing_ids)
 
         dict_of_tags_with_ids = htmlizer._populate_dict_of_tags_with_ids(
             blog_data)
@@ -538,6 +552,7 @@ class TestHtmlizer(unittest.TestCase):
         generate = u'foo'
         increment_version = u'foo'
         autotag_language = False
+        ignore_missing_ids = False
         entries_timeline_by_published = {}
 
         htmlizer = Htmlizer(
@@ -549,7 +564,8 @@ class TestHtmlizer(unittest.TestCase):
             entries_timeline_by_published,
             generate,
             increment_version,
-            autotag_language)
+            autotag_language,
+            ignore_missing_ids)
 
         self.assertTrue(htmlizer.htmlize_simple_text_formatting(u"*This* is *bold face* and *bold face style*. With *end*") ==
                         u"<b>This</b> is <b>bold face</b> and <b>bold face style</b>. With <b>end</b>")
@@ -595,6 +611,7 @@ class TestHtmlizer(unittest.TestCase):
         generate = 'foo'
         increment_version = 'foo'
         autotag_language = False
+        ignore_missing_ids = False
         entries_timeline_by_published = {}
 
         htmlizer = Htmlizer(
@@ -606,7 +623,8 @@ class TestHtmlizer(unittest.TestCase):
             entries_timeline_by_published,
             generate,
             increment_version,
-            autotag_language)
+            autotag_language,
+            ignore_missing_ids)
 
         self.assertTrue(htmlizer.sanitize_html_characters(u"An & and <this> will be ampersand and <similar>.")
                         == u"An &amp; and &lt;this&gt; will be ampersand and &lt;similar&gt;.")
@@ -620,6 +638,7 @@ class TestHtmlizer(unittest.TestCase):
         generate = u'foo'
         increment_version = u'foo'
         autotag_language = False
+        ignore_missing_ids = False
         entries_timeline_by_published = {}
 
         blog_data = [{'id': '2014-03-02-my-persistent',
@@ -653,7 +672,8 @@ class TestHtmlizer(unittest.TestCase):
             entries_timeline_by_published,
             generate,
             increment_version,
-            autotag_language)
+            autotag_language,
+            ignore_missing_ids)
 
         # Org-mode links of style [[id:foo][bar]] or [[id:foo]]:
 
@@ -771,6 +791,7 @@ class TestHtmlizer(unittest.TestCase):
         generate = 'foo'
         increment_version = 'foo'
         autotag_language = False
+        ignore_missing_ids = False
         entries_timeline_by_published = {}
 
         htmlizer = Htmlizer(
@@ -782,7 +803,8 @@ class TestHtmlizer(unittest.TestCase):
             entries_timeline_by_published,
             generate,
             increment_version,
-            autotag_language)
+            autotag_language,
+            ignore_missing_ids)
 
         # Org-mode links of style [[foo][bar]]:
 
@@ -844,6 +866,7 @@ class TestHtmlizer(unittest.TestCase):
         generate = 'foo'
         increment_version = 'foo'
         autotag_language = False
+        ignore_missing_ids = False
         entries_timeline_by_published = {}
 
         htmlizer = Htmlizer(
@@ -855,7 +878,8 @@ class TestHtmlizer(unittest.TestCase):
             entries_timeline_by_published,
             generate,
             increment_version,
-            autotag_language)
+            autotag_language,
+            ignore_missing_ids)
 
         self.assertTrue(htmlizer.fix_ampersands_in_url('href="http://www.example.com/index.html&amp;s=foo" bar') ==
                         'href="http://www.example.com/index.html&s=foo" bar')
