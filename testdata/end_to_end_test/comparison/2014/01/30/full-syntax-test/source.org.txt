@@ -45,6 +45,8 @@ CLOSED: [2014-01-30 Thu 13:01]
 
 This is *bold* and *bold case*. And this is ~teletype style~.
 
+=And= this is inline =verbatim= text also on the end of a =line=
+
 Examples with line-breaks in between: *This is a bold sentence which
 has a line break*.
 
