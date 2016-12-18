@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-12-18 11:59:14 vk>
+# Time-stamp: <2016-12-18 12:17:26 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -57,6 +57,7 @@ class Htmlizer(object):
     increment_version = None  # list of IDs which blog entries gets an update
     blog_tag = None  # string that marks blog entries (as Org-mode tag)
     autotag_language = False  # boolean, if guessing language + autotag should be done
+    ignore_missing_ids = False  # boolean; do not throw respective exception when true
 
     # { 'mytag': [ 'ID1', 'ID2', 'ID2'], 'anothertag': [...] }
     dict_of_tags_with_ids = None
@@ -111,7 +112,8 @@ class Htmlizer(object):
             entries_timeline_by_published,
             generate,
             increment_version,
-            autotag_language):
+            autotag_language,
+            ignore_missing_ids):
         """
         This function initializes the class instance with the class variables.
 
@@ -136,6 +138,7 @@ class Htmlizer(object):
         self.increment_version = increment_version
         self.autotag_language = autotag_language
         self.entries_timeline_by_published = entries_timeline_by_published
+        self.ignore_missing_ids = ignore_missing_ids
 
         # create logger (see
         # http://docs.python.org/2/howto/logging-cookbook.html)
@@ -1791,9 +1794,13 @@ class Htmlizer(object):
             message = "blog_data_with_id(\"" + entryid + \
                 "\") did not find exactly one result (as expected): [" + str(matching_elements) + \
                 "]. Maybe you mistyped an internal link id (or there are multiple blog entries sharing IDs)?"
-            self.logging.error(message)
-            # FIXXME: maybe an Exception is too harsh here? (error-recovery?)
-            raise HtmlizerException(message)
+            if self.ignore_missing_ids:
+                self.logging.warning(message)
+                return self.blog_data[0]  # FIXXME: just take the first entry; cleaner solution: add a placeholder entry to blog_data?
+            else:
+                self.logging.error(message)
+                # FIXXME: maybe an Exception is too harsh here? (error-recovery?)
+                raise HtmlizerException(message)
 
 
 #    def __filter_org_entry_for_blog_entries(self):

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-16 23:10:05 vk>
+# Time-stamp: <2016-12-18 12:07:13 vk>
 
 # TODO:
 # * fix parts marked with «FIXXME»
@@ -178,7 +178,8 @@ class Lazyblorg(object):
             self.entries_timeline_by_published,
             generate,
             increment_version,
-            self.options.autotag_language)
+            self.options.autotag_language,
+            self.options.ignore_missing_ids)
 
         # FIXXME: try except HtmlizerException?
         return htmlizer.run()  # FIXXME: return value?
@@ -498,6 +499,12 @@ if __name__ == "__main__":
         dest="quiet",
         action="store_true",
         help="Enable quiet mode: only warnings and errors will be reported.")
+
+    parser.add_argument(
+        "--ignore-missing-ids",
+        dest="ignore_missing_ids",
+        action="store_true",
+        help="Disable raised exception for missing IDs. Handy for running preview_blogentry.sh.")
 
     parser.add_argument("--version", dest="version", action="store_true",
                         help="Display version and exit.")
