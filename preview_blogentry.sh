@@ -18,9 +18,7 @@ EOF
     }
 
 ## check for host name and show warning when not my own host:
-[ "x${HOSTNAME}" = "xsherri" ] || warn_and_exit
-
-
+[ "x${HOSTNAME}" = "xfloyd" -o "x${HOSTNAME}" = "xsherri" ] || warn_and_exit
 
 cd ~/src/lazyblorg
 rm -rf testdata/2del/*
