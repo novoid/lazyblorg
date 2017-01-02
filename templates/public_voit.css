@@ -310,6 +310,30 @@ a {
       .common-tags a:hover:before, .entry-page-article .entry-page-article-tags a:hover:before {
         border-color: transparent #7e7e7e transparent transparent; }
 
+.tag-cloud .tagcloud-size-0 {
+  font-size: 80%; }
+.tag-cloud .tagcloud-size-1 {
+  font-size: 120%; }
+.tag-cloud .tagcloud-size-2 {
+  font-size: 160%; }
+.tag-cloud .tagcloud-size-3 {
+  font-size: 200%; }
+.tag-cloud .tagcloud-size-4 {
+  font-size: 260%; }
+.tag-cloud .tagcloud-size-5 {
+  font-size: 320%; }
+.tag-cloud .tagcloud-size-6 {
+  font-size: 380%; }
+.tag-cloud ul {
+  list-style-type: none;
+  overflow: auto; }
+.tag-cloud a {
+  float: left;
+  position: relative;
+  margin-left: 20px;
+  padding: 0 10px 0 12px;
+  text-decoration: none; }
+
 .common-article, .entry-page-article {
   margin-left: auto;
   margin-right: auto;

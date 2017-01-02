@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-27 16:38:00 vk>
+# Time-stamp: <2017-01-02 16:44:26 vk>
 
 
 ## ===================================================================== ##
@@ -35,8 +35,9 @@ NUMBER_OF_TEASER_ARTICLES = 15
 ## integer: Show this many top tags in the sidebar
 NUMBER_OF_TOP_TAGS = 10
 
-## list of strings: tags to ignore when generating top tags list:
+## list of strings: tags to ignore when generating misc things:
 IGNORE_FOR_TOP_TAGS = ['suderei', 'personally']
+IGNORE_FOR_TAG_CLOUD = ['suderei', 'personally', 'hardware', 'software']
 
 ## integer: Show this many article in Atom feeds:
 NUMBER_OF_FEED_ARTICLES = 10
@@ -140,12 +141,14 @@ PERSISTENT = 'PERSISTENT'
 TEMPORAL = 'TEMPORAL'
 TEMPLATES = 'TEMPLATES'
 ENTRYPAGE = 'ENTRYPAGE'
+TAGOVERVIEWPAGE = 'TAGOVERVIEWPAGE'
 
 assert(type(TAGS) == str)
 assert(type(PERSISTENT) == str)
 assert(type(TEMPORAL) == str)
 assert(type(TEMPLATES) == str)
 assert(type(ENTRYPAGE) == str)
+assert(type(TAGOVERVIEWPAGE) == str)
 
 
 ## base directory of the RSS/ATOM feeds:

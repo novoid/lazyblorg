@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2017-01-02 10:30:18 vk>
+# Time-stamp: <2017-01-02 16:57:47 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -231,10 +231,152 @@ CLOSED: [2014-03-01 Sat 20:10]
   - (Pdb) self._target_path_for_id_without_targetdir_and_prefixdir(entry['id'])
     - u'2013/08/21/lazyblorg-templates'
 
-** NEXT tag page link list: implement "reorder_list_according_to_date(create/update)"
+** DONE tag cloud                                                                         :userstory:
+CLOSED: [2017-01-02 Mon 16:55]
 :PROPERTIES:
-:CREATED:  [2016-11-28 Mon 07:56]
+:CREATED:  [2012-11-05 Mon 10:57]
 :END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2017-01-02 Mon 16:55]
+:END:
+
+- tag cloud for getting a quick overview on the blog itself
+- a list of all tags on front page with link to tag-descriptions
+- [X] each tag gets a tag-description page
+  - what I mean by this tag with examples
+  - link to feed for this tag
+  - link to a list of blog entries for this tag
+
+- see also id:2012-11-11-autotags
+
+- research of tag cloud libs
+  - [X] http://sujitpal.blogspot.co.at/2007/04/building-tag-cloud-with-python.html
+    - looks boring: just a list of text with different font sizes
+  - [X] http://stackoverflow.com/questions/3180779/html-tag-cloud-in-python
+    - self-made: [[id:2017-01-02-html-tag-cloud][see below]]
+
+- Idea:
+  - size of tag :: number of occurrences
+  - contrast of tag colour :: last menioning of tag
+    - light gray: every tag that was not mentioned in the recent two years
+    - several steps of grayiness/black from two years until now (or
+      most recent blog article)
+    - [ ] need for a legend?
+
+#+BEGIN_SRC python :results output
+COUNT_SIZES = range(1, 7) # requires 0..6 size-X definitions in CSS
+AGE_RANGES = [31, 31*3, 31*6, 365, 365*3] # requires 0..5 age-X definitions
+
+TAGS = [
+    ['python', 28059, 3],
+    ['html', 19160, 365],
+    ['cloud', 40, 100],
+    ['one_day', 1000, 1],
+    ['one_month_31', 1000, 31],
+    ['three_months_101', 1000, 101],
+    ['age_350', 1000, 350],
+    ['age_500', 1000, 500],
+    ['age_550', 1000, 550],
+    ['age_5000', 1000, 5000],
+    ['two_years_700', 55, 700]
+]
+
+COUNT_MAX = max([x[1] for x in TAGS]) # Needed to calculate the steps for the font-size
+COUNT_STEP = COUNT_MAX / len(COUNT_SIZES)
+
+for currenttag in sorted(TAGS):
+    tag = currenttag[0]
+    count = currenttag[1]
+    age = currenttag[2]
+
+    css_size = count / COUNT_STEP
+
+    css_age = 0
+    for age_range in AGE_RANGES:
+        if age < age_range:
+            break
+        css_age += 1
+
+    print '<a href="%s/" class="usertag tagcloud-size-%s tagcloud-age-%s">%s</a>\n' % (tag, css_size, css_age, tag),
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+<a href="age_350/" class="usertag tagcloud-size-0 tagcloud-age-3">age_350</a>
+<a href="age_500/" class="usertag tagcloud-size-0 tagcloud-age-4">age_500</a>
+<a href="age_5000/" class="usertag tagcloud-size-0 tagcloud-age-5">age_5000</a>
+<a href="age_550/" class="usertag tagcloud-size-0 tagcloud-age-4">age_550</a>
+<a href="cloud/" class="usertag tagcloud-size-0 tagcloud-age-2">cloud</a>
+<a href="html/" class="usertag tagcloud-size-4 tagcloud-age-4">html</a>
+<a href="one_day/" class="usertag tagcloud-size-0 tagcloud-age-0">one_day</a>
+<a href="one_month_31/" class="usertag tagcloud-size-0 tagcloud-age-1">one_month_31</a>
+<a href="python/" class="usertag tagcloud-size-6 tagcloud-age-0">python</a>
+<a href="three_months_101/" class="usertag tagcloud-size-0 tagcloud-age-2">three_months_101</a>
+<a href="two_years_700/" class="usertag tagcloud-size-0 tagcloud-age-4">two_years_700</a>
+#+end_example
+
+*** HTML-tag-cloud according to http://stackoverflow.com/questions/3180779/html-tag-cloud-in-python
+:PROPERTIES:
+:ID: 2017-01-02-html-tag-cloud
+:CREATED:  [2017-01-02 Mon 16:56]
+:END:
+
+Define font-sizes in your css-file. Use classes from
+
+#+BEGIN_SRC css
+size-0{
+   font-size: 11px;
+}
+
+size-1{
+   font-size: 12px;
+}
+
+[...]
+
+size-6{}
+#+END_SRC
+
+etc. up to the font-size you need.
+And then simply use this snippet:
+
+#+BEGIN_SRC python :results output
+CSS_SIZES = range(1, 7) # 1,2...6 for use in your css-file size-1, size-2, etc.
+
+TAGS = {
+    'python' : 28059,
+    'html' : 19160,
+    'tag-cloud' : 40,
+}
+
+MAX = max(TAGS.values()) # Needed to calculate the steps for the font-size
+STEP = MAX / len(CSS_SIZES)
+
+for tag, count in TAGS.items():
+    css = count / STEP
+    print '<a href="%s" class="size-%s">%s</a>\n' % (tag, css, tag),
+#+END_SRC
+
+#+RESULTS:
+: <a href="python" class="size-6">python</a>
+: <a href="html" class="size-4">html</a>
+: <a href="tag-cloud" class="size-0">tag-cloud</a>
+
+That's all. No need for a library ;-)
+
+** NEXT tag cloud: contrast of tags resembles age of usage
+:PROPERTIES:
+:CREATED:  [2017-01-02 Mon 16:56]
+:END:
+
+- contrast of tag colour :: last menioning of tag
+  - light gray: every tag that was not mentioned in the recent two years
+  - several steps of grayiness/black from two years until now (or
+    most recent blog article)
+  - [ ] need for a legend?
+
+- [ ] implement "taglist_with_update_date(create/update)"
+
 ** NEXT blog-format.org: explain all replacement strings at top                           :userstory:
    :PROPERTIES:
    :CREATED:  [2016-11-16 Wed 23:23]
@@ -1760,20 +1902,6 @@ display: block;
 
 - example: http://www.tbray.org/ongoing/When/200x/2006/04/08/Picture-Frames
   - caution: that's Java
-
-** TODO [#C] tags, tag cloud, tag descriptions                   :userstory:
-:PROPERTIES:
-:CREATED:  [2012-11-05 Mon 10:57]
-:END:
-
-- tag cloud for getting a quick overview on the blog itself
-- a list of all tags on front page with link to tag-descriptions
-- each tag gets a tag-description page
-  - what I mean by this tag with examples
-  - link to feed for this tag
-  - link to a list of blog entries for this tag
-
-- see also id:2012-11-11-autotags
 
 ** SOMEDAY simplify HTML, omit tags
 :PROPERTIES:

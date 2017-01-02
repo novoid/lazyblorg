@@ -319,6 +319,44 @@ a {
     }
 }
 
+.tag-cloud {
+    .tagcloud-size-0 {
+	font-size: 80%;
+    }
+    .tagcloud-size-1 {
+	font-size: 120%;
+    }
+    .tagcloud-size-2 {
+	font-size: 160%;
+    }
+    .tagcloud-size-3 {
+	font-size: 200%;
+    }
+    .tagcloud-size-4 {
+	font-size: 260%;
+    }
+    .tagcloud-size-5 {
+	font-size: 320%;
+    }
+    .tagcloud-size-6 {
+	font-size: 380%;
+    }
+
+    ul
+    {
+	list-style-type: none;
+	overflow: auto;
+    }
+    a {
+	float: left;
+	position: relative;
+	margin-left: 20px;
+	padding: 0 10px 0 12px;
+	text-decoration: none;
+    }
+
+}
+
 .common-article {
     @extend .middle_section_narrow;
     margin-left: auto;

@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-12-18 12:17:26 vk>
+# Time-stamp: <2017-01-02 16:29:06 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -163,6 +163,11 @@ class Htmlizer(object):
 
         entry_list_by_newest_timestamp, stats_generated_total, stats_generated_temporal, \
             stats_generated_persistent, stats_generated_tags = self._generate_pages_for_tags_persistent_temporal()
+
+        dummy_age = 0  # FIXXME: replace with age in days since last usage
+        # tags = list of lists with [tagname, count of tag usage, age in days of last usage]:
+        tags = [[tag, len(self.dict_of_tags_with_ids[tag]), dummy_age] for tag in self.dict_of_tags_with_ids.keys()]
+        self._generate_tag_overview_page(tags)
 
         self._generate_feeds(entry_list_by_newest_timestamp)
 
@@ -660,6 +665,87 @@ class Htmlizer(object):
 
         return
 
+    def _generate_tag_cloud(self, tags):
+        """
+        Generates a tag cloud which is linked and assigns multiple CSS attributes according to age and number of usage.
+
+        @param: tags: dict of the form TAGS = [['python', 28059, 3], [tagname, count, age_in_days]]
+        @param: return: string with linked tag cloud of form: <a href="cloud/" class="usertag tagcloud-size-0 tagcloud-age-2">cloud</a>
+        """
+
+        result = u''
+
+        # removing tags that should be ignored due to user configuration:
+        for tagitem in tags:
+            if tagitem[0] in config.IGNORE_FOR_TAG_CLOUD:
+                tags.remove(tagitem)
+
+        # defines the number of steps of different sizes according to tag usage in numbers:
+        COUNT_SIZES = range(1, 7)  # requires 0..6 size-X definitions in CSS
+
+        COUNT_MAX = max([x[1] for x in tags])  # Needed to calculate the steps for the font-size
+        if len(tags) < len(COUNT_SIZES):
+            COUNT_STEP = 1  # edge case when testing with less than ~7 tags: use only first count steps
+        else:
+            COUNT_STEP = COUNT_MAX / len(COUNT_SIZES)
+
+        # defines the number and interval of steps of different colors according to last tag usage in days:
+        AGE_RANGES = [31, 31 * 3, 31 * 6, 365, 365 * 3]  # requires 0..5 age-X definitions
+
+        for currenttag in sorted(tags):
+            if currenttag in config.IGNORE_FOR_TAG_CLOUD:
+                continue  # ignore some tags
+            tag = currenttag[0]
+            count = currenttag[1]
+            age = currenttag[2]
+
+            css_size = count / COUNT_STEP
+
+            css_age = 0
+            for age_range in AGE_RANGES:
+                if age < age_range:
+                    break
+                css_age += 1
+
+            result += '<li><a href="' + tag + '/" class="tagcloud-usertag tagcloud-size-' + \
+                      str(css_size) + ' tagcloud-age-' + str(css_age) + '">' + tag + '</a></li>\n'
+
+        return result
+
+
+    def _generate_tag_overview_page(self, tags):
+        """
+        Generates and writes the overview page for all tags. It contains a simple tag cloud.
+
+        @param: tags: dict of the form TAGS = [['python', 28059, 3], [tagname, count, age_in_days]]
+        """
+
+        tag_overview_filename = os.path.join(self.targetdir, 'tags', 'index.html')
+
+        htmlcontent = u''
+        for articlepart in [
+                'tagoverviewpage-header',
+                'tagoverviewpage-body',
+                'tagoverviewpage-footer']:
+            htmlcontent += self.template_definition_by_name(articlepart)
+
+        htmlcontent = htmlcontent.replace(
+            '#COMMON-SIDEBAR#',
+            self.template_definition_by_name('common-sidebar'))
+
+        htmlcontent = htmlcontent.replace(
+            '#TAGOVERVIEW-CLOUD#',
+            self._generate_tag_cloud(tags))
+
+        htmlcontent = self._replace_general_blog_placeholders(htmlcontent)
+
+        htmlcontent = self.sanitize_internal_links(config.TAGOVERVIEWPAGE, htmlcontent)
+
+        self.write_content_to_file(tag_overview_filename, htmlcontent)
+
+        return
+
+
     def write_content_to_file(self, filename, content):
         """
         Creates a file and writes the content into it.
@@ -1108,6 +1194,8 @@ class Htmlizer(object):
             url = u"../../../../"
         elif sourcecategory == config.PERSISTENT:
             url = u"../"
+        elif sourcecategory == config.TAGOVERVIEWPAGE:
+            url = u"../"
         elif sourcecategory == config.TAGS:
             url = u"../../"
         elif sourcecategory == config.ENTRYPAGE:
@@ -1419,19 +1507,48 @@ class Htmlizer(object):
 
         return result
 
+    def _replace_general_blog_placeholders(self, content):
+        """
+        General blog placeholders (independent of an article entry) are:
+        - #DOMAIN#: the domain (server) of the blog (without "(http:)//" or paths)
+        - #BASE_URL#: the domain (server) of the blog with "(http:)//"
+        - #COMMON-SIDEBAR#: the side-bar which is shared on all pages
+        - and further more
+
+        This method replaces all placeholders from above with their
+        corresponding content.
+
+        @param content: string with placeholders instead of content data
+        @param return: content with replaced placeholders
+        """
+
+        content = content.replace(
+            '#COMMON-SIDEBAR#',
+            self.template_definition_by_name('common-sidebar'))
+        content = content.replace('#TOP-TAG-LIST#', self._generate_top_tag_list())  # FIXXME: generate only once for performance reasons?
+        content = content.replace('#DOMAIN#', config.DOMAIN)
+        content = content.replace('#BASE-URL#', config.BASE_URL)
+        content = content.replace('#CSS-URL#', config.CSS_URL)
+        content = content.replace('#AUTHOR-NAME#', config.AUTHOR_NAME)
+        content = content.replace('#BLOG-NAME#', config.BLOG_NAME)
+        content = content.replace('#BLOG-LOGO#', config.BLOG_LOGO)
+        content = content.replace('#DISQUS-NAME#', config.DISQUS_NAME)
+        content = content.replace('#ABOUT-PAGE-ID#', config.ID_OF_ABOUT_PAGE)
+        content = content.replace('#COMMENT-EMAIL-ADDRESS#', config.COMMENT_EMAIL_ADDRESS)
+        content = content.replace('#TWITTER-HANDLE#', config.TWITTER_HANDLE)
+        content = content.replace('#TWITTER-IMAGE#', config.TWITTER_IMAGE)
+        return content
+
     def _replace_general_article_placeholders(self, entry, template):
         """
         General article placeholders are:
         - #TITLE#
-        - #DOMAIN#: the domain (server) of the blog (without "(http:)//" or paths)
-        - #BASE_URL#: the domain (server) of the blog with "(http:)//"
         - #ARTICLE-ID#: the (manually set) ID from the PROPERTIES drawer
         - #ARTICLE-YEAR#: four digit year of the article (folder path)
         - #ARTICLE-MONTH#: two digit month of the article (folder path)
         - #ARTICLE-DAY#: two digit day of the article (folder path)
         - #ARTICLE-PUBLISHED-HTML-DATETIME#: time-stamp of publishing in HTML date-time format
         - #ARTICLE-PUBLISHED-HUMAN-READABLE#: time-stamp of publishing in
-        - #COMMON-SIDEBAR#: the side-bar which is shared on all pages
         - #TAG-PAGE-LIST#: list of all blog pages using a specific tag
         - and further more
 
@@ -1443,7 +1560,7 @@ class Htmlizer(object):
         @param return: template with replaced placeholders
         """
 
-        content = template
+        content = self._replace_general_blog_placeholders(template)
 
         content = content.replace(
             '#ARTICLE-TITLE#',
@@ -1466,21 +1583,6 @@ class Htmlizer(object):
         content = content.replace(
             '#ARTICLE-PUBLISHED-HUMAN-READABLE#',
             iso_timestamp)
-        content = content.replace(
-            '#COMMON-SIDEBAR#',
-            self.template_definition_by_name('common-sidebar'))
-        content = content.replace('#DOMAIN#', config.DOMAIN)
-        content = content.replace('#BASE-URL#', config.BASE_URL)
-        content = content.replace('#CSS-URL#', config.CSS_URL)
-        content = content.replace('#AUTHOR-NAME#', config.AUTHOR_NAME)
-        content = content.replace('#BLOG-NAME#', config.BLOG_NAME)
-        content = content.replace('#BLOG-LOGO#', config.BLOG_LOGO)
-        content = content.replace('#DISQUS-NAME#', config.DISQUS_NAME)
-        content = content.replace('#ABOUT-PAGE-ID#', config.ID_OF_ABOUT_PAGE)
-        content = content.replace('#COMMENT-EMAIL-ADDRESS#', config.COMMENT_EMAIL_ADDRESS)
-        content = content.replace('#TWITTER-HANDLE#', config.TWITTER_HANDLE)
-        content = content.replace('#TWITTER-IMAGE#', config.TWITTER_IMAGE)
-        content = content.replace('#TOP-TAG-LIST#', self._generate_top_tag_list())
 
         if entry['category'] == config.TAGS:
             # replace #TAG-PAGE-LIST#
@@ -1494,6 +1596,8 @@ class Htmlizer(object):
     def _generate_top_tag_list(self):
         """
         Generates a HTML snippet which contains the list of the top XX tags (by usage).
+
+        FIXXME: move to populate_top_tag_list data structure to avoid re-generation for every page.
 
         @param return: HTML content
         """
