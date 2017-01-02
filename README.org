@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2017-01-02 12:59:22 vk>
+## Time-stamp: <2017-01-02 17:11:55 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -190,6 +190,12 @@ simple.»
 but with a great outlook up to the status of being simple)
 
 See FAQs for "What Org-mode elements are supported by lazyblorg?"
+
+For navigating through the blog articles I do recommend using the
+tags. Articles related to one topic share common tags whereas a
+date-oriented archive has only very limited use. The tag cloud which
+is on the [[http://karl-voit.at/tags/][tag overview page]] offers a quick overview of your most used
+tags.
 
 ** FAQs
 
