@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2016-11-18 20:12:02 vk>
+## Time-stamp: <2017-01-02 12:59:22 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -222,10 +222,10 @@ works quite well.
 
 An Org-mode test-file (for unit testing) containing all implemented
 Org-mode syntax elements can be found at:
-[[https://github.com/novoid/lazyblorg/blob/master/testdata/currently_supported_orgmode_syntax.org][testdata/end_to_end_test/orgfiles/currently_supported_orgmode_syntax.org]]
+[[https://github.com/novoid/lazyblorg/blob/master/testdata/end_to_end_test/orgfiles/currently_supported_orgmode_syntax.org][testdata/end_to_end_test/orgfiles/currently_supported_orgmode_syntax.org]]
 
 This test-file produces an example HTML entry that can be found at:
-[[https://github.com/novoid/lazyblorg/blob/master/testdata/currently_supported_orgmode_syntax.html][testdata/end_to_end_test/orgfiles/currently_supported_orgmode_syntax.html]]
+[[https://github.com/novoid/lazyblorg/blob/master/testdata/end_to_end_test/comparison/2014/01/30/full-syntax-test/index.html][testdata/end_to_end_test/orgfiles/currently_supported_orgmode_syntax.html]]
 
 *** Where can I find support for lazyblorg?
 
