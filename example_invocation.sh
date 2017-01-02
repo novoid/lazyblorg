@@ -3,7 +3,7 @@
 # rm -rf testdata/2del/*
 
 # create the output directory (and parents):
-mkdir --parents testdata/2del/blog
+mkdir -p testdata/2del/blog
 
 
 # get help on the following parameters: «python ./lazyblorg.py --help»
