@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2016-12-18 12:45:11 vk>
+# Time-stamp: <2017-01-02 10:30:18 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -907,12 +907,16 @@ like monthly overview but only for the day
 - [ ] implement in lazyblorg
 
 ** NEXT fix links to tags in my current blog entries             :userstory:
-SCHEDULED: <2016-12-29 Thu>
+SCHEDULED: <2017-01-02 Mon>
 :PROPERTIES:
 :CREATED:  [2014-08-10 Sun 12:57]
 :BLOCKER: 2013-10-19-lb-tag-pages
 :END:
 :LOGBOOK:
+- Rescheduled from "[2017-01-01 Sun]" on [2017-01-02 Mon 10:28]
+- Rescheduled from "[2016-12-31 Sat]" on [2017-01-01 Sun 16:07]
+- Rescheduled from "[2016-12-30 Fri]" on [2016-12-31 Sat 10:05]
+- Rescheduled from "[2016-12-29 Thu]" on [2016-12-30 Fri 00:35]
 - Rescheduled from "[2015-10-06 Tue]" on [2016-11-01 Tue 17:05]
 - Rescheduled from "[2014-08-10 Sun]" on [2015-09-06 Sun 09:55]
 :END:
