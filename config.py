@@ -85,7 +85,7 @@ assert(NUMBER_OF_TEASER_ARTICLES > -1)
 assert(type(NUMBER_OF_FEED_ARTICLES) == int)
 assert(NUMBER_OF_FEED_ARTICLES > -1)
 
-assert(TIME_ZONE_ADDON[0] == (u'+' or u'-'))
+assert(TIME_ZONE_ADDON[0] in (u'+', u'-'))
 
 
 def assertTag(tag):
