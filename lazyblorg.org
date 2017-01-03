@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2017-01-02 16:57:47 vk>
+# Time-stamp: <2017-01-03 12:01:31 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -880,24 +880,6 @@ on https://karl-voit.at/2014/03/25/xdu
 :PROPERTIES:
 :CREATED:  [2014-03-18 Di 09:53]
 :END:
-** STARTED tag pages: content                                                            :userstory:
-:PROPERTIES:
-:CREATED:  [2014-04-20 Sun 11:25]
-:END:
-
-- with:
-  - [X] optional description,
-  - [ ] preview of latest x entries, and
-  - [X] headings of all older entries
-  - tag cloud:
-    - [ ] 4(?) different font sized normalized
-    - [ ] tags are links to tag search result page
-    - [ ] title-tag on each tag: number of articles for this tag
-    - [ ] tags that have a tag page are *boldface*
-
-- [ ] [[http://feedproxy.google.com/~r/sachac/~3/10kxZuusetQ/][Help your readers discover more posts by organizing your content with a reverse outline]]
-  - hand-selected links to most important articles of that category
-
 ** NEXT Tag statistics page
 
 - 10 most frequently used tags (with occurrence)
@@ -1049,12 +1031,13 @@ like monthly overview but only for the day
 - [ ] implement in lazyblorg
 
 ** NEXT fix links to tags in my current blog entries             :userstory:
-SCHEDULED: <2017-01-02 Mon>
+SCHEDULED: <2017-01-03 Tue>
 :PROPERTIES:
 :CREATED:  [2014-08-10 Sun 12:57]
 :BLOCKER: 2013-10-19-lb-tag-pages
 :END:
 :LOGBOOK:
+- Rescheduled from "[2017-01-02 Mon]" on [2017-01-03 Tue 10:56]
 - Rescheduled from "[2017-01-01 Sun]" on [2017-01-02 Mon 10:28]
 - Rescheduled from "[2016-12-31 Sat]" on [2017-01-01 Sun 16:07]
 - Rescheduled from "[2016-12-30 Fri]" on [2016-12-31 Sat 10:05]
