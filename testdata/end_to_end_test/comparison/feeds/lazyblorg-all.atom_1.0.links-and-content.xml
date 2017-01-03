@@ -6,7 +6,7 @@
   <id>//Karl-Voit.at</id>
   <link href='//Karl-Voit.at' />
   <icon>/favicon.ico</icon>
-  <updated>2017-01-02T17:03:13+01:00</updated>
+  <updated>2017-01-03T12:18:59+01:00</updated>
   <author>
     <name type="text">Karl Voit</name>
   </author>
@@ -15,6 +15,33 @@
   <generator uri='https://github.com/novoid/lazyblorg'>Generated from Org-mode source code using lazyblorg which is written in Python. Industrial-strength technology, baby.</generator>
 
         <entry>
+    <title type="text">Placeholder: How to Use This Blog Efficiently</title>
+    <link href='//Karl-Voit.at/how-to-use-public-voit' />
+    <published>2017-01-03T12:07:00+01:00</published>
+    <updated>2017-01-03T12:07:00+01:00</updated>
+    <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+This is a placeholder entry in order to be able to test internal links.
+
+</p>
+</div>
+    </summary>    <content type='xhtml'>
+      <div xmlns='http://www.w3.org/1999/xhtml'>
+	
+<p>
+
+This is a placeholder entry in order to be able to test internal links.
+
+</p>
+
+      </div>
+    </content>
+    <id>//Karl-Voit.at/how-to-use-public-voit-from-feed-with-content</id>
+  </entry>
+<entry>
     <title type="text">FIXXME: image test</title>
     <link href='//Karl-Voit.at/2016/11/27/image-test' />
     <published>2016-11-27T15:01:00+01:00</published>
@@ -417,7 +444,7 @@ This is an example blog entry with no special content.
     <id>//Karl-Voit.at/2016/09/18/from-nothing-to-done-from-feed-with-content</id>
   </entry>
 <entry>
-    <title type="text">About</title>
+    <title type="text">Placeholder: About</title>
     <link href='//Karl-Voit.at/about' />
     <published>2014-03-09T14:57:00+01:00</published>
     <updated>2014-03-09T14:57:00+01:00</updated>
@@ -443,32 +470,5 @@ This is a placeholder entry in order to be able to test internal links.
       </div>
     </content>
     <id>//Karl-Voit.at/about-from-feed-with-content</id>
-  </entry>
-<entry>
-    <title type="text">Mini blog entry</title>
-    <link href='//Karl-Voit.at/2013/08/22/testid' />
-    <published>2013-08-22T21:06:00+01:00</published>
-    <updated>2013-08-22T21:06:00+01:00</updated>
-    <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
-
-Just for testing.
-
-</p>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-<p>
-
-Just for testing.
-
-</p>
-
-      </div>
-    </content>
-    <id>//Karl-Voit.at/2013/08/22/testid-from-feed-with-content</id>
   </entry>
 </feed>

@@ -1,4 +1,4 @@
-## Time-stamp: <2017-01-03 12:06:01 vk>
+## Time-stamp: <2017-01-03 12:18:50 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -77,13 +77,13 @@ Have fun with modifying lazyblorg to your requirements!
        <br/>
      </div>
      <ul>
-     <li><a href="https://en.wiktionary.org/wiki/TBD">TBD</a>: Archive</li>
      <li><a href="#BASE-URL#">Recent articles</a></li>
      <li>[[id:#ABOUT-PAGE-ID#][About this blog]]</li>
      <li>[[id:2017-01-03-how-to-use-public-voit][How to use this blog efficiently]]</li>
      <li><a href="#BASE-URL#/feeds/lazyblorg-all.atom_1.0.links-only.xml">Follow/subscribe links</a></li>
      <li><a href="#BASE-URL#/feeds/lazyblorg-all.atom_1.0.links-and-content.xml">Follow/subscribe content</a></li>
-     <li><a href="https://en.wiktionary.org/wiki/TBD">TBD</a>: Per Tag Feeds</li>
+     <li><span style="font-size:small"><a href="https://en.wiktionary.org/wiki/TBD">TBD</a>: Per Tag Feeds</span></li>
+     <li><span style="font-size:small"><a href="https://en.wiktionary.org/wiki/TBD">TBD</a>: Archive</span></li>
      <li>Top <a href="#BASE-URL#/tags/">tags</a>:</li>
          <ul class="top-tags-list">
               #TOP-TAG-LIST#

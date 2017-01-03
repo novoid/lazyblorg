@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2017-01-03 12:01:31 vk>
+# Time-stamp: <2017-01-03 12:11:45 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -381,6 +381,13 @@ That's all. No need for a library ;-)
    :PROPERTIES:
    :CREATED:  [2016-11-16 Wed 23:23]
    :END:
+** NEXT [#C] remove orgmode-id from entry-page-header                                           :bug:
+:PROPERTIES:
+:CREATED:  [2017-01-03 Tue 12:11]
+:END:
+
+It holds a random ID. No need for the orgmode-id on the entry page.
+
 ** NEXT fix RSS/Atom issues                                                                     :bug:
    :PROPERTIES:
    :CREATED:  [2016-11-15 Tue 07:53]
