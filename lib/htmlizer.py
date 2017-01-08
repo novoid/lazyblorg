@@ -316,8 +316,7 @@ class Htmlizer(object):
 
         entry = {'content': u'',
                  'category': config.TAGS,
-#                 'finished-timestamp-history': [datetime(1990,1,1,0,0)],
-                 'finished-timestamp-history': [datetime.now()],
+                 'finished-timestamp-history': [datetime(2017,1,1,0,0)],  # use hard-coded date to prevent unnecessary updates
                  'type': 'this is an entry stub for an empty tag page'
                  }
 
