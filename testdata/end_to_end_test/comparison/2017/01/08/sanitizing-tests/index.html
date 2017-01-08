@@ -5,22 +5,22 @@
 
   <meta name="author" content="Karl Voit" />
   <meta name="generator" content="lazyblorg" />
-  <meta name="description" content="Testing Misc Sanitization Issues" />
-  <meta name="orgmode-id" content="2016-11-06-sanitization-examples" />
+  <meta name="description" content="Sanitizing Elements" />
+  <meta name="orgmode-id" content="2017-01-08-sanitizing-tests" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@n0v0id" />
   <meta name="twitter:creator" content="@n0v0id" />
   <meta name="twitter:title" content="public voit" />
-  <meta name="twitter:description" content="Testing Misc Sanitization Issues" />
+  <meta name="twitter:description" content="Sanitizing Elements" />
   <meta name="twitter:image" content="http://Karl-Voit.at/images/public-voit_T_logo_200x200.png" />
 
   <meta property="og:type" content="article" />
   <meta property="og:title" content="public voit" />
-  <meta property="og:description" content="Testing Misc Sanitization Issues" />
+  <meta property="og:description" content="Sanitizing Elements" />
   <meta property="og:image" content="http://Karl-Voit.at/images/public-voit_T_logo_200x200.png" />
   <meta property="og:site_name" content="public voit - Web-page of Karl Voit">
-  <meta property="article:published_time" content="2016-11-06T17:40+01:00" />
+  <meta property="article:published_time" content="2017-01-08T10:58+01:00" />
   <meta property="article:author" content="Karl Voit" />
 
   <link rel="stylesheet" title="public voit Standard CSS Style"
@@ -29,7 +29,7 @@
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
       <!-- link rel="stylesheet" type="text/css" href="../../../../style.css" / -->
-      <title>Testing Misc Sanitization Issues</title>
+      <title>Sanitizing Elements</title>
 
   </head>  <body>
 
@@ -41,18 +41,18 @@
 	  <nav class="temporal-article-header-nav">
 	    <span class="breadcrumbs">
 	      <a href="../../../../"><img src="//Karl-Voit.at/images/public-voit_logo.svg" alt="public voit logo" width="350" style="vertical-align:middle;"></a><span style="padding-top:1em;">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;
-	      2016&nbsp;&ndash;&nbsp;11&nbsp;&ndash;&nbsp;06</span>
-	      <!-- a href="../../../">2016</a>&nbsp;&ndash;&nbsp;<a href="../../">11</a>&nbsp;&ndash;&nbsp;<a href="../">06</a -->
+	      2017&nbsp;&ndash;&nbsp;01&nbsp;&ndash;&nbsp;08</span>
+	      <!-- a href="../../../">2017</a>&nbsp;&ndash;&nbsp;<a href="../../">01</a>&nbsp;&ndash;&nbsp;<a href="../">08</a -->
 	    </span>
 	  </nav>
 	  <aside class="common-tags">
 	    <ul>
-                <li><a class="usertag" href="//Karl-Voit.at/tags/programming/">programming</a></li>
+                <li><a class="usertag" href="//Karl-Voit.at/tags/lazyblorg/">lazyblorg</a></li>
                 <li><a class="autotag" href="//Karl-Voit.at/tags/language:english/">language:english</a></li>
 	    </ul>
 	  </aside>
 
-	  <h1 class="common-article-header-title">Testing Misc Sanitization Issues</h1>
+	  <h1 class="common-article-header-title">Sanitizing Elements</h1>
 
 	</header>
 
@@ -87,16 +87,33 @@
 
   <article class="common-article">
 
-	  <pre>This ought to be escaped &amp; &gt;printed&lt; well.	  </pre>
+	  <div class="example_code">
+	  <pre>;;some text
+(defun my-org-region-to-property (&amp;optional property)
+  "Copies the region as value to an Org-mode property"
+  (interactive)
+  ;; if no region is defined, do nothing
+  (message "foobar")
+)	  </pre>
+    </div>
+
+<p>
+
+A simple code block:
+
+</p>
+
+	  <pre> \** Cabaret `(my-capture-prompt "date of event" 'my-event-date)`: `(my-capture-prompt "artist" 'my-artist)`
+ SCHEDULED: &lt;`(my-capture-prompt "date 1st email" 'my-email-date)`&gt;	  </pre>
 
 
   </article>
 	  <aside class="published-on">
-	    Published on <time datetime="2016-11-06T17:40+01:00">2016-11-06T17:40</time>
+	    Published on <time datetime="2017-01-08T10:58+01:00">2017-01-08T10:58</time>
 	  </aside>
 
    <p class="email-comment">
-      <a href="mailto:publicvoit-comment@Karl-Voit.at?subject=2016-11-06-sanitization-examples%20comment:%20&body=Please%20do%20not%20remove%20'2016-11-06-sanitization-examples%20comment:'%20in%20subject%20and%20please%20tell%20me%20whether%20or%20not%20it%20is%20OK%20to%20add%20your%20comment%20and%2For%20your%20email%20address%20to%20the%20blog%20entry!">Comment via email</a> or via <a href="//disqus.com">Disqus</a> comments below:
+      <a href="mailto:publicvoit-comment@Karl-Voit.at?subject=2017-01-08-sanitizing-tests%20comment:%20&body=Please%20do%20not%20remove%20'2017-01-08-sanitizing-tests%20comment:'%20in%20subject%20and%20please%20tell%20me%20whether%20or%20not%20it%20is%20OK%20to%20add%20your%20comment%20and%2For%20your%20email%20address%20to%20the%20blog%20entry!">Comment via email</a> or via <a href="//disqus.com">Disqus</a> comments below:
    </p>
 
     <div id="disqus_thread"></div>
@@ -110,7 +127,7 @@
           dsq.type = 'text/javascript';
           dsq.async = true;
           dsq.src = "//publicvoit.disqus.com/embed.js";
-          var disqus_identifier = '2016-11-06-sanitization-examples';
+          var disqus_identifier = '2017-01-08-sanitizing-tests';
           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
           var ldr = document.getElementById('disqus_loader');
           ldr.parentNode.removeChild(ldr);

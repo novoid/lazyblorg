@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-01-02 16:29:06 vk>
+# Time-stamp: <2017-01-08 12:04:24 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -101,6 +101,10 @@ class Htmlizer(object):
         '([12]\d\d\d)-([012345]\d)-([012345]\d)', flags=re.U)
 
     ID_PREFIX_FOR_EMPTY_TAG_PAGES = 'lb_tag-'
+
+    LINKS_ONLY_FEED_POSTFIX = ".atom_1.0.links-only.xml"
+    LINKS_AND_CONTENT_FEED_POSTFIX = ".atom_1.0.links-and-content.xml"
+
 
     def __init__(
             self,
@@ -367,8 +371,8 @@ class Htmlizer(object):
         """
 
         return \
-            os.path.join(self.targetdir, config.FEEDDIR, "lazyblorg-" + feedstring + ".atom_1.0.links-only.xml"), \
-            os.path.join(self.targetdir, config.FEEDDIR, "lazyblorg-" + feedstring + ".atom_1.0.links-and-content.xml")
+            os.path.join(self.targetdir, config.FEEDDIR, "lazyblorg-" + feedstring + self.LINKS_ONLY_FEED_POSTFIX), \
+            os.path.join(self.targetdir, config.FEEDDIR, "lazyblorg-" + feedstring + self.LINKS_AND_CONTENT_FEED_POSTFIX)
 
     def __generate_new_feed(self):
         """
@@ -378,16 +382,17 @@ class Htmlizer(object):
         """
 
         feed = u"""<?xml version='1.0' encoding='UTF-8'?>
-<feed xmlns='http://www.w3.org/2005/Atom'
-      xmlns:thr='http://purl.org/syndication/thread/1.0'
-      xml:lang='en-us'>
+<feed xmlns="http://www.w3.org/2005/Atom"
+      xmlns:thr="http://purl.org/syndication/thread/1.0"
+      xml:lang="en-us">
+  <link rel="self" href=\"""" + config.BASE_URL + """/feeds/lazyblorg-all#LINKPOSTFIX#\" />
   <title type="text">""" + config.BLOG_NAME + """</title>
-  <id>""" + config.BASE_URL + """</id>
-  <link href='""" + config.BASE_URL + """' />
+  <id>""" + config.BASE_URL + """/</id>
+  <link href=\"""" + config.BASE_URL + """\" />
   <icon>/favicon.ico</icon>
   <updated>""" + strftime('%Y-%m-%dT%H:%M:%S' + config.TIME_ZONE_ADDON, localtime()) + """</updated>
   <author>
-    <name type="text">""" + config.AUTHOR_NAME + """</name>
+    <name>""" + config.AUTHOR_NAME + """</name>
   </author>
   <subtitle type="text">""" + config.BLOG_NAME + """</subtitle>
   <rights>All content written by """ + config.AUTHOR_NAME + """</rights>
@@ -395,7 +400,7 @@ class Htmlizer(object):
 
         """
 
-        return feed
+        return feed.replace('>' + config.BASE_URL, '>http:' + config.BASE_URL).replace('\'' + config.BASE_URL, '\'http:' + config.BASE_URL).replace('\"' + config.BASE_URL, '\"http:' + config.BASE_URL)
 
     def __generate_feeds_for_everything(self, entry_list_by_newest_timestamp):
         """
@@ -404,10 +409,9 @@ class Htmlizer(object):
         @param return: none
         """
 
-        atom_targetfile_links, atom_targetfile_content = self.__generate_feed_filename(
-            "all")
-        links_atom_feed = self.__generate_new_feed()
-        content_atom_feed = self.__generate_new_feed()
+        atom_targetfile_links, atom_targetfile_content = self.__generate_feed_filename("all")
+        links_atom_feed = self.__generate_new_feed().replace('#LINKPOSTFIX#', self.LINKS_ONLY_FEED_POSTFIX)
+        content_atom_feed = self.__generate_new_feed().replace('#LINKPOSTFIX#', self.LINKS_AND_CONTENT_FEED_POSTFIX)
 
         number_of_current_feed_entries = 0
         listentry = None
@@ -479,6 +483,12 @@ class Htmlizer(object):
     </content>
     <id>""" + config.BASE_URL + "/" + listentry['url'] + u"-from-feed-with-content" + \
                 "</id>\n  </entry>\n"
+
+            # replace "\\example.com" with "http:\\example.com" to calm down feed verifiers/aggregators:
+            links_atom_feed = links_atom_feed.replace('>' + config.BASE_URL, '>http:' + config.BASE_URL)
+            links_atom_feed = links_atom_feed.replace('\'' + config.BASE_URL, '\'http:' + config.BASE_URL)
+            content_atom_feed = content_atom_feed.replace('>' + config.BASE_URL, '>http:' + config.BASE_URL)
+            content_atom_feed = content_atom_feed.replace('\'' + config.BASE_URL, '\'http:' + config.BASE_URL)
 
             number_of_current_feed_entries += 1
 
@@ -962,7 +972,7 @@ class Htmlizer(object):
                                 entry['category'],
                                 self.sanitize_html_characters(mycontent))))
 
-                if entry['content'][index][0] == 'example-block':
+                if entry['content'][index][0] in ['example-block', 'colon-block']:
                     mycontent = self.sanitize_html_characters(mycontent)
 
                 self.logging.debug("result [%s]" % repr(result))
@@ -1008,7 +1018,7 @@ class Htmlizer(object):
                 else:
                     result = self.template_definition_by_name('src-begin')
 
-                mycontent = '\n'.join(entry['content'][index][2])
+                mycontent = self.sanitize_html_characters('\n'.join(entry['content'][index][2]))
 
                 self.logging.debug("result [%s]" % repr(result))
                 self.logging.debug("mycontent [%s]" % repr(mycontent))

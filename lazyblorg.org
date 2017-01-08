@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2017-01-03 12:11:45 vk>
+# Time-stamp: <2017-01-08 12:08:19 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -377,6 +377,13 @@ That's all. No need for a library ;-)
 
 - [ ] implement "taglist_with_update_date(create/update)"
 
+** SOMEDAY bridge to Diaspora or similar Twitter-like services
+:PROPERTIES:
+:CREATED:  [2017-01-06 Fri 22:59]
+:END:
+:LOGBOOK:
+- State "SOMEDAY"    from "STARTED"    [2017-01-06 Fri 22:59]
+:END:
 ** NEXT blog-format.org: explain all replacement strings at top                           :userstory:
    :PROPERTIES:
    :CREATED:  [2016-11-16 Wed 23:23]
@@ -387,53 +394,6 @@ That's all. No need for a library ;-)
 :END:
 
 It holds a random ID. No need for the orgmode-id on the entry page.
-
-** NEXT fix RSS/Atom issues                                                                     :bug:
-   :PROPERTIES:
-   :CREATED:  [2016-11-15 Tue 07:53]
-   :END:
-
-- https://validator.w3.org/feed/check.cgi?url=http%3A%2F%2Fkarl-voit.at%2Ffeeds%2Flazyblorg-all.atom_1.0.links-only.xml
-
-  - [ ] line 6, column 20: id must be a full and valid URL: //Karl-Voit.at [help]
-          <id>//Karl-Voit.at</id>
-                            ^
-
-  - [ ] line 11, column 4: Unexpected type attribute on name element [help]
-            <name type="text">Karl Voit</name>
-            ^
-
-  - [ ] line 22, column 4: scheme must be a full and valid URL: //Karl-Voit.at/tags/lazyblorg (19 occurrences) [help]
-            <category scheme='//Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
-            ^
-
-  - [ ] line 54, column 74: id must be a full and valid URL: //Karl-Voit.at/2016/11/13/lazyblorg-tag-pages-from-feed-with-links (3 occurrences) [help]
-            <id>//Karl-Voit.at/2016/11/13/lazyblorg-tag-pages-from-feed-with-links</id>
-                                                                                  ^
-
-  - [ ] line 181, column 440: XML parsing error: <unknown>:181:440: undefined entity [help]
-        ... m/hashtag/macOS?src=hash">#macOS</a></p>&mdash; Hendrik Erz (@sahiralsai ...
-                                                     ^
-
-In addition, interoperability with the widest range of feed readers could be improved by implementing the following recommendations.
-
-  - [ ] line 2, column 0: Missing atom:link with rel="self" [help]
-        <feed xmlns='http://www.w3.org/2005/Atom'
-
-  - [ ] line 181, column 0: div should not contain data-lang attribute [help]
-        <blockquote class="twitter-tweet" data-lang="en"><p lang="de" dir="ltr">Ich  ...
-
-- https://www.w3.org/TR/REC-xml/#dt-cdsection
-- http://www.mezzoblue.com/archives/2003/07/29/html_and_for/
-  - »As I understand it, if you’re writing XHTML you can’t assume the
-    character entities will be defined unless you specify a DTD: the
-    simple presence of the namespace isn’t enough. The safest bet if
-    you don’t want to use “binary” characters (Unicode or
-    charset-specific) is to use the generic XML representation:
-    &mdash; = &#8212;, etc.»
-  - «Also regarding double-byte encoding, file sizes, etc., I’ve found
-    two of Tim Bray’s articles on Unicode (On the Goodness of Unicode
-    and Characters vs. Bytes) to be real lifesavers.»
 
 ** NEXT fix generating publishing time for empty tag pages                                      :bug:
    :PROPERTIES:
@@ -1036,24 +996,6 @@ like monthly overview but only for the day
 #+END_EXPORT
 
 - [ ] implement in lazyblorg
-
-** NEXT fix links to tags in my current blog entries             :userstory:
-SCHEDULED: <2017-01-03 Tue>
-:PROPERTIES:
-:CREATED:  [2014-08-10 Sun 12:57]
-:BLOCKER: 2013-10-19-lb-tag-pages
-:END:
-:LOGBOOK:
-- Rescheduled from "[2017-01-02 Mon]" on [2017-01-03 Tue 10:56]
-- Rescheduled from "[2017-01-01 Sun]" on [2017-01-02 Mon 10:28]
-- Rescheduled from "[2016-12-31 Sat]" on [2017-01-01 Sun 16:07]
-- Rescheduled from "[2016-12-30 Fri]" on [2016-12-31 Sat 10:05]
-- Rescheduled from "[2016-12-29 Thu]" on [2016-12-30 Fri 00:35]
-- Rescheduled from "[2015-10-06 Tue]" on [2016-11-01 Tue 17:05]
-- Rescheduled from "[2014-08-10 Sun]" on [2015-09-06 Sun 09:55]
-:END:
-
-- id:2014-08-10-other-peoples-IT-setup -> tag page for "pim"
 
 ** NEXT fix issue where an article can't end with a list item                                  :bug:
 :PROPERTIES:

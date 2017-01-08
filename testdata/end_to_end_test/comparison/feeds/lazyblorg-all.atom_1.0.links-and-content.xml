@@ -1,25 +1,84 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<feed xmlns='http://www.w3.org/2005/Atom'
-      xmlns:thr='http://purl.org/syndication/thread/1.0'
-      xml:lang='en-us'>
+<feed xmlns="http://www.w3.org/2005/Atom"
+      xmlns:thr="http://purl.org/syndication/thread/1.0"
+      xml:lang="en-us">
+  <link rel="self" href="http://Karl-Voit.at/feeds/lazyblorg-all.atom_1.0.links-and-content.xml" />
   <title type="text">public voit</title>
-  <id>//Karl-Voit.at</id>
-  <link href='//Karl-Voit.at' />
+  <id>http://Karl-Voit.at/</id>
+  <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2017-01-03T12:18:59+01:00</updated>
+  <updated>2017-01-08T12:05:43+01:00</updated>
   <author>
-    <name type="text">Karl Voit</name>
+    <name>Karl Voit</name>
   </author>
   <subtitle type="text">public voit</subtitle>
   <rights>All content written by Karl Voit</rights>
   <generator uri='https://github.com/novoid/lazyblorg'>Generated from Org-mode source code using lazyblorg which is written in Python. Industrial-strength technology, baby.</generator>
 
         <entry>
+    <title type="text">Sanitizing Elements</title>
+    <link href='http://Karl-Voit.at/2017/01/08/sanitizing-tests' />
+    <published>2017-01-08T10:58:00+01:00</published>
+    <updated>2017-01-08T10:58:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+	  <div class="example_code">
+	  <pre>;;some text
+(defun my-org-region-to-property (&amp;optional property)
+  "Copies the region as value to an Org-mode property"
+  (interactive)
+  ;; if no region is defined, do nothing
+  (message "foobar")
+)	  </pre>
+    </div>
+
+
+<p>
+
+A simple code block:
+
+</p>
+
+
+	  <pre> \** Cabaret `(my-capture-prompt "date of event" 'my-event-date)`: `(my-capture-prompt "artist" 'my-artist)`
+ SCHEDULED: &lt;`(my-capture-prompt "date 1st email" 'my-email-date)`&gt;	  </pre>
+</div>
+    </summary>    <content type='xhtml'>
+      <div xmlns='http://www.w3.org/1999/xhtml'>
+	
+	  <div class="example_code">
+	  <pre>;;some text
+(defun my-org-region-to-property (&amp;optional property)
+  "Copies the region as value to an Org-mode property"
+  (interactive)
+  ;; if no region is defined, do nothing
+  (message "foobar")
+)	  </pre>
+    </div>
+
+
+<p>
+
+A simple code block:
+
+</p>
+
+
+	  <pre> \** Cabaret `(my-capture-prompt "date of event" 'my-event-date)`: `(my-capture-prompt "artist" 'my-artist)`
+ SCHEDULED: &lt;`(my-capture-prompt "date 1st email" 'my-email-date)`&gt;	  </pre>
+
+      </div>
+    </content>
+    <id>http://Karl-Voit.at/2017/01/08/sanitizing-tests-from-feed-with-content</id>
+  </entry>
+<entry>
     <title type="text">Placeholder: How to Use This Blog Efficiently</title>
-    <link href='//Karl-Voit.at/how-to-use-public-voit' />
+    <link href='http://Karl-Voit.at/how-to-use-public-voit' />
     <published>2017-01-03T12:07:00+01:00</published>
     <updated>2017-01-03T12:07:00+01:00</updated>
-    <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='xhtml'>
 <div xmlns='http://www.w3.org/1999/xhtml'>
 <p>
@@ -39,15 +98,15 @@ This is a placeholder entry in order to be able to test internal links.
 
       </div>
     </content>
-    <id>//Karl-Voit.at/how-to-use-public-voit-from-feed-with-content</id>
+    <id>http://Karl-Voit.at/how-to-use-public-voit-from-feed-with-content</id>
   </entry>
 <entry>
     <title type="text">FIXXME: image test</title>
-    <link href='//Karl-Voit.at/2016/11/27/image-test' />
+    <link href='http://Karl-Voit.at/2016/11/27/image-test' />
     <published>2016-11-27T15:01:00+01:00</published>
     <updated>2016-11-27T15:01:00+01:00</updated>
-    <category scheme='//Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
-    <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='xhtml'>
 <div xmlns='http://www.w3.org/1999/xhtml'>
 <p>
@@ -67,15 +126,15 @@ This is a place-holder for a future feature: including image files via memacs.
 
       </div>
     </content>
-    <id>//Karl-Voit.at/2016/11/27/image-test-from-feed-with-content</id>
+    <id>http://Karl-Voit.at/2016/11/27/image-test-from-feed-with-content</id>
   </entry>
 <entry>
     <title type="text">Special Characters</title>
-    <link href='//Karl-Voit.at/2016/11/27/special-characters' />
+    <link href='http://Karl-Voit.at/2016/11/27/special-characters' />
     <published>2016-11-27T15:00:00+01:00</published>
     <updated>2016-11-27T15:00:00+01:00</updated>
-    <category scheme='//Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
-    <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='xhtml'>
 <div xmlns='http://www.w3.org/1999/xhtml'>
 <p>
@@ -109,15 +168,15 @@ Being curious how this is going to work out.
 
       </div>
     </content>
-    <id>//Karl-Voit.at/2016/11/27/special-characters-from-feed-with-content</id>
+    <id>http://Karl-Voit.at/2016/11/27/special-characters-from-feed-with-content</id>
   </entry>
 <entry>
     <title type="text">Testing Misc Sanitization Issues</title>
-    <link href='//Karl-Voit.at/2016/11/06/sanitization-examples' />
+    <link href='http://Karl-Voit.at/2016/11/06/sanitization-examples' />
     <published>2016-11-06T17:40:00+01:00</published>
     <updated>2016-11-06T17:40:00+01:00</updated>
-    <category scheme='//Karl-Voit.at/tags/programming' term='programming' />
-    <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='http://Karl-Voit.at/tags/programming' term='programming' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='xhtml'>
 <div xmlns='http://www.w3.org/1999/xhtml'>
 	  <pre>This ought to be escaped &amp; &gt;printed&lt; well.	  </pre>
@@ -129,15 +188,15 @@ Being curious how this is going to work out.
 
       </div>
     </content>
-    <id>//Karl-Voit.at/2016/11/06/sanitization-examples-from-feed-with-content</id>
+    <id>http://Karl-Voit.at/2016/11/06/sanitization-examples-from-feed-with-content</id>
   </entry>
 <entry>
     <title type="text">A Temporal Article With Links</title>
-    <link href='//Karl-Voit.at/2016/10/31/my-temporal-article' />
+    <link href='http://Karl-Voit.at/2016/10/31/my-temporal-article' />
     <published>2016-10-31T16:40:00+01:00</published>
     <updated>2016-10-31T16:40:00+01:00</updated>
-    <category scheme='//Karl-Voit.at/tags/exampletag' term='exampletag' />
-    <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='http://Karl-Voit.at/tags/exampletag' term='exampletag' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='xhtml'>
 <div xmlns='http://www.w3.org/1999/xhtml'>
 <p>
@@ -213,17 +272,17 @@ Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. O
 
       </div>
     </content>
-    <id>//Karl-Voit.at/2016/10/31/my-temporal-article-from-feed-with-content</id>
+    <id>http://Karl-Voit.at/2016/10/31/my-temporal-article-from-feed-with-content</id>
   </entry>
 <entry>
     <title type="text">A Wonderful Persistent Blog Entry</title>
-    <link href='//Karl-Voit.at/persistent-entry' />
+    <link href='http://Karl-Voit.at/persistent-entry' />
     <published>2016-10-31T16:39:00+01:00</published>
     <updated>2016-10-31T16:39:00+01:00</updated>
-    <category scheme='//Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
-    <category scheme='//Karl-Voit.at/tags/programming' term='programming' />
-    <category scheme='//Karl-Voit.at/tags/exampletag' term='exampletag' />
-    <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='http://Karl-Voit.at/tags/programming' term='programming' />
+    <category scheme='http://Karl-Voit.at/tags/exampletag' term='exampletag' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='xhtml'>
 <div xmlns='http://www.w3.org/1999/xhtml'>
 <p>
@@ -257,14 +316,14 @@ Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. O
 
       </div>
     </content>
-    <id>//Karl-Voit.at/persistent-entry-from-feed-with-content</id>
+    <id>http://Karl-Voit.at/persistent-entry-from-feed-with-content</id>
   </entry>
 <entry>
     <title type="text">exampletag</title>
-    <link href='//Karl-Voit.at/tags/exampletag' />
+    <link href='http://Karl-Voit.at/tags/exampletag' />
     <published>2016-10-31T16:38:00+01:00</published>
     <updated>2016-10-31T16:38:00+01:00</updated>
-    <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='xhtml'>
 <div xmlns='http://www.w3.org/1999/xhtml'>
 <p>
@@ -358,14 +417,14 @@ Below this, I expect some links to other pages related to the tag "exampletag":
 
       </div>
     </content>
-    <id>//Karl-Voit.at/tags/exampletag-from-feed-with-content</id>
+    <id>http://Karl-Voit.at/tags/exampletag-from-feed-with-content</id>
   </entry>
 <entry>
     <title type="text">programming</title>
-    <link href='//Karl-Voit.at/tags/programming' />
+    <link href='http://Karl-Voit.at/tags/programming' />
     <published>2016-10-31T13:30:00+01:00</published>
     <updated>2016-10-31T13:30:00+01:00</updated>
-    <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='xhtml'>
 <div xmlns='http://www.w3.org/1999/xhtml'>
 <p>
@@ -413,15 +472,15 @@ Glad you like it.
 
       </div>
     </content>
-    <id>//Karl-Voit.at/tags/programming-from-feed-with-content</id>
+    <id>http://Karl-Voit.at/tags/programming-from-feed-with-content</id>
   </entry>
 <entry>
     <title type="text">from nothing to DONE</title>
-    <link href='//Karl-Voit.at/2016/09/18/from-nothing-to-done' />
+    <link href='http://Karl-Voit.at/2016/09/18/from-nothing-to-done' />
     <published>2016-09-18T13:19:00+01:00</published>
     <updated>2016-09-18T13:19:00+01:00</updated>
-    <category scheme='//Karl-Voit.at/tags/testtag1' term='testtag1' />
-    <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='http://Karl-Voit.at/tags/testtag1' term='testtag1' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='xhtml'>
 <div xmlns='http://www.w3.org/1999/xhtml'>
 <p>
@@ -441,34 +500,6 @@ This is an example blog entry with no special content.
 
       </div>
     </content>
-    <id>//Karl-Voit.at/2016/09/18/from-nothing-to-done-from-feed-with-content</id>
-  </entry>
-<entry>
-    <title type="text">Placeholder: About</title>
-    <link href='//Karl-Voit.at/about' />
-    <published>2014-03-09T14:57:00+01:00</published>
-    <updated>2014-03-09T14:57:00+01:00</updated>
-    <category scheme='//Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
-    <category scheme='//Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
-
-This is a placeholder entry in order to be able to test internal links.
-
-</p>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-<p>
-
-This is a placeholder entry in order to be able to test internal links.
-
-</p>
-
-      </div>
-    </content>
-    <id>//Karl-Voit.at/about-from-feed-with-content</id>
+    <id>http://Karl-Voit.at/2016/09/18/from-nothing-to-done-from-feed-with-content</id>
   </entry>
 </feed>
