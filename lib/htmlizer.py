@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-01-08 12:04:24 vk>
+# Time-stamp: <2017-01-08 12:55:54 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -525,7 +525,9 @@ class Htmlizer(object):
                 entrylist.append(entry_to_add)
             else:
                 # FIXXME: find out how those entries got into blog_data multiple times in the first place:
-                logging.warning('Trying to add an entry twice: ' + str(entry_to_add))
+                # I guess this has something to do with using self.ID_PREFIX_FOR_EMPTY_TAG_PAGES
+                pass
+                #logging.warning('Trying to add an entry twice: ' + str(entry_to_add))
 
         return sorted(
             entrylist,
