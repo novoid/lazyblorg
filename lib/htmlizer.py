@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-01-14 17:35:46 vk>
+# Time-stamp: <2017-01-14 17:36:33 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -700,7 +700,7 @@ class Htmlizer(object):
         else:
             COUNT_STEP = COUNT_MAX / len(COUNT_SIZES)
             if COUNT_STEP < 1:
-                COUNT_STEP == 1
+                COUNT_STEP = 1
 
         # defines the number and interval of steps of different colors according to last tag usage in days:
         AGE_RANGES = [31, 31 * 3, 31 * 6, 365, 365 * 3]  # requires 0..5 age-X definitions
