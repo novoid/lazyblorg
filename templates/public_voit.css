@@ -338,6 +338,19 @@ a {
   margin-left: auto;
   margin-right: auto;
   /*padding-top: 2em;*/ }
+  .common-article tr:nth-child(even), .entry-page-article tr:nth-child(even) {
+    background-color: #f9f9f9; }
+  .common-article tr:hover, .entry-page-article tr:hover {
+    color: #fffff0;
+    background-color: #2222ff; }
+  .common-article th, .entry-page-article th {
+    background-color: #252525;
+    color: white;
+    padding-left: 0.5em;
+    padding-right: 0.5em; }
+  .common-article td, .entry-page-article td {
+    padding-left: 0.5em;
+    padding-right: 0.5em; }
 
 .common-article-header-title {
   padding-bottom: 1em;

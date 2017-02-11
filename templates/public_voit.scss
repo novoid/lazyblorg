@@ -362,6 +362,26 @@ a {
     margin-left: auto;
     margin-right: auto;
     /*padding-top: 2em;*/
+
+    tr:nth-child(even) {background-color: $verylightgrey};
+
+    tr:hover {
+	color: $lightyellow;
+	background-color: $darkblue;
+    }
+
+    th {
+	background-color: $darkgrey;
+	color: white;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+    }
+
+    td {
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+    }
+
 }
 
 
