@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-02-12 13:33:25 vk>
+# Time-stamp: <2017-02-12 13:40:08 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1756,95 +1756,6 @@ class Htmlizer(object):
             oldesttimestamp, year, month, day, hours, minutes = Utils.get_oldest_timestamp_for_entry(
                 entry)
             return os.path.join(year, month, day, folder)
-
-    def _get_newest_timestamp_for_entry(self, entry):
-        """
-        Reads data of entry and returns datetime object of the newest
-        time-stamp of the finished-timestamp-history.
-
-        Example result: datetime(2013, 8, 29, 19, 40)
-
-        Implicit assumptions:
-        - newest: no blog article is from before 1970-01-01
-
-        @param entry: data of a blog entry
-        @param return: datetime object of its oldest time-stamp within finished-timestamp-history
-        @param return: year: four digit year as string
-        @param return: month: two digit month as string
-        @param return: day: two digit day as string
-        @param return: hours: two digit hours as string
-        @param return: minutes: two digit minutes as string
-        """
-
-        return self.__get_oldest_or_newest_timestamp_for_entry(entry, "NEWEST")
-
-    def _get_oldest_timestamp_for_entry(self, entry):
-        """
-        Reads data of entry and returns datetime object of the oldest
-        time-stamp of the finished-timestamp-history.
-
-        Example result: datetime(2013, 8, 29, 19, 40)
-
-        Implicit assumptions:
-        - no blog article is from the future (comparison to now)
-
-        @param entry: data of a blog entry
-        @param return: datetime object of its oldest time-stamp within finished-timestamp-history
-        @param return: year: four digit year as string
-        @param return: month: two digit month as string
-        @param return: day: two digit day as string
-        @param return: hours: two digit hours as string
-        @param return: minutes: two digit minutes as string
-        """
-
-        return self.__get_oldest_or_newest_timestamp_for_entry(entry, "OLDEST")
-
-    def __get_oldest_or_newest_timestamp_for_entry(self, entry, search_for):
-        """
-        Reads data of entry and returns datetime object of the oldest or newest
-        time-stamp of the finished-timestamp-history.
-
-        Example result: datetime(2013, 8, 29, 19, 40)
-
-        Implicit assumptions:
-        - oldest: no blog article is from the future (comparison to now)
-        - newest: no blog article is from before 1970-01-01
-
-        @param entry: data of a blog entry
-        @param search_for: string "OLDEST" or "NEWEST"
-        @param return: datetime object of its oldest time-stamp within finished-timestamp-history
-        @param return: year: four digit year as string
-        @param return: month: two digit month as string
-        @param return: day: two digit day as string
-        @param return: hours: two digit hours as string
-        @param return: minutes: two digit minutes as string
-        """
-
-        assert(entry)
-        assert(isinstance(entry, dict))
-        assert('finished-timestamp-history' in entry.keys())
-        assert(search_for == "OLDEST" or search_for == "NEWEST")
-
-        returntimestamp = False
-        if search_for == "OLDEST":
-            oldesttimestamp = datetime.now()
-            for timestamp in entry['finished-timestamp-history']:
-                if timestamp < oldesttimestamp:
-                    oldesttimestamp = timestamp
-            returntimestamp = oldesttimestamp
-        elif search_for == "NEWEST":
-            newesttimestamp = datetime(1970, 1, 1)
-            for timestamp in entry['finished-timestamp-history']:
-                if timestamp > newesttimestamp:
-                    newesttimestamp = timestamp
-            returntimestamp = newesttimestamp
-
-        return returntimestamp, str(
-            returntimestamp.year).zfill(2), str(
-            returntimestamp.month).zfill(2), str(
-            returntimestamp.day).zfill(2), str(
-                returntimestamp.hour).zfill(2), str(
-                    returntimestamp.minute).zfill(2)
 
     def _create_target_path_for_id_with_targetdir(self, entryid):
         """
