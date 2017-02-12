@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-12-18 12:14:44 vk>
+# Time-stamp: <2017-02-12 15:50:50 vk>
 
 import config
 import unittest
@@ -218,21 +218,29 @@ class TestHtmlizer(unittest.TestCase):
 
         blog_data = [{'id': '2014-03-02-my-persistent',
                       'category': config.PERSISTENT,
+                      'firstpublishTS' : datetime.datetime(2008, 1, 29, 19, 40),
+                      'latestupdateTS' : datetime.datetime(2008, 12, 29, 19, 40),
                       'finished-timestamp-history': [datetime.datetime(2008, 12, 29, 19, 40),
                                                      datetime.datetime(2008, 1, 29, 19, 40),
                                                      datetime.datetime(2008, 11, 29, 19, 40)]},
                      {'id': '2014-03-02-my-temporal',
                       'category': config.TEMPORAL,
+                      'firstpublishTS' : datetime.datetime(2007, 1, 29, 19, 40),
+                      'latestupdateTS' : datetime.datetime(2007, 12, 29, 19, 40),
                       'finished-timestamp-history': [datetime.datetime(2007, 12, 29, 19, 40),
                                                      datetime.datetime(2007, 1, 29, 19, 40),
                                                      datetime.datetime(2007, 11, 29, 19, 40)]},
                      {'id': '2015-03-02-my-additional-temporal',
                       'category': config.TEMPORAL,
+                      'firstpublishTS' : datetime.datetime(2006, 1, 29, 19, 40),
+                      'latestupdateTS' : datetime.datetime(2006, 12, 29, 19, 40),
                       'finished-timestamp-history': [datetime.datetime(2006, 12, 29, 19, 40),
                                                      datetime.datetime(2006, 1, 29, 19, 40),
                                                      datetime.datetime(2006, 11, 29, 19, 40)]},
                      {'id': 'my-tag',
                       'category': config.TAGS,
+                      'firstpublishTS' : datetime.datetime(2011, 1, 29, 19, 40),
+                      'latestupdateTS' : datetime.datetime(2011, 12, 29, 19, 40),
                       'finished-timestamp-history': [datetime.datetime(2011, 12, 29, 19, 40),
                                                      datetime.datetime(2011, 1, 29, 19, 40),
                                                      datetime.datetime(2011, 11, 29, 19, 40)]}]
@@ -351,34 +359,18 @@ class TestHtmlizer(unittest.TestCase):
                 datetime.datetime(
                     2011, 12, 29, 19, 40), datetime.datetime(
                     2008, 1, 29, 19, 40), datetime.datetime(
-                    2013, 1, 29, 19, 40)], 'category': config.TEMPORAL}
+                    2013, 1, 29, 19, 40)],
+            'category': config.TEMPORAL}
 
         self.assertTrue(
             Utils.get_newest_timestamp_for_entry(entry) == (
-                datetime.datetime(
-                    2013,
-                    1,
-                    29,
-                    19,
-                    40),
-                "2013",
-                "01",
-                "29",
-                "19",
-                "40"))
+                datetime.datetime(2013, 1, 29, 19, 40),
+                '2013', '01', '29', '19', '40'))
         self.assertTrue(
             Utils.get_oldest_timestamp_for_entry(entry) == (
                 datetime.datetime(
-                    2008,
-                    1,
-                    29,
-                    19,
-                    40),
-                "2008",
-                "01",
-                "29",
-                "19",
-                "40"))
+                    2008, 1, 29, 19, 40),
+                '2008', '01', '29', '19', '40'))
 
     def testgenerate_entry_list_by_newest_timestamp(self):
 
@@ -394,17 +386,23 @@ class TestHtmlizer(unittest.TestCase):
 
         blog_data = [{'id': 'a_entry_from_2008',
                       'category': config.PERSISTENT,
+                      'firstpublishTS' : datetime.datetime(2008, 1, 29, 19, 40),
+                      'latestupdateTS' : datetime.datetime(2008, 12, 29, 19, 40),
                       'finished-timestamp-history': [datetime.datetime(2008, 12, 29, 19, 40),
                                                      datetime.datetime(2008, 1, 29, 19, 40),
                                                      datetime.datetime(2008, 11, 29, 19, 40)]},
                      {'id': 'b_entry_from_2007',
                       'category': config.TEMPORAL,
+                      'firstpublishTS' : datetime.datetime(2007, 1, 29, 19, 40),
+                      'latestupdateTS' : datetime.datetime(2007, 12, 29, 19, 40),
                       'finished-timestamp-history': [datetime.datetime(2007, 12, 29, 19, 40),
                                                      datetime.datetime(2007, 1, 29, 19, 40),
                                                      datetime.datetime(2007, 11, 29, 19, 40)]},
                      {'id': 'c_entry_from_2011',
                       'title': 'testtag',
                       'category': config.TAGS,
+                      'firstpublishTS' : datetime.datetime(2011, 1, 29, 19, 40),
+                      'latestupdateTS' : datetime.datetime(2011, 12, 29, 19, 40),
                       'finished-timestamp-history': [datetime.datetime(2011, 12, 29, 19, 40),
                                                      datetime.datetime(2011, 1, 29, 19, 40),
                                                      datetime.datetime(2011, 11, 29, 19, 40)]}]
@@ -442,12 +440,16 @@ class TestHtmlizer(unittest.TestCase):
         blog_data = [{'id': 'a_entry_from_2008',
                       'title': 'testtag',
                       'category': config.TAGS,
+                      'firstpublishTS' : datetime.datetime(2008, 1, 29, 19, 40),
+                      'latestupdateTS' : datetime.datetime(2008, 12, 29, 19, 40),
                       'finished-timestamp-history': [datetime.datetime(2008, 12, 29, 19, 40),
                                                      datetime.datetime(2008, 1, 29, 19, 40),
                                                      datetime.datetime(2008, 11, 29, 19, 40)]},
                      {'id': 'c_entry_from_2011',
                       'title': 'test title with multiple words',
                       'category': config.TAGS,
+                      'firstpublishTS' : datetime.datetime(2011, 1, 29, 19, 40),
+                      'latestupdateTS' : datetime.datetime(2011, 12, 29, 19, 40),
                       'finished-timestamp-history': [datetime.datetime(2011, 12, 29, 19, 40),
                                                      datetime.datetime(2011, 1, 29, 19, 40),
                                                      datetime.datetime(2011, 11, 29, 19, 40)]}]
@@ -643,22 +645,30 @@ class TestHtmlizer(unittest.TestCase):
 
         blog_data = [{'id': '2014-03-02-my-persistent',
                       'category': config.PERSISTENT,
+                      'firstpublishTS' : datetime.datetime(2008, 1, 29, 19, 40),
+                      'latestupdateTS' : datetime.datetime(2008, 12, 29, 19, 40),
                       'finished-timestamp-history': [datetime.datetime(2008, 12, 29, 19, 40),
                                                      datetime.datetime(2008, 1, 29, 19, 40),
                                                      datetime.datetime(2008, 11, 29, 19, 40)]},
                      {'id': '2014-03-02-my-temporal',
                       'category': config.TEMPORAL,
+                      'firstpublishTS' : datetime.datetime(2007, 1, 29, 19, 40),
+                      'latestupdateTS' : datetime.datetime(2007, 12, 29, 19, 40),
                       'finished-timestamp-history': [datetime.datetime(2007, 12, 29, 19, 40),
                                                      datetime.datetime(2007, 1, 29, 19, 40),
                                                      datetime.datetime(2007, 11, 29, 19, 40)]},
                      {'id': '2015-03-02-my-additional-temporal',
                       'category': config.TEMPORAL,
+                      'firstpublishTS' : datetime.datetime(2006, 1, 29, 19, 40),
+                      'latestupdateTS' : datetime.datetime(2006, 12, 29, 19, 40),
                       'finished-timestamp-history': [datetime.datetime(2006, 12, 29, 19, 40),
                                                      datetime.datetime(2006, 1, 29, 19, 40),
                                                      datetime.datetime(2006, 11, 29, 19, 40)]},
                      {'id': 'my-tag',
                       'title': 'testtag',
                       'category': config.TAGS,
+                      'firstpublishTS' : datetime.datetime(2011, 1, 29, 19, 40),
+                      'latestupdateTS' : datetime.datetime(2011, 12, 29, 19, 40),
                       'finished-timestamp-history': [datetime.datetime(2011, 12, 29, 19, 40),
                                                      datetime.datetime(2011, 1, 29, 19, 40),
                                                      datetime.datetime(2011, 11, 29, 19, 40)]}]

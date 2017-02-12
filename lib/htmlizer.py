@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-02-12 13:40:08 vk>
+# Time-stamp: <2017-02-12 15:29:04 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -317,6 +317,8 @@ class Htmlizer(object):
         entry = {'content': u'',
                  'category': config.TAGS,
                  'finished-timestamp-history': [datetime(2017,1,1,0,0)],  # use hard-coded date to prevent unnecessary updates
+                 'firstpublishTS': datetime(2017,1,1,0,0),  # use hard-coded date to prevent unnecessary updates
+                 'latestupdateTS': datetime(2017,1,1,0,0),  # use hard-coded date to prevent unnecessary updates
                  'type': 'this is an entry stub for an empty tag page'
                  }
 
@@ -449,8 +451,8 @@ class Htmlizer(object):
             feedentry = u"""<entry>
     <title type="text">""" + blog_data_entry['title'] + """</title>
     <link href='""" + config.BASE_URL + "/" + listentry['url'] + """' />
-    <published>""" + Utils.get_oldest_timestamp_for_entry(blog_data_entry)[0].strftime('%Y-%m-%dT%H:%M:%S' + config.TIME_ZONE_ADDON) + """</published>
-    <updated>""" + Utils.get_newest_timestamp_for_entry(blog_data_entry)[0].strftime('%Y-%m-%dT%H:%M:%S' + config.TIME_ZONE_ADDON) + "</updated>\n"
+    <published>""" + blog_data_entry['firstpublishTS'].strftime('%Y-%m-%dT%H:%M:%S' + config.TIME_ZONE_ADDON) + """</published>
+    <updated>""" + blog_data_entry['latestupdateTS'].strftime('%Y-%m-%dT%H:%M:%S' + config.TIME_ZONE_ADDON) + "</updated>\n"
 
             # adding all tags:
             for tag in blog_data_entry['usertags']:
@@ -517,7 +519,8 @@ class Htmlizer(object):
         for entry in self.blog_data:
             entry_to_add = {
                 'id': entry['id'],
-                'latestupdateTS': Utils.get_newest_timestamp_for_entry(entry)[0],
+                'latestupdateTS': entry['latestupdateTS'],
+                'firstpublishTS': entry['firstpublishTS'],
                 'url': self._target_path_for_id_without_targetdir(entry['id']),
                 'category': entry['category']
             }
@@ -1581,8 +1584,7 @@ class Htmlizer(object):
                 self.sanitize_html_characters(
                     entry['title'])))
 
-        oldesttimestamp, year, month, day, hours, minutes = Utils.get_oldest_timestamp_for_entry(
-            entry)
+        year, month, day, hours, minutes = Utils.get_YY_MM_DD_HH_MM_from_datetime(entry['firstpublishTS'])
         iso_timestamp = '-'.join([year, month, day]) + \
             'T' + hours + ':' + minutes
 
@@ -1753,8 +1755,7 @@ class Htmlizer(object):
         if entry['category'] == config.TEMPORAL:
             # TEMPORAL: url is like "/2014/03/30/my-id/"
 
-            oldesttimestamp, year, month, day, hours, minutes = Utils.get_oldest_timestamp_for_entry(
-                entry)
+            year, month, day, hours, minutes = Utils.get_YY_MM_DD_HH_MM_from_datetime(entry['firstpublishTS'])
             return os.path.join(year, month, day, folder)
 
     def _create_target_path_for_id_with_targetdir(self, entryid):

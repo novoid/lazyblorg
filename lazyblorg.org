@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2017-02-12 13:23:22 vk>
+# Time-stamp: <2017-02-12 15:19:39 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -2366,7 +2366,8 @@ id:implemented-org-elements (above)
      'autotags': {'language': 'english'},
      'id': u'lazyblorg-example-entry',                          ## ID from PROPERTIES-drawer
      'finished-timestamp-history': [datetime1, datetime2, datetime3],
-     'latestupdateTS': datetime,                                    ## most current time-stamp
+     'latestupdateTS': datetime,                                ## most current time-stamp that changed (or overwrote) heading to DONE
+     'firstpublishTS': datetime,                                ## oldest time-stamp that changed heading to DONE
      'created': datetime,
      'content': [ ['par', u'This is the Org-mode content'],    ## 'par: paragraph containing anything that is not defined like tables, ...
                   '\n',    ## change of paragraph
@@ -2379,12 +2380,15 @@ id:implemented-org-elements (above)
   } ]
 #+END_SRC
 
+#+RESULTS:
+
 Thus:
 #+BEGIN_SRC python
 blog_data[0].keys()
 ## ... results in:
 # ['title',
 #  'latestupdateTS',
+#  'firstpublishTS',
 #  'created',
 #  'usertags',
 #  'content',
@@ -2408,7 +2412,7 @@ blog_data[0]['content']  ## -> list of elements of content
 Example:
 #+BEGIN_EXAMPLE
 >>> metadata
-{u'2013-08-22-testid': {'title': u"This is the title", 'latestupdateTS': datetime.datetime(2013, 8, 22, 21, 6), 'checksum': 'b757f8478bffd6c70a474f213d6520de', 'created': datetime.datetime(2013, 8, 22, 21, 6)},
+{u'2013-08-22-testid': {'title': u"This is the title", 'latestupdateTS': datetime.datetime(2013, 8, 22, 21, 6), 'firstpublishTS': datetime.datetime(2013, 8, 22, 21, 6), 'checksum': 'b757f8478bffd6c70a474f213d6520de', 'created': datetime.datetime(2013, 8, 22, 21, 6)},
  u'2013-02-12-lazyblorg-example-entry': {'latestupdateTS': datetime.datetime(2013, 2, 14, 19, 2), 'checksum': '24af2246a5121e829a0dbbd6e2425c15', 'created': datetime.datetime(2013, 2, 12, 10, 58)}}
 #+END_EXAMPLE
 
@@ -2454,6 +2458,7 @@ What happens with the various time-stamps?
   - overwrites entry['latestupdateTS'] if is newer than the old one
     - entry['latestupdateTS'] is the most recent LOGBOOK entry of setting
       to DONE
+  - overwrites entry['firstpublishTS'] if is older than the old one
 - CREATED:
   - entry['created']
 - CLOSED:
@@ -2464,12 +2469,15 @@ What happens with the various time-stamps?
 After parsing entry from above:
 
 - entry['created'] = [2014-01-28 Tue 14:02]
+
 - entry['latestupdateTS'] = [2014-02-01 Sat 18:42]
   - note that =entry['timestamp']= was renamed to =entry['latestupdateTS']= on 2017-02-12
+
+- entry['firstpublishTS'] = [2014-01-30 Thu 14:02]
+  - Oldest entry of entry['finished-timestamp-history'] is the *publication time-stamp*!
+
 - entry['finished-timestamp-history'] = [2014-02-01 Sat 18:42] and
   [2014-01-30 Thu 14:02]
-
-Oldest entry of entry['finished-timestamp-history'] is the *publication time-stamp*!
 
 *** entries_timeline_by_published
 

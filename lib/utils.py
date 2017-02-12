@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-02-12 15:05:13 vk>
+# Time-stamp: <2017-02-12 15:49:59 vk>
 
 import config
 from sys import stdout, exit
@@ -223,6 +223,7 @@ class Utils(object):
         # {'category': 'TEMPORAL',
         #  'level': 2,
         #  'latestupdateTS': datetime.datetime(2013, 8, 24, 22, 49),
+        #  'firstpublishTS': datetime.datetime(2013, 8, 24, 22, 49),
         #  'usertags': [],
         #  'title': u'Case5: not changed since 1st generation',
         #  'lbtags': [u'blog'],
@@ -232,12 +233,19 @@ class Utils(object):
         #  'finished-timestamp-history': [datetime.datetime(2013, 8, 24, 22, 49)],
         #  'id': u'case5'}
 
-        # get oldest time-stamp out of finished_timestamp_history
-        published = Utils.get_oldest_timestamp_for_entry(entry)
-        # extract year, month, day
-        year = published[0].year
-        month = published[0].month
-        day = published[0].day
+        if 'firstpublishTS' in entry.keys():
+            published = entry['firstpublishTS']
+            # extract year, month, day
+            year = published.year
+            month = published.month
+            day = published.day
+        else:
+            # get oldest time-stamp out of finished_timestamp_history
+            published = Utils.get_oldest_timestamp_for_entry(entry)
+            # extract year, month, day
+            year = published[0].year
+            month = published[0].month
+            day = published[0].day
 
         if year not in entries_timeline_by_published.keys():
             # initialize a new year when its first entry is found:
@@ -385,9 +393,11 @@ class Utils(object):
             else:
                 assert('created' in entry.keys())
                 assert('latestupdateTS' in entry.keys())
+                assert('firstpublishTS' in entry.keys())
                 assert('title' in entry.keys())
                 metadata[entry['id']] = {'created': entry['created'],
                                          'latestupdateTS': entry['latestupdateTS'],
+                                         'firstpublishTS': entry['firstpublishTS'],
                                          'checksum': checksum,
                                          'title': entry['title'],
                                          'category': entry['category']}
@@ -777,7 +787,8 @@ class Utils(object):
                     newesttimestamp = timestamp
             returntimestamp = newesttimestamp
 
-        return returntimestamp, Utils.get_YY_MM_DD_HH_MM_from_datetime(returntimestamp)
+        year, month, day, hour, minute = Utils.get_YY_MM_DD_HH_MM_from_datetime(returntimestamp)
+        return returntimestamp, year, month, day, hour, minute
 
     @staticmethod
     def get_YY_MM_DD_HH_MM_from_datetime(timestamp):
@@ -794,11 +805,11 @@ class Utils(object):
 
         assert(type(timestamp) == datetime.datetime)
 
-        return str(timestamp.year).zfill(2), str(
-            timestamp.month).zfill(2), str(
-            timestamp.day).zfill(2), str(
-                timestamp.hour).zfill(2), str(
-                    timestamp.minute).zfill(2)
+        return str(timestamp.year).zfill(2), \
+            str(timestamp.month).zfill(2), \
+            str(timestamp.day).zfill(2), \
+            str(timestamp.hour).zfill(2), \
+            str(timestamp.minute).zfill(2)
 
 # Local Variables:
 # mode: flyspell
