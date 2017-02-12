@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2017-01-08 12:08:19 vk>
+# Time-stamp: <2017-02-12 11:01:15 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -363,27 +363,33 @@ for tag, count in TAGS.items():
 : <a href="tag-cloud" class="size-0">tag-cloud</a>
 
 That's all. No need for a library ;-)
-
-** NEXT tag cloud: contrast of tags resembles age of usage
+** NEXT tag pages: change order of links (from alphabet/ID/?) to timestamp                :userstory:
 :PROPERTIES:
-:CREATED:  [2017-01-02 Mon 16:56]
+:CREATED:  [2016-11-21 Mon 09:56]
 :END:
 
-- contrast of tag colour :: last menioning of tag
-  - light gray: every tag that was not mentioned in the recent two years
-  - several steps of grayiness/black from two years until now (or
-    most recent blog article)
-  - [ ] need for a legend?
+I looked into it: change from "sorted according to ID" to "sorted
+according to publish/update timestamp"
 
-- [ ] implement "taglist_with_update_date(create/update)"
-
-** SOMEDAY bridge to Diaspora or similar Twitter-like services
+** NEXT generate tagtrees of level 2 (and more)
 :PROPERTIES:
-:CREATED:  [2017-01-06 Fri 22:59]
+:CREATED:  [2017-02-12 Sun 10:55]
 :END:
-:LOGBOOK:
-- State "SOMEDAY"    from "STARTED"    [2017-01-06 Fri 22:59]
-:END:
+
+- current situation
+  - DOMAIN/tags/tag1
+  - DOMAIN/tags/tag2
+  - DOMAIN/tags/tag3
+- this feature provides:
+  - DOMAIN/tags/tag1/tag2
+  - DOMAIN/tags/tag1/tag3
+  - DOMAIN/tags/tag2/tag1
+  - DOMAIN/tags/tag3/tag1
+  - ... when there are:
+    - articles tagged with tag1, tag2, and tag3
+    - no articles tagged with tag2 and tag3 combined
+
+- [ ] set level of depth in config.py; default = 1
 ** NEXT blog-format.org: explain all replacement strings at top                           :userstory:
    :PROPERTIES:
    :CREATED:  [2016-11-16 Wed 23:23]
@@ -409,11 +415,6 @@ It holds a random ID. No need for the orgmode-id on the entry page.
    :END:
 
 "language:english" should point to tag page of "language" (and not "language:english")
-
-** NEXT create tag overview page + template kva.at/tags/index.html                       :userstory:
-:PROPERTIES:
-:CREATED:  [2016-11-05 Sat 10:18]
-:END:
 
 ** NEXT README: write «How to upgrade lazyblorg»
 :PROPERTIES:
@@ -733,6 +734,22 @@ CLOSED: [2015-06-27 Sat 19:06] SCHEDULED: <2015-06-27 Sat>
 :PROPERTIES:
 :CREATED:  [2014-08-10 Sun 18:32]
 :END:
+
+** SOMEDAY tag cloud: contrast of tags resembles age of usage
+:PROPERTIES:
+:CREATED:  [2017-01-02 Mon 16:56]
+:END:
+:LOGBOOK:
+- State "SOMEDAY"    from "NEXT"       [2017-02-12 Sun 11:01]
+:END:
+
+- contrast of tag colour :: last menioning of tag
+  - light gray: every tag that was not mentioned in the recent two years
+  - several steps of grayiness/black from two years until now (or
+    most recent blog article)
+  - [ ] need for a legend?
+
+- [ ] implement "taglist_with_update_date(create/update)"
 ** SOMEDAY switch to Bootstrap CSS/HTML framework                                     :architecture:
 :PROPERTIES:
 :CREATED:  [2015-07-14 Tue 17:22]
@@ -757,6 +774,14 @@ downsides:
 - add complexity (I may not need?)
 - current HTML has to be re-designed to fit Bootstrap
 - I still need to understand something in order to adapt it to my needs
+
+** SOMEDAY bridge to Diaspora or similar Twitter-like services
+:PROPERTIES:
+:CREATED:  [2017-01-06 Fri 22:59]
+:END:
+:LOGBOOK:
+- State "SOMEDAY"    from "STARTED"    [2017-01-06 Fri 22:59]
+:END:
 
 ** NEXT fix: ~-escaping                                                                        :bug:
 :PROPERTIES:
@@ -1071,14 +1096,6 @@ like monthly overview but only for the day
 :CREATED:  [2013-10-14 Mon 12:35]
 :END:
 
-** NEXT htmlizer: generate more Org-mode elements             :architecture:
-:PROPERTIES:
-:CREATED:  [2013-10-19 Sat 19:19]
-:END:
-
-- also: search for FIXXMEs in htmlizer
-  - I did some quick & dirty copying (quote, src, ...) in order to
-    enable real-world data parsing
 ** NEXT include image files                                      :userstory:
 :PROPERTIES:
 :CREATED:  [2012-11-05 Mon 10:54]
@@ -1131,12 +1148,7 @@ like monthly overview but only for the day
 :CREATED:  [2014-10-25 Sat 21:56]
 :END:
 [2014-10-25 Sa. 09:22]
-** NEXT tag pages: change order of links from alphabet/ID to timestamp                    :userstory:
-:PROPERTIES:
-:CREATED:  [2016-11-21 Mon 09:56]
-:END:
 
-I looked into it: change from "sorted according to ID" to "sorted according to publish/update timestamp:
 ** TODO ID of sub-headings get stored and processed to anchors   :userstory:
 :PROPERTIES:
 :CREATED:  [2014-02-09 Sun 10:28]

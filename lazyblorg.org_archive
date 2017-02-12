@@ -3346,3 +3346,38 @@ In addition, interoperability with the widest range of feed readers could be imp
 check with:
 - http://www.feedvalidator.org/check.cgi?url=http%3A%2F%2Fkarl-voit.at%2Ffeeds%2Flazyblorg-all.atom_1.0.links-only.xml
 - http://www.feedvalidator.org/check.cgi?url=http%3A%2F%2Fkarl-voit.at%2Ffeeds%2Flazyblorg-all.atom_1.0.links-and-content.xml
+
+** DONE create tag overview page + template kva.at/tags/index.html                        :userstory:
+CLOSED: [2017-02-12 Sun 10:58]
+:PROPERTIES:
+:CREATED:  [2016-11-05 Sat 10:18]
+:ARCHIVE_TIME: 2017-02-12 Sun 10:58
+:ARCHIVE_FILE: ~/src/lazyblorg/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: DONE
+:ARCHIVE_ITAGS: issues
+:END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2017-02-12 Sun 10:58]
+:END:
+
+** CANCELLED htmlizer: generate more Org-mode elements                                 :architecture:
+CLOSED: [2017-02-12 Sun 11:00]
+:PROPERTIES:
+:CREATED:  [2013-10-19 Sat 19:19]
+:ARCHIVE_TIME: 2017-02-12 Sun 11:00
+:ARCHIVE_FILE: ~/src/lazyblorg/lazyblorg.org
+:ARCHIVE_OLPATH: Issue Tracking
+:ARCHIVE_CATEGORY: lazyblorg
+:ARCHIVE_TODO: CANCELLED
+:ARCHIVE_ITAGS: issues
+:END:
+:LOGBOOK:
+- State "CANCELLED"  from "NEXT"       [2017-02-12 Sun 11:00] \\
+  done via pandoc fall-back
+:END:
+
+- also: search for FIXXMEs in htmlizer
+  - I did some quick & dirty copying (quote, src, ...) in order to
+    enable real-world data parsing
