@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-02-12 13:21:05 vk>
+# Time-stamp: <2017-02-12 15:05:13 vk>
 
 import config
 from sys import stdout, exit
@@ -777,13 +777,28 @@ class Utils(object):
                     newesttimestamp = timestamp
             returntimestamp = newesttimestamp
 
-        return returntimestamp, str(
-            returntimestamp.year).zfill(2), str(
-            returntimestamp.month).zfill(2), str(
-            returntimestamp.day).zfill(2), str(
-                returntimestamp.hour).zfill(2), str(
-                    returntimestamp.minute).zfill(2)
+        return returntimestamp, Utils.get_YY_MM_DD_HH_MM_from_datetime(returntimestamp)
 
+    @staticmethod
+    def get_YY_MM_DD_HH_MM_from_datetime(timestamp):
+        """
+        Returns zfilled strings of a datetime.datetime object as a tuple
+
+        @param timestamp: datetime object
+        @param return: year: four digit year as string
+        @param return: month: two digit month as string
+        @param return: day: two digit day as string
+        @param return: hours: two digit hours as string
+        @param return: minutes: two digit minutes as string
+        """
+
+        assert(type(timestamp) == datetime.datetime)
+
+        return str(timestamp.year).zfill(2), str(
+            timestamp.month).zfill(2), str(
+            timestamp.day).zfill(2), str(
+                timestamp.hour).zfill(2), str(
+                    timestamp.minute).zfill(2)
 
 # Local Variables:
 # mode: flyspell
