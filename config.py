@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-01-02 16:44:26 vk>
+# Time-stamp: <2017-02-12 16:12:44 vk>
 
 
 ## ===================================================================== ##
@@ -57,7 +57,7 @@ TWITTER_HANDLE = 'n0v0id'
 TWITTER_IMAGE = 'http://Karl-Voit.at/images/public-voit_T_logo_200x200.png'
 
 ## string: Replace "+01:00" below with your time-zone indicator
-## This gets added to the time in order to describe time zone of the blog:
+## This string gets added to the time strings in order to describe time zone of the blog:
 TIME_ZONE_ADDON = u'+01:00'
 
 
@@ -86,8 +86,8 @@ assert(NUMBER_OF_TEASER_ARTICLES > -1)
 assert(type(NUMBER_OF_FEED_ARTICLES) == int)
 assert(NUMBER_OF_FEED_ARTICLES > -1)
 
-assert(TIME_ZONE_ADDON[0] in (u'+', u'-'))
-
+import re
+assert(re.match(r'(\+|-)[01][0123456789]:[012345][0123456789]', TIME_ZONE_ADDON))
 
 def assertTag(tag):
     """
