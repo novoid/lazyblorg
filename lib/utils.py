@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-31 17:17:36 vk>
+# Time-stamp: <2017-02-12 13:21:05 vk>
 
 import config
 from sys import stdout, exit
@@ -222,7 +222,7 @@ class Utils(object):
         # entry example:
         # {'category': 'TEMPORAL',
         #  'level': 2,
-        #  'timestamp': datetime.datetime(2013, 8, 24, 22, 49),
+        #  'latestupdateTS': datetime.datetime(2013, 8, 24, 22, 49),
         #  'usertags': [],
         #  'title': u'Case5: not changed since 1st generation',
         #  'lbtags': [u'blog'],
@@ -350,8 +350,8 @@ class Utils(object):
         @param entries_timeline_by_published: dict of years with list of lists for each day with IDs to entries        """
 
         # metadata example:
-        # {u'case5': {'category': 'TEMPORAL', 'timestamp': datetime.datetime(2013, 8, 24, 22, 49), 'checksum': '511251b0827', 'created': datetime.datetime(2013, 8, 24, 22, 42)},
-        # u'case4': {'category': 'TEMPORAL', 'timestamp':
+        # {u'case5': {'category': 'TEMPORAL', 'latestupdateTS': datetime.datetime(2013, 8, 24, 22, 49), 'checksum': '511251b0827', 'created': datetime.datetime(2013, 8, 24, 22, 42)},
+        # u'case4': {'category': 'TEMPORAL', 'latestupdateTS':
         # datetime.datetime(2013, 8, 24, 22, 49), 'checksum': '0b178606638',
         # 'created': datetime.datetime(2013, 8, 24, 22, 42)}}
         metadata = {}
@@ -361,7 +361,7 @@ class Utils(object):
             # entry example:
             #{'category': 'TEMPORAL',
             # 'level': 2,
-            # 'timestamp': datetime.datetime(2013, 8, 24, 22, 49),
+            # 'latestupdateTS': datetime.datetime(2013, 8, 24, 22, 49),
             # 'usertags': [],
             # 'title': u'Case5: not changed since 1st generation',
             # 'lbtags': [u'blog'],
@@ -384,10 +384,10 @@ class Utils(object):
                 Utils.error_exit(30)
             else:
                 assert('created' in entry.keys())
-                assert('timestamp' in entry.keys())
+                assert('latestupdateTS' in entry.keys())
                 assert('title' in entry.keys())
                 metadata[entry['id']] = {'created': entry['created'],
-                                         'timestamp': entry['timestamp'],
+                                         'latestupdateTS': entry['latestupdateTS'],
                                          'checksum': checksum,
                                          'title': entry['title'],
                                          'category': entry['category']}

@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2017-02-12 12:59:19 vk>
+# Time-stamp: <2017-02-12 13:23:22 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -363,6 +363,11 @@ for tag, count in TAGS.items():
 : <a href="tag-cloud" class="size-0">tag-cloud</a>
 
 That's all. No need for a library ;-)
+
+** NEXT tag pages: fix dates shown from "CREATED" to first DONE timestamp
+:PROPERTIES:
+:CREATED:  [2017-02-12 Sun 13:10]
+:END:
 ** NEXT generate tagtrees of level 2 (and more)
 :PROPERTIES:
 :CREATED:  [2017-02-12 Sun 10:55]
@@ -2361,7 +2366,7 @@ id:implemented-org-elements (above)
      'autotags': {'language': 'english'},
      'id': u'lazyblorg-example-entry',                          ## ID from PROPERTIES-drawer
      'finished-timestamp-history': [datetime1, datetime2, datetime3],
-     'timestamp': datetime,                                    ## most current time-stamp
+     'latestupdateTS': datetime,                                    ## most current time-stamp
      'created': datetime,
      'content': [ ['par', u'This is the Org-mode content'],    ## 'par: paragraph containing anything that is not defined like tables, ...
                   '\n',    ## change of paragraph
@@ -2379,7 +2384,7 @@ Thus:
 blog_data[0].keys()
 ## ... results in:
 # ['title',
-#  'timestamp',
+#  'latestupdateTS',
 #  'created',
 #  'usertags',
 #  'content',
@@ -2403,8 +2408,8 @@ blog_data[0]['content']  ## -> list of elements of content
 Example:
 #+BEGIN_EXAMPLE
 >>> metadata
-{u'2013-08-22-testid': {'title': u"This is the title", 'timestamp': datetime.datetime(2013, 8, 22, 21, 6), 'checksum': 'b757f8478bffd6c70a474f213d6520de', 'created': datetime.datetime(2013, 8, 22, 21, 6)},
- u'2013-02-12-lazyblorg-example-entry': {'timestamp': datetime.datetime(2013, 2, 14, 19, 2), 'checksum': '24af2246a5121e829a0dbbd6e2425c15', 'created': datetime.datetime(2013, 2, 12, 10, 58)}}
+{u'2013-08-22-testid': {'title': u"This is the title", 'latestupdateTS': datetime.datetime(2013, 8, 22, 21, 6), 'checksum': 'b757f8478bffd6c70a474f213d6520de', 'created': datetime.datetime(2013, 8, 22, 21, 6)},
+ u'2013-02-12-lazyblorg-example-entry': {'latestupdateTS': datetime.datetime(2013, 2, 14, 19, 2), 'checksum': '24af2246a5121e829a0dbbd6e2425c15', 'created': datetime.datetime(2013, 2, 12, 10, 58)}}
 #+END_EXAMPLE
 
 Keys of the dict: IDs of the entries:
@@ -2415,7 +2420,7 @@ Keys of the dict: IDs of the entries:
 
 One entry with key=ID holds a dict with following entries:
 - 'title': string containing the title of the blog entry
-- 'timestamp': datetime.datetime(2013, 8, 22, 21, 6)
+- 'latestupdateTS': datetime.datetime(2013, 8, 22, 21, 6)
   - most recent time-stamp from the LOGBOOK drawer which marked going
     to a final state
 - 'checksum': 'b757f8478bffd6c70a474f213d6520de'
@@ -2446,8 +2451,8 @@ What happens with the various time-stamps?
 
 - most recent LOGBOOK entry of setting to DONE:
   - added to entry['finished-timestamp-history'] (which is a list)
-  - overwrites entry['timestamp'] if is newer than the old one
-    - entry['timestamp'] is the most recent LOGBOOK entry of setting
+  - overwrites entry['latestupdateTS'] if is newer than the old one
+    - entry['latestupdateTS'] is the most recent LOGBOOK entry of setting
       to DONE
 - CREATED:
   - entry['created']
@@ -2459,7 +2464,8 @@ What happens with the various time-stamps?
 After parsing entry from above:
 
 - entry['created'] = [2014-01-28 Tue 14:02]
-- entry['timestamp'] = [2014-02-01 Sat 18:42]
+- entry['latestupdateTS'] = [2014-02-01 Sat 18:42]
+  - note that =entry['timestamp']= was renamed to =entry['latestupdateTS']= on 2017-02-12
 - entry['finished-timestamp-history'] = [2014-02-01 Sat 18:42] and
   [2014-01-30 Thu 14:02]
 

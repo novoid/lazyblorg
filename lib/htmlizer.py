@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-02-12 13:01:00 vk>
+# Time-stamp: <2017-02-12 13:33:25 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -224,7 +224,7 @@ class Htmlizer(object):
 
             # example entry:
             # {'level': 2,
-            # 'timestamp': datetime(2013, 2, 14, 19, 2),
+            # 'latestupdateTS': datetime(2013, 2, 14, 19, 2),
             # 'usertags': [u'mytest', u'programming'],
             # 'autotags': [u'german', u'short'],
             # 'lbtags': [u'blog'],
@@ -432,13 +432,13 @@ class Htmlizer(object):
                 continue
 
             # listentry: (examples)
-            # {'url': 'about', 'timestamp': datetime(2014, 3, 9, 14, 57), 'category': 'PERSISTENT',
+            # {'url': 'about', 'latestupdateTS': datetime(2014, 3, 9, 14, 57), 'category': 'PERSISTENT',
             #  'id': u'2014-03-09-about'}
-            # {'url': '2013/08/22/testid', 'timestamp': datetime(2013, 8, 22, 21, 6),
+            # {'url': '2013/08/22/testid', 'latestupdateTS': datetime(2013, 8, 22, 21, 6),
             #  'category': 'TEMPORAL', 'id': u'2013-08-22-testid'}
 
             blog_data_entry = self.blog_data_with_id(listentry['id'])
-            # blog_data_entry.keys() = ['category', 'level', 'timestamp', 'usertags', 'autotags', 'lbtags', 'created', 'content',
+            # blog_data_entry.keys() = ['category', 'level', 'latestupdateTS', 'usertags', 'autotags', 'lbtags', 'created', 'content',
             #                           'htmlteaser-equals-content', 'rawcontent', 'finished-timestamp-history', 'title', 'id']
 
             # omit hidden entries:
@@ -509,7 +509,7 @@ class Htmlizer(object):
         Returns a sorted list of dicts of entry-IDs and their newest time-stamp.
         Sort order ist newest time-stamp at the front.
 
-        @param: return: a sorted list like [ {'id':'a-new-entry', 'timestamp':datetime(), 'url'="<URL>"}, {...}]
+        @param: return: a sorted list like [ {'id':'a-new-entry', 'latestupdateTS':datetime(), 'url'="<URL>"}, {...}]
         """
 
         entrylist = []
@@ -517,7 +517,7 @@ class Htmlizer(object):
         for entry in self.blog_data:
             entry_to_add = {
                 'id': entry['id'],
-                'timestamp': Utils.get_newest_timestamp_for_entry(entry)[0],
+                'latestupdateTS': Utils.get_newest_timestamp_for_entry(entry)[0],
                 'url': self._target_path_for_id_without_targetdir(entry['id']),
                 'category': entry['category']
             }
@@ -531,14 +531,14 @@ class Htmlizer(object):
 
         return sorted(
             entrylist,
-            key=lambda entry: entry['timestamp'],
+            key=lambda entry: entry['latestupdateTS'],
             reverse=True)
 
     def generate_entry_page(self, entry_list_by_newest_timestamp):
         """
         Generates and writes the blog entry page with sneak previews of the most recent articles/updates.
 
-        @param: entry_list_by_newest_timestamp: a sorted list like [ {'id':'a-new-entry', 'timestamp':datetime(), 'url'="<URL>"}, {...}]
+        @param: entry_list_by_newest_timestamp: a sorted list like [ {'id':'a-new-entry', 'latestupdateTS':datetime(), 'url'="<URL>"}, {...}]
         """
 
         entry_page_filename = os.path.join(self.targetdir, "index.html")
@@ -620,11 +620,11 @@ class Htmlizer(object):
                 content = content.replace('#ARTICLE-ID#', entry['id'])
 
                 year, month, day, hours, minutes = str(
-                    listentry['timestamp'].year).zfill(2), str(
-                    listentry['timestamp'].month).zfill(2), str(
-                    listentry['timestamp'].day).zfill(2), str(
-                    listentry['timestamp'].hour).zfill(2), str(
-                    listentry['timestamp'].minute).zfill(2)
+                    listentry['latestupdateTS'].year).zfill(2), str(
+                    listentry['latestupdateTS'].month).zfill(2), str(
+                    listentry['latestupdateTS'].day).zfill(2), str(
+                    listentry['latestupdateTS'].hour).zfill(2), str(
+                    listentry['latestupdateTS'].minute).zfill(2)
                 iso_timestamp = '-'.join([year, month, day]) + \
                     'T' + hours + ':' + minutes
 
@@ -1656,7 +1656,7 @@ class Htmlizer(object):
         # update):
         array_with_timestamp_and_ids = []
         for reference in self.dict_of_tags_with_ids[tag]:
-            array_with_timestamp_and_ids.append((self.metadata[reference]['timestamp'], reference))
+            array_with_timestamp_and_ids.append((self.metadata[reference]['latestupdateTS'], reference))
 
         # generate the content according to sorted list (sort by last
         # update timestamp):

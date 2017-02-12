@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-06 14:40:38 vk>
+# Time-stamp: <2017-02-12 13:30:21 vk>
 
 import config
 import re
@@ -169,7 +169,7 @@ class OrgParser(object):
                     "OrgParser: checking id [%s]" %
                     self.__entry_data['id'])
 
-            if not 'timestamp' in self.__entry_data.keys():
+            if not 'latestupdateTS' in self.__entry_data.keys():
                 self.logging.error(
                     "Heading does not contain a most recent timestamp")
                 errors += 1
@@ -764,10 +764,11 @@ class OrgParser(object):
                 components = self.LOG_REGEX.match(line)
                 if components:
 
-                    # extract time-stamp as datetime and add to
-                    # finished-timestamp-history
+                    # extract time-stamp as datetime
                     datetimestamp = OrgFormat.orgmode_timestamp_to_datetime(
                         components.group(self.LOG_TIMESTAMP_IDX))
+
+                    # add to finished-timestamp-history
                     if 'finished-timestamp-history' in self.__entry_data.keys():
                         self.__entry_data[
                             'finished-timestamp-history'].append(datetimestamp)
@@ -776,11 +777,11 @@ class OrgParser(object):
                             'finished-timestamp-history'] = [datetimestamp]
 
                     # (over)write timestamp of blogentry if current datetimestamp is newest
-                    if 'timestamp' in self.__entry_data.keys():
-                        if datetimestamp > self.__entry_data['timestamp']:
-                            self.__entry_data['timestamp'] = datetimestamp
+                    if 'latestupdateTS' in self.__entry_data.keys():
+                        if datetimestamp > self.__entry_data['latestupdateTS']:
+                            self.__entry_data['latestupdateTS'] = datetimestamp
                     else:
-                        self.__entry_data['timestamp'] = datetimestamp
+                        self.__entry_data['latestupdateTS'] = datetimestamp
 
                 previous_line = line
                 continue
