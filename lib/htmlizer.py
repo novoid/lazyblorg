@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-01-14 17:36:33 vk>
+# Time-stamp: <2017-02-12 13:01:00 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1651,9 +1651,18 @@ class Htmlizer(object):
         if not self.dict_of_tags_with_ids or tag not in self.dict_of_tags_with_ids:
             return u'\nNo blog entries with this tag so far.\n'
 
-        # FIXXME: change from "sorted according to ID" to "sorted according to publish/update timestamp:
-        for reference in sorted(self.dict_of_tags_with_ids[tag]):
+        # generate a list of timestamps (last update) and IDs for all
+        # entries (in order to be able to sort it according to last
+        # update):
+        array_with_timestamp_and_ids = []
+        for reference in self.dict_of_tags_with_ids[tag]:
+            array_with_timestamp_and_ids.append((self.metadata[reference]['timestamp'], reference))
 
+        # generate the content according to sorted list (sort by last
+        # update timestamp):
+        for entry in sorted(array_with_timestamp_and_ids):
+
+            reference = entry[1]
             year = self.metadata[reference]['created'].year
             month = self.metadata[reference]['created'].month
             day = self.metadata[reference]['created'].day
@@ -1900,10 +1909,7 @@ class Htmlizer(object):
         @param return: blog_data element
         """
 
-#        try:
         matching_elements = [x for x in self.blog_data if entryid == x['id']]
-#        except TypeError:
-#            import pdb; pdb.set_trace()
 
         if len(matching_elements) == 1:
             return matching_elements[0]

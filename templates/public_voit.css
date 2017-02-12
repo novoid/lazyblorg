@@ -19,6 +19,12 @@ a {
   display: none;
   float: right; }
 
+.minor-contrast {
+  color: #7e7e7e; }
+
+.minimum-contrast {
+  color: #e0e0e0; }
+
 /* ======================== */
 /*    Responsive Design     */
 /* ======================== */
@@ -418,8 +424,8 @@ blockquote {
   padding-top: 2em; }
 
 .tag-pages-link-list .timestamp {
-  font-size: 80%;
-  color: gray; }
+  color: #7e7e7e;
+  font-size: 80%; }
 
 footer {
   padding: 0.1em;

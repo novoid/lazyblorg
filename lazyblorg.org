@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2017-02-12 11:01:15 vk>
+# Time-stamp: <2017-02-12 12:59:19 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -363,14 +363,6 @@ for tag, count in TAGS.items():
 : <a href="tag-cloud" class="size-0">tag-cloud</a>
 
 That's all. No need for a library ;-)
-** NEXT tag pages: change order of links (from alphabet/ID/?) to timestamp                :userstory:
-:PROPERTIES:
-:CREATED:  [2016-11-21 Mon 09:56]
-:END:
-
-I looked into it: change from "sorted according to ID" to "sorted
-according to publish/update timestamp"
-
 ** NEXT generate tagtrees of level 2 (and more)
 :PROPERTIES:
 :CREATED:  [2017-02-12 Sun 10:55]
@@ -2338,7 +2330,6 @@ current version.
 |                       | src-end                 |                                                                       |
 |                       | named-src-begin         |                                                                       |
 |                       | named-src-end           |                                                                       |
-
 
 
 

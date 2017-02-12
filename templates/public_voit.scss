@@ -40,6 +40,19 @@ a {
     float: right;
 }
 
+@mixin minor-contrast {
+    color: $grey
+}
+@mixin minimum-contrast {
+    color: $lightgrey
+}
+.minor-contrast {
+    @include minor-contrast
+}
+.minimum-contrast {
+    @include minimum-contrast
+}
+
 @mixin show-big-search {
     #search-big {
 	border: 0;
@@ -467,8 +480,8 @@ blockquote {
 
 .tag-pages-link-list {
     .timestamp {
+	@include minor-contrast;
 	font-size: 80%;
-	color: gray;
     }
 }
 

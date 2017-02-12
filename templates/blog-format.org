@@ -1,4 +1,4 @@
-## Time-stamp: <2017-01-03 12:18:50 vk>
+## Time-stamp: <2017-02-12 13:00:17 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -949,7 +949,7 @@ Pages that describe a tag. Corresponding Org-mode entries must have:
   <hr />
 
   <p>
-  All articles tagged with #ARTICLE-TITLE#:
+  All articles tagged with #ARTICLE-TITLE# <span class="minor-contrast">(sorted by last update, oldest on top)</span>:
   </p>
 
   <p>
