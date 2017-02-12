@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-02-12 15:29:04 vk>
+# Time-stamp: <2017-02-12 15:53:29 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1665,11 +1665,11 @@ class Htmlizer(object):
         for entry in sorted(array_with_timestamp_and_ids):
 
             reference = entry[1]
-            year = self.metadata[reference]['created'].year
-            month = self.metadata[reference]['created'].month
-            day = self.metadata[reference]['created'].day
-            minutes = self.metadata[reference]['created'].minute
-            hours = self.metadata[reference]['created'].hour
+            year = self.metadata[reference]['firstpublishTS'].year
+            month = self.metadata[reference]['firstpublishTS'].month
+            day = self.metadata[reference]['firstpublishTS'].day
+            minutes = self.metadata[reference]['firstpublishTS'].minute
+            hours = self.metadata[reference]['firstpublishTS'].hour
             iso_timestamp = '-'.join([str(year), str(month).zfill(2), str(day).zfill(
                 2)]) + 'T' + str(hours).zfill(2) + ':' + str(minutes).zfill(2)
 
