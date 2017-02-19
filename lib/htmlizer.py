@@ -1553,6 +1553,8 @@ class Htmlizer(object):
         content = content.replace('#COMMENT-EMAIL-ADDRESS#', config.COMMENT_EMAIL_ADDRESS)
         content = content.replace('#TWITTER-HANDLE#', config.TWITTER_HANDLE)
         content = content.replace('#TWITTER-IMAGE#', config.TWITTER_IMAGE)
+        content = content.replace('#FEEDURL_LINKS#', self.__generate_feed_filename("all")[0])
+        content = content.replace('#FEEDURL_CONTENT#', self.__generate_feed_filename("all")[1])
         return content
 
     def _replace_general_article_placeholders(self, entry, template):
