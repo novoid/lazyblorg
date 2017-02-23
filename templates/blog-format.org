@@ -278,6 +278,11 @@ With name/label:
   <link rel="stylesheet" title="#BLOG-NAME# Standard CSS Style"
         href="#CSS-URL#" type="text/css" media="screen"  />
 
+  <link rel="alternate" type="application/atom+xml" 
+        title="#BLOG-NAME# (links only)" href="#FEEDURL_LINKS#" />
+  <link rel="alternate" type="application/atom+xml" 
+        title="#BLOG-NAME# (links and content)" href="#FEEDURL_CONTENT#" />
+
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
   <title>#BLOG-NAME# - Homepage of #AUTHOR-NAME#</title>
@@ -445,6 +450,11 @@ placeholder article which is defined in this file (below).
   <link rel="stylesheet" title="#BLOG-NAME# Standard CSS Style"
         href="#CSS-URL#" type="text/css" media="screen"  />
 
+  <link rel="alternate" type="application/atom+xml" 
+        title="#BLOG-NAME# (links only)" href="#FEEDURL_LINKS#" />
+  <link rel="alternate" type="application/atom+xml" 
+        title="#BLOG-NAME# (links and content)" href="#FEEDURL_CONTENT#" />
+
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
       <title>#ARTICLE-TITLE#</title>
@@ -582,6 +592,11 @@ placeholder article which is defined in this file (below).
 
   <link rel="stylesheet" title="#BLOG-NAME# Standard CSS Style"
         href="#CSS-URL#" type="text/css" media="screen"  />
+
+  <link rel="alternate" type="application/atom+xml" 
+        title="#BLOG-NAME# (links only)" href="#FEEDURL_LINKS#" />
+  <link rel="alternate" type="application/atom+xml" 
+        title="#BLOG-NAME# (links and content)" href="#FEEDURL_CONTENT#" />
 
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
@@ -757,6 +772,11 @@ A single page which is used as template for =example.com/tags/index.html=.
   <link rel="stylesheet" title="#BLOG-NAME# Standard CSS Style"
         href="#CSS-URL#" type="text/css" media="screen"  />
 
+  <link rel="alternate" type="application/atom+xml" 
+        title="#BLOG-NAME# (links only)" href="#FEEDURL_LINKS#" />
+  <link rel="alternate" type="application/atom+xml" 
+        title="#BLOG-NAME# (links and content)" href="#FEEDURL_CONTENT#" />
+
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
       <title>Tags of #BLOG-NAME#</title>
@@ -863,6 +883,11 @@ Pages that describe a tag. Corresponding Org-mode entries must have:
 
   <link rel="stylesheet" title="#BLOG-NAME# Standard CSS Style"
         href="#CSS-URL#" type="text/css" media="screen"  />
+
+  <link rel="alternate" type="application/atom+xml" 
+        title="#BLOG-NAME# (links only)" href="#FEEDURL_LINKS#" />
+  <link rel="alternate" type="application/atom+xml" 
+        title="#BLOG-NAME# (links and content)" href="#FEEDURL_CONTENT#" />
 
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
@@ -988,6 +1013,11 @@ FIXXME
   <meta name="generator" content="lazyblorg" />
   <link rel="stylesheet" title="#BLOG-NAME# Standard CSS Style"
         href="#CSS-URL#" type="text/css" media="screen"  />
+
+  <link rel="alternate" type="application/atom+xml" 
+        title="#BLOG-NAME# (links only)" href="#FEEDURL_LINKS#" />
+  <link rel="alternate" type="application/atom+xml" 
+        title="#BLOG-NAME# (links and content)" href="#FEEDURL_CONTENT#" />
 
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
