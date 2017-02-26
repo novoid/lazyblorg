@@ -345,12 +345,13 @@ a {
 .common-article, .entry-page-article {
   margin-left: auto;
   margin-right: auto;
-  /*padding-top: 2em;*/ }
+  /*padding-top: 2em;*/
+    /*tr:hover {
+	color: $lightyellow;
+	background-color: $darkblue;
+    }*/ }
   .common-article tr:nth-child(even), .entry-page-article tr:nth-child(even) {
     background-color: #f9f9f9; }
-  .common-article tr:hover, .entry-page-article tr:hover {
-    color: #fffff0;
-    background-color: #2222ff; }
   .common-article th, .entry-page-article th {
     background-color: #252525;
     color: white;
