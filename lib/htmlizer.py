@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-02-12 15:53:29 vk>
+# Time-stamp: <2017-02-12 18:17:41 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -290,6 +290,61 @@ class Htmlizer(object):
         return entry_list_by_newest_timestamp, stats_generated_total, stats_generated_temporal, \
             stats_generated_persistent, stats_generated_tags
 
+    def _generate_tag_page(self, entry):
+        """
+        Creates a blog article for a tag (in contrast to a temporal or persistent blog article).
+
+        @param entry: blog entry data
+        @param return: htmlfilename: string containing the file name of the HTML file
+        @param return: orgfilename: string containing the file name of the Org-mode raw content file
+        @param return: htmlcontent: the HTML content of the entry
+        """
+
+        logging.debug('_generate_tag_page(' + str(entry) + ')')
+        tag = entry['title']
+        self.list_of_tag_pages_generated.append(tag)
+
+        path = self._create_target_path_for_id_with_targetdir(entry['id'])
+        htmlfilename = os.path.join(path, "index.html")
+        orgfilename = os.path.join(path, "source.org.txt")
+        htmlcontent = u''
+
+        content = u''
+        for articlepart in [
+            'tagpage-header',
+            'tagpage-header-begin',
+                'tagpage-tags-begin']:
+            content += self.template_definition_by_name(articlepart)
+        htmlcontent += self._replace_general_article_placeholders(
+            entry, content)
+
+        # handle autotags:
+        content = u''
+        if 'autotags' in entry.keys():
+            for autotag in entry['autotags'].keys():
+                content += self._replace_tag_placeholders([autotag + ":" + entry['autotags'][autotag]],
+                                                          self.template_definition_by_name('article-autotag'))
+        htmlcontent += self._replace_general_article_placeholders(
+            entry, content)
+
+        content = u''
+        for articlepart in ['tagpage-tags-end', 'tagpage-header-end']:
+            content += self.template_definition_by_name(articlepart)
+        htmlcontent += self._replace_general_article_placeholders(
+            entry, content)
+
+        htmlcontent += self.__collect_raw_content(entry['content'])
+
+        content = u''
+        for articlepart in ['tagpage-end', 'article-footer']:
+            content += self.template_definition_by_name(articlepart)
+
+        htmlcontent += self._replace_general_article_placeholders(
+            entry, content)
+        htmlcontent = self.sanitize_internal_links(
+            config.TEMPORAL, htmlcontent)
+
+        return htmlfilename, orgfilename, htmlcontent
 
     def _generate_tag_pages_which_got_no_userdefined_tag_page(self):
         """
@@ -1411,62 +1466,6 @@ class Htmlizer(object):
             entry, content)
         htmlcontent = self.sanitize_internal_links(
             config.PERSISTENT, htmlcontent)
-
-        return htmlfilename, orgfilename, htmlcontent
-
-    def _generate_tag_page(self, entry):
-        """
-        Creates a blog article for a tag (in contrast to a temporal or persistent blog article).
-
-        @param entry: blog entry data
-        @param return: htmlfilename: string containing the file name of the HTML file
-        @param return: orgfilename: string containing the file name of the Org-mode raw content file
-        @param return: htmlcontent: the HTML content of the entry
-        """
-
-        logging.debug('_generate_tag_page(' + str(entry) + ')')
-        tag = entry['title']
-        self.list_of_tag_pages_generated.append(tag)
-
-        path = self._create_target_path_for_id_with_targetdir(entry['id'])
-        htmlfilename = os.path.join(path, "index.html")
-        orgfilename = os.path.join(path, "source.org.txt")
-        htmlcontent = u''
-
-        content = u''
-        for articlepart in [
-            'tagpage-header',
-            'tagpage-header-begin',
-                'tagpage-tags-begin']:
-            content += self.template_definition_by_name(articlepart)
-        htmlcontent += self._replace_general_article_placeholders(
-            entry, content)
-
-        # handle autotags:
-        content = u''
-        if 'autotags' in entry.keys():
-            for autotag in entry['autotags'].keys():
-                content += self._replace_tag_placeholders([autotag + ":" + entry['autotags'][autotag]],
-                                                          self.template_definition_by_name('article-autotag'))
-        htmlcontent += self._replace_general_article_placeholders(
-            entry, content)
-
-        content = u''
-        for articlepart in ['tagpage-tags-end', 'tagpage-header-end']:
-            content += self.template_definition_by_name(articlepart)
-        htmlcontent += self._replace_general_article_placeholders(
-            entry, content)
-
-        htmlcontent += self.__collect_raw_content(entry['content'])
-
-        content = u''
-        for articlepart in ['tagpage-end', 'article-footer']:
-            content += self.template_definition_by_name(articlepart)
-
-        htmlcontent += self._replace_general_article_placeholders(
-            entry, content)
-        htmlcontent = self.sanitize_internal_links(
-            config.TEMPORAL, htmlcontent)
 
         return htmlfilename, orgfilename, htmlcontent
 
