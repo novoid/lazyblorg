@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-02-12 18:17:41 vk>
+# Time-stamp: <2017-03-03 16:07:09 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -418,7 +418,21 @@ class Htmlizer(object):
 
         self.__generate_feeds_for_everything(entry_list_by_newest_timestamp)
 
-    def __generate_feed_filename(self, feedstring):
+    def __generate_feed_file_path(self, feedstring):
+        """
+        Generator function for RSS/ATOM feed files.
+
+        @param feedstring: part of the feed file which describes the feed itself
+        @param return: ATOM feed file path and names
+        """
+
+        filenames = self.__generate_feed_file_names(feedstring)
+
+        return \
+            os.path.join(self.targetdir, config.FEEDDIR, filenames[0]), \
+            os.path.join(self.targetdir, config.FEEDDIR, filenames[1])
+
+    def __generate_feed_file_names(self, feedstring):
         """
         Generator function for RSS/ATOM feed files.
 
@@ -427,8 +441,8 @@ class Htmlizer(object):
         """
 
         return \
-            os.path.join(self.targetdir, config.FEEDDIR, "lazyblorg-" + feedstring + self.LINKS_ONLY_FEED_POSTFIX), \
-            os.path.join(self.targetdir, config.FEEDDIR, "lazyblorg-" + feedstring + self.LINKS_AND_CONTENT_FEED_POSTFIX)
+            os.path.join("lazyblorg-" + feedstring + self.LINKS_ONLY_FEED_POSTFIX), \
+            os.path.join("lazyblorg-" + feedstring + self.LINKS_AND_CONTENT_FEED_POSTFIX)
 
     def __generate_new_feed(self):
         """
@@ -465,7 +479,7 @@ class Htmlizer(object):
         @param return: none
         """
 
-        atom_targetfile_links, atom_targetfile_content = self.__generate_feed_filename("all")
+        atom_targetfile_links, atom_targetfile_content = self.__generate_feed_file_path("all")
         links_atom_feed = self.__generate_new_feed().replace('#LINKPOSTFIX#', self.LINKS_ONLY_FEED_POSTFIX)
         content_atom_feed = self.__generate_new_feed().replace('#LINKPOSTFIX#', self.LINKS_AND_CONTENT_FEED_POSTFIX)
 
@@ -1552,8 +1566,8 @@ class Htmlizer(object):
         content = content.replace('#COMMENT-EMAIL-ADDRESS#', config.COMMENT_EMAIL_ADDRESS)
         content = content.replace('#TWITTER-HANDLE#', config.TWITTER_HANDLE)
         content = content.replace('#TWITTER-IMAGE#', config.TWITTER_IMAGE)
-        content = content.replace('#FEEDURL_LINKS#', self.__generate_feed_filename("all")[0])
-        content = content.replace('#FEEDURL_CONTENT#', self.__generate_feed_filename("all")[1])
+        content = content.replace('#FEEDURL_LINKS#', config.BASE_URL + '/' + config.FEEDDIR + '/' + self.__generate_feed_file_names("all")[0])
+        content = content.replace('#FEEDURL_CONTENT#', config.BASE_URL + '/' + config.FEEDDIR + '/' + self.__generate_feed_file_names("all")[1])
         return content
 
     def _replace_general_article_placeholders(self, entry, template):
