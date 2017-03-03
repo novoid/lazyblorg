@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2017-02-12 16:00:32 vk>
+# Time-stamp: <2017-02-12 16:35:57 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -382,6 +382,35 @@ That's all. No need for a library ;-)
     - no articles tagged with tag2 and tag3 combined
 
 - [ ] set level of depth in config.py; default = 1
+
+tagstore proof of concept: tagstore_add_entry.py
+#+BEGIN_SRC python
+## generate all permutations
+def generate_permutation(str):
+    if len(str) <=1:
+        yield str
+    else:
+        for perm in generate_permutation(str[1:]):
+            for i in range(len(perm)+1):
+                yield perm[:i] + str[0:1] + perm[i:]
+#+END_SRC
+
+tagstore > store.py
+#+BEGIN_SRC python
+    def __build_store_navigation(self, link_name, tag_list, current_path):
+        """
+        builds the whole directory and link-structure (describing & categorising nav path) inside a stores filesystem
+        """
+        link_source = self.__watcher_path + "/" + link_name
+
+        for tag in tag_list:
+            self.__file_system.create_dir(current_path + "/" + tag)
+            self.__file_system.create_link(link_source, current_path + "/" + tag + "/" + link_name)
+            recursive_list = [] + tag_list
+            recursive_list.remove(tag)
+            self.__build_store_navigation(link_name, recursive_list, current_path + "/" + tag)
+#+END_SRC
+
 ** NEXT blog-format.org: explain all replacement strings at top                           :userstory:
    :PROPERTIES:
    :CREATED:  [2016-11-16 Wed 23:23]
