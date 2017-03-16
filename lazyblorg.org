@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2017-02-12 16:35:57 vk>
+# Time-stamp: <2017-03-16 19:30:45 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -363,6 +363,7 @@ for tag, count in TAGS.items():
 : <a href="tag-cloud" class="size-0">tag-cloud</a>
 
 That's all. No need for a library ;-)
+
 ** NEXT generate tagtrees of level 2 (and more)
 :PROPERTIES:
 :CREATED:  [2017-02-12 Sun 10:55]
@@ -906,7 +907,7 @@ on https://karl-voit.at/2014/03/25/xdu
 :END:
 
 ** NEXT create pull-request on https://github.com/hober/planet.emacsen.org/ for my emacs/english feed
-SCHEDULED: <2016-11-22 Tue>
+SCHEDULED: <2017-03-08 Wed>
 :PROPERTIES:
 :BLOCKER: 2016-05-22-tag-feeds
 :CREATED: [2015-11-13 Fri 07:20]

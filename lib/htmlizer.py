@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-03-03 16:07:09 vk>
+# Time-stamp: <2017-03-16 19:27:02 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -518,7 +518,7 @@ class Htmlizer(object):
 
             # filling feed entry string:
             feedentry = u"""<entry>
-    <title type="text">""" + blog_data_entry['title'] + """</title>
+    <title type="text">""" + self.sanitize_feed_html_characters(blog_data_entry['title']) + """</title>
     <link href='""" + config.BASE_URL + "/" + listentry['url'] + """' />
     <published>""" + blog_data_entry['firstpublishTS'].strftime('%Y-%m-%dT%H:%M:%S' + config.TIME_ZONE_ADDON) + """</published>
     <updated>""" + blog_data_entry['latestupdateTS'].strftime('%Y-%m-%dT%H:%M:%S' + config.TIME_ZONE_ADDON) + "</updated>\n"
@@ -538,9 +538,9 @@ class Htmlizer(object):
             # add summary:
             feedentry += "    <summary type='xhtml'>\n<div xmlns='http://www.w3.org/1999/xhtml'>"
             if blog_data_entry['htmlteaser-equals-content']:
-                feedentry += '\n'.join(blog_data_entry['content'])
+                feedentry += self.sanitize_feed_html_characters('\n'.join(blog_data_entry['content']))
             else:
-                feedentry += '\n'.join(blog_data_entry['htmlteaser'])
+                feedentry += self.sanitize_feed_html_characters('\n'.join(blog_data_entry['htmlteaser']))
             feedentry += "</div>\n    </summary>"
 
             # add content to content-feed OR end entry for links-feed:
@@ -548,7 +548,7 @@ class Htmlizer(object):
                 listentry['url'] + u"-from-feed-with-links" + "</id>\n  </entry>\n\n"
             content_atom_feed += feedentry + """    <content type='xhtml'>
       <div xmlns='http://www.w3.org/1999/xhtml'>
-	""" + '\n'.join(blog_data_entry['content']) + """
+	""" + self.sanitize_feed_html_characters('\n'.join(blog_data_entry['content'])) + """
       </div>
     </content>
     <id>""" + config.BASE_URL + "/" + listentry['url'] + u"-from-feed-with-content" + \
@@ -1247,6 +1247,13 @@ class Htmlizer(object):
         """
         Replaces all occurrences of [<>] with their HTML representation.
 
+        Numeric values: http://www.ascii.cl/htmlcodes.htm
+
+        FIXXME: build an exhaustive list of replacement characters
+
+        FIXXME: use a more elegant replacement construct such as http://stackoverflow.com/questions/5499078/fastest-method-to-escape-html-tags-as-html-entities
+        or https://wiki.python.org/moin/EscapingHtml
+
         @param entry: string
         @param return: sanitized string
         """
@@ -1257,7 +1264,33 @@ class Htmlizer(object):
             u'<',
             u'&lt;').replace(
             u'>',
-            u'&gt;')
+            u'&gt;').replace(
+            u'—',
+            u'&mdash;')
+
+    def sanitize_feed_html_characters(self, content):
+        """
+        Replaces all occurrences of [<>] with their HTML representation for the atom feeds.
+
+        According to http://stackoverflow.com/questions/281682/reference-to-undeclared-entity-exception-while-working-with-xml
+        HTML-entities like &mdash; must not be part of XML.
+
+        Numeric values: http://www.ascii.cl/htmlcodes.htm
+
+        FIXXME: build an exhaustive list of replacement characters
+
+        FIXXME: use a more elegant replacement construct such as http://stackoverflow.com/questions/5499078/fastest-method-to-escape-html-tags-as-html-entities
+        or https://wiki.python.org/moin/EscapingHtml
+
+        @param entry: string
+        @param return: sanitized string
+        """
+
+        return content.replace(
+            u'<script async src=',
+            u'<script async="async" src=').replace(
+            u'&mdash;',
+            u'&#8212;')
 
     def generate_relative_url_from_sourcecategory_to_id(
             self, sourcecategory, targetid):
