@@ -7,15 +7,15 @@
   <id>http://Karl-Voit.at/</id>
   <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2017-03-03T16:07:12+01:00</updated>
+  <updated>2017-04-23T19:44:46+01:00</updated>
   <author>
     <name>Karl Voit</name>
   </author>
   <subtitle type="text">public voit</subtitle>
   <rights>All content written by Karl Voit</rights>
   <generator uri='https://github.com/novoid/lazyblorg'>Generated from Org-mode source code using lazyblorg which is written in Python. Industrial-strength technology, baby.</generator>
-
-        <entry>
+<!-- ############################################################################################# -->
+<entry>
     <title type="text">Sanitizing Elements</title>
     <link href='http://Karl-Voit.at/2017/01/08/sanitizing-tests' />
     <published>2017-01-08T10:58:00+01:00</published>
@@ -72,7 +72,8 @@ A simple code block:
       </div>
     </content>
     <id>http://Karl-Voit.at/2017/01/08/sanitizing-tests-from-feed-with-content</id>
-  </entry>
+</entry>
+<!-- ############################################################################################# -->
 <entry>
     <title type="text">Placeholder: How to Use This Blog Efficiently</title>
     <link href='http://Karl-Voit.at/how-to-use-public-voit' />
@@ -99,7 +100,8 @@ This is a placeholder entry in order to be able to test internal links.
       </div>
     </content>
     <id>http://Karl-Voit.at/how-to-use-public-voit-from-feed-with-content</id>
-  </entry>
+</entry>
+<!-- ############################################################################################# -->
 <entry>
     <title type="text">FIXXME: image test</title>
     <link href='http://Karl-Voit.at/2016/11/27/image-test' />
@@ -127,7 +129,8 @@ This is a place-holder for a future feature: including image files via memacs.
       </div>
     </content>
     <id>http://Karl-Voit.at/2016/11/27/image-test-from-feed-with-content</id>
-  </entry>
+</entry>
+<!-- ############################################################################################# -->
 <entry>
     <title type="text">Special Characters</title>
     <link href='http://Karl-Voit.at/2016/11/27/special-characters' />
@@ -169,7 +172,8 @@ Being curious how this is going to work out.
       </div>
     </content>
     <id>http://Karl-Voit.at/2016/11/27/special-characters-from-feed-with-content</id>
-  </entry>
+</entry>
+<!-- ############################################################################################# -->
 <entry>
     <title type="text">Testing Misc Sanitization Issues</title>
     <link href='http://Karl-Voit.at/2016/11/06/sanitization-examples' />
@@ -189,7 +193,8 @@ Being curious how this is going to work out.
       </div>
     </content>
     <id>http://Karl-Voit.at/2016/11/06/sanitization-examples-from-feed-with-content</id>
-  </entry>
+</entry>
+<!-- ############################################################################################# -->
 <entry>
     <title type="text">A Temporal Article With Links</title>
     <link href='http://Karl-Voit.at/2016/10/31/my-temporal-article' />
@@ -273,7 +278,8 @@ Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. O
       </div>
     </content>
     <id>http://Karl-Voit.at/2016/10/31/my-temporal-article-from-feed-with-content</id>
-  </entry>
+</entry>
+<!-- ############################################################################################# -->
 <entry>
     <title type="text">A Wonderful Persistent Blog Entry</title>
     <link href='http://Karl-Voit.at/persistent-entry' />
@@ -317,7 +323,8 @@ Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. O
       </div>
     </content>
     <id>http://Karl-Voit.at/persistent-entry-from-feed-with-content</id>
-  </entry>
+</entry>
+<!-- ############################################################################################# -->
 <entry>
     <title type="text">exampletag</title>
     <link href='http://Karl-Voit.at/tags/exampletag' />
@@ -418,7 +425,8 @@ Below this, I expect some links to other pages related to the tag "exampletag":
       </div>
     </content>
     <id>http://Karl-Voit.at/tags/exampletag-from-feed-with-content</id>
-  </entry>
+</entry>
+<!-- ############################################################################################# -->
 <entry>
     <title type="text">programming</title>
     <link href='http://Karl-Voit.at/tags/programming' />
@@ -473,7 +481,8 @@ Glad you like it.
       </div>
     </content>
     <id>http://Karl-Voit.at/tags/programming-from-feed-with-content</id>
-  </entry>
+</entry>
+<!-- ############################################################################################# -->
 <entry>
     <title type="text">from nothing to DONE</title>
     <link href='http://Karl-Voit.at/2016/09/18/from-nothing-to-done' />
@@ -501,5 +510,4 @@ This is an example blog entry with no special content.
       </div>
     </content>
     <id>http://Karl-Voit.at/2016/09/18/from-nothing-to-done-from-feed-with-content</id>
-  </entry>
-</feed>
+</entry></feed>

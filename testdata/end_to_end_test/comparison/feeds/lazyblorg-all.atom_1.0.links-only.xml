@@ -7,66 +7,33 @@
   <id>http://Karl-Voit.at/</id>
   <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2017-03-03T16:07:12+01:00</updated>
+  <updated>2017-04-23T19:44:46+01:00</updated>
   <author>
     <name>Karl Voit</name>
   </author>
   <subtitle type="text">public voit</subtitle>
   <rights>All content written by Karl Voit</rights>
   <generator uri='https://github.com/novoid/lazyblorg'>Generated from Org-mode source code using lazyblorg which is written in Python. Industrial-strength technology, baby.</generator>
-
-        <entry>
+<!-- ############################################################################################# -->
+<entry>
     <title type="text">Sanitizing Elements</title>
     <link href='http://Karl-Voit.at/2017/01/08/sanitizing-tests' />
     <published>2017-01-08T10:58:00+01:00</published>
     <updated>2017-01-08T10:58:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-	  <div class="example_code">
-	  <pre>;;some text
-(defun my-org-region-to-property (&amp;optional property)
-  "Copies the region as value to an Org-mode property"
-  (interactive)
-  ;; if no region is defined, do nothing
-  (message "foobar")
-)	  </pre>
-    </div>
-
-
-<p>
-
-A simple code block:
-
-</p>
-
-
-	  <pre> \** Cabaret `(my-capture-prompt "date of event" 'my-event-date)`: `(my-capture-prompt "artist" 'my-artist)`
- SCHEDULED: &lt;`(my-capture-prompt "date 1st email" 'my-email-date)`&gt;	  </pre>
-</div>
-    </summary>
     <id>http://Karl-Voit.at/2017/01/08/sanitizing-tests-from-feed-with-links</id>
-  </entry>
-
+</entry>
+<!-- ############################################################################################# -->
 <entry>
     <title type="text">Placeholder: How to Use This Blog Efficiently</title>
     <link href='http://Karl-Voit.at/how-to-use-public-voit' />
     <published>2017-01-03T12:07:00+01:00</published>
     <updated>2017-01-03T12:07:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
-
-This is a placeholder entry in order to be able to test internal links.
-
-</p>
-</div>
-    </summary>
     <id>http://Karl-Voit.at/how-to-use-public-voit-from-feed-with-links</id>
-  </entry>
-
+</entry>
+<!-- ############################################################################################# -->
 <entry>
     <title type="text">FIXXME: image test</title>
     <link href='http://Karl-Voit.at/2016/11/27/image-test' />
@@ -74,18 +41,9 @@ This is a placeholder entry in order to be able to test internal links.
     <updated>2016-11-27T15:01:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
-
-This is a place-holder for a future feature: including image files via memacs.
-
-</p>
-</div>
-    </summary>
     <id>http://Karl-Voit.at/2016/11/27/image-test-from-feed-with-links</id>
-  </entry>
-
+</entry>
+<!-- ############################################################################################# -->
 <entry>
     <title type="text">Special Characters</title>
     <link href='http://Karl-Voit.at/2016/11/27/special-characters' />
@@ -93,25 +51,9 @@ This is a place-holder for a future feature: including image files via memacs.
     <updated>2016-11-27T15:00:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
-
-This is a «test» with some Umlauts and special characters: öß€x²y³¼½¾.
-
-</p>
-
-
-<p>
-
-Being curious how this is going to work out.
-
-</p>
-</div>
-    </summary>
     <id>http://Karl-Voit.at/2016/11/27/special-characters-from-feed-with-links</id>
-  </entry>
-
+</entry>
+<!-- ############################################################################################# -->
 <entry>
     <title type="text">Testing Misc Sanitization Issues</title>
     <link href='http://Karl-Voit.at/2016/11/06/sanitization-examples' />
@@ -119,14 +61,9 @@ Being curious how this is going to work out.
     <updated>2016-11-06T17:40:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/programming' term='programming' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-	  <pre>This ought to be escaped &amp; &gt;printed&lt; well.	  </pre>
-</div>
-    </summary>
     <id>http://Karl-Voit.at/2016/11/06/sanitization-examples-from-feed-with-links</id>
-  </entry>
-
+</entry>
+<!-- ############################################################################################# -->
 <entry>
     <title type="text">A Temporal Article With Links</title>
     <link href='http://Karl-Voit.at/2016/10/31/my-temporal-article' />
@@ -134,46 +71,9 @@ Being curious how this is going to work out.
     <updated>2016-10-31T16:40:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/exampletag' term='exampletag' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
-
-<a href="../../../../2016/10/31/an-hidden-blog-entry">Link to a hidden entry</a>
-
-</p>
-
-
-<p>
-
-<a href="../../../../persistent-entry">Link to persistent article</a>
-
-</p>
-
-
-<p>
-
-<a href="../../../../tags/exampletag">Link to tag page</a>
-
-</p>
-
-
-<p>
-
-Lorem ipsum dolor sit amet, malorum scaevola ut ius, ridens admodum adipisci eam ad. Eu quo ignota appareat, an primis expetendis eum, atqui labitur ceteros quo ad. Id zril partiendo cotidieque nam, nemore legimus has ad. Nec cu regione sensibus volutpat.
-
-</p>
-
-
-<p>
-
-Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. Odio disputando ei his, ei est mutat mediocritatem. Harum verterem ex mea, sed saepe viderer scribentur ex. Pri te dictas eligendi praesent.
-
-</p>
-</div>
-    </summary>
     <id>http://Karl-Voit.at/2016/10/31/my-temporal-article-from-feed-with-links</id>
-  </entry>
-
+</entry>
+<!-- ############################################################################################# -->
 <entry>
     <title type="text">A Wonderful Persistent Blog Entry</title>
     <link href='http://Karl-Voit.at/persistent-entry' />
@@ -183,112 +83,27 @@ Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. O
     <category scheme='http://Karl-Voit.at/tags/programming' term='programming' />
     <category scheme='http://Karl-Voit.at/tags/exampletag' term='exampletag' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
-
-Lorem ipsum dolor sit amet, malorum scaevola ut ius, ridens admodum adipisci eam ad. Eu quo ignota appareat, an primis expetendis eum, atqui labitur ceteros quo ad. Id zril partiendo cotidieque nam, nemore legimus has ad. Nec cu regione sensibus volutpat.
-
-</p>
-
-
-<p>
-
-Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. Odio disputando ei his, ei est mutat mediocritatem. Harum verterem ex mea, sed saepe viderer scribentur ex. Pri te dictas eligendi praesent.
-
-</p>
-</div>
-    </summary>
     <id>http://Karl-Voit.at/persistent-entry-from-feed-with-links</id>
-  </entry>
-
+</entry>
+<!-- ############################################################################################# -->
 <entry>
     <title type="text">exampletag</title>
     <link href='http://Karl-Voit.at/tags/exampletag' />
     <published>2016-10-31T16:38:00+01:00</published>
     <updated>2016-10-31T16:38:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
-
-This is a page whose content is getting transformed into a tag page.
-
-</p>
-
-
-<p>
-
-I am very curious how this is going to turn out.
-
-</p>
-
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;"><strong>Return Code</strong></th>
-<th style="text-align: left;"><strong>Result</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">0</td>
-<td style="text-align: left;">I am happy!</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">Geez, what happened this time?</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">-1</td>
-<td style="text-align: left;">Even more worrying</td>
-</tr>
-</tbody>
-</table>
-
-
-<p>
-
-Below this, I expect some links to other pages related to the tag "exampletag":
-
-</p>
-</div>
-    </summary>
     <id>http://Karl-Voit.at/tags/exampletag-from-feed-with-links</id>
-  </entry>
-
+</entry>
+<!-- ############################################################################################# -->
 <entry>
     <title type="text">programming</title>
     <link href='http://Karl-Voit.at/tags/programming' />
     <published>2016-10-31T13:30:00+01:00</published>
     <updated>2016-10-31T13:30:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
-
-Here, you can read about the test-tag "programming".
-
-</p>
-
-
-<p>
-
-<a href="../../tags/programming">This link</a> should be a self-reference.
-
-</p>
-
-
-<p>
-
-Glad you like it.
-
-</p>
-</div>
-    </summary>
     <id>http://Karl-Voit.at/tags/programming-from-feed-with-links</id>
-  </entry>
-
+</entry>
+<!-- ############################################################################################# -->
 <entry>
     <title type="text">from nothing to DONE</title>
     <link href='http://Karl-Voit.at/2016/09/18/from-nothing-to-done' />
@@ -296,16 +111,5 @@ Glad you like it.
     <updated>2016-09-18T13:19:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/testtag1' term='testtag1' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
-
-This is an example blog entry with no special content.
-
-</p>
-</div>
-    </summary>
     <id>http://Karl-Voit.at/2016/09/18/from-nothing-to-done-from-feed-with-links</id>
-  </entry>
-
-</feed>
+</entry></feed>
