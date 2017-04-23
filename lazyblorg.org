@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2017-03-16 19:30:45 vk>
+# Time-stamp: <2017-04-23 12:50:46 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -364,6 +364,21 @@ for tag, count in TAGS.items():
 
 That's all. No need for a library ;-)
 
+** NEXT Blog entries can not start with a list                                                  :bug:
+:PROPERTIES:
+:CREATED:  [2017-04-23 Sun 12:49]
+:END:
+
+- https://github.com/novoid/lazyblorg/issues/10
+
+** NEXT lb-manual on public voit
+:PROPERTIES:
+:CREATED:  [2017-04-11 Tue 08:12]
+:END:
+
+- id:lazyblorg-docu id:lazyblorg-docu-blocks
+  id:lazyblorg-docu-how-to-use and so on ...
+
 ** NEXT generate tagtrees of level 2 (and more)
 :PROPERTIES:
 :CREATED:  [2017-02-12 Sun 10:55]
@@ -638,14 +653,6 @@ CLOSED: [2015-06-27 Sat 19:06] SCHEDULED: <2015-06-27 Sat>
 - http://marketingland.com/estimated-reading-times-increase-engagement-79830
   - «Research varies, but generally, the average adult reads 200-250 words in one minute.»
   - arguments *against* using this feature (makes people angry)
-
-** NEXT write lazyblorg-manual
-:PROPERTIES:
-:CREATED:  [2016-05-08 Sun 12:31]
-:END:
-
-- location: lazyblorg.org
-- publish on publicvoit
 
 ** NEXT remove list-itemize (and mytable?) from code and docu
 :PROPERTIES:
