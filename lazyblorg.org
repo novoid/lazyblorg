@@ -1,5 +1,5 @@
 # -*- mode: org; coding: utf-8; -*-
-# Time-stamp: <2017-04-23 12:50:46 vk>
+# Time-stamp: <2017-04-23 16:40:26 vk>
 
 * header information                                               :noexport:
 :PROPERTIES:
@@ -371,7 +371,7 @@ That's all. No need for a library ;-)
 
 - https://github.com/novoid/lazyblorg/issues/10
 
-** NEXT lb-manual on public voit
+** NEXT lb-manual on public voit or GitHub Wiki
 :PROPERTIES:
 :CREATED:  [2017-04-11 Tue 08:12]
 :END:
