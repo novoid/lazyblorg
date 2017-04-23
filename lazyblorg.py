@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-02-12 17:34:43 vk>
+# Time-stamp: <2017-03-19 11:21:42 vk>
 
 # TODO:
 # * fix parts marked with «FIXXME»
@@ -42,7 +42,6 @@ class Lazyblorg(object):
     """
 
     options = None
-    list_of_orgfiles = []
     logging = None
 
     blog_data = []
@@ -57,7 +56,6 @@ class Lazyblorg(object):
         self.options = options
         self.logging = logging
 
-        self.list_of_orgfiles = []
         self.blog_data = []
         self.metadata = []  # meta-data of the current run of lazyblorg
         self.previous_metadata = None  # meta-data of the previous run of lazyblorg
