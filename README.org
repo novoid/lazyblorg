@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2017-01-02 17:11:55 vk>
+## Time-stamp: <2017-06-04 17:41:24 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -23,10 +23,8 @@ any other Org-mode-to-blog-solution I have seen so far!
 :                                                       v
 :                                                  your web space
 
-If you don't believe me right away, there is a list of
-similar/alternative projects on
-http://orgmode.org/worg/org-blog-wiki.html which seem really tedious
-to me.
+There is [[http://orgmode.org/worg/org-blog-wiki.html][a list of similar/alternative Org-mode blogging projects]]
+whose workflows seem really tedious to me.
 
 See [[http://article.gmane.org/gmane.emacs.orgmode/49747/][my original post to the Org-mode ML]] for how this idea of lazyblorg
 started in 2011.
@@ -199,132 +197,7 @@ tags.
 
 ** FAQs
 
-*** Why lazyblorg and not <another project>?
-
-Please do read the sections "Why lazyblorg" and "Advantages" above.
-
-*** Does lazyblorg cost anything?
-
-No.
-
-Although, please do respect [[file:license.txt][the license which is attached]] to this project.
-
-As with every open source project, you will find that there are some
-costs: your time. However, you will gain additional knowledge from
-coping with it. :-)
-
-*** Am I able to use lazyblorg for myself?
-
-Yes.
-
-Get it from [[https://github.com/novoid/lazyblorg][github]] and read the installation notes in this file.
-
-*** What Org-mode elements are supported by lazyblorg?
-
-The Python parser implements a sub-set of Org-mode syntax. See section
-"notes" in [[file:lazyblorg.org]] for a plan of supported elements. As
-a fall-back for all other Org-mode elements, pandoc is used which
-works quite well.
-
-An Org-mode test-file (for unit testing) containing all implemented
-Org-mode syntax elements can be found at:
-[[https://github.com/novoid/lazyblorg/blob/master/testdata/end_to_end_test/orgfiles/currently_supported_orgmode_syntax.org][testdata/end_to_end_test/orgfiles/currently_supported_orgmode_syntax.org]]
-
-This test-file produces an example HTML entry that can be found at:
-[[https://github.com/novoid/lazyblorg/blob/master/testdata/end_to_end_test/comparison/2014/01/30/full-syntax-test/index.html][testdata/end_to_end_test/orgfiles/currently_supported_orgmode_syntax.html]]
-
-*** Where can I find support for lazyblorg?
-
-In short: please do help yourself. :-)
-
-Long: I developed lazyblorg for my own purposes and therefore it is
-optimized for my own requirements only. If you find lazyblorg cool and
-you want to use it on your own, I am totally OK with that. However, I
-can not offer much time in supporting other requirements than my
-own. If you did not catch this by yourself: I am lazy.
-
-*** Is lazyblorg in active development? What are the future plans?
-
-This section was updated on 2016-11-18:
-
-Currently: yes (heavy) :-)
-
-My general plan:
-- Add features to lazyblorg as long as I feel the urge to.
-- Be open to enhancements done by others on github.
-- If lazyblorg reaches a state, where I do not need anything
-  additional, let's keep it that way: development stopped because it
-  reached sufficient perfection :-)
-
-See also [[https://github.com/novoid/lazyblorg/blob/master/lazyblorg.org][lazyblorg.org]] for the issue tracking with all kind
-of information about the development (open issues, plans,
-documentation, ...).
-
-Already accomplished:
-- develop lazyblorg to be able to replace my current web page and its blog.
-- ATOM/RSS
-- tag-pages
-- Auto-tags
-- lists
-- Pandoc fall-back for unknown Org-mode elements
-
-Next:
-- overview pages (monthly, yearly)
-- more auto-tags
-- internal refactoring (object containing all constants, ...)
-- include image files
-
-*** Is there any documentation about the internals of lazyblorg?
-
-Yes, please do read [[https://github.com/novoid/lazyblorg/blob/master/lazyblorg.org][lazyblorg.org]] (especially section "notes").
-
-*** Lazyblorg uses what technology?
-
-- input files: Org-mode files of version 8.x or higher
-  - my personal Org-mode is from the [[http://orgmode.org/][maint branch of the Org-mode git
-    repository]]; so I tend to stay up-to-date to get newest features
-    and fixes
-- processing: Python 2.x
-  - some dependencies on libraries, nothing fancy
-  - I started with Python 2.x and never got the tension to test Python
-    3.x so far
-- output files: static HTML5, CSS3
-
-*** Why didn't you use HTML export/org-publish/Elisp/...?
-:PROPERTIES:
-:CREATED:  [2015-01-17 Sat 19:36]
-:END:
-
-Please do read my statement on [[https://github.com/novoid/lazyblorg/issues/2][GitHub]].
-
-*** Isn't this quite slow?
-
-As with 2016-11-18, the parser and htmlizer is performing pretty well
-in my opinion. When I re-generate [[http://karl-voit.at][my whole blog]], I currently get this
-summary output:
-
-: Parsed 19 Org-mode files with 500483 lines (in 4.29 seconds)
-: Generated 402 articles: 10 persistent, 300 temporal, 91 tag, 1 entry page (in 7.93 seconds)
-
-*** Can I use the Org-mode parser (in Python) for other purposes as well?
-
-Yes, please do read [[https://github.com/novoid/lazyblorg/blob/master/lazyblorg.org][lazyblorg.org]] and [[https://github.com/novoid/lazyblorg/blob/master/lib/orgparser.py][lib/orgparser.py]].
-
-Although, you have to modify it a bit since I filter out headings that
-meet the criteria of being a blog article. You also have to know that
-I did not write a clean parser (separate lexical and syntactic
-analysis) for Org-mode. I used the naive line-by-line method in order
-to get the sub-set Org-mode syntax done quickly. There certainly is a
-downside of this method in terms of capability and probably also
-maintainability.
-
-Please also note that this parser only implements a sub-set of
-Org-mode syntax (see section "notes" in [[https://github.com/novoid/lazyblorg/blob/master/lazyblorg.org][lazyblorg.org]]). For the
-rest, I am using Pandoc which works quite well.
-
-*** I do have a question but it is not listed here. Where to ask?
-
-Just drop me a line: lazyblorg <at-sign> Karl <minus-sign> Voit <dot> at
+See https://github.com/novoid/lazyblorg/wiki/FAQs
 
 * Installing and Starting with lazyblorg
 
@@ -335,16 +208,10 @@ and more ready to use as I add new features.
 What's working so far:
 - parsing a very basic sub-set of Org-mode
 - parsing the HTML templates
-- generating HTML5 pages with a sub-set of the sub-set of the Org-mode
-  syntax elements
-
-Non-working things are either mentioned in [[https://github.com/novoid/lazyblorg/blob/master/lazyblorg.org][lazyblorg.org]] or marked
-with "FIXXME" in the source code files.
+- generating HTML5 pages with [[https://github.com/novoid/lazyblorg/wiki/Org-mode-Elements][a sub-set of the sub-set of the Org-mode
+  syntax elements]]
 
 ** External dependencies
-:PROPERTIES:
-:CREATED:  [2014-03-16 Sun 17:32]
-:END:
 
 The number of external dependencies is kept at a minimum.
 
@@ -453,9 +320,6 @@ the original Org-mode source of that page. This way, you can compare
 Org-mode-source and HTML-result right away. Isn't that cool? :-)
 
 ** Five categories of page type
-:PROPERTIES:
-:CREATED:  [2014-03-04 Di 08:52]
-:END:
 
 There are five different types of pages in lazyblorg. Most of the
 time, you are going to produce temporal pages. However, it is
@@ -472,95 +336,8 @@ as well.
 4. *entry page*
 5. *templates*
 
-*** temporal
-
-These pages are associated with a certain (first) publishing date. The
-date of the most recent update is derived from the most recent
-time-stamp when you are marking the heading as DONE
-
-URLs end up like ~http://example.com/2014/03/30/this-is-the-ID/~ where
-"this-is-the-ID" is derived from the ID-property. The date is taken
-from the oldest time-stamp when the heading was marked as DONE. If the
-ID starts with an ISO date, this date gets truncated:
-"2014-03-30-this-is-the-ID" gets "this-is-the-ID"
-- reason: you can use general terms like "sports" without
-  worrying that another heading has "sports" as ID as well
-  ("2014-03-30-sports" is pretty unique in contrast to "sports").
-- hey, isn't this nice or what?
-
-- criteria (as already mentioned above)
-  1. ID set
-  2. tag: ~blog~
-  3. status is DONE
-
-*** persistent
-
-Pages that will be constantly updated to stay up-to-date are
-realized as persistent pages.
-
-This type is very handy for, e.g., about-pages, [[http://en.wikipedia.org/wiki/Colophon_%2528publishing%2529][colophon]],
-constantly updated tutorials/howtos, and so forth.
-
-URLs are like ~http://example.com/this-is-the-ID/~:
-- if it starts with an ISO date: same truncation as with the
-  temporal IDs
-
-- criteria
-  1. ID set
-  2. tag: ~blog~
-  3. tag: ~lb_persistent~
-  4. status is DONE
-
-*** tags
-
-[[http://karl-voit.at/2016/11/13/lazyblorg-tag-pages/][Tag pages are a specialty of lazyblorg]]. Unlike other systems,
-lazyblorg embraces tags as very important classification
-meta-data. When I am using a tag, I associate a specific context
-with it. This specific context is highly subjective unless I
-explain it to you. Tag pages are my explanation, what I do mean
-by using a certain tag. In the future, tags of temporal pages are
-automatically linked to (existing) tag pages describing each tag.
-
-Hence: tag pages are like persistent pages which describe a
-certain tag.
-
-URLs are like ~http://example.com/tags/mytag/~
-
-- criteria
-  1. blog article heading is one single word: the tag
-  2. ID is set
-  3. tag: ~blog~
-  4. tag: ~lb_tags~
-  5. status is DONE
-
-*** entry page
-
-The main or entry page is handled in a special way. It is a
-persistent page whose content is generated using HTML snippets
-from the templates and enriched with links to the most recent
-updated pages. So far, there is not much Org-mode on the entry
-page. It is more or less a dash-board and a jumping page.
-
-The URL is like ~http://example.com/~
-
-*** templates
-
-There must be exactly one heading which meets the criteria of a
-templates heading (see below). Within this heading, separate HTML
-blocks define the HTML snippets that are used by lazyblorg to
-generate the HTML pages. Please take a look at
-lazyblorg/templates/blog-format.org]] to get an impression how this
-works.
-
-You might want to start with my blog-format template and adopt it to
-your needs.
-
-- criteria
-  1. ID set
-  2. tag: ~blog~
-  3. tag: ~lb_templates~
-  4. status is DONE
-  5. contains all necessary HTML blocks with pre-defined names
+Please do read https://github.com/novoid/lazyblorg/wiki/Page-Types for
+important details.
 
 ** BONUS: Preview Blog Article
 :PROPERTIES:
@@ -715,6 +492,9 @@ I am using [[http://www.python.org/dev/peps/pep-0008/][Python PEP8]] and some id
 
 
 * Local Variables                                                  :noexport:
+
+[[http://karl-voit.at/temp/github/2017-06-04_lazyblorg_README.png]]
+
 # Local Variables:
 # mode: auto-fill
 # mode: flyspell
