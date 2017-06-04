@@ -30,7 +30,7 @@ DISQUS_NAME = 'publicvoit'  # gets placed in: '//publicvoit.disqus.com/embed.js'
 COMMENT_EMAIL_ADDRESS = 'publicvoit-comment@Karl-Voit.at'
 
 ## integer: Show this many article teasers on entry page
-NUMBER_OF_TEASER_ARTICLES = 15
+NUMBER_OF_TEASER_ARTICLES = 25
 
 ## integer: Show this many top tags in the sidebar
 NUMBER_OF_TOP_TAGS = 10
@@ -40,7 +40,7 @@ IGNORE_FOR_TOP_TAGS = ['suderei', 'personally']
 IGNORE_FOR_TAG_CLOUD = ['suderei', 'personally', 'hardware', 'software']
 
 ## integer: Show this many article in Atom feeds:
-NUMBER_OF_FEED_ARTICLES = 10
+NUMBER_OF_FEED_ARTICLES = 25
 
 ## string: This is the Org-mode property :ID: of your blog article which
 ##         is used for the about page of your blog.
