@@ -493,7 +493,7 @@ I am using [[http://www.python.org/dev/peps/pep-0008/][Python PEP8]] and some id
 
 * Local Variables                                                  :noexport:
 
-[http://karl-voit.at/temp/github/2017-06-04_lazyblorg_README.png][ ]]
+[[http://karl-voit.at/temp/github/2017-06-04_lazyblorg_README.png][ ]]
 
 # Local Variables:
 # mode: auto-fill
