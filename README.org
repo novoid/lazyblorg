@@ -488,10 +488,11 @@ contribute!
 Issues, bugs,… are maintained in the [[https://github.com/novoid/lazyblorg/issues][GitHub issue tracker]].
 
 I am using [[http://www.python.org/dev/peps/pep-0008/][Python PEP8]] and some ideas from [[http://en.wikipedia.org/wiki/Test-driven_development][Test Driven Development
-(TDD)]][[http://karl-voit.at/temp/github/2017-06-04_lazyblorg_README.png][.]]
+(TDD)]].
 
 * Local Variables                                                  :noexport:
 
+[[http://karl-voit.at/temp/github/2017-06-04_lazyblorg_README.png]]
 
 # Local Variables:
 # mode: auto-fill
