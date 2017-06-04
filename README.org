@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2017-06-04 17:41:24 vk>
+## Time-stamp: <2017-06-04 23:25:29 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -485,7 +485,7 @@ I'm glad you like my tools. If you want to support me:
 If you want to contribute to this cool project, please fork and
 contribute!
 
-Issues, bugs, user-stories, ... are maintained in [[https://github.com/novoid/lazyblorg/blob/master/lazyblorg.org][lazyblorg.org]]
+Issues, bugs,… are maintained in the [[https://github.com/novoid/lazyblorg/issues][GitHub issue tracker]].
 
 I am using [[http://www.python.org/dev/peps/pep-0008/][Python PEP8]] and some ideas from [[http://en.wikipedia.org/wiki/Test-driven_development][Test Driven Development
 (TDD)]][[http://karl-voit.at/temp/github/2017-06-04_lazyblorg_README.png][.]]
