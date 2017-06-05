@@ -1,0 +1,582 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns="http://www.w3.org/2005/Atom"
+      xmlns:thr="http://purl.org/syndication/thread/1.0"
+      xml:lang="en-us">
+  <link rel="self" href="http://Karl-Voit.at/feeds/lazyblorg-all.atom_1.0.links-and-teaser.xml" />
+  <title type="text">public voit</title>
+  <id>http://Karl-Voit.at/</id>
+  <link href="http://Karl-Voit.at" />
+  <icon>/favicon.ico</icon>
+  <updated>2017-05-25T11:51:52+01:00</updated>
+  <author>
+    <name>Karl Voit</name>
+  </author>
+  <subtitle type="text">public voit</subtitle>
+  <rights>All content written by Karl Voit</rights>
+  <generator uri='https://github.com/novoid/lazyblorg'>Generated from Org-mode source code using lazyblorg which is written in Python. Industrial-strength technology, baby.</generator>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">Sanitizing Elements</title>
+    <link href='http://Karl-Voit.at/2017/01/08/sanitizing-tests' />
+    <published>2017-01-08T10:58:00+01:00</published>
+    <updated>2017-01-08T10:58:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+	  <div class="example_code">
+	  <pre>;;some text
+(defun my-org-region-to-property (&amp;optional property)
+  "Copies the region as value to an Org-mode property"
+  (interactive)
+  ;; if no region is defined, do nothing
+  (message "foobar")
+)	  </pre>
+    </div>
+
+
+<p>
+
+A simple code block:
+
+</p>
+
+
+	  <pre> \** Cabaret `(my-capture-prompt "date of event" 'my-event-date)`: `(my-capture-prompt "artist" 'my-artist)`
+ SCHEDULED: &lt;`(my-capture-prompt "date 1st email" 'my-email-date)`&gt;	  </pre>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/2017/01/08/sanitizing-tests-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">Placeholder: How to Use This Blog Efficiently</title>
+    <link href='http://Karl-Voit.at/how-to-use-public-voit' />
+    <published>2017-01-03T12:07:00+01:00</published>
+    <updated>2017-01-03T12:07:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+This is a placeholder entry in order to be able to test internal links.
+
+</p>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/how-to-use-public-voit-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">FIXXME: image test</title>
+    <link href='http://Karl-Voit.at/2016/11/27/image-test' />
+    <published>2016-11-27T15:01:00+01:00</published>
+    <updated>2016-11-27T15:01:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+This is a place-holder for a future feature: including image files via memacs.
+
+</p>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/2016/11/27/image-test-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">Special Characters</title>
+    <link href='http://Karl-Voit.at/2016/11/27/special-characters' />
+    <published>2016-11-27T15:00:00+01:00</published>
+    <updated>2016-11-27T15:00:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+This is a «test» with some Umlauts and special characters: öß€x²y³¼½¾.
+
+</p>
+
+
+<p>
+
+Being curious how this is going to work out.
+
+</p>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/2016/11/27/special-characters-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">Testing Misc Sanitization Issues</title>
+    <link href='http://Karl-Voit.at/2016/11/06/sanitization-examples' />
+    <published>2016-11-06T17:40:00+01:00</published>
+    <updated>2016-11-06T17:40:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/tags/programming' term='programming' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+	  <pre>This ought to be escaped &amp; &gt;printed&lt; well.	  </pre>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/2016/11/06/sanitization-examples-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">A Temporal Article With Links</title>
+    <link href='http://Karl-Voit.at/2016/10/31/my-temporal-article' />
+    <published>2016-10-31T16:40:00+01:00</published>
+    <updated>2016-10-31T16:40:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/tags/exampletag' term='exampletag' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+<a href="../../../../2016/10/31/an-hidden-blog-entry">Link to a hidden entry</a>
+
+</p>
+
+
+<p>
+
+<a href="../../../../persistent-entry">Link to persistent article</a>
+
+</p>
+
+
+<p>
+
+<a href="../../../../tags/exampletag">Link to tag page</a>
+
+</p>
+
+
+<p>
+
+Lorem ipsum dolor sit amet, malorum scaevola ut ius, ridens admodum adipisci eam ad. Eu quo ignota appareat, an primis expetendis eum, atqui labitur ceteros quo ad. Id zril partiendo cotidieque nam, nemore legimus has ad. Nec cu regione sensibus volutpat.
+
+</p>
+
+
+<p>
+
+Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. Odio disputando ei his, ei est mutat mediocritatem. Harum verterem ex mea, sed saepe viderer scribentur ex. Pri te dictas eligendi praesent.
+
+</p>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/2016/10/31/my-temporal-article-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">A Wonderful Persistent Blog Entry</title>
+    <link href='http://Karl-Voit.at/persistent-entry' />
+    <published>2016-10-31T16:39:00+01:00</published>
+    <updated>2016-10-31T16:39:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='http://Karl-Voit.at/tags/programming' term='programming' />
+    <category scheme='http://Karl-Voit.at/tags/exampletag' term='exampletag' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+Lorem ipsum dolor sit amet, malorum scaevola ut ius, ridens admodum adipisci eam ad. Eu quo ignota appareat, an primis expetendis eum, atqui labitur ceteros quo ad. Id zril partiendo cotidieque nam, nemore legimus has ad. Nec cu regione sensibus volutpat.
+
+</p>
+
+
+<p>
+
+Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. Odio disputando ei his, ei est mutat mediocritatem. Harum verterem ex mea, sed saepe viderer scribentur ex. Pri te dictas eligendi praesent.
+
+</p>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/persistent-entry-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">exampletag</title>
+    <link href='http://Karl-Voit.at/tags/exampletag' />
+    <published>2016-10-31T16:38:00+01:00</published>
+    <updated>2016-10-31T16:38:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+This is a page whose content is getting transformed into a tag page.
+
+</p>
+
+
+<p>
+
+I am very curious how this is going to turn out.
+
+</p>
+
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Return Code</strong></th>
+<th style="text-align: left;"><strong>Result</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">I am happy!</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Geez, what happened this time?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">-1</td>
+<td style="text-align: left;">Even more worrying</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+
+Below this, I expect some links to other pages related to the tag "exampletag":
+
+</p>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/tags/exampletag-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">programming</title>
+    <link href='http://Karl-Voit.at/tags/programming' />
+    <published>2016-10-31T13:30:00+01:00</published>
+    <updated>2016-10-31T13:30:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+Here, you can read about the test-tag "programming".
+
+</p>
+
+
+<p>
+
+<a href="../../tags/programming">This link</a> should be a self-reference.
+
+</p>
+
+
+<p>
+
+Glad you like it.
+
+</p>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/tags/programming-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">from nothing to DONE</title>
+    <link href='http://Karl-Voit.at/2016/09/18/from-nothing-to-done' />
+    <published>2016-09-18T13:19:00+01:00</published>
+    <updated>2016-09-18T13:19:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/tags/testtag1' term='testtag1' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+This is an example blog entry with no special content.
+
+</p>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/2016/09/18/from-nothing-to-done-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">Placeholder: About</title>
+    <link href='http://Karl-Voit.at/about' />
+    <published>2014-03-09T14:57:00+01:00</published>
+    <updated>2014-03-09T14:57:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+This is a placeholder entry in order to be able to test internal links.
+
+</p>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/about-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">Mini blog entry</title>
+    <link href='http://Karl-Voit.at/2013/08/22/testid' />
+    <published>2013-08-22T21:06:00+01:00</published>
+    <updated>2013-08-22T21:06:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+Just for testing.
+
+</p>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/2013/08/22/testid-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">This is an example blog entry</title>
+    <link href='http://Karl-Voit.at/2013/02/14/lazyblorg-example-entry' />
+    <published>2013-02-14T19:02:00+01:00</published>
+    <updated>2013-02-14T19:02:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/tags/mytest' term='mytest' />
+    <category scheme='http://Karl-Voit.at/tags/programming' term='programming' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+This is an introduction text which describes the blog entry with some catchy information. Readers should be convinced to read this interesting text. <a href="https://github.com/novoid/Memacs">Memacs</a> is an external link to Memacs.
+
+</p>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/2013/02/14/lazyblorg-example-entry-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">old blog entry14</title>
+    <link href='http://Karl-Voit.at/1985/01/01/old-entry14' />
+    <published>1985-01-01T15:14:00+01:00</published>
+    <updated>1985-01-01T15:14:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+Test entry.
+
+</p>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/1985/01/01/old-entry14-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">old blog entry13</title>
+    <link href='http://Karl-Voit.at/1985/01/01/old-entry13' />
+    <published>1985-01-01T15:13:00+01:00</published>
+    <updated>1985-01-01T15:13:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+Test entry.
+
+</p>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/1985/01/01/old-entry13-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">old blog entry12</title>
+    <link href='http://Karl-Voit.at/1985/01/01/old-entry12' />
+    <published>1985-01-01T15:12:00+01:00</published>
+    <updated>1985-01-01T15:12:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+Test entry.
+
+</p>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/1985/01/01/old-entry12-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">old blog entry11</title>
+    <link href='http://Karl-Voit.at/1985/01/01/old-entry11' />
+    <published>1985-01-01T15:11:00+01:00</published>
+    <updated>1985-01-01T15:11:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+Test entry.
+
+</p>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/1985/01/01/old-entry11-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">old blog entry10</title>
+    <link href='http://Karl-Voit.at/1985/01/01/old-entry10' />
+    <published>1985-01-01T15:10:00+01:00</published>
+    <updated>1985-01-01T15:10:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+Test entry.
+
+</p>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/1985/01/01/old-entry10-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">old blog entry9</title>
+    <link href='http://Karl-Voit.at/1985/01/01/old-entry9' />
+    <published>1985-01-01T15:09:00+01:00</published>
+    <updated>1985-01-01T15:09:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+Test entry.
+
+</p>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/1985/01/01/old-entry9-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">old blog entry8</title>
+    <link href='http://Karl-Voit.at/1985/01/01/old-entry8' />
+    <published>1985-01-01T15:08:00+01:00</published>
+    <updated>1985-01-01T15:08:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+Test entry.
+
+</p>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/1985/01/01/old-entry8-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">old blog entry7</title>
+    <link href='http://Karl-Voit.at/1985/01/01/old-entry7' />
+    <published>1985-01-01T15:07:00+01:00</published>
+    <updated>1985-01-01T15:07:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+Test entry.
+
+</p>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/1985/01/01/old-entry7-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">old blog entry6</title>
+    <link href='http://Karl-Voit.at/1985/01/01/old-entry6' />
+    <published>1985-01-01T15:06:00+01:00</published>
+    <updated>1985-01-01T15:06:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+Test entry.
+
+</p>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/1985/01/01/old-entry6-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">old blog entry5</title>
+    <link href='http://Karl-Voit.at/1985/01/01/old-entry5' />
+    <published>1985-01-01T15:05:00+01:00</published>
+    <updated>1985-01-01T15:05:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+Test entry.
+
+</p>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/1985/01/01/old-entry5-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">old blog entry4</title>
+    <link href='http://Karl-Voit.at/1985/01/01/old-entry4' />
+    <published>1985-01-01T15:04:00+01:00</published>
+    <updated>1985-01-01T15:04:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+Test entry.
+
+</p>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/1985/01/01/old-entry4-from-feed-with-teaser</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">old blog entry3</title>
+    <link href='http://Karl-Voit.at/1985/01/01/old-entry3' />
+    <published>1985-01-01T15:03:00+01:00</published>
+    <updated>1985-01-01T15:03:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='xhtml'>
+<div xmlns='http://www.w3.org/1999/xhtml'>
+<p>
+
+Test entry.
+
+</p>
+</div>
+    </summary>
+    <id>http://Karl-Voit.at/1985/01/01/old-entry3-from-feed-with-teaser</id>
+</entry></feed>
