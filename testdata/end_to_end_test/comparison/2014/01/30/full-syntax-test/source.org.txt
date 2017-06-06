@@ -529,4 +529,54 @@ Complex table:
 | [[id:2014-01-27-full-syntax-test][internal *link* test]] |    10 |        2 |     20 | Umlaut test: öÄß    |
 #+TBLFM: $4=$2*$3
 
+** Customized Link Images
+
+These are some beautiful photographs I want to include here:
+
+[[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
+
+[[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
+
+[[tsfile:2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag.jpg][A completely different description here]]
+
+#+CAPTION: Some beautiful stars in a tree
+#+ATTR_HTML: :alt Stars in a Tree :title Some Stars :align right :width 300
+[[tsfile:2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
+
+#+CAPTION: Multiple captions do not hurt but the last one wins
+#+CAPTION: This is the only caption for this image.
+#+ATTR_HTML: :alt An alternative description image :title This is my title! :align right :width 300
+[[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
+
+#+CAPTION: This caption will be overwritten by follow-up ones
+#+CAPTION: This is going to be the caption
+#+ATTR_HTML: :alt This is going to be the alt parameter of the img tag
+#+ATTR_HTML: :title The title is ignored
+#+ATTR_HTML: :align right :width 300
+[[tsfile:2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag.jpg][If there is an CAPTION, this title gets ignored]]
+
+#+ATTR_HTML: :alt This is going to be the alt parameter of the img tag
+#+ATTR_HTML: :title The title is ignored
+#+ATTR_HTML: :align right :width 300
+[[tsfile:2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag.jpg][This is the caption of the image]]
+
+#+CAPTION: Test for left-justified image with 300px width
+#+ATTR_HTML: :alt left-justified stars
+#+ATTR_HTML: :align left :width 300
+[[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
+
+#+CAPTION: Test for center-justified image with 300px width
+#+ATTR_HTML: :alt center-justified stars
+#+ATTR_HTML: :align center :width 300
+[[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
+
+#+CAPTION: Test for right-justified image with 300px width
+#+ATTR_HTML: :alt right-justified stars
+#+ATTR_HTML: :align right :width 300
+[[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
+
+#+CAPTION: Test with image file whose name only matches the ISO timestamp (partial comparison)
+#+ATTR_HTML: :align center :width 300
+[[tsfile:2017-03-11T18.29.21.jpg]]
+
 

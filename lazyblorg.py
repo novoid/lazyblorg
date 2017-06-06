@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-03-19 11:21:42 vk>
+# Time-stamp: <2017-06-06 21:20:41 vk>
 
 # TODO:
 # * fix parts marked with «FIXXME»
@@ -10,7 +10,7 @@
 ##  know, what you are doing :-)                                         ##
 ## ===================================================================== ##
 
-import config  # lazyblorg-global settings
+import config  # lazyblorg-global settings from "config.py"
 import os
 import logging
 from datetime import datetime

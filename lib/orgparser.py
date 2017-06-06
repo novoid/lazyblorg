@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-02-12 15:03:51 vk>
+# Time-stamp: <2017-06-17 18:56:55 vk>
 
 import config
 import re
@@ -109,6 +109,18 @@ class OrgParser(object):
     ## (u'  ', u'23.', u'23.', u'[-]', u' foo bar')
     # >>> re.match(r'^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.+)$', u"  42) foo bar").groups()
     ## (u'  ', u'42)', u'42)', None, u'foo bar')
+
+    # example: '#+ATTR_HTML: :alt An alternative description image :title This is my title! :align right :width 300'
+    # results in: FIXXME
+    ATTR_HTML_REGEX = re.compile(':(\w+)\s+([^:]+)')
+
+    # re.match(r'^\[\[tsfile:(.+\.(png|jpg|jpeg|svg|gif))+(\]\[(.+))?\]\]$', '[[tsfile:2014-01-29 foo bar.PNG][foo bar]]', re.IGNORECASE).groups()
+    #   ('2014-01-29 foo bar.PNG', 'PNG', '][foo bar', 'foo bar')
+    # re.match(r'^\[\[tsfile:(.+\.(png|jpg|jpeg|svg|gif))+(\]\[(.+))?\]\]$', '[[tsfile:2014-01-29 foo bar.PNG]]', re.IGNORECASE).groups()
+    #   ('2014-01-29 foo bar.PNG', 'PNG', None, None)
+    CUST_LINK_IMAGE_REGEX = re.compile(r'^\[\[tsfile:([^\]]+\.(png|jpg|jpeg|svg|gif))+(\]\[(.+))?\]\]$')
+    CUST_LINK_IMAGE_FILENAME_IDX = 1
+    CUST_LINK_IMAGE_DESCRIPTION_IDX = 4
 
     __filename = u''
 
@@ -385,14 +397,26 @@ class OrgParser(object):
         block_type = None  # one of: SUPPORTED_BLOCK_TYPES_UPPERCASE
         block_type_export_backend = None  # one of SUPPORTED_EXPORT_BLOCK_BACKENDS
 
-        # name of the previous element with a name defined like: "#+NAME: foo
-        # bar"
+        # name of the previous element with a name defined; emptied with any empty line
+        # example: "#+NAME: foo bar" -> previous_name = u'foo bar'
         previous_name = u''
 
         # contains content of previous line
         # NOTE: only valid as long a state does not use "continue" in the previous
         # parsing step without "previous_line = line"
         previous_line = u''
+
+        # contains the previous caption line; emptied with any empty line
+        # example:
+        # #+CAPTION: A black cat stalking a spider
+        # previous_caption = u'A black cat stalking a spider'
+        previous_caption = u''
+
+        # contains the content of the previous ATTR_HTML lines; emptied with any empty line
+        # example:
+        # #+ATTR_HTML: :alt cat/spider image :title Action! :align right :width 300
+        # attr_html_list = {'alt': "cat/spider", 'title': "Action!", 'align': "right" , 'width': "300"}
+        attr_html_dict = {}
 
         # if skipping a heading within an entry, this variable holds
         # the level of heading of the noexport-heading:
@@ -519,6 +543,7 @@ class OrgParser(object):
 
                 heading_components = self.HEADING_REGEX.match(line)
                 hr_components = self.HR_REGEX.match(line)
+                cust_link_image_components = self.CUST_LINK_IMAGE_REGEX.match(line)
 
                 if line.upper() == ':PROPERTIES:':
                     self.logging.debug("OrgParser: found PROPERTIES drawer")
@@ -539,12 +564,15 @@ class OrgParser(object):
 
                 elif line == u'':
                     self.logging.debug("OrgParser: found empty line")
-                    previous_name = u''  # +NAME: here is only valid until empty line after element
-                    previous_line = line
+                    # clear things that are only valid until empty line after element
+                    previous_name = u''
+                    previous_caption = u''
+                    attr_html_dict = {}
                     # if len(self.__entry_data['content']) > 1:
                     #    if not self.__entry_data['content'][-1] == u'\n':
                     #        ## append newline to content (only if previous content is not a newline)
                     #        self.__entry_data['content'].append(u'\n')
+                    previous_line = line
                     continue
 
                 elif line.upper().startswith('#+NAME: '):
@@ -650,6 +678,29 @@ class OrgParser(object):
                         self.__entry_data['content'].append(
                             ['table', previous_name, [line]])
                     previous_line = line
+
+                elif line.upper().startswith('#+CAPTION: '):
+                    previous_caption = line[11:].strip()
+
+                elif line.upper().startswith('#+ATTR_HTML: '):
+                    matches = re.findall(self.ATTR_HTML_REGEX, line)
+                    if matches:
+                        # remove trailing spaces from the parameters
+                        matches = [(x, y.strip()) for x, y in matches]
+                        for match in matches:
+                            key = match[0]
+                            value = match[1]
+                            attr_html_dict[key] = value
+
+                elif cust_link_image_components:
+                    # parses lines like: [[tsfile:2014-01-29 foo bar.png]]
+                    # parses lines like: [[tsfile:2014-01-29 foo bar.png][foo bar]]
+                    filename = cust_link_image_components.group(self.CUST_LINK_IMAGE_FILENAME_IDX)
+                    description = cust_link_image_components.group(self.CUST_LINK_IMAGE_DESCRIPTION_IDX)
+                    self.logging.debug(
+                        "OrgParser: adding a customized image link file[%s], description[%s], caption[%s], attr[%s]" % \
+                        (str(filename), str(description), str(previous_caption), str(attr_html_dict)))
+                    self.__entry_data['content'].append(['cust_link_image', filename, description, previous_caption, attr_html_dict])
 
                 elif heading_components:
                     self.logging.debug("OrgParser: found new heading")
