@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-06-18 01:16:29 vk>
+# Time-stamp: <2017-06-18 01:56:05 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1196,7 +1196,7 @@ class Htmlizer(object):
                 elif caption:
                     description = caption
                 if description:
-                    result += '\n<figcaption>' + description + '<figcaption/>'
+                    result += '\n<figcaption>' + description + '</figcaption>'
 
                 result += '\n</figure>\n'
 
