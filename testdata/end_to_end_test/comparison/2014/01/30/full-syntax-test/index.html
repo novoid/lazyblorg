@@ -732,58 +732,146 @@ These are some beautiful photographs I want to include here:
 
 </p>
 
-<figure>
+<figure class="image-center">
 <img src="2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg" alt="" />
 </figure>
 
-<figure>
+<figure class="image-center">
 <img src="2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg" alt="" />
 </figure>
 
-<figure>
+<figure class="image-center">
 <img src="2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg" alt="" />
 <figcaption>A completely different description here<figcaption/>
 </figure>
+
+<p>
+
+And now we do test images with captions and attributes. Here is an image with a caption and attributes for <code>alt</code>, <code>title</code> (ignored), <code>align</code>, and <code>width</code>:
+
+</p>
 
 <figure class="image-right">
 <img src="2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg" alt="Stars in a Tree" width="300" />
 <figcaption>Some beautiful stars in a tree<figcaption/>
 </figure>
 
+<p>
+
+If you define multiple caption lines, only the last one is used in the result:
+
+</p>
+
 <figure class="image-right">
 <img src="2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg" alt="An alternative description image" width="300" />
 <figcaption>This is the only caption for this image.<figcaption/>
 </figure>
+
+<p>
+
+Of course, you can use multiple <code>ATTR_HTML</code> lines to define multiple parameters in multiple lines. Following example consists of three lines. First: <code>alt</code>. Second: <code>title</code> (still ignored). Third: <code>align</code> and <code>width</code>.
+
+</p>
+
+<p>
+
+Notice when there is a <code>CAPTION</code>, the description of the Org-mode link gets ignored. I do think that if you invest effort to define an extra line for it, it should replace the Org-mode description. Usually, you're not going to use both.
+
+</p>
 
 <figure class="image-right">
 <img src="2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg" alt="This is going to be the alt parameter of the img tag" width="300" />
 <figcaption>This is going to be the caption<figcaption/>
 </figure>
 
+<p>
+
+This is a real-world example: An Org-mode link with its description (used for caption) with attributes for <code>alt</code>, <code>align</code>, and <code>width</code>:
+
+</p>
+
 <figure class="image-right">
 <img src="2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg" alt="This is going to be the alt parameter of the img tag" width="300" />
 <figcaption>This is the caption of the image<figcaption/>
 </figure>
+
+<p>
+
+If you want to justify the images, you can do it with <code>:align left</code> like in the following example:
+
+</p>
 
 <figure class="image-left">
 <img src="2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg" alt="left-justified stars" width="300" />
 <figcaption>Test for left-justified image with 300px width<figcaption/>
 </figure>
 
+<p>
+
+Same example but with <code>:align center</code>:
+
+</p>
+
 <figure class="image-center">
 <img src="2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg" alt="center-justified stars" width="300" />
 <figcaption>Test for center-justified image with 300px width<figcaption/>
 </figure>
+
+<p>
+
+And of course, there is the <code>:align right</code> example as well:
+
+</p>
 
 <figure class="image-right">
 <img src="2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg" alt="right-justified stars" width="300" />
 <figcaption>Test for right-justified image with 300px width<figcaption/>
 </figure>
 
+<p>
+
+Following example is a really smart one. Above file names were <code>2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg</code>. This time, I am using <code>2017-03-11T18.29.21.jpg</code> which matches the very same time-stamp of the other image file. The rest of it differs: missing <code>Sterne im Baum -- mytag</code>. In case an image file (containing a time-stamp) is not found, lazyblorg tries to locate the same time-stamp within a different file-name. If the result is unique, it is used instead of the other filename. You get a warning in the log output.
+
+</p>
+
 <figure class="image-center">
 <img src="2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg" alt="" width="300" />
 <figcaption>Test with image file whose name only matches the ISO timestamp (partial comparison)<figcaption/>
 </figure>
+
+<p>
+
+Small images are really sexy when the text is floating around. Try the <code>:align float-right</code> attribute:
+
+</p>
+
+<figure class="image-float-right">
+<img src="2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg" alt="" width="100" />
+<figcaption>Image float right<figcaption/>
+</figure>
+
+<p>
+
+This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text.
+
+</p>
+
+<p>
+
+And here is an example with <code>float-left</code> attribute:
+
+</p>
+
+<figure class="image-float-left">
+<img src="2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg" alt="" width="100" />
+<figcaption>Image float left<figcaption/>
+</figure>
+
+<p>
+
+This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text.
+
+</p>
 
 
   </article>

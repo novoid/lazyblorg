@@ -539,14 +539,30 @@ These are some beautiful photographs I want to include here:
 
 [[tsfile:2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag.jpg][A completely different description here]]
 
+And now we do test images with captions and attributes. Here is an
+image with a caption and attributes for =alt=, =title= (ignored),
+=align=, and =width=:
+
 #+CAPTION: Some beautiful stars in a tree
 #+ATTR_HTML: :alt Stars in a Tree :title Some Stars :align right :width 300
 [[tsfile:2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
+
+If you define multiple caption lines, only the last one is used in the result:
 
 #+CAPTION: Multiple captions do not hurt but the last one wins
 #+CAPTION: This is the only caption for this image.
 #+ATTR_HTML: :alt An alternative description image :title This is my title! :align right :width 300
 [[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
+
+Of course, you can use multiple =ATTR_HTML= lines to define multiple
+parameters in multiple lines. Following example consists of three
+lines. First: =alt=. Second: =title= (still ignored). Third: =align=
+and =width=.
+
+Notice when there is a =CAPTION=, the description of the Org-mode link
+gets ignored. I do think that if you invest effort to define an extra
+line for it, it should replace the Org-mode description. Usually,
+you're not going to use both.
 
 #+CAPTION: This caption will be overwritten by follow-up ones
 #+CAPTION: This is going to be the caption
@@ -555,28 +571,79 @@ These are some beautiful photographs I want to include here:
 #+ATTR_HTML: :align right :width 300
 [[tsfile:2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag.jpg][If there is an CAPTION, this title gets ignored]]
 
+This is a real-world example: An Org-mode link with its description
+(used for caption) with attributes for =alt=, =align=, and =width=:
+
 #+ATTR_HTML: :alt This is going to be the alt parameter of the img tag
 #+ATTR_HTML: :title The title is ignored
 #+ATTR_HTML: :align right :width 300
 [[tsfile:2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag.jpg][This is the caption of the image]]
+
+If you want to justify the images, you can do it with =:align
+left= like in the following example:
 
 #+CAPTION: Test for left-justified image with 300px width
 #+ATTR_HTML: :alt left-justified stars
 #+ATTR_HTML: :align left :width 300
 [[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
 
+Same example but with =:align center=:
+
 #+CAPTION: Test for center-justified image with 300px width
 #+ATTR_HTML: :alt center-justified stars
 #+ATTR_HTML: :align center :width 300
 [[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
+
+And of course, there is the =:align right= example as well:
 
 #+CAPTION: Test for right-justified image with 300px width
 #+ATTR_HTML: :alt right-justified stars
 #+ATTR_HTML: :align right :width 300
 [[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
 
+Following example is a really smart one. Above file names were
+=2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg=. This time, I am
+using =2017-03-11T18.29.21.jpg= which matches the very same time-stamp
+of the other image file. The rest of it differs: missing =Sterne im
+Baum -- mytag=. In case an image file (containing a time-stamp) is not
+found, lazyblorg tries to locate the same time-stamp within a
+different file-name. If the result is unique, it is used instead of
+the other filename. You get a warning in the log output.
+
 #+CAPTION: Test with image file whose name only matches the ISO timestamp (partial comparison)
 #+ATTR_HTML: :align center :width 300
 [[tsfile:2017-03-11T18.29.21.jpg]]
 
+Small images are really sexy when the text is floating around. Try the
+=:align float-right= attribute:
+
+#+CAPTION: Image float right
+#+ATTR_HTML: :align float-right :width 100
+[[tsfile:2017-03-11T18.29.21.jpg]]
+
+This is an example text. This is an example text. This is an example
+text. This is an example text. This is an example text. This is an
+example text. This is an example text. This is an example text. This
+is an example text. This is an example text. This is an example text.
+This is an example text. This is an example text. This is an example
+text. This is an example text. This is an example text. This is an
+example text. This is an example text. This is an example text. This
+is an example text. This is an example text. This is an example text.
+This is an example text.
+
+And here is an example with =float-left= attribute:
+
+#+CAPTION: Image float left
+#+ATTR_HTML: :align float-left :width 100
+[[tsfile:2017-03-11T18.29.21.jpg]]
+
+This is an example text. This is an example text. This is an example
+text. This is an example text. This is an example text. This is an
+example text. This is an example text. This is an example text. This
+is an example text. This is an example text. This is an example text.
+This is an example text. This is an example text. This is an example
+text. This is an example text. This is an example text. This is an
+example text. This is an example text. This is an example text. This
+is an example text. This is an example text. This is an example text.
+This is an example text.
 

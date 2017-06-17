@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-06-17 18:51:23 vk>
+# Time-stamp: <2017-06-17 20:07:46 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1152,10 +1152,13 @@ class Htmlizer(object):
                 result = '\n' + '<figure'
 
                 if 'align' in attributes.keys():
-                    if attributes['align'].lower() in ['left', 'right', 'center']:
+                    if attributes['align'].lower() in ['left', 'right', 'float-left', 'float-right', 'center']:
                         result += ' class="image-' + attributes['align'].lower() + '"'
                     else:
                         self.logging.warning(self.current_entry_id_str() + 'image used an align parameter value which is not left|center|right: ' + str(attributes['align']))
+                else:
+                    # if no alignment is given, use center:
+                    result += ' class="image-center"'
 
                 result += '>\n<img src="' + filename + '" '
 

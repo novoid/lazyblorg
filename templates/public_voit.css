@@ -410,6 +410,29 @@ blockquote {
   font-size: 14px;
   font-family: courier new; }
 
+/* Image positioning with CSS: */
+/* https://www.w3schools.com/css/css_align.asp */
+/* http://www.inmotionhosting.com/support/edu/website-design/insert-images-website/align-float-images-css */
+.image-right {
+  /* float: right; */
+  text-align: right; }
+
+.image-left {
+  /*float: left;*/
+  text-align: left; }
+
+.image-float-right {
+  float: right; }
+
+.image-float-left {
+  float: left; }
+
+.image-center {
+  text-align: center;
+  /*display: block;
+  margin: auto; */
+  width: 100%; }
+
 .email-comment {
   margin-left: auto;
   margin-right: auto;
