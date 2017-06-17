@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-02-12 15:49:59 vk>
+# Time-stamp: <2017-06-17 18:15:48 vk>
 
 import config
 from sys import stdout, exit
@@ -649,7 +649,7 @@ class Utils(object):
         else:
             logger = logging.getLogger(
                 'lazyblorg.Utils.guess_language_from_stopword_percentages')
-            logger.warning(
+            logger.debug(
                 "percentage of stopwords do not differ much: English: %s; German: %s" %
                 (str(
                     sorted_result[0][1]), str(
