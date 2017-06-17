@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-06-06 21:20:41 vk>
+# Time-stamp: <2017-06-17 23:08:47 vk>
 
 # TODO:
 # * fix parts marked with «FIXXME»
@@ -579,7 +579,7 @@ if __name__ == "__main__":
         generate, marked_for_feed, increment_version, stats_parsed_org_files, stats_parsed_org_lines = lazyblorg.determine_changes()
         time_after_parsing = time()
         stats_generated_total, stats_generated_temporal, \
-            stats_generated_persistent, stats_generated_tags = lazyblorg.generate_output(
+            stats_generated_persistent, stats_generated_tags, stats_images_resized = lazyblorg.generate_output(
                 generate, marked_for_feed, increment_version)
         time_after_htmlizing = time()
 
@@ -600,8 +600,10 @@ if __name__ == "__main__":
             str(stats_generated_temporal) +
             " temporal, " +
             str(stats_generated_tags) +
-            " tag" +
-            ", 1 entry page (in %.2f seconds)" %
+            " tag-pages" +
+            ", the entry page, and also scaled " +
+            str(stats_images_resized) +
+            " images (in %.2f seconds)" %
             (time_after_htmlizing -
              time_after_parsing))
 

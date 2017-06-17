@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-06-17 20:07:46 vk>
+# Time-stamp: <2017-06-17 23:10:08 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -11,6 +11,7 @@ import re  # RegEx: for parsing/sanitizing
 import codecs
 from lib.utils import Utils  # for guess_language_from_stopword_percentages()
 from shutil import copyfile  # for copying image files
+import cv2  # for scaling image files to their width of choice
 
 try:
     from werkzeug.utils import secure_filename  # for sanitizing path components
@@ -65,6 +66,7 @@ class Htmlizer(object):
     autotag_language = False  # boolean, if guessing language + autotag should be done
     ignore_missing_ids = False  # boolean; do not throw respective exception when true
     filename_dict = {}  # dict of basenames of filenames, see config.MEMACS_FILE_WITH_IMAGE_FILE_INDEX and config.PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS
+    stats_images_resized = 0  # holds the current number of resized image files
 
     # { 'mytag': [ 'ID1', 'ID2', 'ID2'], 'anothertag': [...] }
     dict_of_tags_with_ids = None
@@ -189,7 +191,8 @@ class Htmlizer(object):
         return stats_generated_total, \
             stats_generated_temporal, \
             stats_generated_persistent, \
-            stats_generated_tags
+            stats_generated_tags, \
+            self.stats_images_resized
 
     def _populate_dict_of_tags_with_ids(self, blog_data):
         """
@@ -1160,7 +1163,7 @@ class Htmlizer(object):
                     # if no alignment is given, use center:
                     result += ' class="image-center"'
 
-                result += '>\n<img src="' + filename + '" '
+                result += '>\n<img src="' + self.get_scaled_filename(filename, attributes) + '" '
 
                 # FIXXME: currently, all other attributes are ignored:
                 if 'alt' in attributes.keys():
@@ -1265,6 +1268,23 @@ class Htmlizer(object):
                 entry['autotags']['language'] = u'unsure'
 
         return entry
+
+    def get_scaled_filename(self, filename, attributes):
+        """
+        If the attributes dict contains an attribute for width, return a
+        file name which contains the scaled value in its name.
+
+        @param filename: a string containing a file name (basename) without path
+        @param attributes: a dict containing the Org-mode attributes for the HTML export
+        @param returns: a string of a file-name (basename) that holds the scaled value or the original name if no width attribute is found
+        """
+
+        if 'width' in attributes.keys():
+            width = attributes['width']
+            (basename, extension) = os.path.splitext(filename)
+            return basename + ' - scaled width ' + width + extension
+        else:
+            return filename
 
     def fix_ampersands_in_url(self, content):
         """
@@ -2054,7 +2074,7 @@ class Htmlizer(object):
 
         @param filename: the base filename of an image
         @param articlepath: the directory path to put the file into
-        @param attributes: dict of HTML attributes of the image file (for future use: scaling images)
+        @param attributes: dict of HTML attributes of the image file
         """
 
         # image was located using locate_cust_link_image() prior to this function
@@ -2069,13 +2089,28 @@ class Htmlizer(object):
             raise HtmlizerException(self.current_entry_id, message)
         else:
             # path to image file was found
-            destinationfile = os.path.join(articlepath, filename)
-            if not os.path.isfile(destinationfile):
+            destinationfile = os.path.join(articlepath, self.get_scaled_filename(filename, attributes))
+
+            if 'width' not in attributes.keys() and not os.path.isfile(destinationfile):
                 try:
                     copyfile(filenamepath, destinationfile)
                 except:
                     self.logging.critical(self.current_entry_id_str() + "Error when writing file: " + str(destinationfile))
                     raise
+
+            if 'width' in attributes.keys() and not os.path.isfile(destinationfile):
+                try:
+                    image = cv2.imread(filenamepath)
+                    current_height, current_width = image.shape[:2]
+                    newwidth = float(attributes['width'])
+                    newheight = current_height * (newwidth / current_width)
+                    cv2.imwrite(destinationfile, cv2.resize(image, (int(newwidth), int(newheight)), interpolation=cv2.INTER_CUBIC))
+                    self.stats_images_resized += 1
+                except:
+                    self.logging.critical(self.current_entry_id_str() + 'Error when scaling file \"' + filenamepath +
+                                          '\" to file \"' + destinationfile + '\"')
+                    raise
+
             else:
                 self.logging.debug(u'Image file \"' + filename + u'\" was already copied for this directory \"' + articlepath + u'\" -> multiple usages within same blog article')
 

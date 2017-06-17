@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-06-17 14:01:44 vk>
+# Time-stamp: <2017-06-17 22:02:13 vk>
 import os
 
 ## ===================================================================== ##
@@ -73,7 +73,7 @@ TIME_ZONE_ADDON = u'+01:00'
 ## - or which can be found in the folder stated in PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS
 ##   or one of its sub-folders.
 ## EMPTY string if including images is disabled
-## FIXXME: URL to Wiki page of the description
+## Please do read the documentation: https://github.com/novoid/lazyblorg/wiki/Orgmode-Elements#images
 CUSTOMIZED_IMAGE_LINK_KEY = 'tsfile'  # short for "time-stamp filename"
 
 ## string: path to the Memacs index for filenametimestamps
@@ -81,10 +81,12 @@ CUSTOMIZED_IMAGE_LINK_KEY = 'tsfile'  # short for "time-stamp filename"
 ## and other operating systems. Alternatively you can use something
 ## like "/home/user/dir1/memacs_files.org_archive" as string.
 ## EMPTY string if including images via Memacs index is disabled
+## Please do read the documentation: https://github.com/novoid/lazyblorg/wiki/Orgmode-Elements#images
 MEMACS_FILE_WITH_IMAGE_FILE_INDEX = os.path.join(os.path.expanduser("~"), "org", "memacs", "files.org_archive")
 
 ## string: path to a directory that holds image files (+ sub-directories)
 ## EMPTY string if including images via traversing the file system is disabled
+## Please do read the documentation: https://github.com/novoid/lazyblorg/wiki/Orgmode-Elements#images
 PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS = "testdata/testimages"
 
 ## ===================================================================== ##
