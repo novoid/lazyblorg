@@ -433,6 +433,10 @@ blockquote {
   margin: auto; */
   width: 100%; }
 
+figcaption {
+  font-size: 80%;
+  font-style: italic; }
+
 .email-comment {
   margin-left: auto;
   margin-right: auto;

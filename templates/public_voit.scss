@@ -490,6 +490,10 @@ blockquote {
     width: 100%;
 }
 
+figcaption {
+    font-size: 80%;
+    font-style: italic;
+}
 
 .email-comment {
     @extend .middle_section_narrow;
