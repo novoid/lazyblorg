@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-06-17 23:10:08 vk>
+# Time-stamp: <2017-06-18 01:16:29 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -700,7 +700,7 @@ class Htmlizer(object):
                 # replacing keywords:
 
                 content = self.sanitize_internal_links(
-                    entry['category'], content)
+                        entry['category'], content)
                 content = content.replace(
                     '#ARTICLE-TITLE#',
                     self.sanitize_external_links(
@@ -727,16 +727,27 @@ class Htmlizer(object):
                 content = content.replace(
                     '#ARTICLE-PUBLISHED-HUMAN-READABLE#', iso_timestamp)
 
+                # what part of the data is to show on the entry page?
+                teaser_content = False
                 if entry['htmlteaser-equals-content']:
-                    content = content.replace(
-                        '#ARTICLE-TEASER#',
-                        '\n'.join(
-                            entry['content']))
+                    teaser_content = entry['content']
                 else:
-                    content = content.replace(
-                        '#ARTICLE-TEASER#',
-                        '\n'.join(
-                            entry['htmlteaser']))
+                    teaser_content = entry['htmlteaser']
+
+                # adding article paths to embedded images:
+                element_index = 0
+                for element in teaser_content:
+                    if element.startswith(u'\n<figure class="'):
+                        # FIXXME: this search&replace depends on the HTML source used and might break :-(
+                        # this is a dirty workaround until I find a better solution:
+                        teaser_content[element_index] = teaser_content[element_index].replace('">\n<img src="', '">\n<img src="' + listentry['url'] + '/')
+                    element_index += 1
+
+                # apply the teaser content template
+                content = content.replace(
+                    '#ARTICLE-TEASER#',
+                    '\n'.join(
+                        teaser_content))
 
                 htmlcontent += content
                 number_of_teasers_generated += 1
