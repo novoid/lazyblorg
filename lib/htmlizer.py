@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-06-18 10:08:36 vk>
+# Time-stamp: <2017-06-18 11:13:43 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1764,6 +1764,7 @@ class Htmlizer(object):
         General article placeholders are:
         - #TITLE#
         - #ARTICLE-ID#: the (manually set) ID from the PROPERTIES drawer
+        - #ARTICLE-URL#: the URL of the article without protocol and domain
         - #ARTICLE-YEAR#: four digit year of the article (folder path)
         - #ARTICLE-MONTH#: two digit month of the article (folder path)
         - #ARTICLE-DAY#: two digit day of the article (folder path)
@@ -1793,6 +1794,7 @@ class Htmlizer(object):
             'T' + hours + ':' + minutes
 
         content = content.replace('#ARTICLE-ID#', entry['id'])
+        content = content.replace('#ARTICLE-URL#', self._target_path_for_id_without_targetdir(entry['id']))
         content = content.replace('#ARTICLE-YEAR#', year)
         content = content.replace('#ARTICLE-MONTH#', month)
         content = content.replace('#ARTICLE-DAY#', day)
@@ -1889,21 +1891,6 @@ class Htmlizer(object):
 
         return content + u'</ul>\n'
 
-    def _target_path_for_id_with_targetdir(self, entryid):
-        """
-        Returnes a directory path for a given blog ID such as:
-        PERSISTENT: "TARGETDIR/ID" from the oldest finished time-stamp.
-        TAGS: "TARGETDIR/tags/ID" from the oldest finished time-stamp.
-        TEMPORAL: "TARGETDIR/2013/02/12/ID" from the oldest finished time-stamp.
-
-        @param entryid: ID of a blog entry
-        @param return: the resulting path as os.path string
-        """
-
-        return os.path.join(
-            self.targetdir,
-            self._target_path_for_id_without_targetdir(entryid))
-
     def _get_entry_folder_name_from_entryid(self, entryid):
         """
         Takes the entry ID as string, removes optionally ISO datestamp,
@@ -1918,6 +1905,21 @@ class Htmlizer(object):
             folder = folder[11:]
 
         return folder
+
+    def _target_path_for_id_with_targetdir(self, entryid):
+        """
+        Returnes a directory path for a given blog ID such as:
+        PERSISTENT: "TARGETDIR/ID" from the oldest finished time-stamp.
+        TAGS: "TARGETDIR/tags/ID" from the oldest finished time-stamp.
+        TEMPORAL: "TARGETDIR/2013/02/12/ID" from the oldest finished time-stamp.
+
+        @param entryid: ID of a blog entry
+        @param return: the resulting path as os.path string
+        """
+
+        return os.path.join(
+            self.targetdir,
+            self._target_path_for_id_without_targetdir(entryid))
 
     def _target_path_for_id_without_targetdir(self, entryid):
         """
