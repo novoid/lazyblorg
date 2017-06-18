@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-06-18 02:05:11 vk>
+# Time-stamp: <2017-06-18 10:08:36 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -550,10 +550,18 @@ class Htmlizer(object):
 
             # add article summary to feedentry:
             feedentry += "\n    <summary type='xhtml'>\n<div xmlns='http://www.w3.org/1999/xhtml'>"
+
+            # what part of the data is to show on the entry page?
+            teaser_html_content = False
             if blog_data_entry['htmlteaser-equals-content']:
-                feedentry += self.sanitize_feed_html_characters('\n'.join(blog_data_entry['content']))
+                teaser_html_content = blog_data_entry['content']
             else:
-                feedentry += self.sanitize_feed_html_characters('\n'.join(blog_data_entry['htmlteaser']))
+                teaser_html_content = blog_data_entry['htmlteaser']
+
+            # adding article paths to embedded images:
+            teaser_html_content = self._add_absolute_path_to_image_src(teaser_html_content, listentry['url'])
+
+            feedentry += self.sanitize_feed_html_characters('\n'.join(teaser_html_content))
             feedentry += "</div>\n    </summary>"
 
             # add content to content-feed OR end entry for links-feed:
@@ -727,27 +735,21 @@ class Htmlizer(object):
                 content = content.replace(
                     '#ARTICLE-PUBLISHED-HUMAN-READABLE#', iso_timestamp)
 
-                # what part of the data is to show on the entry page?
-                teaser_content = False
+                # what part of the data is to show on the feed?
+                teaser_html_content = False
                 if entry['htmlteaser-equals-content']:
-                    teaser_content = entry['content']
+                    teaser_html_content = entry['content']
                 else:
-                    teaser_content = entry['htmlteaser']
+                    teaser_html_content = entry['htmlteaser']
 
                 # adding article paths to embedded images:
-                element_index = 0
-                for element in teaser_content:
-                    if element.startswith(u'\n<figure class="'):
-                        # FIXXME: this search&replace depends on the HTML source used and might break :-(
-                        # this is a dirty workaround until I find a better solution:
-                        teaser_content[element_index] = teaser_content[element_index].replace('">\n<img src="', '">\n<img src="' + listentry['url'] + '/')
-                    element_index += 1
+                teaser_html_content = self._add_absolute_path_to_image_src(teaser_html_content, listentry['url'])
 
-                # apply the teaser content template
+                # join all HTML lines and apply the teaser HTML content template
                 content = content.replace(
                     '#ARTICLE-TEASER#',
                     '\n'.join(
-                        teaser_content))
+                        teaser_html_content))
 
                 htmlcontent += content
                 number_of_teasers_generated += 1
@@ -776,6 +778,28 @@ class Htmlizer(object):
         self.write_content_to_file(entry_page_filename, htmlcontent)
 
         return
+
+    def _add_absolute_path_to_image_src(self, content, url):
+        """
+        Parses a content data list and stuidly adds absolute paths to all img tags.
+
+        FIXXME: this search&replace depends on the HTML source used and might break :-(
+        This is a dirty workaround until I find a better solution:
+
+        @param: content: list of elements that contain HTML sources
+        @param: url: string that holds the URL of the article
+        @param: return: the modified content
+        """
+        # adding article paths to embedded images:
+        element_index = 0
+        for element in content:
+            if element.startswith(u'\n<figure class="'):
+                content[element_index] = content[element_index].replace('">\n<img src="',
+                                                                                      '">\n<img src="http:' +
+                                                                                      config.BASE_URL + '/' +
+                                                                                      url + '/')
+            element_index += 1
+        return content
 
     def _generate_tag_cloud(self, tags):
         """
