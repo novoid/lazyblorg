@@ -9,7 +9,7 @@ body {
   background: #fffff0;
   color: #252525;
   /* font-family:Trebuchet MS,Verdana,Helvetica,sans-serif; */
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding-top: 1em; }
 
 a {
@@ -276,7 +276,6 @@ a {
     font-size: 13px;
     margin-left: 20px;
     padding: 0 10px 0 12px;
-    ORIGINALbackground: #0089e0;
     background: #2222ff;
     color: #fff;
     text-decoration: none;
@@ -408,7 +407,7 @@ blockquote {
   padding: 5px;
   border: 1px solid #e0e0e0;
   font-size: 14px;
-  font-family: courier new; }
+  font-family: "courier new"; }
 
 /* Image positioning with CSS: */
 /* https://www.w3schools.com/css/css_align.asp */

@@ -27,7 +27,7 @@ body {
     background: $lightyellow;
     color: $darkgray;
     /* font-family:Trebuchet MS,Verdana,Helvetica,sans-serif; */
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     padding-top: 1em;
 }
 
@@ -286,7 +286,6 @@ a {
 	font-size: 13px;
 	margin-left: 20px;
 	padding: 0 10px 0 12px;
-	ORIGINALbackground: #0089e0;
 	background: $darkblue;
 	color: $white;
 	text-decoration: none;
@@ -457,7 +456,7 @@ blockquote {
     padding: 5px;
     border: 1px solid $lightgray;
     font-size: 14px;
-    font-family: courier new;
+    font-family: "courier new";
 }
 
 
