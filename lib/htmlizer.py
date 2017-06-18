@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-06-18 01:56:05 vk>
+# Time-stamp: <2017-06-18 02:05:11 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1174,7 +1174,7 @@ class Htmlizer(object):
                     # if no alignment is given, use center:
                     result += ' class="image-center"'
 
-                result += '>\n<img src="' + self.get_scaled_filename(filename, attributes) + '" '
+                result += '>\n<img src="' + self.get_scaled_filename(filename, attributes).replace(' ', '%20') + '" '
 
                 # FIXXME: currently, all other attributes are ignored:
                 if 'alt' in attributes.keys():
