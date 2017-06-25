@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-06-18 11:13:43 vk>
+# Time-stamp: <2017-06-25 12:11:43 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -25,9 +25,11 @@ except ImportError:
     print "Could not find Python module \"pypandoc\".\nPlease install it, e.g., with \"sudo pip install pypandoc\"."
     sys.exit(1)
 
+reload(sys)
+sys.setdefaultencoding("utf-8")  # for handling UTF-8 characters in filenames like: [x for x in self.filename_dict.keys() if x.startswith(timestamp)]
 
-# NOTE: pdb hides private variables as well. Please use:   data =
-# self._OrgParser__entry_data ; data['content']
+# NOTE: pdb hides private variables as well. Please use:
+# data = self._OrgParser__entry_data ; data['content']
 
 
 class HtmlizerException(Exception):
@@ -37,7 +39,7 @@ class HtmlizerException(Exception):
 
     def __init__(self, entry_id, value):
         if entry_id:
-            self.value = u'Entry ' + entry_id + u' - '+ value
+            self.value = u'Entry ' + entry_id + u' - ' + value
         else:
             self.value = value
 
@@ -65,7 +67,7 @@ class Htmlizer(object):
     blog_tag = None  # string that marks blog entries (as Org-mode tag)
     autotag_language = False  # boolean, if guessing language + autotag should be done
     ignore_missing_ids = False  # boolean; do not throw respective exception when true
-    filename_dict = {}  # dict of basenames of filenames, see config.MEMACS_FILE_WITH_IMAGE_FILE_INDEX and config.PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS
+    filename_dict = {}  # dict of basenames of filenames, see config.MEMACS_FILE_WITH_IMAGE_FILE_INDEX and config.DIRECTORIES_WITH_IMAGE_ORIGINALS
     stats_images_resized = 0  # holds the current number of resized image files
 
     # { 'mytag': [ 'ID1', 'ID2', 'ID2'], 'anothertag': [...] }
@@ -2074,7 +2076,7 @@ class Htmlizer(object):
                 alternative_filename = files_with_matching_timestamps[0]
                 self.logging.warning(self.current_entry_id_str() + u'Image file \"' + filename +
                                      u'\" could not be found within MEMACS_FILE_WITH_IMAGE_FILE_INDEX and/or ' + \
-                                     'PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS. However, I found \"' +
+                                     'DIRECTORIES_WITH_IMAGE_ORIGINALS. However, I found \"' +
                                      alternative_filename + '\" which has the same unique time-stamp. I\'ll take it instead.')
                 return alternative_filename
 
@@ -2082,7 +2084,7 @@ class Htmlizer(object):
                 # no matching alternative found
                 message = self.current_entry_id_str() + u'File \"' + filename + '\" could not be ' + \
                           'located within MEMACS_FILE_WITH_IMAGE_FILE_INDEX ' + \
-                          'and/or PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS. Its time-stamp could not be found in ' + \
+                          'and/or DIRECTORIES_WITH_IMAGE_ORIGINALS. Its time-stamp could not be found in ' + \
                           'another filename as well.'
                 self.logging.critical(message)
                 raise HtmlizerException(self.current_entry_id, message)
@@ -2091,7 +2093,7 @@ class Htmlizer(object):
                 # multiple matching alternatives found -> error
                 message = self.current_entry_id_str() + u'File \"' + filename + '\" could not be ' + \
                           'located within MEMACS_FILE_WITH_IMAGE_FILE_INDEX and/or ' + \
-                          'PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS. It starts with a time-stamp which could be found in ' + \
+                          'DIRECTORIES_WITH_IMAGE_ORIGINALS. It starts with a time-stamp which could be found in ' + \
                           'other files but it is not unique. Please adapt accordingly: ' + str(files_with_matching_timestamps)
                 self.logging.critical(message)
                 raise HtmlizerException(self.current_entry_id, message)
@@ -2100,7 +2102,7 @@ class Htmlizer(object):
             # recover mechanism (using ISO timestamp) did not work either -> error
             message = self.current_entry_id_str() + u'File \"' + filename + '\" could not be located ' + \
                       'within MEMACS_FILE_WITH_IMAGE_FILE_INDEX ' + \
-                      'and/or PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS.'
+                      'and/or DIRECTORIES_WITH_IMAGE_ORIGINALS.'
             self.logging.critical(message)
             raise HtmlizerException(self.current_entry_id, message)
 
@@ -2155,7 +2157,7 @@ class Htmlizer(object):
 
     def _populate_filename_dict(self):
         """
-        Locates and parses the directory config.PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS for filename index. Result is stored in self.filename_dict.
+        Locates and parses the directory config.DIRECTORIES_WITH_IMAGE_ORIGINALS for filename index. Result is stored in self.filename_dict.
         """
 
         if (config.IMAGE_INCLUDE_METHOD == config.IMAGE_INCLUDE_METHOD_MEMACS or
@@ -2168,7 +2170,7 @@ class Htmlizer(object):
             # results in: ('/home/user/directory/subdirectory/2010-03-18_Presentation_ProductXY.pdf', '2010-03-18_Presentation_ProductXY.pdf')
             MEMACS_FILE_LINE_REGEX = re.compile(r'^\*\* <.+> \[\[file:([^\]]+)\]\[(.+)\]\]$')
 
-            self.logging.info(u'Building index of Memacs dict as stated in MEMACS_FILE_WITH_IMAGE_FILE_INDEX (' + config.MEMACS_FILE_WITH_IMAGE_FILE_INDEX + u')…')
+            self.logging.info(u'Building index of Memacs as stated in MEMACS_FILE_WITH_IMAGE_FILE_INDEX  \"' + config.MEMACS_FILE_WITH_IMAGE_FILE_INDEX + u'\" …')
             with codecs.open(config.MEMACS_FILE_WITH_IMAGE_FILE_INDEX, encoding='utf-8') as memacs_file_handle:
                 for line in memacs_file_handle:
                     components = re.match(MEMACS_FILE_LINE_REGEX, line)
@@ -2187,19 +2189,26 @@ class Htmlizer(object):
         if config.IMAGE_INCLUDE_METHOD == config.IMAGE_INCLUDE_METHOD_MEMACS_THEN_DIR or \
            config.IMAGE_INCLUDE_METHOD == config.IMAGE_INCLUDE_METHOD_DIR:
 
-            assert(os.path.isdir(config.PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS))
+            index = 0
+            for currentdir in config.DIRECTORIES_WITH_IMAGE_ORIGINALS:
 
-            self.logging.info(u'Building index of files as stated in PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS (' + config.PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS + u')…')
-            for (dirpath, dirnames, filenames) in os.walk(config.PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS):
-                # Example:
-                # (Pdb) dirpath
-                #     '/home/user/src/lazyblorg/testdata/testimages'
-                # (Pdb) dirnames
-                #     []
-                # (Pdb) filenames
-                #     ['2017-03-11T18.29.20 Sterne im Baum -- mytag.jpg']
-                for filename in filenames:
-                    self.filename_dict[filename] = os.path.join(dirpath, filename)
+                if not os.path.isdir(currentdir):
+                    # warnings already done by checks in config.py
+                    # if an image could not be located later on, there will be an error
+                    continue
+
+                self.logging.info(u'Building index of files as stated in DIRECTORIES_WITH_IMAGE_ORIGINALS[' + str(index) + '] \"' + currentdir + u'\" …')
+                for (dirpath, dirnames, filenames) in os.walk(currentdir):
+                    # Example:
+                    # (Pdb) dirpath
+                    #     '/home/user/src/lazyblorg/testdata/testimages'
+                    # (Pdb) dirnames
+                    #     []
+                    # (Pdb) filenames
+                    #     ['2017-03-11T18.29.20 Sterne im Baum -- mytag.jpg']
+                    for filename in filenames:
+                        self.filename_dict[filename] = os.path.join(dirpath, filename)
+                index += 1
 
         self.logging.info(u'Index of filename dict holds ' + str(len(self.filename_dict)) + ' entries')
 

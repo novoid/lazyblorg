@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-06-17 22:02:13 vk>
+# Time-stamp: <2017-06-25 12:12:01 vk>
 import os
 
 ## ===================================================================== ##
@@ -70,7 +70,7 @@ TIME_ZONE_ADDON = u'+01:00'
 ## - indexed by the Memacs module for filenames containing ISO datestamp:
 ##   MEMACS_FILE_WITH_IMAGE_FILE_INDEX
 ##   See https://github.com/novoid/Memacs/blob/master/docs/memacs_filenametimestamps.org
-## - or which can be found in the folder stated in PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS
+## - or which can be found in the folder stated in DIRECTORIES_WITH_IMAGE_ORIGINALS
 ##   or one of its sub-folders.
 ## EMPTY string if including images is disabled
 ## Please do read the documentation: https://github.com/novoid/lazyblorg/wiki/Orgmode-Elements#images
@@ -87,7 +87,10 @@ MEMACS_FILE_WITH_IMAGE_FILE_INDEX = os.path.join(os.path.expanduser("~"), "org",
 ## string: path to a directory that holds image files (+ sub-directories)
 ## EMPTY string if including images via traversing the file system is disabled
 ## Please do read the documentation: https://github.com/novoid/lazyblorg/wiki/Orgmode-Elements#images
-PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS = "testdata/testimages"
+DIRECTORIES_WITH_IMAGE_ORIGINALS = ["testdata/testimages",
+                                    os.path.join(os.path.expanduser("~"), "tmp/digicam/tmp"),
+                                    os.path.join(os.path.expanduser("~"), "archive/events_memories/2017"),
+                                    os.path.join(os.path.expanduser("~"), "archive/fromweb/cliparts")]
 
 ## ===================================================================== ##
 ##                                                                       ##
@@ -195,11 +198,20 @@ assert(PICKLE_FORMAT in [0, 1, 2])
 ## checking image inclusion variables:
 assert(type(CUSTOMIZED_IMAGE_LINK_KEY) == str)
 assert(type(MEMACS_FILE_WITH_IMAGE_FILE_INDEX) == str)
-assert(type(PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS) == str)
+assert(type(DIRECTORIES_WITH_IMAGE_ORIGINALS) == list)
 
-# If PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS is a relative path, derive the absolute path:
-if not os.path.isabs(PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS):
-    PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS = os.path.join(os.getcwd(), PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS)
+# If DIRECTORIES_WITH_IMAGE_ORIGINALS is a relative path, derive the absolute path:
+index = 0
+dir_set_and_found = False
+dir_set_and_not_found = None
+for currentdir in DIRECTORIES_WITH_IMAGE_ORIGINALS:
+    if not os.path.isabs(currentdir):
+        DIRECTORIES_WITH_IMAGE_ORIGINALS[index] = os.path.join(os.getcwd(), currentdir)
+    if os.path.isdir(DIRECTORIES_WITH_IMAGE_ORIGINALS[index]):
+        dir_set_and_found = True
+    else:
+        print 'Warning: DIRECTORIES_WITH_IMAGE_ORIGINALS[' + str(index) + '] which is set to \"' + str(currentdir) + '\" is not an existing directory. It will be ignored.'
+    index += 1
 
 # define the three possibilities to include image files:
 IMAGE_INCLUDE_METHOD = False
@@ -212,14 +224,13 @@ if len(CUSTOMIZED_IMAGE_LINK_KEY) > 0:
     file_not_set = len(MEMACS_FILE_WITH_IMAGE_FILE_INDEX) < 1
     file_set_and_found = len(MEMACS_FILE_WITH_IMAGE_FILE_INDEX) > 1 and os.path.isfile(MEMACS_FILE_WITH_IMAGE_FILE_INDEX)
     file_set_and_not_found = len(MEMACS_FILE_WITH_IMAGE_FILE_INDEX) > 1 and not os.path.isfile(MEMACS_FILE_WITH_IMAGE_FILE_INDEX)
-    dir_not_set = len(PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS) < 1
-    dir_set_and_found = len(PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS) > 1 and os.path.isdir(PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS)
-    dir_set_and_not_found = len(PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS) > 1 and not os.path.isdir(PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS)
+    dir_not_set = len(DIRECTORIES_WITH_IMAGE_ORIGINALS) < 1
+    dir_set_and_not_found = len(DIRECTORIES_WITH_IMAGE_ORIGINALS) > 1 and not dir_set_and_found
 
     if file_set_and_not_found:
         print "Warning: MEMACS_FILE_WITH_IMAGE_FILE_INDEX is not empty but contains no existing file. Please fill it with an existing filename containing a Memacs file index or set either MEMACS_FILE_WITH_IMAGE_FILE_INDEX or CUSTOMIZED_IMAGE_LINK_KEY to an empty string."
     if dir_set_and_not_found:
-        print "Warning: PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS is not empty but contains no path to an existing directory. Please fill it with an existing path to a directory or set either PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS or CUSTOMIZED_IMAGE_LINK_KEY to an empty string."
+        print "Warning: DIRECTORIES_WITH_IMAGE_ORIGINALS is not empty but contains no path to an existing directory. Please fill it with an existing path to a directory or set either DIRECTORIES_WITH_IMAGE_ORIGINALS or CUSTOMIZED_IMAGE_LINK_KEY to an empty string."
 
     # three to the power of two: nine possibilities
     if file_set_and_found:
@@ -231,14 +242,14 @@ if len(CUSTOMIZED_IMAGE_LINK_KEY) > 0:
         if dir_set_and_found:
             IMAGE_INCLUDE_METHOD = IMAGE_INCLUDE_METHOD_DIR
         elif dir_not_set or dir_set_and_not_found:
-            print "Error: if CUSTOMIZED_IMAGE_LINK_KEY is set, at least one of MEMACS_FILE_WITH_IMAGE_FILE_INDEX or PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS has to be filled and point to an existing file/directory."
+            print "Error: if CUSTOMIZED_IMAGE_LINK_KEY is set, at least one of MEMACS_FILE_WITH_IMAGE_FILE_INDEX or DIRECTORIES_WITH_IMAGE_ORIGINALS has to be filled and point to an existing file/directory."
             import sys
             sys.exit(10)
     elif file_set_and_not_found:
         if dir_set_and_found:
             IMAGE_INCLUDE_METHOD = IMAGE_INCLUDE_METHOD_DIR
         elif dir_not_set or dir_set_and_not_found:
-            print "Error: if CUSTOMIZED_IMAGE_LINK_KEY is set, at least one of MEMACS_FILE_WITH_IMAGE_FILE_INDEX or PARENT_DIRECTORY_WITH_IMAGE_ORIGINALS has to be filled and point to an existing file/directory."
+            print "Error: if CUSTOMIZED_IMAGE_LINK_KEY is set, at least one of MEMACS_FILE_WITH_IMAGE_FILE_INDEX or DIRECTORIES_WITH_IMAGE_ORIGINALS has to be filled and point to an existing file/directory."
             import sys
             sys.exit(11)
 
