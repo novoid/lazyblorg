@@ -1,4 +1,4 @@
-## Time-stamp: <2017-06-18 12:36:42 vk>
+## Time-stamp: <2017-06-29 19:24:08 vk>
 ## -*- coding: utf-8; mode: org; -*-
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
@@ -559,6 +559,8 @@ placeholder article which is defined in this file (below).
 	 	&nbsp;&bull;&nbsp; <a href="//validator.w3.org/check/referer">HTML5</a>
 
 	 	&nbsp;&bull;&nbsp; <a href="//jigsaw.w3.org/css-validator/">CSS3</a>
+
+	 	&nbsp;&bull;&nbsp; <a href="https://web.archive.org/web/*/#DOMAIN#/">Archive</a>
       </p>
     </footer>
 
