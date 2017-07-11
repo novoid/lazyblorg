@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-06-25 12:11:43 vk>
+# Time-stamp: <2017-07-11 10:03:35 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1796,7 +1796,7 @@ class Htmlizer(object):
             'T' + hours + ':' + minutes
 
         content = content.replace('#ARTICLE-ID#', entry['id'])
-        content = content.replace('#ARTICLE-URL#', self._target_path_for_id_without_targetdir(entry['id']))
+        content = content.replace('#ARTICLE-URL#', unicode(self._target_path_for_id_without_targetdir(entry['id'])))
         content = content.replace('#ARTICLE-YEAR#', year)
         content = content.replace('#ARTICLE-MONTH#', month)
         content = content.replace('#ARTICLE-DAY#', day)
