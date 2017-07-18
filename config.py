@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-06-25 12:12:01 vk>
+# Time-stamp: <2017-07-18 17:34:09 vk>
 import os
 
 ## ===================================================================== ##
@@ -88,9 +88,9 @@ MEMACS_FILE_WITH_IMAGE_FILE_INDEX = os.path.join(os.path.expanduser("~"), "org",
 ## EMPTY string if including images via traversing the file system is disabled
 ## Please do read the documentation: https://github.com/novoid/lazyblorg/wiki/Orgmode-Elements#images
 DIRECTORIES_WITH_IMAGE_ORIGINALS = ["testdata/testimages",
-                                    os.path.join(os.path.expanduser("~"), "tmp/digicam/tmp"),
-                                    os.path.join(os.path.expanduser("~"), "archive/events_memories/2017"),
-                                    os.path.join(os.path.expanduser("~"), "archive/fromweb/cliparts")]
+                                    os.path.join(os.path.expanduser("~"), *"tmp/digicam/tmp".split('/')),
+                                    os.path.join(os.path.expanduser("~"), *"archive/events_memories/2017".split('/')),
+                                    os.path.join(os.path.expanduser("~"), *"archive/fromweb/cliparts".split('/'))]
 
 ## ===================================================================== ##
 ##                                                                       ##
