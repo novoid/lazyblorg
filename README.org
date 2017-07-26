@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2017-06-17 21:57:49 vk>
+## Time-stamp: <2017-07-26 12:56:52 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -105,6 +105,20 @@ Further advantages are listed below.
 4. set the state of your entry to ~DONE~
    - make sure that a ~:LOGBOOK:~ drawer entry will be created that
      contains the time-stamp
+
+An example blog entry looks like this:
+
+: ** DONE An Example Blog Post           :blog:lazyblorg:software:
+: CLOSED: [2017-06-18 Sun 00:16]
+: :PROPERTIES:
+: :ID: 2017-07-17-example-posting
+: :CREATED:  [2017-06-17 Sat 23:45]
+: :END:
+: :LOGBOOK:
+: - State "DONE"       from "NEXT"       [2017-06-18 Sun 00:16]
+: :END:
+:
+: Today, I found out that…
 
 That's it. lazyblorg does the rest. It feels like magic, doesn't it? :-)
 
