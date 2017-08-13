@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-02-12 15:50:50 vk>
+# Time-stamp: <2017-08-13 14:35:07 vk>
 
 import config
 import unittest
@@ -159,21 +159,21 @@ class TestHtmlizer(unittest.TestCase):
         htmlized_table_expected = u'''<table>
 <thead>
 <tr class="header">
-<th style="text-align: left;">My</th>
-<th style="text-align: left;">table</th>
-<th style="text-align: left;"></th>
+<th>My</th>
+<th>table</th>
+<th></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">23</td>
-<td style="text-align: left;">42</td>
-<td style="text-align: left;">65</td>
+<td>23</td>
+<td>42</td>
+<td>65</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">foo</td>
-<td style="text-align: left;">bar</td>
-<td style="text-align: left;">baz</td>
+<td>foo</td>
+<td>bar</td>
+<td>baz</td>
 </tr>
 </tbody>
 </table>
@@ -188,10 +188,13 @@ class TestHtmlizer(unittest.TestCase):
                 htmlized_entry_test['content'][0]) == Utils.normalize_lineendings(
                 htmlized_content_expected[0]))
 
-        self.assertTrue(
-            Utils.normalize_lineendings(
-                htmlized_entry_test['content'][1]) == Utils.normalize_lineendings(
-                htmlized_content_expected[1]))
+        try:
+            self.assertTrue(
+                Utils.normalize_lineendings(htmlized_entry_test['content'][1]) ==
+                Utils.normalize_lineendings(htmlized_content_expected[1])
+            )
+        except AssertionError:
+            import pdb; pdb.set_trace()
 
         self.assertTrue(
             Utils.normalize_lineendings(
@@ -274,27 +277,27 @@ class TestHtmlizer(unittest.TestCase):
         htmlized_table_expected = u'''<table>
 <thead>
 <tr class="header">
-<th style="text-align: left;"><strong>What</strong></th>
-<th style="text-align: left;"><strong>\u20ac</strong></th>
-<th style="text-align: left;"><strong>Amount</strong></th>
-<th style="text-align: left;"><strong>Sum</strong></th>
-<th style="text-align: left;"><strong>Notes</strong></th>
+<th><strong>What</strong></th>
+<th><strong>\u20ac</strong></th>
+<th><strong>Amount</strong></th>
+<th><strong>Sum</strong></th>
+<th><strong>Notes</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><a href="https://roses.example.com/myroses.html">My Roses</a></td>
-<td style="text-align: left;">42.23</td>
-<td style="text-align: left;">12</td>
-<td style="text-align: left;">506.76</td>
-<td style="text-align: left;"><strong>best</strong> roses <code>evar</code></td>
+<td><a href="https://roses.example.com/myroses.html">My Roses</a></td>
+<td>42.23</td>
+<td>12</td>
+<td>506.76</td>
+<td><strong>best</strong> roses <code>evar</code></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><a href="../../../../2007/01/29/my-temporal">internal <strong>link</strong> test</a></td>
-<td style="text-align: left;">10</td>
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">20</td>
-<td style="text-align: left;">Umlaut test: \xf6\xc4\xdf</td>
+<td><a href="../../../../2007/01/29/my-temporal">internal <strong>link</strong> test</a></td>
+<td>10</td>
+<td>2</td>
+<td>20</td>
+<td>Umlaut test: \xf6\xc4\xdf</td>
 </tr>
 </tbody>
 </table>

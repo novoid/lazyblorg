@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-05-18 14:13:39 karl.voit>
+# Time-stamp: <2017-08-13 14:31:46 vk>
 
 import config  # lazyblorg-global settings
 import unittest
@@ -8,7 +8,7 @@ from lib.utils import *
 from lib.orgparser import *
 import pickle  # for serializing and storing objects into files
 from os import remove
-from os.path import isfile
+from os.path import isfile, join
 
 
 class TestOrgParser(unittest.TestCase):
@@ -30,7 +30,7 @@ class TestOrgParser(unittest.TestCase):
     def test_get_list_indentation_number(self):
 
         # manually written Org-mode file; has to be placed in "lib/tests/"
-        testfile_org = "simple.org"
+        testfile_org = join("lib", "tests", "simple.org")
         blog_data = []  # initialize the empty list
         parser = OrgParser(testfile_org)
 
@@ -66,9 +66,9 @@ class TestOrgParser(unittest.TestCase):
     def test_simple_org_to_blogdata(self):
 
         # manually written Org-mode file; has to be placed in "lib/tests/"
-        testfile_org = "simple.org"
-        testfile_temp_output = "simple_org_-_lastrun.pk"
-        testfile_temp_reference = "simple_org_-_reference.pk"
+        testfile_org = join("lib", "tests", "simple.org")
+        testfile_temp_output = join("lib", "tests", "simple_org_-_lastrun.pk")
+        testfile_temp_reference = join("lib", "tests", "simple_org_-_reference.pk")
 
         # check, if test input file is found
         self.assertTrue(isfile(testfile_org))

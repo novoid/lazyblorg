@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-16 21:49:31 vk>
+# Time-stamp: <2017-08-13 14:36:26 vk>
 
 import config
 import argparse  # command line arguments
@@ -41,12 +41,12 @@ class TestLazyblorg(unittest.TestCase):
 
         # manually written Org-mode file; has to be placed in
         # "../testdata/basic_blog_update_test/"
-        template_file = "../templates/blog-format.org"
-        org_testfile_firstrun = "../testdata/basic_blog_update_test/basic_blog_update_test_-_first_run.org"
-        metadata_firstrun_output = "../testdata/basic_blog_update_test/basic_blog_update_test_-_first_run.pk"
-        metadata_secondrun_output = "../testdata/basic_blog_update_test/basic_blog_update_test_-_second_run.pk"
-        log_firstrun = "../testdata/basic_blog_update_test/basic_blog_update_test_-_first_run.log"
-        org_testfile_secondrun = "../testdata/basic_blog_update_test/basic_blog_update_test_-_second_run.org"
+        template_file = "templates/blog-format.org"
+        org_testfile_firstrun = "testdata/basic_blog_update_test/basic_blog_update_test_-_first_run.org"
+        metadata_firstrun_output = "testdata/basic_blog_update_test/basic_blog_update_test_-_first_run.pk"
+        metadata_secondrun_output = "testdata/basic_blog_update_test/basic_blog_update_test_-_second_run.pk"
+        log_firstrun = "testdata/basic_blog_update_test/basic_blog_update_test_-_first_run.log"
+        org_testfile_secondrun = "testdata/basic_blog_update_test/basic_blog_update_test_-_second_run.org"
 
         # might be left over from a failed previous run:
         if os.path.isfile(metadata_firstrun_output):
