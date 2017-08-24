@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2017-07-26 12:57:44 vk>
+## Time-stamp: <2017-08-24 14:38:18 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -189,12 +189,6 @@ are becoming close friends right now:
 
 ** Features
 
-lazyblorg supports a (large sub-)set of syntax elements of Org-mode.
-It also support RSS/ATOM feed(s) and tags.
-
-It supports embedding image files with automatically scaling to their
-desired width and much more.
-
 #+BEGIN_QUOTE
 «Technology develops from the primitive via the complex to the
 simple.»
@@ -202,13 +196,49 @@ simple.»
 ([[https://en.wikipedia.org/wiki/Antoine_de_Saint-Exup%25C3%25A9ry][Antoine de Saint-Exupéry]]; note: lazyblorg is currently "primitive"
 but with a great outlook up to the status of being simple)
 
-See FAQs for "What Org-mode elements are supported by lazyblorg?"
+Here is a selection of features of lazyblorg which helps you to blog
+efficiently:
 
-For navigating through the blog articles I do recommend using the
-tags. Articles related to one topic share common tags whereas a
-date-oriented archive has only very limited use. The tag cloud which
-is on the [[http://karl-voit.at/tags/][tag overview page]] offers a quick overview of your most used
-tags.
+- Converts Org-mode To HTML5: lazyblorg supports [[https://github.com/novoid/lazyblorg/wiki/Orgmode-Elements][a (large sub-)set of
+  syntax elements of Org-mode]]
+  - also see FAQs for "What Org-mode elements are supported by
+    lazyblorg?"
+
+- Different [[https://github.com/novoid/lazyblorg/wiki/Page-Types][page types]] allow you to create:
+  1. articles related to a specific date ([[https://github.com/novoid/lazyblorg/wiki/Temporal-Pages][temporal pages]])
+  2. articles not related to a specific date ([[https://github.com/novoid/lazyblorg/wiki/Persistent-Pages][persistent pages]])
+  3. articles describing a tag you are using ([[https://github.com/novoid/lazyblorg/wiki/Tag-Pages][tag pages]])
+  4. the [[https://github.com/novoid/lazyblorg/wiki/Entry-Page][entry page]] of your blog
+  5. the [[https://github.com/novoid/lazyblorg/wiki/Templates][templates]] which are used to generate your blog pages
+
+- To efficiently notify users of new articles or changes to existing
+  articles, lazyblorg generates [[https://github.com/novoid/lazyblorg/wiki/Feeds][RSS/ATOM feeds]]
+
+- Really fast to use [[https://github.com/novoid/lazyblorg/wiki/Links#linking-other-blog-articles-internal-links][linking to other blog articles]] using their ID property
+
+- You can very easily [[https://github.com/novoid/lazyblorg/wiki/Images][embed image files]] with automatically scaling to
+  their desired width
+  - This feature is hardened against image file renaming and broken
+    links because of moving images files to different folders
+  - Users of [[https://github.com/novoid/Memacs][Memacs]] do have advanced possibilities here as well
+
+- For navigating through the blog articles I do recommend using the
+  [[https://github.com/novoid/lazyblorg/wiki/Tag-Pages][tags]]. Articles related to one topic share common tags whereas a
+  date-oriented archive has only very limited use. The tag cloud which
+  is on the [[http://karl-voit.at/tags/][tag overview page]] offers a quick overview of your most used
+  tags.
+
+- There is a search feature which brings you to the content by
+  searching for keywords or phrases
+
+- Easy embedding of [[https://github.com/novoid/lazyblorg/wiki/Embedding-External-Content][external content]] such as Tweets or YouTube videos
+
+- You can exclude content from being published with various features:
+  1. [[https://github.com/novoid/lazyblorg/wiki/Comments][Comment lines]]
+  2. Mark an article/heading as hidden [[https://github.com/novoid/lazyblorg/wiki/Headings#headings-within-a-blog-article][using the tag NOEXPORT]]
+  3. The [[https://github.com/novoid/lazyblorg/wiki/Headings#tag-hidden][hidden tag]] does publish an article but hides it from
+     the entry page, navigational pages, and the feeds. This way, you
+     can publish pages who can only be access by people knowing its URL.
 
 ** FAQs
 
