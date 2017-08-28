@@ -1,6 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-06-17 23:08:47 vk>
+PROG_VERSION = u"Time-stamp: <2017-08-28 13:25:09 vk>"
+PROG_VERSION_DATE = PROG_VERSION[13:23]
 
 # TODO:
 # * fix parts marked with «FIXXME»
@@ -23,8 +24,6 @@ import pickle  # for serializing and storing objects into files
 from time import time  # for measuring execution time
 
 
-PROG_VERSION_NUMBER = u"0.2"
-PROG_VERSION_DATE = u"2014-02-01"
 INVOCATION_TIME = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
 
@@ -33,7 +32,7 @@ EPILOG = u"\n\
   :license:    GPL v3 or any later version\n\
   :URL:        https://github.com/novoid/lazyblorg\n\
   :bugreports: via github (preferred) or <tools@Karl-Voit.at>\n\
-  :version:    " + PROG_VERSION_NUMBER + " from " + PROG_VERSION_DATE + "\n"
+  :version:    " + PROG_VERSION_DATE + "\n"
 
 
 class Lazyblorg(object):
@@ -515,8 +514,7 @@ if __name__ == "__main__":
     try:
 
         if options.version:
-            print os.path.basename(argv[0]) + " version " + PROG_VERSION_NUMBER + \
-                " from " + PROG_VERSION_DATE
+            print os.path.basename(argv[0]) + " version " + PROG_VERSION_DATE
             exit(0)
 
         # checking parameters ...
