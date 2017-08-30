@@ -1,5 +1,5 @@
 ## -*- coding: utf-8;mode: org;  -*-
-## Time-stamp: <2017-08-24 14:38:18 vk>
+## Time-stamp: <2017-08-30 10:47:59 vk>
 ## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/
 
 #+BEGIN_QUOTE
@@ -206,15 +206,26 @@ efficiently:
 
 - Different [[https://github.com/novoid/lazyblorg/wiki/Page-Types][page types]] allow you to create:
   1. articles related to a specific date ([[https://github.com/novoid/lazyblorg/wiki/Temporal-Pages][temporal pages]])
+     - Those articles are published and hardly updated.
   2. articles not related to a specific date ([[https://github.com/novoid/lazyblorg/wiki/Persistent-Pages][persistent pages]])
+     - Frequent updates or the absence of any day-relation makes this
+       page type very sexy to use.
   3. articles describing a tag you are using ([[https://github.com/novoid/lazyblorg/wiki/Tag-Pages][tag pages]])
+     - Yes, with lazyblorg, you are (optionally) able to explain how
+       you are using a certain tag. You can link your most important
+       tag-related articles and so forth. Most systems don't offer any
+       possibility to communicate the meaning of the tags used.
   4. the [[https://github.com/novoid/lazyblorg/wiki/Entry-Page][entry page]] of your blog
+     - You gotta give them a starting page ;-)
   5. the [[https://github.com/novoid/lazyblorg/wiki/Templates][templates]] which are used to generate your blog pages
+     - Hooray, you are able to define all templates of your blog
+       within Org-mode as well. No need to edit source code here.
+       Isn't this great?
 
 - To efficiently notify users of new articles or changes to existing
-  articles, lazyblorg generates [[https://github.com/novoid/lazyblorg/wiki/Feeds][RSS/ATOM feeds]]
+  articles, lazyblorg generates [[https://github.com/novoid/lazyblorg/wiki/Feeds][RSS/ATOM feeds]].
 
-- Really fast to use [[https://github.com/novoid/lazyblorg/wiki/Links#linking-other-blog-articles-internal-links][linking to other blog articles]] using their ID property
+- Really fast to use [[https://github.com/novoid/lazyblorg/wiki/Links#linking-other-blog-articles-internal-links][linking to other blog articles]] using their ID property.
 
 - You can very easily [[https://github.com/novoid/lazyblorg/wiki/Images][embed image files]] with automatically scaling to
   their desired width
@@ -229,9 +240,9 @@ efficiently:
   tags.
 
 - There is a search feature which brings you to the content by
-  searching for keywords or phrases
+  searching for keywords or phrases.
 
-- Easy embedding of [[https://github.com/novoid/lazyblorg/wiki/Embedding-External-Content][external content]] such as Tweets or YouTube videos
+- Easy embedding of [[https://github.com/novoid/lazyblorg/wiki/Embedding-External-Content][external content]] such as Tweets or YouTube videos.
 
 - You can exclude content from being published with various features:
   1. [[https://github.com/novoid/lazyblorg/wiki/Comments][Comment lines]]
