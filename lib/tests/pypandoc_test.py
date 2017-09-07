@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2015-10-17 12:28:16 vk>
 
 import unittest
 import sys

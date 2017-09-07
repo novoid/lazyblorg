@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-10-18 19:46:35 vk>
 
 # import config  ## lazyblorg-global settings
 import unittest

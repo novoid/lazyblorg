@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-08-13 14:36:26 vk>
 
 import config
 import argparse  # command line arguments
