@@ -187,13 +187,10 @@ class TestHtmlizer(unittest.TestCase):
                 htmlized_entry_test['content'][0]) == Utils.normalize_lineendings(
                 htmlized_content_expected[0]))
 
-        try:
-            self.assertTrue(
-                Utils.normalize_lineendings(htmlized_entry_test['content'][1]) ==
-                Utils.normalize_lineendings(htmlized_content_expected[1])
-            )
-        except AssertionError:
-            import pdb; pdb.set_trace()
+        self.assertTrue(
+            Utils.normalize_lineendings(htmlized_entry_test['content'][1]) ==
+            Utils.normalize_lineendings(htmlized_content_expected[1])
+        )
 
         self.assertTrue(
             Utils.normalize_lineendings(
