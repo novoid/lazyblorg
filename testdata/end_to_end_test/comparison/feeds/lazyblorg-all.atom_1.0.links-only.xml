@@ -7,13 +7,23 @@
   <id>http://Karl-Voit.at/</id>
   <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2017-08-07T19:17:07+01:00</updated>
+  <updated>2017-10-01T12:31:10+01:00</updated>
   <author>
     <name>Karl Voit</name>
   </author>
   <subtitle type="text">public voit</subtitle>
   <rights>All content written by Karl Voit</rights>
   <generator uri='https://github.com/novoid/lazyblorg'>Generated from Org-mode source code using lazyblorg which is written in Python. Industrial-strength technology, baby.</generator>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">Links test</title>
+    <link href='http://Karl-Voit.at/2017/09/30/link-test' />
+    <published>2017-09-30T17:05:00+01:00</published>
+    <updated>2017-09-30T17:05:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <id>http://Karl-Voit.at/2017/09/30/link-test-from-feed-with-links</id>
+</entry>
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">Sanitizing Elements</title>
@@ -35,12 +45,12 @@
 </entry>
 <!-- ############################################################################################# -->
 <entry>
-    <title type="text">FIXXME: image test</title>
+    <title type="text">image test</title>
     <link href='http://Karl-Voit.at/2016/11/27/image-test' />
     <published>2016-11-27T15:01:00+01:00</published>
     <updated>2016-11-27T15:01:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:unsure' />
     <id>http://Karl-Voit.at/2016/11/27/image-test-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
@@ -241,13 +251,4 @@
     <updated>1985-01-01T15:04:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
     <id>http://Karl-Voit.at/1985/01/01/old-entry4-from-feed-with-links</id>
-</entry>
-<!-- ############################################################################################# -->
-<entry>
-    <title type="text">old blog entry3</title>
-    <link href='http://Karl-Voit.at/1985/01/01/old-entry3' />
-    <published>1985-01-01T15:03:00+01:00</published>
-    <updated>1985-01-01T15:03:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/1985/01/01/old-entry3-from-feed-with-links</id>
 </entry></feed>

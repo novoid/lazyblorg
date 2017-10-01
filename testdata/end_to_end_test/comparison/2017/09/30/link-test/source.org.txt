@@ -1,0 +1,27 @@
+CLOSED: [2017-09-30 Sat 17:05]
+:PROPERTIES:
+:CREATED:  [2017-09-30 Sat 17:05]
+:ID:       2017-09-30-link-test
+:END:
+:LOGBOOK:
+- State "DONE"       from              [2017-09-30 Sat 17:05]
+:END:
+
+This is a test article which tests its links to other (internal) blog entries.
+
+- This should work [[id:2016-10-31-persistent-entry][in lists]] as [[id:2016-11-27-special-characters][well]].
+- This should work [[id:2016-10-31-persistent-entry]] and [[id:2016-11-27-special-characters]].
+
+| also in | a [[id:2016-11-27-special-characters][table]]                          | with [[id:2016-11-27-special-characters][multiple cells containing links]] |
+| also    | [[id:2016-11-27-special-characters]] | and [[id:2016-11-27-special-characters]] |
+
+#+BEGIN_QUOTE
+Here [[id:2016-10-31-a-tag-page][in a quote]] block.
+#+END_QUOTE
+
+Here is [[id:2017-09-30-link-test][a self-reference]] which should not result in a backlink to itself.
+
+*** Even [[id:2016-10-31-my-temporal-article][a heading should]] work
+
+What about [[id:2016-10-31-an-hidden-blog-entry][a hidden entry]]?
+

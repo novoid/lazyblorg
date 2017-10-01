@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-07-11 10:03:35 vk>
+# Time-stamp: <2017-10-01 11:53:04 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -177,6 +177,8 @@ class Htmlizer(object):
         @param: return: stats_generated_tags: tag articles generated
         """
 
+        self.blog_data = self._populate_backreferences(self.blog_data)
+
         self.dict_of_tags_with_ids = self._populate_dict_of_tags_with_ids(
             self.blog_data)
 
@@ -195,6 +197,77 @@ class Htmlizer(object):
             stats_generated_persistent, \
             stats_generated_tags, \
             self.stats_images_resized
+
+    def _populate_backreferences(self, blog_data):
+        """
+        Traverses all blog articles and collects internal links as references to their corresponding link target.
+        In other words, when article X contains a link to article Y then blog_data of Y gets a back-link to X.
+
+        This is a dirty quick hack. It would be better when this search is done (1) in the parser or
+        (2) within the sanitizing functions.
+
+        I did not implement it in the parser because the current parser is output format agnostic
+        and does not parse for internal links.
+
+        I could not implement it in the sanitizing method because the current workflow is that the
+        sanitizing is done shortly before the HTML files are written. This is too late because this
+        way we can not add back-references to articles whose files have already written.
+
+        Therefore I did this dirty hack of looking to the str-representation of the whole content
+        which might lead to found links which are for example phantasy links within example blocks
+        that are not really linked in the output document. We check for those cases later on
+        in _generate_back_references_content(). Did I already mention that this is a hack? ;-)
+
+        FIXXME: resolve hack with a better method to look for back-references.
+
+        @param: blog_data: the usual blog data data structure
+        @param: return: the modified blog data structure
+        """
+
+        for blog_article in blog_data:
+            link_targets = set()
+            backreference_target = blog_article['id']
+
+            for content_item in blog_article['content']:
+
+                # NOTE: this is the poor man's method of locating ID
+                # links. It would be better to look for internal
+                # references within the corresponding sanitizing
+                # method. Unfortuantely, those sanitizing methods are
+                # applied shortly before writing the result file to
+                # disk. Therefore, I can not do this for now because I
+                # need to locate all references before any file gets
+                # written to disk.
+                simple_links = re.findall(self.ID_SIMPLE_LINK_REGEX, str(content_item))
+                described_links = re.findall(self.ID_DESCRIBED_LINK_REGEX, str(content_item))
+
+                if simple_links:
+                    for link in simple_links:
+                        # Omit links to itself:
+                        if link != backreference_target:
+                            link_targets.add(link[1])
+                if described_links:
+                    for link in described_links:
+                        # Omit links to itself:
+                        if link != backreference_target:
+                            link_targets.add(link[1])
+
+            # If any internal links were found, append a back-link to
+            # the current ID to their blog_data list item:
+            # FIXXME:
+            # horrible inefficient because of iterating over all items
+            # for each link found.
+            if len(link_targets) > 0:
+                for current_link_id in link_targets:
+                    for blog_data_entry in blog_data:
+                        if blog_data_entry['id'] == current_link_id:
+                            if 'back-references' in blog_data_entry.keys():
+                                blog_data_entry['back-references'].add(backreference_target)
+                            else:
+                                # the first back-reference of this blog_data_entry
+                                blog_data_entry['back-references'] = set([backreference_target])
+
+        return blog_data
 
     def _populate_dict_of_tags_with_ids(self, blog_data):
         """
@@ -346,8 +419,11 @@ class Htmlizer(object):
         htmlcontent += self.__collect_raw_content(entry['content'])
 
         content = u''
-        for articlepart in ['tagpage-end', 'article-footer']:
-            content += self.template_definition_by_name(articlepart)
+        content += self.template_definition_by_name('tagpage-end')
+
+        content += self._generate_back_references_content(entry, config.TEMPORAL)
+
+        content += self.template_definition_by_name('article-footer')
 
         htmlcontent += self._replace_general_article_placeholders(
             entry, content)
@@ -1452,8 +1528,10 @@ class Htmlizer(object):
             self.logging.critical(message)
             raise HtmlizerException(self.current_entry_id, message)
 
-        # add targetid-URL
-        url += self._target_path_for_id_without_targetdir(targetid)
+        url_for_the_target_id = self._target_path_for_id_without_targetdir(targetid)
+        if url_for_the_target_id == None:
+            return False
+        url += url_for_the_target_id
 
         return url
 
@@ -1468,7 +1546,7 @@ class Htmlizer(object):
         @param sourcecategory: constant string determining type of current entry
         @param content: string containing the Org-mode content
         @param keep_orgmode_format: boolean: if True, return Org-mode format instead of HTML format
-        @param return: sanitized string
+        @param return: sanitized string (or False if the targetid could not be found)
         """
 
         assert(type(content) in [unicode, str])
@@ -1484,6 +1562,8 @@ class Htmlizer(object):
                 targetid = currentmatch[1]
                 url = self.generate_relative_url_from_sourcecategory_to_id(
                     sourcecategory, targetid)
+                if type(url) not in [unicode, str]:
+                    return False
                 if keep_orgmode_format:
                     content = content.replace(
                         internal_link, "[[" + url + "][" + targetid + "]]")
@@ -1499,6 +1579,8 @@ class Htmlizer(object):
                 description = currentmatch[2]
                 url = self.generate_relative_url_from_sourcecategory_to_id(
                     sourcecategory, targetid)
+                if type(url) not in [unicode, str]:
+                    return False
                 if keep_orgmode_format:
                     content = content.replace(
                         internal_link, "[[" + url + "][" + description + "]]")
@@ -1571,6 +1653,95 @@ class Htmlizer(object):
 
         return orgfilename, htmlfilename
 
+    def _generate_back_references_content(self, entry, sourcecategory):
+        """
+        Creates the snippet of the output file that contains the back-references to articles linked to the current one.
+
+        @param entry: blog entry data
+        @param sourcecategory: constant string determining type of current entry
+        @param return: the HTML content of the entry
+        """
+
+        assert(type(sourcecategory) == str)
+        content = ""
+        number_of_back_references = 0
+
+        # Adding back-references:
+        if 'back-references' in entry.keys():
+            # FIXXME: other languages than german have to be added
+            # here: (generalize using a configured list of known
+            # languages?)
+            if 'language' in entry['autotags'].keys() and entry['autotags']['language'] == 'deutsch':
+                content += self.template_definition_by_name('backreference-header-de')
+            else:
+                content += self.template_definition_by_name('backreference-header-en')
+
+            for back_reference_id in sorted(list(entry['back-references'])):
+
+                # determine the blog_data entry whose id is like
+                # back_reference_id which is a list with only one
+                # entry (ideally):
+                back_reference_title_list = [x for x in self.blog_data if back_reference_id == x['id']]
+
+                # Ignore the (hard-coded) templates heading
+                if back_reference_title_list[0]['id'] != u'lazyblorg-templates':
+
+                    # If we found exactly one entry with an existing title…
+                    if len(back_reference_title_list) == 1 and \
+                       type(back_reference_title_list[0]['title']) == unicode:
+
+                        # We re- or mis-use the sanitize function to
+                        # translate the reference link to its HTML
+                        # link:
+                        sanitized_content = self.sanitize_internal_links(
+                            sourcecategory,
+                            self.template_definition_by_name('backreference-item').replace('#REFERENCE#',
+                                                                                           '[[id:' +
+                                                                                           back_reference_id +
+                                                                                           '][' +
+                                                                                           back_reference_title_list[0]['title'] +
+                                                                                           ']]'))
+                        # Sometimes, the sanitize function returns
+                        # False. This is the case when my dirty
+                        # quick-hack search method
+                        # self._populate_backreferences() for
+                        # back-references returns something stupid
+                        # like a link to a phantasy item within an
+                        # example block or similar. Therefore we check
+                        # its content before adding it:
+                        if sanitized_content:
+                            content += sanitized_content
+                            number_of_back_references += 1
+                        else:
+                            logging.warning('Article ' + entry['id'] + ' contains the back-reference to ' +
+                                            back_reference_id +
+                                            ' which could not be located (id: ' +
+                                            back_reference_title_list[0]['id'] +
+                                            '). Might be okay or a warning which you should check out.')
+                    else:
+                        # I'm note sure if this is reached but you
+                        # never know. I chose a slightly different
+                        # working than above so that you are able to
+                        # differentiate the two error messages:
+                        logging.warning('Article ' + entry['id'] + ' contains a back-reference to ' +
+                                        back_reference_id +
+                                        ' which could not be found (id: ' +
+                                        back_reference_title_list[0]['id'] +
+                                        '). Might be okay or a warning which you should check out.')
+
+            content += self.template_definition_by_name('backreference-footer')
+
+        # We now check whether or not we found at least one working
+        # back-reference. If there was no working back-reference, we
+        # skip the whole section instead of returning header and
+        # footer without a reference in between:
+        if number_of_back_references == 0:
+            logging.debug('Article ' + entry['id'] + ' contains only back-references which could not be located. ' +
+                          'I therefore omit the whole section alltogether.')
+            return ""
+        else:
+            return content
+
     def _generate_temporal_article(self, entry):
         """
         Creates a (normal) time-oriented blog article (in contrast to a persistent blog article).
@@ -1613,8 +1784,11 @@ class Htmlizer(object):
         htmlcontent += self.__collect_raw_content(entry['content'])
 
         content = u''
-        for articlepart in ['article-end', 'article-footer']:
-            content += self.template_definition_by_name(articlepart)
+        content += self.template_definition_by_name('article-end')
+
+        content += self._generate_back_references_content(entry, config.TEMPORAL)
+
+        content += self.template_definition_by_name('article-footer')
         htmlcontent += self._replace_general_article_placeholders(
             entry, content)
         htmlcontent = self.sanitize_internal_links(
@@ -1665,8 +1839,12 @@ class Htmlizer(object):
         htmlcontent += self.__collect_raw_content(entry['content'])
 
         content = u''
-        for articlepart in ['persistent-end', 'persistent-footer']:
-            content += self.template_definition_by_name(articlepart)
+        content += self.template_definition_by_name('persistent-end')
+
+        content += self._generate_back_references_content(entry, config.PERSISTENT)
+
+        content += self.template_definition_by_name('persistent-footer')
+
         htmlcontent += self._replace_general_article_placeholders(
             entry, content)
         htmlcontent = self.sanitize_internal_links(

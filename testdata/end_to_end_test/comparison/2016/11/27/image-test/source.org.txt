@@ -7,6 +7,38 @@ CLOSED: [2016-11-27 Sun 15:01]
 - State "DONE"       from "NEXT"       [2016-11-27 Sun 15:01]
 :END:
 
-This is a place-holder for a future feature: including image files via
-memacs.
+With caption, alt, centered and 560px width:
+
+#+CAPTION: This is my caption
+#+ATTR_HTML: :alt This is my alt text
+#+ATTR_HTML: :align center :width 560
+[[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
+
+Without caption, alt, centered and 560px width:
+
+#+ATTR_HTML: :alt This is my alt text
+#+ATTR_HTML: :align center :width 560
+[[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
+
+With caption, without alt, left aligned and 300px width:
+
+#+CAPTION: This is my caption
+#+ATTR_HTML: :align left :width 300
+[[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
+
+With caption, alt, right alined and 300px width:
+
+#+CAPTION: This is my caption
+#+ATTR_HTML: :alt This is my alt text
+#+ATTR_HTML: :align right :width 300
+[[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
+
+Without caption, without alt, centered and 300px width:
+
+#+ATTR_HTML: :align center :width 560
+[[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
+
+Just the image without ATTR lines or caption:
+
+[[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
 

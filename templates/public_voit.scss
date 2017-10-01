@@ -632,6 +632,37 @@ footer {
     }
 }
 
+/*  ------------------------------------------
+ *  Back-references
+ *  ------------------------------------------ */
+
+.back-references {
+    @extend .middle_section_narrow;
+    margin-top: 2em;
+    margin-left: auto;
+    margin-right: auto;
+
+    hr {
+	border-color: $lightgray;
+	color: $lightgray; border-style:solid;
+	display: block;
+	height: 2px;
+    }
+
+    p {
+	margin-top: -0.5em;
+	margin-bottom: -0.5em;
+	font-size: 80%;
+	color: $gray;
+   }
+
+    ul {
+	list-style: none; /* we do use other bullet characters on li-level below */
+    }
+    li:before {
+	content: "\1F517\00A0"; /* HEX UTF-8 character for a link followed by &nbsp; */
+    }
+}
 
 /*  ------------------------------------------
  *  Sidebars

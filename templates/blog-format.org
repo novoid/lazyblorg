@@ -248,6 +248,37 @@ With name/label:
 
 #+END_EXPORT
 
+*** Back-references
+
+#+NAME: backreference-header-en
+#+BEGIN_EXPORT HTML
+
+<div class="back-references"><hr /><p>Related articles that link to this one:</p>
+  <ul>
+
+#+END_EXPORT
+
+#+NAME: backreference-header-de
+#+BEGIN_EXPORT HTML
+
+<div class="back-references"><hr /><p>Ähnliche Beiträge, die hierher zeigen:</p>
+  <ul>
+
+#+END_EXPORT
+
+#+NAME: backreference-item
+#+BEGIN_EXPORT HTML
+    <li>#REFERENCE#</li>
+
+#+END_EXPORT
+
+#+NAME: backreference-footer
+#+BEGIN_EXPORT HTML
+  </ul>
+</div>
+
+#+END_EXPORT
+
 *** ignore me
 
 #+NAME:
@@ -265,7 +296,7 @@ With name/label:
 **** Header
 
 - #BLOGNAME#: short name of the blog
-- #COMMON-SIDEBAR# : the sidebar conentent which is shared on all pages
+- #COMMON-SIDEBAR# : the sidebar content which is shared on all pages
 - #ARTICLE-ID#: Org-mode ID property of the blog entry
 
 
@@ -482,7 +513,7 @@ placeholder article which is defined in this file (below).
   date-time format (e.g., 2011-10-30T15:00+02:00)
 - #ARTICLE-PUBLISHED-HUMAN-READABLE#: time-stamp of publishing in
   human readable format (e.g., 2011-10-30T15:00)
-- #COMMON-SIDEBAR# : the sidebar conentent which is shared on all pages
+- #COMMON-SIDEBAR# : the sidebar content which is shared on all pages
 
 #+NAME: persistent-header-begin
 #+BEGIN_EXPORT HTML
@@ -629,7 +660,7 @@ placeholder article which is defined in this file (below).
   date-time format (e.g., 2011-10-30T15:00+02:00)
 - #ARTICLE-PUBLISHED-HUMAN-READABLE#: time-stamp of publishing in
   human readable format (e.g., 2011-10-30T15:00)
-- #COMMON-SIDEBAR# : the sidebar conentent which is shared on all pages
+- #COMMON-SIDEBAR# : the sidebar content which is shared on all pages
 
 #+NAME: article-header-begin
 #+BEGIN_EXPORT HTML
@@ -928,7 +959,7 @@ Pages that describe a tag. Corresponding Org-mode entries must have:
   date-time format (e.g., 2011-10-30T15:00+02:00)
 - #ARTICLE-PUBLISHED-HUMAN-READABLE#: time-stamp of publishing in
   human readable format (e.g., 2011-10-30T15:00)
-- #COMMON-SIDEBAR# : the sidebar conentent which is shared on all pages
+- #COMMON-SIDEBAR# : the sidebar content which is shared on all pages
 
 #+NAME: tagpage-header-begin
 #+BEGIN_EXPORT HTML

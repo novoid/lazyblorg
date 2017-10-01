@@ -32,7 +32,7 @@ a {
 /* ======================== */
 @media (max-width: 50em) {
   /* narrow maincolumn; suppress sidebar */
-  .middle_section_narrow, .common-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, .common-article-header-title, blockquote, .example_code, .email-comment, #disqus_thread, .entry-page-greetings {
+  .middle_section_narrow, .common-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, .common-article-header-title, blockquote, .example_code, .email-comment, #disqus_thread, .entry-page-greetings, .back-references {
     margin-left: auto;
     margin-right: auto;
     max-width: 30em;
@@ -96,7 +96,7 @@ a {
     display: none; } }
 @media (min-width: 50em) {
   /* narrow maincolumn; narrow sidebar */
-  .middle_section_narrow, .common-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, .common-article-header-title, blockquote, .example_code, .email-comment, #disqus_thread, .entry-page-greetings {
+  .middle_section_narrow, .common-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, .common-article-header-title, blockquote, .example_code, .email-comment, #disqus_thread, .entry-page-greetings, .back-references {
     margin-left: auto;
     margin-right: auto;
     max-width: 30em;
@@ -132,7 +132,7 @@ a {
     height: 6em; } }
 @media (min-width: 57em) {
   /* narrow maincolumn; middle sidebar */
-  .middle_section_narrow, .common-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, .common-article-header-title, blockquote, .example_code, .email-comment, #disqus_thread, .entry-page-greetings {
+  .middle_section_narrow, .common-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, .common-article-header-title, blockquote, .example_code, .email-comment, #disqus_thread, .entry-page-greetings, .back-references {
     margin-left: auto;
     margin-right: auto;
     max-width: 30em;
@@ -168,7 +168,7 @@ a {
     height: 6em; } }
 @media (min-width: 60em) {
   /* max maincolumn; narrow sidebar */
-  .middle_section_narrow, .common-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, .common-article-header-title, blockquote, .example_code, .email-comment, #disqus_thread, .entry-page-greetings {
+  .middle_section_narrow, .common-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, .common-article-header-title, blockquote, .example_code, .email-comment, #disqus_thread, .entry-page-greetings, .back-references {
     margin-left: auto;
     margin-right: auto;
     max-width: 40em; }
@@ -202,7 +202,7 @@ a {
     height: 6em; } }
 @media (min-width: 74em) {
   /* wide enough: original design without @media */
-  .middle_section_narrow, .common-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, .common-article-header-title, blockquote, .example_code, .email-comment, #disqus_thread, .entry-page-greetings {
+  .middle_section_narrow, .common-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, .common-article-header-title, blockquote, .example_code, .email-comment, #disqus_thread, .entry-page-greetings, .back-references {
     margin-left: auto;
     margin-right: auto;
     max-width: 40em; }
@@ -512,6 +512,31 @@ footer {
   background: white; }
   .entry-page-article .entry-page-article-tags {
     margin: -1.5em -1em 0px 0px; }
+
+/*  ------------------------------------------
+ *  Back-references
+ *  ------------------------------------------ */
+.back-references {
+  margin-top: 2em;
+  margin-left: auto;
+  margin-right: auto; }
+  .back-references hr {
+    border-color: #e0e0e0;
+    color: #e0e0e0;
+    border-style: solid;
+    display: block;
+    height: 2px; }
+  .back-references p {
+    margin-top: -0.5em;
+    margin-bottom: -0.5em;
+    font-size: 80%;
+    color: #7e7e7e; }
+  .back-references ul {
+    list-style: none;
+    /* we do use other bullet characters on li-level below */ }
+  .back-references li:before {
+    content: "\1F517\00A0";
+    /* HEX UTF-8 character for a link followed by &nbsp; */ }
 
 /*  ------------------------------------------
  *  Sidebars
