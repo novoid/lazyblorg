@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-10-01 11:53:04 vk>
+# Time-stamp: <2017-10-01 12:58:21 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -2309,20 +2309,33 @@ class Htmlizer(object):
             destinationfile = os.path.join(articlepath, self.get_scaled_filename(filename, attributes))
 
             if 'width' not in attributes.keys() and not os.path.isfile(destinationfile):
+                # User did not state any width → use original file
                 try:
                     copyfile(filenamepath, destinationfile)
                 except:
-                    self.logging.critical(self.current_entry_id_str() + "Error when writing file: " + str(destinationfile))
+                    self.logging.critical(self.current_entry_id_str() + "Error when copying the image file: " + str(destinationfile))
                     raise
 
-            if 'width' in attributes.keys() and not os.path.isfile(destinationfile):
+            elif 'width' in attributes.keys() and not os.path.isfile(destinationfile):
+                # User did specify a width → resize if necessary
                 try:
                     image = cv2.imread(filenamepath)
                     current_height, current_width = image.shape[:2]
                     newwidth = float(attributes['width'])
-                    newheight = current_height * (newwidth / current_width)
-                    cv2.imwrite(destinationfile, cv2.resize(image, (int(newwidth), int(newheight)), interpolation=cv2.INTER_CUBIC))
-                    self.stats_images_resized += 1
+
+                    # If there is no big difference between the image
+                    # size and the width specified by the user, copy
+                    # original image instead of interpolate:
+                    if abs(float(current_width) - newwidth) < 2:
+                        try:
+                            copyfile(filenamepath, destinationfile)
+                        except:
+                            self.logging.critical(self.current_entry_id_str() + "Error when copying file: " + str(destinationfile))
+                            raise
+                    else:
+                        newheight = current_height * (newwidth / current_width)
+                        cv2.imwrite(destinationfile, cv2.resize(image, (int(newwidth), int(newheight)), interpolation=cv2.INTER_CUBIC))
+                        self.stats_images_resized += 1
                 except:
                     self.logging.critical(self.current_entry_id_str() + 'Error when scaling file \"' + filenamepath +
                                           '\" to file \"' + destinationfile + '\"')
