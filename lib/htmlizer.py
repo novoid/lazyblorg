@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-10-01 12:58:21 vk>
+# Time-stamp: <2017-10-01 14:31:44 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -2284,10 +2284,58 @@ class Htmlizer(object):
             self.logging.critical(message)
             raise HtmlizerException(self.current_entry_id, message)
 
+    def _scale_and_write_image_file(self, image_data, destinationfile, newwidth, newheight):
+        """
+        Writes a scaled image file.
+
+        @param image_data: the original filename of an image
+        @param destinationfile: the filename of the scaled image
+        """
+        try:
+            cv2.imwrite(destinationfile,
+                        cv2.resize(image_data, (int(newwidth), int(newheight)), interpolation=cv2.INTER_CUBIC))
+        except:
+            self.logging.critical('Error when scaling file \"' + image_data +
+                                  '\" to file \"' + destinationfile + '\"')
+            raise
+
+    def _copy_a_file(self, sourcefile, destinationfile):
+        """
+        Copies a file and does exception handling.
+
+        @param sourcefile: the original filename
+        @param destinationfile: the filename of the resulting copy
+        """
+        try:
+            copyfile(sourcefile, destinationfile)
+            self.logging.debug('Copied the file "' + sourcefile + '" to "' + destinationfile + '"')
+        except:
+            self.logging.critical("Error when copying the image file: " + str(destinationfile))
+            raise
+
+    def _update_image_cache(self, original_filename, cached_image_file_name):
+        """
+        If the cache directory is found, make sure that its cached file is
+        either created or replaced with the original_filename.
+
+        @param original_filename: the original filename
+        @param cached_image_file_name: the filename of the resulting cached copy
+        """
+        if os.path.isdir(config.IMAGE_CACHE_DIRECTORY):
+            if os.path.isfile(cached_image_file_name):
+                self.logging.debug('Removing the old cached image file "' + cached_image_file_name + '" in the IMAGE_CACHE_DIRECTORY')
+                os.remove(cached_image_file_name)
+            self._copy_a_file(original_filename, cached_image_file_name)
+        else:
+            self.logging.debug('config.IMAGE_CACHE_DIRECTORY "' + config.IMAGE_CACHE_DIRECTORY + '" is not an existing directory. Skipping the cache update.')
 
     def copy_cust_link_image_file(self, filename, articlepath, attributes):
         """
         Locates image files via IMAGE_INCLUDE_METHOD and copies it to the blog article directory.
+
+        If config.IMAGE_CACHE_DIRECTORY is set to an existing directory, scaling of image files
+        is reduced to non-existing cached files or updated original files where the cached file
+        is older than the original one.
 
         @param filename: the base filename of an image
         @param articlepath: the directory path to put the file into
@@ -2297,11 +2345,11 @@ class Htmlizer(object):
         # image was located using locate_cust_link_image() prior to this function
         assert(filename in self.filename_dict.keys())
 
-        filenamepath = self.filename_dict[filename]
-        if not os.path.isfile(filenamepath):
+        image_file_path = self.filename_dict[filename]
+        if not os.path.isfile(image_file_path):
             # image found in index but not on hard disk
             message = self.current_entry_id_str() + u'File \"' + filename + '\" is found within Memacs index (\"' + \
-                      filenamepath + '\") but could not be located in the file system.'
+                      image_file_path + '\") but could not be located in the file system.'
             self.logging.critical(message)
             raise HtmlizerException(self.current_entry_id, message)
         else:
@@ -2310,35 +2358,51 @@ class Htmlizer(object):
 
             if 'width' not in attributes.keys() and not os.path.isfile(destinationfile):
                 # User did not state any width → use original file
-                try:
-                    copyfile(filenamepath, destinationfile)
-                except:
-                    self.logging.critical(self.current_entry_id_str() + "Error when copying the image file: " + str(destinationfile))
-                    raise
+                self._copy_a_file(image_file_path, destinationfile)
 
             elif 'width' in attributes.keys() and not os.path.isfile(destinationfile):
                 # User did specify a width → resize if necessary
                 try:
-                    image = cv2.imread(filenamepath)
-                    current_height, current_width = image.shape[:2]
+                    image_file_data = cv2.imread(image_file_path)
+                    current_height, current_width = image_file_data.shape[:2]
                     newwidth = float(attributes['width'])
+                    newheight = current_height * (newwidth / current_width)
 
-                    # If there is no big difference between the image
-                    # size and the width specified by the user, copy
-                    # original image instead of interpolate:
-                    if abs(float(current_width) - newwidth) < 2:
-                        try:
-                            copyfile(filenamepath, destinationfile)
-                        except:
-                            self.logging.critical(self.current_entry_id_str() + "Error when copying file: " + str(destinationfile))
-                            raise
+                    cached_image_file_name = os.path.join(config.IMAGE_CACHE_DIRECTORY, os.path.basename(destinationfile))
+
+                    if abs(current_width - newwidth) < 2:
+                        # If there is no big difference between the image
+                        # size and the width specified by the user, copy
+                        # original image instead of interpolate a new one
+                        self._copy_a_file(image_file_path, destinationfile)
+                    elif os.path.isfile(cached_image_file_name):
+                        # If a cached copy is found, check if it still
+                        # newer than the original file. Re-generate
+                        # file and update cache if necessary
+                        if os.path.getmtime(cached_image_file_name) < os.path.getmtime(image_file_path):
+                            self.logging.debug('CACHE MISS: mtime of cached file "' + cached_image_file_name +
+                                               '" is older than the original file "' + image_file_path +
+                                               '". Therefore I scale a new one to "' + destimationfile + '".')
+                            self._scale_and_write_image_file(image_file_data, destinationfile, newwidth, newheight)
+                            self.stats_images_resized += 1
+                            self._update_image_cache(destinationfile, cached_image_file_name)
+                        else:
+                            self.logging.debug('CACHE HIT: cached file "' + cached_image_file_name +
+                                               '" is newer than the original file "' + image_file_path +
+                                               '". Therefore I copy the cached one instead of scaling a new one.')
+                            self._copy_a_file(cached_image_file_name, destinationfile)
                     else:
-                        newheight = current_height * (newwidth / current_width)
-                        cv2.imwrite(destinationfile, cv2.resize(image, (int(newwidth), int(newheight)), interpolation=cv2.INTER_CUBIC))
+                        # We did not find any cached file. So generate
+                        # a new image and update cache if necessary
+                        self.logging.debug('CACHE MISS: no cached file "' + cached_image_file_name + '" found. Scaling a new one.')
+                        self._scale_and_write_image_file(image_file_data, destinationfile, newwidth, newheight)
                         self.stats_images_resized += 1
+                        self._update_image_cache(destinationfile, cached_image_file_name)
                 except:
-                    self.logging.critical(self.current_entry_id_str() + 'Error when scaling file \"' + filenamepath +
-                                          '\" to file \"' + destinationfile + '\"')
+                    # This is only to add the entry ID to the
+                    # exception output which is catched and re-raised
+                    # from the invoked methods
+                    self.logging.critical('Something happened with entry ID: ' + self.current_entry_id_str())
                     raise
 
             else:

@@ -75,6 +75,14 @@ TIME_ZONE_ADDON = u'+01:00'
 ## Please do read the documentation: https://github.com/novoid/lazyblorg/wiki/Orgmode-Elements#images
 CUSTOMIZED_IMAGE_LINK_KEY = 'tsfile'  # short for "time-stamp filename"
 
+## string: (optional) path to an existing folder which is used to copy images that
+## were resized too meet the width stated by the user (ATTR). To speed up blog data
+## generation time, the resized images that have a more recent modification time
+## compared to the original file are stored here and copied to the target directory
+## on blog data generation time.
+## EMPTY string or non-existing path to a folder if image cache is disabled.
+IMAGE_CACHE_DIRECTORY = os.path.join(os.path.expanduser("~"), *"src/lazyblorg/testdata/imagecache".split('/'))
+
 ## string: path to the Memacs index for filenametimestamps
 ## Note that the method below is the safe one that works on Windows
 ## and other operating systems. Alternatively you can use something
@@ -251,6 +259,9 @@ if len(CUSTOMIZED_IMAGE_LINK_KEY) > 0:
             print "Error: if CUSTOMIZED_IMAGE_LINK_KEY is set, at least one of MEMACS_FILE_WITH_IMAGE_FILE_INDEX or DIRECTORIES_WITH_IMAGE_ORIGINALS has to be filled and point to an existing file/directory."
             import sys
             sys.exit(11)
+
+if len(IMAGE_CACHE_DIRECTORY) > 0 and not os.path.isdir(IMAGE_CACHE_DIRECTORY):
+    print 'Warning: IMAGE_CACHE_DIRECTORY is set but points to a directory which does not exist. Either empty the string or create its cache directory at "' + IMAGE_CACHE_DIRECTORY + '".'
 
 ## END OF FILE #################################################################
 # Local Variables:

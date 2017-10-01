@@ -23,3 +23,4 @@ public-voit_-_stash_navpages_regenerate_in_master_and_reestablish_status.sh
 wiki
 public-voit_-_make_and_publish_-_omit_single_line_changes_to_feeds_WITHOUT_TESTS.sh
 /simple_org_-_lastrun.pk
+testdata/imagecache
