@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-10-01 14:31:44 vk>
+# Time-stamp: <2017-10-01 14:50:36 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -2363,41 +2363,45 @@ class Htmlizer(object):
             elif 'width' in attributes.keys() and not os.path.isfile(destinationfile):
                 # User did specify a width → resize if necessary
                 try:
-                    image_file_data = cv2.imread(image_file_path)
-                    current_height, current_width = image_file_data.shape[:2]
-                    newwidth = float(attributes['width'])
-                    newheight = current_height * (newwidth / current_width)
 
                     cached_image_file_name = os.path.join(config.IMAGE_CACHE_DIRECTORY, os.path.basename(destinationfile))
 
-                    if abs(current_width - newwidth) < 2:
-                        # If there is no big difference between the image
-                        # size and the width specified by the user, copy
-                        # original image instead of interpolate a new one
-                        self._copy_a_file(image_file_path, destinationfile)
-                    elif os.path.isfile(cached_image_file_name):
-                        # If a cached copy is found, check if it still
-                        # newer than the original file. Re-generate
-                        # file and update cache if necessary
-                        if os.path.getmtime(cached_image_file_name) < os.path.getmtime(image_file_path):
-                            self.logging.debug('CACHE MISS: mtime of cached file "' + cached_image_file_name +
-                                               '" is older than the original file "' + image_file_path +
-                                               '". Therefore I scale a new one to "' + destimationfile + '".')
-                            self._scale_and_write_image_file(image_file_data, destinationfile, newwidth, newheight)
-                            self.stats_images_resized += 1
-                            self._update_image_cache(destinationfile, cached_image_file_name)
-                        else:
+                    if os.path.isfile(cached_image_file_name) and os.path.getmtime(cached_image_file_name) > os.path.getmtime(image_file_path):
                             self.logging.debug('CACHE HIT: cached file "' + cached_image_file_name +
                                                '" is newer than the original file "' + image_file_path +
                                                '". Therefore I copy the cached one instead of scaling a new one.')
                             self._copy_a_file(cached_image_file_name, destinationfile)
                     else:
-                        # We did not find any cached file. So generate
-                        # a new image and update cache if necessary
-                        self.logging.debug('CACHE MISS: no cached file "' + cached_image_file_name + '" found. Scaling a new one.')
-                        self._scale_and_write_image_file(image_file_data, destinationfile, newwidth, newheight)
-                        self.stats_images_resized += 1
-                        self._update_image_cache(destinationfile, cached_image_file_name)
+                        # Cache miss cases:
+
+                        image_file_data = cv2.imread(image_file_path)
+                        current_height, current_width = image_file_data.shape[:2]
+                        newwidth = float(attributes['width'])
+                        newheight = current_height * (newwidth / current_width)
+
+                        if abs(current_width - newwidth) < 2:
+                            # If there is no big difference between the image
+                            # size and the width specified by the user, copy
+                            # original image instead of interpolate a new one
+                            self._copy_a_file(image_file_path, destinationfile)
+                        elif os.path.isfile(cached_image_file_name):
+                            # If a cached copy is found, check if it still
+                            # newer than the original file. Re-generate
+                            # file and update cache if necessary
+                            if os.path.getmtime(cached_image_file_name) < os.path.getmtime(image_file_path):
+                                self.logging.debug('CACHE MISS: mtime of cached file "' + cached_image_file_name +
+                                                   '" is older than the original file "' + image_file_path +
+                                                   '". Therefore I scale a new one to "' + destimationfile + '".')
+                                self._scale_and_write_image_file(image_file_data, destinationfile, newwidth, newheight)
+                                self.stats_images_resized += 1
+                                self._update_image_cache(destinationfile, cached_image_file_name)
+                        else:
+                            # We did not find any cached file. So generate
+                            # a new image and update cache if necessary
+                            self.logging.debug('CACHE MISS: no cached file "' + cached_image_file_name + '" found. Scaling a new one.')
+                            self._scale_and_write_image_file(image_file_data, destinationfile, newwidth, newheight)
+                            self.stats_images_resized += 1
+                            self._update_image_cache(destinationfile, cached_image_file_name)
                 except:
                     # This is only to add the entry ID to the
                     # exception output which is catched and re-raised
