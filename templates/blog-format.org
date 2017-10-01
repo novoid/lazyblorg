@@ -674,8 +674,7 @@ placeholder article which is defined in this file (below).
 	  <nav class="temporal-article-header-nav">
 	    <span class="breadcrumbs">
 	      <a href="../../../../"><img src="#BLOG-LOGO#" alt="#BLOG-NAME# logo" width="350" style="vertical-align:middle;"></a><span style="padding-top:1em;">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;
-	      #ARTICLE-YEAR#&nbsp;&ndash;&nbsp;#ARTICLE-MONTH#&nbsp;&ndash;&nbsp;#ARTICLE-DAY#</span>
-	      <!-- a href="../../../">#ARTICLE-YEAR#</a>&nbsp;&ndash;&nbsp;<a href="../../">#ARTICLE-MONTH#</a>&nbsp;&ndash;&nbsp;<a href="../">#ARTICLE-DAY#</a -->
+	      <a href="../../../">#ARTICLE-YEAR#</a>&nbsp;&ndash;&nbsp;<a href="../../">#ARTICLE-MONTH#</a>&nbsp;&ndash;&nbsp;<a href="../">#ARTICLE-DAY#</a></span>
 	    </span>
 	  </nav>
 
