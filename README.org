@@ -172,6 +172,7 @@ are becoming close friends right now:
       needed for my blog, I start thinking of implementing it
     - I am using Pandoc as a fall-back for all other Org-mode syntax
       elements which works pretty fine
+    - For a list of general Org-mode parsers please [[http://orgmode.org/worg/org-tools/][read this page]]
 
 - lazyblorg is using state-of-the art HTML5 and CSS3
   - No old HTML4.01 transitional stuff or similar

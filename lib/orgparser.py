@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-06-17 18:56:55 vk>
+# Time-stamp: <2017-10-08 12:06:16 vk>
 
 import config
 import re
@@ -26,7 +26,13 @@ class OrgParserException(Exception):
 
 class OrgParser(object):
     """
-    Class for parsing Org-mode formatted files
+    Class for parsing Org-mode formatted files.
+
+    Please note that this parser is a rather dumb one which parses
+    only a sub-set of valid Org-mode syntax. If you are interested in
+    more general parsers, you might take a look at
+    http://orgmode.org/worg/org-tools/ instead.
+
     """
 
     LINE_SEPARATION_CHAR_WITHIN_PARAGRAPH = u' '
