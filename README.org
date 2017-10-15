@@ -168,6 +168,8 @@ are becoming close friends right now:
 - lazyblorg is implemented in Python:
   - Its Org-mode parser supports *only a (large) sub-set of Org-mode syntax*
     and features.
+    - Basic rule: use *an empty line between two different syntax
+      elements* such as paragraphs, lists, tables, and so on.
     - Whenever I think that an additional Org-mode syntax element is
       needed for my blog, I start thinking of implementing it
     - I am using Pandoc as a fall-back for all other Org-mode syntax
