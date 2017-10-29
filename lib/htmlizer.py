@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-10-01 14:50:36 vk>
+# Time-stamp: <2017-10-29 13:00:09 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1671,8 +1671,9 @@ class Htmlizer(object):
             # FIXXME: other languages than german have to be added
             # here: (generalize using a configured list of known
             # languages?)
-            if 'language' in entry['autotags'].keys() and entry['autotags']['language'] == 'deutsch':
-                content += self.template_definition_by_name('backreference-header-de')
+            if 'autotags' in entry.keys():
+                if 'language' in entry['autotags'].keys() and entry['autotags']['language'] == 'deutsch':
+                    content += self.template_definition_by_name('backreference-header-de')
             else:
                 content += self.template_definition_by_name('backreference-header-en')
 
