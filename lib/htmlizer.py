@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-10-29 13:00:09 vk>
+# Time-stamp: <2017-11-26 11:09:55 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1674,8 +1674,8 @@ class Htmlizer(object):
             if 'autotags' in entry.keys():
                 if 'language' in entry['autotags'].keys() and entry['autotags']['language'] == 'deutsch':
                     content += self.template_definition_by_name('backreference-header-de')
-            else:
-                content += self.template_definition_by_name('backreference-header-en')
+                else:
+                    content += self.template_definition_by_name('backreference-header-en')
 
             for back_reference_id in sorted(list(entry['back-references'])):
 
