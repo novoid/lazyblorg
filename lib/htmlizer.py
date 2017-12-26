@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-11-26 11:09:55 vk>
+# Time-stamp: <2017-12-26 16:56:23 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -182,12 +182,13 @@ class Htmlizer(object):
         self.dict_of_tags_with_ids = self._populate_dict_of_tags_with_ids(
             self.blog_data)
 
-        entry_list_by_newest_timestamp, stats_generated_total, stats_generated_temporal, \
-            stats_generated_persistent, stats_generated_tags = self._generate_pages_for_tags_persistent_temporal()
-
         dummy_age = 0  # FIXXME: replace with age in days since last usage
         # tags = list of lists with [tagname, count of tag usage, age in days of last usage]:
         tags = [[tag, len(self.dict_of_tags_with_ids[tag]), dummy_age] for tag in self.dict_of_tags_with_ids.keys()]
+
+        entry_list_by_newest_timestamp, stats_generated_total, stats_generated_temporal, \
+            stats_generated_persistent, stats_generated_tags = self._generate_pages_for_tags_persistent_temporal(tags)
+
         self._generate_tag_overview_page(tags)
 
         self._generate_feeds(entry_list_by_newest_timestamp)
@@ -294,10 +295,11 @@ class Htmlizer(object):
 
         return dict_of_tags_with_ids
 
-    def _generate_pages_for_tags_persistent_temporal(self):
+    def _generate_pages_for_tags_persistent_temporal(self, tags):
         """
         Method that creates the pages for tag-pages, persistent pages, and temporal pages.
 
+        @param: tags: dict of the form TAGS = [['python', 28059, 3], [tagname, count, age_in_days]]
         @param: return: stats_generated_total: total articles generated
         @param: return: stats_generated_temporal: temporal articles generated
         @param: return: stats_generated_persistent: persistent articles generated
@@ -369,7 +371,7 @@ class Htmlizer(object):
         stats_generated_tags += stats_generated_empty_tags
 
         entry_list_by_newest_timestamp = self.generate_entry_list_by_newest_timestamp()
-        self.generate_entry_page(entry_list_by_newest_timestamp)
+        self.generate_entry_page(entry_list_by_newest_timestamp, tags)
         stats_generated_total += 1
 
         return entry_list_by_newest_timestamp, stats_generated_total, stats_generated_temporal, \
@@ -710,10 +712,11 @@ class Htmlizer(object):
             key=lambda entry: entry['latestupdateTS'],
             reverse=True)
 
-    def generate_entry_page(self, entry_list_by_newest_timestamp):
+    def generate_entry_page(self, entry_list_by_newest_timestamp, tags):
         """
         Generates and writes the blog entry page with sneak previews of the most recent articles/updates.
 
+        @param: tags: dict of the form TAGS = [['python', 28059, 3], [tagname, count, age_in_days]]
         @param: entry_list_by_newest_timestamp: a sorted list like [ {'id':'a-new-entry', 'latestupdateTS':datetime(), 'url'="<URL>"}, {...}]
         """
 
@@ -851,6 +854,10 @@ class Htmlizer(object):
         htmlcontent = self._replace_general_article_placeholders(
             entry, htmlcontent)
 
+        htmlcontent = htmlcontent.replace(
+            '#TAGOVERVIEW-CLOUD#',
+            self._generate_tag_cloud(tags))
+
         htmlcontent = self.sanitize_internal_links(
             config.ENTRYPAGE, htmlcontent)
         self.write_content_to_file(entry_page_filename, htmlcontent)
@@ -923,7 +930,7 @@ class Htmlizer(object):
                     break
                 css_age += 1
 
-            result += '<li><a href="' + tag + '/" class="tagcloud-usertag tagcloud-size-' + \
+            result += '<li><a href="' + config.BASE_URL + '/tags/' + tag + '/" class="tagcloud-usertag tagcloud-size-' + \
                       str(css_size) + ' tagcloud-age-' + str(css_age) + '">' + tag + '</a></li>\n'
 
         return result
