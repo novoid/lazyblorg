@@ -7,7 +7,7 @@
   <id>http://Karl-Voit.at/</id>
   <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2017-12-26T16:56:43+01:00</updated>
+  <updated>2017-12-26T17:49:21+01:00</updated>
   <author>
     <name>Karl Voit</name>
   </author>
@@ -50,7 +50,7 @@
     <published>2016-11-27T15:01:00+01:00</published>
     <updated>2016-11-27T15:01:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:unsure' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
     <id>http://Karl-Voit.at/2016/11/27/image-test-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->

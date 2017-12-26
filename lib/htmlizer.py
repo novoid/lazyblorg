@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-12-26 16:56:23 vk>
+# Time-stamp: <2017-12-26 18:00:48 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1263,17 +1263,31 @@ class Htmlizer(object):
                 # ]    -> attr_html attributes (dict)
 
                 filename = self.locate_cust_link_image(entry['content'][index][1])
+
+                # check if filename is the original one or was replaced by a similar one:
                 if filename != entry['content'][index][1]:
                     # write back new filename if an alternative filename was derived:
                     logging.info('filename ' + filename + ' is an alternative to ' + entry['content'][index][1])
                     entry['content'][index][1] = filename
 
+                # issue a warning if
+                # WARN_IF_IMAGE_FILE_NOT_TAGGED_WITH is non-empty and
+                # the tag is not found in the filename
+                if config.WARN_IF_IMAGE_FILE_NOT_TAGGED_WITH and \
+                   len(config.WARN_IF_IMAGE_FILE_NOT_TAGGED_WITH) > 0 and \
+                   not Utils.contains_tag(filename, config.WARN_IF_IMAGE_FILE_NOT_TAGGED_WITH):
+                    self.logging.warning('WARN_IF_IMAGE_FILE_NOT_TAGGED_WITH("' +
+                                         config.WARN_IF_IMAGE_FILE_NOT_TAGGED_WITH + '"): filename "' + filename +
+                                         '" of entry [[id:' + entry['id'] + ']] does not contain the tag')
+
                 description = entry['content'][index][2]
                 caption = entry['content'][index][3]
                 attributes = entry['content'][index][4]
 
+                # start building the result string
                 result = '\n' + '<figure'
 
+                # apply alignment things
                 if 'align' in attributes.keys():
                     if attributes['align'].lower() in ['left', 'right', 'float-left', 'float-right', 'center']:
                         result += ' class="image-' + attributes['align'].lower() + '"'
@@ -1283,6 +1297,7 @@ class Htmlizer(object):
                     # if no alignment is given, use center:
                     result += ' class="image-center"'
 
+                # get scaled image filename
                 result += '>\n<img src="' + self.get_scaled_filename(filename, attributes).replace(' ', '%20') + '" '
 
                 # FIXXME: currently, all other attributes are ignored:
@@ -1295,16 +1310,22 @@ class Htmlizer(object):
 
                 result += '/>'
 
+                # determine, if a caption (of a description) is necessary:
                 if description == filename:
                     # If filename equals description, omit it because it does not make sense to me:
                     description = None
                 if description and caption:
+                    # We've got both: a description and a caption. I'm
+                    # deciding to use the description in those cases
+                    # and issue a warning:
                     self.logging.warning(self.current_entry_id_str() + 'a customized image had description *and* caption. I used the caption: [' +
                                          repr(entry['content'][index][1:]) + ']')
                     description = caption
                 elif caption:
+                    # a caption always results in a caption of course
                     description = caption
                 if description:
+                    # generate the figcaption
                     result += '\n<figcaption>' + description + '</figcaption>'
 
                 result += '\n</figure>\n'

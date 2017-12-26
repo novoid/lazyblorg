@@ -12,33 +12,33 @@ With caption, alt, centered and 560px width:
 #+CAPTION: This is my caption
 #+ATTR_HTML: :alt This is my alt text
 #+ATTR_HTML: :align center :width 560
-[[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
+[[tsfile:2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg]]
 
 Without caption, alt, centered and 560px width:
 
 #+ATTR_HTML: :alt This is my alt text
 #+ATTR_HTML: :align center :width 560
-[[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
+[[tsfile:2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg]]
 
 With caption, without alt, left aligned and 300px width:
 
 #+CAPTION: This is my caption
 #+ATTR_HTML: :align left :width 300
-[[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
+[[tsfile:2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg]]
 
 With caption, alt, right alined and 300px width:
 
 #+CAPTION: This is my caption
 #+ATTR_HTML: :alt This is my alt text
 #+ATTR_HTML: :align right :width 300
-[[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
+[[tsfile:2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg]]
 
 Without caption, without alt, centered and 300px width:
 
 #+ATTR_HTML: :align center :width 560
-[[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
+[[tsfile:2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg]]
 
 Just the image without ATTR lines or caption:
 
-[[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag.jpg]]
+[[tsfile:2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg]]
 

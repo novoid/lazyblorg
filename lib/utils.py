@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-06-17 18:15:48 vk>
+# Time-stamp: <2017-12-26 17:28:18 vk>
 
 import config
 from sys import stdout, exit
@@ -9,7 +9,7 @@ from time import localtime  # for generating Org-mode timestamps
 from orgformat import *
 from operator import itemgetter  # for sorted()
 import datetime
-
+import os
 
 class Utils(object):
     """
@@ -79,6 +79,15 @@ class Utils(object):
                               u'wieder', u'wir', u'wird', u'wirst', u'wo', u'wollen',
                               u'wollte', u'würde', u'wüden', u'zu', u'zum', u'zur',
                               u'zwar', u'zwischen'])]
+
+    FILENAME_TAG_SEPARATOR = ' -- '
+    BETWEEN_TAG_SEPARATOR = ' '
+    FILE_WITH_TAGS_REGEX = re.compile("(.+?)" + FILENAME_TAG_SEPARATOR + "(.+?)(\.(\w+))??$")
+    FILE_WITH_TAGS_REGEX_FILENAME_INDEX = 1  # component.group(1)
+    FILE_WITH_TAGS_REGEX_TAGLIST_INDEX = 2
+    FILE_WITH_TAGS_REGEX_EXTENSION_INDEX = 4
+
+
 
     def __init__(self):
 
@@ -810,6 +819,33 @@ class Utils(object):
             str(timestamp.day).zfill(2), \
             str(timestamp.hour).zfill(2), \
             str(timestamp.minute).zfill(2)
+
+    @staticmethod
+    def contains_tag(filename, tagname=False):
+        """
+        Returns true if tagname is a tag within filename. If tagname is
+        empty, return if filename contains any tag at all.
+
+        @param filename: an unicode string containing a file name
+        @param tagname: (optional) an unicode string containing a tag name
+        @param return: True|False
+        """
+
+        assert(filename.__class__ == unicode or filename.__class__ == str)
+        if tagname:
+            assert(tagname.__class__ == unicode or tagname.__class__ == str)
+
+        components = re.match(Utils.FILE_WITH_TAGS_REGEX, os.path.basename(filename))
+
+        if not tagname:
+            return components is not None
+        elif not components:
+            #logger.debug("file [%s] does not match FILE_WITH_TAGS_REGEX" % filename)
+            return False
+        else:
+            tags = components.group(Utils.FILE_WITH_TAGS_REGEX_TAGLIST_INDEX).split(Utils.BETWEEN_TAG_SEPARATOR)
+            return tagname in tags
+
 
 # Local Variables:
 # mode: flyspell
