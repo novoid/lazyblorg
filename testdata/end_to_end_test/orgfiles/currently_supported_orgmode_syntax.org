@@ -54,6 +54,9 @@ This is *bold* and *bold case*. And this is ~teletype style~.
 Examples with line-breaks in between: *This is a bold sentence which
 has a line break*.
 
+yqrashawn has implemented support for +strike-through+. Thank you
++very+ & +very+ much. Even at the +end of the line+
+
 *** not yet implemented                                      :noexport:
 
 and /italic/ and _underlined_ and +strikethrough+

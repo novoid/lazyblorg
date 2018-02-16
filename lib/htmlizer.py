@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-12-26 18:00:48 vk>
+# Time-stamp: <2018-02-16 16:17:36 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -99,16 +99,16 @@ class Htmlizer(object):
 
     # find *bold text*:
     # test with: re.subn(re.compile(u'(\W|\A)\*([^*]+)\*(\W|\Z)', flags=re.U), ur'\1<b>\2</b>\3', '*This* is a *touch* of *bold*.')[0]
-    BOLD_REGEX = re.compile(u'(\W|\A)\*([^*]+)\*(\W|\Z)', flags=re.U)
+    BOLD_REGEX = re.compile(u'(\W|\A)\*([^*]+?)\*(\W|\Z)', flags=re.U)
 
     # find ~code or source text~ (teletype):
-    CODE_REGEX = re.compile(u'(\W|\A)~([^~]+)~(\W|\Z)', flags=re.U)
+    CODE_REGEX = re.compile(u'(\W|\A)~([^~]+?)~(\W|\Z)', flags=re.U)
 
     # find =verbatim text= (teletype):
-    VERBATIM_REGEX = re.compile(u'(\W|\A)=([^=]+)=(\W|\Z)', flags=re.U)
+    VERBATIM_REGEX = re.compile(u'(\W|\A)=([^=]+?)=(\W|\Z)', flags=re.U)
 
-    # find ~code or source text~ (teletype):
-    STRIKE_THROUGH_REGEX = re.compile(u'(\W|\A)\+([^~]+)\+(\W|\Z)', flags=re.U)
+    # find +strike through+ text:
+    STRIKE_THROUGH_REGEX = re.compile(u'(\W|\A)\+([^~]+?)\+(\W|\Z)', flags=re.U)
 
     # any ISO date-stamp of format YYYY-MM-DD:
     DATESTAMP = '([12]\d\d\d)-([012345]\d)-([012345]\d)'
@@ -1473,7 +1473,7 @@ class Htmlizer(object):
         content = re.subn(self.BOLD_REGEX, ur'\1<b>\2</b>\3', content)[0]
         content = re.subn(self.CODE_REGEX, ur'\1<code>\2</code>\3', content)[0]
         content = re.subn(self.VERBATIM_REGEX, ur'\1<code>\2</code>\3', content)[0]
-        content = re.subn(self.STRIKE_THROUGH_REGEX, ur'\1<del>\2</del>\3', content)[0]
+        content = re.subn(self.STRIKE_THROUGH_REGEX, ur'\1<s>\2</s>\3', content)[0]
 
         assert(isinstance(content, unicode))
 
