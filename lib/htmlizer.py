@@ -107,6 +107,9 @@ class Htmlizer(object):
     # find =verbatim text= (teletype):
     VERBATIM_REGEX = re.compile(u'(\W|\A)=([^=]+)=(\W|\Z)', flags=re.U)
 
+    # find ~code or source text~ (teletype):
+    STRIKE_THROUGH_REGEX = re.compile(u'(\W|\A)\+([^~]+)\+(\W|\Z)', flags=re.U)
+
     # any ISO date-stamp of format YYYY-MM-DD:
     DATESTAMP = '([12]\d\d\d)-([012345]\d)-([012345]\d)'
     DATESTAMP_REGEX = re.compile(DATESTAMP, flags=re.U)
@@ -1470,6 +1473,7 @@ class Htmlizer(object):
         content = re.subn(self.BOLD_REGEX, ur'\1<b>\2</b>\3', content)[0]
         content = re.subn(self.CODE_REGEX, ur'\1<code>\2</code>\3', content)[0]
         content = re.subn(self.VERBATIM_REGEX, ur'\1<code>\2</code>\3', content)[0]
+        content = re.subn(self.STRIKE_THROUGH_REGEX, ur'\1<del>\2</del>\3', content)[0]
 
         assert(isinstance(content, unicode))
 
