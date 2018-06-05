@@ -2424,7 +2424,7 @@ class Htmlizer(object):
                             if os.path.getmtime(cached_image_file_name) < os.path.getmtime(image_file_path):
                                 self.logging.debug('CACHE MISS: mtime of cached file "' + cached_image_file_name +
                                                    '" is older than the original file "' + image_file_path +
-                                                   '". Therefore I scale a new one to "' + destimationfile + '".')
+                                                   '". Therefore I scale a new one to "' + destinationfile + '".')
                                 self._scale_and_write_image_file(image_file_data, destinationfile, newwidth, newheight)
                                 self.stats_images_resized += 1
                                 self._update_image_cache(destinationfile, cached_image_file_name)

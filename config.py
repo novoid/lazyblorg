@@ -96,6 +96,7 @@ MEMACS_FILE_WITH_IMAGE_FILE_INDEX = os.path.join(os.path.expanduser("~"), "org",
 ## Please do read the documentation: https://github.com/novoid/lazyblorg/wiki/Orgmode-Elements#images
 DIRECTORIES_WITH_IMAGE_ORIGINALS = ["testdata/testimages",
                                     os.path.join(os.path.expanduser("~"), *"tmp/digicam/tmp".split('/')),
+                                    os.path.join(os.path.expanduser("~"), *"tmp/digicam/oneplus5".split('/')),
                                     os.path.join(os.path.expanduser("~"), *"archive/events_memories/2018".split('/')),
                                     os.path.join(os.path.expanduser("~"), *"archive/fromweb/cliparts".split('/'))]
 
