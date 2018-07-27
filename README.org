@@ -51,6 +51,39 @@ cool.
 Or simply wannabes. I'm perfectly fine with this as long as they use
 lazyblorg.
 
+** Other people using lazyblorg
+
+Pages using lazyblorg are listed [[https://karl-voit.at/tags/lazyblorg/][on my personal tag page on
+"lazyblorg"]]. Please do drop me a line when you want to get your page
+added to the list.
+
+Quote from [[https://seppjansen.com/2018/04/24/site-using-lazyblorg/][Sepp Jansen]]:
+
+#+BEGIN_QUOTE
+[...]
+
+But when I revisited lazyblorg after studying the other packages, it
+suddenly seemed like a better solution. After only a short time of
+reading I figured out the entire templating and post generation
+system. Although not the most elegant, it is super simple and easy to
+understand. And those are my most important points.
+
+The developer states that it is easy to configure and start building,
+and is absolutely right.
+
+In just a few hours I went from installing dependencies to having a
+fully working website, including some layout and CSS customization.
+The included HTML and CSS is easy to modify so I could (lazily) make
+the site look like I wanted it to without too much digging in many
+little files. I even managed to make it look a lot like my old site
+without too much effort! Lazyblorg really lives up to its name!
+
+[...]
+
+I really like lazyblorg, and I'll happily manage [[https://seppjansen.com/][this website]] with it
+for as long as possible.
+#+END_QUOTE
+
 ** Skills necessary
 
 - modifying configuration settings, e.g., in script files
