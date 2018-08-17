@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8; mode: python; -*-
-PROG_VERSION = u"Time-stamp: <2017-08-28 13:25:09 vk>"
+PROG_VERSION = u"Time-stamp: <2018-08-17 19:43:36 vk>"
 PROG_VERSION_DATE = PROG_VERSION[13:23]
 
 # TODO:
@@ -576,9 +576,15 @@ if __name__ == "__main__":
         # lazyblorg.parse_HTML_output_template_and_generate_template_definitions()
         generate, marked_for_feed, increment_version, stats_parsed_org_files, stats_parsed_org_lines = lazyblorg.determine_changes()
         time_after_parsing = time()
-        stats_generated_total, stats_generated_temporal, \
-            stats_generated_persistent, stats_generated_tags, stats_images_resized = lazyblorg.generate_output(
-                generate, marked_for_feed, increment_version)
+        statistics_list = lazyblorg.generate_output(generate, marked_for_feed, increment_version)
+        # following lines seem inefficient but it allows me to add statistics in htmlizer without referencing here:
+        stats_generated_total = statistics_list[0]
+        stats_generated_temporal = statistics_list[1]
+        stats_generated_persistent = statistics_list[2]
+        stats_generated_tags = statistics_list[3]
+        stats_images_resized = statistics_list[4]
+        stats_external_org_to_html5_conversion = statistics_list[5]
+        stats_external_latex_to_html5_conversion = statistics_list[6]
         time_after_htmlizing = time()
 
         logging.info(
@@ -604,6 +610,8 @@ if __name__ == "__main__":
             " images (in %.2f seconds)" %
             (time_after_htmlizing -
              time_after_parsing))
+        logging.debug("Org mode snippets converted externally: " + str(stats_external_org_to_html5_conversion))
+        logging.debug("LaTeX snippets converted externally:    " + str(stats_external_latex_to_html5_conversion))
 
         logging.debug("-------------> cleaning up the stage ...")
 

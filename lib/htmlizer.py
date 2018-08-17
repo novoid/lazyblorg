@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2018-02-16 16:17:36 vk>
+# Time-stamp: <2018-08-17 19:34:45 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -69,6 +69,8 @@ class Htmlizer(object):
     ignore_missing_ids = False  # boolean; do not throw respective exception when true
     filename_dict = {}  # dict of basenames of filenames, see config.MEMACS_FILE_WITH_IMAGE_FILE_INDEX and config.DIRECTORIES_WITH_IMAGE_ORIGINALS
     stats_images_resized = 0  # holds the current number of resized image files
+    stats_external_org_to_html5_conversion = 0  # holds the number of invocations of external conversion tool (pypandoc so far)
+    stats_external_latex_to_html5_conversion = 0  # holds the number of invocations of external conversion tool (pypandoc so far)
 
     # { 'mytag': [ 'ID1', 'ID2', 'ID2'], 'anothertag': [...] }
     dict_of_tags_with_ids = None
@@ -174,10 +176,10 @@ class Htmlizer(object):
         """
         Basic method that creates all the output.
 
-        @param: return: stats_generated_total: total articles generated
-        @param: return: stats_generated_temporal: temporal articles generated
-        @param: return: stats_generated_persistent: persistent articles generated
-        @param: return: stats_generated_tags: tag articles generated
+        @param: return: list of: stats_generated_total: total articles generated
+                                 stats_generated_temporal: temporal articles generated
+                                 stats_generated_persistent: persistent articles generated
+                                 stats_generated_tags: tag articles generated
         """
 
         self.blog_data = self._populate_backreferences(self.blog_data)
@@ -196,11 +198,15 @@ class Htmlizer(object):
 
         self._generate_feeds(entry_list_by_newest_timestamp)
 
-        return stats_generated_total, \
-            stats_generated_temporal, \
-            stats_generated_persistent, \
-            stats_generated_tags, \
-            self.stats_images_resized
+        return [stats_generated_total,
+                stats_generated_temporal,
+                stats_generated_persistent,
+                stats_generated_tags,
+                self.stats_images_resized,
+                self.stats_external_org_to_html5_conversion,
+                self.stats_external_latex_to_html5_conversion]
+
+    stats_external_latex_to_html5_conversion = 0  # holds the number of invocations of external conversion tool (pypandoc so far)
 
     def _populate_backreferences(self, blog_data):
         """
@@ -1023,6 +1029,30 @@ class Htmlizer(object):
                 str(orgfilename))
             return False
 
+    def convert_org_to_html5(self, orgmode):
+        """Converts an arbitrary Org mode syntax element (a string) to its
+        corresponding HTML5 representation.
+
+        @param orgmode: Org mode text
+        @param return: HTML5 representation of Org mode text
+        """
+
+        assert(isinstance(orgmode, unicode))
+        self.stats_external_org_to_html5_conversion += 1
+        return pypandoc.convert(orgmode, 'html5', format='org')
+
+    def convert_latex_to_html5(self, latex):
+        """Converts an arbitrary LaTeX syntax element (a string) to its
+        corresponding HTML5 representation.
+
+        @param latex: LaTeX text
+        @param return: HTML5 representation of Org mode text
+        """
+
+        assert(isinstance(latex, unicode))
+        self.stats_external_latex_to_html5_conversion += 1
+        return pypandoc.convert(latex, 'html5', format='latex')
+
     def sanitize_and_htmlize_blog_content(self, entry):
         """
         Inspects a selection of the entry content data and sanitizes
@@ -1254,8 +1284,7 @@ class Htmlizer(object):
                             entry['category'],
                             tablerow,
                             keep_orgmode_format=True))
-                result = pypandoc.convert('\n'.join(sanitized_lines),
-                                          'html5', format='org')
+                result = self.convert_org_to_html5('\n'.join(sanitized_lines))
 
             elif entry['content'][index][0] == 'cust_link_image':
                 # ['cust_link_image',
@@ -1376,11 +1405,9 @@ class Htmlizer(object):
                             list_item,
                             keep_orgmode_format=True))
                 if entry['content'][index][0] == 'latex-block':
-                    result = pypandoc.convert(
-                        '\n'.join(sanitized_lines), 'html5', format='latex')
+                    result = self.convert_latex_to_html5('\n'.join(sanitized_lines))
                 else:
-                    result = pypandoc.convert(
-                        '\n'.join(sanitized_lines), 'html5', format='org')
+                    result = self.convert_org_to_html5('\n'.join(sanitized_lines))
                 if result == '\n':
                     self.logging.warning(self.current_entry_id_str() + u'Block of type ' +
                                          {str(entry['content'][index][0])} +
