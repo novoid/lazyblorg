@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2018-09-23 13:36:59 vk>
+# Time-stamp: <2018-09-23 13:48:17 vk>
 
 import config
 from sys import stdout, exit
@@ -197,7 +197,7 @@ class Utils(object):
         @param return: hexadecimal value of the hash
         """
 
-        return md5(str([title, content])).hexdigest()
+        return md5(str([title, content]).encode('utf-8')).hexdigest()
 
     @staticmethod
     def _add_entry_to_entries_timeline_by_published(
