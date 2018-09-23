@@ -62,6 +62,14 @@ class TestUtils(unittest.TestCase):
         self.assertTrue(Utils.list_of_dicts_are_equal(list1, list1))
         self.assertTrue(Utils.list_of_dicts_are_equal(list2, list2))
 
+        # compare list of dicts where lists are values which requires a different comparison:
+        list1 = [{'a': [1]}, {'b': 2, 'c': 3}]
+        list2 = [{'b': 2, 'c': 3}, {'a': [1]}]
+        self.assertTrue(Utils.list_of_dicts_are_equal(list1, list2))
+        list1 = [{'a': [2]}, {'b': 2, 'c': 3}]
+        list2 = [{'b': 2, 'c': 3}, {'a': [1]}]
+        self.assertFalse(Utils.list_of_dicts_are_equal(list1, list2))
+
     def notest_datastructs_are_equal(self):
 
         self.assertTrue(Utils.datastructs_are_equal(1, 1))

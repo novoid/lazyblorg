@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2018-09-23 12:33:38 vk>
+# Time-stamp: <2018-09-23 13:36:59 vk>
 
 import config
 from sys import stdout, exit
@@ -483,9 +483,22 @@ class Utils(object):
             # quick check: if length differs, they are definitely different
             return False
 
-        set_list1 = set(tuple(sorted(d.items())) for d in list1)
-        set_list2 = set(tuple(sorted(d.items())) for d in list2)
-        set_difference = set_list1.symmetric_difference(set_list2)  # == set() if identical
+        try:
+            set_list1 = set(tuple(sorted(d.items())) for d in list1)
+            set_list2 = set(tuple(sorted(d.items())) for d in list2)
+            set_difference = set_list1.symmetric_difference(set_list2)  # == set() if identical
+        except TypeError:
+            # if lists are part of the game: they are not hashable and therefore they cause an issue:
+            # tuple(sorted(list1[0].items())) → fine:
+            #    ( ('category', 'TEMPORAL'), ('finished-timestamp-history', [datetime.datetime(2013, 2, 14, 19, 2)]) )
+            # set(tuple(sorted(list1[0].items()))) → TypeError: unhashable type: 'list'
+            #    set(( ('category', 'TEMPORAL'), ('finished-timestamp-history', [datetime.datetime(2013, 2, 14, 19, 2)]) ))
+
+            # using an alternative method of comparing things:
+            items1 = [tuple(sorted(d.items())) for d in list1]
+            items2 = [tuple(sorted(d.items())) for d in list2]
+            zipped = zip(sorted(items1), sorted(items2))
+            return [idx for idx, pair in enumerate(zipped) if pair[0] != pair[1]] == []
 
         return set_difference == set()
 
