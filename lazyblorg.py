@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8; mode: python; -*-
-PROG_VERSION = "Time-stamp: <2018-09-23 12:52:36 vk>"
+PROG_VERSION = "Time-stamp: <2018-09-23 13:49:41 vk>"
 PROG_VERSION_DATE = PROG_VERSION[13:23]
 
 # TODO:
@@ -375,7 +375,7 @@ class Lazyblorg(object):
                     "] is missing its CREATED property. Will be ignored, until you fix it."
                 Utils.append_logfile_entry(
                     self.options.logfilename, 'warn', message)
-                self.logging.warn(message)
+                self.logging.warning(message)
                 continue
 
             elif metadata[entry]['created'] != previous_metadata[entry]['created']:
@@ -385,7 +385,7 @@ class Lazyblorg(object):
                     "Entry will be ignored this run. Will be created next run if CREATED will not change any more."
                 Utils.append_logfile_entry(
                     self.options.logfilename, 'warn', message)
-                self.logging.warn(message)
+                self.logging.warning(message)
                 continue
 
             elif metadata[entry]['created'] == previous_metadata[entry]['created'] and \
@@ -418,7 +418,7 @@ class Lazyblorg(object):
                     "If this warning re-appears, please use \"--verbose\" and check entry."
                 Utils.append_logfile_entry(
                     self.options.logfilename, 'warn', message)
-                self.logging.warn(message)
+                self.logging.warning(message)
 
         return generate, marked_for_feed, increment_version
 
@@ -548,7 +548,7 @@ if __name__ == "__main__":
             Utils.error_exit(3)
 
         if not os.path.isfile(options.previous_metadatafilename):
-            logging.warn(
+            logging.warning(
                 "Blog data file \"" +
                 options.previous_metadatafilename +
                 "\" is not found. Assuming first run!")
