@@ -1,1 +1,1 @@
-cd ../../ ; PYTHONPATH=~/src/lazyblorg: pytest lib/tests/htmlizer_test.py
+cd ../../ ; PYTHONPATH=~/src/lazyblorg python3 -m pytest lib/tests/htmlizer_test.py

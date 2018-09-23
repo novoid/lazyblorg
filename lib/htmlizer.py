@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2018-09-23 13:40:47 vk>
+# Time-stamp: <2018-09-23 13:55:01 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -930,7 +930,7 @@ class Htmlizer(object):
             count = currenttag[1]
             age = currenttag[2]
 
-            css_size = count / COUNT_STEP
+            css_size = int(count / COUNT_STEP)
 
             css_age = 0
             for age_range in AGE_RANGES:
