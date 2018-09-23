@@ -1,13 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8; mode: python; -*-
 
-import config
 import argparse  # command line arguments
 import unittest
-import codecs
 from lazyblorg import Lazyblorg
 from lib.utils import Utils
-from lib.htmlizer import Htmlizer
 import os
 
 
@@ -102,13 +99,13 @@ class TestLazyblorg(unittest.TestCase):
         self.assertTrue(generate_sorted == marked_for_feed_sorted)
         self.assertTrue(
             generate_sorted == [
-                u'case4',
-                u'case5',
-                u'case6',
-                u'case7',
-                u'case8',
-                u'empty-autotag-page',
-                u'lazyblorg-templates'])
+                'case4',
+                'case5',
+                'case6',
+                'case7',
+                'case8',
+                'empty-autotag-page',
+                'lazyblorg-templates'])
         # Checks on the situation before second iteration:
 
         # none
@@ -149,17 +146,17 @@ class TestLazyblorg(unittest.TestCase):
         marked_for_feed_sorted = sorted(marked_for_feed)
         increment_version_sorted = sorted(increment_version)
 
-        self.assertTrue(increment_version_sorted == [u'case8'])
-        self.assertTrue(marked_for_feed_sorted == [u'case1', u'case8'])
+        self.assertTrue(increment_version_sorted == ['case8'])
+        self.assertTrue(marked_for_feed_sorted == ['case1', 'case8'])
         self.assertTrue(
             generate_sorted == [
-                u'case1',
-                u'case5',
-                u'case6',
-                u'case7',
-                u'case8',
-                u'empty-autotag-page',
-                u'lazyblorg-templates'])
+                'case1',
+                'case5',
+                'case6',
+                'case7',
+                'case8',
+                'empty-autotag-page',
+                'lazyblorg-templates'])
 
         if os.path.isfile(log_firstrun):
             os.remove(log_firstrun)

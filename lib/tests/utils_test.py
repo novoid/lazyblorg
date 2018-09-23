@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8; mode: python; -*-
 
 # import config  ## lazyblorg-global settings
@@ -150,58 +150,58 @@ class TestUtils(unittest.TestCase):
     def test_guess_language_from_stopword_percentages(self):
 
         EXAMPLE_TEXTS_GERMAN = [
-            u"Ohne Anspruch auf irgendeine Art von Experte in dem Gebiet zu sein,\n" +
-            u"selftelle ich hier eine meiner Meinung nach interessante Theorie in den\n" +
-            u"Raum: diente die Fastenzeit in früheren Tagen (auch) dazu, um\n" +
-            u"Aufstände in der Bevölkerung zu unterbinden?",
-            u"Bekanntermaßen hat die katholische Kirche bereits davor existierende\n" +
-            u"Feiertage mit ihren eigenen \"überschrieben\", damit die Ungläubigen\n" +
-            u"weiterhin zu den selben Zeiten etwas zu feiern haben und die \"neuen\"\n" +
-            u"Feiertage leichter eingeführt werden können (Quellen: [[http://www.rpi-loccum.de" +
-            u"/wettbewerbe/jugend/beitr/feiertage.html][1 deutsch]], " +
-            u"[[http://godkind.org/pagan-holidays.html][2\n" +
-            u"deutsch]], [[http://www.goodnewsaboutgod.com/studies/holidays2.htm][3 englisch]]," +
-            u" [1]).\n\n" +
-            u"Beispielsweise hängen [[https://de.wikipedia.org/wiki/Weihnachten#Au.C3.9" +
-            u"Ferchristliche_Parallelen][Weihnachten]] und die [[https://de.wikipedia.org/" +
-            u"wiki/Wintersonnenwende#Feste_und_Feiern][Wintersonnenwende]] zusammen\n" +
-            u"und Ostern mit diversen [[https://de.wikipedia.org/wiki/Ostern#Fr.C3." +
-            u"BChlingsfeste][Frühlingsfesten]].\n",
-            u"Nun kam mir der Gedanke, dass die Fastenzeit eventuell einen\n" +
-            u"(zusätzlichen?) politischen Zweck erfüllte: Am Ende der kalten\n" +
-            u"Jahreszeit wird wohl nach schlechteren Ernten die\n" +
-            u"Lebensmittelknappheit eine gewisse Unruhe verursacht\n" +
-            u"haben. Bevölkerung mit Hunger war schon immer eine explosive Sache. Da\n" +
-            u"ist es doch praktisch, dass die katholische Kirche eine gewisse\n" +
-            u"Enthaltsamkeit mit Religion als Begründung vorschreibt.\n\n" +
-            u"Dadurch wird durchaus eine generelle Missstimmung vermindert, die\n" +
-            u"sich ansonsten zu Aufständen hochschaukeln könnte.\n\n" +
-            u"Ich konnte bei meiner kurzen Internetrecherche nichts zu dem Thema\n" +
-            u"finden. Wenn du etwas dazu weißt oder findest, freue ich mich über\n" +
-            u"einen Kommentar (siehe Link unten)."]
+            "Ohne Anspruch auf irgendeine Art von Experte in dem Gebiet zu sein,\n" +
+            "selftelle ich hier eine meiner Meinung nach interessante Theorie in den\n" +
+            "Raum: diente die Fastenzeit in früheren Tagen (auch) dazu, um\n" +
+            "Aufstände in der Bevölkerung zu unterbinden?",
+            "Bekanntermaßen hat die katholische Kirche bereits davor existierende\n" +
+            "Feiertage mit ihren eigenen \"überschrieben\", damit die Ungläubigen\n" +
+            "weiterhin zu den selben Zeiten etwas zu feiern haben und die \"neuen\"\n" +
+            "Feiertage leichter eingeführt werden können (Quellen: [[http://www.rpi-loccum.de" +
+            "/wettbewerbe/jugend/beitr/feiertage.html][1 deutsch]], " +
+            "[[http://godkind.org/pagan-holidays.html][2\n" +
+            "deutsch]], [[http://www.goodnewsaboutgod.com/studies/holidays2.htm][3 englisch]]," +
+            " [1]).\n\n" +
+            "Beispielsweise hängen [[https://de.wikipedia.org/wiki/Weihnachten#Au.C3.9" +
+            "Ferchristliche_Parallelen][Weihnachten]] und die [[https://de.wikipedia.org/" +
+            "wiki/Wintersonnenwende#Feste_und_Feiern][Wintersonnenwende]] zusammen\n" +
+            "und Ostern mit diversen [[https://de.wikipedia.org/wiki/Ostern#Fr.C3." +
+            "BChlingsfeste][Frühlingsfesten]].\n",
+            "Nun kam mir der Gedanke, dass die Fastenzeit eventuell einen\n" +
+            "(zusätzlichen?) politischen Zweck erfüllte: Am Ende der kalten\n" +
+            "Jahreszeit wird wohl nach schlechteren Ernten die\n" +
+            "Lebensmittelknappheit eine gewisse Unruhe verursacht\n" +
+            "haben. Bevölkerung mit Hunger war schon immer eine explosive Sache. Da\n" +
+            "ist es doch praktisch, dass die katholische Kirche eine gewisse\n" +
+            "Enthaltsamkeit mit Religion als Begründung vorschreibt.\n\n" +
+            "Dadurch wird durchaus eine generelle Missstimmung vermindert, die\n" +
+            "sich ansonsten zu Aufständen hochschaukeln könnte.\n\n" +
+            "Ich konnte bei meiner kurzen Internetrecherche nichts zu dem Thema\n" +
+            "finden. Wenn du etwas dazu weißt oder findest, freue ich mich über\n" +
+            "einen Kommentar (siehe Link unten)."]
 
         EXAMPLE_TEXTS_ENGLISH = [
-            u"Update 2014-05-14: added real world example\n\n" +
-            u"Update 2015-03-16: filtering photographs according to their GPS coordinates\n\n" +
-            u"I am a passionate photographer when being on vacation or whenever I\n" +
-            u"see something beautiful. This way, I collected many [[https://en.wikipedia.org/" +
-            u"wiki/Jpeg][JPEG]] files over\n" +
-            u"the past years. Here, I describe how I manage my digital photographs\n" +
-            u"while avoiding any [[http://en.wikipedia.org/wiki/Vendor_lock-in][vendor " +
-            u"lock-in]] which binds me to a temporary\n" +
-            u"solution and leads to loss of data. Instead, I prefer solutions where\n" +
-            u"I am able to *invest my time and effort for a long-term relationship*.\n\n" +
-            u"This (very long) entry is *not about image files only*: I am going to\n" +
-            u"explain further things like my folder hierarchy, file name convention,\n" +
-            u"and so forth. Therefore, this information applies to all kind of\n" +
-            u"files I process.\n\n" +
-            u"Before I start explaining my method, we should come to an agreement\n" +
-            u"whether or not we do have the same set of requirements I am trying to\n" +
-            u"match with my method. If you are into [[https://en.wikipedia.org/wiki/" +
-            u"Raw_image_format][raw image formats]], storing your\n" +
-            u"photographs somewhere in the cloud or anything else very special to\n" +
-            u"you (and not to me), you might not get satisfied with the things\n" +
-            u"described here. Decide yourself.\n"]
+            "Update 2014-05-14: added real world example\n\n" +
+            "Update 2015-03-16: filtering photographs according to their GPS coordinates\n\n" +
+            "I am a passionate photographer when being on vacation or whenever I\n" +
+            "see something beautiful. This way, I collected many [[https://en.wikipedia.org/" +
+            "wiki/Jpeg][JPEG]] files over\n" +
+            "the past years. Here, I describe how I manage my digital photographs\n" +
+            "while avoiding any [[http://en.wikipedia.org/wiki/Vendor_lock-in][vendor " +
+            "lock-in]] which binds me to a temporary\n" +
+            "solution and leads to loss of data. Instead, I prefer solutions where\n" +
+            "I am able to *invest my time and effort for a long-term relationship*.\n\n" +
+            "This (very long) entry is *not about image files only*: I am going to\n" +
+            "explain further things like my folder hierarchy, file name convention,\n" +
+            "and so forth. Therefore, this information applies to all kind of\n" +
+            "files I process.\n\n" +
+            "Before I start explaining my method, we should come to an agreement\n" +
+            "whether or not we do have the same set of requirements I am trying to\n" +
+            "match with my method. If you are into [[https://en.wikipedia.org/wiki/" +
+            "Raw_image_format][raw image formats]], storing your\n" +
+            "photographs somewhere in the cloud or anything else very special to\n" +
+            "you (and not to me), you might not get satisfied with the things\n" +
+            "described here. Decide yourself.\n"]
 
         assert(Utils.STOPWORDS[0][0] == 'english')
         assert(Utils.STOPWORDS[1][0] == 'deutsch')
@@ -325,7 +325,7 @@ class TestUtils(unittest.TestCase):
                 'id:2008-01-29-foo',
                 'id:2008-05-17-foo'])
 
-        print '\nBEGIN debug output of entries_timeline_by_published: ' + '=' * 20
+        print('\nBEGIN debug output of entries_timeline_by_published: ' + '=' * 20)
         for year in sorted(entries_timeline_by_published.keys()):
             for month in enumerate(
                     entries_timeline_by_published[year],
@@ -334,8 +334,8 @@ class TestUtils(unittest.TestCase):
                 for day in enumerate(month[1], start=0):
                     # day = tuple(index, list of IDs)
                     for blogentry in day[1]:
-                        print str(year) + '-' + str(month[0]) + '-' + str(day[0]) + " has entry: " + str(blogentry)
-        print 'END debug output of entries_timeline_by_published: ' + '=' * 20
+                        print(str(year) + '-' + str(month[0]) + '-' + str(day[0]) + " has entry: " + str(blogentry))
+        print('END debug output of entries_timeline_by_published: ' + '=' * 20)
 
 
 # Local Variables:

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8; mode: python; -*-
 
 import unittest
@@ -8,7 +8,7 @@ from lib.utils import Utils
 try:
     import pypandoc
 except ImportError:
-    print "Could not find Python module \"pypandoc\".\nPlease install it, e.g., with \"sudo pip install pypandoc\"."
+    print("Could not find Python module \"pypandoc\".\nPlease install it, e.g., with \"sudo pip install pypandoc\".")
     sys.exit(1)
 
 
@@ -33,17 +33,17 @@ class TestPypandoc(unittest.TestCase):
         """
 
         from_formats, to_formats = pypandoc.get_pandoc_formats()
-        self.assertTrue(u'org' in from_formats)
-        self.assertTrue(u'html5' in to_formats)
+        self.assertTrue('org' in from_formats)
+        self.assertTrue('html5' in to_formats)
 
     def test_basic_pypandoc_example(self):
         """
         This test is testing a basic pypandoc function call.
         """
 
-        pypandoc_result = pypandoc.convert(
+        pypandoc_result = pypandoc.convert_text(
             '- *foo* bar', 'html5', format='org')
-        expected_html5_result = u'<ul>\n<li><strong>foo</strong> bar</li>\n</ul>\n'
+        expected_html5_result = '<ul>\n<li><strong>foo</strong> bar</li>\n</ul>\n'
 
         self.assertEqual(
             Utils.normalize_lineendings(pypandoc_result),
@@ -54,12 +54,12 @@ class TestPypandoc(unittest.TestCase):
         This test is testing umlaut and charset with pypandoc.
         """
 
-        pypandoc_result = pypandoc.convert(
+        pypandoc_result = pypandoc.convert_text(
             'This is an umlaut test: öÄß€',
             'html5',
             format='org',
             encoding='utf-8')
-        expected_html5_result = u'<p>This is an umlaut test: öÄß€</p>\n'
+        expected_html5_result = '<p>This is an umlaut test: öÄß€</p>\n'
 
         # FIXXME: Umlaut conversion does habe encoding issues.
         self.assertEqual(Utils.normalize_lineendings(pypandoc_result),
@@ -70,7 +70,7 @@ class TestPypandoc(unittest.TestCase):
         This test is testing Org-mode formatting examples.
         """
 
-        org_example = u'''* Basic tests
+        org_example = '''* Basic tests
 
 - *bold*
 - /italic/
@@ -103,7 +103,7 @@ comment
   - [[http://orgmode.org][*orgmode* /Homepage/]]
 '''
 
-        expected_html5_result = u'''<h1 id="basic-tests">Basic tests</h1>
+        expected_html5_result = '''<h1 id="basic-tests">Basic tests</h1>
 <ul>
 <li><strong>bold</strong></li>
 <li><em>italic</em></li>
@@ -131,7 +131,7 @@ comment
 </ul>
 '''
         self.maxDiff = None
-        pypandoc_result = pypandoc.convert(org_example, 'html5', format='org')
+        pypandoc_result = pypandoc.convert_text(org_example, 'html5', format='org')
 
         self.assertEqual(
             Utils.normalize_lineendings(pypandoc_result),

@@ -1,6 +1,6 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8; mode: python; -*-
-PROG_VERSION = u"Time-stamp: <2018-08-17 19:43:36 vk>"
+PROG_VERSION = "Time-stamp: <2018-09-23 12:02:03 vk>"
 PROG_VERSION_DATE = PROG_VERSION[13:23]
 
 # TODO:
@@ -27,7 +27,7 @@ from time import time  # for measuring execution time
 INVOCATION_TIME = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
 
-EPILOG = u"\n\
+EPILOG = "\n\
   :copyright:  (c) 2013 and following by Karl Voit <tools@Karl-Voit.at>\n\
   :license:    GPL v3 or any later version\n\
   :URL:        https://github.com/novoid/lazyblorg\n\
@@ -230,7 +230,7 @@ class Lazyblorg(object):
 
         # extract template_data from blog_data:
         template_data = [x for x in self.blog_data if x['id'] ==
-                         'lazyblorg-templates' and x['title'] == u'Templates']
+                         'lazyblorg-templates' and x['title'] == 'Templates']
 
         if not template_data:
             message = "Sorry, no suitable template data could be parsed from the Org-mode files. " + \
@@ -247,33 +247,33 @@ class Lazyblorg(object):
         # for documentation about the implemented elements: see
         # id:implemented-org-elements in dev/lazyblorg.org
         for element in [
-            u'common-sidebar',
-            u'article-header',
-            u'article-footer',
-            u'article-header-begin',
-            u'article-tags-begin',
-            u'article-usertag',
-            u'article-autotag',
-            u'article-tags-end',
-            u'article-header-end',
-            u'article-end',
-            u'section-begin',
-            u'paragraph',
-            u'ul-begin',
-            u'ul-item',
-            u'ul-end',
-            u'pre-begin',
-            u'pre-end',
-            u'entrypage-header',
-            u'article-preview-header',
-            u'article-preview-begin',
-            u'article-preview-tags-begin',
-            u'article-preview-usertag',
-            u'article-preview-autotag',
-            u'article-preview-tags-end',
-            u'article-preview-more',
-            u'article-preview-end',
-                u'entrypage-footer']:
+                'common-sidebar',
+                'article-header',
+                'article-footer',
+                'article-header-begin',
+                'article-tags-begin',
+                'article-usertag',
+                'article-autotag',
+                'article-tags-end',
+                'article-header-end',
+                'article-end',
+                'section-begin',
+                'paragraph',
+                'ul-begin',
+                'ul-item',
+                'ul-end',
+                'pre-begin',
+                'pre-end',
+                'entrypage-header',
+                'article-preview-header',
+                'article-preview-begin',
+                'article-preview-tags-begin',
+                'article-preview-usertag',
+                'article-preview-autotag',
+                'article-preview-tags-end',
+                'article-preview-more',
+                'article-preview-end',
+                'entrypage-footer']:
             if element not in found_elements:
                 message = "Sorry, no definition for element \"" + element + "\" could be found within " + \
                     "the template definition file. " + "Please check if you mistyped its name or similar."
@@ -348,9 +348,9 @@ class Lazyblorg(object):
             #                   "]   <--------------\nwith [checksum, created, timestamp]:\n  md " +
             # str([x[1] for x in sorted(entry.items(), key=lambda t: t[0])]))
             if previous_metadata is not None:
-                if entry in previous_metadata.keys():
+                if entry in list(previous_metadata.keys()):
                     self.logging.debug(
-                        "\nprev " + str([x[1] for x in sorted(previous_metadata[entry].items(), key=lambda t: t[0])]))
+                        "\nprev " + str([x[1] for x in sorted(list(previous_metadata[entry].items()), key=lambda t: t[0])]))
                 else:
                     self.logging.debug(
                         "no previous metadata found for this entry")
@@ -362,14 +362,14 @@ class Lazyblorg(object):
                 marked_for_feed.append(entry)
                 continue
 
-            if entry not in previous_metadata.keys():
+            if entry not in list(previous_metadata.keys()):
                 self.logging.debug(
                     "case 2: brand-new entry (lazyblorg was run previously)")
                 generate.append(entry)
                 marked_for_feed.append(entry)
                 continue
 
-            elif 'created' not in metadata[entry].keys():
+            elif 'created' not in list(metadata[entry].keys()):
                 self.logging.debug(
                     "case 3: \"created\" missing -> WARN, ignore")
                 message = "entry [" + entry + \
@@ -426,8 +426,8 @@ class Lazyblorg(object):
 
 if __name__ == "__main__":
 
-    mydescription = u"An Org-mode to HTML-blog system for very lazy people. Please refer to \n" + \
-        "https://github.com/novoid/lazyblorg for more information."
+    mydescription = "An Org-mode to HTML-blog system for very lazy people. Please refer to \n" + \
+                    "https://github.com/novoid/lazyblorg for more information."
 
     parser = ArgumentParser(prog=argv[0],
                             # keep line breaks in EPILOG and such
@@ -514,13 +514,13 @@ if __name__ == "__main__":
     try:
 
         if options.version:
-            print os.path.basename(argv[0]) + " version " + PROG_VERSION_DATE
+            print(os.path.basename(argv[0]) + " version " + PROG_VERSION_DATE)
             exit(0)
 
         # checking parameters ...
 
         # if not options.logfilename:
-        ##    logging.critical("Please give me a file to write to with option \"--logfile\".")
+        #    logging.critical("Please give me a file to write to with option \"--logfile\".")
         # Utils.error_exit(5)
 
         if not os.path.isfile(options.logfilename):
@@ -530,7 +530,7 @@ if __name__ == "__main__":
                 "\" is not found. Initializing with heading ...")
             with codecs.open(options.logfilename, 'w', encoding='utf-8') as outputhandle:
                 outputhandle.write(
-                    u"## -*- coding: utf-8 -*-\n" +
+                    "## -*- coding: utf-8 -*-\n" +
                     "## This file is best viewed with GNU Emacs Org-mode: http://orgmode.org/\n" +
                     "* Warnings and Error messages from lazyblorg     :lazyblorg:log:\n\n" +
                     "Messages gets appended to this file. Please remove fixed issues manually.\n\n")
@@ -621,7 +621,7 @@ if __name__ == "__main__":
 
         logging.info("Received KeyboardInterrupt")
 
-## END OF FILE ###########################################################
+# END OF FILE ###########################################################
 # Local Variables:
 # DISABLEDmode: flyspell
 # DISABLEDeval: (ispell-change-dictionary "en_US")

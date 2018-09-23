@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2016-11-17 15:13:11 karl.voit>
+# Time-stamp: <2018-09-23 11:30:25 vk>
 
 # This file is originally from Memacs
 # https://github.com/novoid/Memacs
@@ -13,8 +13,6 @@ import datetime
 import calendar
 import logging
 import re
-
-#import pdb
 
 
 class TimestampParseException(Exception):
@@ -107,9 +105,9 @@ class OrgFormat(object):
         link = link.replace(" ", "%20")
 
         if description:
-            return u"[[" + link + u"][" + description + u"]]"
+            return "[[" + link + "][" + description + "]]"
         else:
-            return u"[[" + link + u"]]"
+            return "[[" + link + "]]"
 
     @staticmethod
     def date(tuple_date, show_time=False):
@@ -231,7 +229,7 @@ class OrgFormat(object):
         @param date-string: has to be a str in following format:  YYYY-MM-DD
         @param inactive: (boolean) True: use inactive time-stamp; else use active
         """
-        assert date_string.__class__ == str or date_string.__class__ == unicode
+        assert date_string.__class__ == str
         tuple_date = OrgFormat.datetupeliso8601(date_string)
         if inactive:
             return OrgFormat.inactive_date(tuple_date, show_time=False)
@@ -246,8 +244,7 @@ class OrgFormat(object):
         @param date-string: has to be a str in
                            following format: YYYY-MM-DD HH:MM
         """
-        assert datetime_string.__class__ == str or \
-            datetime_string.__class__ == unicode
+        assert datetime_string.__class__ == str
         try:
             tuple_date = time.strptime(datetime_string, "%Y-%m-%d %H:%M")
         except ValueError as e:
@@ -263,8 +260,7 @@ class OrgFormat(object):
                             in following format: YYYY-MM-DDTHH.MM.SS or
                                                  YYYY-MM-DDTHH.MM
         """
-        assert datetime_string.__class__ == str or \
-            datetime_string.__class__ == unicode
+        assert datetime_string.__class__ == str
         tuple_date = OrgFormat.datetimetupeliso8601(datetime_string)
         return OrgFormat.date(tuple_date, show_time=True)
 
@@ -275,8 +271,7 @@ class OrgFormat(object):
         @param datetime_string: YYYY-MM-DDTHH.MM.SS or
                                 YYYY-MM-DDTHH.MM
         """
-        assert datetime_string.__class__ == str or \
-            datetime_string.__class__ == unicode
+        assert datetime_string.__class__ == str
         try:
             if len(datetime_string) == 16:  # YYYY-MM-DDTHH.MM
                 return time.strptime(datetime_string, "%Y-%m-%dT%H.%M")
@@ -291,8 +286,7 @@ class OrgFormat(object):
         returns a time_tupel
         @param datetime_string: YYYY-MM-DD
         """
-        assert datetime_string.__class__ == str or \
-            datetime_string.__class__ == unicode
+        assert datetime_string.__class__ == str
         try:
             return time.strptime(datetime_string, "%Y-%m-%d")
         except ValueError as e:
@@ -306,8 +300,7 @@ class OrgFormat(object):
                                 YYYYMMDDTHHMMSS or
                                 YYYYMMDD
         """
-        assert datetime_string.__class__ == str or \
-            datetime_string.__class__ == unicode
+        assert datetime_string.__class__ == str
         string_length = len(datetime_string)
 
         try:
@@ -360,9 +353,9 @@ class OrgFormat(object):
         name = contact_mail_string[:delimiter].strip()
         mail = contact_mail_string[delimiter + 1:][:-1].strip()
         if name != "":
-            return u"[[mailto:" + mail + u"][" + name + u"]]"
+            return "[[mailto:" + mail + "][" + name + "]]"
         else:
-            return u"[[mailto:" + mail + u"][" + mail + u"]]"
+            return "[[mailto:" + mail + "][" + mail + "]]"
 
     @staticmethod
     def newsgroup_link(newsgroup_string):
@@ -426,8 +419,7 @@ class OrgFormat(object):
         @param return: date time object
         """
 
-        assert orgtime.__class__ == str or \
-            orgtime.__class__ == unicode
+        assert orgtime.__class__ == str
 
         components = re.match(OrgFormat.ORGMODE_TIMESTAMP_REGEX, orgtime)
 
@@ -462,8 +454,7 @@ class OrgFormat(object):
         """
 
         assert deltahours.__class__ == int
-        assert orgtime.__class__ == str or \
-            orgtime.__class__ == unicode
+        assert orgtime.__class__ == str
 
         # first time-stamp: range_components.groups(0)[0]
         # second time-stamp: range_components.groups(0)[10]

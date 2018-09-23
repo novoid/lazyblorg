@@ -1,15 +1,15 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2017-10-08 12:06:16 vk>
+# Time-stamp: <2018-09-23 11:28:30 vk>
 
 import config
 import re
 from os import path
 import codecs  # open, close with Unicode
 import logging
-from orgformat import *
+from .orgformat import *
 
-# NOTE: pdb hides private variables as well. Please use:   data =
-# self._OrgParser__entry_data ; data['content']
+# NOTE: pdb hides private variables as well. Please use:
+# data = self._OrgParser__entry_data ; data['content']
 
 
 class OrgParserException(Exception):
@@ -35,7 +35,7 @@ class OrgParser(object):
 
     """
 
-    LINE_SEPARATION_CHAR_WITHIN_PARAGRAPH = u' '
+    LINE_SEPARATION_CHAR_WITHIN_PARAGRAPH = ' '
 
     # Finite State Machine: defining the states
     # NOTE: value of numbers are irrelevant - just make sure they are distinct
@@ -104,17 +104,17 @@ class OrgParser(object):
         '^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.+)$',
         re.IGNORECASE)
     # >>> re.match(r'^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.+)$', u"  - [-] foo bar").groups()
-    ## (u'  ', u'-', None, u'[-]', u' foo bar')
+    # (u'  ', u'-', None, u'[-]', u' foo bar')
     # >>> re.match(r'^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.+)$', u"  - [ ] foo bar").groups()
-    ## (u'  ', u'-', None, u'[ ]', u' foo bar')
+    # (u'  ', u'-', None, u'[ ]', u' foo bar')
     # >>> re.match(r'^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.+)$', u"  + [X] foo bar").groups()
-    ## (u'  ', u'+', None, u'[X]', u' foo bar')
+    # (u'  ', u'+', None, u'[X]', u' foo bar')
     # >>> re.match(r'^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.+)$', u"  * foo bar").groups()
-    ## (u'  ', u'*', None, None, u'foo bar')
+    # (u'  ', u'*', None, None, u'foo bar')
     # >>> re.match(r'^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.+)$', u"  23. [-] foo bar").groups()
-    ## (u'  ', u'23.', u'23.', u'[-]', u' foo bar')
+    # (u'  ', u'23.', u'23.', u'[-]', u' foo bar')
     # >>> re.match(r'^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.+)$', u"  42) foo bar").groups()
-    ## (u'  ', u'42)', u'42)', None, u'foo bar')
+    # (u'  ', u'42)', u'42)', None, u'foo bar')
 
     # example: '#+ATTR_HTML: :alt An alternative description image :title This is my title! :align right :width 300'
     # results in: FIXXME
@@ -128,7 +128,7 @@ class OrgParser(object):
     CUST_LINK_IMAGE_FILENAME_IDX = 1
     CUST_LINK_IMAGE_DESCRIPTION_IDX = 4
 
-    __filename = u''
+    __filename = ''
 
     # for description please visit: lazyblog.org > Notes > Representation of
     # blog data
@@ -145,7 +145,7 @@ class OrgParser(object):
         @param filename: string containing one file name
         """
 
-        assert filename.__class__ == str or filename.__class__ == unicode
+        assert filename.__class__ == str
         assert path.isfile(filename)
         self.__filename = filename
         self.__blog_data = []
@@ -168,17 +168,17 @@ class OrgParser(object):
             "OrgParser: check_entry_data: checking current entry ...")
         errors = 0
 
-        if not 'level' in self.__entry_data.keys():
+        if 'level' not in list(self.__entry_data.keys()):
             self.logging.error("Heading does not contain a heading level")
             errors += 1
 
-        if not 'title' in self.__entry_data.keys():
+        if 'title' not in list(self.__entry_data.keys()):
             self.logging.error("Heading does not contain a title")
             errors += 1
 
         if not check_only_title:
 
-            if not 'id' in self.__entry_data.keys():
+            if 'id' not in list(self.__entry_data.keys()):
                 self.logging.error(
                     "Heading does not contain any ID within PROPERTY drawer")
                 errors += 1
@@ -187,7 +187,7 @@ class OrgParser(object):
                     "OrgParser: checking id [%s]" %
                     self.__entry_data['id'])
 
-            if not 'latestupdateTS' in self.__entry_data.keys():
+            if 'latestupdateTS' not in list(self.__entry_data.keys()):
                 self.logging.error(
                     "Heading does not contain a latest update timestamp")
                 errors += 1
@@ -197,7 +197,7 @@ class OrgParser(object):
                         "Latest update timestamp is not of type datetime.datetime")
                     errors += 1
 
-            if not 'firstpublishTS' in self.__entry_data.keys():
+            if 'firstpublishTS' not in list(self.__entry_data.keys()):
                 self.logging.error(
                     "Heading does not contain a first published timestamp")
                 errors += 1
@@ -207,12 +207,12 @@ class OrgParser(object):
                         "First published timestamp is not of type datetime.datetime")
                     errors += 1
 
-            if not 'created' in self.__entry_data.keys():
+            if 'created' not in list(self.__entry_data.keys()):
                 self.logging.error(
                     "Heading does not contain a timestamp for created")
                 errors += 1
 
-            if 'content' in self.__entry_data.keys():
+            if 'content' in list(self.__entry_data.keys()):
                 if len(self.__entry_data['content']) < 1:
                     self.logging.error(
                         "Heading does not contain a filled content")
@@ -254,14 +254,14 @@ class OrgParser(object):
         @param return: True if it is a blog heading; false if not
         """
 
-        assert stars.__class__ == str or stars.__class__ == unicode
-        assert title.__class__ == str or title.__class__ == unicode
+        assert stars.__class__ == str
+        assert title.__class__ == str
 
         if not tags:
             # not even the TAG_FOR_BLOG_ENTRY -> no blog article!
             return False
 
-        assert tags.__class__ == str or tags.__class__ == unicode
+        assert tags.__class__ == str
 
         self.__entry_data['title'] = title
         self.__entry_data['level'] = len(stars)
@@ -367,7 +367,7 @@ class OrgParser(object):
         @param return: integer holding the indentation level. 0 means no list.
         """
 
-        assert(type(list_item) in [str, unicode])
+        assert(type(list_item) == str)
 
         list_item_components = self.LIST_ITEM_REGEX.match(list_item)
         if list_item_components:
@@ -405,18 +405,18 @@ class OrgParser(object):
 
         # name of the previous element with a name defined; emptied with any empty line
         # example: "#+NAME: foo bar" -> previous_name = u'foo bar'
-        previous_name = u''
+        previous_name = ''
 
         # contains content of previous line
         # NOTE: only valid as long a state does not use "continue" in the previous
         # parsing step without "previous_line = line"
-        previous_line = u''
+        previous_line = ''
 
         # contains the previous caption line; emptied with any empty line
         # example:
         # #+CAPTION: A black cat stalking a spider
         # previous_caption = u'A black cat stalking a spider'
-        previous_caption = u''
+        previous_caption = ''
 
         # contains the content of the previous ATTR_HTML lines; emptied with any empty line
         # example:
@@ -430,9 +430,9 @@ class OrgParser(object):
 
         # collect the lines of the raw Org-mode entry (without
         # noexport-headings):
-        rawcontent = u""
+        rawcontent = ""
         ignore_line_for_rawcontent = True
-        line = u''
+        line = ''
 
         for rawline in codecs.open(self.__filename, 'r', encoding='utf-8'):
 
@@ -543,7 +543,7 @@ class OrgParser(object):
                 # default/main state: parse entry content and look out for
                 # content that has got its own state
 
-                if not 'content' in self.__entry_data.keys():
+                if 'content' not in list(self.__entry_data.keys()):
                     # append empty content list to __entry_data
                     self.__entry_data['content'] = []
 
@@ -568,11 +568,11 @@ class OrgParser(object):
                     previous_line = line
                     continue
 
-                elif line == u'':
+                elif line == '':
                     self.logging.debug("OrgParser: found empty line")
                     # clear things that are only valid until empty line after element
-                    previous_name = u''
-                    previous_caption = u''
+                    previous_name = ''
+                    previous_caption = ''
                     attr_html_dict = {}
                     # if len(self.__entry_data['content']) > 1:
                     #    if not self.__entry_data['content'][-1] == u'\n':
@@ -628,7 +628,7 @@ class OrgParser(object):
                                 self.logging.debug(
                                     "OrgParser: found EXPORT block signature for " +
                                     block_type_export_backend)
-                            if previous_name == u'':
+                            if previous_name == '':
                                 self.__entry_data['content'].append(
                                     [block_type_export_backend.lower() + '-block', False, []])
                             else:
@@ -638,7 +638,7 @@ class OrgParser(object):
                                 self.__entry_data['content'].append(
                                     [block_type_export_backend.lower() + '-block', previous_name, []])
                         else:
-                            if previous_name == u'':
+                            if previous_name == '':
                                 self.__entry_data['content'].append(
                                     [block_type.lower() + '-block', False, []])
                             else:
@@ -677,7 +677,7 @@ class OrgParser(object):
 
                     self.logging.debug("OrgParser: found TABLE")
                     state = self.TABLE
-                    if previous_name == u'':
+                    if previous_name == '':
                         self.__entry_data['content'].append(
                             ['table', False, [line]])
                     else:
@@ -704,7 +704,7 @@ class OrgParser(object):
                     filename = cust_link_image_components.group(self.CUST_LINK_IMAGE_FILENAME_IDX)
                     description = cust_link_image_components.group(self.CUST_LINK_IMAGE_DESCRIPTION_IDX)
                     self.logging.debug(
-                        "OrgParser: adding a customized image link file[%s], description[%s], caption[%s], attr[%s]" % \
+                        "OrgParser: adding a customized image link file[%s], description[%s], caption[%s], attr[%s]" %
                         (str(filename), str(description), str(previous_caption), str(attr_html_dict)))
                     self.__entry_data['content'].append(['cust_link_image', filename, description, previous_caption, attr_html_dict])
 
@@ -730,7 +730,7 @@ class OrgParser(object):
                         # level is same or higher as main heading of blog
                         # entry: end of blog entry
                         state = self.__handle_blog_end(line, rawcontent)
-                        rawcontent = u""
+                        rawcontent = ""
                         previous_line = line
                         ignore_line_for_rawcontent = True
                         continue
@@ -761,7 +761,7 @@ class OrgParser(object):
 
                 else:
                     if len(self.__entry_data['content']) > 0:
-                        if previous_line != u'' and self.__entry_data[
+                        if previous_line != '' and self.__entry_data[
                                 'content'][-1][0] == 'par':
                             # concatenate this line with previous if it is
                             # still generic content within a paragraph
@@ -789,7 +789,7 @@ class OrgParser(object):
                     previous_line = line
                     continue
 
-                if 'id' in self.__entry_data.keys() and 'created' in self.__entry_data.keys():
+                if 'id' in list(self.__entry_data.keys()) and 'created' in list(self.__entry_data.keys()):
                     # if all properties already found, ignore rest of
                     # PROPERTIES and all other PROPERTIES (of sub-headings)
                     self.logging.debug(
@@ -801,8 +801,7 @@ class OrgParser(object):
                     continue
 
                 if line.upper().startswith(':ID:'):
-                    self.__entry_data['id'] = line[
-                        4:].strip().replace(u' ', '')
+                    self.__entry_data['id'] = line[4:].strip().replace(' ', '')
 
                 if line.upper().startswith(':CREATED:'):
                     try:
@@ -841,7 +840,7 @@ class OrgParser(object):
                         components.group(self.LOG_TIMESTAMP_IDX))
 
                     # add to finished-timestamp-history
-                    if 'finished-timestamp-history' in self.__entry_data.keys():
+                    if 'finished-timestamp-history' in list(self.__entry_data.keys()):
                         self.__entry_data[
                             'finished-timestamp-history'].append(datetimestamp)
                     else:
@@ -850,7 +849,7 @@ class OrgParser(object):
 
                     # (over)write latestupdateTS of blogentry if
                     # current datetimestamp is newer:
-                    if 'latestupdateTS' in self.__entry_data.keys():
+                    if 'latestupdateTS' in list(self.__entry_data.keys()):
                         if datetimestamp > self.__entry_data['latestupdateTS']:
                             self.__entry_data['latestupdateTS'] = datetimestamp
                     else:
@@ -858,7 +857,7 @@ class OrgParser(object):
 
                     # (over)write firstpublishTS of blogentry if
                     # current datetimestamp is older:
-                    if 'firstpublishTS' in self.__entry_data.keys():
+                    if 'firstpublishTS' in list(self.__entry_data.keys()):
                         if datetimestamp < self.__entry_data['firstpublishTS']:
                             self.__entry_data['firstpublishTS'] = datetimestamp
                     else:
@@ -884,9 +883,9 @@ class OrgParser(object):
                     continue
                 else:
                     if block_type in self.SUPPORTED_BLOCK_TYPES_UPPERCASE:
-                         # append to the last element of content (which is a list from the current block) to
-                         # its last element (which contains the list of the
-                         # block content):
+                        # append to the last element of content (which is a list from the current block) to
+                        # its last element (which contains the list of the
+                        # block content):
                         self.__entry_data['content'][-1][-1].append(line)
                     else:
                         # if BLOCK_REGEX is in sync with the if-statement
@@ -901,9 +900,9 @@ class OrgParser(object):
                 # parses simple lists and return to ENTRY_CONTENT
 
                 # >>> re.match(r'^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.+)$', u"  - [-] foo bar").groups()
-                ## (u'  ', u'-', None, u'[-]', u' foo bar')
+                # (u'  ', u'-', None, u'[-]', u' foo bar')
 
-                if line == u'':
+                if line == '':
                     # list is over now: (if it is only an empty line in between
                     # two list items, catch this in entry content state)
                     state = self.ENTRY_CONTENT
@@ -928,7 +927,7 @@ class OrgParser(object):
 
                 # parses table data and return to ENTRY_CONTENT
 
-                if line == u'':
+                if line == '':
                     # table is over now:
                     state = self.ENTRY_CONTENT
                     previous_line = line
@@ -957,7 +956,7 @@ class OrgParser(object):
                 if line.startswith(':'):
                     self.__entry_data['content'][-1][-1].append(line)
                 else:
-                    if line != u'':
+                    if line != '':
                         # FIXXME: I feel ashamed but without goto I am probably
                         # not able to handle this
                         raise OrgParserException(
@@ -982,7 +981,7 @@ class OrgParser(object):
             self.logging.debug(
                 "OrgParser: finished file \"%s\" while parsing blog entry. Finishing it." %
                 self.__filename)
-            self.__handle_blog_end(u"", rawcontent)
+            self.__handle_blog_end("", rawcontent)
 
         self.logging.debug("OrgParser: finished file \"%s\"" % self.__filename)
         # debug:   data = self._OrgParser__entry_data ; data['content']
