@@ -456,7 +456,7 @@ class Utils(object):
         return metadata
 
     @staticmethod
-    def list_of_dicts_are_equal(list1, list2, ignoreorder=False):
+    def list_of_dicts_are_equal(list1, list2):
         """
 
         Dicts in Python are not sorted. So there is no simple
@@ -465,7 +465,6 @@ class Utils(object):
 
         @param list1: a list containing dicts with key/value-pairs
         @param list2: a list containing dicts with key/value-pairs
-        @param ignoreorder: consider two lists with different order but same content as equal
         @param return: True (if list1 equals list2) or False (otherwise)
         """
 
@@ -484,18 +483,11 @@ class Utils(object):
             # quick check: if length differs, they are definitely different
             return False
 
-        comparisonlist1 = list1
-        comparisonlist2 = list2
-        if ignoreorder:
-            comparisonlist1 = sorted(list1)
-            comparisonlist2 = sorted(list2)
+        set_list1 = set(tuple(sorted(d.items())) for d in list1)
+        set_list2 = set(tuple(sorted(d.items())) for d in list2)
+        set_difference = set_list1.symmetric_difference(set_list2)  # == set() if identical
 
-        for entry in range(len(comparisonlist1)):
-            # do the hard way: comparing content
-            if not comparisonlist1[entry] == comparisonlist2[entry]:
-                return False
-
-        return True
+        return set_difference == set()
 
     @staticmethod
     def __UNFINISHED_datastructs_are_equal(data1, data2, ignoreorder=False):

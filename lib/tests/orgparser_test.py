@@ -111,8 +111,7 @@ class TestOrgParser(unittest.TestCase):
         self.assertTrue(
             Utils.list_of_dicts_are_equal(
                 reference_blog_data,
-                blog_data,
-                ignoreorder=True))
+                blog_data))
 
 # END OF FILE ###########################################################
 # Local Variables:
