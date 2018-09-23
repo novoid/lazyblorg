@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2018-09-23 12:00:14 vk>
+# Time-stamp: <2018-09-23 13:40:47 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1038,7 +1038,7 @@ class Htmlizer(object):
 
         assert(isinstance(orgmode, str))
         self.stats_external_org_to_html5_conversion += 1
-        return pypandoc.convert(orgmode, 'html5', format='org')
+        return pypandoc.convert_text(orgmode, 'html5', format='org')
 
     def convert_latex_to_html5(self, latex):
         """Converts an arbitrary LaTeX syntax element (a string) to its
@@ -1050,7 +1050,7 @@ class Htmlizer(object):
 
         assert(isinstance(latex, str))
         self.stats_external_latex_to_html5_conversion += 1
-        return pypandoc.convert(latex, 'html5', format='latex')
+        return pypandoc.convert_text(latex, 'html5', format='latex')
 
     def sanitize_and_htmlize_blog_content(self, entry):
         """
