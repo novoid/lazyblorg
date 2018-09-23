@@ -203,14 +203,8 @@ FEEDDIR = 'feeds'
 assert(type(FEEDDIR) == str)
 
 
-## format of the internal storage file
-## pickle offers, e.g., 0 (ASCII; human-readable) or pickle.HIGHEST_PROTOCOL (binary; more efficient)
-## see https://docs.python.org/2/library/pickle.html#data-stream-format
-#PICKLE_FORMAT = pickle.HIGHEST_PROTOCOL
-PICKLE_FORMAT = 0
+# 2018-09-23 Deprecated with migration to Python 3: PICKLE_FORMAT
 
-assert(type(PICKLE_FORMAT) == int)
-assert(PICKLE_FORMAT in [0, 1, 2])
 
 ## checking image inclusion variables:
 assert(type(CUSTOMIZED_IMAGE_LINK_KEY) == str)

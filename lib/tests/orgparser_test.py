@@ -84,7 +84,7 @@ class TestOrgParser(unittest.TestCase):
 
         # write data to dump file:
         with open(testfile_temp_output, 'wb') as output:
-            pickle.dump(blog_data, output, config.PICKLE_FORMAT)
+            pickle.dump(blog_data, output)
 
         # check, if dump file was created:
         self.assertTrue(isfile(testfile_temp_output))
@@ -92,7 +92,7 @@ class TestOrgParser(unittest.TestCase):
         reference_blog_data = None
 
         # read reference data from file:
-        with open(testfile_temp_reference, 'r') as fileinput:
+        with open(testfile_temp_reference, 'rb') as fileinput:
             reference_blog_data = pickle.load(fileinput)
 
         # a more fine-grained diff (only) on the first element in blog_data:

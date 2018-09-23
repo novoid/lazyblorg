@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8; mode: python; -*-
-PROG_VERSION = "Time-stamp: <2018-09-23 12:02:03 vk>"
+PROG_VERSION = "Time-stamp: <2018-09-23 12:52:36 vk>"
 PROG_VERSION_DATE = PROG_VERSION[13:23]
 
 # TODO:
@@ -95,7 +95,7 @@ class Lazyblorg(object):
         if options.verbose:
             with open('2del-lazyblorg_dump_of_blogdata_from_previous_verbose_run.pk', 'wb') as output:
                 # always use ASCII format: easier to debug from outside
-                pickle.dump(self.blog_data, output, 0)
+                pickle.dump(self.blog_data, output)
 
         # FIXXME: debug with: [x['id'] for x in self.blog_data]
 
@@ -116,8 +116,7 @@ class Lazyblorg(object):
         with open(options.new_metadatafilename, 'wb') as output:
             pickle.dump([self.metadata,
                          self.entries_timeline_by_published],
-                        output,
-                        config.PICKLE_FORMAT)
+                        output)
 
         # load old metadata from file
         if os.path.isfile(options.previous_metadatafilename):
