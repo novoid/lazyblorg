@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2018-09-23 13:55:01 vk>
+# Time-stamp: <2018-09-30 12:37:50 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -414,8 +414,8 @@ class Htmlizer(object):
         # handle autotags:
         content = ''
         if 'autotags' in list(entry.keys()):
-            for autotag in list(entry['autotags'].keys()):
-                content += self._replace_tag_placeholders([autotag + ":" + entry['autotags'][autotag]],
+            for autotagkey in sorted(list(entry['autotags'].keys())):
+                content += self._replace_tag_placeholders([autotagkey + ":" + entry['autotags'][autotagkey]],
                                                           self.template_definition_by_name('article-autotag'))
         htmlcontent += self._replace_general_article_placeholders(
             entry, content)
@@ -1821,15 +1821,15 @@ class Htmlizer(object):
                 'article-tags-begin']:
             content += self.template_definition_by_name(articlepart)
         content += self._replace_tag_placeholders(
-            entry['usertags'], self.template_definition_by_name('article-usertag'))
+            sorted(entry['usertags']), self.template_definition_by_name('article-usertag'))
         htmlcontent += self._replace_general_article_placeholders(
             entry, content)
 
         # handle autotags:
         content = ''
         if 'autotags' in list(entry.keys()):
-            for autotag in list(entry['autotags'].keys()):
-                content += self._replace_tag_placeholders([autotag + ":" + entry['autotags'][autotag]],
+            for autotagkey in sorted(list(entry['autotags'].keys())):
+                content += self._replace_tag_placeholders([autotagkey + ":" + entry['autotags'][autotagkey]],
                                                           self.template_definition_by_name('article-autotag'))
         htmlcontent += self._replace_general_article_placeholders(
             entry, content)
@@ -1876,15 +1876,15 @@ class Htmlizer(object):
             content += self.template_definition_by_name(articlepart)
         # htmlcontent = self.sanitize_internal_links(entry['category'], htmlcontent)
         content += self._replace_tag_placeholders(
-            entry['usertags'], self.template_definition_by_name('article-usertag'))
+            sorted(entry['usertags']), self.template_definition_by_name('article-usertag'))
         htmlcontent += self._replace_general_article_placeholders(
             entry, content)
 
         # handle autotags:
         content = ''
         if 'autotags' in list(entry.keys()):
-            for autotag in list(entry['autotags'].keys()):
-                content += self._replace_tag_placeholders([autotag + ":" + entry['autotags'][autotag]],
+            for autotagkey in sorted(list(entry['autotags'].keys())):
+                content += self._replace_tag_placeholders([autotagkey + ":" + entry['autotags'][autotagkey]],
                                                           self.template_definition_by_name('article-autotag'))
         htmlcontent += self._replace_general_article_placeholders(
             entry, content)
