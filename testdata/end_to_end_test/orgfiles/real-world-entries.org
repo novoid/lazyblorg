@@ -118,7 +118,7 @@ Just the image without ATTR lines or caption:
 
 [[tsfile:2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg]]
 
-** DONE Links test                                                                  :blog:lazyblorg:
+** DONE Links test                                                                  :blog:lazyblorg:programming:exampletag:mytest:
 CLOSED: [2017-09-30 Sat 17:05]
 :PROPERTIES:
 :CREATED:  [2017-09-30 Sat 17:05]

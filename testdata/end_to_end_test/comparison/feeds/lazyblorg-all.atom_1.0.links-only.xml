@@ -7,7 +7,7 @@
   <id>http://Karl-Voit.at/</id>
   <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2018-09-23T13:55:31+01:00</updated>
+  <updated>2018-09-30T12:45:51+01:00</updated>
   <author>
     <name>Karl Voit</name>
   </author>
@@ -21,6 +21,9 @@
     <published>2017-09-30T17:05:00+01:00</published>
     <updated>2017-09-30T17:05:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='http://Karl-Voit.at/tags/programming' term='programming' />
+    <category scheme='http://Karl-Voit.at/tags/exampletag' term='exampletag' />
+    <category scheme='http://Karl-Voit.at/tags/mytest' term='mytest' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
     <id>http://Karl-Voit.at/2017/09/30/link-test-from-feed-with-links</id>
 </entry>
