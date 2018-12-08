@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2018-09-23 11:28:30 vk>
+# Time-stamp: <2018-12-08 12:05:51 vk>
 
 import config
 import re
@@ -747,14 +747,18 @@ class OrgParser(object):
 
                     self.logging.debug("OrgParser: found LIST_ITEM")
                     state = self.LIST
-                    if self.__entry_data['content'][-1][0] == 'list':
-                        # append to the previous list:
-                        # previous line was empty
-                        self.__entry_data['content'][-1][-1].append('\n')
-                        self.__entry_data['content'][-1][-1].append(line)
-                    else:
-                        # create a new list:
-                        self.__entry_data['content'].append(['list', [line]])
+                    try:
+                        if self.__entry_data['content'][-1][0] == 'list':
+                            # append to the previous list:
+                            # previous line was empty
+                            self.__entry_data['content'][-1][-1].append('\n')
+                            self.__entry_data['content'][-1][-1].append(line)
+                        else:
+                            # create a new list:
+                            self.__entry_data['content'].append(['list', [line]])
+                    except IndexError:
+                        self.logging.error('first line [%s] of the blog article consists of a list element which is a known bug: https://github.com/novoid/lazyblorg/issues/10' % line)
+                        raise
                     previous_line = line
 
                 # FIXXME: add more elif line == ELEMENT
