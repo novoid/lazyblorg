@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8; mode: python; -*-
-PROG_VERSION = "Time-stamp: <2018-09-23 13:49:41 vk>"
+PROG_VERSION = "Time-stamp: <2018-12-17 14:07:57 karl.voit>"
 PROG_VERSION_DATE = PROG_VERSION[13:23]
 
 # TODO:
@@ -74,7 +74,7 @@ class Lazyblorg(object):
         options = self.options
         stats_parsed_org_files, stats_parsed_org_lines = 0, 0
 
-        logging.debug("iterate over files ...")
+        logging.info("Parsing Org mode files …")
         for filename in options.orgfiles:
             new_org_lines = 0
             try:
@@ -199,7 +199,7 @@ class Lazyblorg(object):
                 filename)
             return
 
-        self.logging.info("Parsing \"%s\" ..." % filename)
+        self.logging.debug("Parsing \"%s\" ..." % filename)
         parser = OrgParser(filename)
 
         return parser.parse_orgmode_file()

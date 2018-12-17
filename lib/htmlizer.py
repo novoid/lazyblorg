@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2018-09-30 12:37:50 vk>
+# Time-stamp: <2018-12-17 14:05:10 karl.voit>
 
 import config  # lazyblorg-global settings
 import sys
@@ -2475,6 +2475,7 @@ class Htmlizer(object):
         Locates and parses the directory config.DIRECTORIES_WITH_IMAGE_ORIGINALS for filename index. Result is stored in self.filename_dict.
         """
 
+        self.logging.info('Building index of files …')
         if (config.IMAGE_INCLUDE_METHOD == config.IMAGE_INCLUDE_METHOD_MEMACS or \
             config.IMAGE_INCLUDE_METHOD == config.IMAGE_INCLUDE_METHOD_MEMACS_THEN_DIR):
 
@@ -2485,7 +2486,7 @@ class Htmlizer(object):
             # results in: ('/home/user/directory/subdirectory/2010-03-18_Presentation_ProductXY.pdf', '2010-03-18_Presentation_ProductXY.pdf')
             MEMACS_FILE_LINE_REGEX = re.compile(r'^\*\* <.+> \[\[file:([^\]]+)\]\[(.+)\]\]$')
 
-            self.logging.info('Building index of Memacs as stated in MEMACS_FILE_WITH_IMAGE_FILE_INDEX  \"' + config.MEMACS_FILE_WITH_IMAGE_FILE_INDEX + '\" …')
+            self.logging.debug('Building index of Memacs as stated in MEMACS_FILE_WITH_IMAGE_FILE_INDEX  \"' + config.MEMACS_FILE_WITH_IMAGE_FILE_INDEX + '\" …')
             with codecs.open(config.MEMACS_FILE_WITH_IMAGE_FILE_INDEX, encoding='utf-8') as memacs_file_handle:
                 for line in memacs_file_handle:
                     components = re.match(MEMACS_FILE_LINE_REGEX, line)
@@ -2512,7 +2513,7 @@ class Htmlizer(object):
                     # if an image could not be located later on, there will be an error
                     continue
 
-                self.logging.info('Building index of files as stated in DIRECTORIES_WITH_IMAGE_ORIGINALS[' + str(index) + '] \"' + currentdir + '\" …')
+                self.logging.debug('Building index of files as stated in DIRECTORIES_WITH_IMAGE_ORIGINALS[' + str(index) + '] \"' + currentdir + '\" …')
                 for (dirpath, dirnames, filenames) in os.walk(currentdir):
                     # Example:
                     # (Pdb) dirpath
@@ -2525,7 +2526,7 @@ class Htmlizer(object):
                         self.filename_dict[filename] = os.path.join(dirpath, filename)
                 index += 1
 
-        self.logging.info('Index of filename dict holds ' + str(len(self.filename_dict)) + ' entries')
+        self.logging.debug('Index of filename dict holds ' + str(len(self.filename_dict)) + ' entries')
 
     def current_entry_id_str(self):
         "returns a string representation of self.current_entry_id"
