@@ -1,12 +1,11 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2018-09-23 11:30:25 vk>
+# Time-stamp: <2019-01-13 19:01:01 vk>
 
-# This file is originally from Memacs
-# https://github.com/novoid/Memacs
-# and was written mainly by https://github.com/awieser
-# see: https://github.com/novoid/Memacs/blob/master/memacs/lib/orgformat.py
-# for unit tests, see:
-# https://github.com/novoid/Memacs/blob/master/memacs/lib/tests/orgformat_test.py
+## This file is originally from Memacs
+## https://github.com/novoid/Memacs
+## and was written mainly by https://github.com/awieser
+## see: https://github.com/novoid/Memacs/blob/master/memacs/lib/orgformat.py
+## for unit tests, see: https://github.com/novoid/Memacs/blob/master/memacs/lib/tests/orgformat_test.py
 
 import time
 import datetime
@@ -89,20 +88,21 @@ class OrgFormat(object):
                                  datetimestamp.weekday(),
                                  0, 0])
 
-    # timestamp = time.struct_time([2013,4,3,10,54,0,0,0,0])  ## wday == 0
-    # OrgFormat.date(timestamp)  ## '<2013-04-03 Mon>' -> Mon is wrong for April 3rd 2013
-    # OrgFormat.date( OrgFormat.fix_struct_time_wday(timestamp) ) ##
-    # '<2013-04-03 Wed>'
+    ## timestamp = time.struct_time([2013,4,3,10,54,0,0,0,0])  ## wday == 0
+    ## OrgFormat.date(timestamp)  ## '<2013-04-03 Mon>' -> Mon is wrong for April 3rd 2013
+    ## OrgFormat.date( OrgFormat.fix_struct_time_wday(timestamp) ) ## '<2013-04-03 Wed>'
 
     @staticmethod
-    def link(link, description=None):
+    def link(link, description=None, replacespaces=True):
         """
         returns string of a link in org-format
         @param link link to i.e. file
         @param description optional
+        @param replacespaces: if True (default), spaces within link are being sanitized
         """
 
-        link = link.replace(" ", "%20")
+        if replacespaces:
+            link = link.replace(" ", "%20")
 
         if description:
             return "[[" + link + "][" + description + "]]"
@@ -119,8 +119,7 @@ class OrgFormat(object):
         @param show_time: optional show time also
         """
         # <YYYY-MM-DD hh:mm>
-        assert (tuple_date.__class__ ==
-                time.struct_time or tuple_date.__class__ == datetime.datetime)
+        assert (tuple_date.__class__ == time.struct_time or tuple_date.__class__ == datetime.datetime)
 
         local_structtime = False
 
@@ -142,19 +141,25 @@ class OrgFormat(object):
         returns a date string in org format
         i.e.: * [YYYY-MM-DD Sun]
               * [YYYY-MM-DD Sun HH:MM]
-        @param tuple_date: has to be a time.struct_time
+        @param tuple_date: has to be a time.struct_time or datetime
         @param show_time: optional show time also
         """
         # <YYYY-MM-DD hh:mm>
-        assert tuple_date.__class__ == time.struct_time
+        assert (tuple_date.__class__ == time.struct_time or tuple_date.__class__ == datetime.datetime)
+
+        if tuple_date.__class__ == time.struct_time:
+            # fix day of week in struct_time
+            local_structtime = OrgFormat.fix_struct_time_wday(tuple_date)
+        else:
+            # convert datetime to struc_time
+            local_structtime = OrgFormat.datetime_to_struct_time(tuple_date)
 
         if show_time:
             return time.strftime(
                 "[%Y-%m-%d %a %H:%M]",
-                OrgFormat.fix_struct_time_wday(tuple_date))
+                OrgFormat.fix_struct_time_wday(local_structtime))
         else:
-            return time.strftime("[%Y-%m-%d %a]",
-                                 OrgFormat.fix_struct_time_wday(tuple_date))
+            return time.strftime("[%Y-%m-%d %a]", OrgFormat.fix_struct_time_wday(local_structtime))
 
     @staticmethod
     def datetime(tuple_datetime):
@@ -343,19 +348,23 @@ class OrgFormat(object):
         """
         @param contact_mailto_string: possibilities:
         - "Bob Bobby <bob.bobby@example.com>" or
-        - <Bob@example.com>"
+        - <Bob@example.com>" or
+        - Bob@example.com
 
         @return:
         - [[mailto:bob.bobby@example.com][Bob Bobby]]
         - [[mailto:bob.bobby@example.com][bob.bobby@excample.com]]
         """
         delimiter = contact_mail_string.find("<")
-        name = contact_mail_string[:delimiter].strip()
-        mail = contact_mail_string[delimiter + 1:][:-1].strip()
-        if name != "":
+        if delimiter != -1:
+            name = contact_mail_string[:delimiter].strip()
+            mail = contact_mail_string[delimiter + 1:][:-1].strip()
+            if delimiter == 0:
+              return "[[mailto:" + mail + "][" + mail + "]]"
             return "[[mailto:" + mail + "][" + name + "]]"
+
         else:
-            return "[[mailto:" + mail + "][" + mail + "]]"
+            return "[[mailto:" + contact_mail_string + "][" + contact_mail_string + "]]"
 
     @staticmethod
     def newsgroup_link(newsgroup_string):
@@ -378,11 +387,10 @@ class OrgFormat(object):
         assert sec.__class__ == int
 
         seconds = sec % 60
-        minutes = (sec / 60) % 60
-        hours = (sec / (60 * 60))
+        minutes = (sec // 60) % 60
+        hours = (sec // (60 * 60))
 
-        return str(hours) + ":" + str(minutes).zfill(2) + \
-            ":" + str(seconds).zfill(2)
+        return str(hours) + ":" + str(minutes).zfill(2) + ":" + str(seconds).zfill(2)
 
     @staticmethod
     def get_dhms_from_sec(sec):
@@ -398,17 +406,15 @@ class OrgFormat(object):
         assert sec.__class__ == int
 
         seconds = sec % 60
-        minutes = (sec / 60) % 60
-        hours = (sec / (60 * 60)) % 24
-        days = (sec / (60 * 60 * 24))
+        minutes = (sec // 60) % 60
+        hours = (sec // (60 * 60)) % 24
+        days = (sec // (60 * 60 * 24))
 
         if days > 0:
             daystring = str(days) + "d "
         else:
             daystring = ''
-
-        return daystring + str(hours) + ":" + \
-            str(minutes).zfill(2) + ":" + str(seconds).zfill(2)
+        return daystring + str(hours) + ":" + str(minutes).zfill(2) + ":" + str(seconds).zfill(2)
 
     @staticmethod
     def orgmode_timestamp_to_datetime(orgtime):
@@ -428,9 +434,8 @@ class OrgFormat(object):
                 "string could not be parsed as time-stamp of format \"<YYYY-MM-DD Sun HH:MM>\": \"%s\"",
                 orgtime)
 
-        # components: <1980-12-31 Wed 23:59>
-        # components.groups(1) -> ('1980', '12', '31', 'Wed', '23', 1, '23',
-        # '59')
+        ## components: <1980-12-31 Wed 23:59>
+        ## components.groups(1) -> ('1980', '12', '31', 'Wed', '23', 1, '23', '59')
 
         year = int(components.group(2))
         month = int(components.group(3))
@@ -453,13 +458,12 @@ class OrgFormat(object):
         @param return: <YYYY-MM-DD Sun HH:MM>
         """
 
-        assert deltahours.__class__ == int
+        assert deltahours.__class__ in (int, float)
         assert orgtime.__class__ == str
 
-        # first time-stamp: range_components.groups(0)[0]
-        # second time-stamp: range_components.groups(0)[10]
-        range_components = re.match(
-            OrgFormat.ORGMODE_TIMESTAMP_RANGE_REGEX, orgtime)
+        ## first time-stamp: range_components.groups(0)[0]
+        ## second time-stamp: range_components.groups(0)[10]
+        range_components = re.match(OrgFormat.ORGMODE_TIMESTAMP_RANGE_REGEX, orgtime)
 
         if range_components:
             return OrgFormat.datetime(
@@ -472,8 +476,8 @@ class OrgFormat(object):
                         range_components.groups(0)[10]) +
                     datetime.timedelta(0, 0, 0, 0, 0, deltahours))
         else:
-            return OrgFormat.datetime(OrgFormat.orgmode_timestamp_to_datetime(
-                orgtime) + datetime.timedelta(0, 0, 0, 0, 0, deltahours))
+            return OrgFormat.datetime(OrgFormat.orgmode_timestamp_to_datetime(orgtime) +
+                                      datetime.timedelta(0, 0, 0, 0, 0, deltahours))
 
 
 # Local Variables:
