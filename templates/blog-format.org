@@ -148,12 +148,14 @@ Without name/label:
 #+NAME: pre-begin
 #+BEGIN_EXPORT HTML
 
+	  <div class="example_code">
 	  <pre>
 #+END_EXPORT
 
 #+NAME: pre-end
 #+BEGIN_EXPORT HTML
 	  </pre>
+    </div>
 
 #+END_EXPORT
 
@@ -165,12 +167,14 @@ With name/label:
 <p>
 
     #NAME#
+	  <div class="example_code">
 	  <pre>
 #+END_EXPORT
 
 #+NAME: named-pre-end
 #+BEGIN_EXPORT HTML
 	  </pre>
+    </div>
 
 </p>
 #+END_EXPORT

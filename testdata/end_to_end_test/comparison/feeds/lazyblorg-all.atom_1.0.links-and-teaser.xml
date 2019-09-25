@@ -7,7 +7,7 @@
   <id>http://Karl-Voit.at/</id>
   <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2018-09-30T12:45:51+01:00</updated>
+  <updated>2019-09-25T18:49:17+01:00</updated>
   <author>
     <name>Karl Voit</name>
   </author>
@@ -94,8 +94,10 @@ A simple code block:
 </p>
 
 
+	  <div class="example_code">
 	  <pre> \** Cabaret `(my-capture-prompt "date of event" 'my-event-date)`: `(my-capture-prompt "artist" 'my-artist)`
  SCHEDULED: &lt;`(my-capture-prompt "date 1st email" 'my-email-date)`&gt;	  </pre>
+    </div>
 </div>
     </summary>
     <id>http://Karl-Voit.at/2017/01/08/sanitizing-tests-from-feed-with-teaser</id>
@@ -241,7 +243,9 @@ Being curious how this is going to work out.
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='xhtml'>
 <div xmlns='http://www.w3.org/1999/xhtml'>
+	  <div class="example_code">
 	  <pre>This ought to be escaped &amp; &gt;printed&lt; well.	  </pre>
+    </div>
 </div>
     </summary>
     <id>http://Karl-Voit.at/2016/11/06/sanitization-examples-from-feed-with-teaser</id>

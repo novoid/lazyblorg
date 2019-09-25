@@ -7,7 +7,7 @@
   <id>http://Karl-Voit.at/</id>
   <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2018-09-30T12:45:51+01:00</updated>
+  <updated>2019-09-25T18:49:17+01:00</updated>
   <author>
     <name>Karl Voit</name>
   </author>
@@ -144,8 +144,10 @@ A simple code block:
 </p>
 
 
+	  <div class="example_code">
 	  <pre> \** Cabaret `(my-capture-prompt "date of event" 'my-event-date)`: `(my-capture-prompt "artist" 'my-artist)`
  SCHEDULED: &lt;`(my-capture-prompt "date 1st email" 'my-email-date)`&gt;	  </pre>
+    </div>
 </div>
     </summary>    <content type='xhtml'>
       <div xmlns='http://www.w3.org/1999/xhtml'>
@@ -168,8 +170,10 @@ A simple code block:
 </p>
 
 
+	  <div class="example_code">
 	  <pre> \** Cabaret `(my-capture-prompt "date of event" 'my-event-date)`: `(my-capture-prompt "artist" 'my-artist)`
  SCHEDULED: &lt;`(my-capture-prompt "date 1st email" 'my-email-date)`&gt;	  </pre>
+    </div>
 
       </div>
     </content>
@@ -421,12 +425,16 @@ Being curious how this is going to work out.
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='xhtml'>
 <div xmlns='http://www.w3.org/1999/xhtml'>
+	  <div class="example_code">
 	  <pre>This ought to be escaped &amp; &gt;printed&lt; well.	  </pre>
+    </div>
 </div>
     </summary>    <content type='xhtml'>
       <div xmlns='http://www.w3.org/1999/xhtml'>
 	
+	  <div class="example_code">
 	  <pre>This ought to be escaped &amp; &gt;printed&lt; well.	  </pre>
+    </div>
 
       </div>
     </content>
@@ -859,6 +867,7 @@ This is a dummy text whose only purpose is to generate some content which is the
 </p>
 
 
+	  <div class="example_code">
 	  <pre>Well, in here, I want to write verbatim text.
 Line breaks should be exactly the same.
 
@@ -869,6 +878,7 @@ which is then processed by this lovely tool.
 The resulting web blog
 might win the Pulitzer Prize some day!
 	  </pre>
+    </div>
 
 
 	  <header><h2 class="section-title">Sub-heading HTML block</h2></header>
