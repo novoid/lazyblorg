@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2018-12-08 12:05:51 vk>
+# Time-stamp: <2019-10-14 19:04:38 vk>
 
 import config
 import re
@@ -691,8 +691,8 @@ class OrgParser(object):
                 elif line.upper().startswith('#+ATTR_HTML: '):
                     matches = re.findall(self.ATTR_HTML_REGEX, line)
                     if matches:
-                        # remove trailing spaces from the parameters
-                        matches = [(x, y.strip()) for x, y in matches]
+                        # lower-case the keys and remove trailing spaces from the parameters
+                        matches = [(x.lower(), y.strip()) for x, y in matches]
                         for match in matches:
                             key = match[0]
                             value = match[1]
