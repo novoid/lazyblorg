@@ -5,19 +5,19 @@
 
   <meta name="author" content="Karl Voit" />
   <meta name="generator" content="lazyblorg" />
-  <meta name="description" content="lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer" />
+  <meta name="description" content="lazyblorg: Syntax-tests of the Currently Supported Org mode Syntax Elements from the Parser and HTMLizer" />
   <meta name="orgmode-id" content="2014-01-27-full-syntax-test" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@n0v0id" />
   <meta name="twitter:creator" content="@n0v0id" />
   <meta name="twitter:title" content="public voit" />
-  <meta name="twitter:description" content="lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer" />
+  <meta name="twitter:description" content="lazyblorg: Syntax-tests of the Currently Supported Org mode Syntax Elements from the Parser and HTMLizer" />
   <meta name="twitter:image" content="http://Karl-Voit.at/images/public-voit_T_logo_200x200.png" />
 
   <meta property="og:type" content="article" />
   <meta property="og:title" content="public voit" />
-  <meta property="og:description" content="lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer" />
+  <meta property="og:description" content="lazyblorg: Syntax-tests of the Currently Supported Org mode Syntax Elements from the Parser and HTMLizer" />
   <meta property="og:image" content="http://Karl-Voit.at/images/public-voit_T_logo_200x200.png" />
   <meta property="og:site_name" content="public voit - Web-page of Karl Voit">
   <meta property="article:published_time" content="2014-01-30T14:02+01:00" />
@@ -36,7 +36,7 @@
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
       <!-- link rel="stylesheet" type="text/css" href="../../../../style.css" / -->
-      <title>lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer</title>
+      <title>lazyblorg: Syntax-tests of the Currently Supported Org mode Syntax Elements from the Parser and HTMLizer</title>
 
   </head>  <body>
 
@@ -61,7 +61,7 @@
 	    </ul>
 	  </aside>
 
-	  <h1 class="common-article-header-title">lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer</h1>
+	  <h1 class="common-article-header-title">lazyblorg: Syntax-tests of the Currently Supported Org mode Syntax Elements from the Parser and HTMLizer</h1>
 
 	</header>
 
@@ -102,11 +102,27 @@
 
 <p>
 
-This is a test entry for testing all currently implemented Org-mode syntax elements.
+This is a test entry for testing all currently implemented Org mode syntax elements.
 
 </p>
 
-	  <header><h2 class="section-title">Implicit Org-mode Elements in This File</h2></header>
+<p>
+
+Please do learn about the supported Org mode elements <a href="https://github.com/novoid/lazyblorg/wiki/Orgmode-Elements">on this wiki page</a>.
+
+</p>
+
+<p>
+
+You can find following files online in order to be able to compare the Org mode source with the generated files from the result:
+
+</p>
+<ul>
+<li><a href="https://github.com/novoid/lazyblorg/blob/master/testdata/end_to_end_test/orgfiles/currently_supported_orgmode_syntax.org">Org mode source</a></li>
+<li><a href="https://github.com/novoid/lazyblorg/tree/master/testdata/end_to_end_test/comparison/2014/01/30/full-syntax-test">Result directory</a> containing <a href="https://github.com/novoid/lazyblorg/blob/master/testdata/end_to_end_test/comparison/2014/01/30/full-syntax-test/index.html">HTML page</a> and attached images</li>
+</ul>
+
+	  <header><h2 class="section-title">Implicit Org mode Elements in This File</h2></header>
 <ul>
 <li>headings</li>
 <li>article tags</li>
@@ -213,6 +229,25 @@ Multiple URLs in one line: <a href="http://heise.de">http://heise.de</a> <a href
 
 <p>
 
+You'll need a blog article <code>PROPERTY</code> drawer with an <code>:ID:</code> property set to a value like the following:
+
+</p>
+
+	  <div class="example_code">
+	  <pre>:PROPERTIES:
+:CREATED:  [2014-01-28 Tue 12:00]
+:ID: 2014-01-27-full-syntax-test
+:END:	  </pre>
+    </div>
+
+<p>
+
+Now you are able to link to this article and lazyblorg creates a HTML link to the resulting article page:
+
+</p>
+
+<p>
+
 simple links: <a href="../../../../2014/01/30/full-syntax-test">2014-01-27-full-syntax-test</a>
 
 </p>
@@ -233,7 +268,7 @@ with formatted description: <a href="../../../../2014/01/30/full-syntax-test">th
 
 <p>
 
-Previous to Org-mode version 8, HTML blocks could be defined like:
+Previous to Org mode version 8, HTML blocks could be defined like:
 
 </p>
 <p>
@@ -284,7 +319,7 @@ This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg an
 
 This is a multi-line paragraph to demonstrate the behavior of line
 break and so on. As you can see, the line breaks are now different
-from Org-mode source or not.	  </pre>
+from Org mode source or not.	  </pre>
     </div>
 
 	  <div class="example_code">
@@ -311,12 +346,12 @@ from Org-mode source or not.	  </pre>
 
 <p>
 
-This is how a colon-block looks like in Org-mode:
+This is how a colon-block looks like in Org mode:
 
 </p>
 
 	  <div class="example_code">
-	  <pre>: This is an example colon-block as shown in Org-mode
+	  <pre>: This is an example colon-block as shown in Org mode
 :
 : It can consist of multiple lines.
 : This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg and such.
@@ -332,7 +367,7 @@ This is what lazyblorg does with it:
 </p>
 
 	  <div class="example_code">
-	  <pre> This is an example colon-block as shown in Org-mode
+	  <pre> This is an example colon-block as shown in Org mode
 
  It can consist of multiple lines.
  This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg and such.
@@ -350,7 +385,7 @@ This is <b>bold</b> and <code>teletype</code> with an URL <a href="https://githu
   Last line.<br />
 This is a multi-line paragraph to demonstrate the behavior of line
 break and so on. As you can see, the line breaks are now different
-from Org-mode source or not.</blockquote>
+from Org mode source or not.</blockquote>
 
 <blockquote>lower-case quote without name</blockquote>
 
@@ -370,7 +405,7 @@ This is <b>bold</b> and <code>teletype</code> with an URL <a href="https://githu
 
 This is a multi-line paragraph to demonstrate the behavior of line
 break and so on. As you can see, the line breaks are now different
-from Org-mode source or not.	  </pre>
+from Org mode source or not.	  </pre>
     </div>
 
 	  <div class="example_code">
@@ -405,7 +440,7 @@ This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg an
 
 This is a multi-line paragraph to demonstrate the behavior of line
 break and so on. As you can see, the line breaks are now different
-from Org-mode source or not.	  </pre>
+from Org mode source or not.	  </pre>
     </div>
 
 	  <div class="example_code">
@@ -441,7 +476,7 @@ else:
 
 <p>
 
-Previous to Org-mode version 8, LaTeX blocks could be defined like:
+Previous to Org mode version 8, LaTeX blocks could be defined like:
 
 </p>
 <p>This is a mixed case LaTeX block without a name. Indented line.</p>
@@ -755,6 +790,12 @@ Complex table:
 
 <p>
 
+Because lazyblorg is using multiple clever ways of including image files, I will one more link you to <a href="https://github.com/novoid/lazyblorg/wiki/Images">the corresponding wiki page</a> that explains everything in detail.
+
+</p>
+
+<p>
+
 These are some beautiful photographs I want to include here:
 
 </p>
@@ -802,7 +843,7 @@ Of course, you can use multiple <code>ATTR_HTML</code> lines to define multiple 
 
 <p>
 
-Notice when there is a <code>CAPTION</code>, the description of the Org-mode link gets ignored. I do think that if you invest effort to define an extra line for it, it should replace the Org-mode description. Usually, you're not going to use both.
+Notice when there is a <code>CAPTION</code>, the description of the Org mode link gets ignored. I do think that if you invest effort to define an extra line for it, it should replace the Org mode description. Usually, you're not going to use both.
 
 </p>
 
@@ -813,7 +854,7 @@ Notice when there is a <code>CAPTION</code>, the description of the Org-mode lin
 
 <p>
 
-This is a real-world example: An Org-mode link with its description (used for caption) with attributes for <code>alt</code>, <code>align</code>, and <code>width</code>:
+This is a real-world example: An Org mode link with its description (used for caption) with attributes for <code>alt</code>, <code>align</code>, and <code>width</code>:
 
 </p>
 
@@ -899,13 +940,62 @@ And here is an example with <code>float-left</code> attribute:
 This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text. This is an example text.
 
 </p>
+<div class="orgmode-hr" ></div>
+<p>
+
+With <a href="https://github.com/novoid/lazyblorg/issues/17">https://github.com/novoid/lazyblorg/issues/17</a> lazyblorg added support for linked images and defining its width.
+
+</p>
+
+	  <div class="example_code">
+	  <pre> #+ATTR_HTML: :linked-image-width [none|original|&lt;integer&gt;]	  </pre>
+    </div>
+
+<p>
+
+The <code>none</code> option causes no linked-image being generated. <code>original</code> links an image that has the same dimensions than the original one. Any <code>&lt;integer&gt;</code> defines the new width of the linked image.
+
+</p>
+
+<figure class="image-right">
+<img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="An alternative description image" width="300" />
+<figcaption>Test image without linking a larger version because I chose attribute value "none".</figcaption>
+</figure>
+
+<p>
+
+Original of <code>2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg</code> has 800x600 pixel.
+
+</p>
+
+<p>
+
+Original of <code>2019-07-29T19.57.10 This is my Life -- sign specialL cliparts publicvoit.jpg</code> has 1000x750 pixel.
+
+</p>
+
+<figure class="image-center">
+<a href="2019-07-29T19.57.10%20This%20is%20my%20Life%20--%20sign%20specialL%20cliparts%20publicvoit.jpg"><img src="2019-07-29T19.57.10%20This%20is%20my%20Life%20--%20sign%20specialL%20cliparts%20publicvoit%20-%20scaled%20width%20350.jpg" alt="This is an alternative text." width="350" /></a>
+<figcaption>Let's link the full size original image here. Width should be 1000 pixel. <a class="figcaption-clue-link" href="2019-07-29T19.57.10%20This%20is%20my%20Life%20--%20sign%20specialL%20cliparts%20publicvoit.jpg">(click for a larger version)</a></figcaption>
+</figure>
+
+<p>
+
+Original of <code>2019-07-26T11.44.35 Shinjuku - Skyline -- specialP publicvoit.jpg</code> has 1000x1333 pixel. The following commands integrates the image with a height of 200 into the blog article. However, the linked larger version gets scaled to a height of 750 pixel and exif tags gets removed as well.
+
+</p>
+
+<figure class="image-right">
+<a href="2019-07-26T11.44.35%20Shinjuku%20-%20Skyline%20--%20specialP%20publicvoit%20-%20scaled%20width%20750.jpg"><img src="2019-07-26T11.44.35%20Shinjuku%20-%20Skyline%20--%20specialP%20publicvoit%20-%20scaled%20width%20200.jpg" alt="alternative-text for the image" width="200" /></a>
+<figcaption>With this image, lazyblorg is going to scale it to 750 pixel width. <a class="figcaption-clue-link" href="2019-07-26T11.44.35%20Shinjuku%20-%20Skyline%20--%20specialP%20publicvoit%20-%20scaled%20width%20750.jpg">(click for a larger version)</a></figcaption>
+</figure>
 
 
   </article>
 
 <div class="back-references"><hr /><p>Related articles that link to this one:</p>
   <ul>
-    <li><a href="../../../../2014/01/30/full-syntax-test">lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer</a></li>
+    <li><a href="../../../../2014/01/30/full-syntax-test">lazyblorg: Syntax-tests of the Currently Supported Org mode Syntax Elements from the Parser and HTMLizer</a></li>
   </ul>
 </div>
 	  <aside class="published-on">

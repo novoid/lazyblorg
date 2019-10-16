@@ -109,14 +109,41 @@ With caption, alt, right alined and 300px width:
 #+ATTR_HTML: :align right :width 300
 [[tsfile:2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg]]
 
-Without caption, without alt, centered and 300px width:
+Without caption, without alt, centered and 300px width and
+linked-image-width set to "none":
 
-#+ATTR_HTML: :align center :width 560
+#+ATTR_HTML: :align center :width 560 :linked-image-width none
 [[tsfile:2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg]]
 
 Just the image without ATTR lines or caption:
 
 [[tsfile:2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg]]
+
+--------------------------
+
+Linking a differently sized image:
+
+With caption, alt, right alined and 300px width, linked-image-width
+560:
+
+#+CAPTION: This is my caption
+#+ATTR_HTML: :alt This is my alt text
+#+ATTR_HTML: :align right :width 300 :linked-image-width 560
+[[tsfile:2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg]]
+
+With caption, alt, right alined and 300px width, linked-image-width
+"original":
+
+#+CAPTION: This is my caption
+#+ATTR_HTML: :alt This is my alt text
+#+ATTR_HTML: :align right :width 300 :linked-image-width 560
+[[tsfile:2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg]]
+
+FIXXME: not tested so far:
+- :width and :linked-image-width with same integers
+- :width is original and :linked-image-width is original
+- float number for :width or :linked-image-width
+- zero or negative integers for :width or :linked-image-width
 
 ** DONE Links test                                                                  :blog:lazyblorg:programming:exampletag:mytest:
 CLOSED: [2017-09-30 Sat 17:05]

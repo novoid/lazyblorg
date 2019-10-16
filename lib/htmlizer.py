@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2018-12-17 14:05:10 karl.voit>
+# Time-stamp: <2019-10-16 21:33:07 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -874,7 +874,7 @@ class Htmlizer(object):
 
     def _add_absolute_path_to_image_src(self, content, url):
         """
-        Parses a content data list and stuidly adds absolute paths to all img tags.
+        Parses a content data list and stupidly adds absolute paths to all img tags.
 
         FIXXME: this search&replace depends on the HTML source used and might break :-(
         This is a dirty workaround until I find a better solution:
@@ -1071,6 +1071,20 @@ class Htmlizer(object):
         # debug:  [x[0] for x in entry['content']] -> which element types
 
         teaser_finished = False  # teaser is finished on first sub-heading or <hr>-element
+
+        if self.autotag_language:
+            if 'autotags' not in list(entry.keys()):
+                entry['autotags'] = {}
+            autotag = Utils.guess_language_from_stopword_percentages(
+                [entry['rawcontent']])
+            if autotag:
+                entry['autotags']['language'] = autotag
+            else:
+                # language could not be determined clearly:
+                self.logging.warning(self.current_entry_id_str() + "language of ID " +
+                                     str(entry['id']) +
+                                     " is not recognized clearly; using autotag \"unsure\"")
+                entry['autotags']['language'] = 'unsure'
 
         # for element in entry['content']:
         for index in range(0, len(entry['content'])):
@@ -1329,7 +1343,31 @@ class Htmlizer(object):
                     result += ' class="image-center"'
 
                 # get scaled image filename
-                result += '>\n<img src="' + self.get_scaled_filename(filename, attributes).replace(' ', '%20') + '" '
+                result += '>\n'
+
+                add_linked_image_width = False
+                linked_image_filename = ''
+                if 'linked-image-width' in attributes.keys():
+                    # opening the href link to the externally linked
+                    # image file via 'linked-image-width' attribute
+                    value = attributes['linked-image-width'].lower()
+                    # NOTE: detailed checks of this parameter is done
+                    # in _create_path_and_generate_filenames_and_copy_images()
+                    if value == 'none':
+                        pass  # not linking anything
+                    elif value == 'original':
+                        linked_image_filename = self.get_scaled_filename(filename, False).replace(' ', '%20')
+                        result += '<a href="' + linked_image_filename + '">'
+                        add_linked_image_width = True
+                    else:
+                        linked_image_filename = self.get_scaled_filename(filename, value).replace(' ', '%20')
+                        result += '<a href="' + linked_image_filename + '">'
+                        add_linked_image_width = True
+
+                if 'width' in attributes.keys():
+                    result += '<img src="' + self.get_scaled_filename(filename, attributes['width']).replace(' ', '%20') + '" '
+                else:
+                    result += '<img src="' + self.get_scaled_filename(filename, False).replace(' ', '%20') + '" '
 
                 # FIXXME: currently, all other attributes are ignored:
                 if 'alt' in list(attributes.keys()):
@@ -1340,6 +1378,11 @@ class Htmlizer(object):
                     result += 'width="' + attributes['width'] + '" '
 
                 result += '/>'
+
+                if add_linked_image_width:
+                    # closing the href link to the externally linked
+                    # image file via 'linked-image-width' attribute
+                    result += '</a>'
 
                 # determine, if a caption (of a description) is necessary:
                 if description == filename:
@@ -1357,7 +1400,21 @@ class Htmlizer(object):
                     description = caption
                 if description:
                     # generate the figcaption
-                    result += '\n<figcaption>' + description + '</figcaption>'
+                    result += '\n<figcaption>' + description
+
+                    # add config.CLUE_TEXT_FOR_LINKED_IMAGES when all
+                    # checks are positive:
+                    if 'linked-image-width' in attributes.keys() and \
+                       attributes['linked-image-width'] != 'none' and \
+                       'autotags' in entry.keys() and \
+                       'language' in entry['autotags'].keys() and \
+                       entry['autotags']['language'] in [x[0] for x in Utils.STOPWORDS] and \
+                       entry['autotags']['language'] in config.CLUE_TEXT_FOR_LINKED_IMAGES.keys():
+                        result += ' <a class="figcaption-clue-link" href="' + linked_image_filename + '">'
+                        result += config.CLUE_TEXT_FOR_LINKED_IMAGES[entry['autotags']['language']]
+                        result += '</a>'
+
+                    result += '</figcaption>'
 
                 result += '\n</figure>\n'
 
@@ -1423,34 +1480,19 @@ class Htmlizer(object):
         else:
             entry['htmlteaser-equals-content'] = False
 
-        if self.autotag_language:
-            if 'autotags' not in list(entry.keys()):
-                entry['autotags'] = {}
-            autotag = Utils.guess_language_from_stopword_percentages(
-                [entry['rawcontent']])
-            if autotag:
-                entry['autotags']['language'] = autotag
-            else:
-                # language could not be determined clearly:
-                self.logging.warning(self.current_entry_id_str() + "language of ID " +
-                                     str(entry['id']) +
-                                     " is not recognized clearly; using autotag \"unsure\"")
-                entry['autotags']['language'] = 'unsure'
-
         return entry
 
-    def get_scaled_filename(self, filename, attributes):
+    def get_scaled_filename(self, filename, width):
         """
         If the attributes dict contains an attribute for width, return a
         file name which contains the scaled value in its name.
 
         @param filename: a string containing a file name (basename) without path
-        @param attributes: a dict containing the Org-mode attributes for the HTML export
+        @param width: image width as string
         @param returns: a string of a file-name (basename) that holds the scaled value or the original name if no width attribute is found
         """
 
-        if 'width' in list(attributes.keys()):
-            width = attributes['width']
+        if width:
             (basename, extension) = os.path.splitext(filename)
             return basename + ' - scaled width ' + width + extension
         else:
@@ -1677,6 +1719,19 @@ class Htmlizer(object):
 
         return content
 
+    def is_int(self, string):
+        """
+        Checks if a given string can be casted to an integer without an error.
+
+        @param string: string that potentially contains an integer number as text
+        @param return: False if 'string' could not be casted to an integer; the int value of 'string' otherwise
+        """
+        try:
+            value = int(string)
+            return value
+        except ValueError:
+            return False
+
     def _create_path_and_generate_filenames_and_copy_images(self, entry):
         """
         Creates the target path directory, generates the filenames for org and html, and copies the
@@ -1692,12 +1747,43 @@ class Htmlizer(object):
         if 'attachments' in list(entry.keys()):
             for attachment in entry['attachments']:
                 if attachment[0] == 'cust_link_image':
-                    # ['cust_link_image', u'2017-03-11T18.29.20 Sterne im Baum with attributes -- mytag.jpg', {u'width': u'300', u'alt': u'Stars in a Tree', u'align': u'right', u'title': u'Some Stars'}]
+                    # ['cust_link_image', u'2017-03-11T18.29.20 Sterne im Baum with attributes -- mytag.jpg',
+                    #  {u'width': u'300', u'alt': u'Stars in a Tree', u'align': u'right', u'title': u'Some Stars'}]
                     filename = attachment[1]
                     attributes = attachment[2]
 
-                    self.copy_cust_link_image_file(filename, path, attributes)
-                    # FIXXME: FUTURE? generate scaled version when width/height is set
+                    if 'width' in attributes.keys():
+                        self.copy_cust_link_image_file(filename, path, attributes['width'])
+                    else:
+                        self.copy_cust_link_image_file(filename, path, False)
+
+                    if 'linked-image-width' in attributes.keys():
+                        # additionally to the image in the HTML
+                        # result, we now need to generate an image (to
+                        # be linked as href target) and optionally
+                        # scale it
+
+                        value = attributes['linked-image-width'].lower()  # could be one of: [none|original|<integer>]
+
+                        if not value or (value not in ['none', 'original'] and not self.is_int(value)):
+                            self.logging.error('Value of "linked-image-width" was not [none|original|<integer>] for attachment ' + str(attachment))
+                        else:
+                            # value of attribute is OK
+                            if value == 'none':
+                                self.logging.debug('User added "linked-image-width" with value ' +
+                                                   '"none" which means that no external linked ' +
+                                                   'image is to be added.')
+                            elif value == 'original':
+                                self.copy_cust_link_image_file(filename, path, None)
+                            else:
+                                # according to check above, the only
+                                # remaining possibility is an integer
+                                # that resembles the new width
+                                intvalue = self.is_int(value)
+                                if intvalue < 1:
+                                    self.logging.error('Value of "linked-image-width" is an integer less than 1 for attachment ' + str(attachment))
+                                else:
+                                    self.copy_cust_link_image_file(filename, path, value)
 
                 else:
                     message = self.current_entry_id_str() + \
@@ -2346,6 +2432,8 @@ class Htmlizer(object):
 
         @param image_data: the original filename of an image
         @param destinationfile: the filename of the scaled image
+        @param newwidth: string of new width when scaling
+        @param newheight: string of new height when scaling
         """
         try:
             cv2.imwrite(destinationfile,
@@ -2353,6 +2441,23 @@ class Htmlizer(object):
         except:
             self.logging.critical('Error when scaling file \"' + image_data +
                                   '\" to file \"' + destinationfile + '\"')
+            raise
+
+    def _copy_image_file_without_exif(self, sourcefilename, destinationfilename):
+        """
+        Copies an image file and remoevs the optional Exif headers.
+
+        @param sourcefilename: the original path to the filename of an image
+        @param destinationfilename: the filename of the copied image
+        """
+        image_file_data = cv2.imread(sourcefilename)
+        height, width = image_file_data.shape[:2]
+        try:
+            cv2.imwrite(destinationfilename,
+                        cv2.resize(image_file_data, (int(width), int(height)), interpolation=cv2.INTER_CUBIC))
+        except:
+            self.logging.critical('Error when copying image file \"' + sourcefilename +
+                                  '\" to file \"' + destinationfilename + '\"')
             raise
 
     def _copy_a_file(self, sourcefile, destinationfile):
@@ -2385,7 +2490,7 @@ class Htmlizer(object):
         else:
             self.logging.debug('config.IMAGE_CACHE_DIRECTORY "' + config.IMAGE_CACHE_DIRECTORY + '" is not an existing directory. Skipping the cache update.')
 
-    def copy_cust_link_image_file(self, filename, articlepath, attributes):
+    def copy_cust_link_image_file(self, filename, articlepath, width):
         """
         Locates image files via IMAGE_INCLUDE_METHOD and copies it to the blog article directory.
 
@@ -2395,7 +2500,7 @@ class Htmlizer(object):
 
         @param filename: the base filename of an image
         @param articlepath: the directory path to put the file into
-        @param attributes: dict of HTML attributes of the image file
+        @param width: string containing the width of the target image file. If False, no scaling will be done.
         """
 
         # image was located using locate_cust_link_image() prior to this function
@@ -2410,13 +2515,14 @@ class Htmlizer(object):
             raise HtmlizerException(self.current_entry_id, message)
         else:
             # path to image file was found
-            destinationfile = os.path.join(articlepath, self.get_scaled_filename(filename, attributes))
+            destinationfile = os.path.join(articlepath, self.get_scaled_filename(filename, width))
 
-            if 'width' not in list(attributes.keys()) and not os.path.isfile(destinationfile):
-                # User did not state any width → use original file
-                self._copy_a_file(image_file_path, destinationfile)
+            if not width and not os.path.isfile(destinationfile):
+                # User did not state any width → use original file but
+                # get rid of exif header by scaling to same size
+                self._copy_image_file_without_exif(image_file_path, destinationfile)
 
-            elif 'width' in list(attributes.keys()) and not os.path.isfile(destinationfile):
+            elif width and not os.path.isfile(destinationfile):
                 # User did specify a width → resize if necessary
                 try:
 
@@ -2432,14 +2538,16 @@ class Htmlizer(object):
 
                         image_file_data = cv2.imread(image_file_path)
                         current_height, current_width = image_file_data.shape[:2]
-                        newwidth = float(attributes['width'])
+                        newwidth = float(width)
                         newheight = current_height * (newwidth / current_width)
 
                         if abs(current_width - newwidth) < 2:
                             # If there is no big difference between the image
                             # size and the width specified by the user, copy
-                            # original image instead of interpolate a new one
-                            self._copy_a_file(image_file_path, destinationfile)
+                            # original image instead of interpolate a new one but
+                            # get rid of exif header by scaling to same size
+                            self._copy_image_file_without_exif(image_file_path, destinationfile)
+
                         elif os.path.isfile(cached_image_file_name):
                             # If a cached copy is found, check if it still
                             # newer than the original file. Re-generate
@@ -2534,14 +2642,6 @@ class Htmlizer(object):
             return '[Entry ID ' + self.current_entry_id + '] • '
         else:
             return '[Not related to a specific entry ID] • '
-
-#    def __filter_org_entry_for_blog_entries(self):
-#        """
-#        Return True if current entry from "self.__entry_data" is a valid and
-#        complete blog article and thus can be added to the blog data.
-#
-#        @param return: True if OK or False if not OK (and entry has to be skipped)
-#        """
 
 # Local Variables:
 # End:

@@ -109,6 +109,21 @@ DIRECTORIES_WITH_IMAGE_ORIGINALS = ["testdata/testimages",
 ## a warning is issued in the console output.
 WARN_IF_IMAGE_FILE_NOT_TAGGED_WITH="publicvoit"
 
+## According to https://github.com/novoid/lazyblorg/wiki/Images
+## you can link to a differently sized image when including a
+## (smaller) image to a blog article.
+## In order to give the page reader a hint that there is actually
+## the possibility to see the same image in a different (usually
+## larger) size, you can define help texts here.
+## Note: there is a dependency to Utils.STOPWORDS for the detected
+## languages for the blog article (auto-tags). Therefore, the following
+## dict has to map defined languages to the texts. If you need
+## another language, you need to make sure the auto-tag mechanism
+## within Utils is extended as well and the language identifier
+## matches the dict keys below.
+CLUE_TEXT_FOR_LINKED_IMAGES = {'german': '(klicken für größere Version)',
+                               'english': '(click for a larger version)'}
+
 ## ===================================================================== ##
 ##                                                                       ##
 ##  These are INTERNAL lazyblorg-global configuration settings.          ##

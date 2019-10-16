@@ -142,7 +142,7 @@ With caption, alt, right alined and 300px width:
 
 <p>
 
-Without caption, without alt, centered and 300px width:
+Without caption, without alt, centered and 300px width and linked-image-width set to "none":
 
 </p>
 
@@ -159,6 +159,46 @@ Just the image without ATTR lines or caption:
 <figure class="image-center">
 <img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg" alt="" />
 </figure>
+<div class="orgmode-hr" ></div>
+<p>
+
+Linking a differently sized image:
+
+</p>
+
+<p>
+
+With caption, alt, right alined and 300px width, linked-image-width 560:
+
+</p>
+
+<figure class="image-right">
+<a href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg"><img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="300" /></a>
+<figcaption>This is my caption <a class="figcaption-clue-link" href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg">(click for a larger version)</a></figcaption>
+</figure>
+
+<p>
+
+With caption, alt, right alined and 300px width, linked-image-width "original":
+
+</p>
+
+<figure class="image-right">
+<a href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg"><img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="300" /></a>
+<figcaption>This is my caption <a class="figcaption-clue-link" href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg">(click for a larger version)</a></figcaption>
+</figure>
+
+<p>
+
+FIXXME: not tested so far:
+
+</p>
+<ul>
+<li>:width and :linked-image-width with same integers</li>
+<li>:width is original and :linked-image-width is original</li>
+<li>float number for :width or :linked-image-width</li>
+<li>zero or negative integers for :width or :linked-image-width</li>
+</ul>
 
 
   </article>

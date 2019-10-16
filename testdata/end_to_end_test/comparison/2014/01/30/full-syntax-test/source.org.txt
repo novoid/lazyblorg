@@ -1,4 +1,4 @@
-* DONE lazyblorg: Syntax-tests of the Currently Supported Org-mode Syntax Elements from the Parser and HTMLizer :hidden:publicvoit:lazyblorg:MixedCaseTag:blog:
+* DONE lazyblorg: Syntax-tests of the Currently Supported Org mode Syntax Elements from the Parser and HTMLizer :hidden:publicvoit:lazyblorg:MixedCaseTag:blog:
 CLOSED: [2014-01-30 Thu 13:01]
 :LOGBOOK:
 - State "DONE"       from "DONE"       [2014-02-01 Sat 15:03]
@@ -9,10 +9,19 @@ CLOSED: [2014-01-30 Thu 13:01]
 :ID: 2014-01-27-full-syntax-test
 :END:
 
-This is a test entry for testing all currently implemented Org-mode
+This is a test entry for testing all currently implemented Org mode
 syntax elements.
 
-** Implicit Org-mode Elements in This File
+Please do learn about the supported Org mode elements [[https://github.com/novoid/lazyblorg/wiki/Orgmode-Elements][on this wiki
+page]].
+
+You can find following files online in order to be able to compare
+the Org mode source with the generated files from the result:
+
+- [[https://github.com/novoid/lazyblorg/blob/master/testdata/end_to_end_test/orgfiles/currently_supported_orgmode_syntax.org][Org mode source]]
+- [[https://github.com/novoid/lazyblorg/tree/master/testdata/end_to_end_test/comparison/2014/01/30/full-syntax-test][Result directory]] containing [[https://github.com/novoid/lazyblorg/blob/master/testdata/end_to_end_test/comparison/2014/01/30/full-syntax-test/index.html][HTML page]] and attached images
+
+** Implicit Org mode Elements in This File
 :PROPERTIES:
 :END:
 
@@ -81,6 +90,19 @@ Multiple URLs in one line: http://heise.de [[http://heise.de]] [[http://heise.de
 :PROPERTIES:
 :END:
 
+You'll need a blog article =PROPERTY= drawer with an =:ID:= property
+set to a value like the following:
+
+#+BEGIN_VERSE
+:PROPERTIES:
+:CREATED:  [2014-01-28 Tue 12:00]
+:ID: 2014-01-27-full-syntax-test
+:END:
+#+END_VERSE
+
+Now you are able to link to this article and lazyblorg creates a HTML
+link to the resulting article page:
+
 simple links: [[id:2014-01-27-full-syntax-test]]
 
 with description: [[id:2014-01-27-full-syntax-test][this is the description text]]
@@ -91,7 +113,7 @@ with formatted description: [[id:2014-01-27-full-syntax-test][this is a *formatt
 :PROPERTIES:
 :END:
 
-Previous to Org-mode version 8, HTML blocks could be defined like:
+Previous to Org mode version 8, HTML blocks could be defined like:
 
 #+BEGIN_HTML
 <p>
@@ -152,7 +174,7 @@ This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg an
 
 This is a multi-line paragraph to demonstrate the behavior of line
 break and so on. As you can see, the line breaks are now different
-from Org-mode source or not.
+from Org mode source or not.
 #+END_EXAMPLE
 
 #+begin_example
@@ -173,10 +195,10 @@ lower-case example with name
 :PROPERTIES:
 :END:
 
-This is how a colon-block looks like in Org-mode:
+This is how a colon-block looks like in Org mode:
 
 #+BEGIN_EXAMPLE
-: This is an example colon-block as shown in Org-mode
+: This is an example colon-block as shown in Org mode
 :
 : It can consist of multiple lines.
 : This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg and such.
@@ -187,7 +209,7 @@ This is how a colon-block looks like in Org-mode:
 
 This is what lazyblorg does with it:
 
-: This is an example colon-block as shown in Org-mode
+: This is an example colon-block as shown in Org mode
 :
 : It can consist of multiple lines.
 : This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg and such.
@@ -209,7 +231,7 @@ This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg an
 
 This is a multi-line paragraph to demonstrate the behavior of line
 break and so on. As you can see, the line breaks are now different
-from Org-mode source or not.
+from Org mode source or not.
 #+END_QUOTE
 
 #+begin_quote
@@ -240,7 +262,7 @@ This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg an
 
 This is a multi-line paragraph to demonstrate the behavior of line
 break and so on. As you can see, the line breaks are now different
-from Org-mode source or not.
+from Org mode source or not.
 #+END_VERSE
 
 #+begin_verse
@@ -271,7 +293,7 @@ This is *bold* and ~teletype~ with an URL https://github.com/novoid/lazyblorg an
 
 This is a multi-line paragraph to demonstrate the behavior of line
 break and so on. As you can see, the line breaks are now different
-from Org-mode source or not.
+from Org mode source or not.
 #+END_SRC
 
 #+begin_src
@@ -296,11 +318,12 @@ if test == 42:
 else:
     print "there is something phishy around here."
 #+END_SRC
+
 ** Deprecated LATEX-blocks
 :PROPERTIES:
 :END:
 
-Previous to Org-mode version 8, LaTeX blocks could be defined like:
+Previous to Org mode version 8, LaTeX blocks could be defined like:
 
 #+BEGIN_LaTeX
 This is a mixed case \LaTeX{} block without a name.
@@ -534,6 +557,10 @@ Complex table:
 
 ** Customized Link Images
 
+Because lazyblorg is using multiple clever ways of including image
+files, I will one more link you to [[https://github.com/novoid/lazyblorg/wiki/Images][the corresponding wiki page]] that
+explains everything in detail.
+
 These are some beautiful photographs I want to include here:
 
 [[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg]]
@@ -562,9 +589,9 @@ parameters in multiple lines. Following example consists of three
 lines. First: =alt=. Second: =title= (still ignored). Third: =align=
 and =width=.
 
-Notice when there is a =CAPTION=, the description of the Org-mode link
+Notice when there is a =CAPTION=, the description of the Org mode link
 gets ignored. I do think that if you invest effort to define an extra
-line for it, it should replace the Org-mode description. Usually,
+line for it, it should replace the Org mode description. Usually,
 you're not going to use both.
 
 #+CAPTION: This caption will be overwritten by follow-up ones
@@ -574,7 +601,7 @@ you're not going to use both.
 #+ATTR_HTML: :align right :width 300
 [[tsfile:2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg][If there is an CAPTION, this title gets ignored]]
 
-This is a real-world example: An Org-mode link with its description
+This is a real-world example: An Org mode link with its description
 (used for caption) with attributes for =alt=, =align=, and =width=:
 
 #+ATTR_HTML: :alt This is going to be the alt parameter of the img tag
@@ -649,4 +676,43 @@ text. This is an example text. This is an example text. This is an
 example text. This is an example text. This is an example text. This
 is an example text. This is an example text. This is an example text.
 This is an example text.
+
+-------------------
+
+With https://github.com/novoid/lazyblorg/issues/17 lazyblorg added
+support for linked images and defining its width.
+
+: #+ATTR_HTML: :linked-image-width [none|original|<integer>]
+
+The =none= option causes no linked-image being generated. =original=
+links an image that has the same dimensions than the original one. Any
+=<integer>= defines the new width of the linked image.
+
+#+CAPTION: Test image without linking a larger version because I chose attribute value "none".
+#+ATTR_HTML: :alt An alternative description image :title This is my title! :align right :width 300
+#+ATTR_HTML: :linked-image-width none
+[[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg]]
+
+Original of =2017-03-11T18.29.21 Sterne im Baum -- mytag
+publicvoit.jpg= has 800x600 pixel.
+
+Original of =2019-07-29T19.57.10 This is my Life -- sign specialL
+cliparts publicvoit.jpg= has 1000x750 pixel.
+
+#+CAPTION: Let's link the full size original image here. Width should be 1000 pixel.
+#+ATTR_HTML: :alt This is an alternative text.
+#+ATTR_HTML: :linked-image-width original :align center :width 350
+[[tsfile:2019-07-29T19.57.10 This is my Life -- sign specialL cliparts publicvoit.jpg][2019-07-29T19.57.10 This is my Life -- sign specialL cliparts publicvoit.jpg]]
+
+Original of =2019-07-26T11.44.35 Shinjuku - Skyline -- specialP
+publicvoit.jpg= has 1000x1333 pixel. The following commands integrates
+the image with a height of 200 into the blog article. However, the
+linked larger version gets scaled to a height of 750 pixel and exif
+tags gets removed as well.
+
+#+CAPTION: With this image, lazyblorg is going to scale it to 750 pixel width.
+#+ATTR_HTML: :alt alternative-text for the image
+#+ATTR_HTML: :align right :width 200
+#+ATTR_HTML: :linked-image-width 750
+[[tsfile:2019-07-26T11.44.35 Shinjuku - Skyline -- specialP publicvoit.jpg][2019-07-26T11.44.35 Shinjuku - Skyline -- specialP publicvoit.jpg]]
 

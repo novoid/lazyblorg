@@ -493,6 +493,11 @@ figcaption {
     font-style: italic;
 }
 
+.figcaption-clue-link {
+    font-size: 60%;
+    font-style: italic;
+}
+
 .email-comment {
     @extend .middle_section_narrow;
     margin-left: auto;

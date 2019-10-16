@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2019-10-14 19:04:38 vk>
+# Time-stamp: <2019-10-16 19:08:12 vk>
 
 import config
 import re
@@ -118,7 +118,7 @@ class OrgParser(object):
 
     # example: '#+ATTR_HTML: :alt An alternative description image :title This is my title! :align right :width 300'
     # results in: FIXXME
-    ATTR_HTML_REGEX = re.compile(':(\w+)\s+([^:]+)')
+    ATTR_HTML_REGEX = re.compile(':([\w-]+)\s+([^:]+)')
 
     # re.match(r'^\[\[tsfile:(.+\.(png|jpg|jpeg|svg|gif))+(\]\[(.+))?\]\]$', '[[tsfile:2014-01-29 foo bar.PNG][foo bar]]', re.IGNORECASE).groups()
     #   ('2014-01-29 foo bar.PNG', 'PNG', '][foo bar', 'foo bar')
