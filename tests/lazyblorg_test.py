@@ -104,7 +104,7 @@ class TestLazyblorg(unittest.TestCase):
                 'case6',
                 'case7',
                 'case8',
-                'empty-autotag-page',
+                'empty-language-autotag-page',
                 'lazyblorg-templates'])
         # Checks on the situation before second iteration:
 
@@ -155,7 +155,7 @@ class TestLazyblorg(unittest.TestCase):
                 'case6',
                 'case7',
                 'case8',
-                'empty-autotag-page',
+                'empty-language-autotag-page',
                 'lazyblorg-templates'])
 
         if os.path.isfile(log_firstrun):

@@ -421,7 +421,7 @@ placeholder article which is defined in this file (below).
 
 #+NAME: article-preview-autotag
 #+BEGIN_EXPORT HTML
-                <li><a class="autotag" href="#BASE-URL#/2016/11/16/empty-autotag-page/">#TAGNAME#</a></li>
+                <li><a class="autotag" href="#BASE-URL#/2016/11/16/empty-language-autotag-page/">#TAGNAME#</a></li>
 
 #+END_EXPORT
 
@@ -710,9 +710,15 @@ placeholder article which is defined in this file (below).
 
 #+END_EXPORT
 
-#+NAME: article-autotag
+#+NAME: article-autotag-generic
 #+BEGIN_EXPORT HTML
                 <li><a class="autotag" href="#BASE-URL#/tags/#TAGNAME#/">#TAGNAME#</a></li>
+
+#+END_EXPORT
+
+#+NAME: article-autotag-language
+#+BEGIN_EXPORT HTML
+                <li>#AUTOTAGLANGUAGELINK</li>
 
 #+END_EXPORT
 
@@ -1167,7 +1173,7 @@ FIXXME
 * DONE Empty Autotag Page                                                               :blog:hidden:english:
 CLOSED: [2016-11-16 Wed 21:39]
 :PROPERTIES:
-:ID: empty-autotag-page
+:ID: empty-language-autotag-page
 :CREATED:  [2016-11-16 Wed 21:33]
 :END:
 :LOGBOOK:

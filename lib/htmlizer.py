@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2019-10-18 16:32:19 vk>
+# Time-stamp: <2019-10-18 18:07:13 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -392,6 +392,40 @@ class Htmlizer(object):
         return entry_list_by_newest_timestamp, stats_generated_total, stats_generated_temporal, \
             stats_generated_persistent, stats_generated_tags
 
+    def _generate_auto_tag_list_items(self, entry):
+        """
+        Creates the HTML snippet for a HTML list containing the auto tags and their links.
+
+        @param entry: blog entry data
+        @param return: htmlcontent: the HTML content of the entry like '                <li><a class="autotag" href="../../2016/11/16/empty-language-autotag-page">language:english</a></li>\n'
+        """
+
+        htmlcontent = ''
+        if 'autotags' in list(entry.keys()):
+            for autotagkey in sorted(list(entry['autotags'].keys())):
+                if autotagkey == 'language':
+                    # FIXXME: get rid of unused "article-preview-autotag" template?
+
+                    htmlsnippet = self.template_definition_by_name('article-autotag-language').replace('#AUTOTAGLANGUAGELINK',
+                                                                                                       '[[id:empty-language-autotag-page][language:' +
+                                                                                                       entry['autotags'][autotagkey] + ']]')
+                    # resolving id:empty-language-autotag-page to its HTML link:
+                    htmlsnippet = self.sanitize_internal_links(entry['category'],
+                                                               htmlsnippet,
+                                                               keep_orgmode_format=False)
+                    # dirty hack to insert CSS class to link:
+                    htmlsnippet = htmlsnippet.replace('a href', 'a class="autotag" href')
+                else:
+                    # generic auto-tag: this section is a
+                    # never-reached place-holder until more auto-tags
+                    # than just language are implemented
+                    htmlsnippet = self._replace_tag_placeholders([autotagkey + ":" + entry['autotags'][autotagkey]],
+                                                                self.template_definition_by_name('article-autotag-generic'))
+
+                htmlcontent += htmlsnippet
+
+        return htmlcontent
+
     def _generate_tag_page(self, entry):
         """
         Creates a blog article for a tag (in contrast to a temporal or persistent blog article).
@@ -419,11 +453,7 @@ class Htmlizer(object):
             entry, content)
 
         # handle autotags:
-        content = ''
-        if 'autotags' in list(entry.keys()):
-            for autotagkey in sorted(list(entry['autotags'].keys())):
-                content += self._replace_tag_placeholders([autotagkey + ":" + entry['autotags'][autotagkey]],
-                                                          self.template_definition_by_name('article-autotag'))
+        content = self._generate_auto_tag_list_items(entry)
         htmlcontent += self._replace_general_article_placeholders(
             entry, content)
 
@@ -781,10 +811,7 @@ class Htmlizer(object):
                     entry['usertags'], self.template_definition_by_name('article-preview-usertag'))
 
                 # handle autotags
-                if 'autotags' in list(entry.keys()):
-                    for autotag in list(entry['autotags'].keys()):
-                        content += self._replace_tag_placeholders([autotag + ":" + entry['autotags'][autotag]],
-                                                                  self.template_definition_by_name('article-preview-autotag'))
+                content += self._generate_auto_tag_list_items(entry)
 
                 for articlepart in [
                     'article-preview-tags-end',
@@ -1648,6 +1675,8 @@ class Htmlizer(object):
             self.logging.critical(message)
             raise HtmlizerException(self.current_entry_id, message)
 
+        #url = config.BASE_URL
+
         url_for_the_target_id = self._target_path_for_id_without_targetdir(targetid)
         if url_for_the_target_id is None:
             return False
@@ -1932,11 +1961,7 @@ class Htmlizer(object):
             entry, content)
 
         # handle autotags:
-        content = ''
-        if 'autotags' in list(entry.keys()):
-            for autotagkey in sorted(list(entry['autotags'].keys())):
-                content += self._replace_tag_placeholders([autotagkey + ":" + entry['autotags'][autotagkey]],
-                                                          self.template_definition_by_name('article-autotag'))
+        content = self._generate_auto_tag_list_items(entry)
         htmlcontent += self._replace_general_article_placeholders(
             entry, content)
 
@@ -1987,11 +2012,7 @@ class Htmlizer(object):
             entry, content)
 
         # handle autotags:
-        content = ''
-        if 'autotags' in list(entry.keys()):
-            for autotagkey in sorted(list(entry['autotags'].keys())):
-                content += self._replace_tag_placeholders([autotagkey + ":" + entry['autotags'][autotagkey]],
-                                                          self.template_definition_by_name('article-autotag'))
+        content = self._generate_auto_tag_list_items(entry)
         htmlcontent += self._replace_general_article_placeholders(
             entry, content)
 
