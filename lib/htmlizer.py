@@ -1,12 +1,12 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2019-10-18 19:53:54 vk>
+# Time-stamp: <2019-10-18 20:40:28 vk>
 
 import config  # lazyblorg-global settings
 import sys
 import logging
 import os
 from datetime import datetime
-from time import localtime, strftime
+from time import time, localtime, strftime
 import re  # RegEx: for parsing/sanitizing
 import codecs
 from lib.utils import Utils  # for guess_language_from_stopword_percentages()
@@ -198,6 +198,8 @@ class Htmlizer(object):
                 list_of_relevant_tags.remove(languagetag)
         # tags = list of lists with [tagname, count of tag usage, age in days of last usage]:
         tags = [[tag, len(self.dict_of_tags_with_ids[tag]), dummy_age] for tag in list_of_relevant_tags]
+
+        self.logging.info('• Generating articles …')
 
         entry_list_by_newest_timestamp, stats_generated_total, stats_generated_temporal, \
             stats_generated_persistent, stats_generated_tags = self._generate_pages_for_tags_persistent_temporal(tags)
@@ -2590,7 +2592,8 @@ class Htmlizer(object):
         Locates and parses the directory config.DIRECTORIES_WITH_IMAGE_ORIGINALS for filename index. Result is stored in self.filename_dict.
         """
 
-        self.logging.info('Building index of files …')
+        self.logging.info('• Building index of files …')
+        time_before = time()
         if (config.IMAGE_INCLUDE_METHOD == config.IMAGE_INCLUDE_METHOD_MEMACS or
             config.IMAGE_INCLUDE_METHOD == config.IMAGE_INCLUDE_METHOD_MEMACS_THEN_DIR):
 
@@ -2641,7 +2644,9 @@ class Htmlizer(object):
                         self.filename_dict[filename] = os.path.join(dirpath, filename)
                 index += 1
 
-        self.logging.debug('Index of filename dict holds ' + str(len(self.filename_dict)) + ' entries')
+        time_after = time()
+        self.logging.info('Built index built for ' + str(len(self.filename_dict)) +
+                          ' files (in %.2f seconds)' % (time_after - time_before))
 
     def current_entry_id_str(self):
         "returns a string representation of self.current_entry_id"

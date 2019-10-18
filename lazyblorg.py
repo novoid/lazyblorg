@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8; mode: python; -*-
-PROG_VERSION = "Time-stamp: <2019-10-18 19:22:23 vk>"
+PROG_VERSION = "Time-stamp: <2019-10-18 20:46:05 vk>"
 PROG_VERSION_DATE = PROG_VERSION[13:23]
 
 # TODO:
@@ -74,7 +74,7 @@ class Lazyblorg(object):
         options = self.options
         stats_parsed_org_files, stats_parsed_org_lines = 0, 0
 
-        logging.info("Parsing Org mode files …")
+        logging.info("• Parsing Org mode files …")
         for filename in options.orgfiles:
             new_org_lines = 0
             try:
@@ -109,7 +109,7 @@ class Lazyblorg(object):
             logging.debug(
                 "path of new_metadatafilename \"" +
                 options.new_metadatafilename +
-                "\" does not exist. Creating ...")
+                "\" does not exist. Creating …")
             os.makedirs(os.path.dirname(options.new_metadatafilename))
 
         # write this status to the persistent data file:
@@ -123,7 +123,7 @@ class Lazyblorg(object):
             logging.debug(
                 "reading old \"" +
                 options.previous_metadatafilename +
-                "\" ...")
+                "\" …")
             with open(options.previous_metadatafilename, 'rb') as input:
                 [self.previous_metadata,
                  self.entries_timeline_by_published] = pickle.load(input)
@@ -199,7 +199,7 @@ class Lazyblorg(object):
                 filename)
             return
 
-        self.logging.debug("Parsing \"%s\" ..." % filename)
+        self.logging.debug("Parsing \"%s\" …" % filename)
         parser = OrgParser(filename)
 
         return parser.parse_orgmode_file()
@@ -225,7 +225,7 @@ class Lazyblorg(object):
         """
 
         self.logging.debug(
-            'checking for basic template definitions in parsed data ...')
+            'checking for basic template definitions in parsed data …')
 
         # extract template_data from blog_data:
         template_data = [x for x in self.blog_data if x['id'] ==
@@ -325,7 +325,7 @@ class Lazyblorg(object):
         @param return: increment_version: a list of metadata-entries that can be marked with an increased update number
         """
 
-        self.logging.debug("compare_blog_metadata() called ...")
+        self.logging.debug("compare_blog_metadata() called …")
 
         generate = []
         marked_for_feed = []
@@ -526,7 +526,7 @@ if __name__ == "__main__":
             logging.debug(
                 "log file \"" +
                 options.logfilename +
-                "\" is not found. Initializing with heading ...")
+                "\" is not found. Initializing with heading …")
             with codecs.open(options.logfilename, 'w', encoding='utf-8') as outputhandle:
                 outputhandle.write(
                     "## -*- coding: utf-8 -*-\n" +
@@ -553,7 +553,7 @@ if __name__ == "__main__":
                 options.previous_metadatafilename +
                 "\" is not found. Assuming first run!")
 
-        logging.debug("extracting list of Org-mode files ...")
+        logging.debug("extracting list of Org-mode files …")
         logging.debug("len(orgfiles) [%s]" % str(len(options.orgfiles)))
         if len(options.orgfiles) < 1:
             logging.critical(
@@ -575,6 +575,15 @@ if __name__ == "__main__":
         # lazyblorg.parse_HTML_output_template_and_generate_template_definitions()
         generate, marked_for_feed, increment_version, stats_parsed_org_files, stats_parsed_org_lines = lazyblorg.determine_changes()
         time_after_parsing = time()
+        logging.info(
+            "Parsed " +
+            str(stats_parsed_org_files) +
+            " Org-mode files with " +
+            str(stats_parsed_org_lines) +
+            " lines (in %.2f seconds)" %
+            (time_after_parsing -
+             time_before_parsing))
+
         statistics_list = lazyblorg.generate_output(generate, marked_for_feed, increment_version)
         # following lines seem inefficient but it allows me to add statistics in htmlizer without referencing here:
         stats_generated_total = statistics_list[0]
@@ -587,14 +596,6 @@ if __name__ == "__main__":
         time_after_htmlizing = time()
 
         logging.info(
-            "Parsed " +
-            str(stats_parsed_org_files) +
-            " Org-mode files with " +
-            str(stats_parsed_org_lines) +
-            " lines (in %.2f seconds)" %
-            (time_after_parsing -
-             time_before_parsing))
-        logging.info(
             "Generated " +
             str(stats_generated_total) +
             " articles: " +
@@ -604,7 +605,7 @@ if __name__ == "__main__":
             " temporal, " +
             str(stats_generated_tags) +
             " tag-pages" +
-            ", the entry page, and also scaled " +
+            ", the entry page, and scaled " +
             str(stats_images_resized) +
             " images (in %.2f seconds)" %
             (time_after_htmlizing -
@@ -612,7 +613,7 @@ if __name__ == "__main__":
         logging.debug("Org mode snippets converted externally: " + str(stats_external_org_to_html5_conversion))
         logging.debug("LaTeX snippets converted externally:    " + str(stats_external_latex_to_html5_conversion))
 
-        logging.debug("-------------> cleaning up the stage ...")
+        logging.debug("-------------> cleaning up the stage …")
 
         logging.debug("successfully finished.")
 
