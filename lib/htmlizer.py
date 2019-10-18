@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2019-10-18 16:04:04 vk>
+# Time-stamp: <2019-10-18 16:32:19 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1082,28 +1082,31 @@ class Htmlizer(object):
         teaser_finished = False  # teaser is finished on first sub-heading or <hr>-element
 
         if self.autotag_language:
+
             if 'autotags' not in list(entry.keys()):
                 entry['autotags'] = {}
-            guessed_language_autotag = Utils.guess_language_from_stopword_percentages(
-                [entry['rawcontent']])
+
             usertag_overriding_language_set = set(self.defined_languages).intersection(entry['usertags'])
             language_is_within_usertags = len(usertag_overriding_language_set) == 1
 
             if language_is_within_usertags:
                 usertag_overriding_language = usertag_overriding_language_set.pop()
-                self.logging.debug('guessed_language_autotag "' + str(guessed_language_autotag) +
-                                   '" was overridden by a manual tag "' + str(usertag_overriding_language) + '"')
+                self.logging.debug('guessing the language auto-tag was overridden by a manual tag "' + str(usertag_overriding_language) + '"')
                 entry['autotags']['language'] = usertag_overriding_language  # set auto-tag
                 entry['usertags'].remove(usertag_overriding_language)  # remove manual language tag from usertags because it will be handled as auto-tag; FIXXME: as of 2019-10-17, this does not get re-propagated back to the "tags" variable
-            elif guessed_language_autotag:
-                entry['autotags']['language'] = guessed_language_autotag
             else:
-                # language could not be determined clearly and user
-                # did not override language tag:
-                self.logging.warning(self.current_entry_id_str() + "language of ID " +
-                                     str(entry['id']) +
-                                     " is not recognized clearly; using guessed_language_autotag \"unsure\"")
-                entry['autotags']['language'] = 'unsure'
+                guessed_language_autotag = Utils.guess_language_from_stopword_percentages(
+                    [entry['rawcontent']])
+
+                if guessed_language_autotag:
+                    entry['autotags']['language'] = guessed_language_autotag
+                else:
+                    # language could not be determined clearly and user
+                    # did not override language tag:
+                    self.logging.warning(self.current_entry_id_str() + "language of ID " +
+                                         str(entry['id']) +
+                                         " is not recognized clearly; using guessed_language_autotag \"unsure\"")
+                    entry['autotags']['language'] = 'unsure'
 
         # for element in entry['content']:
         for index in range(0, len(entry['content'])):
