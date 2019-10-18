@@ -214,8 +214,6 @@ class Htmlizer(object):
                 self.stats_external_org_to_html5_conversion,
                 self.stats_external_latex_to_html5_conversion]
 
-    stats_external_latex_to_html5_conversion = 0  # holds the number of invocations of external conversion tool (pypandoc so far)
-
     def _populate_backreferences(self, blog_data):
         """
         Traverses all blog articles and collects internal links as references to their corresponding link target.
