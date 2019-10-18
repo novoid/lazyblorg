@@ -11,6 +11,36 @@ CLOSED: [2016-11-06 Sun 17:40]
 This ought to be escaped & >printed< well.
 #+END_EXAMPLE
 
+-----------------
+
+[[https://github.com/novoid/lazyblorg/issues/6][Issue number 19]] deals with sanitizing of < and > within blocks.
+
+#+BEGIN_EXAMPLE
+This is <an> example block.
+#+END_EXAMPLE
+
+#+BEGIN_SRC sh
+Maybe <this> is not sanitized?
+#+END_SRC
+
+#+BEGIN_VERSE
+Maybe <this> is not sanitized?
+#+END_VERSE
+
+#+BEGIN_QUOTE
+Maybe <this> is not sanitized?
+#+END_QUOTE
+
+#+BEGIN_CENTER
+Maybe <this> is not sanitized?
+#+END_CENTER
+
+#+BEGIN_EXPORT html
+Maybe <this> should not be sanitized?
+#+END_EXPORT
+
+-----------------
+
 - Entry ending with a list which causes [[https://github.com/novoid/lazyblorg/issues/4][issue number 4]]
   - Another list item
 
