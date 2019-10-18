@@ -173,7 +173,7 @@ Here is [[id:2017-09-30-link-test][a self-reference]] which should not result in
 
 What about [[id:2016-10-31-an-hidden-blog-entry][a hidden entry]]?
 
-* DONE A Temporal Article With Links                                               :exampletag:blog:
+* DONE A Temporal Article With Links                                               :exampletag::blog:
 CLOSED: [2016-10-31 Mon 16:40]
 :PROPERTIES:
 :ID: 2016-10-31-my-temporal-article

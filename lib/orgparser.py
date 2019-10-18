@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2019-10-16 19:08:12 vk>
+# Time-stamp: <2019-10-18 16:58:47 vk>
 
 import config
 import re
@@ -276,7 +276,7 @@ class OrgParser(object):
         if not ":" + config.TAG_FOR_BLOG_ENTRY + ":" in tags.lower():
             return False
 
-        rawtags = tags[1:-1].split(':')
+        rawtags = tags[1:-1].replace('::', ':').split(':')
         for rawtag in rawtags:
             # separate lbtags from usertags:
             if rawtag.lower() == config.TAG_FOR_TAG_ENTRY or rawtag.lower() == config.TAG_FOR_PERSISTENT_ENTRY or \
