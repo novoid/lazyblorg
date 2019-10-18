@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2019-10-18 18:07:13 vk>
+# Time-stamp: <2019-10-18 19:53:54 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -404,14 +404,11 @@ class Htmlizer(object):
         if 'autotags' in list(entry.keys()):
             for autotagkey in sorted(list(entry['autotags'].keys())):
                 if autotagkey == 'language':
-                    # FIXXME: get rid of unused "article-preview-autotag" template?
-
                     htmlsnippet = self.template_definition_by_name('article-autotag-language').replace('#AUTOTAGLANGUAGELINK',
                                                                                                        '[[id:empty-language-autotag-page][language:' +
                                                                                                        entry['autotags'][autotagkey] + ']]')
                     # resolving id:empty-language-autotag-page to its HTML link:
-                    htmlsnippet = self.sanitize_internal_links(entry['category'],
-                                                               htmlsnippet,
+                    htmlsnippet = self.sanitize_internal_links(htmlsnippet,
                                                                keep_orgmode_format=False)
                     # dirty hack to insert CSS class to link:
                     htmlsnippet = htmlsnippet.replace('a href', 'a class="autotag" href')
@@ -420,7 +417,7 @@ class Htmlizer(object):
                     # never-reached place-holder until more auto-tags
                     # than just language are implemented
                     htmlsnippet = self._replace_tag_placeholders([autotagkey + ":" + entry['autotags'][autotagkey]],
-                                                                self.template_definition_by_name('article-autotag-generic'))
+                                                                 self.template_definition_by_name('article-autotag-generic'))
 
                 htmlcontent += htmlsnippet
 
@@ -474,8 +471,7 @@ class Htmlizer(object):
 
         htmlcontent += self._replace_general_article_placeholders(
             entry, content)
-        htmlcontent = self.sanitize_internal_links(
-            config.TEMPORAL, htmlcontent)
+        htmlcontent = self.sanitize_internal_links(htmlcontent)
 
         return htmlfilename, orgfilename, htmlcontent
 
@@ -830,8 +826,7 @@ class Htmlizer(object):
 
                 # replacing keywords:
 
-                content = self.sanitize_internal_links(
-                        entry['category'], content)
+                content = self.sanitize_internal_links(content)
                 content = content.replace(
                     '#ARTICLE-TITLE#',
                     self.sanitize_external_links(
@@ -900,8 +895,7 @@ class Htmlizer(object):
             '#TAGOVERVIEW-CLOUD#',
             self._generate_tag_cloud(tags))
 
-        htmlcontent = self.sanitize_internal_links(
-            config.ENTRYPAGE, htmlcontent)
+        htmlcontent = self.sanitize_internal_links(htmlcontent)
         self.write_content_to_file(entry_page_filename, htmlcontent)
 
         return
@@ -1003,7 +997,7 @@ class Htmlizer(object):
 
         htmlcontent = self._replace_general_blog_placeholders(htmlcontent)
 
-        htmlcontent = self.sanitize_internal_links(config.TAGOVERVIEWPAGE, htmlcontent)
+        htmlcontent = self.sanitize_internal_links(htmlcontent)
 
         self.write_content_to_file(tag_overview_filename, htmlcontent)
 
@@ -1099,7 +1093,7 @@ class Htmlizer(object):
         - [[id:foo]] -> see id:foo above
 
         @param entry: blog entry data
-        @param return: partially sanitized and completely htmlized entry['content']
+        @param return: entry containing partially sanitized and completely htmlized entry['content']
         """
 
         # debug:  [x[0] for x in entry['content']] -> which element types
@@ -1153,8 +1147,7 @@ class Htmlizer(object):
                 result = ' '.join(entry['content'][index][1:])
 
                 result = self.sanitize_html_characters(result)
-                result = self.sanitize_internal_links(
-                    entry['category'], result)
+                result = self.sanitize_internal_links(result)
                 result = self.sanitize_external_links(result)
                 result = self.htmlize_simple_text_formatting(result)
                 result = self.fix_ampersands_in_url(result)
@@ -1190,8 +1183,7 @@ class Htmlizer(object):
 
                 result = entry['content'][index][1]['title']
                 result = self.sanitize_html_characters(result)
-                result = self.sanitize_internal_links(
-                    entry['category'], result)
+                result = self.sanitize_internal_links(result)
                 result = self.sanitize_external_links(result)
                 result = self.htmlize_simple_text_formatting(result)
                 result = self.fix_ampersands_in_url(result)
@@ -1199,16 +1191,17 @@ class Htmlizer(object):
                     'section-begin').replace('#SECTION-TITLE#', result)
                 result = result.replace('#SECTION-LEVEL#', str(relative_level))
 
-            elif entry['content'][index][0] == 'list-itemize':
+            elif entry['content'][index][0] == 'DISABLEDlist':
+
+                # For now, let's use the fall-back of pandoc to render lists instead.
 
                 # example:
-                # FIXXME example for list-itemize
+                # FIXXME example for list
 
                 result = self.template_definition_by_name('ul-begin')
                 for listitem in entry['content'][index][1]:
                     content = self.sanitize_html_characters(listitem)
-                    content = self.sanitize_internal_links(
-                        entry['category'], content)
+                    content = self.sanitize_internal_links(content)
                     content = self.sanitize_external_links(content)
                     content = self.htmlize_simple_text_formatting(result)
                     content = self.fix_ampersands_in_url(content)
@@ -1272,9 +1265,7 @@ class Htmlizer(object):
                 if entry['content'][index][0] == 'verse-block':
                     mycontent = self.htmlize_simple_text_formatting(
                         self.sanitize_external_links(
-                            self.sanitize_internal_links(
-                                entry['category'],
-                                self.sanitize_html_characters(mycontent))))
+                            self.sanitize_internal_links(self.sanitize_html_characters(mycontent))))
 
                 if entry['content'][index][0] in ['example-block', 'colon-block']:
                     mycontent = self.sanitize_html_characters(mycontent)
@@ -1298,9 +1289,7 @@ class Htmlizer(object):
                 result += self.htmlize_simple_text_formatting(
                     self.sanitize_external_links(
                         self.sanitize_html_characters(mycontent)))
-                result = self.sanitize_internal_links(
-                    entry['category'], result).replace(
-                    '\n\n', '<br />\n')
+                result = self.sanitize_internal_links(result).replace('\n\n', '<br />\n')
                 result += self.template_definition_by_name('blockquote-end')
 
             elif entry['content'][index][0] == 'src-block':
@@ -1341,7 +1330,6 @@ class Htmlizer(object):
                 for tablerow in entry['content'][index][2]:
                     sanitized_lines.append(
                         self.sanitize_internal_links(
-                            entry['category'],
                             tablerow,
                             keep_orgmode_format=True))
                 result = self.convert_org_to_html5('\n'.join(sanitized_lines))
@@ -1504,13 +1492,24 @@ class Htmlizer(object):
                 for list_item in list_with_element_data:
                     sanitized_lines.append(
                         self.sanitize_internal_links(
-                            entry['category'],
                             list_item,
                             keep_orgmode_format=True))
                 if entry['content'][index][0] == 'latex-block':
                     result = self.convert_latex_to_html5('\n'.join(sanitized_lines))
                 else:
                     result = self.convert_org_to_html5('\n'.join(sanitized_lines))
+
+                # pandoc is converting
+                #   [[//Karl-Voit.at/foo][bar]]
+                # to
+                #   <a href="file:////Karl-Voit.at/foo">bar</a>
+                # which is wrong. This hack replaces occurrences of
+                # 'file:////Karl-Voit.at' with '//Karl-Voit.at' and
+                # fixes this issue, resulting in
+                #   <a href="//Karl-Voit.at/foo">bar</a>
+                # NOTE: if you can think of a cleaner way, let me know!
+                result = result.replace('file://' + config.BASE_URL, config.BASE_URL)
+
                 if result == '\n':
                     self.logging.warning(self.current_entry_id_str() + 'Block of type ' +
                                          {str(entry['content'][index][0])} +
@@ -1643,56 +1642,28 @@ class Htmlizer(object):
             '&mdash;',
             '&#8212;')
 
-    def generate_relative_url_from_sourcecategory_to_id(
-            self, sourcecategory, targetid):
+    def generate_absolute_url(self, targetid):
         """
-        returns a string containing a relative link from any article of same
-        category as sourcecategory to the page of targetid.
+        returns a string containing the absolutes link for any article ID.
 
-        @param sourcecategory: constant string determining type of source entry
         @param targetid: ID of blog_data entry
         @param return: string with relative URL
         """
 
         assert(isinstance(targetid, str))
 
-        url = ""
-
-        # build back-traverse URL
-        if sourcecategory == config.TEMPORAL:
-            url = "../../../../"
-        elif sourcecategory == config.PERSISTENT:
-            url = "../"
-        elif sourcecategory == config.TAGOVERVIEWPAGE:
-            url = "../"
-        elif sourcecategory == config.TAGS:
-            url = "../../"
-        elif sourcecategory == config.ENTRYPAGE:
-            url = ""
-        else:
-            message = self.current_entry_id_str() + "generate_relative_url_from_sourcecategory_to_id() found an unknown sourcecategory [" + \
-                      str(sourcecategory) + "]"
-            self.logging.critical(message)
-            raise HtmlizerException(self.current_entry_id, message)
-
-        #url = config.BASE_URL
-
         url_for_the_target_id = self._target_path_for_id_without_targetdir(targetid)
         if url_for_the_target_id is None:
             return False
-        url += url_for_the_target_id
-
-        return url
+        return config.BASE_URL + '/' + url_for_the_target_id
 
     def sanitize_internal_links(
             self,
-            sourcecategory,
             content,
             keep_orgmode_format=False):
         """
         Replaces all internal Org-mode links of type [[id:foo]] or [[id:foo][bar baz]].
 
-        @param sourcecategory: constant string determining type of current entry
         @param content: string containing the Org-mode content
         @param keep_orgmode_format: boolean: if True, return Org-mode format instead of HTML format
         @param return: sanitized string (or False if the targetid could not be found)
@@ -1709,8 +1680,7 @@ class Htmlizer(object):
             for currentmatch in allmatches:
                 internal_link = currentmatch[0]
                 targetid = currentmatch[1]
-                url = self.generate_relative_url_from_sourcecategory_to_id(
-                    sourcecategory, targetid)
+                url = self.generate_absolute_url(targetid)
                 if type(url) != str:
                     return False
                 if keep_orgmode_format:
@@ -1726,8 +1696,7 @@ class Htmlizer(object):
                 internal_link = currentmatch[0]
                 targetid = currentmatch[1]
                 description = currentmatch[2]
-                url = self.generate_relative_url_from_sourcecategory_to_id(
-                    sourcecategory, targetid)
+                url = self.generate_absolute_url(targetid)
                 if type(url) != str:
                     return False
                 if keep_orgmode_format:
@@ -1888,7 +1857,6 @@ class Htmlizer(object):
                         # translate the reference link to its HTML
                         # link:
                         sanitized_content = self.sanitize_internal_links(
-                            sourcecategory,
                             self.template_definition_by_name('backreference-item').replace('#REFERENCE#',
                                                                                            '[[id:' +
                                                                                            back_reference_id +
@@ -1981,8 +1949,7 @@ class Htmlizer(object):
         content += self.template_definition_by_name('article-footer')
         htmlcontent += self._replace_general_article_placeholders(
             entry, content)
-        htmlcontent = self.sanitize_internal_links(
-            config.TEMPORAL, htmlcontent)
+        htmlcontent = self.sanitize_internal_links(htmlcontent)
 
         return htmlfilename, orgfilename, htmlcontent
 
@@ -2005,7 +1972,7 @@ class Htmlizer(object):
             'persistent-header-begin',
                 'article-tags-begin']:
             content += self.template_definition_by_name(articlepart)
-        # htmlcontent = self.sanitize_internal_links(entry['category'], htmlcontent)
+
         content += self._replace_tag_placeholders(
             sorted(entry['usertags']), self.template_definition_by_name('article-usertag'))
         htmlcontent += self._replace_general_article_placeholders(
@@ -2033,8 +2000,7 @@ class Htmlizer(object):
 
         htmlcontent += self._replace_general_article_placeholders(
             entry, content)
-        htmlcontent = self.sanitize_internal_links(
-            config.PERSISTENT, htmlcontent)
+        htmlcontent = self.sanitize_internal_links(htmlcontent)
 
         return htmlfilename, orgfilename, htmlcontent
 
@@ -2243,7 +2209,6 @@ class Htmlizer(object):
                 2)]) + 'T' + str(hours).zfill(2) + ':' + str(minutes).zfill(2)
 
             content += self.sanitize_internal_links(
-                config.TAGS,
                 '  <li> <span class=\'timestamp\'>' +
                 iso_timestamp +
                 '</span> [[id:' +
@@ -2626,7 +2591,7 @@ class Htmlizer(object):
         """
 
         self.logging.info('Building index of files …')
-        if (config.IMAGE_INCLUDE_METHOD == config.IMAGE_INCLUDE_METHOD_MEMACS or \
+        if (config.IMAGE_INCLUDE_METHOD == config.IMAGE_INCLUDE_METHOD_MEMACS or
             config.IMAGE_INCLUDE_METHOD == config.IMAGE_INCLUDE_METHOD_MEMACS_THEN_DIR):
 
             assert(os.path.isfile(config.MEMACS_FILE_WITH_IMAGE_FILE_INDEX))
@@ -2643,13 +2608,13 @@ class Htmlizer(object):
                     if components:
                         path, filename = components.groups()
                         # FIXXME: *no* check for double entries in the Memacs file because next line is *very* slow:
-                        #if filename in self.filename_dict.keys():
-                        #    # there is already an entry for the filename
-                        #    multiple_entries += 1
-                        #    message = u'The Memacs file \"' + filename + '\" appears multiple times: ' + path + ' AND ' + self.filename_dict[filename]
-                        #    #self.logging.warning(message)
-                        #else:
-                            # append entry to dict
+                        # if filename in self.filename_dict.keys():
+                        #     # there is already an entry for the filename
+                        #     multiple_entries += 1
+                        #     message = u'The Memacs file \"' + filename + '\" appears multiple times: ' + path + ' AND ' + self.filename_dict[filename]
+                        #     #self.logging.warning(message)
+                        # else:
+                        #     append entry to dict
                         self.filename_dict[filename] = path
 
         if config.IMAGE_INCLUDE_METHOD == config.IMAGE_INCLUDE_METHOD_MEMACS_THEN_DIR or \

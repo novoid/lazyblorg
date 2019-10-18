@@ -416,16 +416,6 @@ With name/label:
 
 #+END_EXPORT
 
-As long as lazyblorg does not support tag pages for autotag: use
-placeholder article which is defined in this file (below).
-
-#+NAME: article-preview-autotag
-#+BEGIN_EXPORT HTML
-                <li><a class="autotag" href="#BASE-URL#/2016/11/16/empty-language-autotag-page/">#TAGNAME#</a></li>
-
-#+END_EXPORT
-
-
 #+NAME: article-preview-tags-end
 #+BEGIN_EXPORT HTML
 

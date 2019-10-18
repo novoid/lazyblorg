@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8; mode: python; -*-
-PROG_VERSION = "Time-stamp: <2019-10-18 17:40:01 vk>"
+PROG_VERSION = "Time-stamp: <2019-10-18 19:22:23 vk>"
 PROG_VERSION_DATE = PROG_VERSION[13:23]
 
 # TODO:
@@ -269,7 +269,6 @@ class Lazyblorg(object):
                 'article-preview-begin',
                 'article-preview-tags-begin',
                 'article-preview-usertag',
-                'article-preview-autotag',
                 'article-preview-tags-end',
                 'article-preview-more',
                 'article-preview-end',
