@@ -7,7 +7,7 @@
   <id>http://Karl-Voit.at/</id>
   <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2019-10-18T19:17:58+01:00</updated>
+  <updated>2019-10-18T20:11:20+01:00</updated>
   <author>
     <name>Karl Voit</name>
   </author>
@@ -246,6 +246,13 @@ Being curious how this is going to work out.
 	  <div class="example_code">
 	  <pre>This ought to be escaped &amp; &gt;printed&lt; well.	  </pre>
     </div>
+
+<ul>
+<li>Entry ending with a list which causes <a href="https://github.com/novoid/lazyblorg/issues/4">issue number 4</a>
+<ul>
+<li>Another list item</li>
+</ul></li>
+</ul>
 </div>
     </summary>
     <id>http://Karl-Voit.at/2016/11/06/sanitization-examples-from-feed-with-teaser</id>

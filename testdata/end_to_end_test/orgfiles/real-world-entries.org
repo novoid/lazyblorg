@@ -59,6 +59,14 @@ CLOSED: [2016-11-06 Sun 17:40]
 This ought to be escaped & >printed< well.
 #+END_EXAMPLE
 
+- Entry ending with a list which causes [[https://github.com/novoid/lazyblorg/issues/4][issue number 4]]
+  - Another list item
+
+-----------
+
+1. Using an enumerated list
+2. Ending this article ~that~ way!
+
 ** DONE Special Characters and Language Tag Override                        :blog:lazyblorg:deutsch:
 CLOSED: [2016-11-27 Sun 15:00]
 :PROPERTIES:
