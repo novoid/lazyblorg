@@ -7,7 +7,7 @@
   <id>http://Karl-Voit.at/</id>
   <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2019-10-16T21:33:32+01:00</updated>
+  <updated>2019-10-18T15:38:48+01:00</updated>
   <author>
     <name>Karl Voit</name>
   </author>
@@ -48,22 +48,22 @@
 </entry>
 <!-- ############################################################################################# -->
 <entry>
-    <title type="text">image test</title>
+    <title type="text">Image Test and Language Tag Override</title>
     <link href='http://Karl-Voit.at/2016/11/27/image-test' />
     <published>2016-11-27T15:01:00+01:00</published>
     <updated>2016-11-27T15:01:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:deutsch' />
     <id>http://Karl-Voit.at/2016/11/27/image-test-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
-    <title type="text">Special Characters</title>
+    <title type="text">Special Characters and Language Tag Override</title>
     <link href='http://Karl-Voit.at/2016/11/27/special-characters' />
     <published>2016-11-27T15:00:00+01:00</published>
     <updated>2016-11-27T15:00:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:deutsch' />
     <id>http://Karl-Voit.at/2016/11/27/special-characters-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->

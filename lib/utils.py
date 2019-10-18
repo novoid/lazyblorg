@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2018-09-23 13:48:17 vk>
+# Time-stamp: <2019-10-16 21:53:51 vk>
 
 import config
 from sys import stdout, exit
@@ -636,7 +636,10 @@ class Utils(object):
 
         # this does not make sense for only one language
         assert(len(Utils.STOPWORDS) > 1)
-        assert(len(Utils.STOPWORDS[0]) == 2)  # just test first language
+
+        # make sure that each STOPWORD entry has 2 list items
+        # DISABLED for performance reasons # for itemlength in [len(x) for x in Utils.STOPWORDS]:
+        # DISABLED for performance reasons #     assert(itemlength == 2)
 
         # combine list of strings and split on whitespaces:
         textlist = " ".join(textlist).split()

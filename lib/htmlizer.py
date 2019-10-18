@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2019-10-16 21:33:07 vk>
+# Time-stamp: <2019-10-18 16:04:04 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -125,6 +125,8 @@ class Htmlizer(object):
     LINKS_AND_TEASER_FEED_POSTFIX = ".atom_1.0.links-and-teaser.xml"
     LINKS_AND_CONTENT_FEED_POSTFIX = ".atom_1.0.links-and-content.xml"
 
+    defined_languages = [x[0] for x in Utils.STOPWORDS]
+
     def __init__(
             self,
             template_definitions,
@@ -187,8 +189,15 @@ class Htmlizer(object):
             self.blog_data)
 
         dummy_age = 0  # FIXXME: replace with age in days since last usage
+        list_of_relevant_tags = list(self.dict_of_tags_with_ids.keys())
+        for languagetag in self.defined_languages:  # may be more
+            # elegant to use sets? remove language tags that override
+            # language auto-tags: they should not be listed somewhere
+            # except in auto-tags
+            if languagetag in list_of_relevant_tags:
+                list_of_relevant_tags.remove(languagetag)
         # tags = list of lists with [tagname, count of tag usage, age in days of last usage]:
-        tags = [[tag, len(self.dict_of_tags_with_ids[tag]), dummy_age] for tag in list(self.dict_of_tags_with_ids.keys())]
+        tags = [[tag, len(self.dict_of_tags_with_ids[tag]), dummy_age] for tag in list_of_relevant_tags]
 
         entry_list_by_newest_timestamp, stats_generated_total, stats_generated_temporal, \
             stats_generated_persistent, stats_generated_tags = self._generate_pages_for_tags_persistent_temporal(tags)
@@ -1075,15 +1084,25 @@ class Htmlizer(object):
         if self.autotag_language:
             if 'autotags' not in list(entry.keys()):
                 entry['autotags'] = {}
-            autotag = Utils.guess_language_from_stopword_percentages(
+            guessed_language_autotag = Utils.guess_language_from_stopword_percentages(
                 [entry['rawcontent']])
-            if autotag:
-                entry['autotags']['language'] = autotag
+            usertag_overriding_language_set = set(self.defined_languages).intersection(entry['usertags'])
+            language_is_within_usertags = len(usertag_overriding_language_set) == 1
+
+            if language_is_within_usertags:
+                usertag_overriding_language = usertag_overriding_language_set.pop()
+                self.logging.debug('guessed_language_autotag "' + str(guessed_language_autotag) +
+                                   '" was overridden by a manual tag "' + str(usertag_overriding_language) + '"')
+                entry['autotags']['language'] = usertag_overriding_language  # set auto-tag
+                entry['usertags'].remove(usertag_overriding_language)  # remove manual language tag from usertags because it will be handled as auto-tag; FIXXME: as of 2019-10-17, this does not get re-propagated back to the "tags" variable
+            elif guessed_language_autotag:
+                entry['autotags']['language'] = guessed_language_autotag
             else:
-                # language could not be determined clearly:
+                # language could not be determined clearly and user
+                # did not override language tag:
                 self.logging.warning(self.current_entry_id_str() + "language of ID " +
                                      str(entry['id']) +
-                                     " is not recognized clearly; using autotag \"unsure\"")
+                                     " is not recognized clearly; using guessed_language_autotag \"unsure\"")
                 entry['autotags']['language'] = 'unsure'
 
         # for element in entry['content']:
@@ -1408,7 +1427,7 @@ class Htmlizer(object):
                        attributes['linked-image-width'] != 'none' and \
                        'autotags' in entry.keys() and \
                        'language' in entry['autotags'].keys() and \
-                       entry['autotags']['language'] in [x[0] for x in Utils.STOPWORDS] and \
+                       entry['autotags']['language'] in self.defined_languages and \
                        entry['autotags']['language'] in config.CLUE_TEXT_FOR_LINKED_IMAGES.keys():
                         result += ' <a class="figcaption-clue-link" href="' + linked_image_filename + '">'
                         result += config.CLUE_TEXT_FOR_LINKED_IMAGES[entry['autotags']['language']]
@@ -2149,7 +2168,8 @@ class Htmlizer(object):
         tag_occurrence_list = []
 
         for tag in self.dict_of_tags_with_ids:
-            if tag not in config.IGNORE_FOR_TOP_TAGS:
+            if tag not in config.IGNORE_FOR_TOP_TAGS and \
+               tag not in self.defined_languages:  # if user overrides language autotag manually, ignore it here
                 tag_occurrence_list.append((tag, len(self.dict_of_tags_with_ids[tag])))
 
         top_tag_list = sorted(
