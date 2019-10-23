@@ -107,13 +107,17 @@ programmer can add a couple of ~os.path.thisorthat()~ here and there
 and it should be good to go. Please consider sending a pull-request if
 you are fixing this issue. Thanks!
 
-** Version
+** Version and Changelog
 :PROPERTIES:
 :CREATED:  [2014-03-14 Fr 13:28]
 :END:
 
-Currently (2017-06-17), I consider lazyblorg in beta-status with
-version 0.95 or so.
+Currently (2019-10-23), I consider lazyblorg in beta-status with
+version 0.96 or so.
+
+I don't maintain a specific changelog. However, when there are
+substantial changes to lazyblorg, you will find [[https://karl-voit.at/tags/lazyblorg/][a blog article tagged
+with "lazyblorg"]]. Use an RSS/Atom aggregator to follow the blog.
 
 ** Why lazyblorg?
 
