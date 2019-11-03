@@ -1,4 +1,4 @@
-orgformat
+orgformat>=2019.11.3.2
 opencv-python
 werkzeug
 pypandoc
