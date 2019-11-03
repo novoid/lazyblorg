@@ -25,3 +25,6 @@ public-voit_-_make_and_publish_-_omit_single_line_changes_to_feeds_WITHOUT_TESTS
 /simple_org_-_lastrun.pk
 testdata/imagecache
 .pytest_cache/
+venv/
+run_all_unit_tests.sh
+simple_org_-_lastrun_OLD.pk
