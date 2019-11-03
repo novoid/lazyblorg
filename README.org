@@ -337,6 +337,9 @@ This is a list of the most important dependencies:
   - lazyblorg scales embedded images according to the HTML export attributes
   - Install using =sudo apt-get install python3-opencv=
 - [[http://sass-lang.com/][Sass]] (optional) if you want to generate your CSS from the scss-file
+- [[https://github.com/novoid/orgformat][orgformat]]
+  - This is my library that provides basic utility functions when
+    working with Org mode strings
 
 All other libraries should be part of a standard Python distribution.
 
