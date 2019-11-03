@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8; mode: python; -*-
 
-import config
+from config import *
 import unittest
 from lib.htmlizer import *
 from lib.utils import *

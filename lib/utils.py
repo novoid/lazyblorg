@@ -1,15 +1,16 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2019-10-16 21:53:51 vk>
+# Time-stamp: <2019-11-03 19:36:16 vk>
 
 import config
 from sys import stdout, exit
 import logging
 from hashlib import md5  # generating checksums
 from time import localtime  # for generating Org-mode timestamps
-from .orgformat import *
+from orgformat import *
 from operator import itemgetter  # for sorted()
 import datetime
 import os
+import re
 
 class Utils(object):
     """

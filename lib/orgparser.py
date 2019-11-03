@@ -1,12 +1,13 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2019-10-18 16:58:47 vk>
+# Time-stamp: <2019-11-03 19:36:53 vk>
 
 import config
 import re
 from os import path
 import codecs  # open, close with Unicode
 import logging
-from .orgformat import *
+import datetime
+from orgformat import *
 
 # NOTE: pdb hides private variables as well. Please use:
 # data = self._OrgParser__entry_data ; data['content']

@@ -1,8 +1,5 @@
-pickle
-shutil
+orgformat
 opencv-python
 werkzeug
 pypandoc
-calendar
 hashlib
-operator
