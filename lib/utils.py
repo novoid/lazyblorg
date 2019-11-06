@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2019-11-03 19:36:16 vk>
+# Time-stamp: <2019-11-06 15:13:49 vk>
 
 import config
 from sys import stdout, exit
@@ -176,7 +176,7 @@ class Utils(object):
         logger.debug("appending to Org-mode log-file %s" % (filename))
 
         with open(filename, 'a') as outputhandle:
-            datetimestamp = OrgFormat.datetime(localtime())
+            datetimestamp = OrgFormat.date(localtime(), show_time=True)
     # add daily repeating that user gets it on agenda also on following days:
             datetimestamp = datetimestamp[:-1] + ' +1d>'
 
