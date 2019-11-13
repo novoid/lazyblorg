@@ -78,7 +78,7 @@ Have fun with modifying lazyblorg to your requirements!
      <ul>
      <li><a href="#BASE-URL#">Recent articles</a></li>
      <li>[[id:#ABOUT-PAGE-ID#][About this blog]]</li>
-     <li>[[id:2017-01-03-how-to-use-public-voit][How to use this blog efficiently]]</li>
+     <li>[[id:#HOWTO-PAGE-ID#][How to use this blog efficiently]]</li>
      <li><img src="#BASE-URL#/images/feed-icon-14x14.png" alt="RSS icon" />&nbsp;Subscribe to one of my feeds:</li>
          <ul>
          <li><span style="font-size:small"><a href="#BASE-URL#/feeds/lazyblorg-all.atom_1.0.links-only.xml">links only feed</a> (most reliable)</span></li>

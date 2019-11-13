@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2019-10-18 20:40:28 vk>
+# Time-stamp: <2019-11-13 18:21:35 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -2081,6 +2081,7 @@ class Htmlizer(object):
         content = content.replace('#BLOG-LOGO#', config.BLOG_LOGO)
         content = content.replace('#DISQUS-NAME#', config.DISQUS_NAME)
         content = content.replace('#ABOUT-PAGE-ID#', config.ID_OF_ABOUT_PAGE)
+        content = content.replace('#HOWTO-PAGE-ID#', config.ID_OF_HOWTO_PAGE)
         content = content.replace('#COMMENT-EMAIL-ADDRESS#', config.COMMENT_EMAIL_ADDRESS)
         content = content.replace('#TWITTER-HANDLE#', config.TWITTER_HANDLE)
         content = content.replace('#TWITTER-IMAGE#', config.TWITTER_IMAGE)
