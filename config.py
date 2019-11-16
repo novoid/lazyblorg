@@ -151,9 +151,6 @@ assert(NUMBER_OF_TEASER_ARTICLES > -1)
 assert(type(NUMBER_OF_FEED_ARTICLES) == int)
 assert(NUMBER_OF_FEED_ARTICLES > -1)
 
-assert(len(ID_OF_ABOUT_PAGE) > 0)
-assert(len(ID_OF_HOWTO_PAGE) > 0)
-
 import re
 assert(re.match(r'(\+|-)[01][0123456789]:[012345][0123456789]', TIME_ZONE_ADDON))
 
