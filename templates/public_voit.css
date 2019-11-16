@@ -405,6 +405,9 @@ blockquote {
   background-color: #fff;
   padding: 5px;
   border: 1px solid #e0e0e0;
+  border-radius: 3px;
+  border-style: solid none solid solid;
+  /* top right bottom left */
   font-size: 14px;
   font-family: "courier new"; }
 
@@ -433,6 +436,10 @@ blockquote {
 
 figcaption {
   font-size: 80%;
+  font-style: italic; }
+
+.figcaption-clue-link {
+  font-size: 60%;
   font-style: italic; }
 
 .email-comment {

@@ -454,6 +454,8 @@ blockquote {
     background-color: $white;
     padding: 5px;
     border: 1px solid $lightgray;
+    border-radius: 3px;
+    border-style: solid none solid solid; /* top right bottom left */
     font-size: 14px;
     font-family: "courier new";
 }
