@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2019-11-13 18:21:35 vk>
+# Time-stamp: <2019-12-11 23:39:57 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -2646,7 +2646,7 @@ class Htmlizer(object):
                 index += 1
 
         time_after = time()
-        self.logging.info('Built index built for ' + str(len(self.filename_dict)) +
+        self.logging.info('Built index for ' + str(len(self.filename_dict)) +
                           ' files (in %.2f seconds)' % (time_after - time_before))
 
     def current_entry_id_str(self):
