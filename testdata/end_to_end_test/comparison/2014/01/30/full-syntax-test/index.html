@@ -472,69 +472,13 @@ else:
     print "there is something phishy around here."	  </pre>
     </div>
 
-	  <header><h2 class="section-title">Deprecated LATEX-blocks</h2></header>
-
-<p>
-
-Previous to Org mode version 8, LaTeX blocks could be defined like:
-
-</p>
-<p>This is a mixed case LaTeX block without a name. Indented line.</p>
-<p>Another paragraph.</p>
-<p>Mathematical expression: <span class="math inline">$42 * 7 = \frac{c}{45x}$</span></p>
-<table>
-<caption>This is the caption<span data-label="tab:mylatextable"></span></caption>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">This is the first column</td>
-<td style="text-align: center;">This is the second</td>
-<td style="text-align: right;">This is the third</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">foo</td>
-<td style="text-align: center;">bar</td>
-<td style="text-align: right;">baz</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">1</td>
-<td style="text-align: center;">2</td>
-<td style="text-align: right;">3</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><p>First item</p></li>
-<li><p>Second item</p>
-<ol>
-<li><p>First enumerate</p></li>
-<li><p>Second enumerate</p></li>
-</ol></li>
-<li><p>Last</p></li>
-</ul>
-<pre><code>This is verbatim.
-   Second line.
-
-   Third line.</code></pre>
-<blockquote>
-<p>This is verse. Second line.</p>
-<p>Third line.</p>
-</blockquote>
-<blockquote>
-<p>This is qote. Second line.</p>
-<p>Third line.</p>
-</blockquote>
-<p><br /><span class="math display">$$\begin{aligned}
-  \label{eq:my-eqn-array}
-  x^2_\text{eff} = \frac{\text{result}}{42*23/7}\end{aligned}$$</span><br /></p>
-<p>This is an UPPER case LaTeX block without a name.</p>
-<p>This is a lower case LaTeX block without a name.</p>
-
 	  <header><h2 class="section-title">LaTeX-blocks</h2></header>
 <p>This is a mixed case LaTeX block without a name. Indented line.</p>
 <p>Another paragraph.</p>
 <p>Mathematical expression: <span class="math inline">$42 * 7 = \frac{c}{45x}$</span></p>
+
 <table>
-<caption>This is the caption<span data-label="tab:mylatextable"></span></caption>
+<caption>This is the caption<span label="tab:mylatextable"></span></caption>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">This is the first column</td>
