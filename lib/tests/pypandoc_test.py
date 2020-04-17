@@ -92,11 +92,11 @@ comment
 #+END_COMMENT
 
 - not (yet) working and edge cases:
-  - /*combination*/
-  - */combination/*
-  - _*combination*_
-  - *_combination_*
-  - =*combination*=
+  - /*combination italic bold*/
+  - */combination bold italic/*
+  - _*combination underline bold*_
+  - *_combination bold underline_*
+  - =*combination bold code*=
   - ~C:\a\very\old\DOS\path~
   - http://orgmode.org
   - [[http://orgmode.org][orgmode-Homepage]]
@@ -107,7 +107,7 @@ comment
 <ul>
 <li><strong>bold</strong></li>
 <li><em>italic</em></li>
-<li><strong>underline</strong></li>
+<li><span class="underline">underline</span></li>
 <li><del>strike through</del></li>
 <li><code>code</code></li>
 <li><p><code>commands</code></p></li>
@@ -118,11 +118,11 @@ comment
 <ul>
 <li>not (yet) working and edge cases:
 <ul>
-<li><em><strong>combination</strong></em></li>
-<li><strong><em>combination</em></strong></li>
-<li><strong><strong>combination</strong></strong></li>
-<li><strong><strong>combination</strong></strong></li>
-<li><code>*combination*</code></li>
+<li><em><strong>combination italic bold</strong></em></li>
+<li><strong><em>combination bold italic</em></strong></li>
+<li><span class="underline"><strong>combination underline bold</strong></span></li>
+<li><strong><span class="underline">combination bold underline</span></strong></li>
+<li><code>*combination bold code*</code></li>
 <li><code>C:\x07\x0bery\\old\\DOS\\path</code></li>
 <li><a href="http://orgmode.org" class="uri">http://orgmode.org</a></li>
 <li><a href="http://orgmode.org">orgmode-Homepage</a></li>
