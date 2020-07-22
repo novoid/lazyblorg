@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2019-12-11 23:39:57 vk>
+# Time-stamp: <2020-07-22 21:41:02 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -256,19 +256,20 @@ class Htmlizer(object):
                 # disk. Therefore, I can not do this for now because I
                 # need to locate all references before any file gets
                 # written to disk.
-                simple_links = re.findall(self.ID_SIMPLE_LINK_REGEX, str(content_item))
-                described_links = re.findall(self.ID_DESCRIBED_LINK_REGEX, str(content_item))
+                if content_item[0] not in ('colon-block', 'example-block'):
+                    simple_links = re.findall(self.ID_SIMPLE_LINK_REGEX, str(content_item))
+                    described_links = re.findall(self.ID_DESCRIBED_LINK_REGEX, str(content_item))
 
-                if simple_links:
-                    for link in simple_links:
-                        # Omit links to itself:
-                        if link != backreference_target:
-                            link_targets.add(link[1])
-                if described_links:
-                    for link in described_links:
-                        # Omit links to itself:
-                        if link != backreference_target:
-                            link_targets.add(link[1])
+                    if simple_links:
+                        for link in simple_links:
+                            # Omit links to itself:
+                            if link != backreference_target:
+                                link_targets.add(link[1])
+                    if described_links:
+                        for link in described_links:
+                            # Omit links to itself:
+                            if link != backreference_target:
+                                link_targets.add(link[1])
 
             # If any internal links were found, append a back-link to
             # the current ID to their blog_data list item:
@@ -1680,6 +1681,13 @@ class Htmlizer(object):
             #               [(u'[[id:2014-03-02-my-temporal]]', u'2014-03-02-my-temporal'), \
             #                (u'[[id:2015-03-02-my-additional-temporal]]', u'2015-03-02-my-additional-temporal')]
             for currentmatch in allmatches:
+                ## internal links that contain "ignoreme" will be
+                ## ignored. This is the only way I can think of for
+                ## providing the ability to add demo links to
+                ## colon-blocks and so forth.
+                if 'ignoreme' in currentmatch[1]:
+                    continue
+                    
                 internal_link = currentmatch[0]
                 targetid = currentmatch[1]
                 url = self.generate_absolute_url(targetid)
@@ -1695,6 +1703,13 @@ class Htmlizer(object):
         allmatches = re.findall(self.ID_DESCRIBED_LINK_REGEX, content)
         if allmatches != []:
             for currentmatch in allmatches:
+                ## internal links that contain "ignoreme" will be
+                ## ignored. This is the only way I can think of for
+                ## providing the ability to add demo links to
+                ## colon-blocks and so forth.
+                if 'ignoreme' in currentmatch[1]:
+                    continue
+                
                 internal_link = currentmatch[0]
                 targetid = currentmatch[1]
                 description = currentmatch[2]
