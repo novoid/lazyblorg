@@ -1,0 +1,13 @@
+** DONE Heading which starts with a list                                                      :blog:
+CLOSED: [2020-10-02 Fri 19:03]
+:PROPERTIES:
+:CREATED:  [2020-10-02 Fri 19:02]
+:ID:       2020-10-02-Heading-which-starts-with-a-list
+:END:
+:LOGBOOK:
+- State "DONE"       from              [2020-10-02 Fri 19:03]
+:END:
+
+- this is a list with some text
+  - another item in the list
+
