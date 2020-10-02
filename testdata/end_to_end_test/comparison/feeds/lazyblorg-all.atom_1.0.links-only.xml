@@ -7,13 +7,22 @@
   <id>http://Karl-Voit.at/</id>
   <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2020-04-17T18:55:35+01:00</updated>
+  <updated>2020-10-02T19:29:42+01:00</updated>
   <author>
     <name>Karl Voit</name>
   </author>
   <subtitle type="text">public voit</subtitle>
   <rights>All content written by Karl Voit</rights>
   <generator uri='https://github.com/novoid/lazyblorg'>Generated from Org-mode source code using lazyblorg which is written in Python. Industrial-strength technology, baby.</generator>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">Heading which starts with a list</title>
+    <link href='http://Karl-Voit.at/2020/10/02/Heading-which-starts-with-a-list' />
+    <published>2020-10-02T19:03:00+01:00</published>
+    <updated>2020-10-02T19:03:00+01:00</updated>
+    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <id>http://Karl-Voit.at/2020/10/02/Heading-which-starts-with-a-list-from-feed-with-links</id>
+</entry>
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">Links test</title>
@@ -245,13 +254,4 @@
     <updated>1985-01-01T15:05:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
     <id>http://Karl-Voit.at/1985/01/01/old-entry5-from-feed-with-links</id>
-</entry>
-<!-- ############################################################################################# -->
-<entry>
-    <title type="text">old blog entry4</title>
-    <link href='http://Karl-Voit.at/1985/01/01/old-entry4' />
-    <published>1985-01-01T15:04:00+01:00</published>
-    <updated>1985-01-01T15:04:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/1985/01/01/old-entry4-from-feed-with-links</id>
 </entry></feed>
