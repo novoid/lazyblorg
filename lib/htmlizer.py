@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2020-10-03 16:45:42 vk>
+# Time-stamp: <2020-10-03 19:25:09 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -452,104 +452,6 @@ class Htmlizer(object):
                 htmlcontent += htmlsnippet
 
         return htmlcontent
-
-    def _generate_tag_page(self, entry):
-        """
-        Creates a blog article for a tag (in contrast to a temporal or persistent blog article).
-
-        @param entry: blog entry data
-        @param return: htmlfilename: string containing the file name of the HTML file
-        @param return: orgfilename: string containing the file name of the Org-mode raw content file
-        @param return: htmlcontent: the HTML content of the entry
-        """
-
-        logging.debug(self.current_entry_id_str() + '_generate_tag_page(' + str(entry) + ')')
-        tag = entry['title']
-        self.list_of_tag_pages_generated.append(tag)
-
-        orgfilename, htmlfilename = self._create_path_and_generate_filenames_and_copy_images(entry)
-        htmlcontent = ''
-
-        content = ''
-        for articlepart in [
-            'tagpage-header',
-            'tagpage-header-begin',
-                'tagpage-tags-begin']:
-            content += self.template_definition_by_name(articlepart)
-        htmlcontent += self._replace_general_article_placeholders(
-            entry, content)
-
-        # handle autotags:
-        content = self._generate_auto_tag_list_items(entry)
-        htmlcontent += self._replace_general_article_placeholders(
-            entry, content)
-
-        content = ''
-        for articlepart in ['tagpage-tags-end', 'tagpage-header-end']:
-            content += self.template_definition_by_name(articlepart)
-        htmlcontent += self._replace_general_article_placeholders(
-            entry, content)
-
-        htmlcontent += self.__collect_raw_content(entry['content'])
-
-        content = ''
-        content += self.template_definition_by_name('tagpage-end')
-
-        content += self._generate_back_references_content(entry, config.TEMPORAL)
-
-        content += self.template_definition_by_name('article-footer')
-
-        htmlcontent += self._replace_general_article_placeholders(
-            entry, content)
-        htmlcontent = self.sanitize_internal_links(htmlcontent)
-        htmlcontent = self._insert_reading_minutes_if_found(entry, htmlcontent)
-
-        return htmlfilename, orgfilename, htmlcontent
-
-    def _generate_tag_pages_which_got_no_userdefined_tag_page(self):
-        """
-        For all tag pages where the user did not define a tag page entry
-        by him/herself, create a tag page with no specific content but
-        the list of entries related to the tag.
-        """
-
-        count = 0
-        set_of_all_tags = set()
-
-        # collect list of all tags (from blog_data)
-        for entry in self.blog_data:
-            if config.TAG_FOR_HIDDEN not in entry['usertags']:
-                set_of_all_tags = set_of_all_tags.union(set(entry['usertags']))
-
-        set_of_tags_with_no_userdefined_tag_page = set_of_all_tags - \
-            set(self.list_of_tag_pages_generated) - \
-            set([config.TAG_FOR_BLOG_ENTRY,
-                 config.TAG_FOR_TAG_ENTRY,
-                 config.TAG_FOR_PERSISTENT_ENTRY,
-                 config.TAG_FOR_TEMPLATES_ENTRY,
-                 config.TAG_FOR_HIDDEN])
-
-        entry = {'content': '',
-                 'category': config.TAGS,
-                 'finished-timestamp-history': [datetime(2017, 1, 1, 0, 0)],  # use hard-coded date to prevent unnecessary updates
-                 'firstpublishTS': datetime(2017, 1, 1, 0, 0),  # use hard-coded date to prevent unnecessary updates
-                 'latestupdateTS': datetime(2017, 1, 1, 0, 0),  # use hard-coded date to prevent unnecessary updates
-                 'type': 'this is an entry stub for an empty tag page'
-                 }
-
-        # for each: generate pseudo-entry containing the tag and call
-        # self._generate_tag_page(entry)
-        for tag in set_of_tags_with_no_userdefined_tag_page:
-            entry['id'] = self.ID_PREFIX_FOR_EMPTY_TAG_PAGES + tag
-            entry['title'] = tag
-            self.blog_data.append(entry)
-            logging.info('----> Generating tag page for: ' + tag)
-            htmlfilename, orgfilename, htmlcontent = self._generate_tag_page(entry)
-            self.write_content_to_file(htmlfilename, htmlcontent)
-            # omit writing org file since there is no user-generated org-mode file for it
-            count += 1
-
-        return count
 
     def _generate_feeds(self, entry_list_by_newest_timestamp):
         """
@@ -1962,86 +1864,28 @@ class Htmlizer(object):
         orgfilename, htmlfilename = self._create_path_and_generate_filenames_and_copy_images(entry)
         htmlcontent = ''
 
-        content = ''
         for articlepart in [
             'article-header',
             'article-header-begin',
                 'article-tags-begin']:
-            content += self.template_definition_by_name(articlepart)
-        content += self._replace_tag_placeholders(
+            htmlcontent += self.template_definition_by_name(articlepart)
+
+        htmlcontent += self._replace_tag_placeholders(
             sorted(entry['usertags']), self.template_definition_by_name('article-usertag'))
-        htmlcontent += self._replace_general_article_placeholders(
-            entry, content)
+        htmlcontent += self._generate_auto_tag_list_items(entry)
 
-        # handle autotags:
-        content = self._generate_auto_tag_list_items(entry)
-        htmlcontent += self._replace_general_article_placeholders(
-            entry, content)
-
-        content = ''
         for articlepart in ['article-tags-end', 'article-header-end']:
-            content += self.template_definition_by_name(articlepart)
-        htmlcontent += self._replace_general_article_placeholders(
-            entry, content)
+            htmlcontent += self.template_definition_by_name(articlepart)
 
         htmlcontent += self.__collect_raw_content(entry['content'])
+        htmlcontent += self.template_definition_by_name('article-end')
+        htmlcontent += self._generate_back_references_content(entry, config.TEMPORAL)
+        htmlcontent += self.template_definition_by_name('article-footer')
 
-        content = ''
-        content += self.template_definition_by_name('article-end')
-
-        content += self._generate_back_references_content(entry, config.TEMPORAL)
-
-        content += self.template_definition_by_name('article-footer')
-        htmlcontent += self._replace_general_article_placeholders(
-            entry, content)
+        # replace and sanitize:
+        htmlcontent = self._replace_general_article_placeholders(entry, htmlcontent)
         htmlcontent = self.sanitize_internal_links(htmlcontent)
         htmlcontent = self._insert_reading_minutes_if_found(entry, htmlcontent)
-
-        return htmlfilename, orgfilename, htmlcontent
-
-    def _insert_reading_minutes_if_found(self, entry, htmlcontent):
-        """
-        Handles the snippet that contains the estimation for the reading minutes.
-        Deletes the snippet of the template if none found.
-        """
-        content = ''
-        if 'reading_minutes' in entry.keys():
-            if '#READING-MINUTES-SECTION#' in htmlcontent:
-                # insert snippet
-                snippetname = 'reading-time-'
-
-                # handle one or many minutes: (I do have different snippets for those cases)
-                if entry['reading_minutes'] == 1:
-                    snippetname += 'one-minute-'
-                else:
-                    snippetname += 'multiple-minutes-'
-
-                # handle different languages:
-                if entry['autotags']['language'] == 'deutsch':
-                    # FIXXME: other languages than german have to be added
-                    # here: (generalize using a configured list of known
-                    # languages?)
-                    snippetname += 'de'
-                else:
-                    snippetname += 'en'
-
-                # insert snippet:
-                content = htmlcontent.replace('#READING-MINUTES-SECTION#', self.template_definition_by_name(snippetname))
-                # replace actual minutes (if found):
-                content = self._replace_general_article_placeholders(entry, content)
-                return content
-            else:
-                # remove template snippet because we've got no minutes to insert
-                # NOTE: Should be dead code
-                logging.warning('Entry %s: missing reading minutes, removing snippet' % entry['id'])
-                return htmlcontent.replace('#READING-MINUTES-SECTION#', '')
-        else:
-            # missing reading minutes should only be OK with
-            # auto-generated tag pages. Report error if otherwise:
-            if not entry['id'].startswith(self.ID_PREFIX_FOR_EMPTY_TAG_PAGES):
-                logging.warning('Entry %s: missing reading minutes in "entry[]"' % entry['id'])
-            return htmlcontent
-
 
         return htmlfilename, orgfilename, htmlcontent
 
@@ -2058,44 +1902,116 @@ class Htmlizer(object):
         orgfilename, htmlfilename = self._create_path_and_generate_filenames_and_copy_images(entry)
         htmlcontent = ''
 
-        content = ''
         for articlepart in [
-            'persistent-header',
-            'persistent-header-begin',
+                'persistent-header',
+                'persistent-header-begin',
                 'article-tags-begin']:
-            content += self.template_definition_by_name(articlepart)
+            htmlcontent += self.template_definition_by_name(articlepart)
 
-        content += self._replace_tag_placeholders(
+        htmlcontent += self._replace_tag_placeholders(
             sorted(entry['usertags']), self.template_definition_by_name('article-usertag'))
-        htmlcontent += self._replace_general_article_placeholders(
-            entry, content)
 
-        # handle autotags:
-        content = self._generate_auto_tag_list_items(entry)
-        htmlcontent += self._replace_general_article_placeholders(
-            entry, content)
+        htmlcontent += self._generate_auto_tag_list_items(entry)
 
-        content = ''
         for articlepart in ['article-tags-end', 'persistent-header-end']:
-            content += self.template_definition_by_name(articlepart)
-        htmlcontent += self._replace_general_article_placeholders(
-            entry, content)
+            htmlcontent += self.template_definition_by_name(articlepart)
 
         htmlcontent += self.__collect_raw_content(entry['content'])
+        htmlcontent += self.template_definition_by_name('persistent-end')
+        htmlcontent += self._generate_back_references_content(entry, config.PERSISTENT)
+        htmlcontent += self.template_definition_by_name('persistent-footer')
 
-        content = ''
-        content += self.template_definition_by_name('persistent-end')
-
-        content += self._generate_back_references_content(entry, config.PERSISTENT)
-
-        content += self.template_definition_by_name('persistent-footer')
-
-        htmlcontent += self._replace_general_article_placeholders(
-            entry, content)
+        # replace and sanitize:
+        htmlcontent = self._replace_general_article_placeholders(entry, htmlcontent)
         htmlcontent = self.sanitize_internal_links(htmlcontent)
         htmlcontent = self._insert_reading_minutes_if_found(entry, htmlcontent)
 
         return htmlfilename, orgfilename, htmlcontent
+
+    def _generate_tag_page(self, entry):
+        """
+        Creates a blog article for a tag (in contrast to a temporal or persistent blog article).
+
+        @param entry: blog entry data
+        @param return: htmlfilename: string containing the file name of the HTML file
+        @param return: orgfilename: string containing the file name of the Org-mode raw content file
+        @param return: htmlcontent: the HTML content of the entry
+        """
+
+        logging.debug(self.current_entry_id_str() + '_generate_tag_page(' + str(entry) + ')')
+        tag = entry['title']
+        self.list_of_tag_pages_generated.append(tag)
+
+        orgfilename, htmlfilename = self._create_path_and_generate_filenames_and_copy_images(entry)
+        htmlcontent = ''
+
+        for articlepart in [
+            'tagpage-header',
+            'tagpage-header-begin',
+                'tagpage-tags-begin']:
+            htmlcontent += self.template_definition_by_name(articlepart)
+
+        htmlcontent += self._generate_auto_tag_list_items(entry)
+
+        for articlepart in ['tagpage-tags-end', 'tagpage-header-end']:
+            htmlcontent += self.template_definition_by_name(articlepart)
+
+        htmlcontent += self.__collect_raw_content(entry['content'])
+        htmlcontent += self.template_definition_by_name('tagpage-end')
+        htmlcontent += self._generate_back_references_content(entry, config.TEMPORAL)
+        htmlcontent += self.template_definition_by_name('article-footer')
+
+        # replace and sanitize:
+        htmlcontent = self._replace_general_article_placeholders(entry, htmlcontent)
+        htmlcontent = self.sanitize_internal_links(htmlcontent)
+        htmlcontent = self._insert_reading_minutes_if_found(entry, htmlcontent)
+
+        return htmlfilename, orgfilename, htmlcontent
+
+    def _generate_tag_pages_which_got_no_userdefined_tag_page(self):
+        """
+        For all tag pages where the user did not define a tag page entry
+        by him/herself, create a tag page with no specific content but
+        the list of entries related to the tag.
+        """
+
+        count = 0
+        set_of_all_tags = set()
+
+        # collect list of all tags (from blog_data)
+        for entry in self.blog_data:
+            if config.TAG_FOR_HIDDEN not in entry['usertags']:
+                set_of_all_tags = set_of_all_tags.union(set(entry['usertags']))
+
+        set_of_tags_with_no_userdefined_tag_page = set_of_all_tags - \
+            set(self.list_of_tag_pages_generated) - \
+            set([config.TAG_FOR_BLOG_ENTRY,
+                 config.TAG_FOR_TAG_ENTRY,
+                 config.TAG_FOR_PERSISTENT_ENTRY,
+                 config.TAG_FOR_TEMPLATES_ENTRY,
+                 config.TAG_FOR_HIDDEN])
+
+        entry = {'content': '',
+                 'category': config.TAGS,
+                 'finished-timestamp-history': [datetime(2017, 1, 1, 0, 0)],  # use hard-coded date to prevent unnecessary updates
+                 'firstpublishTS': datetime(2017, 1, 1, 0, 0),  # use hard-coded date to prevent unnecessary updates
+                 'latestupdateTS': datetime(2017, 1, 1, 0, 0),  # use hard-coded date to prevent unnecessary updates
+                 'type': 'this is an entry stub for an empty tag page'
+                 }
+
+        # for each: generate pseudo-entry containing the tag and call
+        # self._generate_tag_page(entry)
+        for tag in set_of_tags_with_no_userdefined_tag_page:
+            entry['id'] = self.ID_PREFIX_FOR_EMPTY_TAG_PAGES + tag
+            entry['title'] = tag
+            self.blog_data.append(entry)
+            logging.info('----> Generating tag page for: ' + tag)
+            htmlfilename, orgfilename, htmlcontent = self._generate_tag_page(entry)
+            self.write_content_to_file(htmlfilename, htmlcontent)
+            # omit writing org file since there is no user-generated org-mode file for it
+            count += 1
+
+        return count
 
     def __collect_raw_content(self, contentarray):
         """
@@ -2529,6 +2445,49 @@ class Htmlizer(object):
                 'and/or DIRECTORIES_WITH_IMAGE_ORIGINALS.'
             self.logging.critical(message)
             raise HtmlizerException(self.current_entry_id, message)
+
+    def _insert_reading_minutes_if_found(self, entry, htmlcontent):
+        """
+        Handles the snippet that contains the estimation for the reading minutes.
+        Deletes the snippet of the template if none found.
+        """
+        content = ''
+        if 'reading_minutes' in entry.keys():
+            if '#READING-MINUTES-SECTION#' in htmlcontent:
+                # insert snippet
+                snippetname = 'reading-time-'
+
+                # handle one or many minutes: (I do have different snippets for those cases)
+                if entry['reading_minutes'] == 1:
+                    snippetname += 'one-minute-'
+                else:
+                    snippetname += 'multiple-minutes-'
+
+                # handle different languages:
+                if entry['autotags']['language'] == 'deutsch':
+                    # FIXXME: other languages than german have to be added
+                    # here: (generalize using a configured list of known
+                    # languages?)
+                    snippetname += 'de'
+                else:
+                    snippetname += 'en'
+
+                # insert snippet:
+                content = htmlcontent.replace('#READING-MINUTES-SECTION#', self.template_definition_by_name(snippetname))
+                # replace actual minutes (if found):
+                content = self._replace_general_article_placeholders(entry, content)
+                return content
+            else:
+                # remove template snippet because we've got no minutes to insert
+                # NOTE: Should be dead code
+                logging.warning('Entry %s: missing reading minutes, removing snippet' % entry['id'])
+                return htmlcontent.replace('#READING-MINUTES-SECTION#', '')
+        else:
+            # missing reading minutes should only be OK with
+            # auto-generated tag pages. Report error if otherwise:
+            if not entry['id'].startswith(self.ID_PREFIX_FOR_EMPTY_TAG_PAGES):
+                logging.warning('Entry %s: missing reading minutes in "entry[]"' % entry['id'])
+            return htmlcontent
 
     def _scale_and_write_image_file(self, image_data, destinationfile, newwidth, newheight):
         """
