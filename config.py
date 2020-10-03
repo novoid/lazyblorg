@@ -125,7 +125,7 @@ WARN_IF_IMAGE_FILE_NOT_TAGGED_WITH="publicvoit"
 ## another language, you need to make sure the auto-tag mechanism
 ## within Utils is extended as well and the language identifier
 ## matches the dict keys below.
-CLUE_TEXT_FOR_LINKED_IMAGES = {'german': '(klicken für größere Version)',
+CLUE_TEXT_FOR_LINKED_IMAGES = {'deutsch': '(klicken für größere Version)',
                                'english': '(click for a larger version)'}
 
 ## ===================================================================== ##
