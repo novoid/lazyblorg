@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2020-10-03 19:25:09 vk>
+# Time-stamp: <2020-10-03 19:28:28 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -314,28 +314,6 @@ class Htmlizer(object):
 
         return dict_of_tags_with_ids
 
-    def _derive_reading_length(self, rawcontent: str) -> int:
-        """
-        Determines the number of minutes reading time from the rawcontent of the article.
-
-        Assumption: people are able to read 250 words per minute.
-
-        See https://github.com/novoid/lazyblorg/issues/47 for the idea and implementation notes.
-        """
-
-        # remove heading title and drawer in order to get body of content:
-        rawcontent_without_header: str = re.sub(r':PROPERTIES:.+?:END:\n', '', rawcontent, flags=re.DOTALL)
-
-        # remove all "words" (according to split()) which contains numbers or other characters that are indicators of non-word elements:
-        raw_words: list = [x for x in rawcontent_without_header.split() if not re.match(r'.*[|0123456789].*', x)]
-        raw_words = [x for x in raw_words if not x.startswith(('#+', '-', ':'))]
-
-        minutes: int = ceil(len(raw_words) / 250)
-
-        if minutes == 0:
-            minutes = 1  # even empty articles should take one minute to watch at
-        return minutes
-
     def _generate_pages_for_tags_persistent_temporal(self, tags):
         """
         Method that creates the pages for tag-pages, persistent pages, and temporal pages.
@@ -421,6 +399,168 @@ class Htmlizer(object):
 
         return entry_list_by_newest_timestamp, stats_generated_total, stats_generated_temporal, \
             stats_generated_persistent, stats_generated_tags
+
+    def _generate_temporal_article(self, entry):
+        """
+        Creates a (normal) time-oriented blog article (in contrast to a persistent blog article).
+
+        @param entry: blog entry data
+        @param return: htmlfilename: string containing the file name of the HTML file
+        @param return: orgfilename: string containing the file name of the Org-mode raw content file
+        @param return: htmlcontent: the HTML content of the entry
+        """
+
+        orgfilename, htmlfilename = self._create_path_and_generate_filenames_and_copy_images(entry)
+        htmlcontent = ''
+
+        for articlepart in [
+            'article-header',
+            'article-header-begin',
+                'article-tags-begin']:
+            htmlcontent += self.template_definition_by_name(articlepart)
+
+        htmlcontent += self._replace_tag_placeholders(
+            sorted(entry['usertags']), self.template_definition_by_name('article-usertag'))
+        htmlcontent += self._generate_auto_tag_list_items(entry)
+
+        for articlepart in ['article-tags-end', 'article-header-end']:
+            htmlcontent += self.template_definition_by_name(articlepart)
+
+        htmlcontent += self.__collect_raw_content(entry['content'])
+        htmlcontent += self.template_definition_by_name('article-end')
+        htmlcontent += self._generate_back_references_content(entry, config.TEMPORAL)
+        htmlcontent += self.template_definition_by_name('article-footer')
+
+        # replace and sanitize:
+        htmlcontent = self._replace_general_article_placeholders(entry, htmlcontent)
+        htmlcontent = self.sanitize_internal_links(htmlcontent)
+        htmlcontent = self._insert_reading_minutes_if_found(entry, htmlcontent)
+
+        return htmlfilename, orgfilename, htmlcontent
+
+    def _generate_persistent_article(self, entry):
+        """
+        Creates a persistent blog article.
+
+        @param entry: blog entry data
+        @param return: htmlfilename: string containing the file name of the HTML file
+        @param return: orgfilename: string containing the file name of the Org-mode raw content file
+        @param return: htmlcontent: the HTML content of the entry
+        """
+
+        orgfilename, htmlfilename = self._create_path_and_generate_filenames_and_copy_images(entry)
+        htmlcontent = ''
+
+        for articlepart in [
+                'persistent-header',
+                'persistent-header-begin',
+                'article-tags-begin']:
+            htmlcontent += self.template_definition_by_name(articlepart)
+
+        htmlcontent += self._replace_tag_placeholders(
+            sorted(entry['usertags']), self.template_definition_by_name('article-usertag'))
+
+        htmlcontent += self._generate_auto_tag_list_items(entry)
+
+        for articlepart in ['article-tags-end', 'persistent-header-end']:
+            htmlcontent += self.template_definition_by_name(articlepart)
+
+        htmlcontent += self.__collect_raw_content(entry['content'])
+        htmlcontent += self.template_definition_by_name('persistent-end')
+        htmlcontent += self._generate_back_references_content(entry, config.PERSISTENT)
+        htmlcontent += self.template_definition_by_name('persistent-footer')
+
+        # replace and sanitize:
+        htmlcontent = self._replace_general_article_placeholders(entry, htmlcontent)
+        htmlcontent = self.sanitize_internal_links(htmlcontent)
+        htmlcontent = self._insert_reading_minutes_if_found(entry, htmlcontent)
+
+        return htmlfilename, orgfilename, htmlcontent
+
+    def _generate_tag_page(self, entry):
+        """
+        Creates a blog article for a tag (in contrast to a temporal or persistent blog article).
+
+        @param entry: blog entry data
+        @param return: htmlfilename: string containing the file name of the HTML file
+        @param return: orgfilename: string containing the file name of the Org-mode raw content file
+        @param return: htmlcontent: the HTML content of the entry
+        """
+
+        logging.debug(self.current_entry_id_str() + '_generate_tag_page(' + str(entry) + ')')
+        tag = entry['title']
+        self.list_of_tag_pages_generated.append(tag)
+
+        orgfilename, htmlfilename = self._create_path_and_generate_filenames_and_copy_images(entry)
+        htmlcontent = ''
+
+        for articlepart in [
+            'tagpage-header',
+            'tagpage-header-begin',
+                'tagpage-tags-begin']:
+            htmlcontent += self.template_definition_by_name(articlepart)
+
+        htmlcontent += self._generate_auto_tag_list_items(entry)
+
+        for articlepart in ['tagpage-tags-end', 'tagpage-header-end']:
+            htmlcontent += self.template_definition_by_name(articlepart)
+
+        htmlcontent += self.__collect_raw_content(entry['content'])
+        htmlcontent += self.template_definition_by_name('tagpage-end')
+        htmlcontent += self._generate_back_references_content(entry, config.TEMPORAL)
+        htmlcontent += self.template_definition_by_name('article-footer')
+
+        # replace and sanitize:
+        htmlcontent = self._replace_general_article_placeholders(entry, htmlcontent)
+        htmlcontent = self.sanitize_internal_links(htmlcontent)
+        htmlcontent = self._insert_reading_minutes_if_found(entry, htmlcontent)
+
+        return htmlfilename, orgfilename, htmlcontent
+
+    def _generate_tag_pages_which_got_no_userdefined_tag_page(self):
+        """
+        For all tag pages where the user did not define a tag page entry
+        by him/herself, create a tag page with no specific content but
+        the list of entries related to the tag.
+        """
+
+        count = 0
+        set_of_all_tags = set()
+
+        # collect list of all tags (from blog_data)
+        for entry in self.blog_data:
+            if config.TAG_FOR_HIDDEN not in entry['usertags']:
+                set_of_all_tags = set_of_all_tags.union(set(entry['usertags']))
+
+        set_of_tags_with_no_userdefined_tag_page = set_of_all_tags - \
+            set(self.list_of_tag_pages_generated) - \
+            set([config.TAG_FOR_BLOG_ENTRY,
+                 config.TAG_FOR_TAG_ENTRY,
+                 config.TAG_FOR_PERSISTENT_ENTRY,
+                 config.TAG_FOR_TEMPLATES_ENTRY,
+                 config.TAG_FOR_HIDDEN])
+
+        entry = {'content': '',
+                 'category': config.TAGS,
+                 'finished-timestamp-history': [datetime(2017, 1, 1, 0, 0)],  # use hard-coded date to prevent unnecessary updates
+                 'firstpublishTS': datetime(2017, 1, 1, 0, 0),  # use hard-coded date to prevent unnecessary updates
+                 'latestupdateTS': datetime(2017, 1, 1, 0, 0),  # use hard-coded date to prevent unnecessary updates
+                 'type': 'this is an entry stub for an empty tag page'
+                 }
+
+        # for each: generate pseudo-entry containing the tag and call
+        # self._generate_tag_page(entry)
+        for tag in set_of_tags_with_no_userdefined_tag_page:
+            entry['id'] = self.ID_PREFIX_FOR_EMPTY_TAG_PAGES + tag
+            entry['title'] = tag
+            self.blog_data.append(entry)
+            logging.info('----> Generating tag page for: ' + tag)
+            htmlfilename, orgfilename, htmlcontent = self._generate_tag_page(entry)
+            self.write_content_to_file(htmlfilename, htmlcontent)
+            # omit writing org file since there is no user-generated org-mode file for it
+            count += 1
+
+        return count
 
     def _generate_auto_tag_list_items(self, entry):
         """
@@ -1851,168 +1991,6 @@ class Htmlizer(object):
         else:
             return content
 
-    def _generate_temporal_article(self, entry):
-        """
-        Creates a (normal) time-oriented blog article (in contrast to a persistent blog article).
-
-        @param entry: blog entry data
-        @param return: htmlfilename: string containing the file name of the HTML file
-        @param return: orgfilename: string containing the file name of the Org-mode raw content file
-        @param return: htmlcontent: the HTML content of the entry
-        """
-
-        orgfilename, htmlfilename = self._create_path_and_generate_filenames_and_copy_images(entry)
-        htmlcontent = ''
-
-        for articlepart in [
-            'article-header',
-            'article-header-begin',
-                'article-tags-begin']:
-            htmlcontent += self.template_definition_by_name(articlepart)
-
-        htmlcontent += self._replace_tag_placeholders(
-            sorted(entry['usertags']), self.template_definition_by_name('article-usertag'))
-        htmlcontent += self._generate_auto_tag_list_items(entry)
-
-        for articlepart in ['article-tags-end', 'article-header-end']:
-            htmlcontent += self.template_definition_by_name(articlepart)
-
-        htmlcontent += self.__collect_raw_content(entry['content'])
-        htmlcontent += self.template_definition_by_name('article-end')
-        htmlcontent += self._generate_back_references_content(entry, config.TEMPORAL)
-        htmlcontent += self.template_definition_by_name('article-footer')
-
-        # replace and sanitize:
-        htmlcontent = self._replace_general_article_placeholders(entry, htmlcontent)
-        htmlcontent = self.sanitize_internal_links(htmlcontent)
-        htmlcontent = self._insert_reading_minutes_if_found(entry, htmlcontent)
-
-        return htmlfilename, orgfilename, htmlcontent
-
-    def _generate_persistent_article(self, entry):
-        """
-        Creates a persistent blog article.
-
-        @param entry: blog entry data
-        @param return: htmlfilename: string containing the file name of the HTML file
-        @param return: orgfilename: string containing the file name of the Org-mode raw content file
-        @param return: htmlcontent: the HTML content of the entry
-        """
-
-        orgfilename, htmlfilename = self._create_path_and_generate_filenames_and_copy_images(entry)
-        htmlcontent = ''
-
-        for articlepart in [
-                'persistent-header',
-                'persistent-header-begin',
-                'article-tags-begin']:
-            htmlcontent += self.template_definition_by_name(articlepart)
-
-        htmlcontent += self._replace_tag_placeholders(
-            sorted(entry['usertags']), self.template_definition_by_name('article-usertag'))
-
-        htmlcontent += self._generate_auto_tag_list_items(entry)
-
-        for articlepart in ['article-tags-end', 'persistent-header-end']:
-            htmlcontent += self.template_definition_by_name(articlepart)
-
-        htmlcontent += self.__collect_raw_content(entry['content'])
-        htmlcontent += self.template_definition_by_name('persistent-end')
-        htmlcontent += self._generate_back_references_content(entry, config.PERSISTENT)
-        htmlcontent += self.template_definition_by_name('persistent-footer')
-
-        # replace and sanitize:
-        htmlcontent = self._replace_general_article_placeholders(entry, htmlcontent)
-        htmlcontent = self.sanitize_internal_links(htmlcontent)
-        htmlcontent = self._insert_reading_minutes_if_found(entry, htmlcontent)
-
-        return htmlfilename, orgfilename, htmlcontent
-
-    def _generate_tag_page(self, entry):
-        """
-        Creates a blog article for a tag (in contrast to a temporal or persistent blog article).
-
-        @param entry: blog entry data
-        @param return: htmlfilename: string containing the file name of the HTML file
-        @param return: orgfilename: string containing the file name of the Org-mode raw content file
-        @param return: htmlcontent: the HTML content of the entry
-        """
-
-        logging.debug(self.current_entry_id_str() + '_generate_tag_page(' + str(entry) + ')')
-        tag = entry['title']
-        self.list_of_tag_pages_generated.append(tag)
-
-        orgfilename, htmlfilename = self._create_path_and_generate_filenames_and_copy_images(entry)
-        htmlcontent = ''
-
-        for articlepart in [
-            'tagpage-header',
-            'tagpage-header-begin',
-                'tagpage-tags-begin']:
-            htmlcontent += self.template_definition_by_name(articlepart)
-
-        htmlcontent += self._generate_auto_tag_list_items(entry)
-
-        for articlepart in ['tagpage-tags-end', 'tagpage-header-end']:
-            htmlcontent += self.template_definition_by_name(articlepart)
-
-        htmlcontent += self.__collect_raw_content(entry['content'])
-        htmlcontent += self.template_definition_by_name('tagpage-end')
-        htmlcontent += self._generate_back_references_content(entry, config.TEMPORAL)
-        htmlcontent += self.template_definition_by_name('article-footer')
-
-        # replace and sanitize:
-        htmlcontent = self._replace_general_article_placeholders(entry, htmlcontent)
-        htmlcontent = self.sanitize_internal_links(htmlcontent)
-        htmlcontent = self._insert_reading_minutes_if_found(entry, htmlcontent)
-
-        return htmlfilename, orgfilename, htmlcontent
-
-    def _generate_tag_pages_which_got_no_userdefined_tag_page(self):
-        """
-        For all tag pages where the user did not define a tag page entry
-        by him/herself, create a tag page with no specific content but
-        the list of entries related to the tag.
-        """
-
-        count = 0
-        set_of_all_tags = set()
-
-        # collect list of all tags (from blog_data)
-        for entry in self.blog_data:
-            if config.TAG_FOR_HIDDEN not in entry['usertags']:
-                set_of_all_tags = set_of_all_tags.union(set(entry['usertags']))
-
-        set_of_tags_with_no_userdefined_tag_page = set_of_all_tags - \
-            set(self.list_of_tag_pages_generated) - \
-            set([config.TAG_FOR_BLOG_ENTRY,
-                 config.TAG_FOR_TAG_ENTRY,
-                 config.TAG_FOR_PERSISTENT_ENTRY,
-                 config.TAG_FOR_TEMPLATES_ENTRY,
-                 config.TAG_FOR_HIDDEN])
-
-        entry = {'content': '',
-                 'category': config.TAGS,
-                 'finished-timestamp-history': [datetime(2017, 1, 1, 0, 0)],  # use hard-coded date to prevent unnecessary updates
-                 'firstpublishTS': datetime(2017, 1, 1, 0, 0),  # use hard-coded date to prevent unnecessary updates
-                 'latestupdateTS': datetime(2017, 1, 1, 0, 0),  # use hard-coded date to prevent unnecessary updates
-                 'type': 'this is an entry stub for an empty tag page'
-                 }
-
-        # for each: generate pseudo-entry containing the tag and call
-        # self._generate_tag_page(entry)
-        for tag in set_of_tags_with_no_userdefined_tag_page:
-            entry['id'] = self.ID_PREFIX_FOR_EMPTY_TAG_PAGES + tag
-            entry['title'] = tag
-            self.blog_data.append(entry)
-            logging.info('----> Generating tag page for: ' + tag)
-            htmlfilename, orgfilename, htmlcontent = self._generate_tag_page(entry)
-            self.write_content_to_file(htmlfilename, htmlcontent)
-            # omit writing org file since there is no user-generated org-mode file for it
-            count += 1
-
-        return count
-
     def __collect_raw_content(self, contentarray):
         """
         Iterates over the contentarray and returns a concatenated string in unicode.
@@ -2488,6 +2466,28 @@ class Htmlizer(object):
             if not entry['id'].startswith(self.ID_PREFIX_FOR_EMPTY_TAG_PAGES):
                 logging.warning('Entry %s: missing reading minutes in "entry[]"' % entry['id'])
             return htmlcontent
+
+    def _derive_reading_length(self, rawcontent: str) -> int:
+        """
+        Determines the number of minutes reading time from the rawcontent of the article.
+
+        Assumption: people are able to read 250 words per minute.
+
+        See https://github.com/novoid/lazyblorg/issues/47 for the idea and implementation notes.
+        """
+
+        # remove heading title and drawer in order to get body of content:
+        rawcontent_without_header: str = re.sub(r':PROPERTIES:.+?:END:\n', '', rawcontent, flags=re.DOTALL)
+
+        # remove all "words" (according to split()) which contains numbers or other characters that are indicators of non-word elements:
+        raw_words: list = [x for x in rawcontent_without_header.split() if not re.match(r'.*[|0123456789].*', x)]
+        raw_words = [x for x in raw_words if not x.startswith(('#+', '-', ':'))]
+
+        minutes: int = ceil(len(raw_words) / 250)
+
+        if minutes == 0:
+            minutes = 1  # even empty articles should take one minute to watch at
+        return minutes
 
     def _scale_and_write_image_file(self, image_data, destinationfile, newwidth, newheight):
         """
