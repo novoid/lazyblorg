@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2020-10-03 12:46:00 vk>
+# Time-stamp: <2020-10-03 16:27:56 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -80,44 +80,44 @@ class Htmlizer(object):
 
     # find internal links to Org-mode IDs: [[id:simple]] and [[id:with][a
     # description]]
-    ID_SIMPLE_LINK_REGEX = re.compile('(\[\[id:([^\[]+?)\]\])')
-    ID_DESCRIBED_LINK_REGEX = re.compile('(\[\[id:([^\]]+?)\]\[([^\]]+?)\]\])')
+    ID_SIMPLE_LINK_REGEX = re.compile(r'(\[\[id:([^\[]+?)\]\])')
+    ID_DESCRIBED_LINK_REGEX = re.compile(r'(\[\[id:([^\]]+?)\]\[([^\]]+?)\]\])')
 
     # find external links such as [[http(s)://foo.com][bar]]:
     EXT_URL_WITH_DESCRIPTION_REGEX = re.compile(
-        '\[\[(http[^ ]+?)\]\[(.+?)\]\]', flags=re.U)
+        r'\[\[(http[^ ]+?)\]\[(.+?)\]\]', flags=re.U)
 
     # find external links such as [[foo]]:
     EXT_URL_WITHOUT_DESCRIPTION_REGEX = re.compile(
-        '\[\[(.+?)\]\]', flags=re.U)
+        r'\[\[(.+?)\]\]', flags=re.U)
 
     # find external links such as http(s)://foo.bar
     EXT_URL_LINK_REGEX = re.compile(
-        '([^"<>\[])(http(s)?:\/\/\S+)', flags=re.U)
+        r'([^"<>\[])(http(s)?:\/\/\S+)', flags=re.U)
 
     # find '&amp;' in an active URL and fix it to '&':
     FIX_AMPERSAND_URL_REGEX = re.compile(
-        '(href="http(s)?://\S+?)&amp;(\S+?")', flags=re.U)
+        r'(href="http(s)?://\S+?)&amp;(\S+?")', flags=re.U)
 
     # find *bold text*:
     # test with: re.subn(re.compile(u'(\W|\A)\*([^*]+)\*(\W|\Z)', flags=re.U), ur'\1<b>\2</b>\3', '*This* is a *touch* of *bold*.')[0]
-    BOLD_REGEX = re.compile('(\W|\A)\*([^*]+?)\*(\W|\Z)', flags=re.U)
+    BOLD_REGEX = re.compile(r'(\W|\A)\*([^*]+?)\*(\W|\Z)', flags=re.U)
 
     # find ~code or source text~ (teletype):
-    CODE_REGEX = re.compile('(\W|\A)~([^~]+?)~(\W|\Z)', flags=re.U)
+    CODE_REGEX = re.compile(r'(\W|\A)~([^~]+?)~(\W|\Z)', flags=re.U)
 
     # find =verbatim text= (teletype):
-    VERBATIM_REGEX = re.compile('(\W|\A)=([^=]+?)=(\W|\Z)', flags=re.U)
+    VERBATIM_REGEX = re.compile(r'(\W|\A)=([^=]+?)=(\W|\Z)', flags=re.U)
 
     # find +strike through+ text:
-    STRIKE_THROUGH_REGEX = re.compile('(\W|\A)\+([^~]+?)\+(\W|\Z)', flags=re.U)
+    STRIKE_THROUGH_REGEX = re.compile(r'(\W|\A)\+([^~]+?)\+(\W|\Z)', flags=re.U)
 
     # any ISO date-stamp of format YYYY-MM-DD:
-    DATESTAMP = '([12]\d\d\d)-([012345]\d)-([012345]\d)'
+    DATESTAMP = r'([12]\d\d\d)-([012345]\d)-([012345]\d)'
     DATESTAMP_REGEX = re.compile(DATESTAMP, flags=re.U)
 
     # adapted ISO time-stamp of format YYYY-MM-DDThh.mm.ss: http://karl-voit.at/managing-digital-photographs/
-    TIMESTAMP_REGEX = re.compile(DATESTAMP + 'T(([01]\d)|(20|21|22|23)).([012345]\d).([012345]\d)', flags=re.U)
+    TIMESTAMP_REGEX = re.compile(DATESTAMP + r'T(([01]\d)|(20|21|22|23)).([012345]\d).([012345]\d)', flags=re.U)
 
     ID_PREFIX_FOR_EMPTY_TAG_PAGES = 'lb_tag-'
 
