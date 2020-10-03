@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2020-07-22 21:41:02 vk>
+# Time-stamp: <2020-10-03 12:46:00 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -774,7 +774,7 @@ class Htmlizer(object):
         number_of_teasers_generated = 0
 
         while number_of_teasers_generated < config.NUMBER_OF_TEASER_ARTICLES and \
-              listentry_index < len(entry_list_by_newest_timestamp):
+                listentry_index < len(entry_list_by_newest_timestamp):
 
             # get next element from entry_list
             listentry = entry_list_by_newest_timestamp[listentry_index]
@@ -1681,13 +1681,13 @@ class Htmlizer(object):
             #               [(u'[[id:2014-03-02-my-temporal]]', u'2014-03-02-my-temporal'), \
             #                (u'[[id:2015-03-02-my-additional-temporal]]', u'2015-03-02-my-additional-temporal')]
             for currentmatch in allmatches:
-                ## internal links that contain "ignoreme" will be
-                ## ignored. This is the only way I can think of for
-                ## providing the ability to add demo links to
-                ## colon-blocks and so forth.
+                # internal links that contain "ignoreme" will be
+                # ignored. This is the only way I can think of for
+                # providing the ability to add demo links to
+                # colon-blocks and so forth.
                 if 'ignoreme' in currentmatch[1]:
                     continue
-                    
+
                 internal_link = currentmatch[0]
                 targetid = currentmatch[1]
                 url = self.generate_absolute_url(targetid)
@@ -1703,13 +1703,13 @@ class Htmlizer(object):
         allmatches = re.findall(self.ID_DESCRIBED_LINK_REGEX, content)
         if allmatches != []:
             for currentmatch in allmatches:
-                ## internal links that contain "ignoreme" will be
-                ## ignored. This is the only way I can think of for
-                ## providing the ability to add demo links to
-                ## colon-blocks and so forth.
+                # internal links that contain "ignoreme" will be
+                # ignored. This is the only way I can think of for
+                # providing the ability to add demo links to
+                # colon-blocks and so forth.
                 if 'ignoreme' in currentmatch[1]:
                     continue
-                
+
                 internal_link = currentmatch[0]
                 targetid = currentmatch[1]
                 description = currentmatch[2]
@@ -1822,8 +1822,8 @@ class Htmlizer(object):
 
                 else:
                     message = self.current_entry_id_str() + \
-                              'entry data error: _create_path_and_generate_filenames_and_copy_images(' + \
-                              str(attachment) + ') used an unknown type (' + str(attachment[0]) + ').'
+                        'entry data error: _create_path_and_generate_filenames_and_copy_images(' + \
+                        str(attachment) + ') used an unknown type (' + str(attachment[0]) + ').'
                     self.logging.critical(message)
                     raise HtmlizerException(self.current_entry_id, message)
 
@@ -2291,9 +2291,9 @@ class Htmlizer(object):
             if ' ' in title:
                 title = title.split(None, 1)[0]
                 message = self.current_entry_id_str() + \
-                          "article is marked as tag page by tag \"" + config.TAG_FOR_TAG_ENTRY + \
-                          "\" but its title is not a single word (which is the tag): \"" + \
-                          entry['title'] + "\". Please fix it now by choosing only one word as title."
+                    "article is marked as tag page by tag \"" + config.TAG_FOR_TAG_ENTRY + \
+                    "\" but its title is not a single word (which is the tag): \"" + \
+                    entry['title'] + "\". Please fix it now by choosing only one word as title."
                 self.logging.error(message)
                 # FIXXME: maybe an Exception is too harsh here?
                 # (error-recovery?)
@@ -2428,26 +2428,26 @@ class Htmlizer(object):
             elif len(files_with_matching_timestamps) == 0:
                 # no matching alternative found
                 message = self.current_entry_id_str() + 'File \"' + filename + '\" could not be ' + \
-                          'located within MEMACS_FILE_WITH_IMAGE_FILE_INDEX ' + \
-                          'and/or DIRECTORIES_WITH_IMAGE_ORIGINALS. Its time-stamp could not be found in ' + \
-                          'another filename as well.'
+                    'located within MEMACS_FILE_WITH_IMAGE_FILE_INDEX ' + \
+                    'and/or DIRECTORIES_WITH_IMAGE_ORIGINALS. Its time-stamp could not be found in ' + \
+                    'another filename as well.'
                 self.logging.critical(message)
                 raise HtmlizerException(self.current_entry_id, message)
 
             else:
                 # multiple matching alternatives found -> error
                 message = self.current_entry_id_str() + 'File \"' + filename + '\" could not be ' + \
-                          'located within MEMACS_FILE_WITH_IMAGE_FILE_INDEX and/or ' + \
-                          'DIRECTORIES_WITH_IMAGE_ORIGINALS. It starts with a time-stamp which could be found in ' + \
-                          'other files but it is not unique. Please adapt accordingly: ' + str(files_with_matching_timestamps)
+                    'located within MEMACS_FILE_WITH_IMAGE_FILE_INDEX and/or ' + \
+                    'DIRECTORIES_WITH_IMAGE_ORIGINALS. It starts with a time-stamp which could be found in ' + \
+                    'other files but it is not unique. Please adapt accordingly: ' + str(files_with_matching_timestamps)
                 self.logging.critical(message)
                 raise HtmlizerException(self.current_entry_id, message)
 
         if filename not in list(self.filename_dict.keys()):
             # recover mechanism (using ISO timestamp) did not work either -> error
             message = self.current_entry_id_str() + 'File \"' + filename + '\" could not be located ' + \
-                      'within MEMACS_FILE_WITH_IMAGE_FILE_INDEX ' + \
-                      'and/or DIRECTORIES_WITH_IMAGE_ORIGINALS.'
+                'within MEMACS_FILE_WITH_IMAGE_FILE_INDEX ' + \
+                'and/or DIRECTORIES_WITH_IMAGE_ORIGINALS.'
             self.logging.critical(message)
             raise HtmlizerException(self.current_entry_id, message)
 
@@ -2535,7 +2535,7 @@ class Htmlizer(object):
         if not os.path.isfile(image_file_path):
             # image found in index but not on hard disk
             message = self.current_entry_id_str() + 'File \"' + filename + '\" is found within Memacs index (\"' + \
-                      image_file_path + '\") but could not be located in the file system.'
+                image_file_path + '\") but could not be located in the file system.'
             self.logging.critical(message)
             raise HtmlizerException(self.current_entry_id, message)
         else:
@@ -2611,7 +2611,7 @@ class Htmlizer(object):
         self.logging.info('• Building index of files …')
         time_before = time()
         if (config.IMAGE_INCLUDE_METHOD == config.IMAGE_INCLUDE_METHOD_MEMACS or
-            config.IMAGE_INCLUDE_METHOD == config.IMAGE_INCLUDE_METHOD_MEMACS_THEN_DIR):
+                config.IMAGE_INCLUDE_METHOD == config.IMAGE_INCLUDE_METHOD_MEMACS_THEN_DIR):
 
             assert(os.path.isfile(config.MEMACS_FILE_WITH_IMAGE_FILE_INDEX))
 
