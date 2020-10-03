@@ -296,6 +296,8 @@ efficiently:
      the entry page, navigational pages, and the feeds. This way, you
      can publish pages who can only be access by people knowing its URL.
 
+- Reading time estimations (multi-language) following [[https://github.com/novoid/lazyblorg/issues/47][this feature request]]
+
 ** FAQs
 
 See https://github.com/novoid/lazyblorg/wiki/FAQs

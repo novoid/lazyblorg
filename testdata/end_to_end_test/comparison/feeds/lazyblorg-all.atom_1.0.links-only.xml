@@ -7,7 +7,7 @@
   <id>http://Karl-Voit.at/</id>
   <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2020-10-02T19:29:42+01:00</updated>
+  <updated>2020-10-03T16:36:41+01:00</updated>
   <author>
     <name>Karl Voit</name>
   </author>
@@ -25,7 +25,7 @@
 </entry>
 <!-- ############################################################################################# -->
 <entry>
-    <title type="text">Links test</title>
+    <title type="text">Links test and reading time over one minute</title>
     <link href='http://Karl-Voit.at/2017/09/30/link-test' />
     <published>2017-09-30T17:05:00+01:00</published>
     <updated>2017-09-30T17:05:00+01:00</updated>

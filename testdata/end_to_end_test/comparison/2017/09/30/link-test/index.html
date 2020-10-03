@@ -5,19 +5,19 @@
 
   <meta name="author" content="Karl Voit" />
   <meta name="generator" content="lazyblorg" />
-  <meta name="description" content="Links test" />
+  <meta name="description" content="Links test and reading time over one minute" />
   <meta name="orgmode-id" content="2017-09-30-link-test" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@n0v0id" />
   <meta name="twitter:creator" content="@n0v0id" />
   <meta name="twitter:title" content="public voit" />
-  <meta name="twitter:description" content="Links test" />
+  <meta name="twitter:description" content="Links test and reading time over one minute" />
   <meta name="twitter:image" content="http://Karl-Voit.at/images/public-voit_T_logo_200x200.png" />
 
   <meta property="og:type" content="article" />
   <meta property="og:title" content="public voit" />
-  <meta property="og:description" content="Links test" />
+  <meta property="og:description" content="Links test and reading time over one minute" />
   <meta property="og:image" content="http://Karl-Voit.at/images/public-voit_T_logo_200x200.png" />
   <meta property="og:site_name" content="public voit - Web-page of Karl Voit">
   <meta property="article:published_time" content="2017-09-30T17:05+01:00" />
@@ -36,7 +36,7 @@
   <!-- WARNING: This page is written in HTML5 and might not be displayed correctly in old browsers. -->
 
       <!-- link rel="stylesheet" type="text/css" href="../../../../style.css" / -->
-      <title>Links test</title>
+      <title>Links test and reading time over one minute</title>
 
   </head>  <body>
 
@@ -61,7 +61,11 @@
 	    </ul>
 	  </aside>
 
-	  <h1 class="common-article-header-title">Links test</h1>
+	  <h1 class="common-article-header-title">Links test and reading time over one minute</h1>
+
+  	  <aside class="reading-time-section">
+          Reading time is 3 minutes
+	  </aside>
 
 	</header>
 
@@ -140,12 +144,64 @@ What about <a href="//Karl-Voit.at/2016/10/31/an-hidden-blog-entry">a hidden ent
 
 </p>
 
+	  <header><h2 class="section-title">Some test to get the reading time to exceed one minute</h2></header>
+
+<p>
+
+The <a href="https://github.com/novoid/lazyblorg/issues/47">reading time estimation feature</a> is a very nice touch for the reader in order to get a rough figure how many minutes it takes to read an article.
+
+</p>
+
+<p>
+
+This way, she is able to determine if it is worth the time or not. Having such an indicator is almost standard in nowaday's web culture.
+
+</p>
+
+<p>
+
+My assumption is, that the reader is able to read a certain amount of words per minute. The initial value was chosen with 250. So maybe this is not adequate - let's see. Furthermore, I had to derive a heuristic algorithm to filter out non-word noise of the original Org mode source file. Those filtered things might contain real word (false positives) and the rest could contain non-words (false negatives). On average, this should not be a big issue. At least, this is a better approximation than counting all characters and assuming an average word consisting of five characters as I've seen in another algorithm. First, I would have had issues with filtering non-word content. Secondly, different languages do have different average sizes of words. So let's hope this is a valueable contribution to lazyblorg.
+
+</p>
+<div class="orgmode-hr" ></div>
+<p>
+
+In order to get the reading length high, here is some further dummy text as well:
+
+</p>
+
+<p>
+
+Aliquam erat volutpat. Nunc eleifend leo vitae magna. In id erat non orci commodo lobortis. Proin neque massa, cursus ut, gravida ut, lobortis eget, lacus. Sed diam. Praesent fermentum tempor tellus. Nullam tempus. Mauris ac felis vel velit tristique imperdiet. Donec at pede. Etiam vel neque nec dui dignissim bibendum. Vivamus id enim. Phasellus neque orci, porta a, aliquet quis, semper a, massa. Phasellus purus. Pellentesque tristique imperdiet tortor. Nam euismod tellus id erat.
+
+</p>
+
+<p>
+
+Aliquam erat volutpat. Nunc eleifend leo vitae magna. In id erat non orci commodo lobortis. Proin neque massa, cursus ut, gravida ut, lobortis eget, lacus. Sed diam. Praesent fermentum tempor tellus. Nullam tempus. Mauris ac felis vel velit tristique imperdiet. Donec at pede. Etiam vel neque nec dui dignissim bibendum. Vivamus id enim. Phasellus neque orci, porta a, aliquet quis, semper a, massa. Phasellus purus. Pellentesque tristique imperdiet tortor. Nam euismod tellus id erat.
+
+</p>
+
+<p>
+
+Aliquam erat volutpat. Nunc eleifend leo vitae magna. In id erat non orci commodo lobortis. Proin neque massa, cursus ut, gravida ut, lobortis eget, lacus. Sed diam. Praesent fermentum tempor tellus. Nullam tempus. Mauris ac felis vel velit tristique imperdiet. Donec at pede. Etiam vel neque nec dui dignissim bibendum. Vivamus id enim. Phasellus neque orci, porta a, aliquet quis, semper a, massa. Phasellus purus. Pellentesque tristique imperdiet tortor. Nam euismod tellus id erat.
+
+</p>
+
+	  <header><h2 class="section-title">An almost empty heading at the end</h2></header>
+
+<p>
+
+This is to test the reading length estimation algorithm with a property drawer at the end.
+
+</p>
+
 
   </article>
 
 <div class="back-references"><hr /><p>Related articles that link to this one:</p>
   <ul>
-    <li><a href="//Karl-Voit.at/2017/09/30/link-test">Links test</a></li>
+    <li><a href="//Karl-Voit.at/2017/09/30/link-test">Links test and reading time over one minute</a></li>
   </ul>
 </div>
 	  <aside class="published-on">

@@ -283,6 +283,36 @@ With name/label:
 
 #+END_EXPORT
 
+*** Reading time indicators
+
+#+NAME: reading-time-one-minute-en
+#+BEGIN_HTML
+	  <aside class="reading-time-section">
+          Reading time is one minute
+	  </aside>
+#+END_HTML
+
+#+NAME: reading-time-one-minute-de
+#+BEGIN_HTML
+	  <aside class="reading-time-section">
+          Lesezeit ist eine Minute
+	  </aside>
+#+END_HTML
+
+#+NAME: reading-time-multiple-minutes-en
+#+BEGIN_HTML
+	  <aside class="reading-time-section">
+          Reading time is #READINGMINUTES# minutes
+	  </aside>
+#+END_HTML
+
+#+NAME: reading-time-multiple-minutes-de
+#+BEGIN_HTML
+	  <aside class="reading-time-section">
+          Lesezeit ist #READINGMINUTES# Minuten
+	  </aside>
+#+END_HTML
+
 *** ignore me
 
 #+NAME:
@@ -542,6 +572,8 @@ With name/label:
 
 	  <h1 class="common-article-header-title">#ARTICLE-TITLE#</h1>
 
+    #READING-MINUTES-SECTION#
+
 	</header>
 
     #COMMON-SIDEBAR#
@@ -729,6 +761,8 @@ With name/label:
 #+BEGIN_EXPORT HTML
 
 	  <h1 class="common-article-header-title">#ARTICLE-TITLE#</h1>
+
+  #READING-MINUTES-SECTION#
 
 	</header>
 
@@ -1028,6 +1062,8 @@ Pages that describe a tag. Corresponding Org-mode entries must have:
 #+BEGIN_EXPORT HTML
 
 	  <h1 class="common-article-header-title">Tag Page for the Tag "#ARTICLE-TITLE#"</h1>
+
+    #READING-MINUTES-SECTION#
 
 	</header>
 

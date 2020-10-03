@@ -7,7 +7,7 @@
   <id>http://Karl-Voit.at/</id>
   <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2020-10-02T19:29:42+01:00</updated>
+  <updated>2020-10-03T16:36:41+01:00</updated>
   <author>
     <name>Karl Voit</name>
   </author>
@@ -44,7 +44,7 @@
 </entry>
 <!-- ############################################################################################# -->
 <entry>
-    <title type="text">Links test</title>
+    <title type="text">Links test and reading time over one minute</title>
     <link href='http://Karl-Voit.at/2017/09/30/link-test' />
     <published>2017-09-30T17:05:00+01:00</published>
     <updated>2017-09-30T17:05:00+01:00</updated>
@@ -137,6 +137,69 @@ Here is <a href="//Karl-Voit.at/2017/09/30/link-test">a self-reference</a> which
 <p>
 
 What about <a href="//Karl-Voit.at/2016/10/31/an-hidden-blog-entry">a hidden entry</a>?
+
+</p>
+
+
+	  <header><h2 class="section-title">Some test to get the reading time to exceed one minute</h2></header>
+
+
+<p>
+
+The <a href="https://github.com/novoid/lazyblorg/issues/47">reading time estimation feature</a> is a very nice touch for the reader in order to get a rough figure how many minutes it takes to read an article.
+
+</p>
+
+
+<p>
+
+This way, she is able to determine if it is worth the time or not. Having such an indicator is almost standard in nowaday's web culture.
+
+</p>
+
+
+<p>
+
+My assumption is, that the reader is able to read a certain amount of words per minute. The initial value was chosen with 250. So maybe this is not adequate - let's see. Furthermore, I had to derive a heuristic algorithm to filter out non-word noise of the original Org mode source file. Those filtered things might contain real word (false positives) and the rest could contain non-words (false negatives). On average, this should not be a big issue. At least, this is a better approximation than counting all characters and assuming an average word consisting of five characters as I've seen in another algorithm. First, I would have had issues with filtering non-word content. Secondly, different languages do have different average sizes of words. So let's hope this is a valueable contribution to lazyblorg.
+
+</p>
+
+<div class="orgmode-hr" ></div>
+
+<p>
+
+In order to get the reading length high, here is some further dummy text as well:
+
+</p>
+
+
+<p>
+
+Aliquam erat volutpat. Nunc eleifend leo vitae magna. In id erat non orci commodo lobortis. Proin neque massa, cursus ut, gravida ut, lobortis eget, lacus. Sed diam. Praesent fermentum tempor tellus. Nullam tempus. Mauris ac felis vel velit tristique imperdiet. Donec at pede. Etiam vel neque nec dui dignissim bibendum. Vivamus id enim. Phasellus neque orci, porta a, aliquet quis, semper a, massa. Phasellus purus. Pellentesque tristique imperdiet tortor. Nam euismod tellus id erat.
+
+</p>
+
+
+<p>
+
+Aliquam erat volutpat. Nunc eleifend leo vitae magna. In id erat non orci commodo lobortis. Proin neque massa, cursus ut, gravida ut, lobortis eget, lacus. Sed diam. Praesent fermentum tempor tellus. Nullam tempus. Mauris ac felis vel velit tristique imperdiet. Donec at pede. Etiam vel neque nec dui dignissim bibendum. Vivamus id enim. Phasellus neque orci, porta a, aliquet quis, semper a, massa. Phasellus purus. Pellentesque tristique imperdiet tortor. Nam euismod tellus id erat.
+
+</p>
+
+
+<p>
+
+Aliquam erat volutpat. Nunc eleifend leo vitae magna. In id erat non orci commodo lobortis. Proin neque massa, cursus ut, gravida ut, lobortis eget, lacus. Sed diam. Praesent fermentum tempor tellus. Nullam tempus. Mauris ac felis vel velit tristique imperdiet. Donec at pede. Etiam vel neque nec dui dignissim bibendum. Vivamus id enim. Phasellus neque orci, porta a, aliquet quis, semper a, massa. Phasellus purus. Pellentesque tristique imperdiet tortor. Nam euismod tellus id erat.
+
+</p>
+
+
+	  <header><h2 class="section-title">An almost empty heading at the end</h2></header>
+
+
+<p>
+
+This is to test the reading length estimation algorithm with a property drawer at the end.
 
 </p>
 
@@ -414,7 +477,7 @@ With caption, alt, right alined and 300px width, linked-image-width 560:
 
 <figure class="image-right">
 <a href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg"><img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="300" /></a>
-<figcaption>This is my caption</figcaption>
+<figcaption>This is my caption <a class="figcaption-clue-link" href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg">(klicken für größere Version)</a></figcaption>
 </figure>
 
 
@@ -427,7 +490,7 @@ With caption, alt, right alined and 300px width, linked-image-width "original":
 
 <figure class="image-right">
 <a href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg"><img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="300" /></a>
-<figcaption>This is my caption</figcaption>
+<figcaption>This is my caption <a class="figcaption-clue-link" href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg">(klicken für größere Version)</a></figcaption>
 </figure>
 
 

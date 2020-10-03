@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2020-10-03 16:27:56 vk>
+# Time-stamp: <2020-10-03 16:45:42 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -7,6 +7,7 @@ import logging
 import os
 from datetime import datetime
 from time import time, localtime, strftime
+from math import ceil  # for calculating reading time
 import re  # RegEx: for parsing/sanitizing
 import codecs
 from lib.utils import Utils  # for guess_language_from_stopword_percentages()
@@ -313,6 +314,28 @@ class Htmlizer(object):
 
         return dict_of_tags_with_ids
 
+    def _derive_reading_length(self, rawcontent: str) -> int:
+        """
+        Determines the number of minutes reading time from the rawcontent of the article.
+
+        Assumption: people are able to read 250 words per minute.
+
+        See https://github.com/novoid/lazyblorg/issues/47 for the idea and implementation notes.
+        """
+
+        # remove heading title and drawer in order to get body of content:
+        rawcontent_without_header: str = re.sub(r':PROPERTIES:.+?:END:\n', '', rawcontent, flags=re.DOTALL)
+
+        # remove all "words" (according to split()) which contains numbers or other characters that are indicators of non-word elements:
+        raw_words: list = [x for x in rawcontent_without_header.split() if not re.match(r'.*[|0123456789].*', x)]
+        raw_words = [x for x in raw_words if not x.startswith(('#+', '-', ':'))]
+
+        minutes: int = ceil(len(raw_words) / 250)
+
+        if minutes == 0:
+            minutes = 1  # even empty articles should take one minute to watch at
+        return minutes
+
     def _generate_pages_for_tags_persistent_temporal(self, tags):
         """
         Method that creates the pages for tag-pages, persistent pages, and temporal pages.
@@ -347,6 +370,10 @@ class Htmlizer(object):
             self.current_entry_id = entry['id']
 
             entry = self.sanitize_and_htmlize_blog_content(entry)
+
+            # populate reading time indicator:
+            if 'rawcontent' in entry.keys():
+                entry['reading_minutes'] = self._derive_reading_length(entry['rawcontent'])
 
             htmlcontent = None
 
@@ -475,6 +502,7 @@ class Htmlizer(object):
         htmlcontent += self._replace_general_article_placeholders(
             entry, content)
         htmlcontent = self.sanitize_internal_links(htmlcontent)
+        htmlcontent = self._insert_reading_minutes_if_found(entry, htmlcontent)
 
         return htmlfilename, orgfilename, htmlcontent
 
@@ -1967,6 +1995,53 @@ class Htmlizer(object):
         htmlcontent += self._replace_general_article_placeholders(
             entry, content)
         htmlcontent = self.sanitize_internal_links(htmlcontent)
+        htmlcontent = self._insert_reading_minutes_if_found(entry, htmlcontent)
+
+        return htmlfilename, orgfilename, htmlcontent
+
+    def _insert_reading_minutes_if_found(self, entry, htmlcontent):
+        """
+        Handles the snippet that contains the estimation for the reading minutes.
+        Deletes the snippet of the template if none found.
+        """
+        content = ''
+        if 'reading_minutes' in entry.keys():
+            if '#READING-MINUTES-SECTION#' in htmlcontent:
+                # insert snippet
+                snippetname = 'reading-time-'
+
+                # handle one or many minutes: (I do have different snippets for those cases)
+                if entry['reading_minutes'] == 1:
+                    snippetname += 'one-minute-'
+                else:
+                    snippetname += 'multiple-minutes-'
+
+                # handle different languages:
+                if entry['autotags']['language'] == 'deutsch':
+                    # FIXXME: other languages than german have to be added
+                    # here: (generalize using a configured list of known
+                    # languages?)
+                    snippetname += 'de'
+                else:
+                    snippetname += 'en'
+
+                # insert snippet:
+                content = htmlcontent.replace('#READING-MINUTES-SECTION#', self.template_definition_by_name(snippetname))
+                # replace actual minutes (if found):
+                content = self._replace_general_article_placeholders(entry, content)
+                return content
+            else:
+                # remove template snippet because we've got no minutes to insert
+                # NOTE: Should be dead code
+                logging.warning('Entry %s: missing reading minutes, removing snippet' % entry['id'])
+                return htmlcontent.replace('#READING-MINUTES-SECTION#', '')
+        else:
+            # missing reading minutes should only be OK with
+            # auto-generated tag pages. Report error if otherwise:
+            if not entry['id'].startswith(self.ID_PREFIX_FOR_EMPTY_TAG_PAGES):
+                logging.warning('Entry %s: missing reading minutes in "entry[]"' % entry['id'])
+            return htmlcontent
+
 
         return htmlfilename, orgfilename, htmlcontent
 
@@ -2018,6 +2093,7 @@ class Htmlizer(object):
         htmlcontent += self._replace_general_article_placeholders(
             entry, content)
         htmlcontent = self.sanitize_internal_links(htmlcontent)
+        htmlcontent = self._insert_reading_minutes_if_found(entry, htmlcontent)
 
         return htmlfilename, orgfilename, htmlcontent
 
@@ -2157,6 +2233,9 @@ class Htmlizer(object):
                 '#TAG-PAGE-LIST#',
                 self._generate_tag_page_list(
                     entry['title']))
+
+        if 'reading_minutes' in entry.keys():
+            content = content.replace('#READINGMINUTES#', str(entry['reading_minutes']))
 
         return content
 

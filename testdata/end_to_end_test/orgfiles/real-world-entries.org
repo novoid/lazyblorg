@@ -183,7 +183,7 @@ FIXXME: not tested so far:
 - float number for :width or :linked-image-width
 - zero or negative integers for :width or :linked-image-width
 
-** DONE Links test                                                                  :blog:lazyblorg:programming:exampletag:mytest:
+** DONE Links test and reading time over one minute   :blog:lazyblorg:programming:exampletag:mytest:
 CLOSED: [2017-09-30 Sat 17:05]
 :PROPERTIES:
 :CREATED:  [2017-09-30 Sat 17:05]
@@ -208,8 +208,76 @@ Here [[id:2016-10-31-a-tag-page][in a quote]] block.
 Here is [[id:2017-09-30-link-test][a self-reference]] which should not result in a backlink to itself.
 
 *** Even [[id:2016-10-31-my-temporal-article][a heading should]] work
+:PROPERTIES:
+:CREATED:  [2020-10-03 Sat 15:57]
+:END:
 
 What about [[id:2016-10-31-an-hidden-blog-entry][a hidden entry]]?
+
+*** Some test to get the reading time to exceed one minute
+:PROPERTIES:
+:CREATED:  [2020-10-03 Sat 15:58]
+:END:
+
+The [[https://github.com/novoid/lazyblorg/issues/47][reading time estimation feature]] is a very nice touch for the
+reader in order to get a rough figure how many minutes it takes to
+read an article.
+
+This way, she is able to determine if it is worth the time or not.
+Having such an indicator is almost standard in nowaday's web culture.
+
+My assumption is, that the reader is able to read a certain amount of
+words per minute. The initial value was chosen with 250. So maybe this
+is not adequate - let's see. Furthermore, I had to derive a heuristic
+algorithm to filter out non-word noise of the original Org mode source
+file. Those filtered things might contain real word (false positives)
+and the rest could contain non-words (false negatives). On average,
+this should not be a big issue. At least, this is a better
+approximation than counting all characters and assuming an average
+word consisting of five characters as I've seen in another algorithm.
+First, I would have had issues with filtering non-word content.
+Secondly, different languages do have different average sizes of
+words. So let's hope this is a valueable contribution to lazyblorg.
+
+------------
+
+In order to get the reading length high, here is some further dummy
+text as well:
+
+Aliquam erat volutpat. Nunc eleifend leo vitae magna. In id erat non
+orci commodo lobortis. Proin neque massa, cursus ut, gravida ut,
+lobortis eget, lacus. Sed diam. Praesent fermentum tempor tellus.
+Nullam tempus. Mauris ac felis vel velit tristique imperdiet. Donec at
+pede. Etiam vel neque nec dui dignissim bibendum. Vivamus id enim.
+Phasellus neque orci, porta a, aliquet quis, semper a, massa.
+Phasellus purus. Pellentesque tristique imperdiet tortor. Nam euismod
+tellus id erat.
+
+Aliquam erat volutpat. Nunc eleifend leo vitae magna. In id erat non
+orci commodo lobortis. Proin neque massa, cursus ut, gravida ut,
+lobortis eget, lacus. Sed diam. Praesent fermentum tempor tellus.
+Nullam tempus. Mauris ac felis vel velit tristique imperdiet. Donec at
+pede. Etiam vel neque nec dui dignissim bibendum. Vivamus id enim.
+Phasellus neque orci, porta a, aliquet quis, semper a, massa.
+Phasellus purus. Pellentesque tristique imperdiet tortor. Nam euismod
+tellus id erat.
+
+Aliquam erat volutpat. Nunc eleifend leo vitae magna. In id erat non
+orci commodo lobortis. Proin neque massa, cursus ut, gravida ut,
+lobortis eget, lacus. Sed diam. Praesent fermentum tempor tellus.
+Nullam tempus. Mauris ac felis vel velit tristique imperdiet. Donec at
+pede. Etiam vel neque nec dui dignissim bibendum. Vivamus id enim.
+Phasellus neque orci, porta a, aliquet quis, semper a, massa.
+Phasellus purus. Pellentesque tristique imperdiet tortor. Nam euismod
+tellus id erat.
+
+*** An almost empty heading at the end
+:PROPERTIES:
+:CREATED:  [2020-10-03 Sat 16:05]
+:END:
+
+This is to test the reading length estimation algorithm with a
+property drawer at the end.
 
 * DONE A Temporal Article With Links                                               :exampletag::blog:
 CLOSED: [2016-10-31 Mon 16:40]
