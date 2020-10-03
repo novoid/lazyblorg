@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2020-10-03 12:10:01 vk>
+# Time-stamp: <2020-10-03 12:51:17 vk>
 
 import config
 import re
@@ -53,7 +53,7 @@ class OrgParser(object):
 
     # asterisk(s), whitespace, word(s), optional followed by optional tags:
     HEADING_REGEX = re.compile(
-        '^(\*+)\s+((' + config.BLOG_FINISHED_STATE + ')\s+)?(.*?)(\s+(:\S+:)+)?\s*$')
+        r'^(\*+)\s+((' + config.BLOG_FINISHED_STATE + r')\s+)?(.*?)(\s+(:\S+:)+)?\s*$')
     # REGEX.match(string).group(INDEX)
     HEADING_STARS_IDX = 1
     HEADING_STATE_IDX = 3
@@ -62,15 +62,15 @@ class OrgParser(object):
     HEADING_TAGS_IDX = 6
 
     CREATED_REGEX = re.compile(
-        '^:CREATED:\s+' +
+        r'^:CREATED:\s+' +
         OrgFormat.SINGLE_ORGMODE_TIMESTAMP,
         re.IGNORECASE)
     CREATED_TIMESTAMP_IDX = 1
 
     LOG_REGEX = re.compile(
-        '^- State\s+"' +
+        r'^- State\s+"' +
         config.BLOG_FINISHED_STATE +
-        '"\s+from\s+("\S*"\s+)?([\[{].*[\]}])$',
+        r'"\s+from\s+("\S*"\s+)?([\[{].*[\]}])$',
         re.IGNORECASE)
     LOG_TIMESTAMP_IDX = 2
 
@@ -89,20 +89,20 @@ class OrgParser(object):
     SUPPORTED_EXPORT_BLOCK_BACKENDS = ['HTML', 'LATEX']
 
     BLOCK_REGEX = re.compile(
-        '^#\+BEGIN_(' +
-        '|'.join(SUPPORTED_BLOCK_TYPES_UPPERCASE) +
-        ')(\s+(.*))?$',
+        r'^#\+BEGIN_(' +
+        r'|'.join(SUPPORTED_BLOCK_TYPES_UPPERCASE) +
+        r')(\s+(.*))?$',
         re.IGNORECASE)
     BLOCK_TYPE_IDX = 1
     BLOCK_LANGUAGE_IDX = 3
 
     # matching five dashes (or more) which resembles an horizontal rule:
     # http://orgmode.org/org.html#Horizontal-rules
-    HR_REGEX = re.compile('^-{5,}\s*$')
+    HR_REGEX = re.compile(r'^-{5,}\s*$')
 
     # matching list items
     LIST_ITEM_REGEX = re.compile(
-        '^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.+)$',
+        r'^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.+)$',
         re.IGNORECASE)
     # >>> re.match(r'^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.+)$', u"  - [-] foo bar").groups()
     # (u'  ', u'-', None, u'[-]', u' foo bar')
@@ -119,7 +119,7 @@ class OrgParser(object):
 
     # example: '#+ATTR_HTML: :alt An alternative description image :title This is my title! :align right :width 300'
     # results in: FIXXME
-    ATTR_HTML_REGEX = re.compile(':([\w-]+)\s+([^:]+)')
+    ATTR_HTML_REGEX = re.compile(r':([\w-]+)\s+([^:]+)')
 
     # re.match(r'^\[\[tsfile:(.+\.(png|jpg|jpeg|svg|gif))+(\]\[(.+))?\]\]$', '[[tsfile:2014-01-29 foo bar.PNG][foo bar]]', re.IGNORECASE).groups()
     #   ('2014-01-29 foo bar.PNG', 'PNG', '][foo bar', 'foo bar')
