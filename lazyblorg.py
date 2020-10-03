@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8; mode: python; -*-
-PROG_VERSION = "Time-stamp: <2019-10-18 20:46:05 vk>"
+PROG_VERSION = "Time-stamp: <2020-10-03 19:51:01 vk>"
 PROG_VERSION_DATE = PROG_VERSION[13:23]
 
 # TODO:
@@ -11,7 +11,6 @@ PROG_VERSION_DATE = PROG_VERSION[13:23]
 ##  know, what you are doing :-)                                         ##
 ## ===================================================================== ##
 
-import config  # lazyblorg-global settings from "config.py"
 import os
 import logging
 from datetime import datetime
@@ -435,6 +434,13 @@ if __name__ == "__main__":
                             description=mydescription)
 
     parser.add_argument(
+        "--config",
+        dest="configfilename",
+        metavar='FILE',
+        required=False,
+        help="Path to an alternative configuration file.")
+
+    parser.add_argument(
         "--orgfiles",
         dest="orgfiles",
         nargs='+',
@@ -516,11 +522,24 @@ if __name__ == "__main__":
             print(os.path.basename(argv[0]) + " version " + PROG_VERSION_DATE)
             exit(0)
 
-        # checking parameters ...
-
-        # if not options.logfilename:
-        #    logging.critical("Please give me a file to write to with option \"--logfile\".")
-        # Utils.error_exit(5)
+        # lazyblorg-global settings from "config.py"
+        if options.configfilename:
+            if not os.path.isfile(options.configfilename):
+                logging.critical(
+                    "your alternative config file \"" +
+                    options.configfilename +
+                    "\" is not found. Please use default \"config.py\" or choose an existing file …")
+                Utils.error_exit(-1)
+            else:
+                import importlib.machinery
+                import importlib.util
+                loader = importlib.machinery.SourceFileLoader('config', options.configfilename)
+                spec = importlib.util.spec_from_loader(loader.name, loader)
+                mod = importlib.util.module_from_spec(spec)
+                loader.exec_module(mod)
+        else:
+            # load default config.py located at the lazyblorg source:
+            import config  
 
         if not os.path.isfile(options.logfilename):
             logging.debug(
