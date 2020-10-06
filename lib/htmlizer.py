@@ -2442,7 +2442,7 @@ class Htmlizer(object):
                     snippetname += 'multiple-minutes-'
 
                 # handle different languages:
-                if entry['autotags']['language'] == 'deutsch':
+                if 'autotags' in entry.keys() and entry['autotags']['language'] == 'deutsch':
                     # FIXXME: other languages than german have to be added
                     # here: (generalize using a configured list of known
                     # languages?)
