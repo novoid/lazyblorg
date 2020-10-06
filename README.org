@@ -322,7 +322,7 @@ The number of external dependencies is kept at a minimum.
 This is a list of the most important dependencies:
 - [[http://werkzeug.pocoo.org/][Werkzeug]]
   - for sanitizing path components
-  - I installed it on Debian GNU/Linux with ~apt-get install python3-werkzeug~
+  - I installed it on Debian GNU/Linux with ~sudo apt-get install python3-werkzeug~
 - pickle
   - object serialization
   - most likely: should be part of your Python distribution
