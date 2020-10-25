@@ -102,6 +102,7 @@ DIRECTORIES_WITH_IMAGE_ORIGINALS = ["testdata/testimages",
                                     os.path.join(os.path.expanduser("~"), *"tmp/digicam/tmp".split('/')),
                                     os.path.join(os.path.expanduser("~"), *"tmp/digicam/oneplus5".split('/')),
                                     os.path.join(os.path.expanduser("~"), *"archive/events_memories/2020".split('/')),
+                                    os.path.join(os.path.expanduser("~"), *"fun/netfun".split('/')),
                                     os.path.join(os.path.expanduser("~"), *"archive/fromweb/cliparts".split('/'))]
 
 ## string: a filetags-tag - see
