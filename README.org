@@ -374,11 +374,15 @@ All other libraries should be part of a standard Python distribution.
    4. A ~:LOGBOOK:~ entry has to be found with the time-stamp of
       setting the entry to ~DONE~
       - in [[https://github.com/novoid/dot-emacs][my set-up]], this is created automatically
-   5. Do not use Org-mode elements that lazyblorg does not understand
-      - You should not get a disaster if you are using new
-        elements. The result might disappoint you, that's all.
-      - However, many Org-mode elements are automatically converted
-        through pandoc.
+   5. Get yourself familiar on the sub-set of Org-mode syntax you can use with lazyblorg
+      - *Always put an empty line between different syntax elements*
+        such as a heading and the next paragraph, normal text and a
+        list or a table, and so forth.
+      - You should not get a disaster if you are using elements
+        lazyblorg is not optimized for. The result might disappoint
+        you, that's all.
+      - However, "unknown" Org-mode elements are automatically converted
+        through pandoc as a fall-back.
 
 6. OPTIONAL: Write your own CSS file
    - you can [[http://Karl-Voit.at/public_voit.css][take a look on mine]] if you do not care that I am not
