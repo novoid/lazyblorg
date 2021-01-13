@@ -23,6 +23,20 @@ CLOSED: [2017-01-08 Sun 10:58]
 )
 #+END_SRC
 
+Here comes some HTML to test for https://github.com/novoid/lazyblorg/issues/24#issuecomment-759594835:
+
+#+NAME: my-HTML-example name
+#+BEGIN_HTML
+    foo
+bar
+  <foo />
+<a href="bar">baz</a>
+<a href="https://problemurl.com?a=b>ok</a>
+<a href="https://problemurl.com?a=b&c=d">ok cool</a>
+<a href="https://problemurl.com?a=b&c=d&more=merrier">ok</a>
+<a href="https://problemurl.com?a=b&c=d&evenmore&=evenmerrier&">ok</a>
+#+END_HTML
+
 A simple code block:
 
 : \** Cabaret `(my-capture-prompt "date of event" 'my-event-date)`: `(my-capture-prompt "artist" 'my-artist)`
