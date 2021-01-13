@@ -1709,7 +1709,8 @@ class Htmlizer(object):
         @param return: sanitized string
         """
 
-        content = content.replace('&amp;', '&').replace('&', '&amp;')
+        # content = content.replace('&amp;', '&').replace('&', '&amp;')
+        content = re.sub("&(?!amp;)", "&amp;", content)
 
         return content.replace(
             '<script async src=',
