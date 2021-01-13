@@ -5,6 +5,7 @@ from config import *
 import unittest
 from lib.htmlizer import *
 from lib.utils import *
+import xml.sax.saxutils as saxutils
 
 
 class TestHtmlizer(unittest.TestCase):
@@ -894,6 +895,10 @@ class TestHtmlizer(unittest.TestCase):
             autotag_language,
             ignore_missing_ids)
 
+        mystring = '<a href="https://example.com?a=b&amp;c=d"'
+        expected = '<a href="https://example.com?a=b&c=d"'
+        self.assertEqual(htmlizer.fix_ampersands_in_url(mystring), expected)
+
         self.assertTrue(htmlizer.fix_ampersands_in_url('href="http://www.example.com/index.html&amp;s=foo" bar') ==
                         'href="http://www.example.com/index.html&s=foo" bar')
 
@@ -912,6 +917,80 @@ class TestHtmlizer(unittest.TestCase):
             "in different mode."
         self.assertTrue(htmlizer.fix_ampersands_in_url(mystring) == expected)
 
+    def test_sanitize_feed_html_characters(self):
+
+        template_definitions = 'foo'
+        prefix_dir = 'foo'
+        targetdir = 'foo'
+        blog_data = 'foo'
+        generate = 'foo'
+        increment_version = 'foo'
+        autotag_language = False
+        ignore_missing_ids = False
+        entries_timeline_by_published = {}
+
+        htmlizer = Htmlizer(
+            template_definitions,
+            prefix_dir,
+            targetdir,
+            blog_data,
+            None,
+            entries_timeline_by_published,
+            generate,
+            increment_version,
+            autotag_language,
+            ignore_missing_ids)
+
+        validstring = '<a href="https://validstring.com?a=b&amp;c=d"'
+        self.assertEqual(htmlizer.sanitize_feed_html_characters(validstring), validstring)
+
+        mystring = '&'
+        expected = '&amp;'
+        self.assertEqual(htmlizer.sanitize_feed_html_characters(mystring), expected)
+
+        self.assertEqual(htmlizer.sanitize_feed_html_characters(expected), expected)
+
+        mystring = 'https://problemurl.com?a=b&c=d'
+        expected = saxutils.escape(mystring)
+        self.assertEqual(htmlizer.sanitize_feed_html_characters(mystring), expected)
+
+        mystring = '<a href="https://problemurl.com?a=b&c=d"'
+        expected = '<a href="https://problemurl.com?a=b&amp;c=d"'
+        self.assertEqual(htmlizer.sanitize_feed_html_characters(mystring), expected)
+
+        mystring = '<a href="https://problemurl.com?a=b&c=d&longer=longlong&"'
+        expected = '<a href="https://problemurl.com?a=b&amp;c=d&amp;longer=longlong&amp;"'
+        self.assertEqual(htmlizer.sanitize_feed_html_characters(mystring), expected)
+
+
+    def test_sanitize_feed_html_characters_regression(self):
+        # https://github.com/novoid/lazyblorg/issues/24#issuecomment-759594835
+
+        template_definitions = 'foo'
+        prefix_dir = 'foo'
+        targetdir = 'foo'
+        blog_data = 'foo'
+        generate = 'foo'
+        increment_version = 'foo'
+        autotag_language = False
+        ignore_missing_ids = False
+        entries_timeline_by_published = {}
+
+        htmlizer = Htmlizer(
+            template_definitions,
+            prefix_dir,
+            targetdir,
+            blog_data,
+            None,
+            entries_timeline_by_published,
+            generate,
+            increment_version,
+            autotag_language,
+            ignore_missing_ids)
+
+        mystring = 'The author of <a href="https://www.reddit.com/r/datacurator/comments/kpfxw7/file_naming_conventions_for_a_startup/ghxrq87/?utm_source=reddit&utm_medium=web2x&context=3">this reddit thread</a> asked how to design a file naming convention for a (new) company. The question was not only about file name convention but also covered a directory hierarchy on the shared file server and such.'
+        expected = 'The author of <a href="https://www.reddit.com/r/datacurator/comments/kpfxw7/file_naming_conventions_for_a_startup/ghxrq87/?utm_source=reddit&amp;utm_medium=web2x&amp;context=3">this reddit thread</a> asked how to design a file naming convention for a (new) company. The question was not only about file name convention but also covered a directory hierarchy on the shared file server and such.'
+        self.assertEqual(htmlizer.sanitize_feed_html_characters(mystring), expected)
 
 # Local Variables:
 # mode: flyspell
