@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2020-10-03 19:28:28 vk>
+# Time-stamp: <2021-01-24 17:51:16 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -78,6 +78,8 @@ class Htmlizer(object):
 
     # holds a list of tags whose tag pages have been generated
     list_of_tag_pages_generated = []
+
+    # FIXXME: improvement: introduce named regex groups for all regex:
 
     # find internal links to Org-mode IDs: [[id:simple]] and [[id:with][a
     # description]]
@@ -421,19 +423,28 @@ class Htmlizer(object):
 
         htmlcontent += self._replace_tag_placeholders(
             sorted(entry['usertags']), self.template_definition_by_name('article-usertag'))
-        htmlcontent += self._generate_auto_tag_list_items(entry)
+        htmlcontent += self.sanitize_internal_links(self._generate_auto_tag_list_items(entry))
 
         for articlepart in ['article-tags-end', 'article-header-end']:
-            htmlcontent += self.template_definition_by_name(articlepart)
+            htmlcontent += self.sanitize_internal_links(self.template_definition_by_name(articlepart))
+
+        # make sure that all placeholders up to here are replaced and links are sanitized:
+        htmlcontent = self.sanitize_internal_links(self._replace_general_article_placeholders(entry, htmlcontent))
 
         htmlcontent += self.__collect_raw_content(entry['content'])
-        htmlcontent += self.template_definition_by_name('article-end')
-        htmlcontent += self._generate_back_references_content(entry, config.TEMPORAL)
-        htmlcontent += self.template_definition_by_name('article-footer')
 
-        # replace and sanitize:
+        # starting with here (after adding the content): do not call "self.sanitize_internal_links(htmlcontent)"
+        # for *whole* htmlcontent here because parts like examples or comments might contain IDs that do
+        # not really exist and that otherwise would result in exceptions.
+
+        htmlcontent += self.sanitize_internal_links(self.template_definition_by_name('article-end'))
+        htmlcontent += self.sanitize_internal_links(self._generate_back_references_content(entry, config.TEMPORAL))
+        htmlcontent += self.sanitize_internal_links(
+            self._replace_general_article_placeholders(
+                entry,
+                self.template_definition_by_name('article-footer')))
+
         htmlcontent = self._replace_general_article_placeholders(entry, htmlcontent)
-        htmlcontent = self.sanitize_internal_links(htmlcontent)
         htmlcontent = self._insert_reading_minutes_if_found(entry, htmlcontent)
 
         return htmlfilename, orgfilename, htmlcontent
@@ -465,14 +476,22 @@ class Htmlizer(object):
         for articlepart in ['article-tags-end', 'persistent-header-end']:
             htmlcontent += self.template_definition_by_name(articlepart)
 
-        htmlcontent += self.__collect_raw_content(entry['content'])
-        htmlcontent += self.template_definition_by_name('persistent-end')
-        htmlcontent += self._generate_back_references_content(entry, config.PERSISTENT)
-        htmlcontent += self.template_definition_by_name('persistent-footer')
+        # make sure that all placeholders up to here are replaced and links are sanitized:
+        htmlcontent = self.sanitize_internal_links(self._replace_general_article_placeholders(entry, htmlcontent))
 
-        # replace and sanitize:
+        # starting with here (after adding the content): do not call "self.sanitize_internal_links(htmlcontent)"
+        # for *whole* htmlcontent here because parts like examples or comments might contain IDs that do
+        # not really exist and that otherwise would result in exceptions.
+
+        htmlcontent += self.__collect_raw_content(entry['content'])
+        htmlcontent += self.sanitize_internal_links(self.template_definition_by_name('persistent-end'))
+        htmlcontent += self.sanitize_internal_links(self._generate_back_references_content(entry, config.PERSISTENT))
+        htmlcontent += self.sanitize_internal_links(
+            self._replace_general_article_placeholders(
+                entry,
+                self.template_definition_by_name('persistent-footer')))
+
         htmlcontent = self._replace_general_article_placeholders(entry, htmlcontent)
-        htmlcontent = self.sanitize_internal_links(htmlcontent)
         htmlcontent = self._insert_reading_minutes_if_found(entry, htmlcontent)
 
         return htmlfilename, orgfilename, htmlcontent
@@ -505,14 +524,32 @@ class Htmlizer(object):
         for articlepart in ['tagpage-tags-end', 'tagpage-header-end']:
             htmlcontent += self.template_definition_by_name(articlepart)
 
-        htmlcontent += self.__collect_raw_content(entry['content'])
-        htmlcontent += self.template_definition_by_name('tagpage-end')
-        htmlcontent += self._generate_back_references_content(entry, config.TEMPORAL)
-        htmlcontent += self.template_definition_by_name('article-footer')
+        if not entry['content']:
+            # for tag pages which got no user-defined tag pages, the
+            # template for #READING-MINUTES-SECTION# doesn't make any
+            # sense. So here, I just remove it from the htmlcontent
+            # before not trying to replace it ;-)
+            # Alternative: define a separate template for those page.
+            # However, they only differ in this.
+            htmlcontent = htmlcontent.replace('#READING-MINUTES-SECTION#', '')
 
-        # replace and sanitize:
+        # make sure that all placeholders up to here are replaced and links are sanitized:
+        htmlcontent = self.sanitize_internal_links(self._replace_general_article_placeholders(entry, htmlcontent))
+
+        htmlcontent += self.__collect_raw_content(entry['content'])
+
+        # starting with here (after adding the content): do not call "self.sanitize_internal_links(htmlcontent)"
+        # for *whole* htmlcontent here because parts like examples or comments might contain IDs that do
+        # not really exist and that otherwise would result in exceptions.
+
+        htmlcontent += self.sanitize_internal_links(self.template_definition_by_name('tagpage-end'))
+        htmlcontent += self.sanitize_internal_links(self._generate_back_references_content(entry, config.TEMPORAL))
+        htmlcontent += self.sanitize_internal_links(
+            self._replace_general_article_placeholders(
+                entry,
+                self.template_definition_by_name('article-footer')))
+
         htmlcontent = self._replace_general_article_placeholders(entry, htmlcontent)
-        htmlcontent = self.sanitize_internal_links(htmlcontent)
         htmlcontent = self._insert_reading_minutes_if_found(entry, htmlcontent)
 
         return htmlfilename, orgfilename, htmlcontent
@@ -839,6 +876,15 @@ class Htmlizer(object):
         htmlcontent = '' + \
             self.template_definition_by_name('entrypage-header')
 
+        htmlcontent = htmlcontent.replace(
+            '#TAGOVERVIEW-CLOUD#',
+            self.sanitize_internal_links(self._generate_tag_cloud(tags)))
+        htmlcontent = self._replace_general_blog_placeholders(htmlcontent)
+
+        # replace any placeholders and sanitize internal links before article content gets added:
+        htmlcontent = self._replace_general_blog_placeholders(htmlcontent)
+        htmlcontent = self.sanitize_internal_links(htmlcontent)
+
         listentry = None
         listentry_index = 0
         number_of_teasers_generated = 0
@@ -926,12 +972,20 @@ class Htmlizer(object):
                 content = content.replace(
                     '#ARTICLE-PUBLISHED-HUMAN-READABLE#', iso_timestamp)
 
+                # sanitize internal links of content so far:
+                content = self.sanitize_internal_links(content)
+                content = self._replace_general_blog_placeholders(content)
+
                 # what part of the data is to show on the feed?
                 teaser_html_content = False
                 if entry['htmlteaser-equals-content']:
                     teaser_html_content = entry['content']
                 else:
                     teaser_html_content = entry['htmlteaser']
+
+                # NOTE: do not call "self.sanitize_internal_links(content)" for whole content starting from here
+                #       because parts like examples or comments might contain IDs that do not really exist and
+                #       that otherwise would result in exceptions.
 
                 # adding article paths to embedded images:
                 teaser_html_content = self._add_absolute_path_to_image_src(teaser_html_content, listentry['url'])
@@ -956,19 +1010,11 @@ class Htmlizer(object):
                           ' and therefore I got less teaser than configured in NUMBER_OF_TEASER_ARTICLES')
 
         # add footer:
-        htmlcontent += self.template_definition_by_name('entrypage-footer')
+        footer = self._replace_general_article_placeholders(
+            entry,
+            self.template_definition_by_name('entrypage-footer'))
+        htmlcontent += self.sanitize_internal_links(footer)
 
-        htmlcontent = htmlcontent.replace(
-            '#COMMON-SIDEBAR#',
-            self.template_definition_by_name('common-sidebar'))
-        htmlcontent = self._replace_general_article_placeholders(
-            entry, htmlcontent)
-
-        htmlcontent = htmlcontent.replace(
-            '#TAGOVERVIEW-CLOUD#',
-            self._generate_tag_cloud(tags))
-
-        htmlcontent = self.sanitize_internal_links(htmlcontent)
         self.write_content_to_file(entry_page_filename, htmlcontent)
 
         return

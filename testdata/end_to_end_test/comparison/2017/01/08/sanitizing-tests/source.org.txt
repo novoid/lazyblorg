@@ -23,4 +23,30 @@ A simple code block:
 : \** Cabaret `(my-capture-prompt "date of event" 'my-event-date)`: `(my-capture-prompt "artist" 'my-artist)`
 : SCHEDULED: <`(my-capture-prompt "date 1st email" 'my-email-date)`>
 
+A comment with a non-existent ID:
+
+: :PROPERTIES:
+: :ID: this-is-not-an-existent-id
+: :END:
+
+An example with a non-existent ID:
+
+#+BEGIN_EXAMPLE
+:PROPERTIES:
+:ID: this-is-not-an-existent-id
+:END:
+
+- [[id:2021-01-23-this-does-not-exist1][This does not exist 1]]
+#+END_EXAMPLE
+
+Example link that exists: [[id:2020-10-02-Heading-which-starts-with-a-list][existing link]]
+
+Example comment with non-existent ID and link:
+
+: *** Example heading
+: :PROPERTIES:
+: :ID:       2021-01-23-example-heading
+: :END:
+:
+: - Also: [[id:2021-01-23-this-does-not-exist2][this does not exist 2]]
 

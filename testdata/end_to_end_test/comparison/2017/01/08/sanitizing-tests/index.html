@@ -122,6 +122,53 @@ A simple code block:
  SCHEDULED: &lt;`(my-capture-prompt "date 1st email" 'my-email-date)`&gt;	  </pre>
     </div>
 
+<p>
+
+A comment with a non-existent ID:
+
+</p>
+
+	  <div class="example_code">
+	  <pre> :PROPERTIES:
+ :ID: this-is-not-an-existent-id
+ :END:	  </pre>
+    </div>
+
+<p>
+
+An example with a non-existent ID:
+
+</p>
+
+	  <div class="example_code">
+	  <pre>:PROPERTIES:
+:ID: this-is-not-an-existent-id
+:END:
+
+- [[id:2021-01-23-this-does-not-exist1][This does not exist 1]]	  </pre>
+    </div>
+
+<p>
+
+Example link that exists: <a href="//Karl-Voit.at/2020/10/02/Heading-which-starts-with-a-list">existing link</a>
+
+</p>
+
+<p>
+
+Example comment with non-existent ID and link:
+
+</p>
+
+	  <div class="example_code">
+	  <pre> *** Example heading
+ :PROPERTIES:
+ :ID:       2021-01-23-example-heading
+ :END:
+
+ - Also: [[id:2021-01-23-this-does-not-exist2][this does not exist 2]]	  </pre>
+    </div>
+
 
   </article>
 	  <aside class="published-on">
