@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2021-01-24 17:51:16 vk>
+# Time-stamp: <2021-01-24 18:35:11 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -359,20 +359,17 @@ class Htmlizer(object):
 
             if entry['category'] == config.TAGS:
                 self.logging.debug(self.current_entry_id_str() + "entry is a tag page")
-                htmlfilename, orgfilename, htmlcontent = self._generate_tag_page(
-                    entry)
+                htmlfilename, orgfilename, htmlcontent = self._generate_page(config.TAGS, entry)
                 stats_generated_tags += 1
 
             elif entry['category'] == config.PERSISTENT:
                 self.logging.debug(self.current_entry_id_str() + "entry is a persistent page")
-                htmlfilename, orgfilename, htmlcontent = self._generate_persistent_article(
-                    entry)
+                htmlfilename, orgfilename, htmlcontent = self._generate_page(config.PERSISTENT, entry)
                 stats_generated_persistent += 1
 
             elif entry['category'] == config.TEMPORAL:
                 self.logging.debug(self.current_entry_id_str() + "entry is an ordinary time-oriented blog entry")
-                htmlfilename, orgfilename, htmlcontent = self._generate_temporal_article(
-                    entry)
+                htmlfilename, orgfilename, htmlcontent = self._generate_page(config.TEMPORAL, entry)
                 stats_generated_temporal += 1
 
             elif entry['category'] == config.TEMPLATES:
@@ -402,129 +399,56 @@ class Htmlizer(object):
         return entry_list_by_newest_timestamp, stats_generated_total, stats_generated_temporal, \
             stats_generated_persistent, stats_generated_tags
 
-    def _generate_temporal_article(self, entry):
+    def _generate_page(self, kind, entry):
         """
-        Creates a (normal) time-oriented blog article (in contrast to a persistent blog article).
+        Creates a blog article page of a few standard types.
 
+        @param kind: string which is one of: config.TEMPORAL, config.PERSISTENT
         @param entry: blog entry data
         @param return: htmlfilename: string containing the file name of the HTML file
         @param return: orgfilename: string containing the file name of the Org-mode raw content file
         @param return: htmlcontent: the HTML content of the entry
         """
 
+        assert kind in [config.TEMPORAL, config.PERSISTENT, config.TAGS]
+
         orgfilename, htmlfilename = self._create_path_and_generate_filenames_and_copy_images(entry)
         htmlcontent = ''
 
-        for articlepart in [
-            'article-header',
-            'article-header-begin',
-                'article-tags-begin']:
+        if kind == config.TEMPORAL:
+            my_templates = ['article-header', 'article-header-begin', 'article-tags-begin']
+        elif kind == config.PERSISTENT:
+            my_templates = ['persistent-header', 'persistent-header-begin', 'article-tags-begin']
+        elif kind == config.TAGS:
+            my_templates = ['tagpage-header', 'tagpage-header-begin', 'tagpage-tags-begin']
+            tag = entry['title']
+            self.list_of_tag_pages_generated.append(tag)
+
+        for articlepart in my_templates:
             htmlcontent += self.template_definition_by_name(articlepart)
 
-        htmlcontent += self._replace_tag_placeholders(
-            sorted(entry['usertags']), self.template_definition_by_name('article-usertag'))
+        if kind != config.TAGS:
+            htmlcontent += self._replace_tag_placeholders(
+                sorted(entry['usertags']), self.template_definition_by_name('article-usertag'))
+
         htmlcontent += self.sanitize_internal_links(self._generate_auto_tag_list_items(entry))
 
-        for articlepart in ['article-tags-end', 'article-header-end']:
-            htmlcontent += self.sanitize_internal_links(self.template_definition_by_name(articlepart))
+        if kind == config.TEMPORAL:
+            my_templates = []
+        elif kind == config.PERSISTENT:
+            my_templates = []
 
-        # make sure that all placeholders up to here are replaced and links are sanitized:
-        htmlcontent = self.sanitize_internal_links(self._replace_general_article_placeholders(entry, htmlcontent))
+        if kind == config.TEMPORAL:
+            my_templates = ['article-tags-end', 'article-header-end']
+        elif kind == config.PERSISTENT:
+            my_templates = ['article-tags-end', 'persistent-header-end']
+        elif kind == config.TAGS:
+            my_templates = ['tagpage-tags-end', 'tagpage-header-end']
 
-        htmlcontent += self.__collect_raw_content(entry['content'])
-
-        # starting with here (after adding the content): do not call "self.sanitize_internal_links(htmlcontent)"
-        # for *whole* htmlcontent here because parts like examples or comments might contain IDs that do
-        # not really exist and that otherwise would result in exceptions.
-
-        htmlcontent += self.sanitize_internal_links(self.template_definition_by_name('article-end'))
-        htmlcontent += self.sanitize_internal_links(self._generate_back_references_content(entry, config.TEMPORAL))
-        htmlcontent += self.sanitize_internal_links(
-            self._replace_general_article_placeholders(
-                entry,
-                self.template_definition_by_name('article-footer')))
-
-        htmlcontent = self._replace_general_article_placeholders(entry, htmlcontent)
-        htmlcontent = self._insert_reading_minutes_if_found(entry, htmlcontent)
-
-        return htmlfilename, orgfilename, htmlcontent
-
-    def _generate_persistent_article(self, entry):
-        """
-        Creates a persistent blog article.
-
-        @param entry: blog entry data
-        @param return: htmlfilename: string containing the file name of the HTML file
-        @param return: orgfilename: string containing the file name of the Org-mode raw content file
-        @param return: htmlcontent: the HTML content of the entry
-        """
-
-        orgfilename, htmlfilename = self._create_path_and_generate_filenames_and_copy_images(entry)
-        htmlcontent = ''
-
-        for articlepart in [
-                'persistent-header',
-                'persistent-header-begin',
-                'article-tags-begin']:
+        for articlepart in my_templates:
             htmlcontent += self.template_definition_by_name(articlepart)
 
-        htmlcontent += self._replace_tag_placeholders(
-            sorted(entry['usertags']), self.template_definition_by_name('article-usertag'))
-
-        htmlcontent += self._generate_auto_tag_list_items(entry)
-
-        for articlepart in ['article-tags-end', 'persistent-header-end']:
-            htmlcontent += self.template_definition_by_name(articlepart)
-
-        # make sure that all placeholders up to here are replaced and links are sanitized:
-        htmlcontent = self.sanitize_internal_links(self._replace_general_article_placeholders(entry, htmlcontent))
-
-        # starting with here (after adding the content): do not call "self.sanitize_internal_links(htmlcontent)"
-        # for *whole* htmlcontent here because parts like examples or comments might contain IDs that do
-        # not really exist and that otherwise would result in exceptions.
-
-        htmlcontent += self.__collect_raw_content(entry['content'])
-        htmlcontent += self.sanitize_internal_links(self.template_definition_by_name('persistent-end'))
-        htmlcontent += self.sanitize_internal_links(self._generate_back_references_content(entry, config.PERSISTENT))
-        htmlcontent += self.sanitize_internal_links(
-            self._replace_general_article_placeholders(
-                entry,
-                self.template_definition_by_name('persistent-footer')))
-
-        htmlcontent = self._replace_general_article_placeholders(entry, htmlcontent)
-        htmlcontent = self._insert_reading_minutes_if_found(entry, htmlcontent)
-
-        return htmlfilename, orgfilename, htmlcontent
-
-    def _generate_tag_page(self, entry):
-        """
-        Creates a blog article for a tag (in contrast to a temporal or persistent blog article).
-
-        @param entry: blog entry data
-        @param return: htmlfilename: string containing the file name of the HTML file
-        @param return: orgfilename: string containing the file name of the Org-mode raw content file
-        @param return: htmlcontent: the HTML content of the entry
-        """
-
-        logging.debug(self.current_entry_id_str() + '_generate_tag_page(' + str(entry) + ')')
-        tag = entry['title']
-        self.list_of_tag_pages_generated.append(tag)
-
-        orgfilename, htmlfilename = self._create_path_and_generate_filenames_and_copy_images(entry)
-        htmlcontent = ''
-
-        for articlepart in [
-            'tagpage-header',
-            'tagpage-header-begin',
-                'tagpage-tags-begin']:
-            htmlcontent += self.template_definition_by_name(articlepart)
-
-        htmlcontent += self._generate_auto_tag_list_items(entry)
-
-        for articlepart in ['tagpage-tags-end', 'tagpage-header-end']:
-            htmlcontent += self.template_definition_by_name(articlepart)
-
-        if not entry['content']:
+        if kind == config.TAGS and not entry['content']:
             # for tag pages which got no user-defined tag pages, the
             # template for #READING-MINUTES-SECTION# doesn't make any
             # sense. So here, I just remove it from the htmlcontent
@@ -537,17 +461,26 @@ class Htmlizer(object):
         htmlcontent = self.sanitize_internal_links(self._replace_general_article_placeholders(entry, htmlcontent))
 
         htmlcontent += self.__collect_raw_content(entry['content'])
-
         # starting with here (after adding the content): do not call "self.sanitize_internal_links(htmlcontent)"
         # for *whole* htmlcontent here because parts like examples or comments might contain IDs that do
         # not really exist and that otherwise would result in exceptions.
 
-        htmlcontent += self.sanitize_internal_links(self.template_definition_by_name('tagpage-end'))
-        htmlcontent += self.sanitize_internal_links(self._generate_back_references_content(entry, config.TEMPORAL))
+        if kind == config.TEMPORAL:
+            my_end_template = 'article-end'
+            my_footer_template = 'article-footer'
+        elif kind == config.PERSISTENT:
+            my_end_template = 'persistent-end'
+            my_footer_template = 'persistent-footer'
+        elif kind == config.TAGS:
+            my_end_template = 'tagpage-end'
+            my_footer_template = 'article-footer'
+
+        htmlcontent += self.sanitize_internal_links(self.template_definition_by_name(my_end_template))
+        htmlcontent += self.sanitize_internal_links(self._generate_back_references_content(entry, kind))
         htmlcontent += self.sanitize_internal_links(
             self._replace_general_article_placeholders(
                 entry,
-                self.template_definition_by_name('article-footer')))
+                self.template_definition_by_name(my_footer_template)))
 
         htmlcontent = self._replace_general_article_placeholders(entry, htmlcontent)
         htmlcontent = self._insert_reading_minutes_if_found(entry, htmlcontent)
@@ -592,7 +525,7 @@ class Htmlizer(object):
             entry['title'] = tag
             self.blog_data.append(entry)
             logging.info('----> Generating tag page for: ' + tag)
-            htmlfilename, orgfilename, htmlcontent = self._generate_tag_page(entry)
+            htmlfilename, orgfilename, htmlcontent = self._generate_page(config.TAGS, entry)
             self.write_content_to_file(htmlfilename, htmlcontent)
             # omit writing org file since there is no user-generated org-mode file for it
             count += 1
