@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2020-10-03 12:51:17 vk>
+# Time-stamp: <2021-01-31 14:53:41 vk>
 
 import config
 import re
@@ -45,6 +45,7 @@ class OrgParser(object):
     ENTRY_CONTENT = 'entry_content'
     DRAWER_PROP = 'drawer_prop'
     DRAWER_LOGBOOK = 'drawer_logbook'
+    IGNORED_DRAWER = 'ignored_drawer'
     BLOCK = 'block'
     LIST = 'list'
     TABLE = 'table'
@@ -60,6 +61,8 @@ class OrgParser(object):
     HEADING_TITLE_IDX = 4
     # components(HEADING_TAGS_IDX)[1:-1].split(':') -> array of tags
     HEADING_TAGS_IDX = 6
+
+    DRAWER_REGEX = re.compile(r'^:[A-Z]+:$')
 
     CREATED_REGEX = re.compile(
         r'^:CREATED:\s+' +
@@ -528,16 +531,34 @@ class OrgParser(object):
                 # NOTE: yes, content between header and drawers is
                 # ignored/lost.
 
-                if line.upper() == ':PROPERTIES:':
-                    self.logging.debug("OrgParser: found PROPERTIES drawer")
-                    state = self.DRAWER_PROP
-                    previous_line = line
-                    continue
-                elif line.upper() == ':LOGBOOK:':
-                    self.logging.debug("OrgParser: found LOGBOOK drawer")
-                    state = self.DRAWER_LOGBOOK
-                    previous_line = line
-                    continue
+                drawer_matches = self.DRAWER_REGEX.match(line)
+                if drawer_matches:
+                    if line.upper() == ':PROPERTIES:':
+                        self.logging.debug("OrgParser: found PROPERTIES drawer")
+                        state = self.DRAWER_PROP
+                        previous_line = line
+                        continue
+                    elif line.upper() == ':LOGBOOK:':
+                        self.logging.debug("OrgParser: found LOGBOOK drawer")
+                        state = self.DRAWER_LOGBOOK
+                        previous_line = line
+                        continue
+                    else:
+                        ## DRAWER_REGEX is matching, not handled by pevious ifs: parse this drawer but ignore it
+
+                        ## Note: as long as there is no ignored drawer
+                        ## before PROPERTIES or LOGBOOK, this is dead
+                        ## code because usually, this is only matched
+                        ## when being in self.ENTRY_CONTENT status and
+                        ## not self.BLOG_HEADER like here. I keep it
+                        ## here just in case when there is a LINKS
+                        ## drawer (or similar) before any
+                        ## PROPERTIES/LOGBOOK drawer.
+
+                        self.logging.debug("OrgParser: found a drawer to ignore")
+                        state = self.IGNORED_DRAWER
+                        ignore_line_for_rawcontent = True
+                        continue
 
             elif state == self.ENTRY_CONTENT:
 
@@ -551,6 +572,7 @@ class OrgParser(object):
                 heading_components = self.HEADING_REGEX.match(line)
                 hr_components = self.HR_REGEX.match(line)
                 cust_link_image_components = self.CUST_LINK_IMAGE_REGEX.match(line)
+                drawer_matches = self.DRAWER_REGEX.match(line)
 
                 if line.upper() == ':PROPERTIES:':
                     self.logging.debug("OrgParser: found PROPERTIES drawer")
@@ -562,6 +584,12 @@ class OrgParser(object):
                     self.logging.debug("OrgParser: found LOGBOOK drawer")
                     state = self.DRAWER_LOGBOOK
                     previous_line = line
+                    continue
+
+                elif drawer_matches:
+                    self.logging.debug("OrgParser: found a drawer to ignore")
+                    state = self.IGNORED_DRAWER
+                    ignore_line_for_rawcontent = True
                     continue
 
                 elif hr_components:
@@ -870,6 +898,19 @@ class OrgParser(object):
 
                 previous_line = line
                 continue
+
+            elif state == self.IGNORED_DRAWER:
+
+                # parse ignored drawer, omit in rawcontent
+
+                if line.upper() == ':END:':
+                    self.logging.debug("OrgParser: end of drawer")
+                    state = self.ENTRY_CONTENT
+                    ignore_line_for_rawcontent = True
+                    continue
+                else:
+                    ignore_line_for_rawcontent = True
+                    continue
 
             elif state == self.BLOCK:
 

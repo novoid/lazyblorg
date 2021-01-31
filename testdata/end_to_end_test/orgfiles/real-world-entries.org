@@ -315,6 +315,42 @@ Lorem ipsum dolor sit amet, malorum scaevola ut ius, ridens admodum adipisci eam
 
 Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. Odio disputando ei his, ei est mutat mediocritatem. Harum verterem ex mea, sed saepe viderer scribentur ex. Pri te dictas eligendi praesent.
 
+* DONE Test case with drawers                                                                  :blog:
+CLOSED: [2021-01-30 Sat 23:32]
+:PROPERTIES:
+:ID: 2021-01-30-drawer-tests
+:CREATED:  [2021-01-30 Sat 23:26]
+:END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-01-30 Sat 23:32]
+:END:
+
+** RELATED drawer
+:PROPERTIES:
+:CREATED:  [2021-01-30 Sat 23:27]
+:ID:       2021-01-30-RELATED-drawer
+:END:
+:RELATED:
+[2020-07-09 Thu 18:16] -> [[id:2021-01-30-does-not-exist1][This doesn't exist]]
+[2020-07-09 Thu 18:16] -> [[id:2021-01-30-doesnt-exist-2][another non-existent target link]]
+:END:
+
+This is just a dummy text.
+
+# not working: link to [[id:2021-01-30-LINKS-drawer][LINKS drawer]]
+
+** LINKS drawer
+:PROPERTIES:
+:CREATED:  [2021-01-30 Sat 23:28]
+:ID:       2021-01-30-LINKS-drawer
+:END:
+:LINKS:
+[2021-01-30 Sat 23:30] <- [[id:2021-01-30-RELATED-drawer][RELATED drawer]]
+[2021-01-30 Sat 23:30] <- [[id:2021-01-30-another-nonexistent-id][not existing again]] 
+:END:
+
+Another dummy text.
+
 * negative tests
 :PROPERTIES:
 :CREATED:  [2016-11-27 Sun 15:01]
