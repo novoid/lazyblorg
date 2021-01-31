@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2021-01-31 14:53:41 vk>
+# Time-stamp: <2021-01-31 15:51:08 vk>
 
 import config
 import re
@@ -448,12 +448,13 @@ class OrgParser(object):
 
             line = rawline.rstrip()  # remove trailing whitespace
 
-            self.logging.debug(
-                "OrgParser: ------------------------------- %s" %
-                state)
-            self.logging.debug(
-                "OrgParser: %s ###### line: \"%s\"" %
-                (state, line))
+            if not state == self.SEARCHING_BLOG_HEADER:  ## limit the output to interesting lines
+                self.logging.debug(
+                    "OrgParser: ------------------------------- %s" %
+                    state)
+                self.logging.debug(
+                    "OrgParser: %s ###### line: \"%s\"" %
+                    (state, line))
             stats_parsed_org_lines += 1  # increment statistical counter variable
 
             list_item_components = self.LIST_ITEM_REGEX.match(line)
@@ -519,8 +520,8 @@ class OrgParser(object):
                         continue
 
                 else:
-                    self.logging.debug(
-                        "OrgParser: line is not of any interest, skipping.")
+                    ## self.logging.debug(
+                    ##     "OrgParser: line is not of any interest, skipping.")
                     ignore_line_for_rawcontent = True
                     previous_line = line
                     continue
