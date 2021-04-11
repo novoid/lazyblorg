@@ -164,7 +164,8 @@ That's it. lazyblorg does the rest. It feels like magic, doesn't it? :-)
 These things make a blogger a happy one:
 
 *No other Org-mode blogging system* I know of is able to process blog
-entries which are *scattered across all your Org-mode documents*.
+entries which are *scattered across all your Org-mode documents*
+except the usual org-export-based approaches.
 
 *No other Org-mode blogging system* I know of is able to generate a
 blog entry with that *minimum effort* to the author.
