@@ -659,12 +659,12 @@ With name/label:
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@#TWITTER-HANDLE#" />
   <meta name="twitter:creator" content="@#TWITTER-HANDLE#" />
-  <meta name="twitter:title" content="#BLOG-NAME#" />
+  <meta name="twitter:title" content="#ARTICLE-TITLE#" />
   <meta name="twitter:description" content="#ARTICLE-TITLE#" />
   <meta name="twitter:image" content="#TWITTER-IMAGE#" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="#BLOG-NAME#" />
+  <meta property="og:title" content="#ARTICLE-TITLE#" />
   <meta property="og:description" content="#ARTICLE-TITLE#" />
   <meta property="og:image" content="#TWITTER-IMAGE#" />
   <meta property="og:site_name" content="#BLOG-NAME# - Web-page of #AUTHOR-NAME#">
@@ -851,12 +851,12 @@ A single page which is used as template for =example.com/tags/index.html=.
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@#TWITTER-HANDLE#" />
   <meta name="twitter:creator" content="@#TWITTER-HANDLE#" />
-  <meta name="twitter:title" content="#BLOG-NAME#" />
+  <meta name="twitter:title" content="#BLOG-NAME# - tag overview page" />
   <meta name="twitter:description" content="Tag overview page" />
   <meta name="twitter:image" content="#TWITTER-IMAGE#" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="#BLOG-NAME#" />
+  <meta property="og:title" content="#BLOG-NAME# - tag overview page" />
   <meta property="og:description" content="Tag overview page" />
   <meta property="og:image" content="#TWITTER-IMAGE#" />
   <meta property="og:site_name" content="#BLOG-NAME# - Web-page of #AUTHOR-NAME#">
@@ -969,12 +969,12 @@ Pages that describe a tag. Corresponding Org-mode entries must have:
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@#TWITTER-HANDLE#" />
   <meta name="twitter:creator" content="@#TWITTER-HANDLE#" />
-  <meta name="twitter:title" content="#BLOG-NAME#" />
+  <meta name="twitter:title" content="#ARTICLE-TITLE#" />
   <meta name="twitter:description" content="Tag page for tag #ARTICLE-TITLE#" />
   <meta name="twitter:image" content="#TWITTER-IMAGE#" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="#BLOG-NAME#" />
+  <meta property="og:title" content="#ARTICLE-TITLE#" />
   <meta property="og:description" content="Tag page for tag #ARTICLE-TITLE#" />
   <meta property="og:image" content="#TWITTER-IMAGE#" />
   <meta property="og:site_name" content="#BLOG-NAME# - Web-page of #AUTHOR-NAME#">
