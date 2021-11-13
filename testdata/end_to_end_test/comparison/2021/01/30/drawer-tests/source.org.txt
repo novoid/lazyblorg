@@ -1,0 +1,23 @@
+CLOSED: [2021-01-30 Sat 23:32]
+:PROPERTIES:
+:ID: 2021-01-30-drawer-tests
+:CREATED:  [2021-01-30 Sat 23:26]
+:END:
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-01-30 Sat 23:32]
+:END:
+
+** RELATED drawer
+:PROPERTIES:
+:END:
+
+This is just a dummy text.
+
+# not working: link to [[id:2021-01-30-LINKS-drawer][LINKS drawer]]
+
+** LINKS drawer
+:PROPERTIES:
+:END:
+
+Another dummy text.
+

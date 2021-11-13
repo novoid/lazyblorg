@@ -101,7 +101,7 @@ comment
   - http://orgmode.org
   - [[http://orgmode.org][orgmode-Homepage]]
   - [[http://orgmode.org][*orgmode* /Homepage/]]
-'''
+'''.replace('\a', '\\a').replace('\v', '\\v').replace('\\', '\\')
 
         expected_html5_result = '''<h1 id="basic-tests">Basic tests</h1>
 <ul>
@@ -111,7 +111,7 @@ comment
 <li><del>strike through</del></li>
 <li><code>code</code></li>
 <li><p><code>commands</code></p></li>
-<li><p><a href="http://orgmode.org" class="uri">http://orgmode.org</a></p></li>
+<li><p><a href="http://orgmode.org">http://orgmode.org</a></p></li>
 </ul>
 <pre class="example"><code>small example
 </code></pre>
@@ -123,8 +123,8 @@ comment
 <li><span class="underline"><strong>combination underline bold</strong></span></li>
 <li><strong><span class="underline">combination bold underline</span></strong></li>
 <li><code>*combination bold code*</code></li>
-<li><code>C:\x07\x0bery\\old\\DOS\\path</code></li>
-<li><a href="http://orgmode.org" class="uri">http://orgmode.org</a></li>
+<li><code>C:\\a\\very\old\DOS\path</code></li>
+<li><a href="http://orgmode.org">http://orgmode.org</a></li>
 <li><a href="http://orgmode.org">orgmode-Homepage</a></li>
 <li><a href="http://orgmode.org"><strong>orgmode</strong> <em>Homepage</em></a></li>
 </ul></li>
