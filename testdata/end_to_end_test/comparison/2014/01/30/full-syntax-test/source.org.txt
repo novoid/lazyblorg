@@ -572,9 +572,13 @@ found, lazyblorg tries to locate the same time-stamp within a
 different file-name. If the result is unique, it is used instead of
 the other filename. You get a warning in the log output.
 
-#+CAPTION: Test with image file whose name only matches the ISO timestamp (partial comparison)
-#+ATTR_HTML: :align center :width 300
-[[tsfile:2017-03-11T18.29.21.jpg]]
+Unfortunately, I had to disable this on 2021-11-21 because somehow the
+time-stamp was not unique any more. The file is re-used for many
+purposes which may cause the index to contain it more than once.
+
+: #+CAPTION: Test with image file whose name only matches the ISO timestamp (partial comparison)
+: #+ATTR_HTML: :align center :width 300
+: [[tsfile:2017-03-11T18.29.21.jpg]]
 
 Small images are really sexy when the text is floating around. Try the
 =:align float-right= attribute:
@@ -609,7 +613,7 @@ example text. This is an example text. This is an example text. This
 is an example text. This is an example text. This is an example text.
 This is an example text.
 
--------------------
+*** Linked image versions
 
 With https://github.com/novoid/lazyblorg/issues/17 lazyblorg added
 support for linked images and defining its width.
@@ -647,4 +651,17 @@ tags gets removed as well.
 #+ATTR_HTML: :align right :width 200
 #+ATTR_HTML: :linked-image-width 750
 [[tsfile:2019-07-26T11.44.35 Shinjuku - Skyline -- specialP publicvoit.jpg][2019-07-26T11.44.35 Shinjuku - Skyline -- specialP publicvoit.jpg]]
+
+*** URLs in image descriptions
+
+Image link descriptions can contain URLs. Those URLs get used as a href link for the whole image.
+
+: [[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg][https://karl-voit.at]]
+
+For obvious reasons, this must not be used with =:linked-image-width= other than =none=.
+
+#+CAPTION: Test image with URL description.
+#+ATTR_HTML: :alt An alternative description image :title This is my title! :align right :width 300
+#+ATTR_HTML: :linked-image-width none
+[[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg][https://karl-voit.at]]
 

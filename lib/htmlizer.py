@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2021-01-24 18:35:11 vk>
+# Time-stamp: <2021-12-26 23:00:29 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1432,7 +1432,7 @@ class Htmlizer(object):
                 # get scaled image filename
                 result += '>\n'
 
-                add_linked_image_width = False
+                add_anchor_end = False
                 linked_image_filename = ''
                 if 'linked-image-width' in attributes.keys():
                     # opening the href link to the externally linked
@@ -1445,11 +1445,21 @@ class Htmlizer(object):
                     elif value == 'original':
                         linked_image_filename = self.get_scaled_filename(filename, False).replace(' ', '%20')
                         result += '<a href="' + linked_image_filename + '">'
-                        add_linked_image_width = True
+                        add_anchor_end = True
                     else:
                         linked_image_filename = self.get_scaled_filename(filename, value).replace(' ', '%20')
                         result += '<a href="' + linked_image_filename + '">'
-                        add_linked_image_width = True
+                        add_anchor_end = True
+
+                if description and description.startswith('https://'):
+                    if attributes['linked-image-width'] and attributes['linked-image-width'].lower() != 'none':
+                        message = self.current_entry_id_str() + 'image with URL as description ("' + description + '"; which will result in a href link) used an linked-image-width parameter value which is not none ("' + str(attributes['linked-image-width']) + '"; which would also result in a href link).'
+                        self.logging.critical(message)
+                        raise HtmlizerException(self.current_entry_id, message)
+                    else:
+                        ## FIXXME: no validation check for URL in description
+                        result += '<a href="' + description + '">'
+                        add_anchor_end = True
 
                 if 'width' in attributes.keys():
                     result += '<img src="' + self.get_scaled_filename(filename, attributes['width']).replace(' ', '%20') + '" '
@@ -1466,7 +1476,7 @@ class Htmlizer(object):
 
                 result += '/>'
 
-                if add_linked_image_width:
+                if add_anchor_end:
                     # closing the href link to the externally linked
                     # image file via 'linked-image-width' attribute
                     result += '</a>'
