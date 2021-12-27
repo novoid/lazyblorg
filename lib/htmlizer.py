@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2021-12-26 23:00:29 vk>
+# Time-stamp: <2021-12-27 10:41:53 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1468,7 +1468,7 @@ class Htmlizer(object):
 
                 # FIXXME: currently, all other attributes are ignored:
                 if 'alt' in list(attributes.keys()):
-                    result += 'alt="' + attributes['alt'] + '" '
+                    result += 'alt="' + attributes['alt'].replace('"', '&quot;') + '" '
                 else:
                     result += 'alt="" '  # alt tag must not be omitted in HTML5 (except when using figcaption, where it is optional)
                 if 'width' in list(attributes.keys()):
