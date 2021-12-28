@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2021-12-27 10:41:53 vk>
+# Time-stamp: <2021-12-27 21:41:35 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1413,7 +1413,11 @@ class Htmlizer(object):
                                          '" of entry [[id:' + entry['id'] + ']] does not contain the tag')
 
                 description = entry['content'][index][2]
-                caption = entry['content'][index][3]
+                if description:
+                    description = description.strip()
+                caption = entry['content'][index][3].strip()
+                if caption:
+                    caption = caption.strip()
                 attributes = entry['content'][index][4]
 
                 # start building the result string
@@ -1444,21 +1448,23 @@ class Htmlizer(object):
                         pass  # not linking anything
                     elif value == 'original':
                         linked_image_filename = self.get_scaled_filename(filename, False).replace(' ', '%20')
-                        result += '<a href="' + linked_image_filename + '">'
+                        result += '<a href="' + linked_image_filename + '">\n  '
                         add_anchor_end = True
                     else:
                         linked_image_filename = self.get_scaled_filename(filename, value).replace(' ', '%20')
-                        result += '<a href="' + linked_image_filename + '">'
+                        result += '<a href="' + linked_image_filename + '">\n  '
                         add_anchor_end = True
 
-                if description and description.startswith('https://'):
+                # handle "image description is an URL":
+                # FIXXME: move this functionality to the parser in order to warn the user as early as possible!
+                if description and description.lower().startswith('https://'):
                     if attributes['linked-image-width'] and attributes['linked-image-width'].lower() != 'none':
                         message = self.current_entry_id_str() + 'image with URL as description ("' + description + '"; which will result in a href link) used an linked-image-width parameter value which is not none ("' + str(attributes['linked-image-width']) + '"; which would also result in a href link).'
                         self.logging.critical(message)
                         raise HtmlizerException(self.current_entry_id, message)
                     else:
                         ## FIXXME: no validation check for URL in description
-                        result += '<a href="' + description + '">'
+                        result += '<a href="' + description + '">\n  '
                         add_anchor_end = True
 
                 if 'width' in attributes.keys():
@@ -1477,15 +1483,16 @@ class Htmlizer(object):
                 result += '/>'
 
                 if add_anchor_end:
-                    # closing the href link to the externally linked
-                    # image file via 'linked-image-width' attribute
-                    result += '</a>'
+                    # closing the href link which was introduced because of one of:
+                    # 1. to the externally linked image file via 'linked-image-width' attribute
+                    # 2. an URL within the description
+                    result += '\n</a>'
 
                 # determine, if a caption (of a description) is necessary:
                 if description == filename:
                     # If filename equals description, omit it because it does not make sense to me:
                     description = None
-                if description and caption:
+                if description and caption and not description.lower().startswith('https://'):
                     # We've got both: a description and a caption. I'm
                     # deciding to use the description in those cases
                     # and issue a warning:
@@ -1495,7 +1502,7 @@ class Htmlizer(object):
                 elif caption:
                     # a caption always results in a caption of course
                     description = caption
-                if description:
+                if description and not description.lower().startswith('https://'):
                     # generate the figcaption
                     result += '\n<figcaption>' + description
 

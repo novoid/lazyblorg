@@ -7,7 +7,7 @@
   <id>http://Karl-Voit.at/</id>
   <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2021-12-26T23:00:56+01:00</updated>
+  <updated>2021-12-27T11:30:06+01:00</updated>
   <author>
     <name>Karl Voit</name>
   </author>
@@ -619,7 +619,9 @@ With caption, alt, right alined and 300px width, linked-image-width 560:
 
 
 <figure class="image-right">
-<a href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg"><img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="300" /></a>
+<a href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg">
+  <img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="300" />
+</a>
 <figcaption>This is my caption <a class="figcaption-clue-link" href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg">(klicken für größere Version)</a></figcaption>
 </figure>
 
@@ -632,7 +634,9 @@ With caption, alt, right alined and 300px width, linked-image-width "original":
 
 
 <figure class="image-right">
-<a href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg"><img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="300" /></a>
+<a href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg">
+  <img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="300" />
+</a>
 <figcaption>This is my caption <a class="figcaption-clue-link" href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg">(klicken für größere Version)</a></figcaption>
 </figure>
 
