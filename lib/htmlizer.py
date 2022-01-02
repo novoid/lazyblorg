@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2021-12-27 21:41:35 vk>
+# Time-stamp: <2022-01-02 16:20:45 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1614,9 +1614,8 @@ class Htmlizer(object):
             return filename
 
     def fix_ampersands_in_url(self, content):
-        """
-        sanitize_html_characters() is really dumb and replaces
-        ampersands in URLs as well. This method finds those broken
+        """The general sanitizing process in lazyblorg is not context-related and thus really dumb. It replaces
+        ampersands multiple times in worst case, resulting in '&amp;amp;' strings. This method finds those broken
         URLs and fixes them.
 
         If this method of fixing something that should be done in a
@@ -1624,19 +1623,18 @@ class Htmlizer(object):
         right. However, this seemed to be the more efficient way
         regarding to implementation. Fix it, if you like :-)
 
-        NOTE: Does not replace several ampersands in the very same
-        URL. However, this use-case of several ampersands in one URL
-        is very rare.
+        NOTE: https://www.urlencoder.io/python/ explains some encoding
+        stuff for URLs in Python and mentions methods I maybe should
+        have used in the first place.
 
         @param entry: string
         @param return: fixed string
+
         """
 
-        result = re.sub(self.FIX_AMPERSAND_URL_REGEX, r'\1&\3', content)
-        if result != content:
-            self.logging.debug(self.current_entry_id_str() +
-                               'fix_ampersands_in_url: fixed \"' + content +
-                               '\" to \"' + result + '\"')
+        result = content
+        while '&amp;amp;' in result:
+            result = result.replace('&amp;amp;', '&amp;')
         return result
 
     def htmlize_simple_text_formatting(self, content):

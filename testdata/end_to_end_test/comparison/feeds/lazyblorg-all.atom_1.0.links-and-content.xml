@@ -7,7 +7,7 @@
   <id>http://Karl-Voit.at/</id>
   <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2021-12-27T11:30:06+01:00</updated>
+  <updated>2022-01-02T16:01:42+01:00</updated>
   <author>
     <name>Karl Voit</name>
   </author>
@@ -328,6 +328,13 @@ Example comment with non-existent ID and link:
 
  - Also: [[id:2021-01-23-this-does-not-exist2][this does not exist 2]]	  </pre>
     </div>
+
+
+<p>
+
+Test case for two ampersants in an URL, causing an issue in the feed: <a href="https://duckduckgo.com/?t=ffab&amp;q=searchterm&amp;ia=web">link description</a>
+
+</p>
 </div>
     </summary>    <content type='xhtml'>
       <div xmlns='http://www.w3.org/1999/xhtml'>
@@ -408,6 +415,13 @@ Example comment with non-existent ID and link:
 
  - Also: [[id:2021-01-23-this-does-not-exist2][this does not exist 2]]	  </pre>
     </div>
+
+
+<p>
+
+Test case for two ampersants in an URL, causing an issue in the feed: <a href="https://duckduckgo.com/?t=ffab&amp;q=searchterm&amp;ia=web">link description</a>
+
+</p>
 
       </div>
     </content>

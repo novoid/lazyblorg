@@ -50,3 +50,5 @@ Example comment with non-existent ID and link:
 :
 : - Also: [[id:2021-01-23-this-does-not-exist2][this does not exist 2]]
 
+Test case for two ampersants in an URL, causing an issue in the feed: [[https://duckduckgo.com/?t=ffab&q=searchterm&ia=web][link description]]
+

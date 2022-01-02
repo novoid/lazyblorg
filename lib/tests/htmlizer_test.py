@@ -894,23 +894,21 @@ class TestHtmlizer(unittest.TestCase):
             autotag_language,
             ignore_missing_ids)
 
-        self.assertTrue(htmlizer.fix_ampersands_in_url('href="http://www.example.com/index.html&amp;s=foo" bar') ==
-                        'href="http://www.example.com/index.html&s=foo" bar')
+        self.assertEqual(htmlizer.fix_ampersands_in_url('href="http://www.example.com/index.html&amp;s=foo" bar'),
+                        'href="http://www.example.com/index.html&amp;s=foo" bar')
 
-        # does not work #self.assertTrue(htmlizer.fix_ampersands_in_url('href="http://www.exa&amp;mple.com/" + \
-        # does not work #    "index.html&amp;s=fo&amp;o" bar') == \
-        # does not work #                    'href="http://www.exa&mple.com/index.html&s=fo&o" bar')
-        # ... does not work (yet). However, the use-case of several ampersands in one URL is very rare.
-
+        self.assertEqual(htmlizer.fix_ampersands_in_url('href="http://www.example.com/index.html&amp;amp;s=foo&amp;amp;" bar'), \
+                            'href="http://www.example.com/index.html&amp;s=foo&amp;" bar')
+        
         mystring = "The URL of <a href=\"http://example.org/index.html&amp;id=435#target\">http://example.org/" + \
             "index.html?id=435#target</a> will be mixed with " + \
             "<a href=\"https://www.example.org/path/index.html?id=435#target&amp;foo\">some fancy URL</a> " + \
             "in different mode."
-        expected = "The URL of <a href=\"http://example.org/index.html&id=435#target\">http://example.org/" + \
+        expected = "The URL of <a href=\"http://example.org/index.html&amp;id=435#target\">http://example.org/" + \
             "index.html?id=435#target</a> will be mixed with " + \
-            "<a href=\"https://www.example.org/path/index.html?id=435#target&foo\">some fancy URL</a> " + \
+            "<a href=\"https://www.example.org/path/index.html?id=435#target&amp;foo\">some fancy URL</a> " + \
             "in different mode."
-        self.assertTrue(htmlizer.fix_ampersands_in_url(mystring) == expected)
+        self.assertEqual(htmlizer.fix_ampersands_in_url(mystring), expected)
 
 
 # Local Variables:
