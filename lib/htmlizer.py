@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2022-01-02 16:57:18 vk>
+# Time-stamp: <2022-01-02 19:54:00 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1461,14 +1461,10 @@ class Htmlizer(object):
                 # handle "image description is an URL":
                 # FIXXME: move this functionality to the parser in order to warn the user as early as possible!
                 if description and description.lower().startswith('https://'):
-                    if attributes['linked-image-width'] and attributes['linked-image-width'].lower() != 'none':
-                        message = self.current_entry_id_str() + 'image with URL as description ("' + description + '"; which will result in a href link) used an linked-image-width parameter value which is not none ("' + str(attributes['linked-image-width']) + '"; which would also result in a href link).'
-                        self.logging.critical(message)
-                        raise HtmlizerException(self.current_entry_id, message)
-                    else:
-                        ## FIXXME: no validation check for URL in description
-                        result += '<a href="' + description + '">\n  '
-                        add_anchor_end = True
+                    # Note: orgparser already checked that there is only one of "description = URL" and "linked-image-width not none".
+                    ## FIXXME: no form validation check for URL in description
+                    result += '<a href="' + description + '">\n  '
+                    add_anchor_end = True
 
                 if 'width' in attributes.keys():
                     result += '<img src="' + self.get_scaled_filename(filename, attributes['width']).replace(' ', '%20') + '" '

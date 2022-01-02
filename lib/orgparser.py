@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2021-01-31 15:51:08 vk>
+# Time-stamp: <2022-01-03 09:43:11 vk>
 
 import config
 import re
@@ -736,6 +736,14 @@ class OrgParser(object):
                     self.logging.debug(
                         "OrgParser: adding a customized image link file[%s], description[%s], caption[%s], attr[%s]" %
                         (str(filename), str(description), str(previous_caption), str(attr_html_dict)))
+                    if description and description.lower().startswith('https://'):
+                        # if description is an URL and linked-image-width is not 'none', this is a contradiction (since both would result in an img href link)
+                        if 'linked-image-width' in attr_html_dict.keys() and attr_html_dict['linked-image-width'].lower() != 'none':
+                            message = 'image with URL as description ("' + description + \
+                                '"; which will result in a href link) used an linked-image-width parameter value which is not none ("' + \
+                                str(attr_html_dict['linked-image-width']) + '") which would also result in a href link. Please do remove one of them.'
+                            self.logging.critical(message)
+                            raise OrgParserException(message)
                     self.__entry_data['content'].append(['cust_link_image', filename, description, previous_caption, attr_html_dict])
 
                 elif heading_components:

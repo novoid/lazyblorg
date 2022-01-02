@@ -665,3 +665,14 @@ For obvious reasons, this must not be used with =:linked-image-width= other than
 #+ATTR_HTML: :linked-image-width none
 [[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg][https://karl-voit.at]]
 
+The following snippet would result in an error if it was not just a
+comment: "image with URL as description ("https://karl-voit.at"; which
+will result in a href link) used an linked-image-width parameter value
+which is not none ("345") which would also result in a href link.
+Please do remove one of them."
+
+: #+CAPTION: Test image with URL description.
+: #+ATTR_HTML: :alt An alternative description image :title This is my title! :align right :width 300
+: #+ATTR_HTML: :linked-image-width 345
+: [[tsfile:2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg][https://karl-voit.at]]
+
