@@ -4,10 +4,10 @@
       xml:lang="en-us">
   <link rel="self" href="http://Karl-Voit.at/feeds/lazyblorg-all.atom_1.0.links-and-content.xml" />
   <title type="text">public voit</title>
-  <id>http://Karl-Voit.at/</id>
+  <id>https://karl-voit.at/</id>
   <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2022-01-02T16:01:42+01:00</updated>
+  <updated>2022-01-02T17:51:52+01:00</updated>
   <author>
     <name>Karl Voit</name>
   </author>
@@ -47,7 +47,7 @@ Another dummy text.
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/2021/01/30/drawer-tests-from-feed-with-content</id>
+    <id>https://karl-voit.at/2021/01/30/drawer-tests-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -75,7 +75,7 @@ Another dummy text.
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/2020/10/02/Heading-which-starts-with-a-list-from-feed-with-content</id>
+    <id>https://karl-voit.at/2020/10/02/Heading-which-starts-with-a-list-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -240,7 +240,7 @@ This is to test the reading length estimation algorithm with a property drawer a
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/2017/09/30/link-test-from-feed-with-content</id>
+    <id>https://karl-voit.at/2017/09/30/link-test-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -425,7 +425,7 @@ Test case for two ampersants in an URL, causing an issue in the feed: <a href="h
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/2017/01/08/sanitizing-tests-from-feed-with-content</id>
+    <id>https://karl-voit.at/2017/01/08/sanitizing-tests-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -453,7 +453,7 @@ This is a placeholder entry in order to be able to test internal links.
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/how-to-use-public-voit-from-feed-with-content</id>
+    <id>https://karl-voit.at/how-to-use-public-voit-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -670,7 +670,7 @@ FIXXME: not tested so far:
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/2016/11/27/image-test-from-feed-with-content</id>
+    <id>https://karl-voit.at/2016/11/27/image-test-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -713,7 +713,7 @@ Being curious how this is going to work out.
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/2016/11/27/special-characters-from-feed-with-content</id>
+    <id>https://karl-voit.at/2016/11/27/special-characters-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -781,7 +781,7 @@ Maybe <this> should not be sanitized?
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/2016/11/06/sanitization-examples-from-feed-with-content</id>
+    <id>https://karl-voit.at/2016/11/06/sanitization-examples-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -866,7 +866,7 @@ Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. O
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/2016/10/31/my-temporal-article-from-feed-with-content</id>
+    <id>https://karl-voit.at/2016/10/31/my-temporal-article-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -911,7 +911,7 @@ Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. O
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/persistent-entry-from-feed-with-content</id>
+    <id>https://karl-voit.at/persistent-entry-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -1013,7 +1013,7 @@ Below this, I expect some links to other pages related to the tag "exampletag":
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/tags/exampletag-from-feed-with-content</id>
+    <id>https://karl-voit.at/tags/exampletag-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -1069,7 +1069,7 @@ Glad you like it.
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/tags/programming-from-feed-with-content</id>
+    <id>https://karl-voit.at/tags/programming-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -1098,7 +1098,7 @@ This is an example blog entry with no special content.
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/2016/09/18/from-nothing-to-done-from-feed-with-content</id>
+    <id>https://karl-voit.at/2016/09/18/from-nothing-to-done-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -1127,7 +1127,7 @@ This is a placeholder entry in order to be able to test internal links.
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/about-from-feed-with-content</id>
+    <id>https://karl-voit.at/about-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -1155,7 +1155,7 @@ Just for testing.
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/2013/08/22/testid-from-feed-with-content</id>
+    <id>https://karl-voit.at/2013/08/22/testid-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -1256,7 +1256,7 @@ bar<br />
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/2013/02/14/lazyblorg-example-entry-from-feed-with-content</id>
+    <id>https://karl-voit.at/2013/02/14/lazyblorg-example-entry-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -1284,7 +1284,7 @@ Test entry.
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/1985/01/01/old-entry14-from-feed-with-content</id>
+    <id>https://karl-voit.at/1985/01/01/old-entry14-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -1312,7 +1312,7 @@ Test entry.
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/1985/01/01/old-entry13-from-feed-with-content</id>
+    <id>https://karl-voit.at/1985/01/01/old-entry13-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -1340,7 +1340,7 @@ Test entry.
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/1985/01/01/old-entry12-from-feed-with-content</id>
+    <id>https://karl-voit.at/1985/01/01/old-entry12-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -1368,7 +1368,7 @@ Test entry.
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/1985/01/01/old-entry11-from-feed-with-content</id>
+    <id>https://karl-voit.at/1985/01/01/old-entry11-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -1396,7 +1396,7 @@ Test entry.
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/1985/01/01/old-entry10-from-feed-with-content</id>
+    <id>https://karl-voit.at/1985/01/01/old-entry10-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -1424,7 +1424,7 @@ Test entry.
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/1985/01/01/old-entry9-from-feed-with-content</id>
+    <id>https://karl-voit.at/1985/01/01/old-entry9-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -1452,7 +1452,7 @@ Test entry.
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/1985/01/01/old-entry8-from-feed-with-content</id>
+    <id>https://karl-voit.at/1985/01/01/old-entry8-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -1480,7 +1480,7 @@ Test entry.
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/1985/01/01/old-entry7-from-feed-with-content</id>
+    <id>https://karl-voit.at/1985/01/01/old-entry7-from-feed-with-content</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -1508,5 +1508,5 @@ Test entry.
 
       </div>
     </content>
-    <id>http://Karl-Voit.at/1985/01/01/old-entry6-from-feed-with-content</id>
+    <id>https://karl-voit.at/1985/01/01/old-entry6-from-feed-with-content</id>
 </entry></feed>

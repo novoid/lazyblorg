@@ -4,10 +4,10 @@
       xml:lang="en-us">
   <link rel="self" href="http://Karl-Voit.at/feeds/lazyblorg-all.atom_1.0.links-only.xml" />
   <title type="text">public voit</title>
-  <id>http://Karl-Voit.at/</id>
+  <id>https://karl-voit.at/</id>
   <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2022-01-02T16:01:42+01:00</updated>
+  <updated>2022-01-02T17:51:52+01:00</updated>
   <author>
     <name>Karl Voit</name>
   </author>
@@ -21,7 +21,7 @@
     <published>2021-01-30T23:32:00+01:00</published>
     <updated>2021-01-30T23:32:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/2021/01/30/drawer-tests-from-feed-with-links</id>
+    <id>https://karl-voit.at/2021/01/30/drawer-tests-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -30,7 +30,7 @@
     <published>2020-10-02T19:03:00+01:00</published>
     <updated>2020-10-02T19:03:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/2020/10/02/Heading-which-starts-with-a-list-from-feed-with-links</id>
+    <id>https://karl-voit.at/2020/10/02/Heading-which-starts-with-a-list-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -43,7 +43,7 @@
     <category scheme='http://Karl-Voit.at/tags/exampletag' term='exampletag' />
     <category scheme='http://Karl-Voit.at/tags/mytest' term='mytest' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/2017/09/30/link-test-from-feed-with-links</id>
+    <id>https://karl-voit.at/2017/09/30/link-test-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -53,7 +53,7 @@
     <updated>2017-01-08T10:58:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/2017/01/08/sanitizing-tests-from-feed-with-links</id>
+    <id>https://karl-voit.at/2017/01/08/sanitizing-tests-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -62,7 +62,7 @@
     <published>2017-01-03T12:07:00+01:00</published>
     <updated>2017-01-03T12:07:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/how-to-use-public-voit-from-feed-with-links</id>
+    <id>https://karl-voit.at/how-to-use-public-voit-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -72,7 +72,7 @@
     <updated>2016-11-27T15:01:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:deutsch' />
-    <id>http://Karl-Voit.at/2016/11/27/image-test-from-feed-with-links</id>
+    <id>https://karl-voit.at/2016/11/27/image-test-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -82,7 +82,7 @@
     <updated>2016-11-27T15:00:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:deutsch' />
-    <id>http://Karl-Voit.at/2016/11/27/special-characters-from-feed-with-links</id>
+    <id>https://karl-voit.at/2016/11/27/special-characters-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -92,7 +92,7 @@
     <updated>2016-11-06T17:40:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/programming' term='programming' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/2016/11/06/sanitization-examples-from-feed-with-links</id>
+    <id>https://karl-voit.at/2016/11/06/sanitization-examples-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -102,7 +102,7 @@
     <updated>2016-10-31T16:40:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/exampletag' term='exampletag' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/2016/10/31/my-temporal-article-from-feed-with-links</id>
+    <id>https://karl-voit.at/2016/10/31/my-temporal-article-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -114,7 +114,7 @@
     <category scheme='http://Karl-Voit.at/tags/programming' term='programming' />
     <category scheme='http://Karl-Voit.at/tags/exampletag' term='exampletag' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/persistent-entry-from-feed-with-links</id>
+    <id>https://karl-voit.at/persistent-entry-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -123,7 +123,7 @@
     <published>2016-10-31T16:38:00+01:00</published>
     <updated>2016-10-31T16:38:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/tags/exampletag-from-feed-with-links</id>
+    <id>https://karl-voit.at/tags/exampletag-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -132,7 +132,7 @@
     <published>2016-10-31T13:30:00+01:00</published>
     <updated>2016-10-31T13:30:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/tags/programming-from-feed-with-links</id>
+    <id>https://karl-voit.at/tags/programming-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -142,7 +142,7 @@
     <updated>2016-09-18T13:19:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/testtag1' term='testtag1' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/2016/09/18/from-nothing-to-done-from-feed-with-links</id>
+    <id>https://karl-voit.at/2016/09/18/from-nothing-to-done-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -152,7 +152,7 @@
     <updated>2014-03-09T14:57:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/about-from-feed-with-links</id>
+    <id>https://karl-voit.at/about-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -161,7 +161,7 @@
     <published>2013-08-22T21:06:00+01:00</published>
     <updated>2013-08-22T21:06:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/2013/08/22/testid-from-feed-with-links</id>
+    <id>https://karl-voit.at/2013/08/22/testid-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -172,7 +172,7 @@
     <category scheme='http://Karl-Voit.at/tags/mytest' term='mytest' />
     <category scheme='http://Karl-Voit.at/tags/programming' term='programming' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/2013/02/14/lazyblorg-example-entry-from-feed-with-links</id>
+    <id>https://karl-voit.at/2013/02/14/lazyblorg-example-entry-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -181,7 +181,7 @@
     <published>1985-01-01T15:14:00+01:00</published>
     <updated>1985-01-01T15:14:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/1985/01/01/old-entry14-from-feed-with-links</id>
+    <id>https://karl-voit.at/1985/01/01/old-entry14-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -190,7 +190,7 @@
     <published>1985-01-01T15:13:00+01:00</published>
     <updated>1985-01-01T15:13:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/1985/01/01/old-entry13-from-feed-with-links</id>
+    <id>https://karl-voit.at/1985/01/01/old-entry13-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -199,7 +199,7 @@
     <published>1985-01-01T15:12:00+01:00</published>
     <updated>1985-01-01T15:12:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/1985/01/01/old-entry12-from-feed-with-links</id>
+    <id>https://karl-voit.at/1985/01/01/old-entry12-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -208,7 +208,7 @@
     <published>1985-01-01T15:11:00+01:00</published>
     <updated>1985-01-01T15:11:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/1985/01/01/old-entry11-from-feed-with-links</id>
+    <id>https://karl-voit.at/1985/01/01/old-entry11-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -217,7 +217,7 @@
     <published>1985-01-01T15:10:00+01:00</published>
     <updated>1985-01-01T15:10:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/1985/01/01/old-entry10-from-feed-with-links</id>
+    <id>https://karl-voit.at/1985/01/01/old-entry10-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -226,7 +226,7 @@
     <published>1985-01-01T15:09:00+01:00</published>
     <updated>1985-01-01T15:09:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/1985/01/01/old-entry9-from-feed-with-links</id>
+    <id>https://karl-voit.at/1985/01/01/old-entry9-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -235,7 +235,7 @@
     <published>1985-01-01T15:08:00+01:00</published>
     <updated>1985-01-01T15:08:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/1985/01/01/old-entry8-from-feed-with-links</id>
+    <id>https://karl-voit.at/1985/01/01/old-entry8-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -244,7 +244,7 @@
     <published>1985-01-01T15:07:00+01:00</published>
     <updated>1985-01-01T15:07:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/1985/01/01/old-entry7-from-feed-with-links</id>
+    <id>https://karl-voit.at/1985/01/01/old-entry7-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>
@@ -253,5 +253,5 @@
     <published>1985-01-01T15:06:00+01:00</published>
     <updated>1985-01-01T15:06:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>http://Karl-Voit.at/1985/01/01/old-entry6-from-feed-with-links</id>
+    <id>https://karl-voit.at/1985/01/01/old-entry6-from-feed-with-links</id>
 </entry></feed>

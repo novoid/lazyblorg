@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2022-01-02 16:20:45 vk>
+# Time-stamp: <2022-01-02 16:57:18 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -625,13 +625,14 @@ class Htmlizer(object):
         @param return: a string containing all feed-related meta-data
         """
 
+        # NOTE: "config.BASE_URL.lower()" necessary for W3C XML validator to be happy. This might potentially break BASE_URLs that contain upper case characters which are necessary!
         feed = """<?xml version='1.0' encoding='UTF-8'?>
 <feed xmlns="http://www.w3.org/2005/Atom"
       xmlns:thr="http://purl.org/syndication/thread/1.0"
       xml:lang="en-us">
   <link rel="self" href=\"""" + config.BASE_URL + """/feeds/lazyblorg-all#LINKPOSTFIX#\" />
   <title type="text">""" + config.BLOG_NAME + """</title>
-  <id>""" + config.BASE_URL + """/</id>
+  <id>https:""" + config.BASE_URL.lower() + """/</id>
   <link href=\"""" + config.BASE_URL + """\" />
   <icon>/favicon.ico</icon>
   <updated>""" + strftime('%Y-%m-%dT%H:%M:%S' + config.TIME_ZONE_ADDON, localtime()) + """</updated>
@@ -709,7 +710,8 @@ class Htmlizer(object):
                         "autotags" + "/" + autotag + "' term='" + tag + "' />"
 
             # write feedentry to links_atom_feed before any summary is added:
-            links_atom_feed += feedentry + "\n    <id>" + config.BASE_URL + "/" + \
+            # NOTE: "config.BASE_URL.lower()" necessary for W3C XML validator to be happy. This might potentially break BASE_URLs that contain upper case characters which are necessary!
+            links_atom_feed += feedentry + "\n    <id>https:" + config.BASE_URL.lower() + "/" + \
                 listentry['url'] + "-from-feed-with-links" + "</id>\n</entry>"
 
             # add article summary to feedentry:
@@ -729,14 +731,15 @@ class Htmlizer(object):
             feedentry += "</div>\n    </summary>"
 
             # add content to content-feed OR end entry for links-feed:
-            teaser_atom_feed += feedentry + "\n    <id>" + config.BASE_URL + "/" + \
+            # NOTE: "config.BASE_URL.lower()" necessary for W3C XML validator to be happy. This might potentially break BASE_URLs that contain upper case characters which are necessary!
+            teaser_atom_feed += feedentry + "\n    <id>https:" + config.BASE_URL.lower() + "/" + \
                 listentry['url'] + "-from-feed-with-teaser" + "</id>\n</entry>"
             content_atom_feed += feedentry + """    <content type='xhtml'>
       <div xmlns='http://www.w3.org/1999/xhtml'>
 	""" + self.sanitize_feed_html_characters('\n'.join(blog_data_entry['content'])) + """
       </div>
     </content>
-    <id>""" + config.BASE_URL + "/" + listentry['url'] + "-from-feed-with-content" + \
+    <id>https:""" + config.BASE_URL.lower() + "/" + listentry['url'] + "-from-feed-with-content" + \
                 "</id>\n</entry>"
 
             # replace "\\example.com" with "http:\\example.com" to calm down feed verifiers/aggregators:
