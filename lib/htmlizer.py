@@ -749,6 +749,8 @@ class Htmlizer(object):
             teaser_atom_feed = teaser_atom_feed.replace('\'' + config.BASE_URL, '\'http:' + config.BASE_URL)
             content_atom_feed = content_atom_feed.replace('>' + config.BASE_URL, '>http:' + config.BASE_URL)
             content_atom_feed = content_atom_feed.replace('\'' + config.BASE_URL, '\'http:' + config.BASE_URL)
+            teaser_atom_feed = teaser_atom_feed.replace('href="' + config.BASE_URL, 'href="https:' + config.BASE_URL)
+            content_atom_feed = content_atom_feed.replace('href="' + config.BASE_URL, 'href="https:' + config.BASE_URL)
 
             number_of_current_feed_entries += 1
 
