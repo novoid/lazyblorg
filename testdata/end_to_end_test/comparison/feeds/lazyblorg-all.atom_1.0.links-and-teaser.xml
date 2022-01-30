@@ -7,7 +7,7 @@
   <id>https://karl-voit.at/</id>
   <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2022-01-23T17:57:20+01:00</updated>
+  <updated>2022-01-30T18:57:28+01:00</updated>
   <author>
     <name>Karl Voit</name>
   </author>
@@ -229,7 +229,7 @@ With caption, alt, centered and 560px width:
 
 
 <figure class="image-center">
-<img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="This is my alt text" width="560" />
+<img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEheightEND" />
 <figcaption>This is my caption</figcaption>
 </figure>
 
@@ -242,7 +242,7 @@ Without caption, alt, centered and 560px width:
 
 
 <figure class="image-center">
-<img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="This is my alt text" width="560" />
+<img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEheightEND" />
 </figure>
 
 
@@ -254,7 +254,7 @@ With caption, without alt, left aligned and 300px width:
 
 
 <figure class="image-left">
-<img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="" width="300" />
+<img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEheightEND" />
 <figcaption>This is my caption</figcaption>
 </figure>
 
@@ -267,7 +267,7 @@ With caption, alt, right alined and 300px width:
 
 
 <figure class="image-right">
-<img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="300" />
+<img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEheightEND" />
 <figcaption>This is my caption</figcaption>
 </figure>
 
@@ -280,7 +280,7 @@ Without caption, without alt, centered and 300px width and linked-image-width se
 
 
 <figure class="image-center">
-<img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="" width="560" />
+<img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEheightEND" />
 </figure>
 
 
@@ -292,7 +292,7 @@ Just the image without ATTR lines or caption:
 
 
 <figure class="image-center">
-<img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg" alt="" />
+<img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg" alt="" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg-TMPREPLACEMEheightEND" />
 </figure>
 </div>
     </summary>

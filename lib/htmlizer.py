@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2022-01-02 19:54:00 vk>
+# Time-stamp: <2022-01-30 19:04:25 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -75,6 +75,10 @@ class Htmlizer(object):
 
     # { 'mytag': [ 'ID1', 'ID2', 'ID2'], 'anothertag': [...] }
     dict_of_tags_with_ids = None
+
+    # populated in copy_cust_link_image_file()
+    # { 'basefilename': [ width, height ] }
+    dict_of_image_files_with_width_height = { }
 
     # holds a list of tags whose tag pages have been generated
     list_of_tag_pages_generated = []
@@ -399,7 +403,7 @@ class Htmlizer(object):
         return entry_list_by_newest_timestamp, stats_generated_total, stats_generated_temporal, \
             stats_generated_persistent, stats_generated_tags
 
-    def _generate_page(self, kind, entry):
+    def _generate_page(self, kind, originalentry):
         """
         Creates a blog article page of a few standard types.
 
@@ -412,7 +416,7 @@ class Htmlizer(object):
 
         assert kind in [config.TEMPORAL, config.PERSISTENT, config.TAGS]
 
-        orgfilename, htmlfilename = self._create_path_and_generate_filenames_and_copy_images(entry)
+        entry, orgfilename, htmlfilename = self._create_path_and_generate_filenames_and_copy_images(originalentry)
         htmlcontent = ''
 
         if kind == config.TEMPORAL:
@@ -484,6 +488,14 @@ class Htmlizer(object):
 
         htmlcontent = self._replace_general_article_placeholders(entry, htmlcontent)
         htmlcontent = self._insert_reading_minutes_if_found(entry, htmlcontent)
+
+        if 'attachments' in entry.keys():
+            # if images are attached to that entry, replace the width and hight placeholders with their values that got determined in the meantime:
+            for imagename in list(set(re.findall(r'TMPREPLACEMEwidthSTART-(.+?)-TMPREPLACEMEwidthEND', htmlcontent))):
+                htmlcontent = htmlcontent.replace('TMPREPLACEMEwidthSTART-' + imagename + '-TMPREPLACEMEwidthEND', self.dict_of_image_files_with_width_height[imagename][0])
+                htmlcontent = htmlcontent.replace('TMPREPLACEMEheightSTART-' + imagename + '-TMPREPLACEMEheightEND', self.dict_of_image_files_with_width_height[imagename][1])
+
+        assert('TMPREPLACEMEheightSTART-' not in htmlcontent)
 
         return htmlfilename, orgfilename, htmlcontent
 
@@ -950,6 +962,14 @@ class Htmlizer(object):
             entry,
             self.template_definition_by_name('entrypage-footer'))
         htmlcontent += self.sanitize_internal_links(footer)
+
+        if 'TMPREPLACEMEheightSTART-' in htmlcontent:
+            # if images are attached to that entry, replace the width and hight placeholders with their values that got determined in the meantime:
+            for imagename in list(set(re.findall(r'TMPREPLACEMEwidthSTART-(.+?)-TMPREPLACEMEwidthEND', htmlcontent))):
+                htmlcontent = htmlcontent.replace('TMPREPLACEMEwidthSTART-' + imagename + '-TMPREPLACEMEwidthEND', self.dict_of_image_files_with_width_height[imagename][0])
+                htmlcontent = htmlcontent.replace('TMPREPLACEMEheightSTART-' + imagename + '-TMPREPLACEMEheightEND', self.dict_of_image_files_with_width_height[imagename][1])
+        assert('TMPREPLACEMEheightSTART-' not in htmlcontent)  # just in case the replacement got broken somehow
+        assert('TMPREPLACEMEwidthSTART-' not in htmlcontent)  # just in case the replacement got broken somehow
 
         self.write_content_to_file(entry_page_filename, htmlcontent)
 
@@ -1466,18 +1486,23 @@ class Htmlizer(object):
                     result += '<a href="' + description + '">\n  '
                     add_anchor_end = True
 
+                image_filename = ''  # the file name of the image to be linked
                 if 'width' in attributes.keys():
-                    result += '<img src="' + self.get_scaled_filename(filename, attributes['width']).replace(' ', '%20') + '" '
+                    image_filename = self.get_scaled_filename(filename, attributes['width'])
                 else:
-                    result += '<img src="' + self.get_scaled_filename(filename, False).replace(' ', '%20') + '" '
+                    image_filename = self.get_scaled_filename(filename, False)
+
+                result += '<img src="' + image_filename.replace(' ', '%20') + '" '
 
                 # FIXXME: currently, all other attributes are ignored:
                 if 'alt' in list(attributes.keys()):
                     result += 'alt="' + attributes['alt'].replace('"', '&quot;') + '" '
                 else:
                     result += 'alt="" '  # alt tag must not be omitted in HTML5 (except when using figcaption, where it is optional)
-                if 'width' in list(attributes.keys()):
-                    result += 'width="' + attributes['width'] + '" '
+                #if 'width' in list(attributes.keys()):
+                #    result += 'width="' + attributes['width'] + '" '
+                result += 'width="TMPREPLACEMEwidthSTART-' + image_filename + '-TMPREPLACEMEwidthEND" '
+                result += 'height="TMPREPLACEMEheightSTART-' + image_filename + '-TMPREPLACEMEheightEND" '
 
                 result += '/>'
 
@@ -1836,24 +1861,35 @@ class Htmlizer(object):
         image files to the target directory.
 
         @param entry: blog entry data
+        @param return: entry: modified blog entry data (added width/height to images)
         @param return: htmlfilename: string containing the file name of the HTML file
         @param return: orgfilename: string containing the file name of the Org-mode raw content file
         """
 
         path = self._create_target_path_for_id_with_targetdir(entry['id'])
 
+        newentry = entry  # copy of entry because we don't want to modify loop variable (but we want to modify newentry when adding image width/height)
+        attachment_idx = -1  # to track index in order to modify correct newentry
+
         if 'attachments' in list(entry.keys()):
             for attachment in entry['attachments']:
+                attachment_idx += 1
                 if attachment[0] == 'cust_link_image':
                     # ['cust_link_image', u'2017-03-11T18.29.20 Sterne im Baum with attributes -- mytag.jpg',
                     #  {u'width': u'300', u'alt': u'Stars in a Tree', u'align': u'right', u'title': u'Some Stars'}]
                     filename = attachment[1]
                     attributes = attachment[2]
 
+                    width = None
+                    height = None
                     if 'width' in attributes.keys():
-                        self.copy_cust_link_image_file(filename, path, attributes['width'])
+                        width, height = self.copy_cust_link_image_file(filename, path, attributes['width'])
                     else:
-                        self.copy_cust_link_image_file(filename, path, False)
+                        width, height = self.copy_cust_link_image_file(filename, path, False)
+
+                    # add width, height to the newentry:   [2] = dict of attributes
+                    newentry['attachments'][attachment_idx][2]['width'] = width
+                    newentry['attachments'][attachment_idx][2]['height'] = height
 
                     if 'linked-image-width' in attributes.keys():
                         # additionally to the image in the HTML
@@ -1893,7 +1929,7 @@ class Htmlizer(object):
         htmlfilename = os.path.join(path, "index.html")
         orgfilename = os.path.join(path, "source.org.txt")
 
-        return orgfilename, htmlfilename
+        return newentry, orgfilename, htmlfilename
 
     def _generate_back_references_content(self, entry, sourcecategory):
         """
@@ -2505,6 +2541,8 @@ class Htmlizer(object):
 
         @param sourcefilename: the original path to the filename of an image
         @param destinationfilename: the filename of the copied image
+        @param return: width: width of image
+        @param return: height: height of image
         """
         image_file_data = cv2.imread(sourcefilename)
         height, width = image_file_data.shape[:2]
@@ -2515,6 +2553,7 @@ class Htmlizer(object):
             self.logging.critical('Error when copying image file \"' + sourcefilename +
                                   '\" to file \"' + destinationfilename + '\"')
             raise
+        return str(width), str(height)
 
     def _copy_a_file(self, sourcefile, destinationfile):
         """
@@ -2546,6 +2585,23 @@ class Htmlizer(object):
         else:
             self.logging.debug('config.IMAGE_CACHE_DIRECTORY "' + config.IMAGE_CACHE_DIRECTORY + '" is not an existing directory. Skipping the cache update.')
 
+    def _save_width_height_to_dict_of_image_files_with_width_height(self, filename):
+        """
+        Adds width/height to the class-global dict "dict_of_images". This is used only in "copy_cust_link_image_file()".
+        """
+        assert(type(filename) == str)
+        basename = os.path.basename(filename)  # dict contains basenames only
+        if basename not in self.dict_of_image_files_with_width_height.keys():
+            # add a new entry to the width/height dict for cached images:
+            img = cv2.imread(filename)
+            imageheight, imagewidth = img.shape[:2]
+            self.dict_of_image_files_with_width_height[basename] = [str(imagewidth), str(imageheight)]
+            logging.debug('dict_of_image_files_with_width_height: adding width/height=' + str(imagewidth) + '/' + str(imageheight) + ' to basename: ' + basename)
+            return str(imagewidth), str(imageheight)
+        else:
+            logging.debug('dict_of_image_files_with_width_height: cache hit')
+            return self.dict_of_image_files_with_width_height[basename][0], self.dict_of_image_files_with_width_height[basename][1]
+
     def copy_cust_link_image_file(self, filename, articlepath, width):
         """
         Locates image files via IMAGE_INCLUDE_METHOD and copies it to the blog article directory.
@@ -2557,6 +2613,8 @@ class Htmlizer(object):
         @param filename: the base filename of an image
         @param articlepath: the directory path to put the file into
         @param width: string containing the width of the target image file. If False, no scaling will be done.
+        @param return: width: width of image
+        @param return: height: height of image
         """
 
         # image was located using locate_cust_link_image() prior to this function
@@ -2576,7 +2634,8 @@ class Htmlizer(object):
             if not width and not os.path.isfile(destinationfile):
                 # User did not state any width → use original file but
                 # get rid of exif header by scaling to same size
-                self._copy_image_file_without_exif(image_file_path, destinationfile)
+                imagewidth, imageheight = self._copy_image_file_without_exif(image_file_path, destinationfile)
+                return self._save_width_height_to_dict_of_image_files_with_width_height(destinationfile)
 
             elif width and not os.path.isfile(destinationfile):
                 # User did specify a width → resize if necessary
@@ -2589,6 +2648,8 @@ class Htmlizer(object):
                                                '" is newer than the original file "' + image_file_path +
                                                '". Therefore I copy the cached one instead of scaling a new one.')
                             self._copy_a_file(cached_image_file_name, destinationfile)
+                            return self._save_width_height_to_dict_of_image_files_with_width_height(cached_image_file_name)
+
                     else:
                         # Cache miss cases:
 
@@ -2603,6 +2664,7 @@ class Htmlizer(object):
                             # original image instead of interpolate a new one but
                             # get rid of exif header by scaling to same size
                             self._copy_image_file_without_exif(image_file_path, destinationfile)
+                            return self._save_width_height_to_dict_of_image_files_with_width_height(destinationfile)
 
                         elif os.path.isfile(cached_image_file_name):
                             # If a cached copy is found, check if it still
@@ -2615,6 +2677,8 @@ class Htmlizer(object):
                                 self._scale_and_write_image_file(image_file_data, destinationfile, newwidth, newheight)
                                 self.stats_images_resized += 1
                                 self._update_image_cache(destinationfile, cached_image_file_name)
+                                return self._save_width_height_to_dict_of_image_files_with_width_height(cached_image_file_name)
+
                         else:
                             # We did not find any cached file. So generate
                             # a new image and update cache if necessary
@@ -2622,6 +2686,7 @@ class Htmlizer(object):
                             self._scale_and_write_image_file(image_file_data, destinationfile, newwidth, newheight)
                             self.stats_images_resized += 1
                             self._update_image_cache(destinationfile, cached_image_file_name)
+                            return self._save_width_height_to_dict_of_image_files_with_width_height(cached_image_file_name)
                 except:
                     # This is only to add the entry ID to the
                     # exception output which is catched and re-raised
@@ -2631,6 +2696,7 @@ class Htmlizer(object):
 
             else:
                 self.logging.debug('Image file \"' + filename + '\" was already copied for this directory \"' + articlepath + '\" -> multiple usages within same blog article')
+                return self._save_width_height_to_dict_of_image_files_with_width_height(destinationfile)
 
         # FIXXME: FUTURE? generate scaled version when width/height is set
 
