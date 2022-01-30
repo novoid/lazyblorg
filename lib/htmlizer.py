@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2022-01-30 19:04:25 vk>
+# Time-stamp: <2022-01-30 19:11:45 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1503,7 +1503,7 @@ class Htmlizer(object):
                 #    result += 'width="' + attributes['width'] + '" '
                 result += 'width="TMPREPLACEMEwidthSTART-' + image_filename + '-TMPREPLACEMEwidthEND" '
                 result += 'height="TMPREPLACEMEheightSTART-' + image_filename + '-TMPREPLACEMEheightEND" '
-
+                result += 'loading="lazy" '
                 result += '/>'
 
                 if add_anchor_end:
