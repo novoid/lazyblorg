@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2022-01-30 19:11:45 vk>
+# Time-stamp: <2022-03-01 20:53:07 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -132,6 +132,8 @@ class Htmlizer(object):
     LINKS_AND_TEASER_FEED_POSTFIX = ".atom_1.0.links-and-teaser.xml"
     LINKS_AND_CONTENT_FEED_POSTFIX = ".atom_1.0.links-and-content.xml"
 
+    SCALED_WIDTH_INDICATOR_TEXT = ' - scaled width '
+    
     defined_languages = [x[0] for x in Utils.STOPWORDS]
 
     def __init__(
@@ -1633,7 +1635,7 @@ class Htmlizer(object):
 
         if width:
             (basename, extension) = os.path.splitext(filename)
-            return basename + ' - scaled width ' + width + extension
+            return basename + self.SCALED_WIDTH_INDICATOR_TEXT + width + extension
         else:
             return filename
 
@@ -2391,7 +2393,7 @@ class Htmlizer(object):
                 # FIXXME: maybe an Exception is too harsh here? (error-recovery?)
                 raise HtmlizerException(self.current_entry_id, message)
 
-    def locate_cust_link_image(self, filename):
+    def locate_cust_link_image(self, filename: str):
         """
         Locates image files via IMAGE_INCLUDE_METHOD. If not found, it
         tries to find alternatives if an ISO timestamp is found.
@@ -2408,17 +2410,18 @@ class Htmlizer(object):
         filename = filename.replace('%20', ' ')  # replace HTML space characters with spaces
 
         if filename in list(self.filename_dict.keys()):
+            ## the happy-case: one exact match in the dict for the filename:
             return filename
 
         if filename not in list(self.filename_dict.keys()) and re.match(self.TIMESTAMP_REGEX, filename[:19]):
-            # filename starts with a time-stamp
+            ## trying to find a match for the filename that starts with a time-stamp but may differ in the rest of the name:
             timestamp = filename[:19]
 
             # try to locate a similar named file (if ISO timestamp, look if there is a file with same timestamp)
             files_with_matching_timestamps = [x for x in list(self.filename_dict.keys()) if x.startswith(timestamp)]
 
             if len(files_with_matching_timestamps) == 1:
-                # one alternative found -> use it
+                ## one alternative found -> use it
                 alternative_filename = files_with_matching_timestamps[0]
                 self.logging.warning(self.current_entry_id_str() +
                                      'Image file \"' + filename +
@@ -2428,7 +2431,7 @@ class Htmlizer(object):
                 return alternative_filename
 
             elif len(files_with_matching_timestamps) == 0:
-                # no matching alternative found
+                ## no matching alternative found
                 message = self.current_entry_id_str() + 'File \"' + filename + '\" could not be ' + \
                     'located within MEMACS_FILE_WITH_IMAGE_FILE_INDEX ' + \
                     'and/or DIRECTORIES_WITH_IMAGE_ORIGINALS. Its time-stamp could not be found in ' + \
@@ -2437,7 +2440,7 @@ class Htmlizer(object):
                 raise HtmlizerException(self.current_entry_id, message)
 
             else:
-                # multiple matching alternatives found -> error
+                ## multiple matching alternatives found -> error
                 message = self.current_entry_id_str() + 'File \"' + filename + '\" could not be ' + \
                     'located within MEMACS_FILE_WITH_IMAGE_FILE_INDEX and/or ' + \
                     'DIRECTORIES_WITH_IMAGE_ORIGINALS. It starts with a time-stamp which could be found in ' + \
@@ -2446,7 +2449,7 @@ class Htmlizer(object):
                 raise HtmlizerException(self.current_entry_id, message)
 
         if filename not in list(self.filename_dict.keys()):
-            # recover mechanism (using ISO timestamp) did not work either -> error
+            ## recover mechanism (using ISO timestamp) did not work either -> error
             message = self.current_entry_id_str() + 'File \"' + filename + '\" could not be located ' + \
                 'within MEMACS_FILE_WITH_IMAGE_FILE_INDEX ' + \
                 'and/or DIRECTORIES_WITH_IMAGE_ORIGINALS.'
@@ -2703,6 +2706,8 @@ class Htmlizer(object):
     def _populate_filename_dict(self):
         """
         Locates and parses the directory config.DIRECTORIES_WITH_IMAGE_ORIGINALS for filename index. Result is stored in self.filename_dict.
+
+        Files containing self.SCALED_WIDTH_INDICATOR_TEXT are omitted in order to not confuse index with lazyblorg-processed files of previous blog posts.
         """
 
         self.logging.info('• Building index of files …')
@@ -2731,7 +2736,8 @@ class Htmlizer(object):
                         #     #self.logging.warning(message)
                         # else:
                         #     append entry to dict
-                        self.filename_dict[filename] = path
+                        if not self.SCALED_WIDTH_INDICATOR_TEXT in filename:
+                            self.filename_dict[filename] = path
 
         if config.IMAGE_INCLUDE_METHOD == config.IMAGE_INCLUDE_METHOD_MEMACS_THEN_DIR or \
            config.IMAGE_INCLUDE_METHOD == config.IMAGE_INCLUDE_METHOD_DIR:
@@ -2754,7 +2760,8 @@ class Htmlizer(object):
                     # (Pdb) filenames
                     #     ['2017-03-11T18.29.20 Sterne im Baum -- mytag.jpg']
                     for filename in filenames:
-                        self.filename_dict[filename] = os.path.join(dirpath, filename)
+                        if not self.SCALED_WIDTH_INDICATOR_TEXT in filename:
+                            self.filename_dict[filename] = os.path.join(dirpath, filename)
                 index += 1
 
         time_after = time()
