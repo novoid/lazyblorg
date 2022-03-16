@@ -97,21 +97,21 @@ This is a test article which tests its links to other (internal) blog entries.
 </p>
 
 <ul>
-<li>This should work <a href="//Karl-Voit.at/persistent-entry">in lists</a> as <a href="//Karl-Voit.at/2016/11/27/special-characters">well</a>.</li>
-<li>This should work <a href="//Karl-Voit.at/persistent-entry">2016-10-31-persistent-entry</a> and <a href="//Karl-Voit.at/2016/11/27/special-characters">2016-11-27-special-characters</a>.</li>
+<li>This should work <a href="https://Karl-Voit.at/persistent-entry">in lists</a> as <a href="https://Karl-Voit.at/2016/11/27/special-characters">well</a>.</li>
+<li>This should work <a href="https://Karl-Voit.at/persistent-entry">2016-10-31-persistent-entry</a> and <a href="https://Karl-Voit.at/2016/11/27/special-characters">2016-11-27-special-characters</a>.</li>
 </ul>
 
 <table>
 <tbody>
 <tr class="odd">
 <td>also in</td>
-<td>a <a href="//Karl-Voit.at/2016/11/27/special-characters">table</a></td>
-<td>with <a href="//Karl-Voit.at/2016/11/27/special-characters">multiple cells containing links</a></td>
+<td>a <a href="https://Karl-Voit.at/2016/11/27/special-characters">table</a></td>
+<td>with <a href="https://Karl-Voit.at/2016/11/27/special-characters">multiple cells containing links</a></td>
 </tr>
 <tr class="even">
 <td>also</td>
-<td><a href="//Karl-Voit.at/2016/11/27/special-characters">2016-11-27-special-characters</a></td>
-<td>and <a href="//Karl-Voit.at/2016/11/27/special-characters">2016-11-27-special-characters</a></td>
+<td><a href="https://Karl-Voit.at/2016/11/27/special-characters">2016-11-27-special-characters</a></td>
+<td>and <a href="https://Karl-Voit.at/2016/11/27/special-characters">2016-11-27-special-characters</a></td>
 </tr>
 </tbody>
 </table>
@@ -122,7 +122,7 @@ This is a test article which tests its links to other (internal) blog entries.
 
 <p>
 
-Here is <a href="//Karl-Voit.at/2017/09/30/link-test">a self-reference</a> which should not result in a backlink to itself.
+Here is <a href="https://Karl-Voit.at/2017/09/30/link-test">a self-reference</a> which should not result in a backlink to itself.
 
 </p>
 </div>
@@ -136,21 +136,21 @@ This is a test article which tests its links to other (internal) blog entries.
 </p>
 
 <ul>
-<li>This should work <a href="//Karl-Voit.at/persistent-entry">in lists</a> as <a href="//Karl-Voit.at/2016/11/27/special-characters">well</a>.</li>
-<li>This should work <a href="//Karl-Voit.at/persistent-entry">2016-10-31-persistent-entry</a> and <a href="//Karl-Voit.at/2016/11/27/special-characters">2016-11-27-special-characters</a>.</li>
+<li>This should work <a href="https://Karl-Voit.at/persistent-entry">in lists</a> as <a href="https://Karl-Voit.at/2016/11/27/special-characters">well</a>.</li>
+<li>This should work <a href="https://Karl-Voit.at/persistent-entry">2016-10-31-persistent-entry</a> and <a href="https://Karl-Voit.at/2016/11/27/special-characters">2016-11-27-special-characters</a>.</li>
 </ul>
 
 <table>
 <tbody>
 <tr class="odd">
 <td>also in</td>
-<td>a <a href="//Karl-Voit.at/2016/11/27/special-characters">table</a></td>
-<td>with <a href="//Karl-Voit.at/2016/11/27/special-characters">multiple cells containing links</a></td>
+<td>a <a href="https://Karl-Voit.at/2016/11/27/special-characters">table</a></td>
+<td>with <a href="https://Karl-Voit.at/2016/11/27/special-characters">multiple cells containing links</a></td>
 </tr>
 <tr class="even">
 <td>also</td>
-<td><a href="//Karl-Voit.at/2016/11/27/special-characters">2016-11-27-special-characters</a></td>
-<td>and <a href="//Karl-Voit.at/2016/11/27/special-characters">2016-11-27-special-characters</a></td>
+<td><a href="https://Karl-Voit.at/2016/11/27/special-characters">2016-11-27-special-characters</a></td>
+<td>and <a href="https://Karl-Voit.at/2016/11/27/special-characters">2016-11-27-special-characters</a></td>
 </tr>
 </tbody>
 </table>
@@ -161,17 +161,17 @@ This is a test article which tests its links to other (internal) blog entries.
 
 <p>
 
-Here is <a href="//Karl-Voit.at/2017/09/30/link-test">a self-reference</a> which should not result in a backlink to itself.
+Here is <a href="https://Karl-Voit.at/2017/09/30/link-test">a self-reference</a> which should not result in a backlink to itself.
 
 </p>
 
 
-	  <header><h2 class="section-title">Even <a href="//Karl-Voit.at/2016/10/31/my-temporal-article">a heading should</a> work</h2></header>
+	  <header><h2 class="section-title">Even <a href="https://Karl-Voit.at/2016/10/31/my-temporal-article">a heading should</a> work</h2></header>
 
 
 <p>
 
-What about <a href="//Karl-Voit.at/2016/10/31/an-hidden-blog-entry">a hidden entry</a>?
+What about <a href="https://Karl-Voit.at/2016/10/31/an-hidden-blog-entry">a hidden entry</a>?
 
 </p>
 
@@ -308,7 +308,7 @@ An example with a non-existent ID:
 
 <p>
 
-Example link that exists: <a href="//Karl-Voit.at/2020/10/02/Heading-which-starts-with-a-list">existing link</a>
+Example link that exists: <a href="https://Karl-Voit.at/2020/10/02/Heading-which-starts-with-a-list">existing link</a>
 
 </p>
 
@@ -395,7 +395,7 @@ An example with a non-existent ID:
 
 <p>
 
-Example link that exists: <a href="//Karl-Voit.at/2020/10/02/Heading-which-starts-with-a-list">existing link</a>
+Example link that exists: <a href="https://Karl-Voit.at/2020/10/02/Heading-which-starts-with-a-list">existing link</a>
 
 </p>
 
@@ -795,21 +795,21 @@ Maybe <this> should not be sanitized?
 <div xmlns='http://www.w3.org/1999/xhtml'>
 <p>
 
-<a href="//Karl-Voit.at/2016/10/31/an-hidden-blog-entry">Link to a hidden entry</a>
+<a href="https://Karl-Voit.at/2016/10/31/an-hidden-blog-entry">Link to a hidden entry</a>
 
 </p>
 
 
 <p>
 
-<a href="//Karl-Voit.at/persistent-entry">Link to persistent article</a>
+<a href="https://Karl-Voit.at/persistent-entry">Link to persistent article</a>
 
 </p>
 
 
 <p>
 
-<a href="//Karl-Voit.at/tags/exampletag">Link to tag page</a>
+<a href="https://Karl-Voit.at/tags/exampletag">Link to tag page</a>
 
 </p>
 
@@ -832,21 +832,21 @@ Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. O
 	
 <p>
 
-<a href="//Karl-Voit.at/2016/10/31/an-hidden-blog-entry">Link to a hidden entry</a>
+<a href="https://Karl-Voit.at/2016/10/31/an-hidden-blog-entry">Link to a hidden entry</a>
 
 </p>
 
 
 <p>
 
-<a href="//Karl-Voit.at/persistent-entry">Link to persistent article</a>
+<a href="https://Karl-Voit.at/persistent-entry">Link to persistent article</a>
 
 </p>
 
 
 <p>
 
-<a href="//Karl-Voit.at/tags/exampletag">Link to tag page</a>
+<a href="https://Karl-Voit.at/tags/exampletag">Link to tag page</a>
 
 </p>
 
@@ -1033,7 +1033,7 @@ Here, you can read about the test-tag "programming".
 
 <p>
 
-<a href="//Karl-Voit.at/tags/programming">This link</a> should be a self-reference.
+<a href="https://Karl-Voit.at/tags/programming">This link</a> should be a self-reference.
 
 </p>
 
@@ -1056,7 +1056,7 @@ Here, you can read about the test-tag "programming".
 
 <p>
 
-<a href="//Karl-Voit.at/tags/programming">This link</a> should be a self-reference.
+<a href="https://Karl-Voit.at/tags/programming">This link</a> should be a self-reference.
 
 </p>
 
