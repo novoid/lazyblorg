@@ -346,6 +346,9 @@ This is a list of the most important dependencies:
 
 All other libraries should be part of a standard Python distribution.
 
+If you don't want to install the dependencies via Debian package management, you can install the dependencies from =requirements.txt= via the Python way:
+: pip install -r requirements.txt
+
 ** How to Start
 
 1. Get the source
