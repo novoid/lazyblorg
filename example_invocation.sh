@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 blog=/tmp/lazyblorg/blog
 # create the output directory (and parents):
@@ -22,5 +23,7 @@ PYTHONPATH="~/src/lazyblorg:" ./lazyblorg.py \
     --orgfiles testdata/end_to_end_test/orgfiles/test.org \
                testdata/end_to_end_test/orgfiles/about-placeholder.org \
                templates/blog-format.org $@
+
+cp -v templates/*.css $blog
 
 #END
