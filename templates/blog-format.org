@@ -288,28 +288,28 @@ With name/label:
 #+NAME: reading-time-one-minute-en
 #+BEGIN_HTML
 	  <aside class="reading-time-section">
-          Reading time is one minute
+          Reading time about one minute
 	  </aside>
 #+END_HTML
 
 #+NAME: reading-time-one-minute-de
 #+BEGIN_HTML
 	  <aside class="reading-time-section">
-          Lesezeit ist eine Minute
+          Lesezeit circa eine Minute
 	  </aside>
 #+END_HTML
 
 #+NAME: reading-time-multiple-minutes-en
 #+BEGIN_HTML
 	  <aside class="reading-time-section">
-          Reading time is #READINGMINUTES# minutes
+          Reading time about #READINGMINUTES# minutes
 	  </aside>
 #+END_HTML
 
 #+NAME: reading-time-multiple-minutes-de
 #+BEGIN_HTML
 	  <aside class="reading-time-section">
-          Lesezeit ist #READINGMINUTES# Minuten
+          Lesezeit circa #READINGMINUTES# Minuten
 	  </aside>
 #+END_HTML
 
