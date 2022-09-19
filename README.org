@@ -558,6 +558,18 @@ string, and assign a keyboard shortcut:
 - Do read [[https://github.com/novoid/lazyblorg/wiki/Orgmode-Elements#embedding-external-content][the Wiki]] for embedding external stuff like Tweets or YouTube
   videos.
 
+** Using relative URLs instead of domain-URLs
+:PROPERTIES:
+:CREATED:  [2022-09-19 Mon 10:01]
+:END:
+
+The links to the CSS & co, even on the homepage, start with a slash
+which means you can't easily have a look at the HTML locally by
+opening the files, you need to spin up a webserver.
+
+If you want to learn how to move to a more flexible setup, read [[https://github.com/novoid/lazyblorg/issues/78#issuecomment-1250392523][this
+comment and follow its instructions]].
+
 * How to Thank Me
 
 I'm glad you like my tools. If you want to support me:
