@@ -39,8 +39,38 @@ This awesome piece of software is a sheer beauty with regard to:
         ~tsfile:2014-03-03-this-is-my-file-name.jpg~ in
         double-brackets and I really don't care in which folder the
         file is currently located on my system
-    - copying resulting HTML files to webspace (I do it using [[http://www.cis.upenn.edu/~bcpierce/unison/][unison]]/rsync)
+    - copying resulting HTML files to web-space (I do it using [[http://www.cis.upenn.edu/~bcpierce/unison/][unison]]/rsync)
     - probably more to come
+
+** DISCLAIMER: This is a personal project
+
+I wrote lazyblorg to get a blogging system that works for me exactly
+the way I need it. I did not write lazyblorg for the pleasure on the
+coding process - I just wanted to get the resulting thing working in
+order to be able to blog the way I want to blog.
+
+Therefore, it's mostly *a works-for-me project*. *I won't add anything
+that I don't use myself*.
+
+For the same reason, *I won't accept pull requests for things like*:
+
+- Features I don't use myself.
+- Added complexity I don't want.
+- Features or dependencies I don't understand completely.
+- Stuff that might interfere with the way I'm using lazyblorg.
+
+If you do want to adapt lazyblorg and implement your own features that
+conflict with the things listed above, I'd like to see you creating a
+fork of this project. If you drop me a line with a description how
+your fork differs from the original, I'm glad to add it to this README
+file.
+
+If you think that your idea might be also a good one for me, you can
+always hand in a pull request and I'll have a look if I'm willing to
+add it. However, don't be disappointed if I don't. I want to keep the
+time spent on lazyblorg at a minimum. My personal priority is visible
+in [[https://github.com/novoid/lazyblorg/issues][the lazyblorg issues]] where I introduced tags for [[https://github.com/novoid/lazyblorg/issues?q=is%3Aissue+is%3Aopen+label%3Apriohigh][high]] and [[https://github.com/novoid/lazyblorg/issues?q=is%3Aissue+is%3Aopen+label%3Apriolow][low
+priority]] things to implement.
 
 ** Target group
 
@@ -372,7 +402,7 @@ If you don't want to install the dependencies via Debian package management, you
    write your own blog posts. A (normal temporal) blog article consists of:
    1. A (direct) tag has to be ~blog~
       - Sorry, no tag inheritance. Every blog entry has to be
-        explicitely tagged.
+        explicitly tagged.
    2. You have to add an unique ~:ID:~ property
    3. The entry has to be marked with ~DONE~
    4. A ~:LOGBOOK:~ entry has to be found with the time-stamp of
