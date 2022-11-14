@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2022-03-01 20:53:07 vk>
+# Time-stamp: <2022-11-14 22:30:52 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -960,9 +960,16 @@ class Htmlizer(object):
                           ' and therefore I got less teaser than configured in NUMBER_OF_TEASER_ARTICLES')
 
         # add footer:
-        footer = self._replace_general_article_placeholders(
-            entry,
-            self.template_definition_by_name('entrypage-footer'))
+        if config.MASTODON_USER_URL:
+            ## the config.org contains a filled MASTODON_USER_URL variable:
+            footer = self._replace_general_article_placeholders(
+                entry,
+                self.template_definition_by_name('entrypage-footer-mastodon'))
+            footer = footer.replace('#MASTODON_USER_URL#', config.MASTODON_USER_URL)
+        else:
+            footer = self._replace_general_article_placeholders(
+                entry,
+                self.template_definition_by_name('entrypage-footer'))
         htmlcontent += self.sanitize_internal_links(footer)
 
         if 'TMPREPLACEMEheightSTART-' in htmlcontent:

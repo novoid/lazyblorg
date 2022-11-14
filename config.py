@@ -132,6 +132,17 @@ WARN_IF_IMAGE_FILE_NOT_TAGGED_WITH="publicvoit"
 CLUE_TEXT_FOR_LINKED_IMAGES = {'deutsch': '(klicken für größere Version)',
                                'english': '(click for a larger version)'}
 
+## Mastodon is an federated social network. It offers a homepage verification mechanism
+## where you can prove that the URL in your user profile is really under your control:
+## https://docs.joinmastodon.org/user/profile/#fields
+## If you want to use this header, you can use this option.
+## In my case, the string should look like:
+##        <a rel="me" href="https://graz.social/@publicvoit">Mastodon</a>
+MASTODON_USER_URL="https://graz.social/@publicvoit"
+## If you do NOT want to use this:
+## MASTODON_USER_URL=None
+
+
 ## ===================================================================== ##
 ##                                                                       ##
 ##  These are INTERNAL lazyblorg-global configuration settings.          ##
