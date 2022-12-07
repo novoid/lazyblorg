@@ -127,15 +127,16 @@ for as long as possible.
 
 lazyblorg is written in *Python 3*.
 
-Development platform is Debian GNU/Linux. So with any decent GNU/Linux
-you should be fine as well.
+Development platform is Debian GNU/Linux.
+So with any decent GNU/Linux you should be fine.
 
 It might work on OS X but I never tried it so far.
 
-I definitely does not work with Microsoft Windows. Although a
-programmer can add a couple of ~os.path.thisorthat()~ here and there
-and it should be good to go. Please consider sending a pull-request if
-you are fixing this issue. Thanks!
+I definitely does not work with Microsoft Windows.
+Although a programmer can add a couple of ~os.path.thisorthat()~ here and there
+and it should be good to go.
+Please consider sending a pull-request if you are fixing this issue.
+Thanks!
 
 ** Version and Changelog
 :PROPERTIES:
@@ -376,8 +377,11 @@ This is a list of the most important dependencies:
 
 All other libraries should be part of a standard Python distribution.
 
-If you don't want to install the dependencies via Debian package management, you can install the dependencies from =requirements.txt= via the Python way:
+If you don't want to install the dependencies via package management,
+you can use the python way from =requirements.txt=:
 : pip install -r requirements.txt
+
+Running tests also requires `pytest`.
 
 ** How to Start
 
@@ -436,7 +440,7 @@ If you don't want to install the dependencies via Debian package management, you
    - publishing can be done in various ways. This is how I do it using
      ~lazyblorg/make_and_publish_public_voit.sh~ which is an
      adopted version of ~lazyblorg/example_invocation.sh~:
-     1. invoking ~testall.sh~
+     1. invoking ~start_all_tests.sh~
         - this is for checking whether or not recent code changes did
           something harmful to my (unfortunately very limited) set of
           unit tests
@@ -616,8 +620,8 @@ contribute!
 
 Issues, bugs,… are maintained in the [[https://github.com/novoid/lazyblorg/issues][GitHub issue tracker]].
 
-I am using [[http://www.python.org/dev/peps/pep-0008/][Python PEP8]] and some ideas from [[http://en.wikipedia.org/wiki/Test-driven_development][Test Driven Development
-(TDD)]].
+I am using [[http://www.python.org/dev/peps/pep-0008/][Python PEP8]]
+and some ideas from [[http://en.wikipedia.org/wiki/Test-driven_development][Test Driven Development (TDD)]].
 
 * Local Variables                                                  :noexport:
 
