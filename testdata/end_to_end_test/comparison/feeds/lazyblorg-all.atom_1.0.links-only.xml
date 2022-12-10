@@ -7,7 +7,7 @@
   <id>https://karl-voit.at/</id>
   <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2022-11-14T22:43:45+01:00</updated>
+  <updated>2022-12-10T12:03:32+01:00</updated>
   <author>
     <name>Karl Voit</name>
   </author>
@@ -58,11 +58,11 @@
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">Placeholder: How to Use This Blog Efficiently</title>
-    <link href='http://Karl-Voit.at/how-to-use-public-voit' />
+    <link href='http://Karl-Voit.at/how-to-use-this-blog' />
     <published>2017-01-03T12:07:00+01:00</published>
     <updated>2017-01-03T12:07:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>https://karl-voit.at/how-to-use-public-voit-from-feed-with-links</id>
+    <id>https://karl-voit.at/how-to-use-this-blog-from-feed-with-links</id>
 </entry>
 <!-- ############################################################################################# -->
 <entry>

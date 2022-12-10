@@ -1,23 +1,23 @@
 * DONE Placeholder: About                                   :blog:lazyblorg:lb_persistent:
-CLOSED: [2014-03-09]
+CLOSED: [2014-03-09 Sun 14:57]
 :PROPERTIES:
-:CREATED:  [2014-03-09]
+:CREATED:  [2017-01-03 Tue 12:07]
 :ID: 2014-03-09-about
 :END:
 :LOGBOOK:
-- State "DONE"       from "NEXT"       [2014-03-09]
+- State "DONE"       from "NEXT"       [2014-03-09 Sun 14:57]
 :END:
 
 This is a placeholder entry in order to be able to test internal links.
 
 * DONE Placeholder: How to Use This Blog Efficiently                             :blog:lb_persistent:
-CLOSED: [2017-01-03]
+CLOSED: [2017-01-03 Tue 12:07]
 :PROPERTIES:
 :ID: 2017-01-03-how-to-use-this-blog
-:CREATED:  [2017-01-03]
+:CREATED:  [2017-01-03 Tue 12:07]
 :END:
 :LOGBOOK:
-- State "DONE"       from              [2017-01-03]
+- State "DONE"       from              [2017-01-03 Tue 12:07]
 :END:
 
 This is a placeholder entry in order to be able to test internal links.
