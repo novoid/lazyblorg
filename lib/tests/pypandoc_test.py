@@ -105,11 +105,11 @@ comment
 
         expected_html5_result = '''<h1 id="basic-tests">Basic tests</h1>
 <ul>
-<li><strong>bold</strong></li>
-<li><em>italic</em></li>
-<li><span class="underline">underline</span></li>
-<li><del>strike through</del></li>
-<li><code>code</code></li>
+<li><p><strong>bold</strong></p></li>
+<li><p><em>italic</em></p></li>
+<li><p><span class="underline">underline</span></p></li>
+<li><p><del>strike through</del></p></li>
+<li><p><code>code</code></p></li>
 <li><p><code>commands</code></p></li>
 <li><p><a href="http://orgmode.org">http://orgmode.org</a></p></li>
 </ul>
