@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2022-11-14 22:30:52 vk>
+# Time-stamp: <2023-02-17 23:45:35 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -481,6 +481,10 @@ class Htmlizer(object):
             my_end_template = 'tagpage-end'
             my_footer_template = 'article-footer'
 
+        if config.MASTODON_USER_URL:
+            ## the config.org contains a filled MASTODON_USER_URL variable:
+            my_footer_template += '-mastodon'
+            
         htmlcontent += self.sanitize_internal_links(self.template_definition_by_name(my_end_template))
         htmlcontent += self.sanitize_internal_links(self._generate_back_references_content(entry, kind))
         htmlcontent += self.sanitize_internal_links(
@@ -488,6 +492,8 @@ class Htmlizer(object):
                 entry,
                 self.template_definition_by_name(my_footer_template)))
 
+        if config.MASTODON_USER_URL:
+            htmlcontent = htmlcontent.replace('#MASTODON_USER_URL#', config.MASTODON_USER_URL)
         htmlcontent = self._replace_general_article_placeholders(entry, htmlcontent)
         htmlcontent = self._insert_reading_minutes_if_found(entry, htmlcontent)
 
