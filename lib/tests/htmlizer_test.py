@@ -289,7 +289,8 @@ class TestHtmlizer(unittest.TestCase):
 <td><strong>best</strong> roses <code>evar</code></td>
 </tr>
 <tr class="even">
-<td><a href="''' + config.BASE_URL + '''/2007/01/29/my-temporal">internal <strong>link</strong> test</a></td>
+<td><a href="''' + config.BASE_URL + '''/2007/01/29/my-temporal">internal
+<strong>link</strong> test</a></td>
 <td>10</td>
 <td>2</td>
 <td>20</td>

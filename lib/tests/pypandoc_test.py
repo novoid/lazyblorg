@@ -107,9 +107,9 @@ comment
 <ul>
 <li><p><strong>bold</strong></p></li>
 <li><p><em>italic</em></p></li>
-<li><p><span class="underline">underline</span></p></li>
+<li><p><u>underline</u></p></li>
 <li><p><del>strike through</del></p></li>
-<li><p><code>code</code></p></li>
+<li><p><code class="verbatim">code</code></p></li>
 <li><p><code>commands</code></p></li>
 <li><p><a href="http://orgmode.org">http://orgmode.org</a></p></li>
 </ul>
@@ -120,13 +120,14 @@ comment
 <ul>
 <li><em><strong>combination italic bold</strong></em></li>
 <li><strong><em>combination bold italic</em></strong></li>
-<li><span class="underline"><strong>combination underline bold</strong></span></li>
-<li><strong><span class="underline">combination bold underline</span></strong></li>
-<li><code>*combination bold code*</code></li>
+<li><u><strong>combination underline bold</strong></u></li>
+<li><strong><u>combination bold underline</u></strong></li>
+<li><code class="verbatim">*combination bold code*</code></li>
 <li><code>C:\\a\\very\old\DOS\path</code></li>
 <li><a href="http://orgmode.org">http://orgmode.org</a></li>
 <li><a href="http://orgmode.org">orgmode-Homepage</a></li>
-<li><a href="http://orgmode.org"><strong>orgmode</strong> <em>Homepage</em></a></li>
+<li><a href="http://orgmode.org"><strong>orgmode</strong>
+<em>Homepage</em></a></li>
 </ul></li>
 </ul>
 '''
