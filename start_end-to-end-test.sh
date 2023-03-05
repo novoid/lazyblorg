@@ -4,6 +4,9 @@
 ## if no error is found, the final success statement is shown
 ## if error occurs, this script stops at the error
 
+## activate Python3 virtualenv:
+. ./venv/bin/activate
+
 end_to_end_test()
 {
 
