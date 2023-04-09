@@ -95,8 +95,8 @@ class TestLazyblorg(unittest.TestCase):
         marked_for_feed_sorted = sorted(marked_for_feed)
         # increment_version_sorted = sorted(increment_version)
 
-        self.assertTrue(increment_version == [])
-        self.assertTrue(generate_sorted == marked_for_feed_sorted)
+        self.assertEqual(increment_version, [])
+        self.assertEqual(generate_sorted, marked_for_feed_sorted)
         self.assertTrue(
             generate_sorted == [
                 'case4',
@@ -146,8 +146,8 @@ class TestLazyblorg(unittest.TestCase):
         marked_for_feed_sorted = sorted(marked_for_feed)
         increment_version_sorted = sorted(increment_version)
 
-        self.assertTrue(increment_version_sorted == ['case8'])
-        self.assertTrue(marked_for_feed_sorted == ['case1', 'case8'])
+        self.assertEqual(increment_version_sorted, ['case8'])
+        self.assertEqual(marked_for_feed_sorted, ['case1', 'case8'])
         self.assertTrue(
             generate_sorted == [
                 'case1',
@@ -247,8 +247,8 @@ class TestLazyblorg(unittest.TestCase):
 #old#        generate_sorted = sorted(generate)
 #old#        marked_for_feed_sorted = sorted(marked_for_feed)
 #old#
-#old#        self.assertTrue(increment_version == [])
-#old#        self.assertTrue(generate_sorted == marked_for_feed_sorted)
+#old#        self.assertEqual(increment_version, [])
+#old#        self.assertEqual(generate_sorted, marked_for_feed_sorted)
 #old#
 #old#        blog_data, stats_parsed_org_lines = mylazyblorg._parse_orgmode_file(
 #old#            org_testfile)
