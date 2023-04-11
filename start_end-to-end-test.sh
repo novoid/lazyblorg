@@ -39,7 +39,7 @@ end_to_end_test()
 
 }
 
-end_to_end_test "$@"
+end_to_end_test "$@" && \
 echo "\n\n           End-to-end tests ended successfully! :-)\n\n"
 
 #end
