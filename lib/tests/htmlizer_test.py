@@ -89,7 +89,7 @@ class TestHtmlizer(unittest.TestCase):
         htmlized_entry_test = htmlizer.sanitize_and_htmlize_blog_content(entry)
         self.assertTrue(
             htmlized_entry_test['content'] == htmlized_content_expected)
-        self.assertTrue(htmlized_entry_test['htmlteaser'] == [
+        self.assertEqual(htmlized_entry_test['htmlteaser'], [
                         '<p>First paragraph</p>'])
         self.assertTrue(
             'htmlteaser-equals-content' in list(htmlized_entry_test.keys()))
@@ -109,7 +109,7 @@ class TestHtmlizer(unittest.TestCase):
 
         self.assertTrue(
             htmlized_entry_test['content'] == htmlized_content_expected)
-        self.assertTrue(htmlized_entry_test['htmlteaser'] == [
+        self.assertEqual(htmlized_entry_test['htmlteaser'], [
                         '<p>First paragraph</p>'])
         self.assertTrue(
             'htmlteaser-equals-content' in list(htmlized_entry_test.keys()))
@@ -421,9 +421,9 @@ class TestHtmlizer(unittest.TestCase):
 
         entrylist = htmlizer.generate_entry_list_by_newest_timestamp()
 
-        self.assertTrue(entrylist[0]['id'] == 'c_entry_from_2011')
-        self.assertTrue(entrylist[1]['id'] == 'a_entry_from_2008')
-        self.assertTrue(entrylist[2]['id'] == 'b_entry_from_2007')
+        self.assertEqual(entrylist[0]['id'], 'c_entry_from_2011')
+        self.assertEqual(entrylist[1]['id'], 'a_entry_from_2008')
+        self.assertEqual(entrylist[2]['id'], 'b_entry_from_2007')
 
     def test_generate_tag_page_with_more_than_one_word_in_title(self):
 
@@ -569,16 +569,16 @@ class TestHtmlizer(unittest.TestCase):
             autotag_language,
             ignore_missing_ids)
 
-        self.assertTrue(htmlizer.htmlize_simple_text_formatting("*This* is *bold face* and *bold face style*. With *end*") ==
+        self.assertEqual(htmlizer.htmlize_simple_text_formatting("*This* is *bold face* and *bold face style*. With *end*"), 
                         "<b>This</b> is <b>bold face</b> and <b>bold face style</b>. With <b>end</b>")
 
-        self.assertTrue(htmlizer.htmlize_simple_text_formatting("~This~ is ~code~ and ~code style~. With ~end~") ==
+        self.assertEqual(htmlizer.htmlize_simple_text_formatting("~This~ is ~code~ and ~code style~. With ~end~"), 
                         "<code>This</code> is <code>code</code> and <code>code style</code>. With <code>end</code>")
 
-        self.assertTrue(htmlizer.htmlize_simple_text_formatting("=This= is =verbatim= and =verbatim style=. With =end=") ==
+        self.assertEqual(htmlizer.htmlize_simple_text_formatting("=This= is =verbatim= and =verbatim style=. With =end="), 
                         "<code>This</code> is <code>verbatim</code> and <code>verbatim style</code>. With <code>end</code>")
 
-        self.assertTrue(htmlizer.htmlize_simple_text_formatting("+This+ is +strike through+ and +strike through style+. With +end+") ==
+        self.assertEqual(htmlizer.htmlize_simple_text_formatting("+This+ is +strike through+ and +strike through style+. With +end+"), 
                         "<s>This</s> is <s>strike through</s> and <s>strike through style</s>. With <s>end</s>")
 
         # real-world examples:
@@ -600,7 +600,7 @@ class TestHtmlizer(unittest.TestCase):
             "*mit Umlaut Öäß und Anfang und Ende*") == "<b>mit Umlaut Öäß und Anfang und Ende</b>")
 
         # testing teletype at begin and end of line with german umlauts:
-        self.assertTrue(htmlizer.htmlize_simple_text_formatting("Das ist ~mit Umlaut Öäß und so weiter~.") ==
+        self.assertEqual(htmlizer.htmlize_simple_text_formatting("Das ist ~mit Umlaut Öäß und so weiter~."), 
                         "Das ist <code>mit Umlaut Öäß und so weiter</code>.")
         self.assertTrue(htmlizer.htmlize_simple_text_formatting(
             "Das ist ~mit Umlaut Öäß und Ende~") == "Das ist <code>mit Umlaut Öäß und Ende</code>")
@@ -705,9 +705,9 @@ class TestHtmlizer(unittest.TestCase):
                 "no link here to find") == "no link here to find")
 
         # simple links:
-        self.assertTrue(htmlizer.sanitize_internal_links("[[id:2014-03-02-my-persistent]]") ==
+        self.assertEqual(htmlizer.sanitize_internal_links("[[id:2014-03-02-my-persistent]]"), 
                         "<a href=\"" + config.BASE_URL + "/my-persistent\">2014-03-02-my-persistent</a>")
-        self.assertTrue(htmlizer.sanitize_internal_links("[[id:2014-03-02-my-temporal]]") ==
+        self.assertEqual(htmlizer.sanitize_internal_links("[[id:2014-03-02-my-temporal]]"), 
                         "<a href=\"" + config.BASE_URL + "/2007/01/29/my-temporal\">2014-03-02-my-temporal</a>")
         self.assertTrue(
             htmlizer.sanitize_internal_links(
@@ -718,17 +718,17 @@ class TestHtmlizer(unittest.TestCase):
                 keep_orgmode_format=True) == "[[" + config.BASE_URL + "/tags/testtag][my-tag]]")
 
         # links with description:
-        self.assertTrue(htmlizer.sanitize_internal_links("[[id:2014-03-02-my-persistent][my description text]]") ==
+        self.assertEqual(htmlizer.sanitize_internal_links("[[id:2014-03-02-my-persistent][my description text]]"), 
                         "<a href=\"" + config.BASE_URL + "/my-persistent\">my description text</a>")
-        self.assertTrue(htmlizer.sanitize_internal_links("[[id:2014-03-02-my-temporal][another description text]]") ==
+        self.assertEqual(htmlizer.sanitize_internal_links("[[id:2014-03-02-my-temporal][another description text]]"), 
                         "<a href=\"" + config.BASE_URL + "/2007/01/29/my-temporal\">another description text</a>")
-        self.assertTrue(htmlizer.sanitize_internal_links("[[id:my-tag][tag link description text]]") ==
+        self.assertEqual(htmlizer.sanitize_internal_links("[[id:my-tag][tag link description text]]"), 
                         "<a href=\"" + config.BASE_URL + "/tags/testtag\">tag link description text</a>")
 
         self.assertTrue(
             htmlizer.sanitize_internal_links(
                 "[[id:2014-03-02-my-persistent][my description text]]") == "<a href=\"" + config.BASE_URL + "/my-persistent\">my description text</a>")
-        self.assertTrue(htmlizer.sanitize_internal_links("[[id:2014-03-02-my-temporal][another description text]]") ==
+        self.assertEqual(htmlizer.sanitize_internal_links("[[id:2014-03-02-my-temporal][another description text]]"), 
                         "<a href=\"" + config.BASE_URL + "/2007/01/29/my-temporal\">another description text</a>")
         self.assertTrue(
             htmlizer.sanitize_internal_links(
@@ -737,21 +737,21 @@ class TestHtmlizer(unittest.TestCase):
         self.assertTrue(
             htmlizer.sanitize_internal_links(
                 "[[id:2014-03-02-my-persistent][my description text]]") == "<a href=\"" + config.BASE_URL + "/my-persistent\">my description text</a>")
-        self.assertTrue(htmlizer.sanitize_internal_links("[[id:2014-03-02-my-temporal][another description text]]") ==
+        self.assertEqual(htmlizer.sanitize_internal_links("[[id:2014-03-02-my-temporal][another description text]]"), 
                         "<a href=\"" + config.BASE_URL + "/2007/01/29/my-temporal\">another description text</a>")
-        self.assertTrue(htmlizer.sanitize_internal_links("[[id:my-tag][tag link description text]]") ==
+        self.assertEqual(htmlizer.sanitize_internal_links("[[id:my-tag][tag link description text]]"), 
                         "<a href=\"" + config.BASE_URL + "/tags/testtag\">tag link description text</a>")
         self.assertTrue(
             htmlizer.sanitize_internal_links(
                 "like [[id:my-tag][text]] used") == "like <a href=\"" + config.BASE_URL + "/tags/testtag\">text</a> used")
-        self.assertTrue(htmlizer.sanitize_internal_links("like [[id:my-tag][this]] and [[id:my-tag][that]] used") ==
+        self.assertEqual(htmlizer.sanitize_internal_links("like [[id:my-tag][this]] and [[id:my-tag][that]] used"), 
                         "like <a href=\"" + config.BASE_URL + "/tags/testtag\">this</a> and <a href=\"" + config.BASE_URL + "/tags/testtag\">that</a> used")
         self.assertTrue(htmlizer.sanitize_internal_links("like [[id:my-tag][this]] and [[id:my-tag][that]] used",
                                                          keep_orgmode_format=True) ==
                         "like [[" + config.BASE_URL + "/tags/testtag][this]] and [[" + config.BASE_URL + "/tags/testtag][that]] used")
 
         # links with description and formatting:
-        self.assertTrue(htmlizer.sanitize_internal_links("[[id:2014-03-02-my-persistent][my *description* text]]") ==
+        self.assertEqual(htmlizer.sanitize_internal_links("[[id:2014-03-02-my-persistent][my *description* text]]"), 
                         "<a href=\"" + config.BASE_URL + "/my-persistent\">my *description* text</a>")
         self.assertTrue(
             htmlizer.htmlize_simple_text_formatting(
@@ -779,7 +779,7 @@ class TestHtmlizer(unittest.TestCase):
         if expectedoutput != value:
             print("expectedoutput: [" + expectedoutput + "]")
             print("value         : [" + value + "]")
-        self.assertTrue(expectedoutput == value)
+        self.assertEqual(expectedoutput, value)
 
         # internal and external links in one line:
         myinput = "foo http://karl-voit.at [[id:2014-03-02-my-persistent][my *description* text]], " + \
@@ -794,7 +794,7 @@ class TestHtmlizer(unittest.TestCase):
         if expectedoutput != value:
             print("expectedoutput: [" + expectedoutput + "]")
             print("value         : [" + value + "]")
-        self.assertTrue(expectedoutput == value)
+        self.assertEqual(expectedoutput, value)
 
     def test_sanitize_external_links(self):
 
@@ -828,10 +828,10 @@ class TestHtmlizer(unittest.TestCase):
         self.assertTrue(htmlizer.sanitize_external_links(
             "xy[[https://foo][bar]]z") == "xy<a href=\"https://foo\">bar</a>z")
 
-        self.assertTrue(htmlizer.sanitize_external_links("xy[[http://foo][bar]]z[[http://first][second]]end") ==
+        self.assertEqual(htmlizer.sanitize_external_links("xy[[http://foo][bar]]z[[http://first][second]]end"), 
                         "xy<a href=\"http://foo\">bar</a>z<a href=\"http://first\">second</a>end")
 
-        self.assertTrue(htmlizer.sanitize_external_links("xy[[http://foo][bar]][[http://first][second]]end") ==
+        self.assertEqual(htmlizer.sanitize_external_links("xy[[http://foo][bar]][[http://first][second]]end"), 
                         "xy<a href=\"http://foo\">bar</a><a href=\"http://first\">second</a>end")
 
         self.assertTrue(htmlizer.sanitize_external_links("This is an [[http://www.example.com][example " +
@@ -843,10 +843,10 @@ class TestHtmlizer(unittest.TestCase):
 
         # URL links of style http(s)://example.org
 
-        self.assertTrue(htmlizer.sanitize_external_links("foo http://example.org bar") ==
+        self.assertEqual(htmlizer.sanitize_external_links("foo http://example.org bar"), 
                         "foo <a href=\"http://example.org\">http://example.org</a> bar")
 
-        self.assertTrue(htmlizer.sanitize_external_links("foo https://example.org bar") ==
+        self.assertEqual(htmlizer.sanitize_external_links("foo https://example.org bar"), 
                         "foo <a href=\"https://example.org\">https://example.org</a> bar")
 
         # combining both URL styles:
