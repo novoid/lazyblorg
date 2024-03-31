@@ -79,7 +79,8 @@ class Utils(object):
                               'welcher', 'welches', 'wenn', 'werde', 'werden', 'wie',
                               'wieder', 'wir', 'wird', 'wirst', 'wo', 'wollen',
                               'wollte', 'würde', 'wüden', 'zu', 'zum', 'zur',
-                              'zwar', 'zwischen'])]
+                              'zwar', 'zwischen']),
+                 ('🇫🇷', ['alors', 'au', 'aucuns', 'aussi', 'autre', 'avant', 'avec', 'avoir', 'bon', 'car', 'ce', 'cela', 'ces', 'ceux', 'chaque', 'ci', 'comme', 'comment', 'dans', 'de', 'dedans', 'dehors', 'depuis', 'des', 'deux', 'devrait', 'doit', 'donc', 'dos', 'du', 'elle', 'elles', 'en', 'encore', 'essai', 'est', 'et', 'eu', 'fait', 'faites', 'fois', 'font', 'hors', 'ici', 'il', 'ils', 'je', 'juste', 'la', 'le', 'les', 'leur', 'là', 'ma', 'maintenant', 'mais', 'mes', 'mine', 'moins', 'mon'])]
 
     FILENAME_TAG_SEPARATOR = ' -- '
     BETWEEN_TAG_SEPARATOR = ' '
