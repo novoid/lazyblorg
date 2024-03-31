@@ -54,7 +54,8 @@ class OrgParser(object):
 
     # asterisk(s), whitespace, word(s), optional followed by optional tags:
     HEADING_REGEX = re.compile(
-        r'^(\*+)\s+((' + config.BLOG_FINISHED_STATE + r')\s+)?(.*?)(\s+(:\S+:)+)?\s*$')
+        r'^(\*+|\#\+TITLE:)\s+((' + config.BLOG_FINISHED_STATE + r')\s+)?(.*?)(\s+(:\S+:)+)?\s*$')
+        # r'^(\*+)\s+((' + config.BLOG_FINISHED_STATE + r')\s+)?(.*?)(\s+(:\S+:)+)?\s*$')
     # REGEX.match(string).group(INDEX)
     HEADING_STARS_IDX = 1
     HEADING_STATE_IDX = 3
@@ -146,7 +147,7 @@ class OrgParser(object):
     # set checking for link definitions to strict: any re-definition will raise
     # a critical error
     global LINKDEFS_STRICT_CHECKING
-    LINKDEFS_STRICT_CHECKING = True
+    LINKDEFS_STRICT_CHECKING = False
     
     def __init__(self, filename):
         """
