@@ -32,6 +32,14 @@ except ImportError:
 # NOTE: pdb hides private variables as well. Please use:
 # data = self._OrgParser__entry_data ; data['content']
 
+# MVB initialize link dictionary here as global store
+global dict_of_links
+dict_of_links = {}
+
+# set checking for link definitions to strict: any re-definition will raise
+# a critical error
+LINKDEFS_STRICT_CHECKING = False
+
 
 class HtmlizerException(Exception):
     """
@@ -79,7 +87,7 @@ class Htmlizer(object):
     # populated in copy_cust_link_image_file()
     # { 'basefilename': [ width, height ] }
     dict_of_image_files_with_width_height = { }
-
+    
     # holds a list of tags whose tag pages have been generated
     list_of_tag_pages_generated = []
 
@@ -91,14 +99,20 @@ class Htmlizer(object):
     ID_DESCRIBED_LINK_REGEX = re.compile(r'(\[\[id:([^\]]+?)\]\[([^\]]+?)\]\])')
 
     # find external links such as [[http(s)://foo.com][bar]]:
+    # MVB :: maybe regexp needs adjustment to exclude [] from allowed characters
     EXT_URL_WITH_DESCRIPTION_REGEX = re.compile(
         r'\[\[(http[^ ]+?)\]\[(.+?)\]\]', flags=re.U)
-
+        
+  # find external links such as [[http(s)://foo.com][bar]]:
+    EXT_TAG_URL_WITH_DESCRIPTION_REGEX = re.compile(
+        r'\[\[([^[\[\]]+?)\]\[([^[\[\]]+?)\]\]', flags=re.U)
+        
     # find external links such as [[foo]]:
     EXT_URL_WITHOUT_DESCRIPTION_REGEX = re.compile(
-        r'\[\[(.+?)\]\]', flags=re.U)
+        r'\[\[([^[\[\]]+?)\]\]', flags=re.U)
 
     # find external links such as http(s)://foo.bar
+    # MVB :: maybe regexp needs adjustment to exclude [] from allowed characters
     EXT_URL_LINK_REGEX = re.compile(
         r'([^"<>\[])(http(s)?:\/\/\S+)', flags=re.U)
 
@@ -193,7 +207,7 @@ class Htmlizer(object):
         """
 
         self.blog_data = self._populate_backreferences(self.blog_data)
-
+        
         self.dict_of_tags_with_ids = self._populate_dict_of_tags_with_ids(
             self.blog_data)
 
@@ -450,7 +464,9 @@ class Htmlizer(object):
             my_templates = ['article-tags-end', 'persistent-header-end']
         elif kind == config.TAGS:
             my_templates = ['tagpage-tags-end', 'tagpage-header-end']
-
+            if 'title' in entry and '🇫🇷' == entry['title']:
+                my_templates = ['tagpage-tags-end', 'tagpage-header-end-fr']
+                
         for articlepart in my_templates:
             htmlcontent += self.template_definition_by_name(articlepart)
 
@@ -480,6 +496,12 @@ class Htmlizer(object):
         elif kind == config.TAGS:
             my_end_template = 'tagpage-end'
             my_footer_template = 'article-footer'
+            if 'title' in entry and '🇫🇷' == entry['title']:
+                my_end_template += '-fr'
+                my_footer_template += '-fr'
+            
+        if 'usertags' in entry and isinstance(entry['usertags'], list) and '🇫🇷' in entry['usertags']:
+            my_footer_template += '-fr'
 
         if config.MASTODON_USER_URL:
             ## the config.org contains a filled MASTODON_USER_URL variable:
@@ -918,6 +940,8 @@ class Htmlizer(object):
                     listentry['latestupdateTS'].minute).zfill(2)
                 iso_timestamp = '-'.join([year, month, day]) + \
                     'T' + hours + ':' + minutes
+                mvb_timestamp = '-'.join([day, month, year]) + \
+                    ', ' + hours + ':' + minutes
 
                 content = content.replace('#ARTICLE-YEAR#', year)
                 content = content.replace('#ARTICLE-MONTH#', month)
@@ -926,7 +950,7 @@ class Htmlizer(object):
                     '#ARTICLE-PUBLISHED-HTML-DATETIME#',
                     iso_timestamp + config.TIME_ZONE_ADDON)
                 content = content.replace(
-                    '#ARTICLE-PUBLISHED-HUMAN-READABLE#', iso_timestamp)
+                    '#ARTICLE-PUBLISHED-HUMAN-READABLE#', mvb_timestamp)
 
                 # sanitize internal links of content so far:
                 content = self.sanitize_internal_links(content)
@@ -1170,6 +1194,28 @@ class Htmlizer(object):
         self.stats_external_latex_to_html5_conversion += 1
         return pypandoc.convert_text(latex, 'html5', format='latex')
 
+    def check_link_definition_against_dictionary(self, keyword, linkdef):
+        # Check if the tag is already defined in linkdefs
+        if keyword in dict_of_links:
+            if LINKDEFS_STRICT_CHECKING:
+                message=("Htmlizer: Aborting because tag value "
+                         f"for {keyword} is re-defined and strict checking is "
+                         f"enabled.\nNew assignment: {linkdef}\nPrevious "
+                         "assignment: %s" % dict_of_links[keyword])
+                self.logging.critical(message)
+                raise HtmlizerException(self.current_entry_id,message)
+            else:
+                self.logging.debug(f"Htmlizer: Warning! Tag {keyword} "
+                                   "already defined in url dictionary.")
+                # Compare the existing value to the new value
+                if linkdef != dict_of_links[keyword]:
+                    message=("Htmlizer: Aborting because tag value "
+                             f"for {keyword} re-defined differently from the "
+                             f"previous value. \nNew assignment: {linkdef}\nPrevious "
+                             "assignment: %s" % dict_of_links[keyword])
+                    self.logging.critical(message)
+                    raise HtmlizerException(self.current_entry_id,message)
+        
     def sanitize_and_htmlize_blog_content(self, entry):
         """
         Inspects a selection of the entry content data and sanitizes
@@ -1216,7 +1262,21 @@ class Htmlizer(object):
                                          str(entry['id']) +
                                          " is not recognized clearly; using guessed_language_autotag \"unsure\"")
                     entry['autotags']['language'] = 'unsure'
-
+                
+        # set url dictionary MVB
+        # look up our dictionary for link definitions
+        if 'linkdefs' not in entry or not isinstance(entry['linkdefs'], dict):
+            self.logging.debug("Htmlizer: blog entry without url"
+            "dictionary definitions encountered")
+        else:
+            for keyword, linkdef in entry['linkdefs'].items():
+                # handle issues such as re-definition
+                self.check_link_definition_against_dictionary(keyword, linkdef)
+                # we're fine, let's add the definition to the dictionary
+                dict_of_links[keyword] = linkdef
+                self.logging.debug("Htmlizer: instantiate url "
+                "dictionary with definition for %s tag" % keyword)
+            
         # for element in entry['content']:
         for index in range(0, len(entry['content'])):
 
@@ -1573,6 +1633,14 @@ class Htmlizer(object):
 
             else:  # fall-back for all content elements which do not require special treatment:
 
+                # simply handle url link definitions for lists before calling pandoc
+                if entry['content'][index][0] == 'list':
+                    for i, listitem in enumerate(entry['content'][index][1]):
+                        # look up URL dictionary for each listitem to
+                        # evtl. replace content with sanitized
+                        # external links
+                        entry['content'][index][1][i] = self.sanitize_url_dict_links(listitem)
+
                 # entry['content'][index][0] == 'mylist':
                 #  ['table', [u'- an example',
                 #             u'  - list subitem',
@@ -1839,10 +1907,26 @@ class Htmlizer(object):
         @param entry: string
         @param return: sanitized string
         """
-
+        
+        # Moved here to the top because of issues with double http links as wayback archive
         content = re.sub(
             self.EXT_URL_LINK_REGEX,
             r'\1<a href="\2">\2</a>',
+            content)
+
+        # Replace directly written URLs with HTML anchor tags
+        def replace_url(match):
+            key, value = match.group(0).strip('[]').split('][')
+            if dict_of_links.get(key):
+                self.logging.debug("Htmlizer: replaced tag %s from url dictionary" % key)
+                return '<a href="{}">{}</a>'.format(dict_of_links[key], value)
+            else:
+                return '<a href="{}">{}</a>'.format(key, value)  # Return the original match if URL is not found in dictionary
+
+        # Replace external links of type [[foo][bar]] with <a href="foo">bar</a>
+        content = re.sub(
+            self.EXT_TAG_URL_WITH_DESCRIPTION_REGEX,
+            replace_url,
             content)
 
         content = re.sub(
@@ -1850,9 +1934,56 @@ class Htmlizer(object):
             r'<a href="\1">\2</a>',
             content)
 
+        def replace_tag(match):
+            key = match.group(0)[2:-2]
+            if key in dict_of_links:
+                self.logging.debug("Htmlizer: replaced tag %s (no description) from url dictionary" % key)
+                return '<a href="{}">{}</a>'.format(dict_of_links[key],dict_of_links[key])
+            else:
+                return '<a href="{}">{}</a>'.format(key, key)  # Return the original match if tag is not found in dictionary
+        
         content = re.sub(
             self.EXT_URL_WITHOUT_DESCRIPTION_REGEX,
-            r'<a href="\1">\1</a>',
+            replace_tag,
+            content)
+
+        return content
+
+    def sanitize_url_dict_links(self, content):
+        """
+        Replaces all external Org-mode links of type [[foo][bar]] with
+        dictionary values if a \#+LINK tag definition exists for foo.
+
+        @param entry: string
+        @param return: sanitized string
+        """
+        
+        # Replace url dictionary tags with actual URL
+        def replace_url(match):
+            key, value = match.group(0).strip('[]').split('][')
+            if dict_of_links.get(key):
+                self.logging.debug("Htmlizer: replaced tag %s from url dictionary" % key)
+                return '[[{}][{}]]'.format(dict_of_links[key], value)
+            else:
+                return '[[{}][{}]]'.format(key, value)  # Return the original match if URL is not found in dictionary
+
+        content = re.sub(
+            self.EXT_TAG_URL_WITH_DESCRIPTION_REGEX,
+            replace_url,
+            content)
+
+        # Replace url dictionary tags with actual URL
+        def replace_tag(match):
+            key = match.group(0)[2:-2]
+            if key in dict_of_links:
+                self.logging.debug("Htmlizer: replaced tag %s (no description) from url dictionary" % key)
+                return '[[{}][{}]]'.format(dict_of_links[key],dict_of_links[key])
+            else:
+                return '[[{}][{}]]'.format(key, key)  # Return the original match if tag is not found in dictionary
+        
+        content = re.sub(
+            self.EXT_URL_WITHOUT_DESCRIPTION_REGEX,
+            replace_tag,
             content)
 
         return content
@@ -1967,6 +2098,8 @@ class Htmlizer(object):
             if 'autotags' in list(entry.keys()):
                 if 'language' in list(entry['autotags'].keys()) and entry['autotags']['language'] == 'deutsch':
                     content += self.template_definition_by_name('backreference-header-de')
+                elif '🇫🇷' in list(entry['usertags']):
+                    content += self.template_definition_by_name('backreference-header-fr')
                 else:
                     content += self.template_definition_by_name('backreference-header-en')
 
@@ -2104,6 +2237,7 @@ class Htmlizer(object):
         content = content.replace('#TOP-TAG-LIST#', self._generate_top_tag_list())  # FIXXME: generate only once for performance reasons?
         content = content.replace('#DOMAIN#', config.DOMAIN)
         content = content.replace('#BASE-URL#', config.BASE_URL)
+        content = content.replace('#ROOT-URL#', config.ROOT_URL)
         content = content.replace('#CSS-URL#', config.CSS_URL)
         content = content.replace('#AUTHOR-NAME#', config.AUTHOR_NAME)
         content = content.replace('#BLOG-NAME#', config.BLOG_NAME)
@@ -2152,6 +2286,8 @@ class Htmlizer(object):
         year, month, day, hours, minutes = Utils.get_YY_MM_DD_HH_MM_from_datetime(entry['firstpublishTS'])
         iso_timestamp = '-'.join([year, month, day]) + \
             'T' + hours + ':' + minutes
+        mvb_timestamp = '-'.join([day, month, year]) + \
+            ', ' + hours + ':' + minutes
 
         content = content.replace('#ARTICLE-ID#', entry['id'])
         content = content.replace('#ARTICLE-URL#', str(self._target_path_for_id_without_targetdir(entry['id'])))
@@ -2163,7 +2299,7 @@ class Htmlizer(object):
             iso_timestamp + config.TIME_ZONE_ADDON)
         content = content.replace(
             '#ARTICLE-PUBLISHED-HUMAN-READABLE#',
-            iso_timestamp)
+            mvb_timestamp)
 
         if entry['category'] == config.TAGS:
             # replace #TAG-PAGE-LIST#
@@ -2492,6 +2628,8 @@ class Htmlizer(object):
                     # here: (generalize using a configured list of known
                     # languages?)
                     snippetname += 'de'
+                elif '🇫🇷' in list(entry['usertags']):
+                    snippetname += 'fr'
                 else:
                     snippetname += 'en'
 
@@ -2715,7 +2853,7 @@ class Htmlizer(object):
                 return self._save_width_height_to_dict_of_image_files_with_width_height(destinationfile)
 
         # FIXXME: FUTURE? generate scaled version when width/height is set
-
+        
     def _populate_filename_dict(self):
         """
         Locates and parses the directory config.DIRECTORIES_WITH_IMAGE_ORIGINALS for filename index. Result is stored in self.filename_dict.

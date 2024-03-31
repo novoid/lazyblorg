@@ -54,7 +54,8 @@ class OrgParser(object):
 
     # asterisk(s), whitespace, word(s), optional followed by optional tags:
     HEADING_REGEX = re.compile(
-        r'^(\*+)\s+((' + config.BLOG_FINISHED_STATE + r')\s+)?(.*?)(\s+(:\S+:)+)?\s*$')
+        r'^(\*+|\#\+TITLE:)\s+((' + config.BLOG_FINISHED_STATE + r')\s+)?(.*?)(\s+(:\S+:)+)?\s*$')
+        # r'^(\*+)\s+((' + config.BLOG_FINISHED_STATE + r')\s+)?(.*?)(\s+(:\S+:)+)?\s*$')
     # REGEX.match(string).group(INDEX)
     HEADING_STARS_IDX = 1
     HEADING_STATE_IDX = 3
@@ -131,7 +132,7 @@ class OrgParser(object):
     CUST_LINK_IMAGE_REGEX = re.compile(r'^\[\[tsfile:([^\]]+\.(png|jpg|jpeg|svg|gif))+(\]\[(.+))?\]\]$')
     CUST_LINK_IMAGE_FILENAME_IDX = 1
     CUST_LINK_IMAGE_DESCRIPTION_IDX = 4
-
+    
     __filename = ''
 
     # for description please visit: lazyblog.org > Notes > Representation of
@@ -142,6 +143,12 @@ class OrgParser(object):
     __entry_data = {}  # dict of currently parsed blog entry data: gets "filled"
     # while parsing the entry
 
+    
+    # set checking for link definitions to strict: any re-definition will raise
+    # a critical error
+    global LINKDEFS_STRICT_CHECKING
+    LINKDEFS_STRICT_CHECKING = False
+    
     def __init__(self, filename):
         """
         This function handles the communication with the parser object and returns the blog data.
@@ -267,6 +274,9 @@ class OrgParser(object):
 
         assert tags.__class__ == str
 
+        # assign top stars level of 0 if title
+        if (stars == "#+TITLE:"): stars=""
+        
         self.__entry_data['title'] = title
         self.__entry_data['level'] = len(stars)
         self.__entry_data['lbtags'] = []
@@ -384,6 +394,30 @@ class OrgParser(object):
             # return number of leading spaces:
             return len(list_item) - len(list_item.lstrip(' '))
 
+    def check_link_definition_against_dictionary(self, linkdefs, tag, url):
+        # Check if the tag is already defined in linkdefs
+        if tag in linkdefs:
+            linkdef = linkdefs[tag]
+            if LINKDEFS_STRICT_CHECKING:
+                message=(f"OrgParser: Aborting because tag "
+                         f"value for {tag} is re-defined and strict checking "
+                         f"is enabled. \nNew assignment: {url}\nPrevious "
+                         f"assignment: {linkdef}")
+                self.logging.critical(message)
+                raise OrgParserException(message)
+            else:
+                self.logging.debug(f"OrgParser: Warning! Tag {tag} "
+                                   "already defined in url dictionary.")
+                
+            # Compare the existing value to the new value
+            if linkdef != url:
+                message=(f"OrgParser: Aborting because tag "
+                         f"value for {tag} re-defined differently from the "
+                         f"previous value. \nNew assignment: {url}\nPrevious "
+                         f"assignment: {linkdef}")
+                self.logging.critical(message)
+                raise OrgParserException(message)
+
     def parse_orgmode_file(self):
         """
         Parses the Org-mode file.
@@ -448,6 +482,25 @@ class OrgParser(object):
 
             line = rawline.rstrip()  # remove trailing whitespace
 
+            # Create a 'linkdefs' dictionary entry for link definitions
+            if line.upper().startswith('#+LINK:'):
+                link_definition = line[7:].strip()
+                tag, url = link_definition.split(None, 1)
+                url = url.strip('"')
+
+                # Ensure 'linkdefs' key exists in __entry_data and initialize if it doesn't
+                linkdefs = self.__entry_data.setdefault('linkdefs', {})
+
+                # check if link definitions are consistent
+                self.check_link_definition_against_dictionary(linkdefs,
+                                                              tag,
+                                                              url)
+
+                linkdefs[tag]=url
+                self.logging.debug(
+                    f"OrgParser: define url dictionary tag {tag} for URL {url}")
+                previous_line = line
+            
             if not state == self.SEARCHING_BLOG_HEADER:  ## limit the output to interesting lines
                 self.logging.debug(
                     "OrgParser: ------------------------------- %s" %

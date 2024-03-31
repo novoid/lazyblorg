@@ -18,24 +18,27 @@ import os
 
 
 # strings: Your personal name and the name of your blog:
-AUTHOR_NAME = 'Karl Voit'
-BLOG_NAME = 'public voit'
+AUTHOR_NAME = 'Marc Baaden'
+BLOG_NAME = 'UnityMol News'
 
 ## strings: Define your URLs and your name below:
-DOMAIN = 'Karl-Voit.at'
+DOMAIN = 'unity.mol3d.tech/news'
+DOMAIN = 'localhost:8000/news'
 BASE_URL = '//' + DOMAIN
-CSS_URL = BASE_URL + '/public_voit.css'
-BLOG_LOGO = BASE_URL + '/images/public-voit_logo.svg'
-DISQUS_NAME = 'publicvoit'  # gets placed in: '//publicvoit.disqus.com/embed.js'
+ROOT_URL = '//unity.mol3d.tech'
+ROOT_URL = '//localhost:8000'
+CSS_URL = BASE_URL + '/unitymol.css'
+BLOG_LOGO = BASE_URL + '/img/baamcode.svg'
+DISQUS_NAME = 'baaden'  # gets placed in: '//publicvoit.disqus.com/embed.js'
 
 ## string: Email address to send comments to:
-COMMENT_EMAIL_ADDRESS = 'publicvoit-comment@Karl-Voit.at'
+COMMENT_EMAIL_ADDRESS = 'umol-blog-comment@smplinux.de'
 
 ## integer: Show this many article teasers on entry page
 NUMBER_OF_TEASER_ARTICLES = 25
 
 ## integer: Show this many top tags in the sidebar
-NUMBER_OF_TOP_TAGS = 10
+NUMBER_OF_TOP_TAGS = 5
 
 ## list of strings: tags to ignore when generating misc things:
 IGNORE_FOR_TOP_TAGS = ['suderei', 'personally']
@@ -47,20 +50,20 @@ NUMBER_OF_FEED_ARTICLES = 25
 ## string: This is the Org-mode property :ID: of your blog article which
 ##         is used for the about page of your blog.
 ## See example in: testdata/end_to_end_test/orgfiles/about-placeholder.org
-ID_OF_ABOUT_PAGE = '2014-03-09-about'
+ID_OF_ABOUT_PAGE = '2013-02-28-about'
 
 ## string: This is the Org-mode property :ID: of your blog article which
 ##         is used for the "How to use this blog efficiently" page of your blog.
-ID_OF_HOWTO_PAGE = '2017-01-03-how-to-use-this-blog'
+ID_OF_HOWTO_PAGE = '2013-02-28-how-to-use-this-blog'
 
 ## string: Your Twitter handle/username which is used in the HTML header
 ##         metadata (without the @ character)
-TWITTER_HANDLE = 'n0v0id'
+TWITTER_HANDLE = 'Unitymol'
 
 ## string: An image which is added to the HTML header metadata and is used
 ##         by Twitter in Twitter cards to visualize your blog (also used
 ##         as og:image)
-TWITTER_IMAGE = 'http://Karl-Voit.at/images/public-voit_T_logo_200x200.png'
+TWITTER_IMAGE = 'https://pbs.twimg.com/profile_images/275310725/frog_400x400.jpg'
 
 ## string: Replace "+01:00" below with your time-zone indicator
 ## This string gets added to the time strings in order to describe time zone of the blog:
@@ -93,22 +96,26 @@ IMAGE_CACHE_DIRECTORY = os.path.join(os.path.expanduser("~"), *"src/lazyblorg/te
 ## like "/home/user/dir1/memacs_files.org_archive" as string.
 ## EMPTY string if including images via Memacs index is disabled
 ## Please do read the documentation: https://github.com/novoid/lazyblorg/wiki/Orgmode-Elements#images
-MEMACS_FILE_WITH_IMAGE_FILE_INDEX = os.path.join(os.path.expanduser("~"), "org", "memacs", "files.org_archive")
+#MEMACS_FILE_WITH_IMAGE_FILE_INDEX = os.path.join(os.path.expanduser("~"), "REP", "org", "memacs", "files.org_archive")
+#MEMACS_FILE_WITH_IMAGE_FILE_INDEX = os.path.join("/usr", "src", "host", "REP", "org", "memacs", "files.org_archive")
+MEMACS_FILE_WITH_IMAGE_FILE_INDEX = ""
 
 ## string: path to a directory that holds image files (+ sub-directories)
 ## EMPTY string if including images via traversing the file system is disabled
 ## Please do read the documentation: https://github.com/novoid/lazyblorg/wiki/Orgmode-Elements#images
-DIRECTORIES_WITH_IMAGE_ORIGINALS = ["testdata/testimages",
-                                    os.path.join(os.path.expanduser("~"), *"tmp/digicam/tmp".split('/')),
-                                    os.path.join(os.path.expanduser("~"), *"tmp/digicam/oneplus5".split('/')),
-                                    os.path.join(os.path.expanduser("~"), *"archive/events_memories/2019".split('/')),
-                                    os.path.join(os.path.expanduser("~"), *"archive/events_memories/2020".split('/')),
-                                    os.path.join(os.path.expanduser("~"), *"archive/events_memories/2021".split('/')),
-                                    os.path.join(os.path.expanduser("~"), *"archive/events_memories/2022".split('/')),
-                                    os.path.join(os.path.expanduser("~"), *"archive/events_memories/2023".split('/')),
-                                    os.path.join(os.path.expanduser("~"), *"archive/events_memories/2024".split('/')),
-                                    os.path.join(os.path.expanduser("~"), *"fun/netfun".split('/')),
-                                    os.path.join(os.path.expanduser("~"), *"archive/fromweb/cliparts".split('/'))]
+##DIRECTORIES_WITH_IMAGE_ORIGINALS = ["blog.smplinux.de/img"]
+DIRECTORIES_WITH_IMAGE_ORIGINALS = ["img"]
+#DIRECTORIES_WITH_IMAGE_ORIGINALS = ["orgfiles/testimages",
+#                                    os.path.join(os.path.expanduser("~"), *"tmp/digicam/tmp".split('/')),
+#                                    os.path.join(os.path.expanduser("~"), *"tmp/digicam/oneplus5".split('/')),
+#                                    os.path.join(os.path.expanduser("~"), *"archive/events_memories/2019".split('/')),
+#                                    os.path.join(os.path.expanduser("~"), *"archive/events_memories/2020".split('/')),
+#                                    os.path.join(os.path.expanduser("~"), *"archive/events_memories/2021".split('/')),
+#                                    os.path.join(os.path.expanduser("~"), *"archive/events_memories/2022".split('/')),
+#                                    os.path.join(os.path.expanduser("~"), *"archive/events_memories/2023".split('/')),
+#                                    os.path.join(os.path.expanduser("~"), *"archive/events_memories/2024".split('/')),
+#                                    os.path.join(os.path.expanduser("~"), *"fun/netfun".split('/')),
+#                                    os.path.join(os.path.expanduser("~"), *"archive/fromweb/cliparts".split('/'))]
 
 ## string: a filetags-tag - see
 ## http://karl-voit.at/managing-digital-photographs/ and
@@ -117,7 +124,7 @@ DIRECTORIES_WITH_IMAGE_ORIGINALS = ["testdata/testimages",
 ## If not empty: Contains a tag which should be part of any image
 ## file included. If the image file does not contain this filetag,
 ## a warning is issued in the console output.
-WARN_IF_IMAGE_FILE_NOT_TAGGED_WITH="publicvoit"
+WARN_IF_IMAGE_FILE_NOT_TAGGED_WITH="baaden"
 
 ## According to https://github.com/novoid/lazyblorg/wiki/Images
 ## you can link to a differently sized image when including a
@@ -132,6 +139,7 @@ WARN_IF_IMAGE_FILE_NOT_TAGGED_WITH="publicvoit"
 ## within Utils is extended as well and the language identifier
 ## matches the dict keys below.
 CLUE_TEXT_FOR_LINKED_IMAGES = {'deutsch': '(klicken für größere Version)',
+                               'français': '(cliquer pour une version plus grande)',
                                'english': '(click for a larger version)'}
 
 ## Mastodon is an federated social network. It offers a homepage verification mechanism
@@ -140,9 +148,9 @@ CLUE_TEXT_FOR_LINKED_IMAGES = {'deutsch': '(klicken für größere Version)',
 ## If you want to use this header, you can use this option.
 ## In my case, the string should look like:
 ##        <a rel="me" href="https://graz.social/@publicvoit">Mastodon</a>
-MASTODON_USER_URL="https://graz.social/@publicvoit"
+#### MASTODON_USER_URL="https://graz.social/@publicvoit"
 ## If you do NOT want to use this:
-## MASTODON_USER_URL=None
+MASTODON_USER_URL=None
 
 
 ## ===================================================================== ##
@@ -188,7 +196,7 @@ assertTag(BLOG_FINISHED_STATE)
 
 
 ## tag that is expected in any blog entry category; tag does not get shown in list of user-tags
-TAG_FOR_BLOG_ENTRY = 'blog'
+TAG_FOR_BLOG_ENTRY = 'blog_um'
 
 assertTag(TAG_FOR_BLOG_ENTRY)
 
