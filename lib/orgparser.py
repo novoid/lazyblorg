@@ -274,10 +274,18 @@ class OrgParser(object):
 
         assert tags.__class__ == str
 
+        if (stars == "#+TITLE:"): stars=""
+        
         self.__entry_data['title'] = title
         self.__entry_data['level'] = len(stars)
         self.__entry_data['lbtags'] = []
         self.__entry_data['usertags'] = []
+
+        self.logging.debug(
+            "OrgParser: MVB heading: level[%s] stars[%s] title[%s] usertags[%s]" %
+            (str(
+                self.__entry_data['level']), stars, self.__entry_data['title'], str(
+                    self.__entry_data['usertags'])))
 
         # ignore headings with noexport tag:
         if ":NOEXPORT:" in tags.upper():
