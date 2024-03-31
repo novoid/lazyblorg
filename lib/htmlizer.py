@@ -38,7 +38,7 @@ dict_of_links = {}
 
 # set checking for link definitions to strict: any re-definition will raise
 # a critical error
-LINKDEFS_STRICT_CHECKING = True
+LINKDEFS_STRICT_CHECKING = False
 
 
 class HtmlizerException(Exception):
@@ -102,7 +102,7 @@ class Htmlizer(object):
     # MVB :: maybe regexp needs adjustment to exclude [] from allowed characters
     EXT_URL_WITH_DESCRIPTION_REGEX = re.compile(
         r'\[\[(http[^ ]+?)\]\[(.+?)\]\]', flags=re.U)
-
+        
   # find external links such as [[http(s)://foo.com][bar]]:
     EXT_TAG_URL_WITH_DESCRIPTION_REGEX = re.compile(
         r'\[\[([^[\[\]]+?)\]\[([^[\[\]]+?)\]\]', flags=re.U)
@@ -464,7 +464,9 @@ class Htmlizer(object):
             my_templates = ['article-tags-end', 'persistent-header-end']
         elif kind == config.TAGS:
             my_templates = ['tagpage-tags-end', 'tagpage-header-end']
-
+            if 'title' in entry and '🇫🇷' == entry['title']:
+                my_templates = ['tagpage-tags-end', 'tagpage-header-end-fr']
+                
         for articlepart in my_templates:
             htmlcontent += self.template_definition_by_name(articlepart)
 
@@ -494,6 +496,12 @@ class Htmlizer(object):
         elif kind == config.TAGS:
             my_end_template = 'tagpage-end'
             my_footer_template = 'article-footer'
+            if 'title' in entry and '🇫🇷' == entry['title']:
+                my_end_template += '-fr'
+                my_footer_template += '-fr'
+            
+        if 'usertags' in entry and isinstance(entry['usertags'], list) and '🇫🇷' in entry['usertags']:
+            my_footer_template += '-fr'
 
         if config.MASTODON_USER_URL:
             ## the config.org contains a filled MASTODON_USER_URL variable:
@@ -932,6 +940,8 @@ class Htmlizer(object):
                     listentry['latestupdateTS'].minute).zfill(2)
                 iso_timestamp = '-'.join([year, month, day]) + \
                     'T' + hours + ':' + minutes
+                mvb_timestamp = '-'.join([day, month, year]) + \
+                    ', ' + hours + ':' + minutes
 
                 content = content.replace('#ARTICLE-YEAR#', year)
                 content = content.replace('#ARTICLE-MONTH#', month)
@@ -940,7 +950,7 @@ class Htmlizer(object):
                     '#ARTICLE-PUBLISHED-HTML-DATETIME#',
                     iso_timestamp + config.TIME_ZONE_ADDON)
                 content = content.replace(
-                    '#ARTICLE-PUBLISHED-HUMAN-READABLE#', iso_timestamp)
+                    '#ARTICLE-PUBLISHED-HUMAN-READABLE#', mvb_timestamp)
 
                 # sanitize internal links of content so far:
                 content = self.sanitize_internal_links(content)
@@ -1898,6 +1908,12 @@ class Htmlizer(object):
         @param return: sanitized string
         """
         
+        # Moved here to the top because of issues with double http links as wayback archive
+        content = re.sub(
+            self.EXT_URL_LINK_REGEX,
+            r'\1<a href="\2">\2</a>',
+            content)
+
         # Replace directly written URLs with HTML anchor tags
         def replace_url(match):
             key, value = match.group(0).strip('[]').split('][')
@@ -1911,11 +1927,6 @@ class Htmlizer(object):
         content = re.sub(
             self.EXT_TAG_URL_WITH_DESCRIPTION_REGEX,
             replace_url,
-            content)
-
-        content = re.sub(
-            self.EXT_URL_LINK_REGEX,
-            r'\1<a href="\2">\2</a>',
             content)
 
         content = re.sub(
@@ -2087,6 +2098,8 @@ class Htmlizer(object):
             if 'autotags' in list(entry.keys()):
                 if 'language' in list(entry['autotags'].keys()) and entry['autotags']['language'] == 'deutsch':
                     content += self.template_definition_by_name('backreference-header-de')
+                elif '🇫🇷' in list(entry['usertags']):
+                    content += self.template_definition_by_name('backreference-header-fr')
                 else:
                     content += self.template_definition_by_name('backreference-header-en')
 
@@ -2224,6 +2237,7 @@ class Htmlizer(object):
         content = content.replace('#TOP-TAG-LIST#', self._generate_top_tag_list())  # FIXXME: generate only once for performance reasons?
         content = content.replace('#DOMAIN#', config.DOMAIN)
         content = content.replace('#BASE-URL#', config.BASE_URL)
+        content = content.replace('#ROOT-URL#', config.ROOT_URL)
         content = content.replace('#CSS-URL#', config.CSS_URL)
         content = content.replace('#AUTHOR-NAME#', config.AUTHOR_NAME)
         content = content.replace('#BLOG-NAME#', config.BLOG_NAME)
@@ -2272,6 +2286,8 @@ class Htmlizer(object):
         year, month, day, hours, minutes = Utils.get_YY_MM_DD_HH_MM_from_datetime(entry['firstpublishTS'])
         iso_timestamp = '-'.join([year, month, day]) + \
             'T' + hours + ':' + minutes
+        mvb_timestamp = '-'.join([day, month, year]) + \
+            ', ' + hours + ':' + minutes
 
         content = content.replace('#ARTICLE-ID#', entry['id'])
         content = content.replace('#ARTICLE-URL#', str(self._target_path_for_id_without_targetdir(entry['id'])))
@@ -2283,7 +2299,7 @@ class Htmlizer(object):
             iso_timestamp + config.TIME_ZONE_ADDON)
         content = content.replace(
             '#ARTICLE-PUBLISHED-HUMAN-READABLE#',
-            iso_timestamp)
+            mvb_timestamp)
 
         if entry['category'] == config.TAGS:
             # replace #TAG-PAGE-LIST#
@@ -2612,6 +2628,8 @@ class Htmlizer(object):
                     # here: (generalize using a configured list of known
                     # languages?)
                     snippetname += 'de'
+                elif '🇫🇷' in list(entry['usertags']):
+                    snippetname += 'fr'
                 else:
                     snippetname += 'en'
 
