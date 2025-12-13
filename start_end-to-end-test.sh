@@ -1,10 +1,10 @@
-#!/usr/bin/env sh
+#!/usr/bin/env zsh
 ## this script calls each unit test script
 ## if no error is found, the final success statement is shown
 ## if error occurs, this script stops at the error
 
-## activate Python3 virtualenv:
-test ! -d venv || . ./venv/bin/activate
+## load the project settings (depends on your specific path situation!)
+. ./shellscriptconfiguration.sh
 
 end_to_end_test()
 {
@@ -14,22 +14,22 @@ end_to_end_test()
 
     echo "\n====> Runing end-to-end test ...\n"
 
-    cd ~/src/lazyblorg
-    rm -rf testdata/end_to_end_test/result
-    mkdir -p testdata/end_to_end_test/result
+    cd "${PROJECTDIR}"
+    rm -rf "${PROJECTDIR}/testdata/end_to_end_test/result"
+    mkdir -p "${PROJECTDIR}/testdata/end_to_end_test/result"
 
-    PYTHONPATH="~/src/lazyblorg:" ./lazyblorg.py \
-        --targetdir testdata/end_to_end_test/result \
+    uv --project "${PROJECTDIR}" run "${PROJECTDIR}/lazyblorg.py" \
+        --targetdir "${PROJECTDIR}/testdata/end_to_end_test/result" \
         --autotag-language \
-        --previous-metadata testdata/end_to_end_test/lazyblorg-e2e-test-previous-metadata.pk \
-        --new-metadata testdata/end_to_end_test/lazyblorg-e2e-test-new-metadata.pk \
-        --logfile testdata/end_to_end_test/lazyblorg-e2e-test-logfile.org \
-        --orgfiles templates/blog-format.org \
-                   testdata/end_to_end_test/orgfiles/*.org  $@ && \
+        --previous-metadata "${PREVIOUS_METADATA_FILE}" \
+        --new-metadata "${NEW_METADATA_FILE}" \
+        --logfile "${PROJECTDIR}/testdata/end_to_end_test/lazyblorg-e2e-test-logfile.org" \
+        --orgfiles "${PROJECTDIR}/templates/blog-format.org" \
+                   "${PROJECTDIR}/testdata/end_to_end_test/orgfiles/"*.org $@ && \
     echo "\n====> Comparing result of end-to-end test ...\n" && \
-    if [ `diff -ar testdata/end_to_end_test/result testdata/end_to_end_test/comparison | egrep -vi '(published|updated)' | wc -l` -gt 15 ]; then
-        diff -ar testdata/end_to_end_test/result testdata/end_to_end_test/comparison | grep -v '<updated>'
-        echo "End-to-end test FAILED!   Check result!"
+    if [ `diff -ar "${PROJECTDIR}/testdata/end_to_end_test/result" "${PROJECTDIR}/testdata/end_to_end_test/comparison" | egrep -vi '(published|updated)' | wc -l` -gt 15 ]; then
+        diff -ar "${PROJECTDIR}/testdata/end_to_end_test/result" "${PROJECTDIR}/testdata/end_to_end_test/comparison" | grep -v '<updated>'
+        echo "End-to-end test FAILED!   Check result! You can also use meld: meld \"${PROJECTDIR}/testdata/end_to_end_test/result\" \"${PROJECTDIR}/testdata/end_to_end_test/comparison\""
         exit 1
     else
 	## a couple of difference are OK since there are new time-stamps for generation time
@@ -37,6 +37,9 @@ end_to_end_test()
     fi
 
 }
+
+[ -z "${PROJECTDIR}" ] && { echo "Error: PROJECTDIR not set"; exit 1; }
+[ ! -d "${PROJECTDIR}" ] && { echo "Error: ${PROJECTDIR} is not a directory"; exit 2; }
 
 end_to_end_test "$@" && \
 echo "\n\n           End-to-end tests ended successfully! :-)\n\n"
