@@ -7,7 +7,7 @@
   <id>https://karl-voit.at/</id>
   <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2023-03-04T14:08:03+01:00</updated>
+  <updated>2025-12-13T18:39:49+01:00</updated>
   <author>
     <name>Karl Voit</name>
   </author>
@@ -97,8 +97,8 @@ This is a test article which tests its links to other (internal) blog entries.
 </p>
 
 <ul>
-<li>This should work <a href="//Karl-Voit.at/persistent-entry">in
-lists</a> as <a
+<li>This should work <a
+href="//Karl-Voit.at/persistent-entry">in lists</a> as <a
 href="//Karl-Voit.at/2016/11/27/special-characters">well</a>.</li>
 <li>This should work <a
 href="//Karl-Voit.at/persistent-entry">2016-10-31-persistent-entry</a>
@@ -146,8 +146,8 @@ This is a test article which tests its links to other (internal) blog entries.
 </p>
 
 <ul>
-<li>This should work <a href="//Karl-Voit.at/persistent-entry">in
-lists</a> as <a
+<li>This should work <a
+href="//Karl-Voit.at/persistent-entry">in lists</a> as <a
 href="//Karl-Voit.at/2016/11/27/special-characters">well</a>.</li>
 <li>This should work <a
 href="//Karl-Voit.at/persistent-entry">2016-10-31-persistent-entry</a>
