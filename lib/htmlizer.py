@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2025-12-13 17:38:14 vk>
+# Time-stamp: <2025-12-13 18:34:21 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1625,8 +1625,9 @@ class Htmlizer(object):
                     result = result.replace('file:///' + config.BASE_URL, config.BASE_URL)
                 elif 'file://' in result:
                     result = result.replace('file://' + config.BASE_URL, config.BASE_URL)
-                else:
-                    self.logging.error('The pandoc-workaround-fix for normalizing file links seems to have changed its behavior. Please check and fix so that "file:// + config.BASE_URL" (with two slashes after the colon) is the result.')
+                elif 'file' in result:
+                    ## try to catch the cases where the workarounds above did not result in a proper replacement
+                    self.logging.error(f"The pandoc-workaround-fix for normalizing file links seems to have changed its behavior. Please check and fix so that 'file:// + config.BASE_URL' (with two slashes after the colon) is the result. ⌜{result=}⌟")
 
                     
                 if result == '\n':
