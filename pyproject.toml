@@ -37,3 +37,4 @@ dev = [
 testpaths = ["lib/tests", "tests"]
 python_files = ["*_test.py"]
 pythonpath = [".", "lib"]
+addopts = "--import-mode=importlib"
