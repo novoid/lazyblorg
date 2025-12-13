@@ -150,6 +150,10 @@ I don't maintain a specific changelog. However, when there are
 substantial changes to lazyblorg, you will find [[https://karl-voit.at/tags/lazyblorg/][a blog article tagged
 with "lazyblorg"]]. Use an RSS/Atom aggregator to follow the blog.
 
+As of 2025-12-13, I migrated this project to =uv= which resulted in
+manifold changes related to the wrapper shell scripts, environment
+variables used for the shell scripts and pytest invocation.
+
 ** Why lazyblorg?
 
 *Minimum effort* for blogging.
@@ -352,6 +356,8 @@ What's working so far:
 The number of external dependencies is kept at a minimum.
 
 This is a list of the most important dependencies:
+- [[https://github.com/astral-sh/uv][Python uv]] for dependency management and running all the important parts of lazyblorg: tests, blog generation process, ...
+
 - [[http://werkzeug.pocoo.org/][Werkzeug]]
   - for sanitizing path components
   - I installed it on Debian GNU/Linux with ~sudo apt-get install python3-werkzeug~
@@ -377,11 +383,14 @@ This is a list of the most important dependencies:
 
 All other libraries should be part of a standard Python distribution.
 
-If you don't want to install the dependencies via package management,
-you can use the python way from =requirements.txt=:
-: pip install -r requirements.txt
-
 Running tests also requires `pytest`.
+
+You can get all the dependencies via =uv= using:
+
+: change to your local lazyblorg directory that contains the lazyblorg version of "pyproject.toml":
+: uv --project . run ./lazyblorg.py --help
+
+That should resolve all dependencies and show you the help information.
 
 ** How to Start
 
@@ -452,16 +461,16 @@ Running tests also requires `pytest`.
         - this separation makes sense to me because with this, I am
           able to do test drives without overwriting my (local copy of
           my) blog
-     4. invoking [[http://www.cis.upenn.edu/~bcpierce/unison/][unison]]
+     4. invoking Syncthing
         - in order to transfer my local copy of my web space data to
           my public web space
    - This method has the advantage that generating (invoking
-     ~lazyblorg~) and publishing (invoking ~unison~) are separate
-     steps. This way, I can locally re-generate the blog (for testing
-     purposes) as often I want to. However, as long as I do not sync
-     it to my web space, I keep the meta-data (which is in the local
-     web space copy) of the published version (and not the meta-data
-     of the previous test-run).
+     ~lazyblorg~) and publishing are separate steps. This way, I can
+     locally re-generate the blog (for testing purposes) as often I
+     want to. However, as long as I do not sync it to my web space, I
+     keep the meta-data (which is in the local web space copy) of the
+     published version (and not the meta-data of the previous
+     test-run).
 
 10. Have fun with a pretty neat method to generate your blog pages
 
@@ -591,6 +600,19 @@ string, and assign a keyboard shortcut:
 
 - Do read [[https://github.com/novoid/lazyblorg/wiki/Orgmode-Elements#embedding-external-content][the Wiki]] for embedding external stuff like Tweets or YouTube
   videos.
+
+** Running the Tests
+:PROPERTIES:
+:CREATED:  [2025-12-13 Sat 18:12]
+:END:
+
+You can start the unit tests via:
+
+: uv --project . run pytest
+
+... which is also part of the wrapper script =start_unit_tests.sh=
+
+You can start the end to end tests which generates an example blog content via the script file =start_end-to-end-test.sh=
 
 ** Using relative URLs instead of domain-URLs
 :PROPERTIES:
