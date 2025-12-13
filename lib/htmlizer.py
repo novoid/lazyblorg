@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2024-01-07 23:13:39 vk>
+# Time-stamp: <2025-12-13 17:35:28 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -1621,8 +1621,14 @@ class Htmlizer(object):
                 # fixes this issue, resulting in
                 #   <a href="//Karl-Voit.at/foo">bar</a>
                 # NOTE: if you can think of a cleaner way, let me know!
-                result = result.replace('file://' + config.BASE_URL, config.BASE_URL)
+                if result.startswith('file:///'):
+                    result = result.replace('file:///' + config.BASE_URL, config.BASE_URL)
+                elif result.startswith('file://'):
+                    result = result.replace('file://' + config.BASE_URL, config.BASE_URL)
+                else:
+                    self.logging.error('The pandoc-workaround-fix for normalizing file links seems to have changed its behavior. Please check and fix so that "file:// + config.BASE_URL" (with two slashes after the colon) is the result.')
 
+                    
                 if result == '\n':
                     self.logging.warning(self.current_entry_id_str() + 'Block of type ' +
                                          {str(entry['content'][index][0])} +
