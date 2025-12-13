@@ -1,6 +1,6 @@
 [project]
 name = "lazyblorg"
-version = "2025-12.13.1"
+version = "2025.12.13.1"
 description = "Blogging with Emacs Org-mode for very lazy people"
 keywords= ["orgmode", "weblog", "homepage", "orgdown", "blog", "static website generator"]
 authors = [{name="Karl Voit", email="tools@Karl-Voit.at"}]
@@ -27,3 +27,13 @@ classifiers=[
   "License :: OSI Approved :: GNU General Public License (GPL)",
   "Operating System :: OS Independent",
 ]
+
+[dependency-groups]
+dev = [
+    "pytest>=7.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["lib/tests", "tests"]
+python_files = ["*_test.py"]
+pythonpath = [".", "lib"]
