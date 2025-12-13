@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2023-02-17 23:45:35 vk>
+# Time-stamp: <2024-01-07 23:13:39 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -136,6 +136,11 @@ class Htmlizer(object):
     
     defined_languages = [x[0] for x in Utils.STOPWORDS]
 
+    ## disable pypandoc output to the console according to https://github.com/JessicaTegner/pypandoc
+    ## This may be dangerous to miss any important messages but it really messes up standard output :-(
+    import logging
+    logging.getLogger('pypandoc').addHandler(logging.NullHandler())
+    
     def __init__(
             self,
             template_definitions,
