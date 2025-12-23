@@ -1,4 +1,0 @@
-orgformat>=2019.11.6.1
-opencv-python
-werkzeug>=1.0.1
-pypandoc
