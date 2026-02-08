@@ -547,7 +547,8 @@ class Htmlizer(object):
 
         # for each: generate pseudo-entry containing the tag and call
         # self._generate_tag_page(entry)
-        for tag in set_of_tags_with_no_userdefined_tag_page:
+        for tag in sorted(set_of_tags_with_no_userdefined_tag_page):
+            entry = dict(entry)
             entry['id'] = self.ID_PREFIX_FOR_EMPTY_TAG_PAGES + tag
             entry['title'] = tag
             self.blog_data.append(entry)
@@ -1210,6 +1211,9 @@ class Htmlizer(object):
         """
         Generates a year overview page at /YYYY/index.html.
 
+        Groups articles by month, with a link to each month's index page
+        and the month's articles as sub-items.
+
         @param year: int year
         @param months_dict: dict { month: { day: [entries] } }
         """
@@ -1222,14 +1226,21 @@ class Htmlizer(object):
             pass
         filename = os.path.join(target_path, 'index.html')
 
-        # Collect all entries for this year
-        all_entries = []
+        month_list_html = ''
         for month in sorted(months_dict.keys()):
+            month_str = str(month).zfill(2)
+            month_entries = []
             for day in sorted(months_dict[month].keys()):
-                all_entries.extend(months_dict[month][day])
+                month_entries.extend(months_dict[month][day])
+
+            month_list_html += '<li><a href="' + month_str + '/">' + \
+                self.MONTH_NAMES_LONG[month] + '</a>\n'
+            month_list_html += '<ul>\n'
+            month_list_html += self._generate_article_list_html(month_entries)
+            month_list_html += '</ul>\n</li>\n'
 
         htmlcontent = self.template_definition_by_name('year-header')
-        htmlcontent += self._generate_article_list_html(all_entries)
+        htmlcontent += month_list_html
         htmlcontent += self.template_definition_by_name('year-footer')
 
         htmlcontent = htmlcontent.replace('#YEAR#', year_str)
@@ -1242,6 +1253,10 @@ class Htmlizer(object):
     def _generate_month_page(self, year, month, days_dict):
         """
         Generates a month overview page at /YYYY/MM/index.html.
+
+        For days with 2+ articles, shows a link to the day index page
+        with articles as sub-items. For days with only 1 article,
+        shows the article directly without a day link.
 
         @param year: int year
         @param month: int month
@@ -1257,13 +1272,22 @@ class Htmlizer(object):
             pass
         filename = os.path.join(target_path, 'index.html')
 
-        # Collect all entries for this month
-        all_entries = []
+        day_list_html = ''
         for day in sorted(days_dict.keys()):
-            all_entries.extend(days_dict[day])
+            day_str = str(day).zfill(2)
+            entries = days_dict[day]
+
+            if len(entries) >= 2:
+                day_list_html += '<li><a href="' + day_str + '/">' + \
+                    year_str + '-' + month_str + '-' + day_str + '</a>\n'
+                day_list_html += '<ul>\n'
+                day_list_html += self._generate_article_list_html(entries)
+                day_list_html += '</ul>\n</li>\n'
+            else:
+                day_list_html += self._generate_article_list_html(entries)
 
         htmlcontent = self.template_definition_by_name('month-header')
-        htmlcontent += self._generate_article_list_html(all_entries)
+        htmlcontent += day_list_html
         htmlcontent += self.template_definition_by_name('month-footer')
 
         htmlcontent = htmlcontent.replace('#YEAR#', year_str)
