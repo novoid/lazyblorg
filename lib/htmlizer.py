@@ -220,6 +220,9 @@ class Htmlizer(object):
 
         self._generate_tag_overview_page(tags)
 
+        self.logging.info('• Generating tagtree pages …')
+        stats_generated_tagtree = self._generate_tagtree_pages()
+
         self._generate_archive_pages()
 
         self._generate_feeds(entry_list_by_newest_timestamp)
@@ -230,7 +233,8 @@ class Htmlizer(object):
                 stats_generated_tags,
                 self.stats_images_resized,
                 self.stats_external_org_to_html5_conversion,
-                self.stats_external_latex_to_html5_conversion]
+                self.stats_external_latex_to_html5_conversion,
+                stats_generated_tagtree]
 
     def _populate_backreferences(self, blog_data):
         """
@@ -2420,6 +2424,19 @@ class Htmlizer(object):
                 self._generate_tag_page_list(
                     entry['title']))
 
+            # replace #TAG-PAGE-TAGTREE#
+            co_tags = self._get_co_occurring_tags([entry['title']])
+            if co_tags:
+                tagtree_cloud = '  <p>\n' + \
+                    '  Articles with the tag ' + self.sanitize_html_characters(entry['title']) + \
+                    ' also have other tags you might use to drill down your navigation:\n' + \
+                    '  </p>\n\n  <p>\n' + \
+                    self._generate_tagtree_tag_cloud([entry['title']], co_tags) + \
+                    '  </p>\n\n'
+            else:
+                tagtree_cloud = ''
+            content = content.replace('#TAG-PAGE-TAGTREE#\n', tagtree_cloud)
+
         if 'reading_minutes' in entry.keys():
             content = content.replace('#READINGMINUTES#', str(entry['reading_minutes']))
 
@@ -2501,6 +2518,252 @@ class Htmlizer(object):
                 ']]</li>\n')
 
         return content + '</ul>\n'
+
+    def _get_co_occurring_tags(self, tag_path):
+        """
+        Returns tags data [[tagname, count, age], ...] for tags that co-occur
+        with ALL tags in tag_path.
+
+        @param tag_path: list of tag strings defining the current branch
+        @param return: list of [tagname, count, age] for co-occurring tags
+        """
+
+        system_tags = set([config.TAG_FOR_BLOG_ENTRY,
+                           config.TAG_FOR_TAG_ENTRY,
+                           config.TAG_FOR_PERSISTENT_ENTRY,
+                           config.TAG_FOR_TEMPLATES_ENTRY,
+                           config.TAG_FOR_HIDDEN])
+
+        # Find all non-hidden article IDs that have ALL tags in tag_path
+        matching_ids = None
+        for tag in tag_path:
+            if tag not in self.dict_of_tags_with_ids:
+                return []
+            tag_ids = set(self.dict_of_tags_with_ids[tag])
+            if matching_ids is None:
+                matching_ids = tag_ids
+            else:
+                matching_ids = matching_ids & tag_ids
+
+        if not matching_ids:
+            return []
+
+        # Collect all other usertags from those articles
+        co_occurring_tags = set()
+        tag_path_set = set(tag_path)
+        for entry in self.blog_data:
+            if entry['id'] in matching_ids and config.TAG_FOR_HIDDEN not in entry['usertags']:
+                for usertag in entry['usertags']:
+                    if usertag not in tag_path_set and usertag not in system_tags:
+                        co_occurring_tags.add(usertag)
+
+        # Use global tag counts for sizing (consistent with main tag cloud)
+        dummy_age = 0
+        return [[tag, len(self.dict_of_tags_with_ids.get(tag, [])), dummy_age]
+                for tag in co_occurring_tags]
+
+    def _generate_tagtree_tag_cloud(self, tag_path, tags_data):
+        """
+        Generates a tag cloud for tagtree pages where links point to tagtree subpages.
+
+        @param tag_path: list of tag strings defining the current branch
+        @param tags_data: list of [tagname, count, age] for co-occurring tags
+        @param return: string with linked tag cloud
+        """
+
+        result = ''
+
+        # removing tags that should be ignored due to user configuration:
+        tags = [t for t in tags_data if t[0] not in config.IGNORE_FOR_TAG_CLOUD]
+
+        if not tags:
+            return ''
+
+        COUNT_SIZES = list(range(1, 7))
+        COUNT_MAX = max([x[1] for x in tags])
+        if len(tags) < len(COUNT_SIZES):
+            COUNT_STEP = 1
+        else:
+            COUNT_STEP = COUNT_MAX / len(COUNT_SIZES)
+            if COUNT_STEP < 1:
+                COUNT_STEP = 1
+
+        AGE_RANGES = [31, 31 * 3, 31 * 6, 365, 365 * 3]
+
+        path_prefix = config.BASE_URL + '/tags/' + '/'.join(tag_path) + '/'
+
+        for currenttag in sorted(tags):
+            tag = currenttag[0]
+            count = currenttag[1]
+            age = currenttag[2]
+
+            css_size = int(count / COUNT_STEP)
+            css_age = 0
+            for age_range in AGE_RANGES:
+                if age < age_range:
+                    break
+                css_age += 1
+
+            result += '<a href="' + path_prefix + tag + '/" class="tagcloud-usertag tagcloud-size-' + \
+                      str(css_size) + ' tagcloud-age-' + str(css_age) + '">' + tag + '</a>\n'
+
+        return result
+
+    def _generate_tagtree_article_list(self, tag_path):
+        """
+        Returns HTML list of all non-hidden articles that have ALL tags in tag_path.
+
+        @param tag_path: list of tag strings defining the current branch
+        @param return: HTML content
+        """
+
+        # Find all article IDs that have ALL tags in tag_path
+        matching_ids = None
+        for tag in tag_path:
+            if tag not in self.dict_of_tags_with_ids:
+                return '\nNo blog entries with these tags so far.\n'
+            tag_ids = set(self.dict_of_tags_with_ids[tag])
+            if matching_ids is None:
+                matching_ids = tag_ids
+            else:
+                matching_ids = matching_ids & tag_ids
+
+        if not matching_ids:
+            return '\nNo blog entries with these tags so far.\n'
+
+        content = '\n<ul class=\'tag-pages-link-list\'>\n'
+
+        array_with_timestamp_and_ids = []
+        for reference in matching_ids:
+            if reference in self.metadata:
+                array_with_timestamp_and_ids.append((self.metadata[reference]['latestupdateTS'], reference))
+
+        for entry in sorted(array_with_timestamp_and_ids):
+            reference = entry[1]
+            year = self.metadata[reference]['firstpublishTS'].year
+            month = self.metadata[reference]['firstpublishTS'].month
+            day = self.metadata[reference]['firstpublishTS'].day
+            minutes = self.metadata[reference]['firstpublishTS'].minute
+            hours = self.metadata[reference]['firstpublishTS'].hour
+            iso_timestamp = '-'.join([str(year), str(month).zfill(2), str(day).zfill(
+                2)]) + 'T' + str(hours).zfill(2) + ':' + str(minutes).zfill(2)
+
+            content += self.sanitize_internal_links(
+                '  <li> <span class=\'timestamp\'>' +
+                iso_timestamp +
+                '</span> [[id:' +
+                reference +
+                '][' +
+                self.metadata[reference]['title'] +
+                ']]</li>\n')
+
+        return content + '</ul>\n'
+
+    def _generate_tagtree_pages(self):
+        """
+        Generates all tagtree pages (level 2+) for combinatorial tag drill-down navigation.
+
+        @param return: count of generated tagtree pages
+        """
+
+        count = 0
+
+        for tag in sorted(self.dict_of_tags_with_ids.keys()):
+            system_tags = set([config.TAG_FOR_BLOG_ENTRY,
+                               config.TAG_FOR_TAG_ENTRY,
+                               config.TAG_FOR_PERSISTENT_ENTRY,
+                               config.TAG_FOR_TEMPLATES_ENTRY,
+                               config.TAG_FOR_HIDDEN])
+            if tag in system_tags:
+                continue
+            count += self._generate_tagtree_pages_recursive([tag], 1)
+
+        return count
+
+    def _generate_tagtree_pages_recursive(self, tag_path, depth):
+        """
+        Recursively generates tagtree pages for a given tag path.
+
+        @param tag_path: list of tag strings defining the current branch
+        @param depth: current depth level
+        @param return: count of generated pages
+        """
+
+        if depth >= config.TAGTREE_DEPTH:
+            return 0
+
+        co_tags = self._get_co_occurring_tags(tag_path)
+        if not co_tags:
+            return 0
+
+        count = 0
+
+        for tag_data in sorted(co_tags):
+            subtag = tag_data[0]
+            new_path = tag_path + [subtag]
+
+            # Generate this tagtree page
+            self._write_tagtree_page(new_path)
+            count += 1
+
+            # Recurse deeper
+            count += self._generate_tagtree_pages_recursive(new_path, depth + 1)
+
+        return count
+
+    def _write_tagtree_page(self, tag_path):
+        """
+        Generates and writes a single tagtree page for the given tag path.
+
+        @param tag_path: list of tag strings (e.g., ['foo', 'bar'])
+        """
+
+        # Build breadcrumb HTML (matching the logo+raquo style of other pages)
+        breadcrumb_parts = ['<a href="' + config.BASE_URL + '/tags/">Tags</a>']
+        for i, tag in enumerate(tag_path):
+            path = '/'.join(tag_path[:i + 1])
+            if i < len(tag_path) - 1:
+                breadcrumb_parts.append('<a href="' + config.BASE_URL + '/tags/' + path + '/">' + tag + '</a>')
+            else:
+                breadcrumb_parts.append(tag)
+        breadcrumb = '&nbsp;&nbsp;&nbsp;&nbsp;&raquo;'.join(breadcrumb_parts)
+
+        tag_list = ', '.join(tag_path)
+
+        # Get co-occurring tags for deeper drill-down
+        co_tags = self._get_co_occurring_tags(tag_path)
+        if co_tags and len(tag_path) < config.TAGTREE_DEPTH:
+            drilldown = '  <p>\n  Drill down to more specific tags:\n  </p>\n\n' + \
+                        '  <p>\n' + \
+                        self._generate_tagtree_tag_cloud(tag_path, co_tags) + \
+                        '  </p>\n\n'
+        else:
+            drilldown = ''
+
+        # Get matching articles
+        article_list = self._generate_tagtree_article_list(tag_path)
+
+        # Build page from templates
+        htmlcontent = self.template_definition_by_name('tagtree-header')
+        htmlcontent += self.template_definition_by_name('tagtree-footer')
+
+        # Replace tagtree-specific placeholders
+        htmlcontent = htmlcontent.replace('#TAGTREE-BREADCRUMB#', breadcrumb)
+        htmlcontent = htmlcontent.replace('#TAGTREE-TAG-LIST#', tag_list)
+        htmlcontent = htmlcontent.replace('#TAGTREE-DRILLDOWN#\n', drilldown)
+        htmlcontent = htmlcontent.replace('#TAGTREE-ARTICLE-LIST#', article_list)
+
+        # Replace general blog placeholders
+        htmlcontent = self._replace_general_blog_placeholders(htmlcontent)
+        htmlcontent = self.sanitize_internal_links(htmlcontent)
+
+        # Write to file
+        tag_dir = os.path.join(self.targetdir, 'tags', *tag_path)
+        if not os.path.isdir(tag_dir):
+            os.makedirs(tag_dir)
+        filename = os.path.join(tag_dir, 'index.html')
+
+        self.write_content_to_file(filename, htmlcontent)
 
     def _get_entry_folder_name_from_entryid(self, entryid):
         """

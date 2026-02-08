@@ -278,7 +278,9 @@ class Lazyblorg(object):
                 'month-footer',
                 'day-header',
                 'day-footer',
-                'article-list-link']:
+                'article-list-link',
+                'tagtree-header',
+                'tagtree-footer']:
             if element not in found_elements:
                 message = "Sorry, no definition for element \"" + element + "\" could be found within " + \
                     "the template definition file. " + "Please check if you mistyped its name or similar."
@@ -619,6 +621,7 @@ if __name__ == "__main__":
         stats_images_resized = statistics_list[4]
         stats_external_org_to_html5_conversion = statistics_list[5]
         stats_external_latex_to_html5_conversion = statistics_list[6]
+        stats_generated_tagtree = statistics_list[7]
         time_after_htmlizing = time()
 
         logging.info(
@@ -630,7 +633,9 @@ if __name__ == "__main__":
             str(stats_generated_temporal) +
             " temporal, " +
             str(stats_generated_tags) +
-            " tag-pages" +
+            " tag-pages, " +
+            str(stats_generated_tagtree) +
+            " tag-tree-pages" +
             ", the entry page, and scaled " +
             str(stats_images_resized) +
             " images (in %.2f seconds)" %
