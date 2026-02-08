@@ -1,0 +1,9 @@
+CLOSED: [2017-01-03 Tue 12:07]
+:PROPERTIES:
+:ID: 2017-01-03-how-to-use-this-blog
+:CREATED:  [2017-01-03 Tue 12:07]
+:END:
+:LOGBOOK:
+- State "DONE"       from              [2017-01-03 Tue 12:07]
+:END:
+

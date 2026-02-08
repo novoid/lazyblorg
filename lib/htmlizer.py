@@ -220,6 +220,8 @@ class Htmlizer(object):
 
         self._generate_tag_overview_page(tags)
 
+        self._generate_archive_pages()
+
         self._generate_feeds(entry_list_by_newest_timestamp)
 
         return [stats_generated_total,
@@ -1097,6 +1099,216 @@ class Htmlizer(object):
         self.write_content_to_file(tag_overview_filename, htmlcontent)
 
         return
+
+    MONTH_NAMES_LONG = [
+        '', 'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December']
+
+    MONTH_NAMES_SHORT = [
+        '', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+    def _collect_all_entries_by_firstpublishTS(self):
+        """
+        Collects all non-hidden temporal, persistent, and tag articles
+        from blog_data, organized by their firstpublishTS date.
+
+        Returns a dict: { (year, month, day): [ (entry_id, entry), ... ] }
+        sorted by date within each day.
+        """
+
+        entries_by_date = {}
+
+        for entry in self.blog_data:
+            if entry['category'] not in (config.TEMPORAL, config.PERSISTENT, config.TAGS):
+                continue
+            if config.TAG_FOR_HIDDEN in entry.get('usertags', []):
+                continue
+            if 'firstpublishTS' not in entry:
+                continue
+
+            ts = entry['firstpublishTS']
+            key = (ts.year, ts.month, ts.day)
+            if key not in entries_by_date:
+                entries_by_date[key] = []
+            entries_by_date[key].append(entry)
+
+        return entries_by_date
+
+    def _generate_article_list_html(self, entries):
+        """
+        Generates the HTML list items for a list of blog entries using the article-list-link template.
+
+        @param entries: list of blog entry dicts
+        @param return: string of HTML list items
+        """
+
+        result = ''
+        link_template = self.template_definition_by_name('article-list-link')
+
+        for entry in sorted(entries, key=lambda e: (e['firstpublishTS'], e.get('id', ''))):
+            year, month, day, hours, minutes = Utils.get_YY_MM_DD_HH_MM_from_datetime(entry['firstpublishTS'])
+
+            item = link_template
+            item = item.replace('#ARTICLE-TITLE#',
+                                self.sanitize_external_links(
+                                    self.sanitize_html_characters(entry['title'])))
+            item = item.replace('#ARTICLE-URL#',
+                                config.BASE_URL + '/' + str(self._target_path_for_id_without_targetdir(entry['id'])) + '/')
+            item = item.replace('#ARTICLE-YEAR#', year)
+            item = item.replace('#ARTICLE-MONTH#', month)
+            item = item.replace('#ARTICLE-DAY#', day)
+
+            iso_timestamp = '-'.join([year, month, day]) + 'T' + hours + ':' + minutes
+            item = item.replace('#ARTICLE-PUBLISHED-HTML-DATETIME#',
+                                iso_timestamp + config.TIME_ZONE_ADDON)
+            item = item.replace('#ARTICLE-PUBLISHED-HUMAN-READABLE#', iso_timestamp)
+
+            result += item
+
+        return result
+
+    def _generate_archive_pages(self):
+        """
+        Generates year, month, and day overview pages listing all
+        non-hidden articles (temporal, persistent, tag) by their
+        firstpublishTS.
+
+        Creates:
+        - /YYYY/index.html for each year
+        - /YYYY/MM/index.html for each month
+        - /YYYY/MM/DD/index.html for each day
+        """
+
+        self.logging.info('  Generating archive pages …')
+
+        entries_by_date = self._collect_all_entries_by_firstpublishTS()
+
+        if not entries_by_date:
+            self.logging.debug('No entries found for archive pages.')
+            return
+
+        # Organize entries by year, month, day
+        years = {}  # { year: { month: { day: [entries] } } }
+        for (year, month, day), entries in entries_by_date.items():
+            if year not in years:
+                years[year] = {}
+            if month not in years[year]:
+                years[year][month] = {}
+            if day not in years[year][month]:
+                years[year][month][day] = []
+            years[year][month][day].extend(entries)
+
+        for year in sorted(years.keys()):
+            self._generate_year_page(year, years[year])
+            for month in sorted(years[year].keys()):
+                self._generate_month_page(year, month, years[year][month])
+                for day in sorted(years[year][month].keys()):
+                    self._generate_day_page(year, month, day, years[year][month][day])
+
+    def _generate_year_page(self, year, months_dict):
+        """
+        Generates a year overview page at /YYYY/index.html.
+
+        @param year: int year
+        @param months_dict: dict { month: { day: [entries] } }
+        """
+
+        year_str = str(year).zfill(4)
+        target_path = os.path.join(self.targetdir, year_str)
+        try:
+            os.makedirs(target_path)
+        except OSError:
+            pass
+        filename = os.path.join(target_path, 'index.html')
+
+        # Collect all entries for this year
+        all_entries = []
+        for month in sorted(months_dict.keys()):
+            for day in sorted(months_dict[month].keys()):
+                all_entries.extend(months_dict[month][day])
+
+        htmlcontent = self.template_definition_by_name('year-header')
+        htmlcontent += self._generate_article_list_html(all_entries)
+        htmlcontent += self.template_definition_by_name('year-footer')
+
+        htmlcontent = htmlcontent.replace('#YEAR#', year_str)
+        htmlcontent = self._replace_general_blog_placeholders(htmlcontent)
+        htmlcontent = self.sanitize_internal_links(htmlcontent)
+
+        self.write_content_to_file(filename, htmlcontent)
+        self.logging.debug('Generated year page: ' + filename)
+
+    def _generate_month_page(self, year, month, days_dict):
+        """
+        Generates a month overview page at /YYYY/MM/index.html.
+
+        @param year: int year
+        @param month: int month
+        @param days_dict: dict { day: [entries] }
+        """
+
+        year_str = str(year).zfill(4)
+        month_str = str(month).zfill(2)
+        target_path = os.path.join(self.targetdir, year_str, month_str)
+        try:
+            os.makedirs(target_path)
+        except OSError:
+            pass
+        filename = os.path.join(target_path, 'index.html')
+
+        # Collect all entries for this month
+        all_entries = []
+        for day in sorted(days_dict.keys()):
+            all_entries.extend(days_dict[day])
+
+        htmlcontent = self.template_definition_by_name('month-header')
+        htmlcontent += self._generate_article_list_html(all_entries)
+        htmlcontent += self.template_definition_by_name('month-footer')
+
+        htmlcontent = htmlcontent.replace('#YEAR#', year_str)
+        htmlcontent = htmlcontent.replace('#MONTH-TWODIGITNUMBER#', month_str)
+        htmlcontent = htmlcontent.replace('#MONTH-LONGNAME#', self.MONTH_NAMES_LONG[month])
+        htmlcontent = htmlcontent.replace('#MONTH-SHORTNAME#', self.MONTH_NAMES_SHORT[month])
+        htmlcontent = htmlcontent.replace('#BLOGNAME#', config.BLOG_NAME)
+        htmlcontent = self._replace_general_blog_placeholders(htmlcontent)
+        htmlcontent = self.sanitize_internal_links(htmlcontent)
+
+        self.write_content_to_file(filename, htmlcontent)
+        self.logging.debug('Generated month page: ' + filename)
+
+    def _generate_day_page(self, year, month, day, entries):
+        """
+        Generates a day overview page at /YYYY/MM/DD/index.html.
+
+        @param year: int year
+        @param month: int month
+        @param day: int day
+        @param entries: list of blog entry dicts
+        """
+
+        year_str = str(year).zfill(4)
+        month_str = str(month).zfill(2)
+        day_str = str(day).zfill(2)
+        target_path = os.path.join(self.targetdir, year_str, month_str, day_str)
+        try:
+            os.makedirs(target_path)
+        except OSError:
+            pass
+        filename = os.path.join(target_path, 'index.html')
+
+        htmlcontent = self.template_definition_by_name('day-header')
+        htmlcontent += self._generate_article_list_html(entries)
+        htmlcontent += self.template_definition_by_name('day-footer')
+
+        htmlcontent = htmlcontent.replace('#YEAR#', year_str)
+        htmlcontent = htmlcontent.replace('#MONTH-TWODIGITNUMBER#', month_str)
+        htmlcontent = htmlcontent.replace('#DAY-TWODIGITNUMBER#', day_str)
+        htmlcontent = self._replace_general_blog_placeholders(htmlcontent)
+        htmlcontent = self.sanitize_internal_links(htmlcontent)
+
+        self.write_content_to_file(filename, htmlcontent)
+        self.logging.debug('Generated day page: ' + filename)
 
     def write_content_to_file(self, filename, content):
         """
