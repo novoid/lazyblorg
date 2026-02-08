@@ -751,7 +751,7 @@ class Htmlizer(object):
                 listentry['url'] + "-from-feed-with-links" + "</id>\n</entry>"
 
             # add article summary to feedentry:
-            feedentry += "\n    <summary type='xhtml'>\n<div xmlns='http://www.w3.org/1999/xhtml'>"
+            feedentry += "\n    <summary type='html'>"
 
             # what part of the data is to show on the entry page?
             teaser_html_content = False
@@ -764,19 +764,16 @@ class Htmlizer(object):
             teaser_html_content = self._add_absolute_path_to_image_src(teaser_html_content, listentry['url'])
 
             feedentry += self.sanitize_feed_html_characters('\n'.join(teaser_html_content))
-            feedentry += "</div>\n    </summary>"
+            feedentry += "\n    </summary>"
 
             # add content to content-feed OR end entry for links-feed:
             # NOTE: "config.BASE_URL.lower()" necessary for W3C XML validator to be happy. This might potentially break BASE_URLs that contain upper case characters which are necessary!
             teaser_atom_feed += feedentry + "\n    <id>https:" + config.BASE_URL.lower() + "/" + \
                 listentry['url'] + "-from-feed-with-teaser" + "</id>\n</entry>"
-            content_atom_feed += feedentry + """    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	""" + self.sanitize_feed_html_characters('\n'.join(blog_data_entry['content'])) + """
-      </div>
-    </content>
-    <id>https:""" + config.BASE_URL.lower() + "/" + listentry['url'] + "-from-feed-with-content" + \
-                "</id>\n</entry>"
+            content_atom_feed += feedentry + "    <content type='html'>\n" + \
+                self.sanitize_feed_html_characters('\n'.join(blog_data_entry['content'])) + \
+                "\n    </content>\n    <id>https:" + config.BASE_URL.lower() + "/" + \
+                listentry['url'] + "-from-feed-with-content" + "</id>\n</entry>"
 
             # replace "\\example.com" with "http:\\example.com" to calm down feed verifiers/aggregators:
             links_atom_feed = links_atom_feed.replace('>' + config.BASE_URL, '>http:' + config.BASE_URL)
@@ -1982,27 +1979,19 @@ class Htmlizer(object):
 
     def sanitize_feed_html_characters(self, content):
         """
-        Replaces all occurrences of [<>] with their HTML representation for the atom feeds.
+        Escapes HTML content for safe embedding in Atom feed entries
+        using type='html'. All &, <, > are escaped so the content is
+        valid XML containing escaped HTML.
 
-        According to http://stackoverflow.com/questions/281682/reference-to-undeclared-entity-exception-while-working-with-xml
-        HTML-entities like &mdash; must not be part of XML.
-
-        Numeric values: http://www.ascii.cl/htmlcodes.htm
-
-        FIXXME: build an exhaustive list of replacement characters
-
-        FIXXME: use a more elegant replacement construct such as http://stackoverflow.com/questions/5499078/fastest-method-to-escape-html-tags-as-html-entities
-        or https://wiki.python.org/moin/EscapingHtml
-
-        @param entry: string
-        @param return: sanitized string
+        @param content: string with HTML content
+        @param return: XML-safe string with escaped HTML
         """
 
+        # Order matters: & must be escaped first to avoid double-escaping
         return content.replace(
-            '<script async src=',
-            '<script async="async" src=').replace(
-            '&mdash;',
-            '&#8212;')
+            '&', '&amp;').replace(
+            '<', '&lt;').replace(
+            '>', '&gt;')
 
     def generate_absolute_url(self, targetid):
         """

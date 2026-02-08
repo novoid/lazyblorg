@@ -7,7 +7,7 @@
   <id>https://karl-voit.at/</id>
   <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2026-02-08T19:06:22+01:00</updated>
+  <updated>2026-02-08T22:35:58+01:00</updated>
   <author>
     <name>Karl Voit</name>
   </author>
@@ -21,31 +21,28 @@
     <published>2021-01-30T23:32:00+01:00</published>
     <updated>2021-01-30T23:32:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'></div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-	  <header><h2 class="section-title">RELATED drawer</h2></header>
+    <summary type='html'>
+    </summary>    <content type='html'>
+
+	  &lt;header&gt;&lt;h2 class="section-title"&gt;RELATED drawer&lt;/h2&gt;&lt;/header&gt;
 
 
-<p>
+&lt;p&gt;
 
 This is just a dummy text.
 
-</p>
+&lt;/p&gt;
 
 
-	  <header><h2 class="section-title">LINKS drawer</h2></header>
+	  &lt;header&gt;&lt;h2 class="section-title"&gt;LINKS drawer&lt;/h2&gt;&lt;/header&gt;
 
 
-<p>
+&lt;p&gt;
 
 Another dummy text.
 
-</p>
+&lt;/p&gt;
 
-      </div>
     </content>
     <id>https://karl-voit.at/2021/01/30/drawer-tests-from-feed-with-content</id>
 </entry>
@@ -56,24 +53,21 @@ Another dummy text.
     <published>2020-10-02T19:03:00+01:00</published>
     <updated>2020-10-02T19:03:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'><ul>
-<li>this is a list with some text
-<ul>
-<li>another item in the list</li>
-</ul></li>
-</ul>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	<ul>
-<li>this is a list with some text
-<ul>
-<li>another item in the list</li>
-</ul></li>
-</ul>
+    <summary type='html'>&lt;ul&gt;
+&lt;li&gt;this is a list with some text
+&lt;ul&gt;
+&lt;li&gt;another item in the list&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-      </div>
+    </summary>    <content type='html'>
+&lt;ul&gt;
+&lt;li&gt;this is a list with some text
+&lt;ul&gt;
+&lt;li&gt;another item in the list&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
     </content>
     <id>https://karl-voit.at/2020/10/02/Heading-which-starts-with-a-list-from-feed-with-content</id>
 </entry>
@@ -88,177 +82,174 @@ Another dummy text.
     <category scheme='http://Karl-Voit.at/tags/exampletag' term='exampletag' />
     <category scheme='http://Karl-Voit.at/tags/mytest' term='mytest' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
+    <summary type='html'>
+&lt;p&gt;
 
 This is a test article which tests its links to other (internal) blog entries.
 
-</p>
+&lt;/p&gt;
 
-<ul>
-<li>This should work <a
-href="//Karl-Voit.at/persistent-entry">in lists</a> as <a
-href="//Karl-Voit.at/2016/11/27/special-characters">well</a>.</li>
-<li>This should work <a
-href="//Karl-Voit.at/persistent-entry">2016-10-31-persistent-entry</a>
-and <a
-href="//Karl-Voit.at/2016/11/27/special-characters">2016-11-27-special-characters</a>.</li>
-</ul>
+&lt;ul&gt;
+&lt;li&gt;This should work &lt;a
+href="//Karl-Voit.at/persistent-entry"&gt;in lists&lt;/a&gt; as &lt;a
+href="//Karl-Voit.at/2016/11/27/special-characters"&gt;well&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;This should work &lt;a
+href="//Karl-Voit.at/persistent-entry"&gt;2016-10-31-persistent-entry&lt;/a&gt;
+and &lt;a
+href="//Karl-Voit.at/2016/11/27/special-characters"&gt;2016-11-27-special-characters&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
 
-<table>
-<tbody>
-<tr class="odd">
-<td>also in</td>
-<td>a <a
-href="//Karl-Voit.at/2016/11/27/special-characters">table</a></td>
-<td>with <a
-href="//Karl-Voit.at/2016/11/27/special-characters">multiple
-cells containing links</a></td>
-</tr>
-<tr class="even">
-<td>also</td>
-<td><a
-href="//Karl-Voit.at/2016/11/27/special-characters">2016-11-27-special-characters</a></td>
-<td>and <a
-href="//Karl-Voit.at/2016/11/27/special-characters">2016-11-27-special-characters</a></td>
-</tr>
-</tbody>
-</table>
-
-
-<blockquote>Here <a href="id:2016-10-31-a-tag-page][in a quote">id:2016-10-31-a-tag-page][in a quote</a> block.</blockquote>
+&lt;table&gt;
+&lt;tbody&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;also in&lt;/td&gt;
+&lt;td&gt;a &lt;a
+href="//Karl-Voit.at/2016/11/27/special-characters"&gt;table&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;with &lt;a
+href="//Karl-Voit.at/2016/11/27/special-characters"&gt;multiple
+cells containing links&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;also&lt;/td&gt;
+&lt;td&gt;&lt;a
+href="//Karl-Voit.at/2016/11/27/special-characters"&gt;2016-11-27-special-characters&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;and &lt;a
+href="//Karl-Voit.at/2016/11/27/special-characters"&gt;2016-11-27-special-characters&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 
-<p>
+&lt;blockquote&gt;Here &lt;a href="id:2016-10-31-a-tag-page][in a quote"&gt;id:2016-10-31-a-tag-page][in a quote&lt;/a&gt; block.&lt;/blockquote&gt;
 
-Here is <a href="//Karl-Voit.at/2017/09/30/link-test">a self-reference</a> which should not result in a backlink to itself.
 
-</p>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-<p>
+&lt;p&gt;
+
+Here is &lt;a href="//Karl-Voit.at/2017/09/30/link-test"&gt;a self-reference&lt;/a&gt; which should not result in a backlink to itself.
+
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
 
 This is a test article which tests its links to other (internal) blog entries.
 
-</p>
+&lt;/p&gt;
 
-<ul>
-<li>This should work <a
-href="//Karl-Voit.at/persistent-entry">in lists</a> as <a
-href="//Karl-Voit.at/2016/11/27/special-characters">well</a>.</li>
-<li>This should work <a
-href="//Karl-Voit.at/persistent-entry">2016-10-31-persistent-entry</a>
-and <a
-href="//Karl-Voit.at/2016/11/27/special-characters">2016-11-27-special-characters</a>.</li>
-</ul>
+&lt;ul&gt;
+&lt;li&gt;This should work &lt;a
+href="//Karl-Voit.at/persistent-entry"&gt;in lists&lt;/a&gt; as &lt;a
+href="//Karl-Voit.at/2016/11/27/special-characters"&gt;well&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;This should work &lt;a
+href="//Karl-Voit.at/persistent-entry"&gt;2016-10-31-persistent-entry&lt;/a&gt;
+and &lt;a
+href="//Karl-Voit.at/2016/11/27/special-characters"&gt;2016-11-27-special-characters&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
 
-<table>
-<tbody>
-<tr class="odd">
-<td>also in</td>
-<td>a <a
-href="//Karl-Voit.at/2016/11/27/special-characters">table</a></td>
-<td>with <a
-href="//Karl-Voit.at/2016/11/27/special-characters">multiple
-cells containing links</a></td>
-</tr>
-<tr class="even">
-<td>also</td>
-<td><a
-href="//Karl-Voit.at/2016/11/27/special-characters">2016-11-27-special-characters</a></td>
-<td>and <a
-href="//Karl-Voit.at/2016/11/27/special-characters">2016-11-27-special-characters</a></td>
-</tr>
-</tbody>
-</table>
-
-
-<blockquote>Here <a href="id:2016-10-31-a-tag-page][in a quote">id:2016-10-31-a-tag-page][in a quote</a> block.</blockquote>
+&lt;table&gt;
+&lt;tbody&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;also in&lt;/td&gt;
+&lt;td&gt;a &lt;a
+href="//Karl-Voit.at/2016/11/27/special-characters"&gt;table&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;with &lt;a
+href="//Karl-Voit.at/2016/11/27/special-characters"&gt;multiple
+cells containing links&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;also&lt;/td&gt;
+&lt;td&gt;&lt;a
+href="//Karl-Voit.at/2016/11/27/special-characters"&gt;2016-11-27-special-characters&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;and &lt;a
+href="//Karl-Voit.at/2016/11/27/special-characters"&gt;2016-11-27-special-characters&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 
-<p>
-
-Here is <a href="//Karl-Voit.at/2017/09/30/link-test">a self-reference</a> which should not result in a backlink to itself.
-
-</p>
+&lt;blockquote&gt;Here &lt;a href="id:2016-10-31-a-tag-page][in a quote"&gt;id:2016-10-31-a-tag-page][in a quote&lt;/a&gt; block.&lt;/blockquote&gt;
 
 
-	  <header><h2 class="section-title">Even <a href="//Karl-Voit.at/2016/10/31/my-temporal-article">a heading should</a> work</h2></header>
+&lt;p&gt;
+
+Here is &lt;a href="//Karl-Voit.at/2017/09/30/link-test"&gt;a self-reference&lt;/a&gt; which should not result in a backlink to itself.
+
+&lt;/p&gt;
 
 
-<p>
-
-What about <a href="//Karl-Voit.at/2016/10/31/an-hidden-blog-entry">a hidden entry</a>?
-
-</p>
+	  &lt;header&gt;&lt;h2 class="section-title"&gt;Even &lt;a href="//Karl-Voit.at/2016/10/31/my-temporal-article"&gt;a heading should&lt;/a&gt; work&lt;/h2&gt;&lt;/header&gt;
 
 
-	  <header><h2 class="section-title">Some test to get the reading time to exceed one minute</h2></header>
+&lt;p&gt;
+
+What about &lt;a href="//Karl-Voit.at/2016/10/31/an-hidden-blog-entry"&gt;a hidden entry&lt;/a&gt;?
+
+&lt;/p&gt;
 
 
-<p>
-
-The <a href="https://github.com/novoid/lazyblorg/issues/47">reading time estimation feature</a> is a very nice touch for the reader in order to get a rough figure how many minutes it takes to read an article.
-
-</p>
+	  &lt;header&gt;&lt;h2 class="section-title"&gt;Some test to get the reading time to exceed one minute&lt;/h2&gt;&lt;/header&gt;
 
 
-<p>
+&lt;p&gt;
+
+The &lt;a href="https://github.com/novoid/lazyblorg/issues/47"&gt;reading time estimation feature&lt;/a&gt; is a very nice touch for the reader in order to get a rough figure how many minutes it takes to read an article.
+
+&lt;/p&gt;
+
+
+&lt;p&gt;
 
 This way, she is able to determine if it is worth the time or not. Having such an indicator is almost standard in nowaday's web culture.
 
-</p>
+&lt;/p&gt;
 
 
-<p>
+&lt;p&gt;
 
 My assumption is, that the reader is able to read a certain amount of words per minute. The initial value was chosen with 250. So maybe this is not adequate - let's see. Furthermore, I had to derive a heuristic algorithm to filter out non-word noise of the original Org mode source file. Those filtered things might contain real word (false positives) and the rest could contain non-words (false negatives). On average, this should not be a big issue. At least, this is a better approximation than counting all characters and assuming an average word consisting of five characters as I've seen in another algorithm. First, I would have had issues with filtering non-word content. Secondly, different languages do have different average sizes of words. So let's hope this is a valueable contribution to lazyblorg.
 
-</p>
+&lt;/p&gt;
 
-<div class="orgmode-hr" ></div>
+&lt;div class="orgmode-hr" &gt;&lt;/div&gt;
 
-<p>
+&lt;p&gt;
 
 In order to get the reading length high, here is some further dummy text as well:
 
-</p>
+&lt;/p&gt;
 
 
-<p>
-
-Aliquam erat volutpat. Nunc eleifend leo vitae magna. In id erat non orci commodo lobortis. Proin neque massa, cursus ut, gravida ut, lobortis eget, lacus. Sed diam. Praesent fermentum tempor tellus. Nullam tempus. Mauris ac felis vel velit tristique imperdiet. Donec at pede. Etiam vel neque nec dui dignissim bibendum. Vivamus id enim. Phasellus neque orci, porta a, aliquet quis, semper a, massa. Phasellus purus. Pellentesque tristique imperdiet tortor. Nam euismod tellus id erat.
-
-</p>
-
-
-<p>
+&lt;p&gt;
 
 Aliquam erat volutpat. Nunc eleifend leo vitae magna. In id erat non orci commodo lobortis. Proin neque massa, cursus ut, gravida ut, lobortis eget, lacus. Sed diam. Praesent fermentum tempor tellus. Nullam tempus. Mauris ac felis vel velit tristique imperdiet. Donec at pede. Etiam vel neque nec dui dignissim bibendum. Vivamus id enim. Phasellus neque orci, porta a, aliquet quis, semper a, massa. Phasellus purus. Pellentesque tristique imperdiet tortor. Nam euismod tellus id erat.
 
-</p>
+&lt;/p&gt;
 
 
-<p>
+&lt;p&gt;
 
 Aliquam erat volutpat. Nunc eleifend leo vitae magna. In id erat non orci commodo lobortis. Proin neque massa, cursus ut, gravida ut, lobortis eget, lacus. Sed diam. Praesent fermentum tempor tellus. Nullam tempus. Mauris ac felis vel velit tristique imperdiet. Donec at pede. Etiam vel neque nec dui dignissim bibendum. Vivamus id enim. Phasellus neque orci, porta a, aliquet quis, semper a, massa. Phasellus purus. Pellentesque tristique imperdiet tortor. Nam euismod tellus id erat.
 
-</p>
+&lt;/p&gt;
 
 
-	  <header><h2 class="section-title">An almost empty heading at the end</h2></header>
+&lt;p&gt;
+
+Aliquam erat volutpat. Nunc eleifend leo vitae magna. In id erat non orci commodo lobortis. Proin neque massa, cursus ut, gravida ut, lobortis eget, lacus. Sed diam. Praesent fermentum tempor tellus. Nullam tempus. Mauris ac felis vel velit tristique imperdiet. Donec at pede. Etiam vel neque nec dui dignissim bibendum. Vivamus id enim. Phasellus neque orci, porta a, aliquet quis, semper a, massa. Phasellus purus. Pellentesque tristique imperdiet tortor. Nam euismod tellus id erat.
+
+&lt;/p&gt;
 
 
-<p>
+	  &lt;header&gt;&lt;h2 class="section-title"&gt;An almost empty heading at the end&lt;/h2&gt;&lt;/header&gt;
+
+
+&lt;p&gt;
 
 This is to test the reading length estimation algorithm with a property drawer at the end.
 
-</p>
+&lt;/p&gt;
 
-      </div>
     </content>
     <id>https://karl-voit.at/2017/09/30/link-test-from-feed-with-content</id>
 </entry>
@@ -270,180 +261,177 @@ This is to test the reading length estimation algorithm with a property drawer a
     <updated>2017-01-08T10:58:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-	  <div class="example_code">
-	  <pre>;;some text
-(defun my-org-region-to-property (&amp;optional property)
+    <summary type='html'>
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt;;;some text
+(defun my-org-region-to-property (&amp;amp;optional property)
   "Copies the region as value to an Org-mode property"
   (interactive)
   ;; if no region is defined, do nothing
   (message "foobar")
-)	  </pre>
-    </div>
+)	  &lt;/pre&gt;
+    &lt;/div&gt;
 
 
-<p>
+&lt;p&gt;
 
 A simple code block:
 
-</p>
+&lt;/p&gt;
 
 
-	  <div class="example_code">
-	  <pre> \** Cabaret `(my-capture-prompt "date of event" 'my-event-date)`: `(my-capture-prompt "artist" 'my-artist)`
- SCHEDULED: &lt;`(my-capture-prompt "date 1st email" 'my-email-date)`&gt;	  </pre>
-    </div>
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt; \** Cabaret `(my-capture-prompt "date of event" 'my-event-date)`: `(my-capture-prompt "artist" 'my-artist)`
+ SCHEDULED: &amp;lt;`(my-capture-prompt "date 1st email" 'my-email-date)`&amp;gt;	  &lt;/pre&gt;
+    &lt;/div&gt;
 
 
-<p>
+&lt;p&gt;
 
 A comment with a non-existent ID:
 
-</p>
+&lt;/p&gt;
 
 
-	  <div class="example_code">
-	  <pre> :PROPERTIES:
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt; :PROPERTIES:
  :ID: this-is-not-an-existent-id
- :END:	  </pre>
-    </div>
+ :END:	  &lt;/pre&gt;
+    &lt;/div&gt;
 
 
-<p>
+&lt;p&gt;
 
 An example with a non-existent ID:
 
-</p>
+&lt;/p&gt;
 
 
-	  <div class="example_code">
-	  <pre>:PROPERTIES:
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt;:PROPERTIES:
 :ID: this-is-not-an-existent-id
 :END:
 
-- [[id:2021-01-23-this-does-not-exist1][This does not exist 1]]	  </pre>
-    </div>
+- [[id:2021-01-23-this-does-not-exist1][This does not exist 1]]	  &lt;/pre&gt;
+    &lt;/div&gt;
 
 
-<p>
+&lt;p&gt;
 
-Example link that exists: <a href="//Karl-Voit.at/2020/10/02/Heading-which-starts-with-a-list">existing link</a>
+Example link that exists: &lt;a href="//Karl-Voit.at/2020/10/02/Heading-which-starts-with-a-list"&gt;existing link&lt;/a&gt;
 
-</p>
+&lt;/p&gt;
 
 
-<p>
+&lt;p&gt;
 
 Example comment with non-existent ID and link:
 
-</p>
+&lt;/p&gt;
 
 
-	  <div class="example_code">
-	  <pre> *** Example heading
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt; *** Example heading
  :PROPERTIES:
  :ID:       2021-01-23-example-heading
  :END:
 
- - Also: [[id:2021-01-23-this-does-not-exist2][this does not exist 2]]	  </pre>
-    </div>
+ - Also: [[id:2021-01-23-this-does-not-exist2][this does not exist 2]]	  &lt;/pre&gt;
+    &lt;/div&gt;
 
 
-<p>
+&lt;p&gt;
 
-Test case for two ampersants in an URL, causing an issue in the feed: <a href="https://duckduckgo.com/?t=ffab&amp;q=searchterm&amp;ia=web">link description</a>
+Test case for two ampersants in an URL, causing an issue in the feed: &lt;a href="https://duckduckgo.com/?t=ffab&amp;amp;q=searchterm&amp;amp;ia=web"&gt;link description&lt;/a&gt;
 
-</p>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-	  <div class="example_code">
-	  <pre>;;some text
-(defun my-org-region-to-property (&amp;optional property)
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt;;;some text
+(defun my-org-region-to-property (&amp;amp;optional property)
   "Copies the region as value to an Org-mode property"
   (interactive)
   ;; if no region is defined, do nothing
   (message "foobar")
-)	  </pre>
-    </div>
+)	  &lt;/pre&gt;
+    &lt;/div&gt;
 
 
-<p>
+&lt;p&gt;
 
 A simple code block:
 
-</p>
+&lt;/p&gt;
 
 
-	  <div class="example_code">
-	  <pre> \** Cabaret `(my-capture-prompt "date of event" 'my-event-date)`: `(my-capture-prompt "artist" 'my-artist)`
- SCHEDULED: &lt;`(my-capture-prompt "date 1st email" 'my-email-date)`&gt;	  </pre>
-    </div>
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt; \** Cabaret `(my-capture-prompt "date of event" 'my-event-date)`: `(my-capture-prompt "artist" 'my-artist)`
+ SCHEDULED: &amp;lt;`(my-capture-prompt "date 1st email" 'my-email-date)`&amp;gt;	  &lt;/pre&gt;
+    &lt;/div&gt;
 
 
-<p>
+&lt;p&gt;
 
 A comment with a non-existent ID:
 
-</p>
+&lt;/p&gt;
 
 
-	  <div class="example_code">
-	  <pre> :PROPERTIES:
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt; :PROPERTIES:
  :ID: this-is-not-an-existent-id
- :END:	  </pre>
-    </div>
+ :END:	  &lt;/pre&gt;
+    &lt;/div&gt;
 
 
-<p>
+&lt;p&gt;
 
 An example with a non-existent ID:
 
-</p>
+&lt;/p&gt;
 
 
-	  <div class="example_code">
-	  <pre>:PROPERTIES:
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt;:PROPERTIES:
 :ID: this-is-not-an-existent-id
 :END:
 
-- [[id:2021-01-23-this-does-not-exist1][This does not exist 1]]	  </pre>
-    </div>
+- [[id:2021-01-23-this-does-not-exist1][This does not exist 1]]	  &lt;/pre&gt;
+    &lt;/div&gt;
 
 
-<p>
+&lt;p&gt;
 
-Example link that exists: <a href="//Karl-Voit.at/2020/10/02/Heading-which-starts-with-a-list">existing link</a>
+Example link that exists: &lt;a href="//Karl-Voit.at/2020/10/02/Heading-which-starts-with-a-list"&gt;existing link&lt;/a&gt;
 
-</p>
+&lt;/p&gt;
 
 
-<p>
+&lt;p&gt;
 
 Example comment with non-existent ID and link:
 
-</p>
+&lt;/p&gt;
 
 
-	  <div class="example_code">
-	  <pre> *** Example heading
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt; *** Example heading
  :PROPERTIES:
  :ID:       2021-01-23-example-heading
  :END:
 
- - Also: [[id:2021-01-23-this-does-not-exist2][this does not exist 2]]	  </pre>
-    </div>
+ - Also: [[id:2021-01-23-this-does-not-exist2][this does not exist 2]]	  &lt;/pre&gt;
+    &lt;/div&gt;
 
 
-<p>
+&lt;p&gt;
 
-Test case for two ampersants in an URL, causing an issue in the feed: <a href="https://duckduckgo.com/?t=ffab&amp;q=searchterm&amp;ia=web">link description</a>
+Test case for two ampersants in an URL, causing an issue in the feed: &lt;a href="https://duckduckgo.com/?t=ffab&amp;amp;q=searchterm&amp;amp;ia=web"&gt;link description&lt;/a&gt;
 
-</p>
+&lt;/p&gt;
 
-      </div>
     </content>
     <id>https://karl-voit.at/2017/01/08/sanitizing-tests-from-feed-with-content</id>
 </entry>
@@ -454,24 +442,21 @@ Test case for two ampersants in an URL, causing an issue in the feed: <a href="h
     <published>2017-01-03T12:07:00+01:00</published>
     <updated>2017-01-03T12:07:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
+    <summary type='html'>
+&lt;p&gt;
 
 This is a placeholder entry in order to be able to test internal links.
 
-</p>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-<p>
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
 
 This is a placeholder entry in order to be able to test internal links.
 
-</p>
+&lt;/p&gt;
 
-      </div>
     </content>
     <id>https://karl-voit.at/how-to-use-this-blog-from-feed-with-content</id>
 </entry>
@@ -483,212 +468,209 @@ This is a placeholder entry in order to be able to test internal links.
     <updated>2016-11-27T15:01:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:deutsch' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
+    <summary type='html'>
+&lt;p&gt;
 
 With caption, alt, centered and 560px width:
 
-</p>
+&lt;/p&gt;
 
 
-<figure class="image-center">
-<img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEheightEND" loading="lazy" />
-<figcaption>This is my caption</figcaption>
-</figure>
+&lt;figure class="image-center"&gt;
+&lt;img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;figcaption&gt;This is my caption&lt;/figcaption&gt;
+&lt;/figure&gt;
 
 
-<p>
+&lt;p&gt;
 
 Without caption, alt, centered and 560px width:
 
-</p>
+&lt;/p&gt;
 
 
-<figure class="image-center">
-<img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEheightEND" loading="lazy" />
-</figure>
+&lt;figure class="image-center"&gt;
+&lt;img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;/figure&gt;
 
 
-<p>
+&lt;p&gt;
 
 With caption, without alt, left aligned and 300px width:
 
-</p>
+&lt;/p&gt;
 
 
-<figure class="image-left">
-<img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEheightEND" loading="lazy" />
-<figcaption>This is my caption</figcaption>
-</figure>
+&lt;figure class="image-left"&gt;
+&lt;img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;figcaption&gt;This is my caption&lt;/figcaption&gt;
+&lt;/figure&gt;
 
 
-<p>
+&lt;p&gt;
 
 With caption, alt, right alined and 300px width:
 
-</p>
+&lt;/p&gt;
 
 
-<figure class="image-right">
-<img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEheightEND" loading="lazy" />
-<figcaption>This is my caption</figcaption>
-</figure>
+&lt;figure class="image-right"&gt;
+&lt;img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;figcaption&gt;This is my caption&lt;/figcaption&gt;
+&lt;/figure&gt;
 
 
-<p>
+&lt;p&gt;
 
 Without caption, without alt, centered and 300px width and linked-image-width set to "none":
 
-</p>
+&lt;/p&gt;
 
 
-<figure class="image-center">
-<img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEheightEND" loading="lazy" />
-</figure>
+&lt;figure class="image-center"&gt;
+&lt;img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;/figure&gt;
 
 
-<p>
+&lt;p&gt;
 
 Just the image without ATTR lines or caption:
 
-</p>
+&lt;/p&gt;
 
 
-<figure class="image-center">
-<img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg" alt="" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg-TMPREPLACEMEheightEND" loading="lazy" />
-</figure>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-<p>
+&lt;figure class="image-center"&gt;
+&lt;img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg" alt="" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;/figure&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
 
 With caption, alt, centered and 560px width:
 
-</p>
+&lt;/p&gt;
 
 
-<figure class="image-center">
-<img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEheightEND" loading="lazy" />
-<figcaption>This is my caption</figcaption>
-</figure>
+&lt;figure class="image-center"&gt;
+&lt;img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;figcaption&gt;This is my caption&lt;/figcaption&gt;
+&lt;/figure&gt;
 
 
-<p>
+&lt;p&gt;
 
 Without caption, alt, centered and 560px width:
 
-</p>
+&lt;/p&gt;
 
 
-<figure class="image-center">
-<img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEheightEND" loading="lazy" />
-</figure>
+&lt;figure class="image-center"&gt;
+&lt;img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;/figure&gt;
 
 
-<p>
+&lt;p&gt;
 
 With caption, without alt, left aligned and 300px width:
 
-</p>
+&lt;/p&gt;
 
 
-<figure class="image-left">
-<img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEheightEND" loading="lazy" />
-<figcaption>This is my caption</figcaption>
-</figure>
+&lt;figure class="image-left"&gt;
+&lt;img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;figcaption&gt;This is my caption&lt;/figcaption&gt;
+&lt;/figure&gt;
 
 
-<p>
+&lt;p&gt;
 
 With caption, alt, right alined and 300px width:
 
-</p>
+&lt;/p&gt;
 
 
-<figure class="image-right">
-<img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEheightEND" loading="lazy" />
-<figcaption>This is my caption</figcaption>
-</figure>
+&lt;figure class="image-right"&gt;
+&lt;img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;figcaption&gt;This is my caption&lt;/figcaption&gt;
+&lt;/figure&gt;
 
 
-<p>
+&lt;p&gt;
 
 Without caption, without alt, centered and 300px width and linked-image-width set to "none":
 
-</p>
+&lt;/p&gt;
 
 
-<figure class="image-center">
-<img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEheightEND" loading="lazy" />
-</figure>
+&lt;figure class="image-center"&gt;
+&lt;img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;/figure&gt;
 
 
-<p>
+&lt;p&gt;
 
 Just the image without ATTR lines or caption:
 
-</p>
+&lt;/p&gt;
 
 
-<figure class="image-center">
-<img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg" alt="" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg-TMPREPLACEMEheightEND" loading="lazy" />
-</figure>
+&lt;figure class="image-center"&gt;
+&lt;img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg" alt="" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;/figure&gt;
 
-<div class="orgmode-hr" ></div>
+&lt;div class="orgmode-hr" &gt;&lt;/div&gt;
 
-<p>
+&lt;p&gt;
 
 Linking a differently sized image:
 
-</p>
+&lt;/p&gt;
 
 
-<p>
+&lt;p&gt;
 
 With caption, alt, right alined and 300px width, linked-image-width 560:
 
-</p>
+&lt;/p&gt;
 
 
-<figure class="image-right">
-<a href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg">
-  <img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEheightEND" loading="lazy" />
-</a>
-<figcaption>This is my caption <a class="figcaption-clue-link" href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg">(klicken für größere Version)</a></figcaption>
-</figure>
+&lt;figure class="image-right"&gt;
+&lt;a href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg"&gt;
+  &lt;img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;/a&gt;
+&lt;figcaption&gt;This is my caption &lt;a class="figcaption-clue-link" href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg"&gt;(klicken für größere Version)&lt;/a&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
 
 
-<p>
+&lt;p&gt;
 
 With caption, alt, right alined and 300px width, linked-image-width "original":
 
-</p>
+&lt;/p&gt;
 
 
-<figure class="image-right">
-<a href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg">
-  <img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEheightEND" loading="lazy" />
-</a>
-<figcaption>This is my caption <a class="figcaption-clue-link" href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg">(klicken für größere Version)</a></figcaption>
-</figure>
+&lt;figure class="image-right"&gt;
+&lt;a href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg"&gt;
+  &lt;img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;/a&gt;
+&lt;figcaption&gt;This is my caption &lt;a class="figcaption-clue-link" href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg"&gt;(klicken für größere Version)&lt;/a&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
 
 
-<p>
+&lt;p&gt;
 
 FIXXME: not tested so far:
 
-</p>
+&lt;/p&gt;
 
-<ul>
-<li>:width and :linked-image-width with same integers</li>
-<li>:width is original and :linked-image-width is original</li>
-<li>float number for :width or :linked-image-width</li>
-<li>zero or negative integers for :width or :linked-image-width</li>
-</ul>
+&lt;ul&gt;
+&lt;li&gt;:width and :linked-image-width with same integers&lt;/li&gt;
+&lt;li&gt;:width is original and :linked-image-width is original&lt;/li&gt;
+&lt;li&gt;float number for :width or :linked-image-width&lt;/li&gt;
+&lt;li&gt;zero or negative integers for :width or :linked-image-width&lt;/li&gt;
+&lt;/ul&gt;
 
-      </div>
     </content>
     <id>https://karl-voit.at/2016/11/27/image-test-from-feed-with-content</id>
 </entry>
@@ -700,38 +682,35 @@ FIXXME: not tested so far:
     <updated>2016-11-27T15:00:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:deutsch' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
+    <summary type='html'>
+&lt;p&gt;
 
 This is a «test» with some Umlauts and special characters: öß€x²y³¼½¾.
 
-</p>
+&lt;/p&gt;
 
 
-<p>
+&lt;p&gt;
 
 Being curious how this is going to work out.
 
-</p>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-<p>
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
 
 This is a «test» with some Umlauts and special characters: öß€x²y³¼½¾.
 
-</p>
+&lt;/p&gt;
 
 
-<p>
+&lt;p&gt;
 
 Being curious how this is going to work out.
 
-</p>
+&lt;/p&gt;
 
-      </div>
     </content>
     <id>https://karl-voit.at/2016/11/27/special-characters-from-feed-with-content</id>
 </entry>
@@ -743,64 +722,61 @@ Being curious how this is going to work out.
     <updated>2016-11-06T17:40:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/programming' term='programming' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-	  <div class="example_code">
-	  <pre>This ought to be escaped &amp; &gt;printed&lt; well.	  </pre>
-    </div>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-	  <div class="example_code">
-	  <pre>This ought to be escaped &amp; &gt;printed&lt; well.	  </pre>
-    </div>
+    <summary type='html'>
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt;This ought to be escaped &amp;amp; &amp;gt;printed&amp;lt; well.	  &lt;/pre&gt;
+    &lt;/div&gt;
 
-<div class="orgmode-hr" ></div>
+    </summary>    <content type='html'>
 
-<p>
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt;This ought to be escaped &amp;amp; &amp;gt;printed&amp;lt; well.	  &lt;/pre&gt;
+    &lt;/div&gt;
 
-<a href="https://github.com/novoid/lazyblorg/issues/6">Issue number 19</a> deals with sanitizing of &lt; and &gt; within blocks.
+&lt;div class="orgmode-hr" &gt;&lt;/div&gt;
 
-</p>
+&lt;p&gt;
+
+&lt;a href="https://github.com/novoid/lazyblorg/issues/6"&gt;Issue number 19&lt;/a&gt; deals with sanitizing of &amp;lt; and &amp;gt; within blocks.
+
+&lt;/p&gt;
 
 
-	  <div class="example_code">
-	  <pre>This is &lt;an&gt; example block.	  </pre>
-    </div>
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt;This is &amp;lt;an&amp;gt; example block.	  &lt;/pre&gt;
+    &lt;/div&gt;
 
 
-	  <div class="example_code">
-	  <pre>Maybe &lt;this&gt; is not sanitized?	  </pre>
-    </div>
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt;Maybe &amp;lt;this&amp;gt; is not sanitized?	  &lt;/pre&gt;
+    &lt;/div&gt;
 
 
-	  <div class="example_code">
-	  <pre>Maybe &lt;this&gt; is not sanitized?	  </pre>
-    </div>
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt;Maybe &amp;lt;this&amp;gt; is not sanitized?	  &lt;/pre&gt;
+    &lt;/div&gt;
 
 
-<blockquote>Maybe &lt;this&gt; is not sanitized?</blockquote>
+&lt;blockquote&gt;Maybe &amp;lt;this&amp;gt; is not sanitized?&lt;/blockquote&gt;
 
-<p>Maybe &lt;this&gt; is not sanitized?</p>
+&lt;p&gt;Maybe &amp;lt;this&amp;gt; is not sanitized?&lt;/p&gt;
 
-Maybe <this> should not be sanitized?
-<div class="orgmode-hr" ></div>
-<ul>
-<li>Entry ending with a list which causes <a
-href="https://github.com/novoid/lazyblorg/issues/4">issue number 4</a>
-<ul>
-<li>Another list item</li>
-</ul></li>
-</ul>
+Maybe &lt;this&gt; should not be sanitized?
+&lt;div class="orgmode-hr" &gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;Entry ending with a list which causes &lt;a
+href="https://github.com/novoid/lazyblorg/issues/4"&gt;issue number 4&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;Another list item&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-<div class="orgmode-hr" ></div>
-<ol>
-<li>Using an enumerated list</li>
-<li>Ending this article <code>that</code> way!</li>
-</ol>
+&lt;div class="orgmode-hr" &gt;&lt;/div&gt;
+&lt;ol&gt;
+&lt;li&gt;Using an enumerated list&lt;/li&gt;
+&lt;li&gt;Ending this article &lt;code&gt;that&lt;/code&gt; way!&lt;/li&gt;
+&lt;/ol&gt;
 
-      </div>
     </content>
     <id>https://karl-voit.at/2016/11/06/sanitization-examples-from-feed-with-content</id>
 </entry>
@@ -812,80 +788,77 @@ href="https://github.com/novoid/lazyblorg/issues/4">issue number 4</a>
     <updated>2016-10-31T16:40:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/exampletag' term='exampletag' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
+    <summary type='html'>
+&lt;p&gt;
 
-<a href="//Karl-Voit.at/2016/10/31/an-hidden-blog-entry">Link to a hidden entry</a>
+&lt;a href="//Karl-Voit.at/2016/10/31/an-hidden-blog-entry"&gt;Link to a hidden entry&lt;/a&gt;
 
-</p>
-
-
-<p>
-
-<a href="//Karl-Voit.at/persistent-entry">Link to persistent article</a>
-
-</p>
+&lt;/p&gt;
 
 
-<p>
+&lt;p&gt;
 
-<a href="//Karl-Voit.at/tags/exampletag">Link to tag page</a>
+&lt;a href="//Karl-Voit.at/persistent-entry"&gt;Link to persistent article&lt;/a&gt;
 
-</p>
-
-
-<p>
-
-Lorem ipsum dolor sit amet, malorum scaevola ut ius, ridens admodum adipisci eam ad. Eu quo ignota appareat, an primis expetendis eum, atqui labitur ceteros quo ad. Id zril partiendo cotidieque nam, nemore legimus has ad. Nec cu regione sensibus volutpat.
-
-</p>
+&lt;/p&gt;
 
 
-<p>
+&lt;p&gt;
 
-Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. Odio disputando ei his, ei est mutat mediocritatem. Harum verterem ex mea, sed saepe viderer scribentur ex. Pri te dictas eligendi praesent.
+&lt;a href="//Karl-Voit.at/tags/exampletag"&gt;Link to tag page&lt;/a&gt;
 
-</p>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-<p>
-
-<a href="//Karl-Voit.at/2016/10/31/an-hidden-blog-entry">Link to a hidden entry</a>
-
-</p>
+&lt;/p&gt;
 
 
-<p>
-
-<a href="//Karl-Voit.at/persistent-entry">Link to persistent article</a>
-
-</p>
-
-
-<p>
-
-<a href="//Karl-Voit.at/tags/exampletag">Link to tag page</a>
-
-</p>
-
-
-<p>
+&lt;p&gt;
 
 Lorem ipsum dolor sit amet, malorum scaevola ut ius, ridens admodum adipisci eam ad. Eu quo ignota appareat, an primis expetendis eum, atqui labitur ceteros quo ad. Id zril partiendo cotidieque nam, nemore legimus has ad. Nec cu regione sensibus volutpat.
 
-</p>
+&lt;/p&gt;
 
 
-<p>
+&lt;p&gt;
 
 Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. Odio disputando ei his, ei est mutat mediocritatem. Harum verterem ex mea, sed saepe viderer scribentur ex. Pri te dictas eligendi praesent.
 
-</p>
+&lt;/p&gt;
 
-      </div>
+    </summary>    <content type='html'>
+
+&lt;p&gt;
+
+&lt;a href="//Karl-Voit.at/2016/10/31/an-hidden-blog-entry"&gt;Link to a hidden entry&lt;/a&gt;
+
+&lt;/p&gt;
+
+
+&lt;p&gt;
+
+&lt;a href="//Karl-Voit.at/persistent-entry"&gt;Link to persistent article&lt;/a&gt;
+
+&lt;/p&gt;
+
+
+&lt;p&gt;
+
+&lt;a href="//Karl-Voit.at/tags/exampletag"&gt;Link to tag page&lt;/a&gt;
+
+&lt;/p&gt;
+
+
+&lt;p&gt;
+
+Lorem ipsum dolor sit amet, malorum scaevola ut ius, ridens admodum adipisci eam ad. Eu quo ignota appareat, an primis expetendis eum, atqui labitur ceteros quo ad. Id zril partiendo cotidieque nam, nemore legimus has ad. Nec cu regione sensibus volutpat.
+
+&lt;/p&gt;
+
+
+&lt;p&gt;
+
+Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. Odio disputando ei his, ei est mutat mediocritatem. Harum verterem ex mea, sed saepe viderer scribentur ex. Pri te dictas eligendi praesent.
+
+&lt;/p&gt;
+
     </content>
     <id>https://karl-voit.at/2016/10/31/my-temporal-article-from-feed-with-content</id>
 </entry>
@@ -899,38 +872,35 @@ Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. O
     <category scheme='http://Karl-Voit.at/tags/programming' term='programming' />
     <category scheme='http://Karl-Voit.at/tags/exampletag' term='exampletag' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
+    <summary type='html'>
+&lt;p&gt;
 
 Lorem ipsum dolor sit amet, malorum scaevola ut ius, ridens admodum adipisci eam ad. Eu quo ignota appareat, an primis expetendis eum, atqui labitur ceteros quo ad. Id zril partiendo cotidieque nam, nemore legimus has ad. Nec cu regione sensibus volutpat.
 
-</p>
+&lt;/p&gt;
 
 
-<p>
+&lt;p&gt;
 
 Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. Odio disputando ei his, ei est mutat mediocritatem. Harum verterem ex mea, sed saepe viderer scribentur ex. Pri te dictas eligendi praesent.
 
-</p>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-<p>
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
 
 Lorem ipsum dolor sit amet, malorum scaevola ut ius, ridens admodum adipisci eam ad. Eu quo ignota appareat, an primis expetendis eum, atqui labitur ceteros quo ad. Id zril partiendo cotidieque nam, nemore legimus has ad. Nec cu regione sensibus volutpat.
 
-</p>
+&lt;/p&gt;
 
 
-<p>
+&lt;p&gt;
 
 Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. Odio disputando ei his, ei est mutat mediocritatem. Harum verterem ex mea, sed saepe viderer scribentur ex. Pri te dictas eligendi praesent.
 
-</p>
+&lt;/p&gt;
 
-      </div>
     </content>
     <id>https://karl-voit.at/persistent-entry-from-feed-with-content</id>
 </entry>
@@ -941,98 +911,95 @@ Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. O
     <published>2016-10-31T16:38:00+01:00</published>
     <updated>2016-10-31T16:38:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
+    <summary type='html'>
+&lt;p&gt;
 
 This is a page whose content is getting transformed into a tag page.
 
-</p>
+&lt;/p&gt;
 
 
-<p>
+&lt;p&gt;
 
 I am very curious how this is going to turn out.
 
-</p>
+&lt;/p&gt;
 
-<table>
-<thead>
-<tr class="header">
-<th><strong>Return Code</strong></th>
-<th><strong>Result</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0</td>
-<td>I am happy!</td>
-</tr>
-<tr class="even">
-<td>1</td>
-<td>Geez, what happened this time?</td>
-</tr>
-<tr class="odd">
-<td>-1</td>
-<td>Even more worrying</td>
-</tr>
-</tbody>
-</table>
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class="header"&gt;
+&lt;th&gt;&lt;strong&gt;Return Code&lt;/strong&gt;&lt;/th&gt;
+&lt;th&gt;&lt;strong&gt;Result&lt;/strong&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;I am happy!&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;Geez, what happened this time?&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;-1&lt;/td&gt;
+&lt;td&gt;Even more worrying&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 
-<p>
+&lt;p&gt;
 
 Below this, I expect some links to other pages related to the tag "exampletag":
 
-</p>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-<p>
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
 
 This is a page whose content is getting transformed into a tag page.
 
-</p>
+&lt;/p&gt;
 
 
-<p>
+&lt;p&gt;
 
 I am very curious how this is going to turn out.
 
-</p>
+&lt;/p&gt;
 
-<table>
-<thead>
-<tr class="header">
-<th><strong>Return Code</strong></th>
-<th><strong>Result</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0</td>
-<td>I am happy!</td>
-</tr>
-<tr class="even">
-<td>1</td>
-<td>Geez, what happened this time?</td>
-</tr>
-<tr class="odd">
-<td>-1</td>
-<td>Even more worrying</td>
-</tr>
-</tbody>
-</table>
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class="header"&gt;
+&lt;th&gt;&lt;strong&gt;Return Code&lt;/strong&gt;&lt;/th&gt;
+&lt;th&gt;&lt;strong&gt;Result&lt;/strong&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;I am happy!&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;Geez, what happened this time?&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;-1&lt;/td&gt;
+&lt;td&gt;Even more worrying&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 
-<p>
+&lt;p&gt;
 
 Below this, I expect some links to other pages related to the tag "exampletag":
 
-</p>
+&lt;/p&gt;
 
-      </div>
     </content>
     <id>https://karl-voit.at/tags/exampletag-from-feed-with-content</id>
 </entry>
@@ -1043,52 +1010,49 @@ Below this, I expect some links to other pages related to the tag "exampletag":
     <published>2016-10-31T13:30:00+01:00</published>
     <updated>2016-10-31T13:30:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
+    <summary type='html'>
+&lt;p&gt;
 
 Here, you can read about the test-tag "programming".
 
-</p>
+&lt;/p&gt;
 
 
-<p>
+&lt;p&gt;
 
-<a href="//Karl-Voit.at/tags/programming">This link</a> should be a self-reference.
+&lt;a href="//Karl-Voit.at/tags/programming"&gt;This link&lt;/a&gt; should be a self-reference.
 
-</p>
+&lt;/p&gt;
 
 
-<p>
+&lt;p&gt;
 
 Glad you like it.
 
-</p>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-<p>
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
 
 Here, you can read about the test-tag "programming".
 
-</p>
+&lt;/p&gt;
 
 
-<p>
+&lt;p&gt;
 
-<a href="//Karl-Voit.at/tags/programming">This link</a> should be a self-reference.
+&lt;a href="//Karl-Voit.at/tags/programming"&gt;This link&lt;/a&gt; should be a self-reference.
 
-</p>
+&lt;/p&gt;
 
 
-<p>
+&lt;p&gt;
 
 Glad you like it.
 
-</p>
+&lt;/p&gt;
 
-      </div>
     </content>
     <id>https://karl-voit.at/tags/programming-from-feed-with-content</id>
 </entry>
@@ -1100,24 +1064,21 @@ Glad you like it.
     <updated>2016-09-18T13:19:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/testtag1' term='testtag1' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
+    <summary type='html'>
+&lt;p&gt;
 
 This is an example blog entry with no special content.
 
-</p>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-<p>
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
 
 This is an example blog entry with no special content.
 
-</p>
+&lt;/p&gt;
 
-      </div>
     </content>
     <id>https://karl-voit.at/2016/09/18/from-nothing-to-done-from-feed-with-content</id>
 </entry>
@@ -1129,24 +1090,21 @@ This is an example blog entry with no special content.
     <updated>2014-03-09T14:57:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
+    <summary type='html'>
+&lt;p&gt;
 
 This is a placeholder entry in order to be able to test internal links.
 
-</p>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-<p>
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
 
 This is a placeholder entry in order to be able to test internal links.
 
-</p>
+&lt;/p&gt;
 
-      </div>
     </content>
     <id>https://karl-voit.at/about-from-feed-with-content</id>
 </entry>
@@ -1157,24 +1115,21 @@ This is a placeholder entry in order to be able to test internal links.
     <published>2013-08-22T21:06:00+01:00</published>
     <updated>2013-08-22T21:06:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
+    <summary type='html'>
+&lt;p&gt;
 
 Just for testing.
 
-</p>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-<p>
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
 
 Just for testing.
 
-</p>
+&lt;/p&gt;
 
-      </div>
     </content>
     <id>https://karl-voit.at/2013/08/22/testid-from-feed-with-content</id>
 </entry>
@@ -1187,52 +1142,50 @@ Just for testing.
     <category scheme='http://Karl-Voit.at/tags/mytest' term='mytest' />
     <category scheme='http://Karl-Voit.at/tags/programming' term='programming' />
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
+    <summary type='html'>
+&lt;p&gt;
 
-This is an introduction text which describes the blog entry with some catchy information. Readers should be convinced to read this interesting text. <a href="https://github.com/novoid/Memacs">Memacs</a> is an external link to Memacs.
+This is an introduction text which describes the blog entry with some catchy information. Readers should be convinced to read this interesting text. &lt;a href="https://github.com/novoid/Memacs"&gt;Memacs&lt;/a&gt; is an external link to Memacs.
 
-</p>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-<p>
+&lt;/p&gt;
 
-This is an introduction text which describes the blog entry with some catchy information. Readers should be convinced to read this interesting text. <a href="https://github.com/novoid/Memacs">Memacs</a> is an external link to Memacs.
+    </summary>    <content type='html'>
 
-</p>
+&lt;p&gt;
+
+This is an introduction text which describes the blog entry with some catchy information. Readers should be convinced to read this interesting text. &lt;a href="https://github.com/novoid/Memacs"&gt;Memacs&lt;/a&gt; is an external link to Memacs.
+
+&lt;/p&gt;
 
 
-	  <header><h2 class="section-title">Sub-heading foo</h2></header>
+	  &lt;header&gt;&lt;h2 class="section-title"&gt;Sub-heading foo&lt;/h2&gt;&lt;/header&gt;
 
 
-<p>
+&lt;p&gt;
 
 This is a dummy text whose only purpose is to generate some content which is then processed by this lovely tool. The resulting web blog might win the Pulitzer Prize some day!
 
-</p>
+&lt;/p&gt;
 
-<ul>
-<li>this list</li>
-<li>gives a great overview</li>
-<li>about something</li>
-</ul>
-
-
-	  <header><h3 class="section-title">Sub-sub heading about something</h3></header>
+&lt;ul&gt;
+&lt;li&gt;this list&lt;/li&gt;
+&lt;li&gt;gives a great overview&lt;/li&gt;
+&lt;li&gt;about something&lt;/li&gt;
+&lt;/ul&gt;
 
 
-<p>
+	  &lt;header&gt;&lt;h3 class="section-title"&gt;Sub-sub heading about something&lt;/h3&gt;&lt;/header&gt;
+
+
+&lt;p&gt;
 
 This is a dummy text whose only purpose is to generate some content which is then processed by this lovely tool. The resulting web blog might win the Pulitzer Prize some day!
 
-</p>
+&lt;/p&gt;
 
 
-	  <div class="example_code">
-	  <pre>Well, in here, I want to write verbatim text.
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt;Well, in here, I want to write verbatim text.
 Line breaks should be exactly the same.
 
 This is a
@@ -1241,41 +1194,40 @@ some content
 which is then processed by this lovely tool.
 The resulting web blog
 might win the Pulitzer Prize some day!
-	  </pre>
-    </div>
+	  &lt;/pre&gt;
+    &lt;/div&gt;
 
 
-	  <header><h2 class="section-title">Sub-heading HTML block</h2></header>
+	  &lt;header&gt;&lt;h2 class="section-title"&gt;Sub-heading HTML block&lt;/h2&gt;&lt;/header&gt;
 
 
-<p>
+&lt;p&gt;
 
 Here comes some HTML:
 
-</p>
+&lt;/p&gt;
 
 
-<p>
+&lt;p&gt;
 
-    my-HTML-example name<br />:
-	  <div class="example_code">&nbsp;&nbsp;&nbsp;&nbsp;foo<br />
-bar<br />
-&nbsp;&nbsp;&lt;foo&nbsp;/&gt;<br />
-&lt;a&nbsp;href="bar"&gt;baz&lt;/a&gt;	  </div>
+    my-HTML-example name&lt;br /&gt;:
+	  &lt;div class="example_code"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;foo&lt;br /&gt;
+bar&lt;br /&gt;
+&amp;nbsp;&amp;nbsp;&amp;lt;foo&amp;nbsp;/&amp;gt;&lt;br /&gt;
+&amp;lt;a&amp;nbsp;href="bar"&amp;gt;baz&amp;lt;/a&amp;gt;	  &lt;/div&gt;
 
-</p>
+&lt;/p&gt;
 
 
-	  <header><h2 class="section-title">heading with lists</h2></header>
+	  &lt;header&gt;&lt;h2 class="section-title"&gt;heading with lists&lt;/h2&gt;&lt;/header&gt;
 
-<ul>
-<li>this is a list</li>
-<li>second line</li>
-<li>third line</li>
-<li>last line</li>
-</ul>
+&lt;ul&gt;
+&lt;li&gt;this is a list&lt;/li&gt;
+&lt;li&gt;second line&lt;/li&gt;
+&lt;li&gt;third line&lt;/li&gt;
+&lt;li&gt;last line&lt;/li&gt;
+&lt;/ul&gt;
 
-      </div>
     </content>
     <id>https://karl-voit.at/2013/02/14/lazyblorg-example-entry-from-feed-with-content</id>
 </entry>
@@ -1286,24 +1238,21 @@ bar<br />
     <published>1985-01-01T15:14:00+01:00</published>
     <updated>1985-01-01T15:14:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
+    <summary type='html'>
+&lt;p&gt;
 
 Test entry.
 
-</p>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-<p>
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
 
 Test entry.
 
-</p>
+&lt;/p&gt;
 
-      </div>
     </content>
     <id>https://karl-voit.at/1985/01/01/old-entry14-from-feed-with-content</id>
 </entry>
@@ -1314,24 +1263,21 @@ Test entry.
     <published>1985-01-01T15:13:00+01:00</published>
     <updated>1985-01-01T15:13:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
+    <summary type='html'>
+&lt;p&gt;
 
 Test entry.
 
-</p>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-<p>
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
 
 Test entry.
 
-</p>
+&lt;/p&gt;
 
-      </div>
     </content>
     <id>https://karl-voit.at/1985/01/01/old-entry13-from-feed-with-content</id>
 </entry>
@@ -1342,24 +1288,21 @@ Test entry.
     <published>1985-01-01T15:12:00+01:00</published>
     <updated>1985-01-01T15:12:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
+    <summary type='html'>
+&lt;p&gt;
 
 Test entry.
 
-</p>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-<p>
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
 
 Test entry.
 
-</p>
+&lt;/p&gt;
 
-      </div>
     </content>
     <id>https://karl-voit.at/1985/01/01/old-entry12-from-feed-with-content</id>
 </entry>
@@ -1370,24 +1313,21 @@ Test entry.
     <published>1985-01-01T15:11:00+01:00</published>
     <updated>1985-01-01T15:11:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
+    <summary type='html'>
+&lt;p&gt;
 
 Test entry.
 
-</p>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-<p>
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
 
 Test entry.
 
-</p>
+&lt;/p&gt;
 
-      </div>
     </content>
     <id>https://karl-voit.at/1985/01/01/old-entry11-from-feed-with-content</id>
 </entry>
@@ -1398,24 +1338,21 @@ Test entry.
     <published>1985-01-01T15:10:00+01:00</published>
     <updated>1985-01-01T15:10:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
+    <summary type='html'>
+&lt;p&gt;
 
 Test entry.
 
-</p>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-<p>
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
 
 Test entry.
 
-</p>
+&lt;/p&gt;
 
-      </div>
     </content>
     <id>https://karl-voit.at/1985/01/01/old-entry10-from-feed-with-content</id>
 </entry>
@@ -1426,24 +1363,21 @@ Test entry.
     <published>1985-01-01T15:09:00+01:00</published>
     <updated>1985-01-01T15:09:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
+    <summary type='html'>
+&lt;p&gt;
 
 Test entry.
 
-</p>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-<p>
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
 
 Test entry.
 
-</p>
+&lt;/p&gt;
 
-      </div>
     </content>
     <id>https://karl-voit.at/1985/01/01/old-entry9-from-feed-with-content</id>
 </entry>
@@ -1454,24 +1388,21 @@ Test entry.
     <published>1985-01-01T15:08:00+01:00</published>
     <updated>1985-01-01T15:08:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
+    <summary type='html'>
+&lt;p&gt;
 
 Test entry.
 
-</p>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-<p>
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
 
 Test entry.
 
-</p>
+&lt;/p&gt;
 
-      </div>
     </content>
     <id>https://karl-voit.at/1985/01/01/old-entry8-from-feed-with-content</id>
 </entry>
@@ -1482,24 +1413,21 @@ Test entry.
     <published>1985-01-01T15:07:00+01:00</published>
     <updated>1985-01-01T15:07:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
+    <summary type='html'>
+&lt;p&gt;
 
 Test entry.
 
-</p>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-<p>
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
 
 Test entry.
 
-</p>
+&lt;/p&gt;
 
-      </div>
     </content>
     <id>https://karl-voit.at/1985/01/01/old-entry7-from-feed-with-content</id>
 </entry>
@@ -1510,24 +1438,21 @@ Test entry.
     <published>1985-01-01T15:06:00+01:00</published>
     <updated>1985-01-01T15:06:00+01:00</updated>
     <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
-    <summary type='xhtml'>
-<div xmlns='http://www.w3.org/1999/xhtml'>
-<p>
+    <summary type='html'>
+&lt;p&gt;
 
 Test entry.
 
-</p>
-</div>
-    </summary>    <content type='xhtml'>
-      <div xmlns='http://www.w3.org/1999/xhtml'>
-	
-<p>
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
 
 Test entry.
 
-</p>
+&lt;/p&gt;
 
-      </div>
     </content>
     <id>https://karl-voit.at/1985/01/01/old-entry6-from-feed-with-content</id>
 </entry></feed>
