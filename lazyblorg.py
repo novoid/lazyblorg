@@ -355,7 +355,7 @@ class Lazyblorg(object):
             #                   "]   <--------------\nwith [checksum, created, timestamp]:\n  md " +
             # str([x[1] for x in sorted(entry.items(), key=lambda t: t[0])]))
             if previous_metadata is not None:
-                if entry in list(previous_metadata.keys()):
+                if entry in previous_metadata:
                     self.logging.debug(
                         "\nprev " + str([x[1] for x in sorted(list(previous_metadata[entry].items()), key=lambda t: t[0])]))
                 else:
@@ -369,14 +369,14 @@ class Lazyblorg(object):
                 marked_for_feed.append(entry)
                 continue
 
-            if entry not in list(previous_metadata.keys()):
+            if entry not in previous_metadata:
                 self.logging.debug(
                     "case 2: brand-new entry (lazyblorg was run previously)")
                 generate.append(entry)
                 marked_for_feed.append(entry)
                 continue
 
-            elif 'created' not in list(metadata[entry].keys()):
+            elif 'created' not in metadata[entry]:
                 self.logging.debug(
                     "case 3: \"created\" missing -> WARN, ignore")
                 message = "entry [" + entry + \

@@ -69,12 +69,19 @@ class Htmlizer(object):
     autotag_language = False  # boolean, if guessing language + autotag should be done
     ignore_missing_ids = False  # boolean; do not throw respective exception when true
     filename_dict = {}  # dict of basenames of filenames, see config.MEMACS_FILE_WITH_IMAGE_FILE_INDEX and config.DIRECTORIES_WITH_IMAGE_ORIGINALS
+    _cached_top_tag_list = None  # cached result of _generate_top_tag_list()
     stats_images_resized = 0  # holds the current number of resized image files
     stats_external_org_to_html5_conversion = 0  # holds the number of invocations of external conversion tool (pypandoc so far)
     stats_external_latex_to_html5_conversion = 0  # holds the number of invocations of external conversion tool (pypandoc so far)
 
     # { 'mytag': [ 'ID1', 'ID2', 'ID2'], 'anothertag': [...] }
     dict_of_tags_with_ids = None
+
+    # { 'entry-id': blog_data_entry_dict } for O(1) lookups by ID
+    blog_data_by_id = None
+
+    # { 'template-name': 'joined content string' } for O(1) template lookups
+    _template_cache = None
 
     # populated in copy_cust_link_image_file()
     # { 'basefilename': [ width, height ] }
@@ -178,6 +185,7 @@ class Htmlizer(object):
         self.autotag_language = autotag_language
         self.entries_timeline_by_published = entries_timeline_by_published
         self.ignore_missing_ids = ignore_missing_ids
+        self.blog_data_by_id = {entry['id']: entry for entry in blog_data} if isinstance(blog_data, list) else {}
 
         # create logger (see
         # http://docs.python.org/2/howto/logging-cookbook.html)
@@ -293,18 +301,14 @@ class Htmlizer(object):
 
             # If any internal links were found, append a back-link to
             # the current ID to their blog_data list item:
-            # FIXXME:
-            # horrible inefficient because of iterating over all items
-            # for each link found.
             if len(link_targets) > 0:
                 for current_link_id in link_targets:
-                    for blog_data_entry in blog_data:
-                        if blog_data_entry['id'] == current_link_id:
-                            if 'back-references' in list(blog_data_entry.keys()):
-                                blog_data_entry['back-references'].add(backreference_target)
-                            else:
-                                # the first back-reference of this blog_data_entry
-                                blog_data_entry['back-references'] = set([backreference_target])
+                    if current_link_id in self.blog_data_by_id:
+                        blog_data_entry = self.blog_data_by_id[current_link_id]
+                        if 'back-references' in blog_data_entry:
+                            blog_data_entry['back-references'].add(backreference_target)
+                        else:
+                            blog_data_entry['back-references'] = set([backreference_target])
 
         return blog_data
 
@@ -323,7 +327,7 @@ class Htmlizer(object):
             if config.TAG_FOR_HIDDEN not in blog_article['usertags']:
                 for usertag in blog_article['usertags']:
                     # append usertags to dict:
-                    if usertag in list(dict_of_tags_with_ids.keys()):
+                    if usertag in dict_of_tags_with_ids:
                         dict_of_tags_with_ids[usertag].append(
                             blog_article['id'])
                     else:
@@ -573,7 +577,7 @@ class Htmlizer(object):
         """
 
         htmlcontent = ''
-        if 'autotags' in list(entry.keys()):
+        if 'autotags' in entry:
             for autotagkey in sorted(list(entry['autotags'].keys())):
                 if autotagkey == 'language':
                     htmlsnippet = self.template_definition_by_name('article-autotag-language').replace('#AUTOTAGLANGUAGELINK',
@@ -735,8 +739,8 @@ class Htmlizer(object):
                 feedentry += "\n    <category scheme='" + config.BASE_URL + \
                     "/" + "tags" + "/" + tag + "' term='" + tag + "' />"
             # handle autotags:
-            if 'autotags' in list(blog_data_entry.keys()):
-                for autotag in list(blog_data_entry['autotags'].keys()):
+            if 'autotags' in blog_data_entry:
+                for autotag in blog_data_entry['autotags']:
                     tag = autotag + ":" + blog_data_entry['autotags'][autotag]
                     feedentry += "\n    <category scheme='" + config.BASE_URL + "/" + \
                         "autotags" + "/" + autotag + "' term='" + tag + "' />"
@@ -901,7 +905,7 @@ class Htmlizer(object):
                         'article-preview-begin']:
                     content += self.template_definition_by_name(articlepart)
 
-                assert('htmlteaser-equals-content' in list(entry.keys()))
+                assert('htmlteaser-equals-content' in entry)
 
                 if not entry['htmlteaser-equals-content']:
                     # there is more in the article than in the teaser alone:
@@ -1437,7 +1441,7 @@ class Htmlizer(object):
 
         if self.autotag_language:
 
-            if 'autotags' not in list(entry.keys()):
+            if 'autotags' not in entry:
                 entry['autotags'] = {}
 
             usertag_overriding_language_set = set(self.defined_languages).intersection(entry['usertags'])
@@ -1707,7 +1711,7 @@ class Htmlizer(object):
                 result = '\n' + '<figure'
 
                 # apply alignment things
-                if 'align' in list(attributes.keys()):
+                if 'align' in attributes:
                     if attributes['align'].lower() in ['left', 'right', 'float-left', 'float-right', 'center']:
                         result += ' class="image-' + attributes['align'].lower() + '"'
                     else:
@@ -1755,11 +1759,11 @@ class Htmlizer(object):
                 result += '<img src="' + image_filename.replace(' ', '%20') + '" '
 
                 # FIXXME: currently, all other attributes are ignored:
-                if 'alt' in list(attributes.keys()):
+                if 'alt' in attributes:
                     result += 'alt="' + attributes['alt'].replace('"', '&quot;') + '" '
                 else:
                     result += 'alt="" '  # alt tag must not be omitted in HTML5 (except when using figcaption, where it is optional)
-                #if 'width' in list(attributes.keys()):
+                #if 'width' in attributes:
                 #    result += 'width="' + attributes['width'] + '" '
                 result += 'width="TMPREPLACEMEwidthSTART-' + image_filename + '-TMPREPLACEMEwidthEND" '
                 result += 'height="TMPREPLACEMEheightSTART-' + image_filename + '-TMPREPLACEMEheightEND" '
@@ -1811,7 +1815,7 @@ class Htmlizer(object):
                 # Example:
                 # entry['attachments'] => [['cust_link_image', u'2017-03-11T18.29.20 Sterne im Baum -- mytag.jpg', {}],
                 #                          ['cust_link_image', u'2017-03-11T18.29.20 Sterne im Baum with attributes -- mytag.jpg', {u'width': u'300', u'alt': u'Stars in a Tree', u'align': u'right', u'title': u'Some Stars'}]]
-                if 'attachments' in list(entry.keys()):
+                if 'attachments' in entry:
                     entry['attachments'].append(['cust_link_image', filename, attributes])
                 else:
                     entry['attachments'] = [['cust_link_image', filename, attributes]]
@@ -2138,7 +2142,7 @@ class Htmlizer(object):
         newentry = entry  # copy of entry because we don't want to modify loop variable (but we want to modify newentry when adding image width/height)
         attachment_idx = -1  # to track index in order to modify correct newentry
 
-        if 'attachments' in list(entry.keys()):
+        if 'attachments' in entry:
             for attachment in entry['attachments']:
                 attachment_idx += 1
                 if attachment[0] == 'cust_link_image':
@@ -2212,12 +2216,12 @@ class Htmlizer(object):
         number_of_back_references = 0
 
         # Adding back-references:
-        if 'back-references' in list(entry.keys()):
+        if 'back-references' in entry:
             # FIXXME: other languages than german have to be added
             # here: (generalize using a configured list of known
             # languages?)
-            if 'autotags' in list(entry.keys()):
-                if 'language' in list(entry['autotags'].keys()) and entry['autotags']['language'] == 'deutsch':
+            if 'autotags' in entry:
+                if 'language' in entry['autotags'] and entry['autotags']['language'] == 'deutsch':
                     content += self.template_definition_by_name('backreference-header-de')
                 else:
                     content += self.template_definition_by_name('backreference-header-en')
@@ -2353,7 +2357,9 @@ class Htmlizer(object):
         content = content.replace(
             '#COMMON-SIDEBAR#',
             self.template_definition_by_name('common-sidebar'))
-        content = content.replace('#TOP-TAG-LIST#', self._generate_top_tag_list())  # FIXXME: generate only once for performance reasons?
+        if self._cached_top_tag_list is None:
+            self._cached_top_tag_list = self._generate_top_tag_list()
+        content = content.replace('#TOP-TAG-LIST#', self._cached_top_tag_list)
         content = content.replace('#DOMAIN#', config.DOMAIN)
         content = content.replace('#BASE-URL#', config.BASE_URL)
         content = content.replace('#CSS-URL#', config.CSS_URL)
@@ -2872,22 +2878,18 @@ class Htmlizer(object):
         """
         Returns the template definition whose name matches "name".
 
-        Implicit assumptions:
-        - template_definitions is a list of list of exactly three elements
-        - this does not check if "name" is a valid/existing template definition string
-
         @param entryid: name of a template definition
         @param return: content of the template definition
         """
 
-        # examples:
-        # self.template_definitions[0][1] -> u'article-header'
-        # self.template_definitions[0][2] -> [u'  <!DOCTYPE html>', u'  <html
-        # xmlns="http...']
-        try:
-            return '\n'.join(
-                [x[2:][0] for x in self.template_definitions if x[1] == name][0])
-        except IndexError:
+        if self._template_cache is None:
+            self._template_cache = {}
+            for x in self.template_definitions:
+                self._template_cache[x[1]] = '\n'.join(x[2:][0])
+
+        if name in self._template_cache:
+            return self._template_cache[name]
+        else:
             message = "template_definition_by_name(\"" + str(name) + \
                       "\") could not find its definition within template_definitions"
             self.logging.critical(message)
@@ -2901,20 +2903,17 @@ class Htmlizer(object):
         @param return: blog_data element
         """
 
-        matching_elements = [x for x in self.blog_data if entryid == x['id']]
-
-        if len(matching_elements) == 1:
-            return matching_elements[0]
+        if entryid in self.blog_data_by_id:
+            return self.blog_data_by_id[entryid]
         else:
             message = "blog_data_with_id(\"" + entryid + \
-                "\") did not find exactly one result (as expected): [" + str(matching_elements) + \
-                "]. Maybe you mistyped an internal link id (or there are multiple blog entries sharing IDs)?"
+                "\") did not find a matching entry. " + \
+                "Maybe you mistyped an internal link id (or there are multiple blog entries sharing IDs)?"
             if self.ignore_missing_ids:
                 self.logging.warning(message)
                 return self.blog_data[0]  # FIXXME: just take the first entry; cleaner solution: add a placeholder entry to blog_data?
             else:
                 self.logging.error(message)
-                # FIXXME: maybe an Exception is too harsh here? (error-recovery?)
                 raise HtmlizerException(self.current_entry_id, message)
 
     def locate_cust_link_image(self, filename: str):
@@ -2933,16 +2932,16 @@ class Htmlizer(object):
 
         filename = filename.replace('%20', ' ')  # replace HTML space characters with spaces
 
-        if filename in list(self.filename_dict.keys()):
+        if filename in self.filename_dict:
             ## the happy-case: one exact match in the dict for the filename:
             return filename
 
-        if filename not in list(self.filename_dict.keys()) and re.match(self.TIMESTAMP_REGEX, filename[:19]):
+        if filename not in self.filename_dict and re.match(self.TIMESTAMP_REGEX, filename[:19]):
             ## trying to find a match for the filename that starts with a time-stamp but may differ in the rest of the name:
             timestamp = filename[:19]
 
             # try to locate a similar named file (if ISO timestamp, look if there is a file with same timestamp)
-            files_with_matching_timestamps = [x for x in list(self.filename_dict.keys()) if x.startswith(timestamp)]
+            files_with_matching_timestamps = [x for x in self.filename_dict if x.startswith(timestamp)]
 
             if len(files_with_matching_timestamps) == 1:
                 ## one alternative found -> use it
@@ -2972,7 +2971,7 @@ class Htmlizer(object):
                 self.logging.critical(message)
                 raise HtmlizerException(self.current_entry_id, message)
 
-        if filename not in list(self.filename_dict.keys()):
+        if filename not in self.filename_dict:
             ## recover mechanism (using ISO timestamp) did not work either -> error
             message = self.current_entry_id_str() + 'File \"' + filename + '\" could not be located ' + \
                 'within MEMACS_FILE_WITH_IMAGE_FILE_INDEX ' + \
@@ -3145,7 +3144,7 @@ class Htmlizer(object):
         """
 
         # image was located using locate_cust_link_image() prior to this function
-        assert(filename in list(self.filename_dict.keys()))
+        assert(filename in self.filename_dict)
 
         image_file_path = self.filename_dict[filename]
         if not os.path.isfile(image_file_path):

@@ -241,7 +241,7 @@ class Utils(object):
         #  'finished-timestamp-history': [datetime.datetime(2013, 8, 24, 22, 49)],
         #  'id': u'case5'}
 
-        if 'firstpublishTS' in list(entry.keys()):
+        if 'firstpublishTS' in entry:
             published = entry['firstpublishTS']
             # extract year, month, day
             year = published.year
@@ -255,7 +255,7 @@ class Utils(object):
             month = published[0].month
             day = published[0].day
 
-        if year not in list(entries_timeline_by_published.keys()):
+        if year not in entries_timeline_by_published:
             # initialize a new year when its first entry is found:
             entries_timeline_by_published[year] = [
                 [],  # ignore month 0
@@ -342,7 +342,7 @@ class Utils(object):
                 # this is really getting nasty here. Could not make it work
                 # using another layer of [item for...]
                 all_entries = []
-                for year in list(entries_timeline_by_published.keys()):
+                for year in entries_timeline_by_published:
                     all_entries.extend(
                         Utils.get_entries_of_published_date(
                             entries_timeline_by_published, year))
@@ -392,17 +392,17 @@ class Utils(object):
             checksum = Utils.__generate_checksum_for_blog_entry(
                 entry['title'], entry['content'])
 
-            if entry['id'] in list(metadata.keys()):
+            if entry['id'] in metadata:
                 logging.error("We got a duplicate ID in blogdata: \"" +
                               str(entry['id']) +
                               "\". Please correct it and re-run this tool.")
                 #   [x['id'] for x in blogdata]
                 Utils.error_exit(30)
             else:
-                assert('created' in list(entry.keys()))
-                assert('latestupdateTS' in list(entry.keys()))
-                assert('firstpublishTS' in list(entry.keys()))
-                assert('title' in list(entry.keys()))
+                assert('created' in entry)
+                assert('latestupdateTS' in entry)
+                assert('firstpublishTS' in entry)
+                assert('title' in entry)
                 metadata[entry['id']] = {'created': entry['created'],
                                          'latestupdateTS': entry['latestupdateTS'],
                                          'firstpublishTS': entry['firstpublishTS'],
@@ -607,7 +607,7 @@ class Utils(object):
         result = destination
 
         for key in source:
-            if key in list(result.keys()):
+            if key in result:
                 for element in source[key]:
                     result[key].append(element)
             else:
@@ -786,7 +786,7 @@ class Utils(object):
 
         assert(entry)
         assert(isinstance(entry, dict))
-        assert('finished-timestamp-history' in list(entry.keys()))
+        assert('finished-timestamp-history' in entry)
         assert(search_for == "OLDEST" or search_for == "NEWEST")
 
         returntimestamp = False
