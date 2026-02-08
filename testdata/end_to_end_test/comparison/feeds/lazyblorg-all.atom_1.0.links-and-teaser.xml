@@ -7,7 +7,7 @@
   <id>https://karl-voit.at/</id>
   <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2026-02-08T22:35:58+01:00</updated>
+  <updated>2026-02-08T22:58:14+01:00</updated>
   <author>
     <name>Karl Voit</name>
   </author>
@@ -17,10 +17,10 @@
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">Test case with drawers</title>
-    <link href='http://Karl-Voit.at/2021/01/30/drawer-tests' />
+    <link href='https://Karl-Voit.at/2021/01/30/drawer-tests' />
     <published>2021-01-30T23:32:00+01:00</published>
     <updated>2021-01-30T23:32:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='html'>
     </summary>
     <id>https://karl-voit.at/2021/01/30/drawer-tests-from-feed-with-teaser</id>
@@ -28,10 +28,10 @@
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">Heading which starts with a list</title>
-    <link href='http://Karl-Voit.at/2020/10/02/Heading-which-starts-with-a-list' />
+    <link href='https://Karl-Voit.at/2020/10/02/Heading-which-starts-with-a-list' />
     <published>2020-10-02T19:03:00+01:00</published>
     <updated>2020-10-02T19:03:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='html'>&lt;ul&gt;
 &lt;li&gt;this is a list with some text
 &lt;ul&gt;
@@ -45,14 +45,14 @@
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">Links test and reading time over one minute</title>
-    <link href='http://Karl-Voit.at/2017/09/30/link-test' />
+    <link href='https://Karl-Voit.at/2017/09/30/link-test' />
     <published>2017-09-30T17:05:00+01:00</published>
     <updated>2017-09-30T17:05:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
-    <category scheme='http://Karl-Voit.at/tags/programming' term='programming' />
-    <category scheme='http://Karl-Voit.at/tags/exampletag' term='exampletag' />
-    <category scheme='http://Karl-Voit.at/tags/mytest' term='mytest' />
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='https://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='https://Karl-Voit.at/tags/programming' term='programming' />
+    <category scheme='https://Karl-Voit.at/tags/exampletag' term='exampletag' />
+    <category scheme='https://Karl-Voit.at/tags/mytest' term='mytest' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='html'>
 &lt;p&gt;
 
@@ -62,12 +62,12 @@ This is a test article which tests its links to other (internal) blog entries.
 
 &lt;ul&gt;
 &lt;li&gt;This should work &lt;a
-href="//Karl-Voit.at/persistent-entry"&gt;in lists&lt;/a&gt; as &lt;a
-href="//Karl-Voit.at/2016/11/27/special-characters"&gt;well&lt;/a&gt;.&lt;/li&gt;
+href="https://Karl-Voit.at/persistent-entry"&gt;in lists&lt;/a&gt; as &lt;a
+href="https://Karl-Voit.at/2016/11/27/special-characters"&gt;well&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;This should work &lt;a
-href="//Karl-Voit.at/persistent-entry"&gt;2016-10-31-persistent-entry&lt;/a&gt;
+href="https://Karl-Voit.at/persistent-entry"&gt;2016-10-31-persistent-entry&lt;/a&gt;
 and &lt;a
-href="//Karl-Voit.at/2016/11/27/special-characters"&gt;2016-11-27-special-characters&lt;/a&gt;.&lt;/li&gt;
+href="https://Karl-Voit.at/2016/11/27/special-characters"&gt;2016-11-27-special-characters&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;table&gt;
@@ -75,17 +75,17 @@ href="//Karl-Voit.at/2016/11/27/special-characters"&gt;2016-11-27-special-charac
 &lt;tr class="odd"&gt;
 &lt;td&gt;also in&lt;/td&gt;
 &lt;td&gt;a &lt;a
-href="//Karl-Voit.at/2016/11/27/special-characters"&gt;table&lt;/a&gt;&lt;/td&gt;
+href="https://Karl-Voit.at/2016/11/27/special-characters"&gt;table&lt;/a&gt;&lt;/td&gt;
 &lt;td&gt;with &lt;a
-href="//Karl-Voit.at/2016/11/27/special-characters"&gt;multiple
+href="https://Karl-Voit.at/2016/11/27/special-characters"&gt;multiple
 cells containing links&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr class="even"&gt;
 &lt;td&gt;also&lt;/td&gt;
 &lt;td&gt;&lt;a
-href="//Karl-Voit.at/2016/11/27/special-characters"&gt;2016-11-27-special-characters&lt;/a&gt;&lt;/td&gt;
+href="https://Karl-Voit.at/2016/11/27/special-characters"&gt;2016-11-27-special-characters&lt;/a&gt;&lt;/td&gt;
 &lt;td&gt;and &lt;a
-href="//Karl-Voit.at/2016/11/27/special-characters"&gt;2016-11-27-special-characters&lt;/a&gt;&lt;/td&gt;
+href="https://Karl-Voit.at/2016/11/27/special-characters"&gt;2016-11-27-special-characters&lt;/a&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -96,7 +96,7 @@ href="//Karl-Voit.at/2016/11/27/special-characters"&gt;2016-11-27-special-charac
 
 &lt;p&gt;
 
-Here is &lt;a href="//Karl-Voit.at/2017/09/30/link-test"&gt;a self-reference&lt;/a&gt; which should not result in a backlink to itself.
+Here is &lt;a href="https://Karl-Voit.at/2017/09/30/link-test"&gt;a self-reference&lt;/a&gt; which should not result in a backlink to itself.
 
 &lt;/p&gt;
 
@@ -106,11 +106,11 @@ Here is &lt;a href="//Karl-Voit.at/2017/09/30/link-test"&gt;a self-reference&lt;
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">Sanitizing Elements</title>
-    <link href='http://Karl-Voit.at/2017/01/08/sanitizing-tests' />
+    <link href='https://Karl-Voit.at/2017/01/08/sanitizing-tests' />
     <published>2017-01-08T10:58:00+01:00</published>
     <updated>2017-01-08T10:58:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='https://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='html'>
 	  &lt;div class="example_code"&gt;
 	  &lt;pre&gt;;;some text
@@ -168,7 +168,7 @@ An example with a non-existent ID:
 
 &lt;p&gt;
 
-Example link that exists: &lt;a href="//Karl-Voit.at/2020/10/02/Heading-which-starts-with-a-list"&gt;existing link&lt;/a&gt;
+Example link that exists: &lt;a href="https://Karl-Voit.at/2020/10/02/Heading-which-starts-with-a-list"&gt;existing link&lt;/a&gt;
 
 &lt;/p&gt;
 
@@ -202,10 +202,10 @@ Test case for two ampersants in an URL, causing an issue in the feed: &lt;a href
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">Placeholder: How to Use This Blog Efficiently</title>
-    <link href='http://Karl-Voit.at/how-to-use-this-blog' />
+    <link href='https://Karl-Voit.at/how-to-use-this-blog' />
     <published>2017-01-03T12:07:00+01:00</published>
     <updated>2017-01-03T12:07:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='html'>
 &lt;p&gt;
 
@@ -219,11 +219,11 @@ This is a placeholder entry in order to be able to test internal links.
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">Image Test and Language Tag Override</title>
-    <link href='http://Karl-Voit.at/2016/11/27/image-test' />
+    <link href='https://Karl-Voit.at/2016/11/27/image-test' />
     <published>2016-11-27T15:01:00+01:00</published>
     <updated>2016-11-27T15:01:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:deutsch' />
+    <category scheme='https://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:deutsch' />
     <summary type='html'>
 &lt;p&gt;
 
@@ -305,11 +305,11 @@ Just the image without ATTR lines or caption:
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">Special Characters and Language Tag Override</title>
-    <link href='http://Karl-Voit.at/2016/11/27/special-characters' />
+    <link href='https://Karl-Voit.at/2016/11/27/special-characters' />
     <published>2016-11-27T15:00:00+01:00</published>
     <updated>2016-11-27T15:00:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:deutsch' />
+    <category scheme='https://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:deutsch' />
     <summary type='html'>
 &lt;p&gt;
 
@@ -330,11 +330,11 @@ Being curious how this is going to work out.
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">Testing Misc Sanitization Issues</title>
-    <link href='http://Karl-Voit.at/2016/11/06/sanitization-examples' />
+    <link href='https://Karl-Voit.at/2016/11/06/sanitization-examples' />
     <published>2016-11-06T17:40:00+01:00</published>
     <updated>2016-11-06T17:40:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/tags/programming' term='programming' />
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='https://Karl-Voit.at/tags/programming' term='programming' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='html'>
 	  &lt;div class="example_code"&gt;
 	  &lt;pre&gt;This ought to be escaped &amp;amp; &amp;gt;printed&amp;lt; well.	  &lt;/pre&gt;
@@ -346,29 +346,29 @@ Being curious how this is going to work out.
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">A Temporal Article With Links</title>
-    <link href='http://Karl-Voit.at/2016/10/31/my-temporal-article' />
+    <link href='https://Karl-Voit.at/2016/10/31/my-temporal-article' />
     <published>2016-10-31T16:40:00+01:00</published>
     <updated>2016-10-31T16:40:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/tags/exampletag' term='exampletag' />
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='https://Karl-Voit.at/tags/exampletag' term='exampletag' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='html'>
 &lt;p&gt;
 
-&lt;a href="//Karl-Voit.at/2016/10/31/an-hidden-blog-entry"&gt;Link to a hidden entry&lt;/a&gt;
+&lt;a href="https://Karl-Voit.at/2016/10/31/an-hidden-blog-entry"&gt;Link to a hidden entry&lt;/a&gt;
 
 &lt;/p&gt;
 
 
 &lt;p&gt;
 
-&lt;a href="//Karl-Voit.at/persistent-entry"&gt;Link to persistent article&lt;/a&gt;
+&lt;a href="https://Karl-Voit.at/persistent-entry"&gt;Link to persistent article&lt;/a&gt;
 
 &lt;/p&gt;
 
 
 &lt;p&gt;
 
-&lt;a href="//Karl-Voit.at/tags/exampletag"&gt;Link to tag page&lt;/a&gt;
+&lt;a href="https://Karl-Voit.at/tags/exampletag"&gt;Link to tag page&lt;/a&gt;
 
 &lt;/p&gt;
 
@@ -392,13 +392,13 @@ Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. O
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">A Wonderful Persistent Blog Entry</title>
-    <link href='http://Karl-Voit.at/persistent-entry' />
+    <link href='https://Karl-Voit.at/persistent-entry' />
     <published>2016-10-31T16:39:00+01:00</published>
     <updated>2016-10-31T16:39:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
-    <category scheme='http://Karl-Voit.at/tags/programming' term='programming' />
-    <category scheme='http://Karl-Voit.at/tags/exampletag' term='exampletag' />
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='https://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='https://Karl-Voit.at/tags/programming' term='programming' />
+    <category scheme='https://Karl-Voit.at/tags/exampletag' term='exampletag' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='html'>
 &lt;p&gt;
 
@@ -419,10 +419,10 @@ Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. O
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">exampletag</title>
-    <link href='http://Karl-Voit.at/tags/exampletag' />
+    <link href='https://Karl-Voit.at/tags/exampletag' />
     <published>2016-10-31T16:38:00+01:00</published>
     <updated>2016-10-31T16:38:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='html'>
 &lt;p&gt;
 
@@ -473,10 +473,10 @@ Below this, I expect some links to other pages related to the tag "exampletag":
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">programming</title>
-    <link href='http://Karl-Voit.at/tags/programming' />
+    <link href='https://Karl-Voit.at/tags/programming' />
     <published>2016-10-31T13:30:00+01:00</published>
     <updated>2016-10-31T13:30:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='html'>
 &lt;p&gt;
 
@@ -487,7 +487,7 @@ Here, you can read about the test-tag "programming".
 
 &lt;p&gt;
 
-&lt;a href="//Karl-Voit.at/tags/programming"&gt;This link&lt;/a&gt; should be a self-reference.
+&lt;a href="https://Karl-Voit.at/tags/programming"&gt;This link&lt;/a&gt; should be a self-reference.
 
 &lt;/p&gt;
 
@@ -504,11 +504,11 @@ Glad you like it.
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">from nothing to DONE</title>
-    <link href='http://Karl-Voit.at/2016/09/18/from-nothing-to-done' />
+    <link href='https://Karl-Voit.at/2016/09/18/from-nothing-to-done' />
     <published>2016-09-18T13:19:00+01:00</published>
     <updated>2016-09-18T13:19:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/tags/testtag1' term='testtag1' />
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='https://Karl-Voit.at/tags/testtag1' term='testtag1' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='html'>
 &lt;p&gt;
 
@@ -522,11 +522,11 @@ This is an example blog entry with no special content.
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">Placeholder: About</title>
-    <link href='http://Karl-Voit.at/about' />
+    <link href='https://Karl-Voit.at/about' />
     <published>2014-03-09T14:57:00+01:00</published>
     <updated>2014-03-09T14:57:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='https://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='html'>
 &lt;p&gt;
 
@@ -540,10 +540,10 @@ This is a placeholder entry in order to be able to test internal links.
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">Mini blog entry</title>
-    <link href='http://Karl-Voit.at/2013/08/22/testid' />
+    <link href='https://Karl-Voit.at/2013/08/22/testid' />
     <published>2013-08-22T21:06:00+01:00</published>
     <updated>2013-08-22T21:06:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='html'>
 &lt;p&gt;
 
@@ -557,12 +557,12 @@ Just for testing.
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">This is an example blog entry</title>
-    <link href='http://Karl-Voit.at/2013/02/14/lazyblorg-example-entry' />
+    <link href='https://Karl-Voit.at/2013/02/14/lazyblorg-example-entry' />
     <published>2013-02-14T19:02:00+01:00</published>
     <updated>2013-02-14T19:02:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/tags/mytest' term='mytest' />
-    <category scheme='http://Karl-Voit.at/tags/programming' term='programming' />
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='https://Karl-Voit.at/tags/mytest' term='mytest' />
+    <category scheme='https://Karl-Voit.at/tags/programming' term='programming' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='html'>
 &lt;p&gt;
 
@@ -576,10 +576,10 @@ This is an introduction text which describes the blog entry with some catchy inf
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">old blog entry14</title>
-    <link href='http://Karl-Voit.at/1985/01/01/old-entry14' />
+    <link href='https://Karl-Voit.at/1985/01/01/old-entry14' />
     <published>1985-01-01T15:14:00+01:00</published>
     <updated>1985-01-01T15:14:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='html'>
 &lt;p&gt;
 
@@ -593,10 +593,10 @@ Test entry.
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">old blog entry13</title>
-    <link href='http://Karl-Voit.at/1985/01/01/old-entry13' />
+    <link href='https://Karl-Voit.at/1985/01/01/old-entry13' />
     <published>1985-01-01T15:13:00+01:00</published>
     <updated>1985-01-01T15:13:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='html'>
 &lt;p&gt;
 
@@ -610,10 +610,10 @@ Test entry.
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">old blog entry12</title>
-    <link href='http://Karl-Voit.at/1985/01/01/old-entry12' />
+    <link href='https://Karl-Voit.at/1985/01/01/old-entry12' />
     <published>1985-01-01T15:12:00+01:00</published>
     <updated>1985-01-01T15:12:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='html'>
 &lt;p&gt;
 
@@ -627,10 +627,10 @@ Test entry.
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">old blog entry11</title>
-    <link href='http://Karl-Voit.at/1985/01/01/old-entry11' />
+    <link href='https://Karl-Voit.at/1985/01/01/old-entry11' />
     <published>1985-01-01T15:11:00+01:00</published>
     <updated>1985-01-01T15:11:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='html'>
 &lt;p&gt;
 
@@ -644,10 +644,10 @@ Test entry.
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">old blog entry10</title>
-    <link href='http://Karl-Voit.at/1985/01/01/old-entry10' />
+    <link href='https://Karl-Voit.at/1985/01/01/old-entry10' />
     <published>1985-01-01T15:10:00+01:00</published>
     <updated>1985-01-01T15:10:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='html'>
 &lt;p&gt;
 
@@ -661,10 +661,10 @@ Test entry.
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">old blog entry9</title>
-    <link href='http://Karl-Voit.at/1985/01/01/old-entry9' />
+    <link href='https://Karl-Voit.at/1985/01/01/old-entry9' />
     <published>1985-01-01T15:09:00+01:00</published>
     <updated>1985-01-01T15:09:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='html'>
 &lt;p&gt;
 
@@ -678,10 +678,10 @@ Test entry.
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">old blog entry8</title>
-    <link href='http://Karl-Voit.at/1985/01/01/old-entry8' />
+    <link href='https://Karl-Voit.at/1985/01/01/old-entry8' />
     <published>1985-01-01T15:08:00+01:00</published>
     <updated>1985-01-01T15:08:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='html'>
 &lt;p&gt;
 
@@ -695,10 +695,10 @@ Test entry.
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">old blog entry7</title>
-    <link href='http://Karl-Voit.at/1985/01/01/old-entry7' />
+    <link href='https://Karl-Voit.at/1985/01/01/old-entry7' />
     <published>1985-01-01T15:07:00+01:00</published>
     <updated>1985-01-01T15:07:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='html'>
 &lt;p&gt;
 
@@ -712,10 +712,10 @@ Test entry.
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">old blog entry6</title>
-    <link href='http://Karl-Voit.at/1985/01/01/old-entry6' />
+    <link href='https://Karl-Voit.at/1985/01/01/old-entry6' />
     <published>1985-01-01T15:06:00+01:00</published>
     <updated>1985-01-01T15:06:00+01:00</updated>
-    <category scheme='http://Karl-Voit.at/autotags/language' term='language:english' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <summary type='html'>
 &lt;p&gt;
 

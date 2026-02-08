@@ -775,13 +775,13 @@ class Htmlizer(object):
                 "\n    </content>\n    <id>https:" + config.BASE_URL.lower() + "/" + \
                 listentry['url'] + "-from-feed-with-content" + "</id>\n</entry>"
 
-            # replace "\\example.com" with "http:\\example.com" to calm down feed verifiers/aggregators:
-            links_atom_feed = links_atom_feed.replace('>' + config.BASE_URL, '>http:' + config.BASE_URL)
-            links_atom_feed = links_atom_feed.replace('\'' + config.BASE_URL, '\'http:' + config.BASE_URL)
-            teaser_atom_feed = teaser_atom_feed.replace('>' + config.BASE_URL, '>http:' + config.BASE_URL)
-            teaser_atom_feed = teaser_atom_feed.replace('\'' + config.BASE_URL, '\'http:' + config.BASE_URL)
-            content_atom_feed = content_atom_feed.replace('>' + config.BASE_URL, '>http:' + config.BASE_URL)
-            content_atom_feed = content_atom_feed.replace('\'' + config.BASE_URL, '\'http:' + config.BASE_URL)
+            # replace "//example.com" with "https://example.com" to calm down feed verifiers/aggregators:
+            for old, new in [('>' + config.BASE_URL, '>https:' + config.BASE_URL),
+                             ('\'' + config.BASE_URL, '\'https:' + config.BASE_URL),
+                             ('"' + config.BASE_URL, '"https:' + config.BASE_URL)]:
+                links_atom_feed = links_atom_feed.replace(old, new)
+                teaser_atom_feed = teaser_atom_feed.replace(old, new)
+                content_atom_feed = content_atom_feed.replace(old, new)
 
             number_of_current_feed_entries += 1
 
