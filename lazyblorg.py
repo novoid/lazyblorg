@@ -271,7 +271,14 @@ class Lazyblorg(object):
                 'article-preview-tags-end',
                 'article-preview-more',
                 'article-preview-end',
-                'entrypage-footer']:
+                'entrypage-footer',
+                'year-header',
+                'year-footer',
+                'month-header',
+                'month-footer',
+                'day-header',
+                'day-footer',
+                'article-list-link']:
             if element not in found_elements:
                 message = "Sorry, no definition for element \"" + element + "\" could be found within " + \
                     "the template definition file. " + "Please check if you mistyped its name or similar."
