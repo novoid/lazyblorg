@@ -111,6 +111,7 @@ DIRECTORIES_WITH_IMAGE_ORIGINALS = ["testdata/testimages",
                                     os.path.join(os.path.expanduser("~"), *"archive/events_memories/2023".split('/')),
                                     os.path.join(os.path.expanduser("~"), *"archive/events_memories/2024".split('/')),
                                     os.path.join(os.path.expanduser("~"), *"archive/events_memories/2025".split('/')),
+                                    os.path.join(os.path.expanduser("~"), *"archive/events_memories/2026".split('/')),
                                     os.path.join(os.path.expanduser("~"), *"fun/netfun".split('/')),
                                     os.path.join(os.path.expanduser("~"), *"archive/fromweb/cliparts".split('/')),
                                     os.path.join(os.path.expanduser("~"), *"archive/fromweb/cliparts/logos".split('/'))]
