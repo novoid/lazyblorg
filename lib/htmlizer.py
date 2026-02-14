@@ -113,6 +113,9 @@ class Htmlizer(object):
     FIX_AMPERSAND_URL_REGEX = re.compile(
         r'(href="http(s)?://\S+?)&amp;(\S+?")', flags=re.U)
 
+    # find <a href="URL">description</a> in HTML output for external URL collection:
+    HTML_HREF_REGEX = re.compile(r'<a\s[^>]*href=["\']([^"\']+)["\'][^>]*>(.*?)</a>', flags=re.U | re.DOTALL)
+
     # find *bold text*:
     # test with: re.subn(re.compile(u'(\W|\A)\*([^*]+)\*(\W|\Z)', flags=re.U), ur'\1<b>\2</b>\3', '*This* is a *touch* of *bold*.')[0]
     BOLD_REGEX = re.compile(r'(\W|\A)\*([^*]+?)\*(\W|\Z)', flags=re.U)
@@ -140,6 +143,10 @@ class Htmlizer(object):
     LINKS_AND_CONTENT_FEED_POSTFIX = ".atom_1.0.links-and-content.xml"
 
     stats_generated_feeds = 0  # holds the number of generated feed files
+    external_url_file = None  # path to TSV file for external URL collection, or None
+
+    # { 'https://example.com/page': { 'id:2024-01-15-article': set(['description1', ...]) } }
+    _collected_external_urls = None
 
     SCALED_WIDTH_INDICATOR_TEXT = ' - scaled width '
     
@@ -161,7 +168,8 @@ class Htmlizer(object):
             generate,
             increment_version,
             autotag_language,
-            ignore_missing_ids):
+            ignore_missing_ids,
+            external_url_file=None):
         """
         This function initializes the class instance with the class variables.
 
@@ -174,6 +182,7 @@ class Htmlizer(object):
         @param generate: list of IDs which blog entries should be generated
         @param increment_version: list of IDs which blog entries gets an update
         @param autotag_language: true, if guessing of language + its auto-tag should be done
+        @param external_url_file: optional path to TSV file for external URL collection
         """
 
         # initialize class variables
@@ -187,7 +196,10 @@ class Htmlizer(object):
         self.autotag_language = autotag_language
         self.entries_timeline_by_published = entries_timeline_by_published
         self.ignore_missing_ids = ignore_missing_ids
+        self.external_url_file = external_url_file
         self.blog_data_by_id = {entry['id']: entry for entry in blog_data} if isinstance(blog_data, list) else {}
+        if external_url_file:
+            self._collected_external_urls = {}
 
         # create logger (see
         # http://docs.python.org/2/howto/logging-cookbook.html)
@@ -237,6 +249,8 @@ class Htmlizer(object):
 
         self._generate_feeds(entry_list_by_newest_timestamp)
 
+        self._write_external_url_file()
+
         return [stats_generated_total,
                 stats_generated_temporal,
                 stats_generated_persistent,
@@ -245,7 +259,8 @@ class Htmlizer(object):
                 self.stats_external_org_to_html5_conversion,
                 self.stats_external_latex_to_html5_conversion,
                 stats_generated_tagtree,
-                self.stats_generated_feeds]
+                self.stats_generated_feeds,
+                len(self._collected_external_urls) if self._collected_external_urls is not None else None]
 
     def _populate_backreferences(self, blog_data):
         """
@@ -409,6 +424,7 @@ class Htmlizer(object):
                     'category'] == config.PERSISTENT or entry['category'] == config.TEMPORAL:
                 self.write_content_to_file(htmlfilename, htmlcontent)
                 self.write_orgcontent_to_file(orgfilename, entry['rawcontent'])
+                self._collect_external_urls_from_html(htmlcontent, entry['id'])
                 stats_generated_total += 1
 
         # generate (empty) tag pages for all tags which got no user-defined tag page content:
@@ -1534,6 +1550,93 @@ class Htmlizer(object):
                                   ") or content when writing file: " +
                                   str(filename))
             return False
+
+    def _collect_external_urls_from_html(self, htmlcontent, entry_id):
+        """
+        Scans HTML content for <a href="..."> links, filters to external HTTP(S) URLs,
+        normalizes them (strips fragments, unifies to https), and collects them
+        with article ID and link description.
+
+        @param htmlcontent: the HTML content string to scan
+        @param entry_id: the article ID (will be prefixed with 'id:')
+        """
+
+        if self._collected_external_urls is None:
+            return
+
+        prefixed_id = 'id:' + entry_id
+
+        for match in self.HTML_HREF_REGEX.finditer(htmlcontent):
+            url = match.group(1)
+            description = match.group(2).strip()
+
+            # only HTTP(S) URLs
+            if not (url.startswith('http://') or url.startswith('https://') or url.startswith('//')):
+                continue
+
+            # normalize protocol-relative to https
+            if url.startswith('//'):
+                url = 'https:' + url
+
+            # skip internal URLs (matching DOMAIN, case-insensitive)
+            url_without_protocol = re.sub(r'^https?://', '', url)
+            if url_without_protocol.lower().startswith(config.DOMAIN.lower()):
+                continue
+
+            # strip fragment
+            url = url.split('#')[0]
+
+            # unify http to https
+            if url.startswith('http://'):
+                url = 'https://' + url[7:]
+
+            # lowercase the domain part to unify URLs differing only in domain case
+            match_domain = re.match(r'(https://)([^/]+)(.*)', url)
+            if match_domain:
+                url = match_domain.group(1) + match_domain.group(2).lower() + match_domain.group(3)
+
+            # strip HTML tags and newlines from description
+            clean_description = re.sub(r'<[^>]+>', '', description).strip()
+            clean_description = re.sub(r'\s+', ' ', clean_description)
+            if not clean_description or clean_description == url or \
+               re.match(r'^https?://\S+$', clean_description):
+                clean_description = '-'
+
+            if url not in self._collected_external_urls:
+                self._collected_external_urls[url] = {}
+            if prefixed_id not in self._collected_external_urls[url]:
+                self._collected_external_urls[url][prefixed_id] = set()
+            self._collected_external_urls[url][prefixed_id].add(clean_description)
+
+    def _write_external_url_file(self):
+        """
+        Writes the collected external URLs to a TSV file.
+        Format: URL<TAB>Count<TAB>id:article1 id:article2 ...
+        Sorted alphabetically by URL.
+        """
+
+        if not self.external_url_file or self._collected_external_urls is None:
+            return
+
+        with codecs.open(self.external_url_file, 'w', encoding='utf-8') as output:
+            output.write('URL\tCount\tIDs\tDescriptions\n')
+            for url in sorted(self._collected_external_urls.keys()):
+                id_dict = self._collected_external_urls[url]
+                sorted_ids = sorted(id_dict.keys())
+                count = len(sorted_ids)
+                ids_str = ' '.join(sorted_ids)
+
+                # build descriptions in same order as IDs
+                descriptions = []
+                for article_id in sorted_ids:
+                    descs = sorted(id_dict[article_id])
+                    descriptions.append(' ; '.join(descs))
+                descriptions_str = ' | '.join(descriptions)
+
+                output.write(url + '\t' + str(count) + '\t' + ids_str + '\t' + descriptions_str + '\n')
+
+        self.logging.info('    Wrote ' + str(len(self._collected_external_urls)) +
+                          ' external URLs to ' + self.external_url_file)
 
     def write_orgcontent_to_file(self, orgfilename, rawcontent):
         """

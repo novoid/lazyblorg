@@ -8,6 +8,9 @@ A static blog generator that converts Org-mode files into HTML5. Blog entries ar
 
 Any user-visible text should not be included into the Python files. Instead, templates should be used for any text. This way, most translation should happen in the template files and not within the Python code.
 
+On any change, also update the Org-mode time-stamp in lazyblorg.py: `PROG_VERSION = "Time-stamp: <2020-10-03 19:51:01 vk>"` to the current time.
+
+
 ## Build & Run Commands
 
 ```bash

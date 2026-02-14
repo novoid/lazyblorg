@@ -8,6 +8,7 @@ export PREVIOUS_METADATA_FILE="${TEMP_RESULT_DIR}/public_voit-metadata.pk"
 export NEW_METADATA_FILE="${PROJECTDIR}/testdata/2del/blog/public_voit-metadata.pk"
 export ERROR_INDICATION_FILE="${PROJECTDIR}/testdata/2del/blog/WORK_IN_PROGRESS.regenerate_public_voit.delete_me"
 export LOGFILE="${HOME}/org/errors.org"
+export EXTERNAL_URL_FILE="${HOME}/log/publicvoit_external_urls.csv"
 export OMIT_TESTS_FILE="OMIT_TESTS.2del"
 export PREVIOUS_FEEDS_FOR_COMPARISON_TEMPDIR=$(mktemp -d)
 export METADATA_OF_PREVIOUS_EXECUTION="${PROJECTDIR}/.regenerate_public_voit_last_run.log"
