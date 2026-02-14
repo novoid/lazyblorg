@@ -320,6 +320,11 @@ efficiently:
   is on the [[http://karl-voit.at/tags/][tag overview page]] offers a quick overview of your most used
   tags.
 
+- [[https://github.com/novoid/lazyblorg/wiki/TagTrees][TagTrees]] offer an advanced way of navigating through articles by
+  combining multiple tags. Starting from any tag page, readers can
+  drill down by selecting additional tags to narrow down the list of
+  matching articles.
+
 - There is a search feature which brings you to the content by
   searching for keywords or phrases.
 
