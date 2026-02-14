@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8; mode: python; -*-
-PROG_VERSION = "Time-stamp: <2020-10-03 19:51:01 vk>"
+PROG_VERSION = "Time-stamp: <2026-02-15 00:04:52 vk>"
 PROG_VERSION_DATE = PROG_VERSION[13:23]
 
 # TODO:
