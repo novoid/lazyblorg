@@ -2392,7 +2392,9 @@ class Htmlizer(object):
                 back_reference_title_list = [x for x in self.blog_data if back_reference_id == x['id']]
 
                 # Ignore the (hard-coded) templates heading
-                if back_reference_title_list[0]['id'] != 'lazyblorg-templates':
+                # and skip hidden articles so they don't appear as back-references
+                if back_reference_title_list[0]['id'] != 'lazyblorg-templates' and \
+                   config.TAG_FOR_HIDDEN not in back_reference_title_list[0].get('usertags', []):
 
                     # If we found exactly one entry with an existing title…
                     if len(back_reference_title_list) == 1 and \
