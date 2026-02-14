@@ -1250,8 +1250,6 @@ for all combinations of co-occurring tags.
 
     <div id="page" class="hfeed site">
 
-    #COMMON-SIDEBAR#
-
     <div id="main" class="wrapper">
       <div id="primary" class="site-content">
 
@@ -1260,6 +1258,8 @@ for all combinations of co-occurring tags.
 	      <a href="#BASE-URL#/"><img src="#BLOG-LOGO#" alt="#BLOG-NAME# logo" width="350" style="vertical-align:middle;"></a><span style="padding-top:1em;">&nbsp;&nbsp;&nbsp;&nbsp;&raquo;#TAGTREE-BREADCRUMB#</span>
 	    </span>
 	  </nav>
+
+  #COMMON-SIDEBAR#
 
   <article class="common-article">
 

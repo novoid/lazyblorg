@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2025-12-13 18:51:11 vk>
+# Time-stamp: <2026-02-14 20:58:37 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -2425,9 +2425,9 @@ class Htmlizer(object):
                 tagtree_cloud = '  <p>\n' + \
                     '  Articles with the tag ' + self.sanitize_html_characters(entry['title']) + \
                     ' also have other tags you might use to drill down your navigation:\n' + \
-                    '  </p>\n\n  <p>\n' + \
+                    '  </p>\n\n  <ul class="common-tags">\n' + \
                     self._generate_tagtree_tag_cloud([entry['title']], co_tags) + \
-                    '  </p>\n\n'
+                    '  </ul>\n\n'
             else:
                 tagtree_cloud = ''
             content = content.replace('#TAG-PAGE-TAGTREE#\n', tagtree_cloud)
@@ -2559,11 +2559,11 @@ class Htmlizer(object):
 
     def _generate_tagtree_tag_cloud(self, tag_path, tags_data):
         """
-        Generates a tag cloud for tagtree pages where links point to tagtree subpages.
+        Generates a tag list for tagtree pages where links point to tagtree subpages.
 
         @param tag_path: list of tag strings defining the current branch
         @param tags_data: list of [tagname, count, age] for co-occurring tags
-        @param return: string with linked tag cloud
+        @param return: string with linked tag list items
         """
 
         result = ''
@@ -2574,33 +2574,11 @@ class Htmlizer(object):
         if not tags:
             return ''
 
-        COUNT_SIZES = list(range(1, 7))
-        COUNT_MAX = max([x[1] for x in tags])
-        if len(tags) < len(COUNT_SIZES):
-            COUNT_STEP = 1
-        else:
-            COUNT_STEP = COUNT_MAX / len(COUNT_SIZES)
-            if COUNT_STEP < 1:
-                COUNT_STEP = 1
-
-        AGE_RANGES = [31, 31 * 3, 31 * 6, 365, 365 * 3]
-
         path_prefix = config.BASE_URL + '/tags/' + '/'.join(tag_path) + '/'
 
         for currenttag in sorted(tags):
             tag = currenttag[0]
-            count = currenttag[1]
-            age = currenttag[2]
-
-            css_size = int(count / COUNT_STEP)
-            css_age = 0
-            for age_range in AGE_RANGES:
-                if age < age_range:
-                    break
-                css_age += 1
-
-            result += '<a href="' + path_prefix + tag + '/" class="tagcloud-usertag tagcloud-size-' + \
-                      str(css_size) + ' tagcloud-age-' + str(css_age) + '">' + tag + '</a>\n'
+            result += '    <li><a class="usertag" href="' + path_prefix + tag + '/">' + tag + '</a></li>\n'
 
         return result
 
@@ -2728,10 +2706,12 @@ class Htmlizer(object):
         # Get co-occurring tags for deeper drill-down
         co_tags = self._get_co_occurring_tags(tag_path)
         if co_tags and len(tag_path) < config.TAGTREE_DEPTH:
-            drilldown = '  <p>\n  Drill down to more specific tags:\n  </p>\n\n' + \
-                        '  <p>\n' + \
+            drilldown = '  <div style="overflow: hidden; margin-bottom: 1.5em;">\n' + \
+                        '  <p>\n  Drill down to more specific tags:\n  </p>\n\n' + \
+                        '  <ul class="common-tags">\n' + \
                         self._generate_tagtree_tag_cloud(tag_path, co_tags) + \
-                        '  </p>\n\n'
+                        '  </ul>\n' + \
+                        '  </div>\n\n'
         else:
             drilldown = ''
 

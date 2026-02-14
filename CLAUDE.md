@@ -6,6 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A static blog generator that converts Org-mode files into HTML5. Blog entries are scattered throughout regular Org-mode files (no dedicated blog file needed). Uses pickle-based metadata to track changes and only regenerate what's needed.
 
+Any user-visible text should not be included into the Python files. Instead, templates should be used for any text. This way, most translation should happen in the template files and not within the Python code.
+
 ## Build & Run Commands
 
 ```bash
