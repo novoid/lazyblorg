@@ -1,0 +1,702 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns="http://www.w3.org/2005/Atom"
+      xmlns:thr="http://purl.org/syndication/thread/1.0"
+      xml:lang="en-us">
+  <link rel="self" href="http://Karl-Voit.at/feeds/public-voit_tag_lazyblorg.atom_1.0.links-and-content.xml" />
+  <title type="text">public voit – tag: lazyblorg</title>
+  <id>https://karl-voit.at/tags/lazyblorg/</id>
+  <link href="http://Karl-Voit.at" />
+  <icon>/favicon.ico</icon>
+  <updated>2026-02-14T22:50:50+01:00</updated>
+  <author>
+    <name>Karl Voit</name>
+  </author>
+  <subtitle type="text">Articles tagged with lazyblorg from public voit</subtitle>
+  <rights>All content written by Karl Voit</rights>
+  <generator uri='https://github.com/novoid/lazyblorg'>Generated from Org-mode source code using lazyblorg which is written in Python. Industrial-strength technology, baby.</generator>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">Links test and reading time over one minute</title>
+    <link href='https://Karl-Voit.at/2017/09/30/link-test' />
+    <published>2017-09-30T17:05:00+01:00</published>
+    <updated>2017-09-30T17:05:00+01:00</updated>
+    <category scheme='https://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='https://Karl-Voit.at/tags/programming' term='programming' />
+    <category scheme='https://Karl-Voit.at/tags/exampletag' term='exampletag' />
+    <category scheme='https://Karl-Voit.at/tags/mytest' term='mytest' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='html'>
+&lt;p&gt;
+
+This is a test article which tests its links to other (internal) blog entries.
+
+&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;This should work &lt;a
+href="https://Karl-Voit.at/persistent-entry"&gt;in lists&lt;/a&gt; as &lt;a
+href="https://Karl-Voit.at/2016/11/27/special-characters"&gt;well&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;This should work &lt;a
+href="https://Karl-Voit.at/persistent-entry"&gt;2016-10-31-persistent-entry&lt;/a&gt;
+and &lt;a
+href="https://Karl-Voit.at/2016/11/27/special-characters"&gt;2016-11-27-special-characters&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+&lt;tbody&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;also in&lt;/td&gt;
+&lt;td&gt;a &lt;a
+href="https://Karl-Voit.at/2016/11/27/special-characters"&gt;table&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;with &lt;a
+href="https://Karl-Voit.at/2016/11/27/special-characters"&gt;multiple
+cells containing links&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;also&lt;/td&gt;
+&lt;td&gt;&lt;a
+href="https://Karl-Voit.at/2016/11/27/special-characters"&gt;2016-11-27-special-characters&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;and &lt;a
+href="https://Karl-Voit.at/2016/11/27/special-characters"&gt;2016-11-27-special-characters&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+&lt;blockquote&gt;Here &lt;a href="id:2016-10-31-a-tag-page][in a quote"&gt;id:2016-10-31-a-tag-page][in a quote&lt;/a&gt; block.&lt;/blockquote&gt;
+
+
+&lt;p&gt;
+
+Here is &lt;a href="https://Karl-Voit.at/2017/09/30/link-test"&gt;a self-reference&lt;/a&gt; which should not result in a backlink to itself.
+
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
+
+This is a test article which tests its links to other (internal) blog entries.
+
+&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;This should work &lt;a
+href="https://Karl-Voit.at/persistent-entry"&gt;in lists&lt;/a&gt; as &lt;a
+href="https://Karl-Voit.at/2016/11/27/special-characters"&gt;well&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;This should work &lt;a
+href="https://Karl-Voit.at/persistent-entry"&gt;2016-10-31-persistent-entry&lt;/a&gt;
+and &lt;a
+href="https://Karl-Voit.at/2016/11/27/special-characters"&gt;2016-11-27-special-characters&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+&lt;tbody&gt;
+&lt;tr class="odd"&gt;
+&lt;td&gt;also in&lt;/td&gt;
+&lt;td&gt;a &lt;a
+href="https://Karl-Voit.at/2016/11/27/special-characters"&gt;table&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;with &lt;a
+href="https://Karl-Voit.at/2016/11/27/special-characters"&gt;multiple
+cells containing links&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class="even"&gt;
+&lt;td&gt;also&lt;/td&gt;
+&lt;td&gt;&lt;a
+href="https://Karl-Voit.at/2016/11/27/special-characters"&gt;2016-11-27-special-characters&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;and &lt;a
+href="https://Karl-Voit.at/2016/11/27/special-characters"&gt;2016-11-27-special-characters&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+&lt;blockquote&gt;Here &lt;a href="id:2016-10-31-a-tag-page][in a quote"&gt;id:2016-10-31-a-tag-page][in a quote&lt;/a&gt; block.&lt;/blockquote&gt;
+
+
+&lt;p&gt;
+
+Here is &lt;a href="https://Karl-Voit.at/2017/09/30/link-test"&gt;a self-reference&lt;/a&gt; which should not result in a backlink to itself.
+
+&lt;/p&gt;
+
+
+	  &lt;header&gt;&lt;h2 class="section-title"&gt;Even &lt;a href="https://Karl-Voit.at/2016/10/31/my-temporal-article"&gt;a heading should&lt;/a&gt; work&lt;/h2&gt;&lt;/header&gt;
+
+
+&lt;p&gt;
+
+What about &lt;a href="https://Karl-Voit.at/2016/10/31/an-hidden-blog-entry"&gt;a hidden entry&lt;/a&gt;?
+
+&lt;/p&gt;
+
+
+	  &lt;header&gt;&lt;h2 class="section-title"&gt;Some test to get the reading time to exceed one minute&lt;/h2&gt;&lt;/header&gt;
+
+
+&lt;p&gt;
+
+The &lt;a href="https://github.com/novoid/lazyblorg/issues/47"&gt;reading time estimation feature&lt;/a&gt; is a very nice touch for the reader in order to get a rough figure how many minutes it takes to read an article.
+
+&lt;/p&gt;
+
+
+&lt;p&gt;
+
+This way, she is able to determine if it is worth the time or not. Having such an indicator is almost standard in nowaday's web culture.
+
+&lt;/p&gt;
+
+
+&lt;p&gt;
+
+My assumption is, that the reader is able to read a certain amount of words per minute. The initial value was chosen with 250. So maybe this is not adequate - let's see. Furthermore, I had to derive a heuristic algorithm to filter out non-word noise of the original Org mode source file. Those filtered things might contain real word (false positives) and the rest could contain non-words (false negatives). On average, this should not be a big issue. At least, this is a better approximation than counting all characters and assuming an average word consisting of five characters as I've seen in another algorithm. First, I would have had issues with filtering non-word content. Secondly, different languages do have different average sizes of words. So let's hope this is a valueable contribution to lazyblorg.
+
+&lt;/p&gt;
+
+&lt;div class="orgmode-hr" &gt;&lt;/div&gt;
+
+&lt;p&gt;
+
+In order to get the reading length high, here is some further dummy text as well:
+
+&lt;/p&gt;
+
+
+&lt;p&gt;
+
+Aliquam erat volutpat. Nunc eleifend leo vitae magna. In id erat non orci commodo lobortis. Proin neque massa, cursus ut, gravida ut, lobortis eget, lacus. Sed diam. Praesent fermentum tempor tellus. Nullam tempus. Mauris ac felis vel velit tristique imperdiet. Donec at pede. Etiam vel neque nec dui dignissim bibendum. Vivamus id enim. Phasellus neque orci, porta a, aliquet quis, semper a, massa. Phasellus purus. Pellentesque tristique imperdiet tortor. Nam euismod tellus id erat.
+
+&lt;/p&gt;
+
+
+&lt;p&gt;
+
+Aliquam erat volutpat. Nunc eleifend leo vitae magna. In id erat non orci commodo lobortis. Proin neque massa, cursus ut, gravida ut, lobortis eget, lacus. Sed diam. Praesent fermentum tempor tellus. Nullam tempus. Mauris ac felis vel velit tristique imperdiet. Donec at pede. Etiam vel neque nec dui dignissim bibendum. Vivamus id enim. Phasellus neque orci, porta a, aliquet quis, semper a, massa. Phasellus purus. Pellentesque tristique imperdiet tortor. Nam euismod tellus id erat.
+
+&lt;/p&gt;
+
+
+&lt;p&gt;
+
+Aliquam erat volutpat. Nunc eleifend leo vitae magna. In id erat non orci commodo lobortis. Proin neque massa, cursus ut, gravida ut, lobortis eget, lacus. Sed diam. Praesent fermentum tempor tellus. Nullam tempus. Mauris ac felis vel velit tristique imperdiet. Donec at pede. Etiam vel neque nec dui dignissim bibendum. Vivamus id enim. Phasellus neque orci, porta a, aliquet quis, semper a, massa. Phasellus purus. Pellentesque tristique imperdiet tortor. Nam euismod tellus id erat.
+
+&lt;/p&gt;
+
+
+	  &lt;header&gt;&lt;h2 class="section-title"&gt;An almost empty heading at the end&lt;/h2&gt;&lt;/header&gt;
+
+
+&lt;p&gt;
+
+This is to test the reading length estimation algorithm with a property drawer at the end.
+
+&lt;/p&gt;
+
+    </content>
+    <id>https://karl-voit.at/2017/09/30/link-test-from-tag-feed-with-content</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">Sanitizing Elements</title>
+    <link href='https://Karl-Voit.at/2017/01/08/sanitizing-tests' />
+    <published>2017-01-08T10:58:00+01:00</published>
+    <updated>2017-01-08T10:58:00+01:00</updated>
+    <category scheme='https://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='html'>
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt;;;some text
+(defun my-org-region-to-property (&amp;amp;optional property)
+  "Copies the region as value to an Org-mode property"
+  (interactive)
+  ;; if no region is defined, do nothing
+  (message "foobar")
+)	  &lt;/pre&gt;
+    &lt;/div&gt;
+
+
+&lt;p&gt;
+
+A simple code block:
+
+&lt;/p&gt;
+
+
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt; \** Cabaret `(my-capture-prompt "date of event" 'my-event-date)`: `(my-capture-prompt "artist" 'my-artist)`
+ SCHEDULED: &amp;lt;`(my-capture-prompt "date 1st email" 'my-email-date)`&amp;gt;	  &lt;/pre&gt;
+    &lt;/div&gt;
+
+
+&lt;p&gt;
+
+A comment with a non-existent ID:
+
+&lt;/p&gt;
+
+
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt; :PROPERTIES:
+ :ID: this-is-not-an-existent-id
+ :END:	  &lt;/pre&gt;
+    &lt;/div&gt;
+
+
+&lt;p&gt;
+
+An example with a non-existent ID:
+
+&lt;/p&gt;
+
+
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt;:PROPERTIES:
+:ID: this-is-not-an-existent-id
+:END:
+
+- [[id:2021-01-23-this-does-not-exist1][This does not exist 1]]	  &lt;/pre&gt;
+    &lt;/div&gt;
+
+
+&lt;p&gt;
+
+Example link that exists: &lt;a href="https://Karl-Voit.at/2020/10/02/Heading-which-starts-with-a-list"&gt;existing link&lt;/a&gt;
+
+&lt;/p&gt;
+
+
+&lt;p&gt;
+
+Example comment with non-existent ID and link:
+
+&lt;/p&gt;
+
+
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt; *** Example heading
+ :PROPERTIES:
+ :ID:       2021-01-23-example-heading
+ :END:
+
+ - Also: [[id:2021-01-23-this-does-not-exist2][this does not exist 2]]	  &lt;/pre&gt;
+    &lt;/div&gt;
+
+
+&lt;p&gt;
+
+Test case for two ampersants in an URL, causing an issue in the feed: &lt;a href="https://duckduckgo.com/?t=ffab&amp;amp;q=searchterm&amp;amp;ia=web"&gt;link description&lt;/a&gt;
+
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt;;;some text
+(defun my-org-region-to-property (&amp;amp;optional property)
+  "Copies the region as value to an Org-mode property"
+  (interactive)
+  ;; if no region is defined, do nothing
+  (message "foobar")
+)	  &lt;/pre&gt;
+    &lt;/div&gt;
+
+
+&lt;p&gt;
+
+A simple code block:
+
+&lt;/p&gt;
+
+
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt; \** Cabaret `(my-capture-prompt "date of event" 'my-event-date)`: `(my-capture-prompt "artist" 'my-artist)`
+ SCHEDULED: &amp;lt;`(my-capture-prompt "date 1st email" 'my-email-date)`&amp;gt;	  &lt;/pre&gt;
+    &lt;/div&gt;
+
+
+&lt;p&gt;
+
+A comment with a non-existent ID:
+
+&lt;/p&gt;
+
+
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt; :PROPERTIES:
+ :ID: this-is-not-an-existent-id
+ :END:	  &lt;/pre&gt;
+    &lt;/div&gt;
+
+
+&lt;p&gt;
+
+An example with a non-existent ID:
+
+&lt;/p&gt;
+
+
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt;:PROPERTIES:
+:ID: this-is-not-an-existent-id
+:END:
+
+- [[id:2021-01-23-this-does-not-exist1][This does not exist 1]]	  &lt;/pre&gt;
+    &lt;/div&gt;
+
+
+&lt;p&gt;
+
+Example link that exists: &lt;a href="https://Karl-Voit.at/2020/10/02/Heading-which-starts-with-a-list"&gt;existing link&lt;/a&gt;
+
+&lt;/p&gt;
+
+
+&lt;p&gt;
+
+Example comment with non-existent ID and link:
+
+&lt;/p&gt;
+
+
+	  &lt;div class="example_code"&gt;
+	  &lt;pre&gt; *** Example heading
+ :PROPERTIES:
+ :ID:       2021-01-23-example-heading
+ :END:
+
+ - Also: [[id:2021-01-23-this-does-not-exist2][this does not exist 2]]	  &lt;/pre&gt;
+    &lt;/div&gt;
+
+
+&lt;p&gt;
+
+Test case for two ampersants in an URL, causing an issue in the feed: &lt;a href="https://duckduckgo.com/?t=ffab&amp;amp;q=searchterm&amp;amp;ia=web"&gt;link description&lt;/a&gt;
+
+&lt;/p&gt;
+
+    </content>
+    <id>https://karl-voit.at/2017/01/08/sanitizing-tests-from-tag-feed-with-content</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">Image Test and Language Tag Override</title>
+    <link href='https://Karl-Voit.at/2016/11/27/image-test' />
+    <published>2016-11-27T15:01:00+01:00</published>
+    <updated>2016-11-27T15:01:00+01:00</updated>
+    <category scheme='https://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:deutsch' />
+    <summary type='html'>
+&lt;p&gt;
+
+With caption, alt, centered and 560px width:
+
+&lt;/p&gt;
+
+
+&lt;figure class="image-center"&gt;
+&lt;img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;figcaption&gt;This is my caption&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+
+&lt;p&gt;
+
+Without caption, alt, centered and 560px width:
+
+&lt;/p&gt;
+
+
+&lt;figure class="image-center"&gt;
+&lt;img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;/figure&gt;
+
+
+&lt;p&gt;
+
+With caption, without alt, left aligned and 300px width:
+
+&lt;/p&gt;
+
+
+&lt;figure class="image-left"&gt;
+&lt;img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;figcaption&gt;This is my caption&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+
+&lt;p&gt;
+
+With caption, alt, right alined and 300px width:
+
+&lt;/p&gt;
+
+
+&lt;figure class="image-right"&gt;
+&lt;img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;figcaption&gt;This is my caption&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+
+&lt;p&gt;
+
+Without caption, without alt, centered and 300px width and linked-image-width set to "none":
+
+&lt;/p&gt;
+
+
+&lt;figure class="image-center"&gt;
+&lt;img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;/figure&gt;
+
+
+&lt;p&gt;
+
+Just the image without ATTR lines or caption:
+
+&lt;/p&gt;
+
+
+&lt;figure class="image-center"&gt;
+&lt;img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg" alt="" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;/figure&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
+
+With caption, alt, centered and 560px width:
+
+&lt;/p&gt;
+
+
+&lt;figure class="image-center"&gt;
+&lt;img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;figcaption&gt;This is my caption&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+
+&lt;p&gt;
+
+Without caption, alt, centered and 560px width:
+
+&lt;/p&gt;
+
+
+&lt;figure class="image-center"&gt;
+&lt;img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;/figure&gt;
+
+
+&lt;p&gt;
+
+With caption, without alt, left aligned and 300px width:
+
+&lt;/p&gt;
+
+
+&lt;figure class="image-left"&gt;
+&lt;img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;figcaption&gt;This is my caption&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+
+&lt;p&gt;
+
+With caption, alt, right alined and 300px width:
+
+&lt;/p&gt;
+
+
+&lt;figure class="image-right"&gt;
+&lt;img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;figcaption&gt;This is my caption&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+
+&lt;p&gt;
+
+Without caption, without alt, centered and 300px width and linked-image-width set to "none":
+
+&lt;/p&gt;
+
+
+&lt;figure class="image-center"&gt;
+&lt;img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg" alt="" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 560.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;/figure&gt;
+
+
+&lt;p&gt;
+
+Just the image without ATTR lines or caption:
+
+&lt;/p&gt;
+
+
+&lt;figure class="image-center"&gt;
+&lt;img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg" alt="" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;/figure&gt;
+
+&lt;div class="orgmode-hr" &gt;&lt;/div&gt;
+
+&lt;p&gt;
+
+Linking a differently sized image:
+
+&lt;/p&gt;
+
+
+&lt;p&gt;
+
+With caption, alt, right alined and 300px width, linked-image-width 560:
+
+&lt;/p&gt;
+
+
+&lt;figure class="image-right"&gt;
+&lt;a href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg"&gt;
+  &lt;img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;/a&gt;
+&lt;figcaption&gt;This is my caption &lt;a class="figcaption-clue-link" href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg"&gt;(klicken für größere Version)&lt;/a&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+
+&lt;p&gt;
+
+With caption, alt, right alined and 300px width, linked-image-width "original":
+
+&lt;/p&gt;
+
+
+&lt;figure class="image-right"&gt;
+&lt;a href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg"&gt;
+  &lt;img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;/a&gt;
+&lt;figcaption&gt;This is my caption &lt;a class="figcaption-clue-link" href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg"&gt;(klicken für größere Version)&lt;/a&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+
+&lt;p&gt;
+
+FIXXME: not tested so far:
+
+&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;:width and :linked-image-width with same integers&lt;/li&gt;
+&lt;li&gt;:width is original and :linked-image-width is original&lt;/li&gt;
+&lt;li&gt;float number for :width or :linked-image-width&lt;/li&gt;
+&lt;li&gt;zero or negative integers for :width or :linked-image-width&lt;/li&gt;
+&lt;/ul&gt;
+
+    </content>
+    <id>https://karl-voit.at/2016/11/27/image-test-from-tag-feed-with-content</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">Special Characters and Language Tag Override</title>
+    <link href='https://Karl-Voit.at/2016/11/27/special-characters' />
+    <published>2016-11-27T15:00:00+01:00</published>
+    <updated>2016-11-27T15:00:00+01:00</updated>
+    <category scheme='https://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:deutsch' />
+    <summary type='html'>
+&lt;p&gt;
+
+This is a «test» with some Umlauts and special characters: öß€x²y³¼½¾.
+
+&lt;/p&gt;
+
+
+&lt;p&gt;
+
+Being curious how this is going to work out.
+
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
+
+This is a «test» with some Umlauts and special characters: öß€x²y³¼½¾.
+
+&lt;/p&gt;
+
+
+&lt;p&gt;
+
+Being curious how this is going to work out.
+
+&lt;/p&gt;
+
+    </content>
+    <id>https://karl-voit.at/2016/11/27/special-characters-from-tag-feed-with-content</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">A Wonderful Persistent Blog Entry</title>
+    <link href='https://Karl-Voit.at/persistent-entry' />
+    <published>2016-10-31T16:39:00+01:00</published>
+    <updated>2016-10-31T16:39:00+01:00</updated>
+    <category scheme='https://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='https://Karl-Voit.at/tags/programming' term='programming' />
+    <category scheme='https://Karl-Voit.at/tags/exampletag' term='exampletag' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='html'>
+&lt;p&gt;
+
+Lorem ipsum dolor sit amet, malorum scaevola ut ius, ridens admodum adipisci eam ad. Eu quo ignota appareat, an primis expetendis eum, atqui labitur ceteros quo ad. Id zril partiendo cotidieque nam, nemore legimus has ad. Nec cu regione sensibus volutpat.
+
+&lt;/p&gt;
+
+
+&lt;p&gt;
+
+Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. Odio disputando ei his, ei est mutat mediocritatem. Harum verterem ex mea, sed saepe viderer scribentur ex. Pri te dictas eligendi praesent.
+
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
+
+Lorem ipsum dolor sit amet, malorum scaevola ut ius, ridens admodum adipisci eam ad. Eu quo ignota appareat, an primis expetendis eum, atqui labitur ceteros quo ad. Id zril partiendo cotidieque nam, nemore legimus has ad. Nec cu regione sensibus volutpat.
+
+&lt;/p&gt;
+
+
+&lt;p&gt;
+
+Novum possit temporibus his in. Eam ut scripserit reformidans conclusionemque. Odio disputando ei his, ei est mutat mediocritatem. Harum verterem ex mea, sed saepe viderer scribentur ex. Pri te dictas eligendi praesent.
+
+&lt;/p&gt;
+
+    </content>
+    <id>https://karl-voit.at/persistent-entry-from-tag-feed-with-content</id>
+</entry>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">Placeholder: About</title>
+    <link href='https://Karl-Voit.at/about' />
+    <published>2014-03-09T14:57:00+01:00</published>
+    <updated>2014-03-09T14:57:00+01:00</updated>
+    <category scheme='https://Karl-Voit.at/tags/lazyblorg' term='lazyblorg' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
+    <summary type='html'>
+&lt;p&gt;
+
+This is a placeholder entry in order to be able to test internal links.
+
+&lt;/p&gt;
+
+    </summary>    <content type='html'>
+
+&lt;p&gt;
+
+This is a placeholder entry in order to be able to test internal links.
+
+&lt;/p&gt;
+
+    </content>
+    <id>https://karl-voit.at/about-from-tag-feed-with-content</id>
+</entry></feed>

@@ -279,6 +279,8 @@ class Lazyblorg(object):
                 'day-header',
                 'day-footer',
                 'article-list-link',
+                'tag-feed-info',
+                'tagtree-feed-info',
                 'tagtree-header',
                 'tagtree-footer']:
             if element not in found_elements:
@@ -622,6 +624,7 @@ if __name__ == "__main__":
         stats_external_org_to_html5_conversion = statistics_list[5]
         stats_external_latex_to_html5_conversion = statistics_list[6]
         stats_generated_tagtree = statistics_list[7]
+        stats_generated_feeds = statistics_list[8]
         time_after_htmlizing = time()
 
         logging.info(
@@ -636,7 +639,9 @@ if __name__ == "__main__":
             " tag-pages, " +
             str(stats_generated_tagtree) +
             " tag-tree-pages" +
-            ", the entry page, and scaled " +
+            ", the entry page, " +
+            str(stats_generated_feeds) +
+            " feeds, and scaled " +
             str(stats_images_resized) +
             " images (in %.2f seconds)" %
             (time_after_htmlizing -

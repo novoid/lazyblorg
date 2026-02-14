@@ -139,6 +139,8 @@ class Htmlizer(object):
     LINKS_AND_TEASER_FEED_POSTFIX = ".atom_1.0.links-and-teaser.xml"
     LINKS_AND_CONTENT_FEED_POSTFIX = ".atom_1.0.links-and-content.xml"
 
+    stats_generated_feeds = 0  # holds the number of generated feed files
+
     SCALED_WIDTH_INDICATOR_TEXT = ' - scaled width '
     
     defined_languages = [x[0] for x in Utils.STOPWORDS]
@@ -242,7 +244,8 @@ class Htmlizer(object):
                 self.stats_images_resized,
                 self.stats_external_org_to_html5_conversion,
                 self.stats_external_latex_to_html5_conversion,
-                stats_generated_tagtree]
+                stats_generated_tagtree,
+                self.stats_generated_feeds]
 
     def _populate_backreferences(self, blog_data):
         """
@@ -625,6 +628,22 @@ class Htmlizer(object):
                     raise HtmlizerException(self.current_entry_id, message)
 
         self.__generate_feeds_for_everything(entry_list_by_newest_timestamp)
+        self.stats_generated_feeds = 3  # 3 global feeds
+
+        # Generate per-tag feeds
+        generated_tag_feeds = set()
+        for tag in self.list_of_tag_pages_generated:
+            self.stats_generated_feeds += self.__generate_tag_feed(
+                [tag], entry_list_by_newest_timestamp, generated_tag_feeds)
+
+            # Generate level-2 feeds for co-occurring tag pairs
+            co_tags = self._get_co_occurring_tags([tag])
+            for tag_data in co_tags:
+                co_tag = tag_data[0]
+                self.stats_generated_feeds += self.__generate_tag_feed(
+                    [tag, co_tag], entry_list_by_newest_timestamp, generated_tag_feeds)
+
+        self.logging.info('    Generated ' + str(self.stats_generated_feeds) + ' feed files')
 
     def __generate_feed_file_path(self, feedstring):
         """
@@ -799,6 +818,156 @@ class Htmlizer(object):
         self.write_content_to_file(atom_targetfile_content, content_atom_feed)
 
         return
+
+    @staticmethod
+    def _sanitize_for_filename(text):
+        """
+        Replaces spaces and problematic characters with dashes and lowercases the result.
+
+        @param text: string to sanitize
+        @param return: sanitized string suitable for use in filenames
+        """
+
+        result = text.lower()
+        result = re.sub(r'[/\\?&%#\s]+', '-', result)
+        result = re.sub(r'-+', '-', result)
+        result = result.strip('-')
+        return result
+
+    def _get_tag_feed_filename(self, tag_path):
+        """
+        Returns the feed filename for a sorted tag path.
+
+        @param tag_path: list of tag strings (will be sorted alphabetically)
+        @param return: feed filename string
+        """
+
+        sanitized_blog = self._sanitize_for_filename(config.BLOG_NAME)
+        sorted_tags = sorted(tag_path)
+        if len(sorted_tags) == 1:
+            return sanitized_blog + '_tag_' + sorted_tags[0] + self.LINKS_AND_CONTENT_FEED_POSTFIX
+        else:
+            return sanitized_blog + '_tags_' + '-'.join(sorted_tags) + self.LINKS_AND_CONTENT_FEED_POSTFIX
+
+    def _get_tag_feed_url(self, tag_path):
+        """
+        Returns the full URL for a tag feed.
+
+        @param tag_path: list of tag strings
+        @param return: full feed URL string
+        """
+
+        return config.BASE_URL + '/' + config.FEEDDIR + '/' + self._get_tag_feed_filename(tag_path)
+
+    def __generate_tag_feed(self, tag_path, entry_list_by_newest_timestamp, generated_tag_feeds):
+        """
+        Generates a per-tag or per-tagtree Atom feed (full content variant only).
+
+        @param tag_path: list of tags (e.g., ['python'] or ['emacs', 'python'])
+        @param entry_list_by_newest_timestamp: sorted list of entry dicts
+        @param generated_tag_feeds: set of already-generated feed key tuples
+        @param return: 1 if a feed was generated, 0 if skipped
+        """
+
+        feed_key = tuple(sorted(tag_path))
+        if feed_key in generated_tag_feeds:
+            return 0
+        generated_tag_feeds.add(feed_key)
+
+        tag_set = set(tag_path)
+        feed_filename = self._get_tag_feed_filename(tag_path)
+        feed_filepath = os.path.join(self.targetdir, config.FEEDDIR, feed_filename)
+        feed_url = 'http:' + config.BASE_URL + '/' + config.FEEDDIR + '/' + feed_filename
+
+        tag_list_str = ', '.join(sorted(tag_path))
+
+        # Build feed header
+        feed = """<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns="http://www.w3.org/2005/Atom"
+      xmlns:thr="http://purl.org/syndication/thread/1.0"
+      xml:lang="en-us">
+  <link rel="self" href=\"""" + feed_url + """\" />
+  <title type="text">""" + config.BLOG_NAME + """ – tag: """ + tag_list_str + """</title>
+  <id>https:""" + config.BASE_URL.lower() + """/tags/""" + '/'.join(sorted(tag_path)) + """/</id>
+  <link href=\"http:""" + config.BASE_URL + """\" />
+  <icon>/favicon.ico</icon>
+  <updated>""" + strftime('%Y-%m-%dT%H:%M:%S' + config.TIME_ZONE_ADDON, localtime()) + """</updated>
+  <author>
+    <name>""" + config.AUTHOR_NAME + """</name>
+  </author>
+  <subtitle type="text">Articles tagged with """ + tag_list_str + """ from """ + config.BLOG_NAME + """</subtitle>
+  <rights>All content written by """ + config.AUTHOR_NAME + """</rights>
+  <generator uri='https://github.com/novoid/lazyblorg'>Generated from Org-mode source code using lazyblorg which is written in Python. Industrial-strength technology, baby.</generator>"""
+
+        number_of_entries = 0
+        listentry_index = 0
+
+        while number_of_entries < config.NUMBER_OF_FEED_ARTICLES and \
+                len(entry_list_by_newest_timestamp) > listentry_index:
+
+            listentry = entry_list_by_newest_timestamp[listentry_index]
+            listentry_index += 1
+
+            # skip pseudo/empty tag pages
+            if listentry['id'].startswith(self.ID_PREFIX_FOR_EMPTY_TAG_PAGES):
+                continue
+
+            if listentry['category'] == config.TEMPLATES:
+                continue
+
+            blog_data_entry = self.blog_data_with_id(listentry['id'])
+
+            # omit hidden entries
+            if config.TAG_FOR_HIDDEN in blog_data_entry['usertags']:
+                continue
+
+            # filter: article must have ALL tags in tag_path
+            if not tag_set.issubset(set(blog_data_entry['usertags'])):
+                continue
+
+            feedentry = """\n<!-- ############################################################################################# -->\n<entry>
+    <title type="text">""" + self.sanitize_feed_html_characters(blog_data_entry['title']) + """</title>
+    <link href='""" + config.BASE_URL + "/" + listentry['url'] + """' />
+    <published>""" + blog_data_entry['firstpublishTS'].strftime('%Y-%m-%dT%H:%M:%S' + config.TIME_ZONE_ADDON) + """</published>
+    <updated>""" + blog_data_entry['latestupdateTS'].strftime('%Y-%m-%dT%H:%M:%S' + config.TIME_ZONE_ADDON) + "</updated>"
+
+            for tag in blog_data_entry['usertags']:
+                feedentry += "\n    <category scheme='" + config.BASE_URL + \
+                    "/" + "tags" + "/" + tag + "' term='" + tag + "' />"
+            if 'autotags' in blog_data_entry:
+                for autotag in blog_data_entry['autotags']:
+                    tag = autotag + ":" + blog_data_entry['autotags'][autotag]
+                    feedentry += "\n    <category scheme='" + config.BASE_URL + "/" + \
+                        "autotags" + "/" + autotag + "' term='" + tag + "' />"
+
+            feedentry += "\n    <summary type='html'>"
+
+            teaser_html_content = False
+            if blog_data_entry['htmlteaser-equals-content']:
+                teaser_html_content = blog_data_entry['content']
+            else:
+                teaser_html_content = blog_data_entry['htmlteaser']
+
+            teaser_html_content = self._add_absolute_path_to_image_src(teaser_html_content, listentry['url'])
+            feedentry += self.sanitize_feed_html_characters('\n'.join(teaser_html_content))
+            feedentry += "\n    </summary>"
+
+            feed += feedentry + "    <content type='html'>\n" + \
+                self.sanitize_feed_html_characters('\n'.join(blog_data_entry['content'])) + \
+                "\n    </content>\n    <id>https:" + config.BASE_URL.lower() + "/" + \
+                listentry['url'] + "-from-tag-feed-with-content" + "</id>\n</entry>"
+
+            # replace "//example.com" with "https://example.com"
+            for old, new in [('>' + config.BASE_URL, '>https:' + config.BASE_URL),
+                             ('\'' + config.BASE_URL, '\'https:' + config.BASE_URL),
+                             ('"' + config.BASE_URL, '"https:' + config.BASE_URL)]:
+                feed = feed.replace(old, new)
+
+            number_of_entries += 1
+
+        feed += "</feed>"
+        self.write_content_to_file(feed_filepath, feed)
+        return 1
 
     def generate_entry_list_by_newest_timestamp(self):
         """
@@ -2419,6 +2588,16 @@ class Htmlizer(object):
                 self._generate_tag_page_list(
                     entry['title']))
 
+            # replace #TAG-FEED-URL# and #TAG-FEED-INFO#
+            tag_feed_url = self._get_tag_feed_url([entry['title']])
+            content = content.replace('#TAG-FEED-URL#', tag_feed_url)
+            tag_feed_info = self.template_definition_by_name('tag-feed-info')
+            tag_feed_info = tag_feed_info.replace('#TAG-FEED-URL#', tag_feed_url)
+            tag_feed_info = tag_feed_info.replace('#ARTICLE-TITLE#',
+                self.sanitize_html_characters(entry['title']))
+            tag_feed_info = self._replace_general_blog_placeholders(tag_feed_info)
+            content = content.replace('#TAG-FEED-INFO#\n', tag_feed_info)
+
             # replace #TAG-PAGE-TAGTREE#
             co_tags = self._get_co_occurring_tags([entry['title']])
             if co_tags:
@@ -2727,6 +2906,24 @@ class Htmlizer(object):
         htmlcontent = htmlcontent.replace('#TAGTREE-TAG-LIST#', tag_list)
         htmlcontent = htmlcontent.replace('#TAGTREE-DRILLDOWN#\n', drilldown)
         htmlcontent = htmlcontent.replace('#TAGTREE-ARTICLE-LIST#', article_list)
+
+        # Replace feed placeholders for level-2 tagtree pages
+        if len(tag_path) == 2:
+            feed_url = self._get_tag_feed_url(tag_path)
+            htmlcontent = htmlcontent.replace('#TAGTREE-FEED-URL#', feed_url)
+            feed_link = '  <link rel="alternate" type="application/atom+xml"\n' + \
+                        '        title="' + config.BLOG_NAME + ' – tags: ' + tag_list + ' (full content)"\n' + \
+                        '        href="' + feed_url + '" />'
+            htmlcontent = htmlcontent.replace('#TAGTREE-FEED-LINK#', feed_link)
+            feed_info = self.template_definition_by_name('tagtree-feed-info')
+            feed_info = feed_info.replace('#TAGTREE-FEED-URL#', feed_url)
+            feed_info = feed_info.replace('#TAGTREE-TAG-LIST#', tag_list)
+            feed_info = self._replace_general_blog_placeholders(feed_info)
+            htmlcontent = htmlcontent.replace('#TAGTREE-FEED-INFO#\n', feed_info)
+        else:
+            htmlcontent = htmlcontent.replace('#TAGTREE-FEED-URL#', '')
+            htmlcontent = htmlcontent.replace('#TAGTREE-FEED-LINK#\n', '')
+            htmlcontent = htmlcontent.replace('#TAGTREE-FEED-INFO#\n', '')
 
         # Replace general blog placeholders
         htmlcontent = self._replace_general_blog_placeholders(htmlcontent)
