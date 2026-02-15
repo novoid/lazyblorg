@@ -339,6 +339,12 @@ efficiently:
 
 - Reading time estimations (multi-language) following [[https://github.com/novoid/lazyblorg/issues/47][this feature request]]
 
+- With the command line parameter =--external-url-file= you can
+  generate a TSV file listing all external URLs found across your blog
+  articles. This is useful as input for external URL checker tools to
+  detect broken links. The file includes the URL, the number of
+  articles referencing it, the article IDs, and link descriptions.
+
 ** FAQs
 
 See https://github.com/novoid/lazyblorg/wiki/FAQs
