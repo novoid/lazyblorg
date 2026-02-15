@@ -1200,13 +1200,22 @@ class Htmlizer(object):
         @param: return: the modified content
         """
         # adding article paths to embedded images:
+        absolute_prefix = 'http:' + config.BASE_URL + '/' + url + '/'
         element_index = 0
         for element in content:
             if element.startswith('\n<figure class="'):
                 content[element_index] = content[element_index].replace('">\n<img src="',
-                                                                        '">\n<img src="http:' +
-                                                                        config.BASE_URL + '/' +
-                                                                        url + '/')
+                                                                        '">\n<img src="' +
+                                                                        absolute_prefix)
+                # Also fix <img src> inside linked-image-width <a> wrappers (indented with two spaces)
+                content[element_index] = content[element_index].replace('">\n  <img src="',
+                                                                        '">\n  <img src="' +
+                                                                        absolute_prefix)
+                # Also fix <a href="relative"> links inside figures (linked-image-width and figcaption clue links)
+                content[element_index] = re.sub(
+                    r'<a ((?:class="figcaption-clue-link" )?)href="(?!https?://|//)',
+                    r'<a \1href="' + absolute_prefix,
+                    content[element_index])
             element_index += 1
         return content
 

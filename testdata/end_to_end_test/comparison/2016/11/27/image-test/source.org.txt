@@ -43,6 +43,13 @@ Just the image without ATTR lines or caption:
 
 [[tsfile:2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg]]
 
+With caption, alt, centered and 300px width, linked-image-width 560:
+
+#+CAPTION: This is my caption
+#+ATTR_HTML: :alt This is my alt text
+#+ATTR_HTML: :align center :width 300 :linked-image-width 560
+[[tsfile:2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg][2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg]]
+
 --------------------------
 
 Linking a differently sized image:

@@ -7,7 +7,7 @@
   <id>https://karl-voit.at/tags/lazyblorg/</id>
   <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2026-02-14T22:50:50+01:00</updated>
+  <updated>2026-02-15T11:29:17+01:00</updated>
   <author>
     <name>Karl Voit</name>
   </author>
@@ -461,6 +461,21 @@ Just the image without ATTR lines or caption:
 &lt;img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg" alt="" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
 &lt;/figure&gt;
 
+
+&lt;p&gt;
+
+With caption, alt, centered and 300px width, linked-image-width 560:
+
+&lt;/p&gt;
+
+
+&lt;figure class="image-center"&gt;
+&lt;a href="http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg"&gt;
+  &lt;img src="http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;/a&gt;
+&lt;figcaption&gt;This is my caption &lt;a class="figcaption-clue-link" href="http://Karl-Voit.at/2016/11/27/image-test/2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg"&gt;(klicken für größere Version)&lt;/a&gt;&lt;/figcaption&gt;
+&lt;/figure&gt;
+
     </summary>    <content type='html'>
 
 &lt;p&gt;
@@ -535,6 +550,21 @@ Just the image without ATTR lines or caption:
 
 &lt;figure class="image-center"&gt;
 &lt;img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit.jpg" alt="" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;/figure&gt;
+
+
+&lt;p&gt;
+
+With caption, alt, centered and 300px width, linked-image-width 560:
+
+&lt;/p&gt;
+
+
+&lt;figure class="image-center"&gt;
+&lt;a href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg"&gt;
+  &lt;img src="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20300.jpg" alt="This is my alt text" width="TMPREPLACEMEwidthSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEwidthEND" height="TMPREPLACEMEheightSTART-2017-03-11T18.29.21 Sterne im Baum -- mytag publicvoit - scaled width 300.jpg-TMPREPLACEMEheightEND" loading="lazy" /&gt;
+&lt;/a&gt;
+&lt;figcaption&gt;This is my caption &lt;a class="figcaption-clue-link" href="2017-03-11T18.29.21%20Sterne%20im%20Baum%20--%20mytag%20publicvoit%20-%20scaled%20width%20560.jpg"&gt;(klicken für größere Version)&lt;/a&gt;&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;div class="orgmode-hr" &gt;&lt;/div&gt;
