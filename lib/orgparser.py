@@ -105,8 +105,11 @@ class OrgParser(object):
 
     # matching list items
     LIST_ITEM_REGEX = re.compile(
-        r'^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.+)$',
+        r'^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.*)$',
         re.IGNORECASE)
+    # matching empty list items (bare marker without trailing space, since rstrip removes it)
+    EMPTY_LIST_ITEM_REGEX = re.compile(
+        r'^(\s*)([\\+\\*-]|(\d+[\.\\)]))$')
     # >>> re.match(r'^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.+)$', u"  - [-] foo bar").groups()
     # (u'  ', u'-', None, u'[-]', u' foo bar')
     # >>> re.match(r'^(\s*)([\\+\\*-]|(\d+[\.\\)])) (\[.\])?(.+)$', u"  - [ ] foo bar").groups()
@@ -968,6 +971,9 @@ class OrgParser(object):
                     # its last element (which contains the list of the block
                     # content):
                     self.__entry_data['content'][-1][-1].append(line)
+                elif self.EMPTY_LIST_ITEM_REGEX.match(line):
+                    # empty list item (bare marker without content, trailing space stripped by rstrip)
+                    self.__entry_data['content'][-1][-1].append(line + ' ')
                 elif self._get_list_indentation_number(line) == self._get_list_indentation_number(previous_line):
                     self.__entry_data['content'][-1][-1].append(line)
                 else:

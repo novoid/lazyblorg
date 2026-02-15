@@ -455,6 +455,12 @@ Mixed lists:
      2. bah!
 3. back to first list
 
+Lists with empty items:
+
+- first line
+-
+- third line
+
 ** Tables
 :PROPERTIES:
 :END:

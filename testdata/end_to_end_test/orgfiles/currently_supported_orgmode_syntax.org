@@ -488,6 +488,12 @@ Mixed lists:
      2. bah!
 3. back to first list
 
+Lists with empty items:
+
+- first line
+- 
+- third line
+
 ** Tables
 :PROPERTIES:
 :CREATED:  [2014-01-30 Thu 20:14]
