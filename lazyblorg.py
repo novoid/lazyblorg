@@ -652,7 +652,7 @@ if __name__ == "__main__":
             str(stats_generated_tags) +
             " tag-pages, " +
             str(stats_generated_tagtree) +
-            " tag-tree-pages" +
+            " TagTree-pages" +
             ", the entry page, " +
             str(stats_generated_feeds) +
             " feeds" +
