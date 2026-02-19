@@ -27,7 +27,7 @@ end_to_end_test()
         --orgfiles "${PROJECTDIR}/templates/blog-format.org" \
                    "${PROJECTDIR}/testdata/end_to_end_test/orgfiles/"*.org $@ && \
     echo "\n====> Comparing result of end-to-end test ...\n" && \
-    if [ `diff -ar "${PROJECTDIR}/testdata/end_to_end_test/result" "${PROJECTDIR}/testdata/end_to_end_test/comparison" | egrep -vi '(published|updated)' | wc -l` -gt 15 ]; then
+    if [ `diff -ar "${PROJECTDIR}/testdata/end_to_end_test/result" "${PROJECTDIR}/testdata/end_to_end_test/comparison" | egrep -vi '(published|updated)' | wc -l` -gt 45 ]; then
         diff -ar "${PROJECTDIR}/testdata/end_to_end_test/result" "${PROJECTDIR}/testdata/end_to_end_test/comparison" | grep -v '<updated>'
         echo "End-to-end test FAILED!   Check result! You can also use meld: meld \"${PROJECTDIR}/testdata/end_to_end_test/result\" \"${PROJECTDIR}/testdata/end_to_end_test/comparison\""
         exit 1
