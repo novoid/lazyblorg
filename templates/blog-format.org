@@ -18,7 +18,7 @@ heading which meets *all* of the following requirements:
   ~DONE~ state
 
 (Besides the name ~Templates~ those are the very same criteria for a
-blog entry in general, by the way.)
+blog entry in general, by the way.)q
 
 This way, you can switch between different formats by using different
 files (using different template files) or different headings within
@@ -381,7 +381,7 @@ With name/label:
   <p>
 
     On this page you can see the latest blog updates. For further articles, please use the <b>search bar</b> or <b>navigate through <a href="tags/">the blue tags</a></b>.
-    My recommendations are <a href="tags/pim/">pim</a>, <a href="tags/privacy/">privacy</a>, or <a href="tags/security/">security</a>.
+    My recommendations are <a href="tags/pim/">pim</a>, <a href="tags/privacy/">privacy</a>, <a href="tags/security/">security</a> and of course <a href="tags/populararticles/">populararticles</a>.
 
   </p>
 
