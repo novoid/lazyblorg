@@ -1373,10 +1373,6 @@ for all combinations of co-occurring tags.
 
   <body>
 
-  #COMMON-SIDEBAR#
-
-  <article class="day-overview">
-
 	<header>
 
 	  <nav class="temporal-article-header-nav">
@@ -1389,6 +1385,10 @@ for all combinations of co-occurring tags.
 	  <h1 class="article-title">#YEAR#-#MONTH-TWODIGITNUMBER#-#DAY-TWODIGITNUMBER#</h1>
 
 	</header>
+
+  #COMMON-SIDEBAR#
+
+  <article class="day-overview">
 
   <p><ul class="day-body">
 
@@ -1453,10 +1453,6 @@ for all combinations of co-occurring tags.
 
   <body>
 
-  #COMMON-SIDEBAR#
-
-  <article class="month-overview">
-
 	<header>
 
 	  <nav class="temporal-article-header-nav">
@@ -1469,6 +1465,10 @@ for all combinations of co-occurring tags.
 	  <h1 class="article-title">#YEAR#-#MONTH-TWODIGITNUMBER#</h1>
 
 	</header>
+
+  #COMMON-SIDEBAR#
+
+  <article class="month-overview">
 
   <p><ul class="month-body">
 
@@ -1555,10 +1555,6 @@ for all combinations of co-occurring tags.
 
   <body>
 
-  #COMMON-SIDEBAR#
-
-  <article class="year-overview">
-
 	<header>
 
 	  <nav class="temporal-article-header-nav">
@@ -1571,6 +1567,10 @@ for all combinations of co-occurring tags.
 	  <h1 class="article-title">#YEAR#</h1>
 
 	</header>
+
+  #COMMON-SIDEBAR#
+
+  <article class="year-overview">
 
   <p><ul class="year-body">
 
