@@ -26,3 +26,6 @@ run_all_unit_tests.sh
 simple_org_-_lastrun_OLD.pk
 OLDINVOCATIONSCRIPT_without_uv/
 .python-version
+.regenerate_public_voit_last_run.log
+update_mypi.sh
+lazyblorg.egg-info/

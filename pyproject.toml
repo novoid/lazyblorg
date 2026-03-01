@@ -1,14 +1,15 @@
 [project]
 name = "lazyblorg"
-version = "2025.12.13.1"
+version = "2026.03.01.1"
 description = "Blogging with Emacs Org-mode for very lazy people"
 keywords= ["orgmode", "weblog", "homepage", "orgdown", "blog", "static website generator"]
 authors = [{name="Karl Voit", email="tools@Karl-Voit.at"}]
-license = {file = "license.txt"}
+license = "GPL-3.0-or-later"
 
 readme = {text = """
 Read https://github.com/novoid/lazyblorg/blob/master/README.org
 """, content-type = "text/plain"}
+#readme = { file = "README.org", content-type = "text/plain" }
 
 requires-python = ">=3.13"
 dependencies = [
@@ -24,7 +25,6 @@ classifiers=[
   "Development Status :: 4 - Beta",
   "Environment :: Console",
   "Intended Audience :: End Users/Desktop",
-  "License :: OSI Approved :: GNU General Public License (GPL)",
   "Operating System :: OS Independent",
 ]
 
@@ -38,3 +38,27 @@ testpaths = ["lib/tests", "tests"]
 python_files = ["*_test.py"]
 pythonpath = [".", "lib"]
 addopts = "--import-mode=importlib"
+
+[project.urls]
+Homepage = "https://github.com/novoid/lazyblorg"
+Download = "https://github.com/novoid/lazyblorg/zipball/master"
+
+[project.scripts]
+guessfilename = "lazyblorg:main"
+
+[[tool.uv.index]]
+name = "lazyblorg"
+url = "https://test.pypi.org/simple/"
+publish-url = "https://test.pypi.org/legacy/"
+explicit = true
+
+[tool.setuptools.packages.find]
+include = ["lazyblorg*"]
+
+[build-system]
+requires = ["setuptools>=78.1.0", "wheel>=0.45.1"]
+build-backend = "setuptools.build_meta"
+
+[tool.mypy]
+strict = true
+ignore_missing_imports = true
