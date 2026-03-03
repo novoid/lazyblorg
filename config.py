@@ -150,6 +150,13 @@ CLUE_TEXT_FOR_LINKED_IMAGES = {'deutsch': '(klicken für größere Version)',
 ## If you want to use this header, you can use this option.
 ## In my case, the string should look like:
 ##        <a rel="me" href="https://graz.social/@publicvoit">Mastodon</a>
+##
+## When non-empty, the following template elements are included:
+##   - 'mastodon-footer-entry': a 🐘 profile link added as the last footer bullet
+##     on every page (article, persistent, tag, entry page)
+##   - '#SHARE-ON-MASTODON-BUTTON#': a "Share on Mastodon" button in the
+##     published-on bar of each article (omitted on pages tagged 'hidden')
+## When empty (None), none of the above elements are included.
 MASTODON_USER_URL="https://graz.social/@publicvoit"
 ## If you do NOT want to use this:
 ## MASTODON_USER_URL=None
