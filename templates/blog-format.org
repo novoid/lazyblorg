@@ -91,6 +91,7 @@ Have fun with modifying lazyblorg to your requirements!
          <ul class="top-tags-list">
               #TOP-TAG-LIST#
          </ul></li>
+     #SAME-DAY-ARTICLES-SECTION#
      </ul>
   </div>
 

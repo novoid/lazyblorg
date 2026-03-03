@@ -599,5 +599,11 @@ footer {
     height: 40px;
     font-size: .5em;
     padding-bottom: 0px; }
+  .same-day-articles-list li a {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: small; }
 
 /*# sourceMappingURL=public_voit.css.map */

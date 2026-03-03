@@ -51,6 +51,9 @@ NUMBER_OF_FEED_ARTICLES = 25
 ## integer: Maximum depth for tagtree navigation pages (combinatorial tag drill-down)
 TAGTREE_DEPTH = 3
 
+## integer: Maximum number of articles shown in the "same day of the year" sidebar section
+MAX_NUMBER_RANDOM_ARTICLES = 3
+
 ## string: This is the Org-mode property :ID: of your blog article which
 ##         is used for the about page of your blog.
 ## See example in: testdata/end_to_end_test/orgfiles/about-placeholder.org

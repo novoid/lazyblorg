@@ -8,6 +8,7 @@ import os
 from datetime import datetime
 from time import time, localtime, strftime
 from math import ceil  # for calculating reading time
+import random
 import re  # RegEx: for parsing/sanitizing
 import codecs
 import urllib.parse
@@ -2649,6 +2650,7 @@ class Htmlizer(object):
             content = content.replace('#MASTODON-FOOTER-ENTRY#', mastodon_entry)
         else:
             content = content.replace('#MASTODON-FOOTER-ENTRY#', '')
+        content = content.replace('\n     #SAME-DAY-ARTICLES-SECTION#', '')
         return content
 
     def _replace_general_article_placeholders(self, entry, template):
@@ -2682,6 +2684,11 @@ class Htmlizer(object):
                                        self.template_definition_by_name('share-on-mastodon-button'))
         content = content.replace('#DISQUS-SNIPPET#',
                                    self.template_definition_by_name('disqus-snippet'))
+        if entry['category'] == config.TEMPORAL:
+            same_day_section = self._generate_same_day_articles_section(entry)
+            sidebar = self.template_definition_by_name('common-sidebar').replace(
+                '\n     #SAME-DAY-ARTICLES-SECTION#', same_day_section)
+            content = content.replace('#COMMON-SIDEBAR#', sidebar)
         content = self._replace_general_blog_placeholders(content)
 
         content = content.replace(
@@ -2776,6 +2783,52 @@ class Htmlizer(object):
                            '">' + tag[0] + '</a> (' + str(tag[1]) + ')</li>'
 
         return htmlcontent
+
+    def _generate_same_day_articles_section(self, entry):
+        """
+        Generates an HTML sidebar <li> block listing temporal, non-hidden articles
+        published on the same month/day as the given entry (any year).
+        Selection is seeded with the article ID for deterministic but varied results.
+        Returns an empty string if no matching articles exist.
+
+        @param entry: blog entry data dict (must be TEMPORAL category)
+        @param return: HTML string or empty string
+        """
+
+        pub_ts = entry.get('firstpublishTS')
+        if pub_ts is None:
+            return ''
+
+        same_day = []
+        for other in self.blog_data:
+            if other['category'] != config.TEMPORAL:
+                continue
+            if config.TAG_FOR_HIDDEN in other.get('usertags', []):
+                continue
+            if other['id'] == entry['id']:
+                continue
+            other_ts = other.get('firstpublishTS')
+            if other_ts and other_ts.month == pub_ts.month and other_ts.day == pub_ts.day:
+                same_day.append(other)
+
+        if not same_day:
+            return ''
+
+        rng = random.Random(entry['id'])
+        selected = rng.sample(same_day, min(config.MAX_NUMBER_RANDOM_ARTICLES, len(same_day)))
+
+        items = ''
+        for other in selected:
+            url = config.BASE_URL + '/' + str(self._target_path_for_id_without_targetdir(other['id'])) + '/'
+            title = self.sanitize_html_characters(other['title'])
+            items += '\n             <li><a href="' + url + '">' + title + '</a></li>'
+
+        return (
+            '\n     <li>Random articles that were published on the same day of the year:'
+            '\n         <ul class="same-day-articles-list">' +
+            items +
+            '\n         </ul></li>'
+        )
 
     def _generate_tag_page_list(self, tag):
         """
