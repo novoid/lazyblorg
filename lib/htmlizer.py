@@ -106,8 +106,11 @@ class Htmlizer(object):
         r'\[\[(.+?)\]\]', flags=re.U)
 
     # find external links such as http(s)://foo.bar
+    # The leading character must not be "/", which would indicate that this
+    # URL is embedded inside another URL (e.g., web.archive.org URLs like
+    # https://web.archive.org/web/20260125032122/https://example.com/).
     EXT_URL_LINK_REGEX = re.compile(
-        r'([^"<>\[])(http(s)?:\/\/\S+)', flags=re.U)
+        r'([^"<>\[/])(http(s)?:\/\/\S+)', flags=re.U)
 
     # find '&amp;' in an active URL and fix it to '&':
     FIX_AMPERSAND_URL_REGEX = re.compile(
@@ -2366,11 +2369,10 @@ class Htmlizer(object):
         @param return: sanitized string
         """
 
-        content = re.sub(
-            self.EXT_URL_LINK_REGEX,
-            r'\1<a href="\2">\2</a>',
-            content)
-
+        # Bracketed links must be processed before bare URLs. Otherwise, a
+        # URL embedded inside another URL (e.g. archive.org links of the form
+        # [[https://web.archive.org/web/20260125032122/https://example.com/][desc]])
+        # would have its inner https:// matched and corrupted by EXT_URL_LINK_REGEX.
         content = re.sub(
             self.EXT_URL_WITH_DESCRIPTION_REGEX,
             r'<a href="\1">\2</a>',
@@ -2379,6 +2381,11 @@ class Htmlizer(object):
         content = re.sub(
             self.EXT_URL_WITHOUT_DESCRIPTION_REGEX,
             r'<a href="\1">\1</a>',
+            content)
+
+        content = re.sub(
+            self.EXT_URL_LINK_REGEX,
+            r'\1<a href="\2">\2</a>',
             content)
 
         return content

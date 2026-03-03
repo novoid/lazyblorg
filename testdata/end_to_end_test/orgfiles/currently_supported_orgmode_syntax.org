@@ -99,6 +99,8 @@ like this which is very long]].
 
 Multiple URLs in one line: http://heise.de [[http://heise.de]] [[http://heise.de][heise]]
 
+web.archive.org URL with description: [[https://web.archive.org/web/20260125032122/https://minkorrekt.de/][Minkorrekt archived]]
+
 ** Links to IDs
 :PROPERTIES:
 :CREATED:  [2014-03-02 Sun 19:22]

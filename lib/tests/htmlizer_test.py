@@ -871,6 +871,22 @@ class TestHtmlizer(unittest.TestCase):
         self.assertTrue(
             htmlizer.sanitize_external_links(orgstring) == htmlstring)
 
+        # web.archive.org URLs contain an embedded URL after the timestamp;
+        # the inner https:// must not be matched as a bare URL and corrupted.
+        archive_url = "https://web.archive.org/web/20260125032122/https://minkorrekt.de/"
+
+        self.assertEqual(
+            htmlizer.sanitize_external_links("[[" + archive_url + "][Minkorrekt archived]]"),
+            "<a href=\"" + archive_url + "\">Minkorrekt archived</a>")
+
+        self.assertEqual(
+            htmlizer.sanitize_external_links("[[" + archive_url + "]]"),
+            "<a href=\"" + archive_url + "\">" + archive_url + "</a>")
+
+        self.assertEqual(
+            htmlizer.sanitize_external_links("See " + archive_url + " for details."),
+            "See <a href=\"" + archive_url + "\">" + archive_url + "</a> for details.")
+
     def test_fix_ampersands_in_url(self):
 
         template_definitions = 'foo'
