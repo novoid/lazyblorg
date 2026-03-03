@@ -10,6 +10,7 @@ from time import time, localtime, strftime
 from math import ceil  # for calculating reading time
 import re  # RegEx: for parsing/sanitizing
 import codecs
+import urllib.parse
 from lib.utils import Utils  # for guess_language_from_stopword_percentages()
 from shutil import copyfile  # for copying image files
 import cv2  # for scaling image files to their width of choice
@@ -2644,6 +2645,7 @@ class Htmlizer(object):
         content = content.replace('#CSS-URL#', config.CSS_URL)
         content = content.replace('#AUTHOR-NAME#', config.AUTHOR_NAME)
         content = content.replace('#BLOG-NAME#', config.BLOG_NAME)
+        content = content.replace('#BLOG-HASH-TAG#', config.BLOG_HASH_TAG)
         content = content.replace('#BLOG-LOGO#', config.BLOG_LOGO)
         content = content.replace('#DISQUS-NAME#', config.DISQUS_NAME)
         content = content.replace('#ABOUT-PAGE-ID#', config.ID_OF_ABOUT_PAGE)
@@ -2678,7 +2680,13 @@ class Htmlizer(object):
         @param return: template with replaced placeholders
         """
 
-        content = self._replace_general_blog_placeholders(template)
+        content = template.replace('#PUBLISHED-ON#',
+                                   self.template_definition_by_name('published-on'))
+        content = content.replace('#SHARE-ON-MASTODON-BUTTON#',
+                                   self.template_definition_by_name('share-on-mastodon-button'))
+        content = content.replace('#DISQUS-SNIPPET#',
+                                   self.template_definition_by_name('disqus-snippet'))
+        content = self._replace_general_blog_placeholders(content)
 
         content = content.replace(
             '#ARTICLE-TITLE#',
@@ -2691,7 +2699,10 @@ class Htmlizer(object):
             'T' + hours + ':' + minutes
 
         content = content.replace('#ARTICLE-ID#', entry['id'])
-        content = content.replace('#ARTICLE-URL#', str(self._target_path_for_id_without_targetdir(entry['id'])))
+        article_path = str(self._target_path_for_id_without_targetdir(entry['id']))
+        content = content.replace('#ARTICLE-URL#', article_path)
+        content = content.replace('#ARTICLE-TITLE-URL-ENCODED#', urllib.parse.quote(entry['title'], safe=''))
+        content = content.replace('#ARTICLE-FULL-URL-ENCODED#', urllib.parse.quote('https:' + config.BASE_URL + '/' + article_path, safe=''))
         content = content.replace('#ARTICLE-YEAR#', year)
         content = content.replace('#ARTICLE-MONTH#', month)
         content = content.replace('#ARTICLE-DAY#', day)

@@ -21,6 +21,10 @@ import os
 AUTHOR_NAME = 'Karl Voit'
 BLOG_NAME = 'public voit'
 
+## string: The hashtag of your blog (without leading '#') used in Mastodon share links.
+## Example: BLOG_HASH_TAG = 'publicvoit'  →  appears as #publicvoit in share text
+BLOG_HASH_TAG = 'publicvoit'
+
 ## strings: Define your URLs and your name below:
 DOMAIN = 'Karl-Voit.at'
 BASE_URL = '//' + DOMAIN

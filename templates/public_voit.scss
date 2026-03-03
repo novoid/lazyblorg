@@ -527,10 +527,22 @@ figcaption {
     @extend .middle_section_wide;
     font-size: 80%;
     color: gray;
-    text-align: right;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-left: auto;
     margin-right: auto;
     padding-top: 2em;
+}
+
+.published-on a.share-mastodon {
+    color: inherit;
+    background: none;
+    text-decoration: none;
+}
+
+.published-on a.share-mastodon svg {
+    vertical-align: middle;
 }
 
 .tag-pages-link-list {
