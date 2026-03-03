@@ -8,7 +8,7 @@ A static blog generator that converts Org-mode files into HTML5. Blog entries ar
 
 Any user-visible text should not be included into the Python files. Instead, templates should be used for any text and `config.org` for any site-specific configuration. This way, most translation should happen in the template files and not within the Python code.
 
-On any change, also update the Org-mode time-stamp in lazyblorg.py: `PROG_VERSION = "Time-stamp: <2020-10-03 19:51:01 vk>"` to the current time.
+On any change, also update the Org-mode time-stamp in lazyblorg.py: `PROG_VERSION = "Time-stamp: <2020-10-03 19:51:01 vk>"`: Make sure that the date matches the current date and the time stamp matches the current time.
 
 If the Atom feeds are changed, ask back the user if this change is OK since the feeds are used by the public already.
 

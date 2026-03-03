@@ -2682,8 +2682,11 @@ class Htmlizer(object):
 
         content = template.replace('#PUBLISHED-ON#',
                                    self.template_definition_by_name('published-on'))
-        content = content.replace('#SHARE-ON-MASTODON-BUTTON#',
-                                   self.template_definition_by_name('share-on-mastodon-button'))
+        if config.TAG_FOR_HIDDEN in entry.get('usertags', []):
+            content = content.replace('#SHARE-ON-MASTODON-BUTTON#', '')
+        else:
+            content = content.replace('#SHARE-ON-MASTODON-BUTTON#',
+                                       self.template_definition_by_name('share-on-mastodon-button'))
         content = content.replace('#DISQUS-SNIPPET#',
                                    self.template_definition_by_name('disqus-snippet'))
         content = self._replace_general_blog_placeholders(content)
