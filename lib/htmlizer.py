@@ -519,10 +519,6 @@ class Htmlizer(object):
             my_end_template = 'tagpage-end'
             my_footer_template = 'article-footer'
 
-        if config.MASTODON_USER_URL:
-            ## the config.org contains a filled MASTODON_USER_URL variable:
-            my_footer_template += '-mastodon'
-            
         htmlcontent += self.sanitize_internal_links(self.template_definition_by_name(my_end_template))
         htmlcontent += self.sanitize_internal_links(self._generate_back_references_content(entry, kind))
         htmlcontent += self.sanitize_internal_links(
@@ -530,8 +526,6 @@ class Htmlizer(object):
                 entry,
                 self.template_definition_by_name(my_footer_template)))
 
-        if config.MASTODON_USER_URL:
-            htmlcontent = htmlcontent.replace('#MASTODON_USER_URL#', config.MASTODON_USER_URL)
         htmlcontent = self._replace_general_article_placeholders(entry, htmlcontent)
         htmlcontent = self._insert_reading_minutes_if_found(entry, htmlcontent)
 
@@ -1168,16 +1162,9 @@ class Htmlizer(object):
                           ' and therefore I got less teaser than configured in NUMBER_OF_TEASER_ARTICLES')
 
         # add footer:
-        if config.MASTODON_USER_URL:
-            ## the config.org contains a filled MASTODON_USER_URL variable:
-            footer = self._replace_general_article_placeholders(
-                entry,
-                self.template_definition_by_name('entrypage-footer-mastodon'))
-            footer = footer.replace('#MASTODON_USER_URL#', config.MASTODON_USER_URL)
-        else:
-            footer = self._replace_general_article_placeholders(
-                entry,
-                self.template_definition_by_name('entrypage-footer'))
+        footer = self._replace_general_article_placeholders(
+            entry,
+            self.template_definition_by_name('entrypage-footer'))
         htmlcontent += self.sanitize_internal_links(footer)
 
         if 'TMPREPLACEMEheightSTART-' in htmlcontent:
@@ -2656,6 +2643,12 @@ class Htmlizer(object):
         content = content.replace('#FEEDURL_LINKS#', config.BASE_URL + '/' + config.FEEDDIR + '/' + self.__generate_feed_file_names("all")[0])
         content = content.replace('#FEEDURL_TEASER#', config.BASE_URL + '/' + config.FEEDDIR + '/' + self.__generate_feed_file_names("all")[1])
         content = content.replace('#FEEDURL_CONTENT#', config.BASE_URL + '/' + config.FEEDDIR + '/' + self.__generate_feed_file_names("all")[2])
+        if config.MASTODON_USER_URL:
+            mastodon_entry = self.template_definition_by_name('mastodon-footer-entry').replace(
+                '#MASTODON_USER_URL#', config.MASTODON_USER_URL)
+            content = content.replace('#MASTODON-FOOTER-ENTRY#', mastodon_entry)
+        else:
+            content = content.replace('#MASTODON-FOOTER-ENTRY#', '')
         return content
 
     def _replace_general_article_placeholders(self, entry, template):
