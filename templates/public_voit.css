@@ -93,7 +93,11 @@ a {
     height: 6em; }
 
   .sidebar {
-    display: none; } }
+    display: none; }
+
+  .published-on {
+    padding-left: 1em;
+    padding-right: 1em; } }
 @media (min-width: 50em) {
   /* narrow maincolumn; narrow sidebar */
   .middle_section_narrow, .common-tags, .entry-page-article .entry-page-article-tags, .common-article, .entry-page-article, .common-article-header-title, blockquote, .example_code, .email-comment, #disqus_thread, .entry-page-greetings, .back-references {
@@ -467,9 +471,12 @@ figcaption {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 2em;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 2em; }
+  padding-top: 2em;
+  width: 100%;
+  box-sizing: border-box; }
 
 .published-on a.share-mastodon {
   color: inherit;
@@ -599,11 +606,5 @@ footer {
     height: 40px;
     font-size: .5em;
     padding-bottom: 0px; }
-  .same-day-articles-list li a {
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: small; }
 
 /*# sourceMappingURL=public_voit.css.map */

@@ -201,6 +201,10 @@ a {
     .sidebar {
 	display: none;
     }
+    .published-on {
+	padding-left: 1em;
+	padding-right: 1em;
+    }
 }
 @media (min-width: 50em) {  /* narrow maincolumn; narrow sidebar */
     @include narrow-maincolumns-30em-45em;
@@ -530,9 +534,12 @@ figcaption {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 2em;
     margin-left: auto;
     margin-right: auto;
     padding-top: 2em;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .published-on a.share-mastodon {
