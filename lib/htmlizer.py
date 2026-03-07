@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: python; -*-
-# Time-stamp: <2026-02-14 20:58:37 vk>
+# Time-stamp: <2026-03-07 11:48:05 vk>
 
 import config  # lazyblorg-global settings
 import sys
@@ -2653,6 +2653,85 @@ class Htmlizer(object):
         content = content.replace('\n     #SAME-DAY-ARTICLES-SECTION#', '')
         return content
 
+    def _get_entry_language_suffix(self, entry):
+        """
+        Returns the language suffix for template lookups based on the entry's autotag language.
+
+        Maps 'deutsch' -> 'de', 'english' -> 'en'. Falls back to 'en' if
+        language is not recognized or not set.
+
+        @param entry: blog entry data dict
+        @param return: string like 'en' or 'de'
+        """
+
+        lang_map = {'deutsch': 'de', 'english': 'en'}
+        if 'autotags' in entry and 'language' in entry['autotags']:
+            return lang_map.get(entry['autotags']['language'], 'en')
+        return 'en'
+
+    def _try_template_definition_by_name(self, name, fallback_name=None):
+        """
+        Tries to load a template by name. If not found and fallback_name is given,
+        tries the fallback. If neither found, logs a user-friendly error and raises.
+
+        @param name: template name to try first
+        @param fallback_name: optional fallback template name
+        @param return: template content string
+        """
+
+        if self._template_cache is None:
+            # trigger cache build
+            self.template_definition_by_name(name)
+
+        if name in self._template_cache:
+            return self._template_cache[name]
+
+        if fallback_name and fallback_name in self._template_cache:
+            self.logging.warning(
+                "Template '" + name + "' not found in blog-format.org. "
+                "Falling back to '" + fallback_name + "'. "
+                "To add the missing template, create a #+NAME: " + name +
+                " HTML block in the 'General elements' section of your template file.")
+            return self._template_cache[fallback_name]
+
+        message = (
+            "Template '" + name + "' not found in blog-format.org. "
+            "Please add a #+NAME: " + name + " HTML export block in the "
+            "'General elements' section of your template file (blog-format.org).")
+        self.logging.critical(message)
+        raise HtmlizerException(self.current_entry_id, message)
+
+    def _generate_mastodon_comment_url(self, entry):
+        """
+        Generates the share.joinmastodon.org URL with pre-filled comment text
+        based on the entry's language.
+
+        @param entry: blog entry data dict
+        @param return: URL string for the Mastodon comment link
+        """
+
+        lang_suffix = self._get_entry_language_suffix(entry)
+        comment_text_template_name = 'mastodon-comment-text-' + lang_suffix
+
+        comment_text_template = self._try_template_definition_by_name(
+            comment_text_template_name, 'mastodon-comment-text-en')
+
+        article_hashtag = self._generate_article_hashtag(entry)
+        article_path = str(self._target_path_for_id_without_targetdir(entry['id']))
+        article_url = 'https:' + config.BASE_URL + '/' + article_path
+
+        # Build the comment text by replacing placeholders
+        comment_text = comment_text_template
+        comment_text = comment_text.replace('#BLOG-HASH-TAG#', '#' + config.BLOG_HASH_TAG)
+        comment_text = comment_text.replace('#ARTICLE-TITLE#', entry['title'])
+        comment_text = comment_text.replace('#ARTICLE-URL#', article_url)
+        comment_text = comment_text.replace('#ARTICLE-HASH-TAG#', '#' + article_hashtag)
+
+        # URL-encode the entire comment text
+        encoded_text = urllib.parse.quote(comment_text.strip(), safe='')
+
+        return 'https://share.joinmastodon.org/?text=' + encoded_text
+
     def _replace_general_article_placeholders(self, entry, template):
         """
         General article placeholders are:
@@ -2665,6 +2744,8 @@ class Htmlizer(object):
         - #ARTICLE-PUBLISHED-HTML-DATETIME#: time-stamp of publishing in HTML date-time format
         - #ARTICLE-PUBLISHED-HUMAN-READABLE#: time-stamp of publishing in
         - #TAG-PAGE-LIST#: list of all blog pages using a specific tag
+        - #ARTICLE-HASH-TAG#: sanitized hashtag for the article (without leading #)
+        - #COMMENT-LINE#: language-specific comment line with Mastodon, email, Disqus links
         - and further more
 
         This method replaces all placeholders from above with their
@@ -2684,6 +2765,29 @@ class Htmlizer(object):
                                        self.template_definition_by_name('share-on-mastodon-button'))
         content = content.replace('#DISQUS-SNIPPET#',
                                    self.template_definition_by_name('disqus-snippet'))
+
+        # Replace #COMMENT-LINE# with language-specific comment line
+        if '#COMMENT-LINE#' in content:
+            if config.TAG_FOR_HIDDEN in entry.get('usertags', []):
+                # Hidden entries: use plain comment line without Mastodon
+                comment_line = self._try_template_definition_by_name(
+                    'comment-line-hidden', 'comment-line-hidden')
+            else:
+                lang_suffix = self._get_entry_language_suffix(entry)
+                comment_line_name = 'comment-line-' + lang_suffix
+                comment_line = self._try_template_definition_by_name(
+                    comment_line_name, 'comment-line-en')
+                article_hashtag = self._generate_article_hashtag(entry)
+                mastodon_comment_url = self._generate_mastodon_comment_url(entry)
+                mastodon_svg = self.template_definition_by_name('mastodon-logo-svg')
+                comment_line = comment_line.replace('#COMMENT-MASTODON-URL#', mastodon_comment_url)
+                comment_line = comment_line.replace('#MASTODON-LOGO-SVG#', mastodon_svg)
+                comment_line = comment_line.replace('#ARTICLE-HASH-TAG#', article_hashtag)
+            content = content.replace('#COMMENT-LINE#', comment_line)
+
+        # Replace #ARTICLE-HASH-TAG# anywhere else it might appear
+        if '#ARTICLE-HASH-TAG#' in content:
+            content = content.replace('#ARTICLE-HASH-TAG#', self._generate_article_hashtag(entry))
         if entry['category'] == config.TEMPORAL:
             same_day_section = self._generate_same_day_articles_section(entry)
             sidebar = self.template_definition_by_name('common-sidebar').replace(
@@ -3132,6 +3236,52 @@ class Htmlizer(object):
             folder = folder[11:]
 
         return folder
+
+    @staticmethod
+    def _generate_article_hashtag(entry):
+        """
+        Generates a hashtag (without leading '#') for a blog entry based on its ID and category.
+
+        TEMPORAL/PERSISTENT: id:YYYY-MM-DD-foo-bar -> YYYYMMDD_FooBar
+        If no YYYY-MM-DD prefix in ID, use firstpublishTS for the date prefix.
+        TAGS: id:$mytag -> <BLOG_HASH_TAG>Tag$Mytag (e.g., publicvoitTagExampletag)
+
+        Sanitized to only contain alphanumeric characters, underscores, and German umlauts.
+
+        @param entry: blog entry data dict
+        @param return: hashtag string without leading '#'
+        """
+
+        entry_id = entry['id']
+        datestamp_regex = re.compile(r'([12]\d\d\d)-([012345]\d)-([012345]\d)')
+
+        if entry['category'] == config.TAGS:
+            # Tag pages: <BLOG_HASH_TAG>Tag<Tagname>
+            tag_name = entry['title']
+            hashtag = config.BLOG_HASH_TAG + 'Tag' + tag_name[0].upper() + tag_name[1:]
+        else:
+            # TEMPORAL or PERSISTENT
+            match = datestamp_regex.match(entry_id[0:10])
+            if match:
+                date_part = match.group(1) + match.group(2) + match.group(3)
+                rest = entry_id[11:]  # skip "YYYY-MM-DD-"
+            else:
+                # No date prefix in ID, use firstpublishTS
+                year, month, day, _, _ = Utils.get_YY_MM_DD_HH_MM_from_datetime(entry['firstpublishTS'])
+                date_part = year + month + day
+                rest = entry_id
+
+            # Convert rest to CamelCase: split by '-' or '_', capitalize each word
+            words = re.split(r'[-_]+', rest)
+            camel = ''.join(word[0].upper() + word[1:] if word else '' for word in words)
+            hashtag = date_part + '_' + camel
+
+        # Sanitize: keep only alphanumeric, underscores, and German umlauts
+        hashtag = re.sub(r'[^a-zA-Z0-9_äöüÄÖÜß]', '_', hashtag)
+        # Collapse more than two consecutive underscores to two
+        hashtag = re.sub(r'_{3,}', '__', hashtag)
+
+        return hashtag
 
     def _target_path_for_id_with_targetdir(self, entryid):
         """

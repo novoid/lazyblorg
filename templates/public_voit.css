@@ -456,6 +456,12 @@ figcaption {
   color: #252525;
   font-size: 80%; }
 
+.comment-hashtag {
+  font-family: monospace;
+  background: none;
+  border: none;
+  padding: 0; }
+
 .reading-time-section {
   font-size: 80%;
   color: gray;

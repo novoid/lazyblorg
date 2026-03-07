@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8; mode: python; -*-
-PROG_VERSION = "Time-stamp: <2026-03-07 00:00:00 vk>"
+PROG_VERSION = "Time-stamp: <2026-03-07 11:48:05 vk>"
 PROG_VERSION_DATE = PROG_VERSION[13:23]
 
 # TODO:
@@ -283,7 +283,11 @@ class Lazyblorg(object):
                 'tag-feed-info',
                 'tagtree-feed-info',
                 'tagtree-header',
-                'tagtree-footer']:
+                'tagtree-footer',
+                'mastodon-logo-svg',
+                'mastodon-comment-text-en',
+                'comment-line-en',
+                'comment-line-hidden']:
             if element not in found_elements:
                 message = "Sorry, no definition for element \"" + element + "\" could be found within " + \
                     "the template definition file. " + "Please check if you mistyped its name or similar."
