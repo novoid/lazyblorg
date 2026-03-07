@@ -443,7 +443,7 @@ Expanded to the Mastodon profile link when ~MASTODON_USER_URL~ is set in
   <div class="entry-page-greetings">
   <p>
 
-    This is the home-page of #AUTHOR-NAME#.
+    This is the homepage of [[id:#ABOUT-PAGE-ID#][#AUTHOR-NAME#]].
 
   </p>
 

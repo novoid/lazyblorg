@@ -29,3 +29,4 @@ OLDINVOCATIONSCRIPT_without_uv/
 .regenerate_public_voit_last_run.log
 update_mypi.sh
 lazyblorg.egg-info/
+.sass-cache/

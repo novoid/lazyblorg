@@ -1,6 +1,6 @@
 [project]
 name = "lazyblorg"
-version = "2026.03.01.1"
+version = "2026.03.03.1"
 description = "Blogging with Emacs Org-mode for very lazy people"
 keywords= ["orgmode", "weblog", "homepage", "orgdown", "blog", "static website generator"]
 authors = [{name="Karl Voit", email="tools@Karl-Voit.at"}]
