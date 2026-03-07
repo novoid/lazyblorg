@@ -444,8 +444,6 @@ The user is expected to replace ~FIXXME~ with their actual comment.
 Comment on the #BLOG-HASH-TAG# article: #ARTICLE-TITLE#
 #ARTICLE-URL#
 
-FIXXME
-
 #ARTICLE-HASH-TAG#
 #+END_EXPORT
 
@@ -457,8 +455,6 @@ The pre-filled text for commenting on an article via Mastodon (German version).
 #+BEGIN_EXPORT HTML
 Kommentar zum #BLOG-HASH-TAG# Blogartikel: #ARTICLE-TITLE#
 #ARTICLE-URL#
-
-FIXXME
 
 #ARTICLE-HASH-TAG#
 #+END_EXPORT
