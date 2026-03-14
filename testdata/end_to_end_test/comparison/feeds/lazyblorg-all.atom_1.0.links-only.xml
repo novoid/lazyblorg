@@ -7,13 +7,23 @@
   <id>https://karl-voit.at/</id>
   <link href="http://Karl-Voit.at" />
   <icon>/favicon.ico</icon>
-  <updated>2026-03-07T12:14:25+01:00</updated>
+  <updated>2026-03-14T20:09:18+01:00</updated>
   <author>
     <name>Karl Voit</name>
   </author>
   <subtitle type="text">public voit</subtitle>
   <rights>All content written by Karl Voit</rights>
   <generator uri='https://github.com/novoid/lazyblorg'>Generated from Org-mode source code using lazyblorg which is written in Python. Industrial-strength technology, baby.</generator>
+<!-- ############################################################################################# -->
+<entry>
+    <title type="text">Article with snippets</title>
+    <link href='https://Karl-Voit.at/2026/01/10/snippet-article' />
+    <published>2026-01-10T14:00:00+01:00</published>
+    <updated>2026-01-10T14:00:00+01:00</updated>
+    <category scheme='https://Karl-Voit.at/tags/mytest' term='mytest' />
+    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
+    <id>https://karl-voit.at/2026/01/10/snippet-article-from-feed-with-links</id>
+</entry>
 <!-- ############################################################################################# -->
 <entry>
     <title type="text">Test case with drawers</title>
@@ -245,13 +255,4 @@
     <updated>1985-01-01T15:07:00+01:00</updated>
     <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
     <id>https://karl-voit.at/1985/01/01/old-entry7-from-feed-with-links</id>
-</entry>
-<!-- ############################################################################################# -->
-<entry>
-    <title type="text">old blog entry6</title>
-    <link href='https://Karl-Voit.at/1985/01/01/old-entry6' />
-    <published>1985-01-01T15:06:00+01:00</published>
-    <updated>1985-01-01T15:06:00+01:00</updated>
-    <category scheme='https://Karl-Voit.at/autotags/language' term='language:english' />
-    <id>https://karl-voit.at/1985/01/01/old-entry6-from-feed-with-links</id>
 </entry></feed>

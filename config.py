@@ -231,6 +231,12 @@ TAG_FOR_TEMPLATES_ENTRY = 'lb_templates'
 assertTag(TAG_FOR_TEMPLATES_ENTRY)
 
 
+## if an entry is tagged with this, it's a SNIPPET entry; tag does not get shown in list of user-tags
+TAG_FOR_SNIPPET_ENTRY = 'lbsnippet'
+
+assertTag(TAG_FOR_SNIPPET_ENTRY)
+
+
 ## if an entry is tagged with this, it will be omitted in feeds, the main page, and navigation pages; tag is shown in result page
 TAG_FOR_HIDDEN = 'hidden'
 
@@ -242,6 +248,7 @@ TAGS = 'TAGS'
 PERSISTENT = 'PERSISTENT'
 TEMPORAL = 'TEMPORAL'
 TEMPLATES = 'TEMPLATES'
+SNIPPET = 'SNIPPET'
 ENTRYPAGE = 'ENTRYPAGE'
 TAGOVERVIEWPAGE = 'TAGOVERVIEWPAGE'
 
@@ -249,6 +256,7 @@ assert(type(TAGS) == str)
 assert(type(PERSISTENT) == str)
 assert(type(TEMPORAL) == str)
 assert(type(TEMPLATES) == str)
+assert(type(SNIPPET) == str)
 assert(type(ENTRYPAGE) == str)
 assert(type(TAGOVERVIEWPAGE) == str)
 

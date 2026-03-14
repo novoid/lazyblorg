@@ -287,7 +287,8 @@ class OrgParser(object):
         for rawtag in rawtags:
             # separate lbtags from usertags:
             if rawtag.lower() == config.TAG_FOR_TAG_ENTRY or rawtag.lower() == config.TAG_FOR_PERSISTENT_ENTRY or \
-               rawtag.lower() == config.TAG_FOR_TEMPLATES_ENTRY or rawtag.lower() == config.TAG_FOR_BLOG_ENTRY:
+               rawtag.lower() == config.TAG_FOR_TEMPLATES_ENTRY or rawtag.lower() == config.TAG_FOR_SNIPPET_ENTRY or \
+               rawtag.lower() == config.TAG_FOR_BLOG_ENTRY:
                 # FIXXME: probably omit config.TAG_FOR_BLOG_ENTRY here?
                 # FIXXME: at least make sure that it does not get added to
                 # usertags!
@@ -324,6 +325,10 @@ class OrgParser(object):
                 self.logging.debug(
                     "OrgParser: check OK; appending blog category TEMPLATES ...")
                 self.__entry_data['category'] = config.TEMPLATES
+            elif config.TAG_FOR_SNIPPET_ENTRY in self.__entry_data['lbtags']:
+                self.logging.debug(
+                    "OrgParser: check OK; appending blog category SNIPPET ...")
+                self.__entry_data['category'] = config.SNIPPET
             elif config.TAG_FOR_TAG_ENTRY in self.__entry_data['lbtags']:
                 self.logging.debug(
                     "OrgParser: check OK; appending blog category TAGS ...")

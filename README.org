@@ -330,6 +330,11 @@ efficiently:
 
 - Easy embedding of [[https://github.com/novoid/lazyblorg/wiki/Embedding-External-Content][external content]] such as Tweets or YouTube videos.
 
+- [[https://github.com/novoid/lazyblorg/wiki/Snippets][Snippets]]: Define reusable content fragments as Org-mode entries
+  and reference them from any blog article using =[[id:snippet-id]]=
+  syntax. Supports inline and block replacement, heading level
+  adaptation, and nesting.
+
 - You can exclude content from being published with various features:
   1. [[https://github.com/novoid/lazyblorg/wiki/Comments][Comment lines]]
   2. Mark an article/heading as hidden [[https://github.com/novoid/lazyblorg/wiki/Headings#headings-within-a-blog-article][using the tag NOEXPORT]]

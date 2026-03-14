@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8; mode: python; -*-
-PROG_VERSION = "Time-stamp: <2026-03-07 11:48:05 vk>"
+PROG_VERSION = "Time-stamp: <2026-03-14 10:30:00 vk>"
 PROG_VERSION_DATE = PROG_VERSION[13:23]
 
 # TODO:
@@ -19,6 +19,7 @@ from argparse import ArgumentParser, RawDescriptionHelpFormatter
 from lib.utils import *
 from lib.orgparser import *
 from lib.htmlizer import *
+from lib.snippets import SnippetResolver, SnippetException
 import pickle  # for serializing and storing objects into files
 from time import time  # for measuring execution time
 
@@ -89,6 +90,15 @@ class Lazyblorg(object):
                 self.blog_data += file_blog_data
                 stats_parsed_org_files += 1
                 stats_parsed_org_lines += new_org_lines
+
+        # Resolve snippet references before metadata generation
+        logging.info("• Resolving snippet references …")
+        try:
+            resolver = SnippetResolver(self.blog_data)
+            self.blog_data = resolver.resolve_all()
+        except SnippetException as message:
+            Utils.error_exit_with_userlog(options.logfilename, 25,
+                                          "Snippet resolution error: " + message.value)
 
         # dump blogdata for debugging purpose ...
         if options.verbose:

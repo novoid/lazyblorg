@@ -1,0 +1,36 @@
+** DONE Article with snippets                            :blog:mytest:
+CLOSED: [2026-01-10 Fri 14:00]
+:LOGBOOK:
+- State "DONE"       from ""           [2026-01-10 Fri 14:00]
+:END:
+:PROPERTIES:
+:CREATED:  [2026-01-10 Fri 12:00]
+:ID: 2026-01-10-snippet-article
+:END:
+
+This is an article that uses snippets.
+
+I say CLOSED: [2026-01-01 Wed 10:00]
+:LOGBOOK:
+- State "DONE"       from ""           [2026-01-01 Wed 10:00]
+:END:
+:PROPERTIES:
+:CREATED:  [2026-01-01 Wed 09:00]
+:ID: snippet-greeting
+:END:
+
+Hello, dear reader to everyone.
+
+CLOSED: [2026-01-01 Wed 10:00]
+:LOGBOOK:
+- State "DONE"       from ""           [2026-01-01 Wed 10:00]
+:END:
+:PROPERTIES:
+:CREATED:  [2026-01-01 Wed 09:00]
+:ID: snippet-block
+:END:
+
+This is the first paragraph of the block snippet.
+
+This is the second paragraph of the block snippet.
+

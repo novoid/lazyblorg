@@ -1,0 +1,62 @@
+# -*- coding: utf-8 -*-
+# Test file for snippet functionality
+
+* Snippets                                                         :noexport:
+
+** DONE Inline greeting snippet                         :blog:lbsnippet:
+CLOSED: [2026-01-01 Wed 10:00]
+:LOGBOOK:
+- State "DONE"       from ""           [2026-01-01 Wed 10:00]
+:END:
+:PROPERTIES:
+:CREATED:  [2026-01-01 Wed 09:00]
+:ID: snippet-greeting
+:END:
+
+Hello, dear reader
+
+** DONE Block content snippet                           :blog:lbsnippet:
+CLOSED: [2026-01-01 Wed 10:00]
+:LOGBOOK:
+- State "DONE"       from ""           [2026-01-01 Wed 10:00]
+:END:
+:PROPERTIES:
+:CREATED:  [2026-01-01 Wed 09:00]
+:ID: snippet-block
+:END:
+
+This is the first paragraph of the block snippet.
+
+This is the second paragraph of the block snippet.
+
+** DONE Nested outer snippet                            :blog:lbsnippet:
+CLOSED: [2026-01-01 Wed 10:00]
+:LOGBOOK:
+- State "DONE"       from ""           [2026-01-01 Wed 10:00]
+:END:
+:PROPERTIES:
+:CREATED:  [2026-01-01 Wed 09:00]
+:ID: snippet-outer
+:END:
+
+Outer before. [[id:snippet-greeting]] Outer after.
+
+* Articles using snippets
+
+** DONE Article with snippets                            :blog:mytest:
+CLOSED: [2026-01-10 Fri 14:00]
+:LOGBOOK:
+- State "DONE"       from ""           [2026-01-10 Fri 14:00]
+:END:
+:PROPERTIES:
+:CREATED:  [2026-01-10 Fri 12:00]
+:ID: 2026-01-10-snippet-article
+:END:
+
+This is an article that uses snippets.
+
+I say [[id:snippet-greeting]] to everyone.
+
+[[id:snippet-block]]
+
+And here we use the nested one: [[id:snippet-outer]]
