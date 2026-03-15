@@ -1,3 +1,4 @@
+* DONE Test case with drawers                                                                  :blog:
 CLOSED: [2021-01-30 Sat 23:32]
 :PROPERTIES:
 :ID: 2021-01-30-drawer-tests

@@ -1,3 +1,4 @@
+* DONE Placeholder: How to Use This Blog Efficiently                             :blog:lb_persistent:
 CLOSED: [2017-01-03 Tue 12:07]
 :PROPERTIES:
 :ID: 2017-01-03-how-to-use-this-blog

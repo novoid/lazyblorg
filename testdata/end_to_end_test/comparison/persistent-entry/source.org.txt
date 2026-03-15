@@ -1,3 +1,4 @@
+** DONE A Wonderful Persistent Blog Entry                 :lazyblorg:programming:exampletag:blog:lb_persistent:
 CLOSED: [2016-10-31 Mon 16:39]
 :PROPERTIES:
 :ID: 2016-10-31-persistent-entry

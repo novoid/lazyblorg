@@ -1,3 +1,4 @@
+** DONE old blog entry4                                                                       :blog:
 CLOSED: [1985-01-01 Tue 15:04]
 :PROPERTIES:
 :ID: 1985-01-01-old-entry4

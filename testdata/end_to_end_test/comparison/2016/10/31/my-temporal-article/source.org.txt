@@ -1,3 +1,4 @@
+* DONE A Temporal Article With Links                                               :exampletag::blog:
 CLOSED: [2016-10-31 Mon 16:40]
 :PROPERTIES:
 :ID: 2016-10-31-my-temporal-article

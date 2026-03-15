@@ -1,3 +1,4 @@
+** DONE Special Characters and Language Tag Override                        :blog:lazyblorg:deutsch:
 CLOSED: [2016-11-27 Sun 15:00]
 :PROPERTIES:
 :ID: 2016-11-27-special-characters

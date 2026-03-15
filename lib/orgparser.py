@@ -776,7 +776,13 @@ class OrgParser(object):
                         # level is same or higher as main heading of blog
                         # entry: end of blog entry
                         state = self.__handle_blog_end(line, rawcontent)
-                        rawcontent = ""
+                        if state == self.BLOG_HEADER:
+                            # The current line is the heading of the next
+                            # blog entry — seed rawcontent with it so
+                            # it appears in source.org.txt
+                            rawcontent = line + '\n'
+                        else:
+                            rawcontent = ""
                         previous_line = line
                         ignore_line_for_rawcontent = True
                         continue

@@ -1,3 +1,4 @@
+* DONE Empty Autotag Page                                                               :blog:hidden:english:
 CLOSED: [2016-11-16 Wed 21:39]
 :PROPERTIES:
 :ID: empty-language-autotag-page

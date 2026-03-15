@@ -113,6 +113,74 @@ class TestOrgParser(unittest.TestCase):
                 reference_blog_data,
                 blog_data))
 
+    def test_rawcontent_starts_with_heading(self):
+        """Every blog entry's rawcontent must start with its heading line."""
+
+        testfiles = [
+            join("testdata", "end_to_end_test", "orgfiles", "test.org"),
+            join("testdata", "end_to_end_test", "orgfiles", "real-world-entries.org"),
+            join("testdata", "end_to_end_test", "orgfiles", "test_snippets.org"),
+        ]
+
+        for testfile in testfiles:
+            parser = OrgParser(testfile)
+            blog_data, _ = parser.parse_orgmode_file()
+
+            for entry in blog_data:
+                rawcontent = entry.get('rawcontent', '')
+                first_line = rawcontent.split('\n')[0] if rawcontent else ''
+                self.assertTrue(
+                    first_line.startswith('*'),
+                    "Entry '%s' in '%s': rawcontent should start with "
+                    "heading line but starts with: %s" %
+                    (entry.get('id', '?'), testfile, repr(first_line)))
+                self.assertIn(
+                    entry['title'], first_line,
+                    "Entry '%s' in '%s': rawcontent heading should contain "
+                    "the entry title '%s'" %
+                    (entry.get('id', '?'), testfile, entry['title']))
+
+    def test_consecutive_entries_rawcontent_heading(self):
+        """Consecutive blog entries (back-to-back) must each have their heading in rawcontent."""
+
+        # test.org has 14 consecutive old-entry entries at level 2
+        testfile = join("testdata", "end_to_end_test", "orgfiles", "test.org")
+        parser = OrgParser(testfile)
+        blog_data, _ = parser.parse_orgmode_file()
+
+        consecutive_ids = ['1985-01-01-old-entry' + str(i) for i in range(1, 15)]
+        for entry_id in consecutive_ids:
+            matches = [e for e in blog_data if e.get('id') == entry_id]
+            self.assertEqual(len(matches), 1,
+                             "Expected to find entry '%s'" % entry_id)
+            entry = matches[0]
+            rawcontent = entry.get('rawcontent', '')
+            first_line = rawcontent.split('\n')[0]
+            self.assertTrue(
+                first_line.startswith('*'),
+                "Consecutive entry '%s': rawcontent must start with "
+                "heading but starts with: %s" % (entry_id, repr(first_line)))
+
+    def test_entry_after_nonblog_content_rawcontent_heading(self):
+        """A blog entry following non-blog content must have its heading in rawcontent."""
+
+        # real-world-entries.org has the drawer-tests entry after non-blog paragraphs
+        testfile = join("testdata", "end_to_end_test", "orgfiles",
+                        "real-world-entries.org")
+        parser = OrgParser(testfile)
+        blog_data, _ = parser.parse_orgmode_file()
+
+        entry = [e for e in blog_data
+                 if e.get('id') == '2021-01-30-drawer-tests'][0]
+        rawcontent = entry.get('rawcontent', '')
+        first_line = rawcontent.split('\n')[0]
+        self.assertTrue(
+            first_line.startswith('*'),
+            "drawer-tests entry rawcontent must start with heading "
+            "but starts with: %s" % repr(first_line))
+        self.assertIn('Test case with drawers', first_line)
+
+
 # END OF FILE ###########################################################
 # Local Variables:
 # mode: flyspell

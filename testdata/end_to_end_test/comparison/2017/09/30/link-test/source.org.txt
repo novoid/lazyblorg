@@ -1,3 +1,4 @@
+** DONE Links test and reading time over one minute   :blog:lazyblorg:programming:exampletag:mytest:
 CLOSED: [2017-09-30 Sat 17:05]
 :PROPERTIES:
 :CREATED:  [2017-09-30 Sat 17:05]
