@@ -256,6 +256,76 @@ class TestSnippetResolver(unittest.TestCase):
         self.assertIn('Snippet body here.', result[0]['rawcontent'])
         self.assertNotIn('[[id:raw-snippet]]', result[0]['rawcontent'])
 
+    def test_rawcontent_strips_metadata(self):
+        """rawcontent replacement must strip heading, CLOSED, LOGBOOK, and PROPERTIES drawers."""
+        snippet_raw = (
+            '** DONE My snippet                              :blog:lbsnippet:\n'
+            'CLOSED: [2026-01-01 Wed 10:00]\n'
+            ':LOGBOOK:\n'
+            '- State "DONE"       from ""           [2026-01-01 Wed 10:00]\n'
+            ':END:\n'
+            ':PROPERTIES:\n'
+            ':CREATED:  [2026-01-01 Wed 09:00]\n'
+            ':ID: meta-snippet\n'
+            ':END:\n'
+            '\n'
+            'This is the actual snippet body.\n'
+            '\n'
+            'Second paragraph of snippet.\n'
+        )
+        snippet = self._make_snippet(
+            'meta-snippet',
+            [['par', 'This is the actual snippet body.'],
+             ['par', 'Second paragraph of snippet.']],
+            rawcontent=snippet_raw)
+
+        entry_raw = (
+            '** DONE My article                              :blog:mytest:\n'
+            'CLOSED: [2026-01-10 Fri 14:00]\n'
+            ':LOGBOOK:\n'
+            '- State "DONE"       from ""           [2026-01-10 Fri 14:00]\n'
+            ':END:\n'
+            ':PROPERTIES:\n'
+            ':CREATED:  [2026-01-10 Fri 12:00]\n'
+            ':ID: 2026-01-10-test\n'
+            ':END:\n'
+            '\n'
+            'Intro text.\n'
+            '\n'
+            '[[id:meta-snippet]]\n'
+            '\n'
+            'Outro text.\n'
+        )
+        entry = self._make_entry(
+            'article-1',
+            [['par', 'Intro text.'],
+             ['par', '[[id:meta-snippet]]'],
+             ['par', 'Outro text.']],
+            rawcontent=entry_raw)
+        blog_data = [snippet, entry]
+
+        resolver = SnippetResolver(blog_data)
+        result = resolver.resolve_all()
+
+        raw = result[0]['rawcontent']
+        # Body content must be present
+        self.assertIn('This is the actual snippet body.', raw)
+        self.assertIn('Second paragraph of snippet.', raw)
+        # Snippet metadata must NOT leak into the article rawcontent
+        self.assertNotIn('CLOSED: [2026-01-01', raw)
+        self.assertNotIn('State "DONE"       from ""           [2026-01-01', raw)
+        self.assertNotIn(':CREATED:  [2026-01-01', raw)
+        self.assertNotIn(':ID: meta-snippet', raw)
+        # The article's own LOGBOOK/PROPERTIES must still be present
+        self.assertIn('CLOSED: [2026-01-10', raw)
+        self.assertIn(':LOGBOOK:', raw)
+        self.assertIn(':CREATED:  [2026-01-10', raw)
+        # The snippet reference must be resolved
+        self.assertNotIn('[[id:meta-snippet]]', raw)
+        # Verify there is only one :LOGBOOK: (the article's own, not the snippet's)
+        self.assertEqual(raw.count(':LOGBOOK:'), 1)
+        self.assertEqual(raw.count(':PROPERTIES:'), 1)
+
     def test_no_references_unchanged(self):
         """Entries without refs pass through unchanged."""
         entry = self._make_entry('article-1',

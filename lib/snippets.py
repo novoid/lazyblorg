@@ -337,7 +337,8 @@ class SnippetResolver(object):
 
     def _get_snippet_body_rawcontent(self, snippet_id):
         """
-        Get the body portion of a snippet's rawcontent (strip the heading line).
+        Get the body portion of a snippet's rawcontent, stripping the
+        heading line, CLOSED line, and LOGBOOK/PROPERTIES drawers.
 
         @param snippet_id: ID of the snippet
         @param return: body rawcontent string
@@ -346,12 +347,32 @@ class SnippetResolver(object):
         snippet = self.snippet_dict[snippet_id]
         rawcontent = snippet.get('rawcontent', '')
 
-        # The first line is typically the heading with tags/state - strip it
         lines = rawcontent.split('\n')
-        if lines and lines[0].startswith('*'):
-            return '\n'.join(lines[1:]).strip()
+        body_start = 0
+        in_drawer = False
 
-        return rawcontent.strip()
+        for i, line in enumerate(lines):
+            stripped = line.strip()
+            if i == 0 and stripped.startswith('*'):
+                # Skip heading line
+                continue
+            elif stripped.startswith('CLOSED:'):
+                # Skip CLOSED status line
+                continue
+            elif stripped == ':LOGBOOK:' or stripped == ':PROPERTIES:':
+                # Enter drawer, skip it
+                in_drawer = True
+                continue
+            elif in_drawer:
+                if stripped == ':END:':
+                    in_drawer = False
+                continue
+            else:
+                # First non-metadata line found
+                body_start = i
+                break
+
+        return '\n'.join(lines[body_start:]).strip()
 
     def _check_loop(self, snippet_id, expansion_chain):
         """
