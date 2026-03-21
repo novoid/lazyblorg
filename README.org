@@ -496,6 +496,119 @@ the upper right corner of a blog entry on [[http://qr.cx/7wKz][my blog]]: this i
 the original Org-mode source of that page. This way, you can compare
 Org-mode-source and HTML-result right away. Isn't that cool? :-)
 
+* How to Upgrade lazyblorg to a Newer Version
+
+Since lazyblorg is a works-for-me project, there is no automated
+upgrade mechanism. Upgrading requires a few manual steps, especially
+if you have customized ~config.py~ or the templates.
+
+** Step 1: Back Up Your Customizations
+
+Before pulling any updates, make copies of the files you have modified:
+
+: cp config.py config.py.MY_BACKUP
+: cp templates/blog-format.org templates/blog-format.org.MY_BACKUP
+
+If you have a custom CSS or SCSS file derived from the included one,
+back that up as well:
+
+: cp templates/public_voit.scss templates/public_voit.scss.MY_BACKUP
+
+Also back up your invocation shell script if you based it on
+~example_invocation.sh~:
+
+: cp my_invocation.sh my_invocation.sh.MY_BACKUP
+
+** Step 2: Pull the Latest Version
+
+: cd /path/to/lazyblorg
+: git pull
+
+If you get merge conflicts (because you edited tracked files like
+~config.py~ directly), git will tell you. In that case, resolve the
+conflicts manually or use ~git stash~ before pulling and ~git stash
+pop~ afterwards.
+
+** Step 3: Check for New or Changed Settings in config.py
+
+This is the most important step. New versions of lazyblorg may
+introduce new configuration variables in ~config.py~ that your old
+copy does not have.
+
+Compare the upstream ~config.py~ with your backup:
+
+: diff config.py.MY_BACKUP config.py
+
+Look for:
+- *New variables* that were added (you need to add them to your config
+  with values matching your setup)
+- *Changed default values* that might affect your blog
+- *Removed or renamed variables* (rare, but possible)
+
+Transfer your personal values (author name, domain, URLs, paths, ...)
+from your backup into the new ~config.py~. Do *not* simply overwrite
+the new ~config.py~ with your old backup -- you would lose any newly
+introduced settings.
+
+** Step 4: Check for Template Changes
+
+Similarly, compare the template file:
+
+: diff templates/blog-format.org.MY_BACKUP templates/blog-format.org
+
+New template elements or placeholder variables may have been added.
+If you have customized the templates, merge the upstream changes into
+your version carefully. Pay attention to new ~#PLACEHOLDER#~ variables
+that the new code might expect.
+
+** Step 5: Update Dependencies
+
+After pulling, make sure all Python dependencies are up to date:
+
+: uv --project . run ./lazyblorg.py --help
+
+This resolves any new or updated dependencies via ~uv~ and verifies
+that lazyblorg starts without errors.
+
+** Step 6: Run the Tests
+
+: uv --project . run pytest
+
+If all tests pass, your setup is consistent with the new version.
+
+** Step 7: Do a Test Run
+
+Generate your blog into a temporary directory to verify everything
+looks correct before publishing:
+
+: uv --project . run ./lazyblorg.py \
+:    --targetdir "/tmp/lazyblorg-upgrade-test" \
+:    --previous-metadata "/tmp/lazyblorg-upgrade-test/metadata.pk" \
+:    --new-metadata "/tmp/lazyblorg-upgrade-test/metadata.pk" \
+:    --logfile "/tmp/lazyblorg-upgrade-test/logfile.org" \
+:    --orgfiles your-org-files.org templates/blog-format.org
+
+Open a few generated pages in your browser and check that they look as
+expected.
+
+** Step 8: Clean Up
+
+Once you are satisfied that everything works, you can remove the
+backup files:
+
+: rm config.py.MY_BACKUP
+: rm templates/blog-format.org.MY_BACKUP
+
+** Tips for Easier Future Upgrades
+
+- Keep your customizations *minimal*. The less you change in
+  ~config.py~ and the templates, the easier upgrades will be.
+- Consider subscribing to [[https://karl-voit.at/tags/lazyblorg/][the lazyblorg blog tag]] via RSS/Atom to stay
+  informed about important changes.
+- If you track your lazyblorg setup in your own git repository, you
+  can use ~git diff~ between versions to see exactly what changed
+  upstream.
+
 * Five categories of page type
 
 There are five different types of pages in lazyblorg. Most of the
