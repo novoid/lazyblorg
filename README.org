@@ -168,7 +168,7 @@ Further advantages are listed below.
 1. write a blog entry *anywhere* in your Org-mode files
    - With lazyblorg, you can, e.g., write a blog article about an
      event as a sub-heading of the event itself!
-2. tag your entry with ~:blog:~
+2. tag your entry with ~:blog:~ (or whatever tag you've defined within =TAG_FOR_BLOG_ENTRY= in the =config.py=)
 3. add an unique ID in the PROPERTIES drawer
    - You might want to use a package that automatically generates
      unique IDs to your headings (I don't).
@@ -191,6 +191,19 @@ An example blog entry looks like this:
 : :END:
 :        […]
 : Today, I found out that…
+
+Note that the tags "lazyblorg" as well as "software" aren't required for a minimal blog article.
+
+Note that you don't need to take care of the ~:CREATED:~ property as
+well as the ~:LOGBOOK:~ drawer as long as you're using following
+settings:
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-log-into-drawer t)            ;; Write state changes into a =:LOGBOOK:= drawer
+  (setq org-log-done 'time)               ;; Record a timestamp when switching to =DONE=
+  (org-expiry-insinuate)                  ;; Automatically write =CREATED= properties in the =PROPERTIES= drawer
+  (setq org-expiry-inactive-timestamps t) ;; Set the timestamps of =expiry.el= to inactive ones
+#+END_SRC
 
 That's it. lazyblorg does the rest. It feels like magic, doesn't it? :-)
 
