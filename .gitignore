@@ -30,3 +30,4 @@ OLDINVOCATIONSCRIPT_without_uv/
 update_mypi.sh
 lazyblorg.egg-info/
 .sass-cache/
+dist/*
