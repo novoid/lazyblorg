@@ -265,16 +265,23 @@ are becoming close friends right now:
 
 - lazyblorg is using state-of-the art HTML5 and CSS3
   - No old HTML4.01 transitional stuff or similar
-  - Results might not be compatible with browsers such as Internet
-    Explorer or mobile devices.
-    - tell your Internet Explorer friends that they should do
-      themselves a favor and switch to a real browser
+  - Results might not be compatible with very old browsers such as Internet
+    Explorer or some mobile devices.
 
 - You have to accept the one-time setup effort which requires
   knowledge of:
   - using command-line tools
   - modifying configuration files
   - summary: getting this beautiful thing to work in your environment
+
+- Updating your lazyblorg setup after you've customized it requires
+  manual steps so that you re-apply your customizations. See chapter
+  "How to Upgrade lazyblorg to a Newer Version" below for the workflow.
+
+- As lazyblorg is a works-for-me project, *I'm not going to implement
+  any feature I would not use myself*. Feel free and fork this project
+  if you do have different requirements you would like to see
+  implemented.
 
 ** Features
 
