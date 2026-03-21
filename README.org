@@ -354,6 +354,26 @@ efficiently:
 
 See https://github.com/novoid/lazyblorg/wiki/FAQs
 
+* Five categories of page type
+
+There are five different types of pages in lazyblorg. Most of the
+time, you are going to produce temporal pages. However, it is
+important to understand the other ones as well.
+
+In order to process a blog-heading to its HTML5 representation, its
+Org-mode file has to be included in the ~--orgfiles~ command line
+argument of ~lazyblorg.py~. Do not forget to include the archive files
+as well.
+
+1. *temporal*
+2. *persistent*
+3. *tags*
+4. *entry page*
+5. *templates*
+
+Please do read https://github.com/novoid/lazyblorg/wiki/Page-Types for
+important details.
+
 * Installing and Starting with lazyblorg
 
 I am using it for [[http://Karl-Voit.at][my own blog]] and therefore it gets more and more
@@ -550,6 +570,13 @@ from your backup into the new ~config.py~. Do *not* simply overwrite
 the new ~config.py~ with your old backup -- you would lose any newly
 introduced settings.
 
+If I do need to merge/adapt very similar files, I prefer to use [[https://meldmerge.org/][Meld]]
+for it. =meld file1 file2= opens up a GUI window where you see their
+differences. Either via keyboard shortcuts or via mouse you're able to
+move content from left to right or vice versa. Furthermore, you can
+edit both files manually. Therefore, it gives you maximum flexibility
+here.
+
 ** Step 4: Check for Template Changes
 
 Similarly, compare the template file:
@@ -608,26 +635,6 @@ backup files:
 - If you track your lazyblorg setup in your own git repository, you
   can use ~git diff~ between versions to see exactly what changed
   upstream.
-
-* Five categories of page type
-
-There are five different types of pages in lazyblorg. Most of the
-time, you are going to produce temporal pages. However, it is
-important to understand the other ones as well.
-
-In order to process a blog-heading to its HTML5 representation, its
-Org-mode file has to be included in the ~--orgfiles~ command line
-argument of ~lazyblorg.py~. Do not forget to include the archive files
-as well.
-
-1. *temporal*
-2. *persistent*
-3. *tags*
-4. *entry page*
-5. *templates*
-
-Please do read https://github.com/novoid/lazyblorg/wiki/Page-Types for
-important details.
 
 * BONUS: Preview Blog Article
 :PROPERTIES:
