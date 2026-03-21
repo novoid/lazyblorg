@@ -496,7 +496,7 @@ the upper right corner of a blog entry on [[http://qr.cx/7wKz][my blog]]: this i
 the original Org-mode source of that page. This way, you can compare
 Org-mode-source and HTML-result right away. Isn't that cool? :-)
 
-** Five categories of page type
+* Five categories of page type
 
 There are five different types of pages in lazyblorg. Most of the
 time, you are going to produce temporal pages. However, it is
@@ -516,7 +516,7 @@ as well.
 Please do read https://github.com/novoid/lazyblorg/wiki/Page-Types for
 important details.
 
-** BONUS: Preview Blog Article
+* BONUS: Preview Blog Article
 :PROPERTIES:
 :CREATED:  [2014-02-25 Tue 17:27]
 :END:
@@ -545,7 +545,7 @@ unlikely to fit yours (directory paths mostly).
 Bang! Another damn cool feature of lazyblorg. This is going better and
 better. :-)
 
-** BONUS: Jump From URL to Blog Article
+* BONUS: Jump From URL to Blog Article
 
 Imagine, you're looking at a blog article of your nice
 lazyblorg-generated blog. Now you want to go to the corresponding
@@ -612,12 +612,12 @@ string, and assign a keyboard shortcut:
     )
 #+end_src
 
-** BONUS: Embedding External Things
+* BONUS: Embedding External Things
 
 - Do read [[https://github.com/novoid/lazyblorg/wiki/Orgmode-Elements#embedding-external-content][the Wiki]] for embedding external stuff like Tweets or YouTube
   videos.
 
-** Running the Tests
+* Running the Tests
 :PROPERTIES:
 :CREATED:  [2025-12-13 Sat 18:12]
 :END:
@@ -630,7 +630,7 @@ You can start the unit tests via:
 
 You can start the end to end tests which generates an example blog content via the script file =start_end-to-end-test.sh=
 
-** Using relative URLs instead of domain-URLs
+* Using relative URLs instead of domain-URLs
 :PROPERTIES:
 :CREATED:  [2022-09-19 Mon 10:01]
 :END:
