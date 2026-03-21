@@ -9,9 +9,11 @@ Saint-Exupéry]])
 
 * lazyblorg -- blogging with Org-mode for very lazy people
 
-This is a web log (blog) environment for [[http://en.wikipedia.org/wiki/Emacs][GNU Emacs]] with [[http://orgmode.org/][Org-mode]]
-which generates static HTML5 web pages. It is much more superior to
-any other Org-mode-to-blog-solution I have seen so far!
+This is a web log (blog) environment for [[http://en.wikipedia.org/wiki/Emacs][GNU Emacs]] with [[http://orgmode.org/][Org-mode]] which
+generates static HTML5 web pages. In my opinion, it is much more
+superior to any other Org-mode-to-blog-solution I have seen so far
+when it comes to minimal blogging effort and advanced features that
+support my blogging experience.
 
 : <(All?) your Org-mode files>  --lazyblorg-->  static HTML pages
 :                                                       |
@@ -24,7 +26,7 @@ any other Org-mode-to-blog-solution I have seen so far!
 There is [[http://orgmode.org/worg/org-blog-wiki.html][a list of similar/alternative Org-mode blogging projects]]
 whose workflows seem really tedious to me.
 
-See [[http://article.gmane.org/gmane.emacs.orgmode/49747/][my original post to the Org-mode ML]] for how this idea of lazyblorg
+See [[https://web.archive.org/web/20170909003450/https://article.gmane.org/gmane.emacs.orgmode/49747/][my original post to the Org-mode ML]] for how this idea of lazyblorg
 started in 2011.
 
 This awesome piece of software is a sheer beauty with regard to:
@@ -39,8 +41,7 @@ This awesome piece of software is a sheer beauty with regard to:
         ~tsfile:2014-03-03-this-is-my-file-name.jpg~ in
         double-brackets and I really don't care in which folder the
         file is currently located on my system
-    - copying resulting HTML files to web-space (I do it using [[http://www.cis.upenn.edu/~bcpierce/unison/][unison]]/rsync)
-    - probably more to come
+    - copying resulting HTML files to web-space (I do it using +[[http://www.cis.upenn.edu/~bcpierce/unison/][unison]]/rsync+ [[https://syncthing.net][Syncthing.net]])
 
 ** DISCLAIMER: This is a personal project
 
@@ -78,7 +79,7 @@ Lazy users of [[http://orgmode.org/][Org-mode]] who want to do blogging very eas
 cool.
 
 Or simply wannabes. I'm perfectly fine with this as long as they use
-lazyblorg.
+lazyblorg. ;-)
 
 ** Other people using lazyblorg
 
@@ -86,7 +87,7 @@ Pages using lazyblorg are listed [[https://karl-voit.at/tags/lazyblorg/][on my p
 "lazyblorg"]]. Please do drop me a line when you want to get your page
 added to the list.
 
-Quote from [[https://seppjansen.com/2018/04/24/site-using-lazyblorg/][Sepp Jansen]]:
+Quote from [[https://web.archive.org/web/20190822081405/https://seppjansen.com/2018/04/24/site-using-lazyblorg/][Sepp Jansen]]:
 
 #+BEGIN_QUOTE
 [...]
@@ -113,6 +114,8 @@ I really like lazyblorg, and I'll happily manage [[https://seppjansen.com/][this
 for as long as possible.
 #+END_QUOTE
 
+Well, as of 2026-03, his website is not available any more. You can see [[https://web.archive.org/web/20191121111428/https://seppjansen.com/][some older snapshots via WaybackMachine]] though.
+
 ** Skills necessary
 
 - modifying configuration settings, e.g., in script files
@@ -130,29 +133,35 @@ lazyblorg is written in *Python 3*.
 Development platform is Debian GNU/Linux.
 So with any decent GNU/Linux you should be fine.
 
-It might work on OS X but I never tried it so far.
+It might work on macOS but I never tried it so far and I probably never will. Reach out to me if you've tried.
 
-I definitely does not work with Microsoft Windows.
+I definitely does not work with native Microsoft Windows.
 Although a programmer can add a couple of ~os.path.thisorthat()~ here and there
 and it should be good to go.
 Please consider sending a pull-request if you are fixing this issue.
 Thanks!
+
+Windows including the [[https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux][Windows Subsystem for Linux]] looks promising. It
+might as well work as with any full-blown Linux system.
 
 ** Version and Changelog
 :PROPERTIES:
 :CREATED:  [2014-03-14 Fr 13:28]
 :END:
 
-Currently (2019-10-23), I consider lazyblorg in beta-status with
-version 0.96 or so.
+Currently (2026-03-21), I consider lazyblorg in productive status. It just works for me very well.
 
 I don't maintain a specific changelog. However, when there are
-substantial changes to lazyblorg, you will find [[https://karl-voit.at/tags/lazyblorg/][a blog article tagged
+substantial changes to lazyblorg, you maybe will find [[https://karl-voit.at/tags/lazyblorg/][a blog article tagged
 with "lazyblorg"]]. Use an RSS/Atom aggregator to follow the blog.
+
+All updates and new features are visible in the [[https://github.com/novoid/lazyblorg/commits/master/][repository history]].
+That's the most important source for updates.
 
 As of 2025-12-13, I migrated this project to =uv= which resulted in
 manifold changes related to the wrapper shell scripts, environment
-variables used for the shell scripts and pytest invocation.
+variables used for the shell scripts and pytest invocation. This has
+simplified stuff.
 
 ** Why lazyblorg?
 
@@ -170,10 +179,6 @@ Further advantages are listed below.
      event as a sub-heading of the event itself!
 2. tag your entry with ~:blog:~ (or whatever tag you've defined within =TAG_FOR_BLOG_ENTRY= in the =config.py=)
 3. add an unique ID in the PROPERTIES drawer
-   - You might want to use a package that automatically generates
-     unique IDs to your headings (I don't).
-   - You might want to take a look [[http://article.gmane.org/gmane.emacs.orgmode/16199][at this solution using file or
-     directory variables]].
 4. set the state of your entry to ~DONE~
    - make sure that a ~:LOGBOOK:~ drawer entry will be created that
      contains the time-stamp
@@ -194,17 +199,6 @@ An example blog entry looks like this:
 
 Note that the tags "lazyblorg" as well as "software" aren't required for a minimal blog article.
 
-Note that you don't need to take care of the ~:CREATED:~ property as
-well as the ~:LOGBOOK:~ drawer as long as you're using following
-settings:
-
-#+BEGIN_SRC emacs-lisp
-  (setq org-log-into-drawer t)            ;; Write state changes into a =:LOGBOOK:= drawer
-  (setq org-log-done 'time)               ;; Record a timestamp when switching to =DONE=
-  (org-expiry-insinuate)                  ;; Automatically write =CREATED= properties in the =PROPERTIES= drawer
-  (setq org-expiry-inactive-timestamps t) ;; Set the timestamps of =expiry.el= to inactive ones
-#+END_SRC
-
 That's it. lazyblorg does the rest. It feels like magic, doesn't it? :-)
 
 ** Advantages
@@ -219,7 +213,7 @@ except the usual org-export-based approaches.
 blog entry with that *minimum effort* to the author.
 
 You do not need to maintain a specific Org-mode file that contains you
-blog posts only. [[http://www.tbray.org/ongoing/When/201x/2011/03/07/BNotes][*Create* blog posts]] *anywhere* in between your notes,
+blog posts only. [[http://www.tbray.org/ongoing/When/201x/2011/03/07/BNotes][Create blog posts]] *anywhere* in between your notes,
 todos, contacts, ...
 
 
@@ -239,6 +233,8 @@ And there are some technological advantages you might consider as well:
   and log files.
 - you will find more advantages when running and using lazyblorg - I
   am very confident about that ;-)
+- lazyblorg offers so many cool little features as you can read in the
+  "Features" section.
 
 ** Disadvantages
 
@@ -278,10 +274,8 @@ are becoming close friends right now:
   manual steps so that you re-apply your customizations. See chapter
   "How to Upgrade lazyblorg to a Newer Version" below for the workflow.
 
-- As lazyblorg is a works-for-me project, *I'm not going to implement
-  any feature I would not use myself*. Feel free and fork this project
-  if you do have different requirements you would like to see
-  implemented.
+- As lazyblorg is a works-for-me project: see chapter "DISCLAIMER:
+  This is a personal project"
 
 ** Features
 
@@ -318,19 +312,45 @@ efficiently:
        within Org-mode as well. No need to edit source code here.
        Isn't this great?
 
+- Adding language tags via auto-tags feature.
+
+- Reading time estimations (multi-language).
+
+- There is a search feature which brings you to the content by
+  searching for keywords or phrases.
+
+- Multiple ways of adding comments: via good old email, Disqus and
+  most important: *Mastodon*. (See [[https://karl-voit.at/2026/02/18/Vorschlag-minkorrekt-Fediverse-statt-Forum][this German article]] for details on
+  how I think that Fediverse hashtags are a valid aproach to blog
+  comments.)
+
 - To efficiently notify users of new articles or changes to existing
   articles, lazyblorg generates [[https://github.com/novoid/lazyblorg/wiki/Feeds][RSS/ATOM feeds]].
+  - See the tag pages and their TagTree drilldown for feeds on single
+    tags or even combinations of tags!
 
-- Really fast to use [[https://github.com/novoid/lazyblorg/wiki/Links#linking-other-blog-articles-internal-links][linking to other blog articles]] using their ID property.
+- Really easy to use [[https://github.com/novoid/lazyblorg/wiki/Links#linking-other-blog-articles-internal-links][linking to other blog articles]] using their ID property.
+
+- You can exclude content from being published with various features:
+  1. [[https://github.com/novoid/lazyblorg/wiki/Comments][Comment lines]]
+  2. Mark an article/heading as hidden [[https://github.com/novoid/lazyblorg/wiki/Headings#headings-within-a-blog-article][using the tag NOEXPORT]]
+  3. The [[https://github.com/novoid/lazyblorg/wiki/Headings#tag-hidden][hidden tag]] does publish an article but hides it from
+     the entry page, navigational pages, and the feeds. This way, you
+     can publish pages who can only be access by people knowing its URL.
+
+- [[https://github.com/novoid/lazyblorg/wiki/Snippets][Snippets]]: Define reusable content fragments (small or very large) as
+  Org-mode entries and reference them from any blog article using
+  their ID property =id:snippet-id= as reference. Supports inline and
+  block replacement, heading level adaptation, and nesting.
 
 - At the bottom of each article, there is a list of related articles
   that back-link to here.
 
 - You can very easily [[https://github.com/novoid/lazyblorg/wiki/Images][embed image files]] with automatically scaling to
   their desired width
-  - This feature is hardened against image file renaming and broken
-    links because of moving images files to different folders
-  - Users of [[https://github.com/novoid/Memacs][Memacs]] do have advanced possibilities here as well
+  - This feature is hardened against moving image files to different
+    folders!
+  - Users of [[https://github.com/novoid/Memacs][Memacs]] do have advanced possibilities here as well.
   - An optional image cache directory holds previously resized image
     file and therefore prevents resizing effort for each run.
 
@@ -340,35 +360,23 @@ efficiently:
   is on the [[http://karl-voit.at/tags/][tag overview page]] offers a quick overview of your most used
   tags.
 
-- [[https://github.com/novoid/lazyblorg/wiki/TagTrees][TagTrees]] offer an advanced way of navigating through articles by
-  combining multiple tags. Starting from any tag page, readers can
-  drill down by selecting additional tags to narrow down the list of
-  matching articles.
-
-- There is a search feature which brings you to the content by
-  searching for keywords or phrases.
+  - [[https://github.com/novoid/lazyblorg/wiki/TagTrees][TagTrees]] offer an advanced way of navigating through articles by
+    combining multiple tags. Starting from any tag page, readers can
+    drill down by selecting additional tags to narrow down the list of
+    matching articles. This is ultra-cool if you grasp its power. For
+    example, [[https://karl-voit.at/tags/emacs/education/][this page]] holds all articles tagged with "emacs" as well as
+    "education". And you get an Atom feeds for that combination of tags
+    as well.
 
 - Easy embedding of [[https://github.com/novoid/lazyblorg/wiki/Embedding-External-Content][external content]] such as Tweets or YouTube videos.
 
-- [[https://github.com/novoid/lazyblorg/wiki/Snippets][Snippets]]: Define reusable content fragments as Org-mode entries
-  and reference them from any blog article using =[[id:snippet-id]]=
-  syntax. Supports inline and block replacement, heading level
-  adaptation, and nesting.
-
-- You can exclude content from being published with various features:
-  1. [[https://github.com/novoid/lazyblorg/wiki/Comments][Comment lines]]
-  2. Mark an article/heading as hidden [[https://github.com/novoid/lazyblorg/wiki/Headings#headings-within-a-blog-article][using the tag NOEXPORT]]
-  3. The [[https://github.com/novoid/lazyblorg/wiki/Headings#tag-hidden][hidden tag]] does publish an article but hides it from
-     the entry page, navigational pages, and the feeds. This way, you
-     can publish pages who can only be access by people knowing its URL.
-
-- Reading time estimations (multi-language) following [[https://github.com/novoid/lazyblorg/issues/47][this feature request]]
-
 - With the command line parameter =--external-url-file= you can
-  generate a TSV file listing all external URLs found across your blog
+  generate a [[https://en.wikipedia.org/wiki/Tsv][TSV file]] listing all external URLs found across your blog
   articles. This is useful as input for external URL checker tools to
   detect broken links. The file includes the URL, the number of
   articles referencing it, the article IDs, and link descriptions.
+
+- You can see the article Orgdown source via the π-symbol in the upper right corner.
 
 ** FAQs
 
@@ -396,16 +404,8 @@ important details.
 
 * Installing and Starting with lazyblorg
 
-I am using it for [[http://Karl-Voit.at][my own blog]] and therefore it gets more and more
-ready to use as I add new features.
-
-What's working so far:
-- parsing a large sub-set of Org-mode
-  - most important: the parser requires a blank line between different
-    Org mode elements
-- parsing the HTML templates
-- generating HTML5 pages with [[https://github.com/novoid/lazyblorg/wiki/Org-mode-Elements][a sub-set of the sub-set of the Org-mode
-  syntax elements]]
+I am using lazyblog for [[http://Karl-Voit.at][my own blog "publicvoit"]] and therefore it gets
+more and more ready to use as I add new features for myself.
 
 ** External dependencies
 
@@ -465,7 +465,7 @@ That should resolve all dependencies and show you the help information.
 4. Study, understand, and adopt the content of [[https://github.com/novoid/lazyblorg/blob/master/example_invocation.sh][example_invocation.sh]]
    - with this, you are able to modify command line parameters to meet
      your requirements
-   - if unsure, ask for help using ~lazyblorg.py --help~
+   - if unsure, ask for help using ~uv --project . run lazyblorg.py --help~
 
 5. Get yourself an overview on *what defines a lazyblorg blog post* and
    write your own blog posts. A (normal temporal) blog article consists of:
@@ -477,15 +477,26 @@ That should resolve all dependencies and show you the help information.
    4. A ~:LOGBOOK:~ entry has to be found with the time-stamp of
       setting the entry to ~DONE~
       - in [[https://github.com/novoid/dot-emacs][my set-up]], this is created automatically
-   5. Get yourself familiar on the sub-set of Org-mode syntax you can use with lazyblorg
+      - Note that you don't need to take care of the ~:CREATED:~ property as
+        well as the ~:LOGBOOK:~ drawer as long as you're using following
+        settings:
+        
+        #+BEGIN_SRC emacs-lisp
+          (setq org-log-into-drawer t)            ;; Write state changes into a =:LOGBOOK:= drawer
+          (setq org-log-done 'time)               ;; Record a timestamp when switching to =DONE=
+          (org-expiry-insinuate)                  ;; Automatically write =CREATED= properties in the =PROPERTIES= drawer
+          (setq org-expiry-inactive-timestamps t) ;; Set the timestamps of =expiry.el= to inactive ones
+        #+END_SRC
+
+   5. Get yourself familiar on [[https://github.com/novoid/lazyblorg/wiki/Orgmode-Elements][the sub-set of Org-mode syntax you can use with lazyblorg]]
       - *Always put an empty line between different syntax elements*
         such as a heading and the next paragraph, normal text and a
         list or a table, and so forth.
       - You should not get a disaster if you are using elements
-        lazyblorg is not optimized for. The result might disappoint
-        you, that's all.
+        lazyblorg is not optimized for. The result just look different
+        than expected.
       - However, "unknown" Org-mode elements are automatically converted
-        through pandoc as a fall-back.
+        through pandoc as a fall-back. So those cases should be extremely rare.
 
 6. OPTIONAL: Write your own CSS file
    - you can [[http://Karl-Voit.at/public_voit.css][take a look on mine]] if you do not care that I am not
@@ -503,7 +514,7 @@ That should resolve all dependencies and show you the help information.
 
 9. Publish your pages on a web space of your choice
    - publishing can be done in various ways. This is how I do it using
-     ~lazyblorg/make_and_publish_public_voit.sh~ which is an
+     ~lazyblorg/regenerate_public_voit.sh~ which is an
      adopted version of ~lazyblorg/example_invocation.sh~:
      1. invoking ~start_all_tests.sh~
         - this is for checking whether or not recent code changes did
@@ -517,7 +528,7 @@ That should resolve all dependencies and show you the help information.
         - this separation makes sense to me because with this, I am
           able to do test drives without overwriting my (local copy of
           my) blog
-     4. invoking Syncthing
+     4. (wait for Syncthing to do its job in the background)
         - in order to transfer my local copy of my web space data to
           my public web space
    - This method has the advantage that generating (invoking
