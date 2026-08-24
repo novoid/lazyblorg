@@ -801,7 +801,7 @@ I'm glad if you like my tool. I've got way more projects on:
 
 - [[https://github.com/novoid/][GitHub]] (oldest projects),
 - [[https://gitlab.com/publicvoit/][GitLab.com]] (older projects), and
-- [[https://codeberg.org/publicvoit/][Codeberg]] (newest projects).
+- [[https://codefloe.com/publicvoit/][CodeFloe]] (newest projects).
 
 If you want to support me:
 
