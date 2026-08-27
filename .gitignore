@@ -13,6 +13,7 @@ parse_template.sh
 regenerate_public_voit.sh
 templates/.sass-cache/
 testdata/end_to_end_test/lazyblorg-e2e-test-logfile.org
+testdata/end_to_end_test/lazyblorg-e2e-test-logfile.log
 testdata/end_to_end_test/lazyblorg-e2e-test-new-metadata.pk
 testdata/end_to_end_test/result/
 2015-01-27-pyandoctests/*

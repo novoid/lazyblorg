@@ -23,6 +23,8 @@ end_to_end_test()
         --autotag-language \
         --previous-metadata "${PREVIOUS_METADATA_FILE}" \
         --new-metadata "${NEW_METADATA_FILE}" \
+        --external-url-file "${PROJECTDIR}/testdata/end_to_end_test/external_url_file.csv" \
+        --hashtag-file "${PROJECTDIR}/testdata/end_to_end_test/hashtag_file.csv" \
         --logfile "${PROJECTDIR}/testdata/end_to_end_test/lazyblorg-e2e-test-logfile.org" \
         --orgfiles "${PROJECTDIR}/templates/blog-format.org" \
                    "${PROJECTDIR}/testdata/end_to_end_test/orgfiles/"*.org $@ && \

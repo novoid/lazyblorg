@@ -5,6 +5,7 @@ from config import *
 import unittest
 from lib.htmlizer import *
 from lib.utils import *
+import tempfile
 
 
 class TestHtmlizer(unittest.TestCase):
@@ -926,6 +927,97 @@ class TestHtmlizer(unittest.TestCase):
             "<a href=\"https://www.example.org/path/index.html?id=435#target&amp;foo\">some fancy URL</a> " + \
             "in different mode."
         self.assertEqual(htmlizer.fix_ampersands_in_url(mystring), expected)
+
+
+    def test_hashtag_file(self):
+        """
+        Tests the collection of generated hashtags and their export to the TSV
+        file of the "--hashtag-file" command line argument.
+        """
+
+        temporal_entry = {'id': '2016-10-31-my-temporal-article',
+                          'title': 'My Temporal Article',
+                          'category': 'TEMPORAL',
+                          'firstpublishTS': datetime.datetime(2016, 10, 31, 12, 0),
+                          'finished-timestamp-history': [datetime.datetime(2016, 10, 31, 12, 0)],
+                          'usertags': [],
+                          'content': []}
+        # tag page without a user-defined tag page entry: it does have a
+        # hashtag but no Org-mode ID property:
+        auto_tag_entry = {'id': Htmlizer.ID_PREFIX_FOR_EMPTY_TAG_PAGES + 'mytag',
+                          'title': 'mytag',
+                          'category': 'TAGS',
+                          'firstpublishTS': datetime.datetime(2017, 1, 1, 0, 0),
+                          'finished-timestamp-history': [datetime.datetime(2017, 1, 1, 0, 0)],
+                          'usertags': [],
+                          'content': []}
+        blog_data = [temporal_entry, auto_tag_entry]
+
+        hashtag_file = os.path.join(tempfile.mkdtemp(), 'hashtags.tsv')
+
+        htmlizer = Htmlizer(
+            [],  # template_definitions
+            'blog',  # blog_tag
+            'foo',  # targetdir
+            blog_data,
+            None,  # metadata
+            {},  # entries_timeline_by_published
+            [],  # generate
+            [],  # increment_version
+            False,  # autotag_language
+            False,  # ignore_missing_ids
+            None,  # external_url_file
+            hashtag_file)
+
+        temporal_hashtag = htmlizer._generate_article_hashtag(temporal_entry)
+        auto_tag_hashtag = htmlizer._generate_article_hashtag(auto_tag_entry)
+
+        self.assertEqual(temporal_hashtag, '20161031_MyTemporalArticle')
+        self.assertEqual(auto_tag_hashtag, config.BLOG_HASH_TAG + 'TagMytag')
+
+        # generating the same hashtag twice must not result in a duplicate:
+        htmlizer._generate_article_hashtag(temporal_entry)
+
+        htmlizer._write_hashtag_file()
+
+        with codecs.open(hashtag_file, 'r', encoding='utf-8') as inputfile:
+            rows = [line.rstrip('\n').split('\t') for line in inputfile.readlines()]
+
+        self.assertEqual(rows[0],
+                         ['Hashtag', 'ID', 'IDType', 'Category', 'Title', 'URL'])
+        self.assertEqual(len(rows), 3)
+        self.assertEqual(rows[1],
+                         ['#' + temporal_hashtag,
+                          'id:2016-10-31-my-temporal-article',
+                          'org-id',
+                          'TEMPORAL',
+                          'My Temporal Article',
+                          os.path.join('2016', '10', '31', 'my-temporal-article')])
+        self.assertEqual(rows[2],
+                         ['#' + auto_tag_hashtag,
+                          'id:' + Htmlizer.ID_PREFIX_FOR_EMPTY_TAG_PAGES + 'mytag',
+                          'auto-generated',
+                          'TAGS',
+                          'mytag',
+                          os.path.join('tags', 'mytag')])
+
+    def test_no_hashtag_file(self):
+        """
+        Without "--hashtag-file", no hashtags are collected at all.
+        """
+
+        htmlizer = Htmlizer(
+            [], 'blog', 'foo', [], None, {}, [], [], False, False)
+
+        self.assertTrue(htmlizer._collected_hashtags is None)
+        self.assertEqual(
+            htmlizer._generate_article_hashtag(
+                {'id': '2016-10-31-my-temporal-article',
+                 'title': 'My Temporal Article',
+                 'category': 'TEMPORAL',
+                 'firstpublishTS': datetime.datetime(2016, 10, 31, 12, 0)}),
+            '20161031_MyTemporalArticle')
+        self.assertTrue(htmlizer._collected_hashtags is None)
 
 
 # Local Variables:

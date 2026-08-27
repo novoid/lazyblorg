@@ -323,6 +323,9 @@ efficiently:
   most important: *Mastodon*. (See [[https://karl-voit.at/2026/02/18/Vorschlag-minkorrekt-Fediverse-statt-Forum][this German article]] for details on
   how I think that Fediverse hashtags are a valid aproach to blog
   comments.)
+  - Each article gets its own [[https://github.com/novoid/lazyblorg/wiki/Hashtags][hashtag]] which is derived from its ID and
+    which is used for the "Share on Mastodon" button as well as for
+    the comment line below the article.
 
 - To efficiently notify users of new articles or changes to existing
   articles, lazyblorg generates [[https://github.com/novoid/lazyblorg/wiki/Feeds][RSS/ATOM feeds]].
@@ -375,6 +378,17 @@ efficiently:
   articles. This is useful as input for external URL checker tools to
   detect broken links. The file includes the URL, the number of
   articles referencing it, the article IDs, and link descriptions.
+
+- With the command line parameter =--hashtag-file= you can generate a
+  [[https://en.wikipedia.org/wiki/Tsv][TSV file]] listing all [[https://github.com/novoid/lazyblorg/wiki/Hashtags][hashtags]] lazyblorg generates for your articles
+  (used for the Mastodon share and comment links) together with the ID
+  of the corresponding article. The columns are: =Hashtag=, =ID=,
+  =IDType=, =Category=, =Title=, and =URL=. The =IDType= column is
+  =org-id= for articles with an Org-mode =:ID:= property and
+  =auto-generated= for pages lazyblorg generates on its own: tag pages
+  of tags where you did not write a tag page yourself get a hashtag
+  but their ID (=id:lb_tag-<tagname>=) is derived from the tag name and
+  is *not* an Org-mode ID you could link to.
 
 - You can see the article Orgdown source via the π-symbol in the upper right corner.
 

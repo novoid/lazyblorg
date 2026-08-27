@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8; mode: python; -*-
-PROG_VERSION = "Time-stamp: <2026-03-21 13:46:52 vk>"
+PROG_VERSION = "Time-stamp: <2026-08-27 22:57:40 vk>"
 PROG_VERSION_DATE = PROG_VERSION[13:23]
 
 # TODO:
@@ -185,7 +185,8 @@ class Lazyblorg(object):
             increment_version,
             self.options.autotag_language,
             self.options.ignore_missing_ids,
-            getattr(self.options, 'external_url_file', None))
+            getattr(self.options, 'external_url_file', None),
+            getattr(self.options, 'hashtag_file', None))
 
         # FIXXME: try except HtmlizerException?
         return htmlizer.run()  # FIXXME: return value?
@@ -542,6 +543,16 @@ if __name__ == "__main__":
         help="Path to a TSV file where all external URLs found in blog articles will be written to. " +
         "Useful as input for URL checkers.")
 
+    parser.add_argument(
+        "--hashtag-file",
+        dest="hashtag_file",
+        metavar='FILE',
+        required=False,
+        help="Path to a TSV file where all hashtags generated for the Mastodon share " +
+        "and comment links will be written to, together with the ID of their corresponding " +
+        "article. Useful for looking up the article of a hashtag you came across in the " +
+        "Fediverse.")
+
     parser.add_argument("--version", dest="version", action="store_true",
                         help="Display version and exit.")
 
@@ -649,11 +660,16 @@ if __name__ == "__main__":
         stats_generated_tagtree = statistics_list[7]
         stats_generated_feeds = statistics_list[8]
         stats_external_urls = statistics_list[9]
+        stats_hashtags = statistics_list[10]
         time_after_htmlizing = time()
 
         external_urls_part = ""
         if stats_external_urls is not None:
             external_urls_part = ", " + str(stats_external_urls) + " external URLs"
+
+        hashtags_part = ""
+        if stats_hashtags is not None:
+            hashtags_part = ", " + str(stats_hashtags) + " hashtags"
 
         logging.info(
             "Generated " +
@@ -671,6 +687,7 @@ if __name__ == "__main__":
             str(stats_generated_feeds) +
             " feeds" +
             external_urls_part +
+            hashtags_part +
             ", and scaled " +
             str(stats_images_resized) +
             " images (in %.2f seconds)" %

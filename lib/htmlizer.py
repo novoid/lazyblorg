@@ -149,9 +149,14 @@ class Htmlizer(object):
 
     stats_generated_feeds = 0  # holds the number of generated feed files
     external_url_file = None  # path to TSV file for external URL collection, or None
+    hashtag_file = None  # path to TSV file for hashtag collection, or None
 
     # { 'https://example.com/page': { 'id:2024-01-15-article': set(['description1', ...]) } }
     _collected_external_urls = None
+
+    # { '20240115_MyArticle': { 'id': '2024-01-15-my-article', 'id-type': 'org-id',
+    #                           'category': 'TEMPORAL', 'title': '…', 'url': '2024/01/15/my-article' } }
+    _collected_hashtags = None
 
     SCALED_WIDTH_INDICATOR_TEXT = ' - scaled width '
     
@@ -174,7 +179,8 @@ class Htmlizer(object):
             increment_version,
             autotag_language,
             ignore_missing_ids,
-            external_url_file=None):
+            external_url_file=None,
+            hashtag_file=None):
         """
         This function initializes the class instance with the class variables.
 
@@ -188,6 +194,7 @@ class Htmlizer(object):
         @param increment_version: list of IDs which blog entries gets an update
         @param autotag_language: true, if guessing of language + its auto-tag should be done
         @param external_url_file: optional path to TSV file for external URL collection
+        @param hashtag_file: optional path to TSV file for hashtag collection
         """
 
         # initialize class variables
@@ -202,9 +209,12 @@ class Htmlizer(object):
         self.entries_timeline_by_published = entries_timeline_by_published
         self.ignore_missing_ids = ignore_missing_ids
         self.external_url_file = external_url_file
+        self.hashtag_file = hashtag_file
         self.blog_data_by_id = {entry['id']: entry for entry in blog_data} if isinstance(blog_data, list) else {}
         if external_url_file:
             self._collected_external_urls = {}
+        if hashtag_file:
+            self._collected_hashtags = {}
 
         # create logger (see
         # http://docs.python.org/2/howto/logging-cookbook.html)
@@ -255,6 +265,7 @@ class Htmlizer(object):
         self._generate_feeds(entry_list_by_newest_timestamp)
 
         self._write_external_url_file()
+        self._write_hashtag_file()
 
         return [stats_generated_total,
                 stats_generated_temporal,
@@ -265,7 +276,8 @@ class Htmlizer(object):
                 self.stats_external_latex_to_html5_conversion,
                 stats_generated_tagtree,
                 self.stats_generated_feeds,
-                len(self._collected_external_urls) if self._collected_external_urls is not None else None]
+                len(self._collected_external_urls) if self._collected_external_urls is not None else None,
+                len(self._collected_hashtags) if self._collected_hashtags is not None else None]
 
     def _populate_backreferences(self, blog_data):
         """
@@ -1638,6 +1650,73 @@ class Htmlizer(object):
 
         self.logging.info('    Wrote ' + str(len(self._collected_external_urls)) +
                           ' external URLs to ' + self.external_url_file)
+
+    def _collect_hashtag(self, hashtag, entry):
+        """
+        Remembers a generated hashtag together with the article it belongs to.
+
+        Auto-generated tag pages (tag pages without a user-defined tag page
+        entry) do have a generated hashtag but no Org-mode ID property. They
+        are collected as well and marked as such in the "id-type" column.
+
+        @param hashtag: the hashtag (without leading '#') of the article
+        @param entry: blog entry data dict
+        """
+
+        if self._collected_hashtags is None:
+            return
+
+        entry_id = entry['id']
+        auto_generated_id = entry_id.startswith(self.ID_PREFIX_FOR_EMPTY_TAG_PAGES)
+
+        if hashtag in self._collected_hashtags and \
+           self._collected_hashtags[hashtag]['id'] != entry_id:
+            self.logging.warning(
+                'Hashtag "#' + hashtag + '" is generated for more than one article: "' +
+                self._collected_hashtags[hashtag]['id'] + '" and "' + entry_id +
+                '". Only the first one is written to the hashtag file.')
+            return
+
+        self._collected_hashtags[hashtag] = {
+            'id': entry_id,
+            'id-type': 'auto-generated' if auto_generated_id else 'org-id',
+            'category': entry['category'],
+            'title': entry['title'],
+            'url': str(self._target_path_for_id_without_targetdir(entry_id))}
+
+    def _write_hashtag_file(self):
+        """
+        Writes the collected hashtags to a TSV file (same format as the file of
+        "--external-url-file").
+        Format: Hashtag<TAB>ID<TAB>IDType<TAB>Category<TAB>Title<TAB>URL
+        Sorted alphabetically by hashtag.
+        """
+
+        if not self.hashtag_file or self._collected_hashtags is None:
+            return
+
+        with codecs.open(self.hashtag_file, 'w', encoding='utf-8') as output:
+            output.write('Hashtag\tID\tIDType\tCategory\tTitle\tURL\n')
+            for hashtag in sorted(self._collected_hashtags.keys()):
+                data = self._collected_hashtags[hashtag]
+                # tabs and newlines within a title would break the TSV format:
+                title = re.sub(r'\s+', ' ', data['title']).strip()
+                output.write('#' + hashtag + '\t' +
+                             'id:' + data['id'] + '\t' +
+                             data['id-type'] + '\t' +
+                             data['category'] + '\t' +
+                             title + '\t' +
+                             data['url'] + '\n')
+
+        number_of_auto_generated_ids = len(
+            [x for x in self._collected_hashtags.values() if x['id-type'] == 'auto-generated'])
+
+        self.logging.info('    Wrote ' + str(len(self._collected_hashtags)) +
+                          ' hashtags to ' + self.hashtag_file)
+        if number_of_auto_generated_ids > 0:
+            self.logging.info('    ' + str(number_of_auto_generated_ids) +
+                              ' of those hashtags belong to auto-generated pages ' +
+                              'without an Org-mode ID property (id-type "auto-generated")')
 
     def write_orgcontent_to_file(self, orgfilename, rawcontent):
         """
@@ -3237,8 +3316,23 @@ class Htmlizer(object):
 
         return folder
 
+    def _generate_article_hashtag(self, entry):
+        """
+        Generates the hashtag (without leading '#') for a blog entry and - if
+        the collection of hashtags is enabled via "--hashtag-file" - remembers
+        it together with its article for later export.
+
+        @param entry: blog entry data dict
+        @param return: hashtag string without leading '#'
+        """
+
+        hashtag = self._compute_article_hashtag(entry)
+        self._collect_hashtag(hashtag, entry)
+
+        return hashtag
+
     @staticmethod
-    def _generate_article_hashtag(entry):
+    def _compute_article_hashtag(entry):
         """
         Generates a hashtag (without leading '#') for a blog entry based on its ID and category.
 
