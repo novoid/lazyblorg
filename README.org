@@ -223,6 +223,7 @@ And there are some technological advantages you might consider as well:
 - produces static, state-of-the-art HTML5
   - it's super-fast on delivery to browsers
   - very low computing requirements on your web server: minimum of server load
+  - it even [[https://social.ivor.org/@ivor/117353571195733670/][renders nicely on an old PalmOS device]]
 - No in-between format or tool.
   - Direct conversion from Org-mode to HTML/CSS.
   - dependencies have the tendency to cause problems when the
